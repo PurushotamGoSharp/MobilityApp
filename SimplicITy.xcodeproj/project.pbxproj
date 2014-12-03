@@ -22,6 +22,8 @@
 		86287D3C1A2EE1A500B12893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D1B1A2EE1A500B12893 /* UIKit.framework */; };
 		86287D441A2EE1A500B12893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86287D421A2EE1A500B12893 /* InfoPlist.strings */; };
 		86287D461A2EE1A500B12893 /* SimplicITyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86287D451A2EE1A500B12893 /* SimplicITyTests.m */; };
+		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
+		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
 		86DEEB2F1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86DEEB2E1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png */; };
 		86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,10 @@
 		86287D411A2EE1A500B12893 /* SimplicITyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimplicITyTests-Info.plist"; sourceTree = "<group>"; };
 		86287D431A2EE1A500B12893 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		86287D451A2EE1A500B12893 /* SimplicITyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplicITyTests.m; sourceTree = "<group>"; };
+		86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
+		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
+		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
+		86679F021A2EFD4400612BBA /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
 		86DEEB2E1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2014-12-03 at 12.34.03 PM@2x.png"; sourceTree = "<group>"; };
 		86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -126,6 +132,10 @@
 				86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */,
 				86287D2F1A2EE1A500B12893 /* ViewController.h */,
 				86287D301A2EE1A500B12893 /* ViewController.m */,
+				86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */,
+				86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */,
+				86679F011A2EFD4300612BBA /* MessageDetailViewController.h */,
+				86679F021A2EFD4400612BBA /* MessageDetailViewController.m */,
 				86DEEB2E1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
@@ -263,6 +273,8 @@
 			files = (
 				86287D311A2EE1A500B12893 /* ViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
+				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
+				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
