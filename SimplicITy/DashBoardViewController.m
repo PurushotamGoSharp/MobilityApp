@@ -7,6 +7,7 @@
 //
 
 #import "DashBoardViewController.h"
+#import "MessagesViewController.h"
 
 @interface DashBoardViewController ()
 
@@ -27,6 +28,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,9 +39,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)messageButtnPressed:(UIButton *)sender
+
+- (IBAction)messageButtonPressed:(UIButton *)sender
 {
     
+    for (UIViewController *vc in self.tabBarController.viewControllers)
+    {
+        if ([vc isKindOfClass:[MessagesViewController class]])
+        {
+            [self.tabBarController setSelectedViewController:vc];
+        }
+    }
+}
+- (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
+{
+    NSString *phoneNo = @"123456789";
+    phoneNo = [@"tel://" stringByAppendingString:phoneNo];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
 }
 
 /*
