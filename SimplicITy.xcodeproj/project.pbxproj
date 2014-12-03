@@ -22,6 +22,8 @@
 		86287D3C1A2EE1A500B12893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D1B1A2EE1A500B12893 /* UIKit.framework */; };
 		86287D441A2EE1A500B12893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86287D421A2EE1A500B12893 /* InfoPlist.strings */; };
 		86287D461A2EE1A500B12893 /* SimplicITyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86287D451A2EE1A500B12893 /* SimplicITyTests.m */; };
+		86DEEB2F1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86DEEB2E1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png */; };
+		86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		86287D411A2EE1A500B12893 /* SimplicITyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimplicITyTests-Info.plist"; sourceTree = "<group>"; };
 		86287D431A2EE1A500B12893 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		86287D451A2EE1A500B12893 /* SimplicITyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplicITyTests.m; sourceTree = "<group>"; };
+		86DEEB2E1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2014-12-03 at 12.34.03 PM@2x.png"; sourceTree = "<group>"; };
+		86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */,
 				86287D1A1A2EE1A500B12893 /* CoreGraphics.framework in Frameworks */,
 				86287D1C1A2EE1A500B12893 /* UIKit.framework in Frameworks */,
 				86287D181A2EE1A500B12893 /* Foundation.framework in Frameworks */,
@@ -103,6 +108,7 @@
 		86287D161A2EE1A500B12893 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */,
 				86287D171A2EE1A500B12893 /* Foundation.framework */,
 				86287D191A2EE1A500B12893 /* CoreGraphics.framework */,
 				86287D1B1A2EE1A500B12893 /* UIKit.framework */,
@@ -120,6 +126,7 @@
 				86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */,
 				86287D2F1A2EE1A500B12893 /* ViewController.h */,
 				86287D301A2EE1A500B12893 /* ViewController.m */,
+				86DEEB2E1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
 			);
@@ -234,6 +241,7 @@
 				86287D2E1A2EE1A500B12893 /* Main_iPad.storyboard in Resources */,
 				86287D331A2EE1A500B12893 /* Images.xcassets in Resources */,
 				86287D2B1A2EE1A500B12893 /* Main_iPhone.storyboard in Resources */,
+				86DEEB2F1A2EED7500EA4C84 /* Screen Shot 2014-12-03 at 12.34.03 PM@2x.png in Resources */,
 				86287D221A2EE1A500B12893 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,6 +401,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -406,6 +415,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -470,6 +480,7 @@
 				86287D4B1A2EE1A500B12893 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		86287D4C1A2EE1A500B12893 /* Build configuration list for PBXNativeTarget "SimplicITyTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +489,7 @@
 				86287D4E1A2EE1A500B12893 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
