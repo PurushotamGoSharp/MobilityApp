@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8607051C1A2F147700B9A814 /* CustomTabBar.m */; };
+		8617B0A51A2F1B4700C80751 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8617B0A41A2F1B4700C80751 /* Main_iPhone.storyboard */; };
 		86287D181A2EE1A500B12893 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D171A2EE1A500B12893 /* Foundation.framework */; };
 		86287D1A1A2EE1A500B12893 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D191A2EE1A500B12893 /* CoreGraphics.framework */; };
 		86287D1C1A2EE1A500B12893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D1B1A2EE1A500B12893 /* UIKit.framework */; };
 		86287D221A2EE1A500B12893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86287D201A2EE1A500B12893 /* InfoPlist.strings */; };
 		86287D241A2EE1A500B12893 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 86287D231A2EE1A500B12893 /* main.m */; };
 		86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86287D271A2EE1A500B12893 /* AppDelegate.m */; };
-		86287D2B1A2EE1A500B12893 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D291A2EE1A500B12893 /* Main_iPhone.storyboard */; };
 		86287D2E1A2EE1A500B12893 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		86287D311A2EE1A500B12893 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86287D301A2EE1A500B12893 /* ViewController.m */; };
 		86287D331A2EE1A500B12893 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86287D321A2EE1A500B12893 /* Images.xcassets */; };
@@ -42,6 +42,7 @@
 /* Begin PBXFileReference section */
 		8607051B1A2F147700B9A814 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
 		8607051C1A2F147700B9A814 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
+		8617B0A41A2F1B4700C80751 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86287D141A2EE1A500B12893 /* SimplicITy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplicITy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86287D171A2EE1A500B12893 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86287D191A2EE1A500B12893 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -52,7 +53,6 @@
 		86287D251A2EE1A500B12893 /* SimplicITy-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimplicITy-Prefix.pch"; sourceTree = "<group>"; };
 		86287D261A2EE1A500B12893 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		86287D271A2EE1A500B12893 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		86287D2A1A2EE1A500B12893 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86287D2D1A2EE1A500B12893 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		86287D2F1A2EE1A500B12893 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		86287D301A2EE1A500B12893 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			children = (
 				86287D261A2EE1A500B12893 /* AppDelegate.h */,
 				86287D271A2EE1A500B12893 /* AppDelegate.m */,
-				86287D291A2EE1A500B12893 /* Main_iPhone.storyboard */,
+				8617B0A41A2F1B4700C80751 /* Main_iPhone.storyboard */,
 				86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */,
 				86287D2F1A2EE1A500B12893 /* ViewController.h */,
 				86287D301A2EE1A500B12893 /* ViewController.m */,
@@ -257,8 +257,8 @@
 			files = (
 				86287D2E1A2EE1A500B12893 /* Main_iPad.storyboard in Resources */,
 				86287D331A2EE1A500B12893 /* Images.xcassets in Resources */,
-				86287D2B1A2EE1A500B12893 /* Main_iPhone.storyboard in Resources */,
 				86287D221A2EE1A500B12893 /* InfoPlist.strings in Resources */,
+				8617B0A51A2F1B4700C80751 /* Main_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,14 +312,6 @@
 				86287D211A2EE1A500B12893 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		86287D291A2EE1A500B12893 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				86287D2A1A2EE1A500B12893 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */ = {
