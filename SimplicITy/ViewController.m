@@ -55,7 +55,7 @@
 - (IBAction)signInButtonPressed:(UIButton *)sender
 {
     [self hideKeyboard:nil];
-    [self performSegueWithIdentifier:@"siginInToTabSegue" sender:nil];
+    [self performSegueWithIdentifier:@"signInToTabVCSegue" sender:nil];
 }
 
 - (IBAction)hideKeyboard:(UIControl *)sender
@@ -71,6 +71,7 @@
                      }];
     
     [self.view endEditing:YES];
+    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
