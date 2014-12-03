@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8607051C1A2F147700B9A814 /* CustomTabBar.m */; };
 		86287D181A2EE1A500B12893 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D171A2EE1A500B12893 /* Foundation.framework */; };
 		86287D1A1A2EE1A500B12893 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D191A2EE1A500B12893 /* CoreGraphics.framework */; };
 		86287D1C1A2EE1A500B12893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D1B1A2EE1A500B12893 /* UIKit.framework */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8607051B1A2F147700B9A814 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
+		8607051C1A2F147700B9A814 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
 		86287D141A2EE1A500B12893 /* SimplicITy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplicITy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86287D171A2EE1A500B12893 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86287D191A2EE1A500B12893 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,6 +142,8 @@
 				86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */,
 				86679F011A2EFD4300612BBA /* MessageDetailViewController.h */,
 				86679F021A2EFD4400612BBA /* MessageDetailViewController.m */,
+				8607051B1A2F147700B9A814 /* CustomTabBar.h */,
+				8607051C1A2F147700B9A814 /* CustomTabBar.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
 			);
@@ -277,6 +282,7 @@
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
+				8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */,
 				86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
