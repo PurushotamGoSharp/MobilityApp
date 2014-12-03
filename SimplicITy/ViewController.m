@@ -55,7 +55,7 @@
 - (IBAction)signInButtonPressed:(UIButton *)sender
 {
     [self hideKeyboard:nil];
-    [self performSegueWithIdentifier:@"signInToDashSegue" sender:nil];
+    [self performSegueWithIdentifier:@"siginInToTabSegue" sender:nil];
 }
 
 - (IBAction)hideKeyboard:(UIControl *)sender

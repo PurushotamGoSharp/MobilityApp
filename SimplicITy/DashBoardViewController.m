@@ -34,6 +34,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)messageButtnPressed:(UIButton *)sender
+{
+    
+}
 
 /*
 #pragma mark - Navigation
