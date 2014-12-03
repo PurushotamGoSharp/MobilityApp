@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -92,7 +91,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nbt-3B-z72">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Nbt-3B-z72">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -102,18 +101,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hxq-kp-4uJ" id="MyR-T4-b7d">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Dw-tk-wtC">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Dw-tk-wtC">
                                                     <rect key="frame" x="28" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="9Dw-tk-wtC" firstAttribute="top" secondItem="MyR-T4-b7d" secondAttribute="topMargin" constant="3" id="3Bq-QS-2xb"/>
-                                                <constraint firstItem="9Dw-tk-wtC" firstAttribute="leading" secondItem="MyR-T4-b7d" secondAttribute="leadingMargin" constant="20" id="ZiZ-YP-Anf"/>
-                                                <constraint firstAttribute="centerY" secondItem="9Dw-tk-wtC" secondAttribute="centerY" id="ugk-eO-eKG"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="ZDa-V5-L7N" kind="push" id="9x9-Qj-y6B"/>
@@ -127,12 +121,6 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="L9B-f0-c2H" firstAttribute="top" secondItem="Nbt-3B-z72" secondAttribute="bottom" id="4fr-Xt-anZ"/>
-                            <constraint firstItem="Nbt-3B-z72" firstAttribute="leading" secondItem="0aO-YH-qvp" secondAttribute="leadingMargin" constant="-16" id="EbT-jl-edT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Nbt-3B-z72" secondAttribute="trailing" constant="-16" id="oaz-DU-lcF"/>
-                            <constraint firstItem="Nbt-3B-z72" firstAttribute="top" secondItem="0aO-YH-qvp" secondAttribute="topMargin" id="pVF-zB-2WW"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eP3-xT-fP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
