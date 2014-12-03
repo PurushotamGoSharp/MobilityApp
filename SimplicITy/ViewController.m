@@ -26,6 +26,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    centerOfContainer = self.conatinerForTxtAndBtn.center;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -35,6 +37,7 @@
     [self setUpViewWithCornerRadius:self.userNameContainer];
     [self setUpViewWithCornerRadius:self.passwordContainer];
     [self setUpViewWithCornerRadius:self.signInButton];
+    
 }
 
 - (void)setUpViewWithCornerRadius:(UIView *)view
@@ -48,20 +51,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)signInButtonPressed:(UIButton *)sender
+{
+    [self hideKeyboard:nil];
+    [self performSegueWithIdentifier:@"signInToDashSegue" sender:nil];
+}
+
 - (IBAction)hideKeyboard:(UIControl *)sender
 {
+    [UIView animateWithDuration:.3
+                     animations:^{
+                         
+                         self.logoOImageView.alpha = 1;
+                         self.conatinerForTxtAndBtn.center = centerOfContainer;
+                         
+                     } completion:^(BOOL finished) {
+                         
+                     }];
+    
     [self.view endEditing:YES];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    centerOfContainer = self.conatinerForTxtAndBtn.center;
+    
     CGPoint toCenter = centerOfContainer;
-    toCenter.y -= 100;
+    toCenter.y -= 120;
     
     [UIView animateWithDuration:.3
                      animations:^{
-                         
+                         self.logoOImageView.alpha = 0;
                          self.conatinerForTxtAndBtn.center = toCenter;
                          
                      } completion:^(BOOL finished) {
@@ -71,14 +91,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [UIView animateWithDuration:.3
-                     animations:^{
-                         
-                         self.conatinerForTxtAndBtn.center = centerOfContainer;
-                         
-                     } completion:^(BOOL finished) {
-                         
-                     }];
+
 }
 
 @end
