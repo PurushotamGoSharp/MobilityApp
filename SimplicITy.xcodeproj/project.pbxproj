@@ -23,6 +23,9 @@
 		86287D3C1A2EE1A500B12893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D1B1A2EE1A500B12893 /* UIKit.framework */; };
 		86287D441A2EE1A500B12893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86287D421A2EE1A500B12893 /* InfoPlist.strings */; };
 		86287D461A2EE1A500B12893 /* SimplicITyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86287D451A2EE1A500B12893 /* SimplicITyTests.m */; };
+		86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A721A30773800711740 /* TipsCategoryViewController.m */; };
+		86491A761A30817100711740 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A751A30817100711740 /* ToolsViewController.m */; };
+		86491A791A30836C00711740 /* WebClipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A781A30836C00711740 /* WebClipViewController.m */; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
 		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
 		86B5E8691A30589C0062091D /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B5E8681A30589C0062091D /* RaiseATicketViewController.m */; };
@@ -63,6 +66,12 @@
 		86287D411A2EE1A500B12893 /* SimplicITyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimplicITyTests-Info.plist"; sourceTree = "<group>"; };
 		86287D431A2EE1A500B12893 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		86287D451A2EE1A500B12893 /* SimplicITyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplicITyTests.m; sourceTree = "<group>"; };
+		86491A711A30773800711740 /* TipsCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsCategoryViewController.h; sourceTree = "<group>"; };
+		86491A721A30773800711740 /* TipsCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsCategoryViewController.m; sourceTree = "<group>"; };
+		86491A741A30817100711740 /* ToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsViewController.h; sourceTree = "<group>"; };
+		86491A751A30817100711740 /* ToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsViewController.m; sourceTree = "<group>"; };
+		86491A771A30836C00711740 /* WebClipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebClipViewController.h; sourceTree = "<group>"; };
+		86491A781A30836C00711740 /* WebClipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebClipViewController.m; sourceTree = "<group>"; };
 		86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
 		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
@@ -147,6 +156,12 @@
 				86679F021A2EFD4400612BBA /* MessageDetailViewController.m */,
 				86B5E8671A30589C0062091D /* RaiseATicketViewController.h */,
 				86B5E8681A30589C0062091D /* RaiseATicketViewController.m */,
+				86491A711A30773800711740 /* TipsCategoryViewController.h */,
+				86491A721A30773800711740 /* TipsCategoryViewController.m */,
+				86491A741A30817100711740 /* ToolsViewController.h */,
+				86491A751A30817100711740 /* ToolsViewController.m */,
+				86491A771A30836C00711740 /* WebClipViewController.h */,
+				86491A781A30836C00711740 /* WebClipViewController.m */,
 				8607051B1A2F147700B9A814 /* CustomTabBar.h */,
 				8607051C1A2F147700B9A814 /* CustomTabBar.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
@@ -286,6 +301,9 @@
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
+				86491A761A30817100711740 /* ToolsViewController.m in Sources */,
+				86491A791A30836C00711740 /* WebClipViewController.m in Sources */,
+				86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
 				8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */,
 				86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */,
