@@ -29,9 +29,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
 
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,15 +41,9 @@
 
 - (IBAction)messageButtonPressed:(UIButton *)sender
 {
-    
-    for (UIViewController *vc in self.tabBarController.viewControllers)
-    {
-        if ([vc isKindOfClass:[MessagesViewController class]])
-        {
-            [self.tabBarController setSelectedViewController:vc];
-        }
-    }
+    [self.tabBarController setSelectedIndex:3];
 }
+
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
 {
     NSString *phoneNo = @"123456789";
