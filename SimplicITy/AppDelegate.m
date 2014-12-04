@@ -14,6 +14,9 @@
 {
     // Override point for customization after application launch.
     
+    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
+
     return YES;
 }
 							
