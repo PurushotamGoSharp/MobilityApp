@@ -42,7 +42,6 @@
 
 - (IBAction)messageButtonPressed:(UIButton *)sender
 {
-    
     for (UIViewController *vc in self.tabBarController.viewControllers)
     {
         if ([vc isKindOfClass:[MessagesViewController class]])
