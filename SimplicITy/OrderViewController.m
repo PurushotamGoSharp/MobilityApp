@@ -1,29 +1,28 @@
 //
-//  RaiseATicketViewController.m
+//  OrderViewController.m
 //  SimplicITy
 //
-//  Created by Varghese Simon on 12/4/14.
+//  Created by Vmoksha on 04/12/14.
 //  Copyright (c) 2014 Vmoksha. All rights reserved.
 //
 
-#import "RaiseATicketViewController.h"
+#import "OrderViewController.h"
 
-@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate>
+@interface OrderViewController ()
 {
     NSArray *arrOfPickerViewData;
 }
-@property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 
 @end
 
-@implementation RaiseATicketViewController
+@implementation OrderViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfPickerViewData = @[@"My PC is broken",@"I want to reset my password",@"I can not access my application"];
-    
+   arrOfPickerViewData = @[@"Wireless mouse",@"Headphone",@"Laptop Charger",@"iOS device"];
+
 }
 
 - (void)didReceiveMemoryWarning {
