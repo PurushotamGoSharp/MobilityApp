@@ -97,24 +97,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-ZD-gzE">
-                                <rect key="frame" x="120" y="81" width="81" height="79"/>
-                            </imageView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HQ, Paulo Street 1070, Brussels, Belgium" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="4xg-6e-VzR">
-                                <rect key="frame" x="20" y="98" width="153" height="34"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HQ, Paulo Street 1070, Brussels, Belgium" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="4xg-6e-VzR">
+                                <rect key="frame" x="16" y="94" width="153" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UHID001" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="59" translatesAutoresizingMaskIntoConstraints="NO" id="KCL-LX-nWW">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UHID001" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="59" translatesAutoresizingMaskIntoConstraints="NO" id="KCL-LX-nWW">
                                 <rect key="frame" x="20" y="143" width="59" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3K-gf-Q0s">
-                                <rect key="frame" x="0.0" y="195" width="105" height="130"/>
+                                <rect key="frame" x="7" y="195" width="100" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjJ-wS-Vxf">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -135,7 +132,7 @@
                                 <color key="backgroundColor" red="0.27450980392156865" green="0.4392156862745098" blue="0.70588235294117652" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60G-bx-fgm">
-                                <rect key="frame" x="108" y="195" width="105" height="130"/>
+                                <rect key="frame" x="110" y="195" width="100" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aon-Rm-RSq">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
@@ -159,28 +156,31 @@
                                 <color key="backgroundColor" red="0.27450980390000002" green="0.43921568630000002" blue="0.70588235290000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0t-NN-iT8">
-                                <rect key="frame" x="215" y="195" width="105" height="130"/>
+                                <rect key="frame" x="213" y="195" width="100" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlj-GY-Rz3">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="5LW-hh-LLF" kind="push" id="DfJ-Nz-B7Q"/>
+                                        </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latest Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-sT-i8u">
-                                        <rect key="frame" x="14" y="94" width="76" height="18"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tips" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-sT-i8u">
+                                        <rect key="frame" x="38" y="91" width="29" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TipsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="STP-0w-Hah">
-                                        <rect key="frame" x="20" y="8" width="64" height="64"/>
+                                        <rect key="frame" x="20" y="13" width="64" height="64"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.27450980390000002" green="0.43921568630000002" blue="0.70588235290000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifc-Dm-qqE">
-                                <rect key="frame" x="0.0" y="328" width="105" height="130"/>
+                                <rect key="frame" x="7" y="328" width="100" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-C7-Ep8">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
@@ -204,15 +204,18 @@
                                 <color key="backgroundColor" red="0.27450980390000002" green="0.43921568630000002" blue="0.70588235290000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-eJ-48c">
-                                <rect key="frame" x="108" y="328" width="105" height="130"/>
+                                <rect key="frame" x="110" y="328" width="100" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wW-Wc-WS8">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="settingIsPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="7YX-Me-AXq"/>
+                                        </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MessageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EGq-pw-lIV">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingsDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EGq-pw-lIV">
                                         <rect key="frame" x="20" y="16" width="64" height="64"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-Qv-c9G">
@@ -225,16 +228,19 @@
                                 <color key="backgroundColor" red="0.27450980390000002" green="0.43921568630000002" blue="0.70588235290000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Tv-MCJ">
-                                <rect key="frame" x="215" y="328" width="105" height="130"/>
+                                <rect key="frame" x="213" y="328" width="100" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ete-0y-E1v">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="toolsButtonIsPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="2ob-OS-fAr"/>
+                                        </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MessageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
-                                        <rect key="frame" x="20" y="16" width="64" height="64"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
+                                        <rect key="frame" x="20" y="16" width="64" height="56"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tools" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
                                         <rect key="frame" x="34" y="88" width="36" height="18"/>
@@ -262,6 +268,9 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-ZD-gzE">
+                                <rect key="frame" x="215" y="81" width="81" height="79"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -382,7 +391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GG2-oL-4ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2817" y="-1165"/>
+            <point key="canvasLocation" x="2844" y="-1165"/>
         </scene>
         <!--Messages View Controller-->
         <scene sceneID="6YM-8H-ZaV">
@@ -521,6 +530,7 @@
         <!--Tips Category View Controller-->
         <scene sceneID="nwp-KY-sYf">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5q8-PF-f9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="5LW-hh-LLF" customClass="TipsCategoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3o2-cg-i8n"/>
@@ -566,13 +576,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="UKm-we-qch"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5q8-PF-f9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2373" y="934"/>
+            <point key="canvasLocation" x="2817" y="-1826"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="0rl-mF-gTZ">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hqv-Lg-Rz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="JCJ-Dj-X5S" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="M7h-Xg-B3s"/>
@@ -604,9 +614,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="hW8-pl-jTw"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hqv-Lg-Rz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2817" y="934"/>
+            <point key="canvasLocation" x="3261" y="-1826"/>
         </scene>
         <!--Web Clip View Controller-->
         <scene sceneID="28D-vm-Fh7">
@@ -823,7 +832,6 @@
                     <connections>
                         <segue destination="Dvq-yM-BKC" kind="relationship" relationship="viewControllers" id="H0A-db-jiR"/>
                         <segue destination="KAK-dg-8Ul" kind="relationship" relationship="viewControllers" id="e04-4W-YVq"/>
-                        <segue destination="pH5-E6-hB7" kind="relationship" relationship="viewControllers" id="Jzw-0N-MoU"/>
                         <segue destination="H0N-D3-8qt" kind="relationship" relationship="viewControllers" id="BFT-Kb-pn4"/>
                         <segue destination="HZG-J2-msa" kind="relationship" relationship="viewControllers" id="I3d-fa-d3Y"/>
                         <segue destination="gis-cs-DxL" kind="relationship" relationship="viewControllers" id="G1p-V8-Rqs"/>
@@ -871,25 +879,6 @@
             </objects>
             <point key="canvasLocation" x="1914" y="-1165"/>
         </scene>
-        <!--Tips-->
-        <scene sceneID="Qqf-bH-Fwh">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pH5-E6-hB7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tips" image="TipsTabIcon" id="zgI-oy-Bqb"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pFp-bK-8w9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="5LW-hh-LLF" kind="relationship" relationship="rootViewController" id="94h-WR-Hwd"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p2e-RZ-KJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1914" y="934"/>
-        </scene>
         <!--Tools-->
         <scene sceneID="M7p-WD-qb7">
             <objects>
@@ -915,12 +904,13 @@
         <image name="HouseTabIcon" width="30" height="26"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageTabIcon" width="30" height="30"/>
+        <image name="OrderDashIcon" width="64" height="56"/>
         <image name="OrderTabIcon" width="30" height="26"/>
         <image name="PhoneIcon" width="64" height="64"/>
         <image name="PlaceholderImage" width="250" height="152"/>
+        <image name="SettingsDashIcon" width="64" height="64"/>
         <image name="SettingsTabIcon" width="30" height="25"/>
         <image name="TipsIcon" width="64" height="64"/>
-        <image name="TipsTabIcon" width="30" height="30"/>
         <image name="ToolTabIcon" width="30" height="30"/>
         <image name="UCBLogo" width="135" height="134"/>
         <image name="raiseATicketIcon" width="64" height="64"/>

@@ -30,6 +30,11 @@
     // Do any additional setup after loading the view.
     
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
 }
 
@@ -50,6 +55,16 @@
     phoneNo = [@"tel://" stringByAppendingString:phoneNo];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
+}
+
+- (IBAction)settingIsPressed:(UIButton *)sender
+{
+    [self.tabBarController setSelectedIndex:4];
+}
+
+- (IBAction)toolsButtonIsPressed:(UIButton *)sender
+{
+    [self.tabBarController setSelectedIndex:1];
 }
 
 /*
