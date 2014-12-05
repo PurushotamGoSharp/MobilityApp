@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -668,7 +669,7 @@
         <!--Order-->
         <scene sceneID="6vp-Jl-B2D">
             <objects>
-                <viewController id="gis-cs-DxL" sceneMemberID="viewController">
+                <viewController id="gis-cs-DxL" customClass="OrderViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KBt-K3-Rqz"/>
                         <viewControllerLayoutGuide type="bottom" id="4xb-LS-VXQ"/>
