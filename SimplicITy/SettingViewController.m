@@ -30,7 +30,16 @@
     self.containerViewOutlet.hidden= YES;
     arrOfLanguageData = @[@"Dutch",@"German",@"English",@"Franch",@"German",@"Spanish",@"Japanese"];
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
+    self.containerViewOutlet.layer.cornerRadius =5;
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (IBAction)changeLanguageBtnPressed:(id)sender
 {
     arrOfData = arrOfLanguageData;
