@@ -46,6 +46,14 @@
 
 - (IBAction)messageButtonPressed:(UIButton *)sender
 {
+    [self.tabBarController setSelectedIndex:2];
+}
+- (IBAction)raiseATicketPressed:(UIButton *)sender
+{
+    [self.tabBarController setSelectedIndex:1];
+}
+- (IBAction)tipsButtonPressed:(UIButton *)sender
+{
     [self.tabBarController setSelectedIndex:3];
 }
 
@@ -57,15 +65,6 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
 }
 
-- (IBAction)settingIsPressed:(UIButton *)sender
-{
-    [self.tabBarController setSelectedIndex:4];
-}
-
-- (IBAction)toolsButtonIsPressed:(UIButton *)sender
-{
-    [self.tabBarController setSelectedIndex:1];
-}
 
 /*
 #pragma mark - Navigation
