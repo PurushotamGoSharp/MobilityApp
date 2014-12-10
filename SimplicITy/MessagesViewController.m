@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfTableData = @[@"Message 1",@"Message 2",@"Message 3",@"Message 4",@"Message 5",@"Message 6",@"Message 7",@"Message 8",@"Message 9"];
+    arrOfTableData = @[@"Web server will be down ",@"Message 2",@"Message 3",@"Message 4",@"Message 5",@"Message 6",@"Message 7",@"Message 8",@"Message 9"];
 }
 
 
