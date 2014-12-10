@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -684,7 +684,7 @@
         <!--Settings-->
         <scene sceneID="8qs-G3-Wlj">
             <objects>
-                <viewController id="HZG-J2-msa" sceneMemberID="viewController">
+                <viewController id="HZG-J2-msa" customClass="SettingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="D1F-jh-Ach"/>
                         <viewControllerLayoutGuide type="bottom" id="T7E-Oq-jX3"/>
@@ -692,10 +692,70 @@
                     <view key="view" contentMode="scaleToFill" id="7DQ-go-sAO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xih-Tp-MQd">
+                                <rect key="frame" x="28" y="41" width="126" height="30"/>
+                                <state key="normal" title="Change Language">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeLanguageBtnPressed:" destination="HZG-J2-msa" eventType="touchUpInside" id="kx7-pP-QEd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPZ-yY-2Mc">
+                                <rect key="frame" x="28" y="82" width="117" height="30"/>
+                                <state key="normal" title="Change Location">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeLocationBtnPressed:" destination="HZG-J2-msa" eventType="touchUpInside" id="9EL-Fb-WVp"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" alpha="0.29999999999999966" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eoz-7K-G72" userLabel="AlphaView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyl-Mm-Rh0" userLabel="ContainerView">
+                                <rect key="frame" x="8" y="146" width="304" height="277"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37g-Bw-Xq1">
+                                        <rect key="frame" x="1" y="7" width="287" height="216"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="HZG-J2-msa" id="657-a5-qKk"/>
+                                            <outlet property="delegate" destination="HZG-J2-msa" id="Pym-8e-2r7"/>
+                                        </connections>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abR-c2-l16">
+                                        <rect key="frame" x="129" y="236" width="37" height="30"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doneBtnPressed:" destination="HZG-J2-msa" eventType="touchUpInside" id="JrE-xX-aLX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="304" id="AsM-YV-3SI"/>
+                                    <constraint firstAttribute="height" constant="277" id="apG-jI-frj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="tyl-Mm-Rh0" secondAttribute="centerX" id="TLp-f4-0Sg"/>
+                            <constraint firstAttribute="centerY" secondItem="tyl-Mm-Rh0" secondAttribute="centerY" id="VXv-yA-3Z5"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="SettingsTabIcon" id="q3w-uj-4QF"/>
-                    <navigationItem key="navigationItem" id="z74-Qj-yyI"/>
+                    <connections>
+                        <outlet property="alphaViewOutlet" destination="eoz-7K-G72" id="QxF-at-2hi"/>
+                        <outlet property="changeLangOutlet" destination="Xih-Tp-MQd" id="fUm-Ut-r27"/>
+                        <outlet property="changeLocationOutlet" destination="HPZ-yY-2Mc" id="u3E-iM-Mrb"/>
+                        <outlet property="containerViewOutlet" destination="tyl-Mm-Rh0" id="KbL-ce-mTY"/>
+                        <outlet property="pickerViewOutlet" destination="37g-Bw-Xq1" id="XWy-xx-3mO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJp-3f-XHf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
