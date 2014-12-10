@@ -9,6 +9,9 @@
 #import "ToolsViewController.h"
 
 @interface ToolsViewController ()
+{
+    NSArray *arrayOfImages, *arrayOfDatas;
+}
 
 @end
 
@@ -17,6 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    arrayOfDatas = @[ @"Lync Connection checker", @"Web Clips", @"Password Expiry date Tool", @"Survey"];
+        
+    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
+    
+    self.title = @"Tools";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return [arrayOfDatas count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -49,20 +58,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     UILabel *label = (UILabel *)[cell viewWithTag:100];
+    label.text = arrayOfDatas[indexPath.row];
     
-    switch (indexPath.row)
-    {
-        case 0:
-            label.text = @"Test my Lync Connection";
-            break;
-            
-        case 1:
-            label.text = @"Web Clips";
-            break;
-            
-        default:
-            break;
-    }
+    UIImageView *imageCVIew = (UIImageView *)[cell viewWithTag:101];
+    imageCVIew.image = arrayOfImages[indexPath.row];
     
     return cell;
 }

@@ -58,6 +58,10 @@
     return 25;
 }
 
+- (IBAction)imapctValueChanged:(UISlider *)sender
+{
+    sender.value = roundf(sender.value);
+}
 /*
 #pragma mark - Navigation
 
