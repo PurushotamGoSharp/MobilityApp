@@ -83,7 +83,6 @@
         self.alphaViewOutlet.hidden= YES;
         self.containerViewOutlet.hidden= YES;
     }];
-
 }
 
 #pragma mark UIPickerViewDataSource methods
