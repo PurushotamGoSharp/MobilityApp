@@ -9,14 +9,19 @@
 #import "TipsCategoryViewController.h"
 
 @interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @end
 
 @implementation TipsCategoryViewController
+{
+    
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.navigationController.navigationBarHidden = NO;
 }
 
