@@ -10,7 +10,7 @@
 
 @interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate>
 {
-    NSArray *arrOfTableData;
+    NSArray *arrOfTableData, *arrOfTimeLable;
 }
 
 @end
@@ -22,6 +22,7 @@
     // Do any additional setup after loading the view.
     
     arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
+    arrOfTimeLable = @[@"12h",@"3d",@"14d",@"17"];
 }
 
 
@@ -38,7 +39,17 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfTableData[indexPath.row];
+    
+    UILabel *timeTitleLable = (UILabel *)[cell viewWithTag:200];
+    titleLable.text = arrOfTimeLable[indexPath.row];
+
     return cell;
+}
+
+#pragma mark UITableViewDelegate methods
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
