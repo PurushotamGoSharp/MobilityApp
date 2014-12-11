@@ -14,7 +14,7 @@
 
 @end
 
-@interface LanguageViewController : UIViewController
+@interface LanguageViewController : CustomColoredViewController
 @property (weak,nonatomic)id<languagesSettingdelegate> delegate;
 
 @end

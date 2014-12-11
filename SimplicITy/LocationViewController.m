@@ -11,7 +11,10 @@
 @interface LocationViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *arrOfLocationData;
+    UILabel *titleLable;
+
 }
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -23,9 +26,16 @@
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
 
 }
-- (IBAction)CalcelBtnPressed:(id)sender {
+- (IBAction)CalcelBtnPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
-- (IBAction)doneBtnPressed:(id)sender {
+- (IBAction)doneBtnPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSString *selectedLocation = arrOfLocationData[[self.tableView indexPathForSelectedRow].row];
+    [self.delegate selectedLocationIs:selectedLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,10 +54,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-
-    
-    UILabel *titleLable = (UILabel *)[cell viewWithTag:200];
+  
+    titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLocationData[indexPath.row];
     
     return cell;
@@ -56,17 +64,7 @@
 #pragma mark UITableViewDelegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0)
-    {
-        [self performSegueWithIdentifier:@"language_segue" sender:self];
-        
-    }
-    else
-    {
-        [self performSegueWithIdentifier:@"location_segue" sender:self];
-        
-    }
+
     
 }
 

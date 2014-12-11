@@ -8,8 +8,9 @@
 
 #import "SettingViewController.h"
 #import "LanguageViewController.h"
+#import "LocationViewController.h"
 
-@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate >
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate >
 {
    NSArray  *arrOfTableViewData, *arrOfImages ;
 }
@@ -23,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.title = @"Settings";
     
     arrOfTableViewData = @[@"Language",@"Location"];
     arrOfImages = @[@"language.png",@"lacation.png"];
@@ -44,6 +47,13 @@
         UINavigationController *navController = segue.destinationViewController;
         LanguageViewController *lang = navController.viewControllers[0];
         lang.delegate =self;
+    }else
+    {
+        UINavigationController *navController = segue.destinationViewController;
+        LocationViewController *locationVC = navController.viewControllers[0];
+        locationVC.delegate = self;
+
+        
     }
 }
 
@@ -64,6 +74,18 @@
     
     UILabel *titleLable = (UILabel *)[cell viewWithTag:200];
     titleLable.text = arrOfTableViewData[indexPath.row];
+    
+    UILabel *languageLabel = (UILabel *)[cell viewWithTag:201];
+    
+    if (indexPath.row == 0) {
+        languageLabel.text = @"Dutch";
+
+    }else
+    {
+        languageLabel.text = @"Belgium";
+
+    }
+   
 
     return cell;
 }
@@ -97,71 +119,14 @@
     languageLabel.text = language;
 }
 
-//- (IBAction)changeLanguageBtnPressed:(id)sender
-//{
-//    arrOfData = arrOfLanguageData;
-//    [UIView animateWithDuration:.3 animations:^{
-//        self.alphaViewOutlet.alpha=0.3;
-//        self.containerViewOutlet.alpha=1;
-//        
-//    } completion:^(BOOL finished)
-//     {
-//         self.alphaViewOutlet.hidden= NO;
-//         self.containerViewOutlet.hidden= NO;
-//         [self.pickerViewOutlet reloadAllComponents];
-//     }];
-//
-//}
-//- (IBAction)changeLocationBtnPressed:(id)sender
-//{
-//    arrOfData = arrOfLocationData;
-//    
-//    [UIView animateWithDuration:.3 animations:^{
-//        self.alphaViewOutlet.alpha=0.3;
-//        self.containerViewOutlet.alpha=1;
-//        
-//    } completion:^(BOOL finished)
-//     {
-//         self.alphaViewOutlet.hidden= NO;
-//         self.containerViewOutlet.hidden= NO;
-//         [self.pickerViewOutlet reloadAllComponents];
-//     }];
-//
-//}
-//- (IBAction)doneBtnPressed:(id)sender
-//{
-// 
-//    [UIView animateWithDuration:.3 animations:^{
-//        self.alphaViewOutlet.alpha=0;
-//        self.containerViewOutlet.alpha=0;
-//
-//    } completion:^(BOOL finished)
-//    {
-//        self.alphaViewOutlet.hidden= YES;
-//        self.containerViewOutlet.hidden= YES;
-//    }];
-//}
+-(void)selectedLocationIs:(NSString *)location
+{
+    UITableViewCell *languageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
+    languageLabel.text = location;
 
-//#pragma mark UIPickerViewDataSource methods
-//
-//-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-//{
-//    return 1;
-//}
-//
-//-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-//{
-//    return [arrOfData count];
-//}
-//-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    return arrOfData[row];
-//}
-//
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
+}
+
 
 /*
 #pragma mark - Navigation

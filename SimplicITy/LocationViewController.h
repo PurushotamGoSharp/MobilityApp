@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol LocationSettingdelegate <NSObject>
 
-@interface LocationViewController : UIViewController
+-(void)selectedLocationIs:(NSString *)location;
+@end
+@interface LocationViewController : CustomColoredViewController
+@property (weak,nonatomic)id<LocationSettingdelegate> delegate;
+
 
 @end
