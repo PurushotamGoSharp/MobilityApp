@@ -1,31 +1,29 @@
 //
-//  TipsCategoryViewController.m
+//  TipsSubCategoriesViewController.m
 //  SimplicITy
 //
-//  Created by Varghese Simon on 12/4/14.
+//  Created by Varghese Simon on 12/10/14.
 //  Copyright (c) 2014 Vmoksha. All rights reserved.
 //
 
-#import "TipsCategoryViewController.h"
 #import "TipsSubCategoriesViewController.h"
-@interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
+#import "TipDetailsViewController.h"
+@interface TipsSubCategoriesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
-@implementation TipsCategoryViewController
+@implementation TipsSubCategoriesViewController
 {
-    NSArray *categoriesArray;
+    NSArray *dataArray;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = self.parentCategory;
     
-    categoriesArray = @[@"Lync", @"WebEx", @"SAP"];
-    
-    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,15 +39,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [categoriesArray count];
+    if ([self.parentCategory isEqualToString:@"Lync"])
+    {
+        return 4;
+    }
+    
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    UILabel *label = (UILabel *)[cell viewWithTag:100];
-    label.text = categoriesArray[indexPath.row];
+    UILabel *label = (UILabel *) [cell viewWithTag:100];
+    label.text = [self.parentCategory stringByAppendingFormat:@"-Subcategory %i", indexPath.row+1];
     
     return cell;
 }
@@ -71,10 +74,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"TipsCatToSubcatSegue"])
+    if ([segue.identifier isEqualToString:@"TipsSubToDetailsSegue"])
     {
-        TipsSubCategoriesViewController *tipsSubVC = (TipsSubCategoriesViewController *)segue.destinationViewController;
-        tipsSubVC.parentCategory = categoriesArray[[self.tableView indexPathForSelectedRow].row];
+        TipDetailsViewController *tipDetailsVC = (TipDetailsViewController *)segue.destinationViewController;
+        tipDetailsVC.parentCategory =  [self.parentCategory stringByAppendingFormat:@"-Subcategory %i", [self.tableView indexPathForSelectedRow].row+1];
+        tipDetailsVC.index = [self.tableView indexPathForSelectedRow].row;
     }
 }
 

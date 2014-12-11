@@ -1,0 +1,15 @@
+//
+//  TipsSubCategoriesViewController.h
+//  SimplicITy
+//
+//  Created by Varghese Simon on 12/10/14.
+//  Copyright (c) 2014 Vmoksha. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface TipsSubCategoriesViewController : UIViewController
+
+@property (strong, nonatomic) NSString *parentCategory;
+
+@end

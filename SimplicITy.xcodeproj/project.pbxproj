@@ -29,11 +29,14 @@
 		86491A791A30836C00711740 /* WebClipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A781A30836C00711740 /* WebClipViewController.m */; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
 		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
+		867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */; };
+		867101B01A386FD900AE2ED6 /* TipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AF1A386FD900AE2ED6 /* TipModel.m */; };
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
 		86B5E8691A30589C0062091D /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B5E8681A30589C0062091D /* RaiseATicketViewController.m */; };
 		86CB65351A386F58005FFFE8 /* messageModle.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CB65341A386F58005FFFE8 /* messageModle.m */; };
 		86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */; };
 		86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */; };
+		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,10 @@
 		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
 		86679F021A2EFD4400612BBA /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
+		867101AB1A386DB600AE2ED6 /* TipsSubCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsSubCategoriesViewController.h; sourceTree = "<group>"; };
+		867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsSubCategoriesViewController.m; sourceTree = "<group>"; };
+		867101AE1A386FD900AE2ED6 /* TipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipModel.h; sourceTree = "<group>"; };
+		867101AF1A386FD900AE2ED6 /* TipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipModel.m; sourceTree = "<group>"; };
 		867584101A3815EE0049EC10 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		867584111A3815EE0049EC10 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		86B5E8671A30589C0062091D /* RaiseATicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseATicketViewController.h; sourceTree = "<group>"; };
@@ -90,6 +97,8 @@
 		86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashBoardViewController.h; sourceTree = "<group>"; };
 		86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashBoardViewController.m; sourceTree = "<group>"; };
+		86EDBE1A1A395C940045904C /* TipDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipDetailsViewController.h; sourceTree = "<group>"; };
+		86EDBE1B1A395C940045904C /* TipDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipDetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +178,12 @@
 				861BBC311A30865A00714EB2 /* OrderViewController.m */,
 				86491A711A30773800711740 /* TipsCategoryViewController.h */,
 				86491A721A30773800711740 /* TipsCategoryViewController.m */,
+				867101AE1A386FD900AE2ED6 /* TipModel.h */,
+				867101AF1A386FD900AE2ED6 /* TipModel.m */,
+				867101AB1A386DB600AE2ED6 /* TipsSubCategoriesViewController.h */,
+				867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */,
+				86EDBE1A1A395C940045904C /* TipDetailsViewController.h */,
+				86EDBE1B1A395C940045904C /* TipDetailsViewController.m */,
 				86491A741A30817100711740 /* ToolsViewController.h */,
 				86491A751A30817100711740 /* ToolsViewController.m */,
 				86491A771A30836C00711740 /* WebClipViewController.h */,
@@ -318,6 +333,8 @@
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				861BBC321A30865A00714EB2 /* OrderViewController.m in Sources */,
+				867101B01A386FD900AE2ED6 /* TipModel.m in Sources */,
+				86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */,
 				86491A761A30817100711740 /* ToolsViewController.m in Sources */,
 				86CB65351A386F58005FFFE8 /* messageModle.m in Sources */,
 				86491A791A30836C00711740 /* WebClipViewController.m in Sources */,
