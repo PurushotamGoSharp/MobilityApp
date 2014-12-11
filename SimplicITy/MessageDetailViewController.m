@@ -8,7 +8,13 @@
 
 #import "MessageDetailViewController.h"
 
+
 @interface MessageDetailViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *nameLable;
+@property (weak, nonatomic) IBOutlet UILabel *subjectLable;
+@property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
+@property (weak, nonatomic) IBOutlet UILabel *timeLable;
+
 
 @end
 
@@ -17,6 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.nameLable.text = self.mesgModel.name;
+    self.subjectLable.text = self.mesgModel.subject;
+    self.bodyTextView.text = self.mesgModel.body;
+    self.timeLable.text = self.mesgModel.time;
+
 }
 
 - (void)didReceiveMemoryWarning {
