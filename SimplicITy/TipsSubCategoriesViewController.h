@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TipsSubCategoriesViewController : UIViewController
+@interface TipsSubCategoriesViewController : CustomColoredViewController
 
 @property (strong, nonatomic) NSString *parentCategory;
 

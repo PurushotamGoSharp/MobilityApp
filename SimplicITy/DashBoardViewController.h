@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DashBoardViewController : UIViewController
+@interface DashBoardViewController : CustomColoredViewController
 
 @end

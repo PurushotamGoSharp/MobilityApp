@@ -1,42 +1,24 @@
 //
-//  TipDetailsViewController.m
+//  CustomColoredViewController.m
 //  SimplicITy
 //
 //  Created by Varghese Simon on 12/11/14.
 //  Copyright (c) 2014 Vmoksha. All rights reserved.
 //
 
-#import "TipDetailsViewController.h"
+#import "CustomColoredViewController.h"
 
-@interface TipDetailsViewController ()
-@property (weak, nonatomic) IBOutlet UIView *viewAtIndex0;
-@property (weak, nonatomic) IBOutlet UIView *viewAtIndex1;
+@interface CustomColoredViewController ()
 
 @end
 
-@implementation TipDetailsViewController
+@implementation CustomColoredViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.parentCategory;
     
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (self.index == 0)
-    {
-        self.viewAtIndex0.hidden = NO;
-        self.viewAtIndex1.hidden = YES;
-    }else
-    {
-        self.viewAtIndex0.hidden = YES;
-        self.viewAtIndex1.hidden = NO;
-    }
+    self.view.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
 }
 
 - (void)didReceiveMemoryWarning {

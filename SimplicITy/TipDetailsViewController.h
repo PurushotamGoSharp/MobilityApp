@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TipDetailsViewController : UIViewController
+@interface TipDetailsViewController : CustomColoredViewController
 
 @property (strong, nonatomic) NSString *parentCategory;
 @property (assign, nonatomic) NSInteger index;
