@@ -22,10 +22,10 @@
                                 <rect key="frame" x="0.0" y="305" width="320" height="145"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFF-Cb-QjS">
-                                        <rect key="frame" x="55" y="5" width="211" height="38"/>
+                                        <rect key="frame" x="15" y="5" width="290" height="38"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zNG-gU-maz">
-                                                <rect key="frame" x="8" y="5" width="200" height="30"/>
+                                                <rect key="frame" x="8" y="5" width="274" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
@@ -36,10 +36,10 @@
                                         <color key="backgroundColor" red="0.93600526147959184" green="0.93600526147959184" blue="0.93600526147959184" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pwI-bK-aNI">
-                                        <rect key="frame" x="55" y="44" width="211" height="38"/>
+                                        <rect key="frame" x="15" y="44" width="290" height="38"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zd2-FR-Eqn">
-                                                <rect key="frame" x="7" y="5" width="201" height="30"/>
+                                                <rect key="frame" x="10" y="4" width="266" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <connections>
@@ -50,7 +50,7 @@
                                         <color key="backgroundColor" red="0.93600526149999996" green="0.93600526149999996" blue="0.93600526149999996" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="he0-XQ-iV0">
-                                        <rect key="frame" x="55" y="95" width="211" height="38"/>
+                                        <rect key="frame" x="15" y="94" width="290" height="38"/>
                                         <color key="backgroundColor" red="0.12941176470588234" green="0.30980392156862746" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Sign In">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,7 +91,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="601" y="78"/>
+            <point key="canvasLocation" x="483" y="78"/>
         </scene>
         <!--SimplicITy-->
         <scene sceneID="GXG-IC-6T2">
@@ -106,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Al-4h-7aB" userLabel="Dash container">
-                                <rect key="frame" x="0.0" y="212" width="320" height="268"/>
+                                <rect key="frame" x="0.0" y="212" width="320" height="264"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bWZ-ae-XdY" userLabel="First Row">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -195,10 +195,11 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="5Yb-aY-iwk"/>
+                                            <constraint firstAttribute="width" constant="320" id="QOo-IA-ZPh"/>
+                                            <constraint firstAttribute="height" constant="130" id="fHL-Dl-waW"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93t-qo-lzI" userLabel="Second Row">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93t-qo-lzI" userLabel="Second Row">
                                         <rect key="frame" x="0.0" y="133" width="320" height="130"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60G-bx-fgm" userLabel="It Help Desk">
@@ -275,15 +276,20 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="320" id="6QI-bS-6gD"/>
+                                            <constraint firstAttribute="height" constant="130" id="XeS-7T-Dw5"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="bWZ-ae-XdY" secondAttribute="trailing" id="47Y-er-3WL"/>
-                                    <constraint firstAttribute="width" priority="990" constant="320" id="LCu-HL-0Fm"/>
-                                    <constraint firstItem="bWZ-ae-XdY" firstAttribute="leading" secondItem="6Al-4h-7aB" secondAttribute="leading" id="kB2-ta-C9f"/>
-                                    <constraint firstAttribute="height" priority="990" constant="268" id="kGQ-Eb-Fdt"/>
-                                    <constraint firstItem="bWZ-ae-XdY" firstAttribute="top" secondItem="6Al-4h-7aB" secondAttribute="top" id="nuy-2N-nno"/>
+                                    <constraint firstItem="bWZ-ae-XdY" firstAttribute="leading" secondItem="6Al-4h-7aB" secondAttribute="leading" id="8jd-og-V83"/>
+                                    <constraint firstAttribute="trailing" secondItem="93t-qo-lzI" secondAttribute="trailing" id="G4f-ZJ-fqc"/>
+                                    <constraint firstAttribute="width" priority="991" constant="320" id="LCu-HL-0Fm"/>
+                                    <constraint firstItem="bWZ-ae-XdY" firstAttribute="top" secondItem="6Al-4h-7aB" secondAttribute="top" id="jJW-S7-okE"/>
+                                    <constraint firstAttribute="height" priority="991" constant="264" id="kGQ-Eb-Fdt"/>
+                                    <constraint firstAttribute="bottom" secondItem="93t-qo-lzI" secondAttribute="bottom" constant="1" id="m2q-Ir-5j0"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1b-Pk-mKI" userLabel="ProfileView">
@@ -319,10 +325,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="6Al-4h-7aB" secondAttribute="trailing" id="IeH-fW-jD8"/>
-                            <constraint firstItem="WCN-AC-ePg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Al-4h-7aB" secondAttribute="bottom" constant="4" id="JWp-Q6-3cl"/>
+                            <constraint firstItem="WCN-AC-ePg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Al-4h-7aB" secondAttribute="bottom" id="JWp-Q6-3cl"/>
                             <constraint firstItem="6Al-4h-7aB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="l1b-Pk-mKI" secondAttribute="bottom" constant="4" id="QFF-OE-dQ2"/>
                             <constraint firstItem="6Al-4h-7aB" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="SNf-az-Lv7"/>
-                            <constraint firstItem="WCN-AC-ePg" firstAttribute="top" secondItem="6Al-4h-7aB" secondAttribute="bottom" priority="999" constant="39" id="X4L-NJ-jv3"/>
+                            <constraint firstItem="WCN-AC-ePg" firstAttribute="top" secondItem="6Al-4h-7aB" secondAttribute="bottom" priority="990" constant="43" id="X4L-NJ-jv3"/>
                             <constraint firstItem="l1b-Pk-mKI" firstAttribute="top" secondItem="22J-zz-Ztw" secondAttribute="bottom" constant="1" id="fIi-Kf-0I8"/>
                             <constraint firstAttribute="centerX" secondItem="l1b-Pk-mKI" secondAttribute="centerX" id="hgy-Zp-wG9"/>
                         </constraints>
@@ -844,7 +850,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqv-Lg-Rz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3345" y="-1293"/>
+            <point key="canvasLocation" x="3385" y="-1294"/>
         </scene>
         <!--Web Clips-->
         <scene sceneID="28D-vm-Fh7">

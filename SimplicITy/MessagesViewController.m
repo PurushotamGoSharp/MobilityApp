@@ -35,7 +35,7 @@
         arrOfTimeLable = @[@"12h",@"3d",@"14d",@"17d"];
     arrOfcurTime = @[@"Thu, Dec 11, 2014",@"Mon Dec 8, 2014",@"Thu Nov 27, 2014"];
     
-    arrOfimageName = @[@"MessageClosed.png"];
+    arrOfimageName = @[@"MessageClosed"];
     
     arrOfModleData = [[NSMutableArray alloc] init];
     
@@ -84,8 +84,8 @@
    
     UIImageView *mailImageView = (UIImageView *)[cell viewWithTag:500];
 
-    if (indexPath.row == 0 ) {
-        mailImageView.image = [UIImage imageNamed:arrOfimageName[indexPath.row]];
+    if (indexPath.row == 0 || indexPath.row == 1) {
+        mailImageView.image = [UIImage imageNamed:arrOfimageName[0]];
     }else
     {
         
