@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TipsCategoryViewController : UIViewController
+@interface TipsCategoryViewController : CustomColoredViewController
 
 @end

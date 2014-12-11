@@ -26,7 +26,7 @@
     // Do any additional setup after loading the view.
     
 //    arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
-    arrOfTableData = @[@"UCBcommunique",@"Payroll HelpDesk",@"UCB helpdesk"];
+    arrOfTableData = @[@"Infra",@"Payroll",@" Helpdesk"];
     
     arrOfSubjects = @[@"This mail is being sent to all employees on behalf of ISMS Team",@"Greetings from UCB Payroll Help Desk",@"SVN Credentials"];
     

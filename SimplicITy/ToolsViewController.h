@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ToolsViewController : UIViewController
+@interface ToolsViewController : CustomColoredViewController
 
 @end

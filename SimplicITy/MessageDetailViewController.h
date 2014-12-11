@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "messageModle.h"
 
-@interface MessageDetailViewController : UIViewController
+@interface MessageDetailViewController : CustomColoredViewController
 {
     
 }

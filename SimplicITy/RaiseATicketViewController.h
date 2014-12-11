@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RaiseATicketViewController : UIViewController
+@interface RaiseATicketViewController : CustomColoredViewController
 
 @end

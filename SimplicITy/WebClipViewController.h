@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebClipViewController : UIViewController
+@interface WebClipViewController : CustomColoredViewController
 
 @end
