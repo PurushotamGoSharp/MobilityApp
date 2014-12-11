@@ -7,16 +7,14 @@
 //
 
 #import "SettingViewController.h"
+#import "LanguageViewController.h"
 
-@interface SettingViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate >
 {
-   NSArray *arrOfData, *arrOfLanguageData, *arrOfLocationData;
+   NSArray  *arrOfTableViewData, *arrOfImages ;
 }
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
-@property (weak, nonatomic) IBOutlet UIView *alphaViewOutlet;
-@property (weak, nonatomic) IBOutlet UIButton *changeLangOutlet;
-@property (weak, nonatomic) IBOutlet UIButton *changeLocationOutlet;
-@property (weak, nonatomic) IBOutlet UIView *containerViewOutlet;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -26,11 +24,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.alphaViewOutlet.hidden= YES;
-    self.containerViewOutlet.hidden= YES;
-    arrOfLanguageData = @[@"Dutch",@"German",@"English",@"Franch",@"German",@"Spanish",@"Japanese"];
-    arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
-    self.containerViewOutlet.layer.cornerRadius =5;
+    arrOfTableViewData = @[@"Language",@"Location"];
+    arrOfImages = @[@"language.png",@"lacation.png"];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -40,71 +37,131 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
-- (IBAction)changeLanguageBtnPressed:(id)sender
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    arrOfData = arrOfLanguageData;
-    [UIView animateWithDuration:.3 animations:^{
-        self.alphaViewOutlet.alpha=0.3;
-        self.containerViewOutlet.alpha=1;
-        
-    } completion:^(BOOL finished)
-     {
-         self.alphaViewOutlet.hidden= NO;
-         self.containerViewOutlet.hidden= NO;
-         [self.pickerViewOutlet reloadAllComponents];
-     }];
-
-}
-- (IBAction)changeLocationBtnPressed:(id)sender
-{
-    arrOfData = arrOfLocationData;
-    
-    [UIView animateWithDuration:.3 animations:^{
-        self.alphaViewOutlet.alpha=0.3;
-        self.containerViewOutlet.alpha=1;
-        
-    } completion:^(BOOL finished)
-     {
-         self.alphaViewOutlet.hidden= NO;
-         self.containerViewOutlet.hidden= NO;
-         [self.pickerViewOutlet reloadAllComponents];
-     }];
-
-}
-- (IBAction)doneBtnPressed:(id)sender
-{
- 
-    [UIView animateWithDuration:.3 animations:^{
-        self.alphaViewOutlet.alpha=0;
-        self.containerViewOutlet.alpha=0;
-
-    } completion:^(BOOL finished)
+    if ([segue.identifier isEqualToString:@"language_segue"])
     {
-        self.alphaViewOutlet.hidden= YES;
-        self.containerViewOutlet.hidden= YES;
-    }];
+        UINavigationController *navController = segue.destinationViewController;
+        LanguageViewController *lang = navController.viewControllers[0];
+        lang.delegate =self;
+    }
 }
 
-#pragma mark UIPickerViewDataSource methods
+#pragma mark UITableViewDataSource methods
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [arrOfTableViewData count];
+    
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [arrOfData count];
-}
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return arrOfData[row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    UIImageView *imageView = (UIImageView*)[cell viewWithTag:100];
+    imageView.image = [UIImage imageNamed:arrOfImages[indexPath.row]];
+    
+    UILabel *titleLable = (UILabel *)[cell viewWithTag:200];
+    titleLable.text = arrOfTableViewData[indexPath.row];
+
+    return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark UITableViewDelegate methods
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0)
+    {
+        [self performSegueWithIdentifier:@"language_segue" sender:self];
+
+    }
+    else
+    {
+        [self performSegueWithIdentifier:@"location_segue" sender:self];
+
+    }
+    
 }
+
+
+#pragma mark
+
+-(void)selectedLanguageis:(NSString *)language
+{
+    UITableViewCell *languageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
+    languageLabel.text = language;
+}
+
+//- (IBAction)changeLanguageBtnPressed:(id)sender
+//{
+//    arrOfData = arrOfLanguageData;
+//    [UIView animateWithDuration:.3 animations:^{
+//        self.alphaViewOutlet.alpha=0.3;
+//        self.containerViewOutlet.alpha=1;
+//        
+//    } completion:^(BOOL finished)
+//     {
+//         self.alphaViewOutlet.hidden= NO;
+//         self.containerViewOutlet.hidden= NO;
+//         [self.pickerViewOutlet reloadAllComponents];
+//     }];
+//
+//}
+//- (IBAction)changeLocationBtnPressed:(id)sender
+//{
+//    arrOfData = arrOfLocationData;
+//    
+//    [UIView animateWithDuration:.3 animations:^{
+//        self.alphaViewOutlet.alpha=0.3;
+//        self.containerViewOutlet.alpha=1;
+//        
+//    } completion:^(BOOL finished)
+//     {
+//         self.alphaViewOutlet.hidden= NO;
+//         self.containerViewOutlet.hidden= NO;
+//         [self.pickerViewOutlet reloadAllComponents];
+//     }];
+//
+//}
+//- (IBAction)doneBtnPressed:(id)sender
+//{
+// 
+//    [UIView animateWithDuration:.3 animations:^{
+//        self.alphaViewOutlet.alpha=0;
+//        self.containerViewOutlet.alpha=0;
+//
+//    } completion:^(BOOL finished)
+//    {
+//        self.alphaViewOutlet.hidden= YES;
+//        self.containerViewOutlet.hidden= YES;
+//    }];
+//}
+
+//#pragma mark UIPickerViewDataSource methods
+//
+//-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+//{
+//    return 1;
+//}
+//
+//-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+//{
+//    return [arrOfData count];
+//}
+//-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    return arrOfData[row];
+//}
+//
+//- (void)didReceiveMemoryWarning {
+//    [super didReceiveMemoryWarning];
+//    // Dispose of any resources that can be recreated.
+//}
 
 /*
 #pragma mark - Navigation
