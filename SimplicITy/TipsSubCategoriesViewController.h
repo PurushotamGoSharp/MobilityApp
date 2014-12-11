@@ -10,4 +10,6 @@
 
 @interface TipsSubCategoriesViewController : UIViewController
 
+@property (strong, nonatomic) NSString *parentCategory;
+
 @end

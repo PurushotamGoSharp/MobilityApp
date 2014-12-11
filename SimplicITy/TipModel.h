@@ -10,4 +10,6 @@
 
 @interface TipModel : NSObject
 
+
+
 @end

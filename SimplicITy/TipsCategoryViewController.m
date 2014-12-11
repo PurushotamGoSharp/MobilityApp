@@ -7,20 +7,23 @@
 //
 
 #import "TipsCategoryViewController.h"
-
+#import "TipsSubCategoriesViewController.h"
 @interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation TipsCategoryViewController
 {
-    
+    NSArray *categoriesArray;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    categoriesArray = @[@"Lync", @"WebEx", @"SAP"];
     
     self.navigationController.navigationBarHidden = NO;
 }
@@ -38,7 +41,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [categoriesArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -46,7 +49,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
     
     UILabel *label = (UILabel *)[cell viewWithTag:100];
-    label.text = [NSString stringWithFormat:@"Tip categroy %li", (long)indexPath.row + 1];
+    label.text = categoriesArray[indexPath.row];
     
     return cell;
 }
@@ -65,5 +68,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"TipsCatToSubcatSegue"])
+    {
+        TipsSubCategoriesViewController *tipsSubVC = (TipsSubCategoriesViewController *)segue.destinationViewController;
+        tipsSubVC.parentCategory = categoriesArray[[self.tableView indexPathForSelectedRow].row];
+    }
+}
 
 @end
