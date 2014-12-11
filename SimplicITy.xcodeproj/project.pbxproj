@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8607051C1A2F147700B9A814 /* CustomTabBar.m */; };
-		86186D851A3990EA00BFD000 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86186D841A3990EA00BFD000 /* Main_iPhone.storyboard */; };
 		86186D891A399C8700BFD000 /* LanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86186D881A399C8700BFD000 /* LanguageViewController.m */; };
 		86186D8C1A399C9700BFD000 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86186D8B1A399C9700BFD000 /* LocationViewController.m */; };
 		861BBC321A30865A00714EB2 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 861BBC311A30865A00714EB2 /* OrderViewController.m */; };
@@ -36,6 +35,7 @@
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
 		86B5E8691A30589C0062091D /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B5E8681A30589C0062091D /* RaiseATicketViewController.m */; };
 		86CB65351A386F58005FFFE8 /* messageModle.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CB65341A386F58005FFFE8 /* messageModle.m */; };
+		86DC31FA1A39B433002AF7A5 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86DC31F91A39B433002AF7A5 /* Main_iPhone.storyboard */; };
 		86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */; };
 		86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */; };
 		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
@@ -55,7 +55,6 @@
 /* Begin PBXFileReference section */
 		8607051B1A2F147700B9A814 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
 		8607051C1A2F147700B9A814 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
-		86186D841A3990EA00BFD000 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86186D871A399C8700BFD000 /* LanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageViewController.h; sourceTree = "<group>"; };
 		86186D881A399C8700BFD000 /* LanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageViewController.m; sourceTree = "<group>"; };
 		86186D8A1A399C9700BFD000 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		86B5E8681A30589C0062091D /* RaiseATicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseATicketViewController.m; sourceTree = "<group>"; };
 		86CB65331A386F58005FFFE8 /* messageModle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageModle.h; sourceTree = "<group>"; };
 		86CB65341A386F58005FFFE8 /* messageModle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageModle.m; sourceTree = "<group>"; };
+		86DC31F91A39B433002AF7A5 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashBoardViewController.h; sourceTree = "<group>"; };
 		86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashBoardViewController.m; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 			children = (
 				86287D261A2EE1A500B12893 /* AppDelegate.h */,
 				86287D271A2EE1A500B12893 /* AppDelegate.m */,
-				86186D841A3990EA00BFD000 /* Main_iPhone.storyboard */,
+				86DC31F91A39B433002AF7A5 /* Main_iPhone.storyboard */,
 				86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */,
 				86EDBE1D1A3992270045904C /* CustomColoredViewController.h */,
 				86EDBE1E1A3992270045904C /* CustomColoredViewController.m */,
@@ -328,7 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86186D851A3990EA00BFD000 /* Main_iPhone.storyboard in Resources */,
+				86DC31FA1A39B433002AF7A5 /* Main_iPhone.storyboard in Resources */,
 				86287D2E1A2EE1A500B12893 /* Main_iPad.storyboard in Resources */,
 				86287D331A2EE1A500B12893 /* Images.xcassets in Resources */,
 				86287D221A2EE1A500B12893 /* InfoPlist.strings in Resources */,
