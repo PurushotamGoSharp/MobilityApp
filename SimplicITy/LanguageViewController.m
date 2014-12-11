@@ -51,7 +51,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     
-    titleLable = (UILabel *)[cell viewWithTag:200];
+    titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLanguageData[indexPath.row];
     
     return cell;
