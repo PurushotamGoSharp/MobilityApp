@@ -12,6 +12,7 @@
 {
     NSArray  *arrOfLanguageData;
     UILabel *titleLable;
+    NSIndexPath* lastIndexPath;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -61,7 +62,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UITableViewCell* newCell = [tableView cellForRowAtIndexPath:indexPath];
+    int newRow = [indexPath row];
+    
+    int oldRow = (lastIndexPath != nil) ? [lastIndexPath row] : -1;
+    
+    if(newRow != oldRow)
+    {
+        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        UITableViewCell* oldCell = [tableView cellForRowAtIndexPath:lastIndexPath];
+        oldCell.accessoryType = UITableViewCellAccessoryNone;
+        lastIndexPath = indexPath;
+    }
     
 }
 

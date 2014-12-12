@@ -10,6 +10,11 @@
 #import "MessagesViewController.h"
 
 @interface DashBoardViewController ()
+{
+    BOOL navBtnIsOn;
+}
+@property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
 
 @end
 
@@ -28,6 +33,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.navtitleBtnoutlet.selected = NO;
+    self.profileViewHeightConstraint.constant = 0;
+    
+    
+
+}
+- (IBAction)navTitleBtnPressed:(id)sender
+{
     
 
 }
