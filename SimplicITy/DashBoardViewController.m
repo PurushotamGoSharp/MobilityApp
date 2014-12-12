@@ -40,25 +40,20 @@
     self.navtitleBtnoutlet.selected = NO;
     
     self.profileViewTopConstraint.constant = -107;
-    
     titleButton = [[UIButton alloc] init];
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@"" forState:(UIControlStateNormal)];
-    titleButton.frame = CGRectMake(0, 0, 135, 40);
+    [titleButton setTitle:@"Jean-Pierre" forState:(UIControlStateNormal)];
+    titleButton.frame = CGRectMake(0, 0, 170, 40);
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
     [titleView addSubview:titleButton];
     
     
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"perso.png"]];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
     titleImageView.frame = CGRectMake(0, 0, 32, 32);
     titleImageView.center = CGPointMake(20, 20);
-    CALayer *maskLayer = [CALayer layer];
-    maskLayer.frame = titleImageView.bounds;
-    maskLayer.contents = (__bridge id)[UIImage imageNamed:@"circleMask.png"].CGImage;
-    titleImageView.layer.mask = maskLayer;
     [titleView addSubview:titleImageView];
     
     

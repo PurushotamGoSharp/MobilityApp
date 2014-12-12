@@ -293,8 +293,8 @@
                                     <constraint firstAttribute="bottom" secondItem="93t-qo-lzI" secondAttribute="bottom" constant="1" id="m2q-Ir-5j0"/>
                                 </constraints>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1b-Pk-mKI" userLabel="ProfileView">
-                                <rect key="frame" x="0.0" y="65" width="320" height="107"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1b-Pk-mKI" userLabel="ProfileView">
+                                <rect key="frame" x="0.0" y="-43" width="320" height="107"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HQ, Paulo Street 1070, Brussels, Belgium" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="4xg-6e-VzR">
                                         <rect key="frame" x="138" y="36" width="152" height="36"/>
@@ -340,22 +340,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ey8-PG-peK">
                         <nil key="title"/>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="O1L-Oz-dOs">
-                            <rect key="frame" x="105" y="7" width="110" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" title="Jean-Pierre">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="navTitleBtnPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="0Md-do-K6w"/>
-                            </connections>
-                        </button>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="navtitleBtnoutlet" destination="O1L-Oz-dOs" id="sMY-cg-2ig"/>
                         <outlet property="profileViewHeightConstraint" destination="ewW-zv-gVD" id="DgP-Jv-HM9"/>
                         <outlet property="profileViewTopConstraint" destination="fIi-Kf-0I8" id="hCm-p8-jL9"/>
                     </connections>
@@ -518,7 +505,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xnD-XQ-hUr">
-                                                    <rect key="frame" x="13" y="28" width="34" height="15"/>
+                                                    <rect key="frame" x="35" y="28" width="34" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -550,6 +537,9 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HeadPhoneSmallimage" translatesAutoresizingMaskIntoConstraints="NO" id="bji-OO-gH7">
+                                                    <rect key="frame" x="12" y="25" width="20" height="20"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -558,16 +548,18 @@
                                                 <constraint firstItem="Hit-mE-xGr" firstAttribute="leading" secondItem="rlH-5K-RqG" secondAttribute="trailing" constant="8" id="8Vl-PD-qnC"/>
                                                 <constraint firstItem="T4w-oS-ChU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hit-mE-xGr" secondAttribute="trailing" constant="4" id="NKX-1T-8tg"/>
                                                 <constraint firstItem="rlH-5K-RqG" firstAttribute="top" secondItem="BR8-NK-Or1" secondAttribute="top" id="Nwf-dJ-7n2"/>
-                                                <constraint firstItem="xnD-XQ-hUr" firstAttribute="leading" secondItem="rlH-5K-RqG" secondAttribute="trailing" constant="8" id="PcJ-Sc-vZV"/>
                                                 <constraint firstAttribute="trailing" secondItem="zFg-yD-M3R" secondAttribute="trailing" constant="8" id="Sey-kf-VB9"/>
                                                 <constraint firstItem="zFg-yD-M3R" firstAttribute="leading" secondItem="T4w-oS-ChU" secondAttribute="trailing" constant="4" id="TNu-ni-mrz"/>
                                                 <constraint firstItem="xnD-XQ-hUr" firstAttribute="top" secondItem="lZw-vn-VKK" secondAttribute="bottom" constant="2" id="Uly-9a-WOF"/>
                                                 <constraint firstItem="lZw-vn-VKK" firstAttribute="leading" secondItem="rlH-5K-RqG" secondAttribute="trailing" constant="8" id="YAE-Xg-w4p"/>
                                                 <constraint firstAttribute="bottom" secondItem="rlH-5K-RqG" secondAttribute="bottom" constant="1" id="axr-xb-DJl"/>
+                                                <constraint firstItem="bji-OO-gH7" firstAttribute="top" secondItem="BR8-NK-Or1" secondAttribute="topMargin" constant="17" id="bGh-hz-yn4"/>
                                                 <constraint firstAttribute="bottom" secondItem="zFg-yD-M3R" secondAttribute="bottom" constant="5" id="flF-Qd-yRu"/>
                                                 <constraint firstItem="lZw-vn-VKK" firstAttribute="top" secondItem="BR8-NK-Or1" secondAttribute="top" constant="4" id="gaL-gv-U8o"/>
                                                 <constraint firstItem="Hit-mE-xGr" firstAttribute="top" secondItem="xnD-XQ-hUr" secondAttribute="bottom" constant="2" id="lNj-DL-Bzq"/>
                                                 <constraint firstItem="rlH-5K-RqG" firstAttribute="leading" secondItem="BR8-NK-Or1" secondAttribute="leading" id="mkD-Ox-lXb"/>
+                                                <constraint firstItem="bji-OO-gH7" firstAttribute="leading" secondItem="rlH-5K-RqG" secondAttribute="trailing" constant="7" id="u1d-fb-c2g"/>
+                                                <constraint firstItem="xnD-XQ-hUr" firstAttribute="leading" secondItem="bji-OO-gH7" secondAttribute="trailing" constant="3" id="yUd-nz-lko"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1621,6 +1613,7 @@
         <image name="Avatar" width="64" height="64"/>
         <image name="BadgeIcon" width="20" height="20"/>
         <image name="Clock" width="16" height="16"/>
+        <image name="HeadPhoneSmallimage" width="20" height="20"/>
         <image name="HouseTabIcon" width="30" height="26"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
