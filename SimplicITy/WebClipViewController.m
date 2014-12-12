@@ -8,7 +8,10 @@
 
 #import "WebClipViewController.h"
 
-@interface WebClipViewController ()
+@interface WebClipViewController () <UITableViewDataSource,UITableViewDelegate>
+{
+    NSArray *tableViewData;
+}
 
 @end
 
@@ -17,12 +20,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    tableViewData = @[@"Reset Lync Password",@"Reset SAP Password"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation
@@ -33,13 +40,6 @@
     // Pass the selected object to the new view controller.
 }
 */
-- (IBAction)gmailResetButton:(UIButton *)sender
-{
-    
-}
 
-- (IBAction)lyncPassWordReset:(id)sender
-{
-}
 
 @end
