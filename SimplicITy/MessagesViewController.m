@@ -32,7 +32,7 @@
     
     arrOfBody = @[@"Dear all,This email is the second part of an Employee Awareness Program about Information Security in preparation for our ISO 27001 External Audit. Please read carefully some important Employee responsibilities and organization policies. The Ucb Security Policy, Confidentiality, Access and Physical security policies have been sent in yesterday’s email.",@"We are happy to inform you that UCB Payroll Help Desk is available online and here is useful information on how to access and utilize the facility",@"Hi, Please find your SVN Credentials below"];
     
-        arrOfTimeLable = @[@"12h",@"3d",@"14d",@"17d"];
+        arrOfTimeLable = @[@"12 h",@"3 d",@"14 d",@"17 d"];
     arrOfcurTime = @[@"Thu, Dec 11, 2014",@"Mon Dec 8, 2014",@"Thu Nov 27, 2014"];
     
     arrOfimageName = @[@"MessageClosed"];

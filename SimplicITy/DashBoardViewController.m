@@ -17,6 +17,7 @@
 }
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
 
 @end
 
@@ -37,7 +38,8 @@
     // Do any additional setup after loading the view.
     
     self.navtitleBtnoutlet.selected = NO;
-    self.profileViewHeightConstraint.constant = 0;
+    
+    self.profileViewTopConstraint.constant = -107;
     
     titleButton = [[UIButton alloc] init];
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -71,8 +73,29 @@
 
 
 }
+
 - (IBAction)navTitleBtnPressed:(id)sender
 {
+    NSInteger constrainValue;
+    if (!navBtnIsOn)
+    {
+        constrainValue = 1;
+        navBtnIsOn = YES;
+    }else
+    {
+        constrainValue = -107;
+        navBtnIsOn = NO;
+    }
+    [UIView animateWithDuration:.5
+                          delay:0
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         self.profileViewTopConstraint.constant = constrainValue;
+                         [self.view layoutIfNeeded];
+
+                     } completion:^(BOOL finished) {
+                         
+                     }];
     
 
 }
