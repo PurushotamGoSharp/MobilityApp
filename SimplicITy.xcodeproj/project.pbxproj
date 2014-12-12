@@ -35,6 +35,7 @@
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
 		86B5E8691A30589C0062091D /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B5E8681A30589C0062091D /* RaiseATicketViewController.m */; };
 		86CB65351A386F58005FFFE8 /* messageModle.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CB65341A386F58005FFFE8 /* messageModle.m */; };
+		86D6043C1A3ABBB900E9E9D7 /* TicketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */; };
 		86DC31FA1A39B433002AF7A5 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86DC31F91A39B433002AF7A5 /* Main_iPhone.storyboard */; };
 		86DC31FF1A39C9C4002AF7A5 /* TicketsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC31FC1A39C9C4002AF7A5 /* TicketsListCell.m */; };
 		86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC31FE1A39C9C4002AF7A5 /* TicketsListViewController.m */; };
@@ -102,6 +103,8 @@
 		86B5E8681A30589C0062091D /* RaiseATicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseATicketViewController.m; sourceTree = "<group>"; };
 		86CB65331A386F58005FFFE8 /* messageModle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageModle.h; sourceTree = "<group>"; };
 		86CB65341A386F58005FFFE8 /* messageModle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageModle.m; sourceTree = "<group>"; };
+		86D6043A1A3ABBB900E9E9D7 /* TicketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketModel.h; sourceTree = "<group>"; };
+		86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketModel.m; sourceTree = "<group>"; };
 		86DC31F91A39B433002AF7A5 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86DC31FB1A39C9C4002AF7A5 /* TicketsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketsListCell.h; sourceTree = "<group>"; };
 		86DC31FC1A39C9C4002AF7A5 /* TicketsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketsListCell.m; sourceTree = "<group>"; };
@@ -204,10 +207,7 @@
 				86679F021A2EFD4400612BBA /* MessageDetailViewController.m */,
 				86B5E8671A30589C0062091D /* RaiseATicketViewController.h */,
 				86B5E8681A30589C0062091D /* RaiseATicketViewController.m */,
-				86DC31FB1A39C9C4002AF7A5 /* TicketsListCell.h */,
-				86DC31FC1A39C9C4002AF7A5 /* TicketsListCell.m */,
-				86DC31FD1A39C9C4002AF7A5 /* TicketsListViewController.h */,
-				86DC31FE1A39C9C4002AF7A5 /* TicketsListViewController.m */,
+				86D604391A3ABB5C00E9E9D7 /* Tickets List */,
 				861BBC301A30865A00714EB2 /* OrderViewController.h */,
 				861BBC311A30865A00714EB2 /* OrderViewController.m */,
 				86491A711A30773800711740 /* TipsCategoryViewController.h */,
@@ -260,6 +260,19 @@
 				86287D421A2EE1A500B12893 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		86D604391A3ABB5C00E9E9D7 /* Tickets List */ = {
+			isa = PBXGroup;
+			children = (
+				86DC31FD1A39C9C4002AF7A5 /* TicketsListViewController.h */,
+				86DC31FE1A39C9C4002AF7A5 /* TicketsListViewController.m */,
+				86DC31FB1A39C9C4002AF7A5 /* TicketsListCell.h */,
+				86DC31FC1A39C9C4002AF7A5 /* TicketsListCell.m */,
+				86D6043A1A3ABBB900E9E9D7 /* TicketModel.h */,
+				86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */,
+			);
+			name = "Tickets List";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,6 +393,7 @@
 				8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */,
 				86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */,
 				86186D891A399C8700BFD000 /* LanguageViewController.m in Sources */,
+				86D6043C1A3ABBB900E9E9D7 /* TicketModel.m in Sources */,
 				86B5E8691A30589C0062091D /* RaiseATicketViewController.m in Sources */,
 				86186D8C1A399C9700BFD000 /* LocationViewController.m in Sources */,
 			);

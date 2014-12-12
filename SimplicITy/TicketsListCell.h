@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TicketModel.h"
 
 @interface TicketsListCell : UITableViewCell
+
+@property (nonatomic, strong) TicketModel *ticketModel;
 
 @end

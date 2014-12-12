@@ -13,7 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *ticketHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *agentAssignedLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *noOfDaysBeforeRaised;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentStatusLabel;
 
 @end
 
@@ -23,10 +24,22 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setTicketModel:(TicketModel *)ticketModel
+{
+    _ticketModel = ticketModel;
+    
+    self.colorCodeView.backgroundColor = ticketModel.colorCode;
+    self.ticketHeadingLabel.text = ticketModel.ticketSubject;
+    self.agentAssignedLabel.text = ticketModel.agentName;
+    self.currentStatusLabel.text = ticketModel.currentStatus;
+    self.timeLabel.text = ticketModel.timeStamp;
 }
 
 @end
