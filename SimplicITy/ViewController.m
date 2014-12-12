@@ -15,11 +15,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *logoOImageView;
 @property (weak, nonatomic) IBOutlet UIView *conatinerForTxtAndBtn;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginViewBottomConst;
+
 @end
 
 @implementation ViewController
 {
     CGPoint centerOfContainer;
+    CGFloat initialLoginViewBottomCons;
 }
 
 - (void)viewDidLoad
@@ -28,6 +31,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     centerOfContainer = self.conatinerForTxtAndBtn.center;
+    initialLoginViewBottomCons = self.loginViewBottomConst.constant;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,7 +68,8 @@
                      animations:^{
                          
                          self.logoOImageView.alpha = 1;
-                         self.conatinerForTxtAndBtn.center = centerOfContainer;
+                         self.loginViewBottomConst.constant = initialLoginViewBottomCons;
+                         [self.view layoutIfNeeded];
                          
                      } completion:^(BOOL finished) {
                          
@@ -79,15 +84,19 @@
     
     CGPoint toCenter = centerOfContainer;
     toCenter.y -= 120;
+    if (self.loginViewBottomConst.constant == initialLoginViewBottomCons)
+    {
+        [UIView animateWithDuration:.3
+                         animations:^{
+                            self.logoOImageView.alpha = 0;
+                             self.loginViewBottomConst.constant += 100;
+                             [self.view layoutIfNeeded];
+                             
+                         } completion:^(BOOL finished) {
+                             
+                         }];
+    }
     
-    [UIView animateWithDuration:.3
-                     animations:^{
-                         self.logoOImageView.alpha = 0;
-                         self.conatinerForTxtAndBtn.center = toCenter;
-                         
-                     } completion:^(BOOL finished) {
-                         
-                     }];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
