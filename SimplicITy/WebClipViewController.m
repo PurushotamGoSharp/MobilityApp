@@ -29,7 +29,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark UITableViewDataSource methods
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+
+{
+    return [tableViewData count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    UILabel *titlelable = (UILabel *)[cell viewWithTag:200];
+    titlelable.text = tableViewData[indexPath.row];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://products.office.com/en/lync/"]];
+}
 
 /*
 #pragma mark - Navigation
