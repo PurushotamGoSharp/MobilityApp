@@ -67,7 +67,7 @@
     ticket.agentName = @"Bertie";
     ticket.currentStatus = @"#3, Wating on Customer for 6 days";
     ticket.colorCode = [UIColor redColor];
-    ticket.timeStamp = @"7m";
+    ticket.timeStamp = @"7 m";
     [arrayOfData addObject:ticket];
     
     ticket = [[TicketModel alloc] init];
@@ -75,7 +75,7 @@
     ticket.agentName = @"Saul";
     ticket.currentStatus = @"#2, Overdue by 6 days";
     ticket.colorCode = [UIColor greenColor];
-    ticket.timeStamp = @"8d";
+    ticket.timeStamp = @"8 d";
     [arrayOfData addObject:ticket];
     
     ticket = [[TicketModel alloc] init];
@@ -83,7 +83,7 @@
     ticket.agentName = @"Bertie";
     ticket.currentStatus = @"#1, Overdue by 3 days";
     ticket.colorCode = [UIColor yellowColor];
-    ticket.timeStamp = @"9d";
+    ticket.timeStamp = @"9 d";
     [arrayOfData addObject:ticket];
 }
 
