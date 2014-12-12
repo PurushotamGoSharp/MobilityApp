@@ -65,11 +65,9 @@
     downArrowImageView.hidden = NO;
     
     self.navigationItem.titleView = titleView;
-
-
 }
 
-- (IBAction)navTitleBtnPressed:(id)sender
+- (void)navTitleBtnPressed:(id)sender
 {
     NSInteger constrainValue;
     if (!navBtnIsOn)
@@ -91,8 +89,6 @@
                      } completion:^(BOOL finished) {
                          
                      }];
-    
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
