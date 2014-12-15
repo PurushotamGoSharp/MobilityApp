@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -100,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="483" y="78"/>
+            <point key="canvasLocation" x="559" y="79"/>
         </scene>
         <!--Dash Board View Controller-->
         <scene sceneID="GXG-IC-6T2">
@@ -423,7 +423,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="u8O-Wb-nTd" kind="modal" id="G97-pa-xUX"/>
+                                                    <segue destination="u8O-Wb-nTd" kind="modal" identifier="SelectAcategorySegue" id="G97-pa-xUX"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select a category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0p-fX-K0m">
@@ -526,13 +526,14 @@
                                 <segue destination="zx0-ax-jo4" kind="push" id="CXP-ec-zh5"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="A2e-OJ-MOh"/>
+                        <barButtonItem key="rightBarButtonItem" image="SubmitTickimage" id="A2e-OJ-MOh"/>
                     </navigationItem>
                     <connections>
                         <outlet property="alphaViewOutLet" destination="yJc-ds-KaO" id="048-b6-uwD"/>
                         <outlet property="pickerContainerViewOutlet" destination="SUK-Ae-8nf" id="ffZ-a4-FG9"/>
                         <outlet property="pickerViewOutlet" destination="TJh-qZ-sED" id="q9p-aF-95p"/>
                         <outlet property="scrollView" destination="K2N-rr-bTX" id="oNn-dN-IpF"/>
+                        <outlet property="selectedCategorylabel" destination="G0p-fX-K0m" id="S8a-zy-tv2"/>
                         <outlet property="tableViewOutlet" destination="KT6-b5-NJD" id="ns5-Wd-Qzo"/>
                         <outlet property="textView" destination="V8t-sV-3fi" id="oGg-4A-gjH"/>
                     </connections>
@@ -743,7 +744,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUY-ih-xyb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2518" y="815"/>
+            <point key="canvasLocation" x="2518" y="799"/>
         </scene>
         <!--Tools View Controller-->
         <scene sceneID="aKc-PG-Hvn">
@@ -1299,7 +1300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXX-Bp-3Jx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5160" y="-58"/>
+            <point key="canvasLocation" x="5160" y="79"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="ZTP-uB-AUi">
@@ -1366,7 +1367,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMj-vq-huE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5160" y="771"/>
+            <point key="canvasLocation" x="5160" y="815"/>
         </scene>
         <!--Order-->
         <scene sceneID="6vp-Jl-B2D">
@@ -1477,7 +1478,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WDQ-4L-uRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3886" y="816"/>
+            <point key="canvasLocation" x="3886" y="800"/>
         </scene>
         <!--Message Detail View Controller-->
         <scene sceneID="N0l-e2-jZd">
@@ -1551,7 +1552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DNQ-lV-B8n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2954" y="816"/>
+            <point key="canvasLocation" x="2954" y="800"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kgu-E0-yUa">
@@ -1611,7 +1612,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNF-Th-6NY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2004" y="816"/>
+            <point key="canvasLocation" x="2004" y="800"/>
         </scene>
         <!--Home-->
         <scene sceneID="v57-fl-0II">
@@ -1705,7 +1706,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JHR-GY-pOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4628" y="-57"/>
+            <point key="canvasLocation" x="4644" y="79"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yer-UY-crL">
@@ -1723,7 +1724,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WsF-UC-Vbm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4628" y="779"/>
+            <point key="canvasLocation" x="4628" y="815"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MuK-P2-aDd">
@@ -1761,6 +1762,7 @@
         <image name="SettingsDashIcon" width="64" height="64"/>
         <image name="SettingsTabIcon" width="30" height="30"/>
         <image name="SimplicityLogo" width="229" height="79"/>
+        <image name="SubmitTickimage" width="30" height="30"/>
         <image name="TicketsListtBarIcon" width="30" height="30"/>
         <image name="TipsIcon" width="64" height="64"/>
         <image name="TipsTabIcon" width="30" height="30"/>
