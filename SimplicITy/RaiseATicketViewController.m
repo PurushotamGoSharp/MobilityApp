@@ -166,13 +166,19 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     UILabel *header = (UILabel *)[cell viewWithTag:100];
+    UILabel *lable = (UILabel *)[cell viewWithTag:101];
+
     
     if (indexPath.row == 0)
     {
         header.text = @"Requester";
+        lable.text = @"Jean-Pierre";
+
     }else
     {
         header.text = @"Imapct";
+        lable.text = @"Low";
+
 
 
     }
