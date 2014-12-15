@@ -42,6 +42,13 @@
     [self setUpViewWithCornerRadius:self.passwordContainer];
     [self setUpViewWithCornerRadius:self.signInButton];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    
 }
 
 - (void)setUpViewWithCornerRadius:(UIView *)view
@@ -103,5 +110,6 @@
 {
 
 }
+
 
 @end
