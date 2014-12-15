@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIView *conatinerForTxtAndBtn;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginViewBottomConst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConst;
 
 @end
 
@@ -42,13 +43,34 @@
     [self setUpViewWithCornerRadius:self.passwordContainer];
     [self setUpViewWithCornerRadius:self.signInButton];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:UIDeviceOrientationDidChangeNotification
+                                                 object:nil];
 }
 
 - (void)orientationChanged:(NSNotification *)notification
 {
-    
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
+{
+    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
+    {
+        
+    }else if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
+    {
+        
+    }
 }
 
 - (void)setUpViewWithCornerRadius:(UIView *)view
@@ -76,6 +98,8 @@
                          
                          self.logoOImageView.alpha = 1;
                          self.loginViewBottomConst.constant = initialLoginViewBottomCons;
+                         self.loginViewBottomConst.priority = 998;
+                         self.logoHeightConst.priority = 999;
                          [self.view layoutIfNeeded];
                          
                      } completion:^(BOOL finished) {
@@ -97,6 +121,8 @@
                          animations:^{
                             self.logoOImageView.alpha = 0;
                              self.loginViewBottomConst.constant += 100;
+                             self.loginViewBottomConst.priority = 999;
+                             self.logoHeightConst.priority = 998;
                              [self.view layoutIfNeeded];
                              
                          } completion:^(BOOL finished) {

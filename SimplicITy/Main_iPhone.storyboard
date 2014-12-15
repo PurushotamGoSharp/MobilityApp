@@ -66,14 +66,21 @@
                                     <constraint firstAttribute="width" constant="320" id="U2E-f3-Sx2"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SimplicityLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6fB-mg-hKW">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SimplicityLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6fB-mg-hKW">
                                 <rect key="frame" x="46" y="103" width="229" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="999" constant="79" id="DDQ-fh-a6o"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="G7n-6I-Tv3" secondAttribute="trailing" id="4P1-TD-F8p"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="G7n-6I-Tv3" secondAttribute="bottom" constant="118" id="xIE-oU-m9W"/>
+                            <constraint firstAttribute="centerY" secondItem="6fB-mg-hKW" secondAttribute="centerY" priority="998" constant="142" id="1ys-fC-hhh"/>
+                            <constraint firstItem="G7n-6I-Tv3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6fB-mg-hKW" secondAttribute="bottom" constant="10" id="Deu-gl-XXh"/>
+                            <constraint firstAttribute="centerX" secondItem="G7n-6I-Tv3" secondAttribute="centerX" id="h6W-S3-w8o"/>
+                            <constraint firstItem="6fB-mg-hKW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="ibT-d1-pci"/>
+                            <constraint firstAttribute="centerX" secondItem="6fB-mg-hKW" secondAttribute="centerX" id="rrw-46-rca"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="G7n-6I-Tv3" secondAttribute="bottom" priority="998" constant="118" id="xIE-oU-m9W"/>
                         </constraints>
                         <connections>
                             <action selector="hideKeyboard:" destination="vXZ-lx-hvc" eventType="touchDown" id="pj9-Zf-hdO"/>
@@ -83,6 +90,7 @@
                     <connections>
                         <outlet property="conatinerForTxtAndBtn" destination="G7n-6I-Tv3" id="PSC-bD-p3s"/>
                         <outlet property="loginViewBottomConst" destination="xIE-oU-m9W" id="eAT-nk-txT"/>
+                        <outlet property="logoHeightConst" destination="DDQ-fh-a6o" id="ZIm-ft-un5"/>
                         <outlet property="logoOImageView" destination="6fB-mg-hKW" id="cqd-W3-EEj"/>
                         <outlet property="passwordContainer" destination="pwI-bK-aNI" id="AmN-yO-Iaf"/>
                         <outlet property="signInButton" destination="he0-XQ-iV0" id="Ne7-yd-5UH"/>
@@ -1247,7 +1255,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXX-Bp-3Jx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5496" y="-74"/>
+            <point key="canvasLocation" x="5160" y="-58"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="ZTP-uB-AUi">
@@ -1314,7 +1322,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMj-vq-huE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4964" y="655"/>
+            <point key="canvasLocation" x="5160" y="771"/>
         </scene>
         <!--Order-->
         <scene sceneID="6vp-Jl-B2D">
@@ -1653,7 +1661,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JHR-GY-pOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4964" y="-73"/>
+            <point key="canvasLocation" x="4628" y="-57"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yer-UY-crL">
@@ -1671,7 +1679,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WsF-UC-Vbm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4432" y="663"/>
+            <point key="canvasLocation" x="4628" y="779"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MuK-P2-aDd">

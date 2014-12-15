@@ -49,6 +49,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    [self.delegate selectedTicket:arrayofData[indexPath.row]];
+    
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
