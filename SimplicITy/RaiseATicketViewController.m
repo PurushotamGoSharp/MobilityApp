@@ -35,7 +35,7 @@
     arrOfPickerViewData = @[@"Low",@"Medium",@"High",@"Critical"];
     arrOfcolur = @[[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
     self.textView.placeholder = @"Describe you request here.";
-    
+    self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
 }
 
