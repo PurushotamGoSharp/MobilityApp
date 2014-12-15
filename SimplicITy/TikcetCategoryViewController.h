@@ -8,7 +8,14 @@
 
 #import "CustomColoredViewController.h"
 
+@protocol TicketCategoryDelegate <NSObject>
+
+- (void)selectedTicket:(NSString *)tickt;
+
+@end
 
 @interface TikcetCategoryViewController : CustomColoredViewController
+
+@property (weak, nonatomic) id <TicketCategoryDelegate> delegate;
 
 @end

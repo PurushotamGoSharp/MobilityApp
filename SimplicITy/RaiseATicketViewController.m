@@ -8,8 +8,9 @@
 
 #import "RaiseATicketViewController.h"
 #import "PlaceHolderTextView.h"
+#import "TikcetCategoryViewController.h"
 
-@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
+@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate>
 {
     NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *pickerContainerViewOutlet;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
 
 @end
 
@@ -220,14 +222,23 @@
     return 44;
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
+{
+    if ([segue.identifier isEqualToString:@"SelectAcategorySegue"])
+    {
+        UINavigationController *navController = segue.destinationViewController;
+        TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
+        ticketCategoryVC.delegate = self;
+    }
 }
-*/
+
+- (void)selectedTicket:(NSString *)tickt
+{
+    self.selectedCategorylabel.text = tickt;
+    self.selectedCategorylabel.textColor = [UIColor blackColor];
+}
 
 @end
