@@ -8,20 +8,52 @@
 
 #import "TikcetCategoryViewController.h"
 
-@interface TikcetCategoryViewController ()
+@interface TikcetCategoryViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
 @implementation TikcetCategoryViewController
+{
+    NSArray *arrayofData;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    arrayofData = @[@"My PC is broken",@"I want to reset my password",@"I can not access my application"];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [arrayofData count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    UILabel *label = (UILabel *)[cell viewWithTag:100];
+    label.text = arrayofData[indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+    
 }
 
 /*
