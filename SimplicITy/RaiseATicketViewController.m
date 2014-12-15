@@ -29,10 +29,7 @@
     // Do any additional setup after loading the view.
     
     arrOfPickerViewData = @[@"My PC is broken",@"I want to reset my password",@"I can not access my application"];
-    
     self.textView.placeholder = @"Describe you request here.";
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
