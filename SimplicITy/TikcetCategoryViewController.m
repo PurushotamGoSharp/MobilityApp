@@ -24,6 +24,10 @@
     arrayofData = @[@"My PC is broken",@"I want to reset my password",@"I can not access my application"];
 
 }
+- (IBAction)cancelBtnAction:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
