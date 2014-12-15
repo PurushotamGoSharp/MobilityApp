@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -373,7 +373,7 @@
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oiU-cq-JBX" id="BrX-Fr-oIS">
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H8S-d8-R5D">
+                                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8S-d8-R5D">
                                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </view>
@@ -391,10 +391,14 @@
                                                                 </label>
                                                             </subviews>
                                                             <constraints>
+                                                                <constraint firstItem="H8S-d8-R5D" firstAttribute="top" secondItem="BrX-Fr-oIS" secondAttribute="top" id="A9B-CH-QqS"/>
                                                                 <constraint firstAttribute="centerY" secondItem="Jvf-sK-cS2" secondAttribute="centerY" id="IYs-HE-JVn"/>
+                                                                <constraint firstItem="H8S-d8-R5D" firstAttribute="leading" secondItem="BrX-Fr-oIS" secondAttribute="leading" id="IfQ-mS-nfR"/>
                                                                 <constraint firstAttribute="centerY" secondItem="ARq-G8-0gj" secondAttribute="centerY" id="OA7-LI-ALm"/>
+                                                                <constraint firstAttribute="trailing" secondItem="H8S-d8-R5D" secondAttribute="trailing" id="Ocg-e1-xN4"/>
                                                                 <constraint firstItem="Jvf-sK-cS2" firstAttribute="leading" secondItem="BrX-Fr-oIS" secondAttribute="leading" constant="8" id="bRr-4y-Li4"/>
                                                                 <constraint firstAttribute="trailing" secondItem="ARq-G8-0gj" secondAttribute="trailing" constant="8" id="e9i-Zg-Pfh"/>
+                                                                <constraint firstAttribute="bottomMargin" secondItem="H8S-d8-R5D" secondAttribute="bottom" constant="-7" id="lCP-di-lVl"/>
                                                                 <constraint firstItem="ARq-G8-0gj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Jvf-sK-cS2" secondAttribute="trailing" constant="4" id="p5i-me-XqN"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
@@ -471,11 +475,47 @@
                                     <constraint firstItem="o66-Px-mZn" firstAttribute="top" secondItem="K2N-rr-bTX" secondAttribute="top" id="yNr-qR-6rL"/>
                                 </constraints>
                             </scrollView>
+                            <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJc-ds-KaO">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUK-Ae-8nf">
+                                <rect key="frame" x="49" y="194" width="222" height="180"/>
+                                <subviews>
+                                    <pickerView contentMode="left" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJh-qZ-sED">
+                                        <rect key="frame" x="15" y="-10" width="190" height="148"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Nvl-He-eXA" id="3v8-fc-DdW"/>
+                                            <outlet property="delegate" destination="Nvl-He-eXA" id="Jem-II-OUn"/>
+                                        </connections>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MP7-sg-K1O">
+                                        <rect key="frame" x="60" y="146" width="100" height="30"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doneBtnAction:" destination="Nvl-He-eXA" eventType="touchUpInside" id="Wcm-tL-8tr"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="3La-qB-Up6"/>
+                                    <constraint firstAttribute="width" constant="222" id="Kib-zv-GrC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="yJc-ds-KaO" secondAttribute="bottom" id="03k-Mj-NXx"/>
+                            <constraint firstAttribute="trailing" secondItem="yJc-ds-KaO" secondAttribute="trailing" id="BAP-Ax-wdU"/>
+                            <constraint firstAttribute="centerY" secondItem="SUK-Ae-8nf" secondAttribute="centerY" id="Byu-13-QB3"/>
+                            <constraint firstItem="yJc-ds-KaO" firstAttribute="top" secondItem="hor-XZ-3O7" secondAttribute="top" id="Dh9-0K-nH9"/>
                             <constraint firstAttribute="trailing" secondItem="K2N-rr-bTX" secondAttribute="trailing" id="Gc8-TX-J9x"/>
+                            <constraint firstAttribute="centerX" secondItem="SUK-Ae-8nf" secondAttribute="centerX" id="KzL-nN-h3g"/>
                             <constraint firstItem="K2N-rr-bTX" firstAttribute="top" secondItem="hor-XZ-3O7" secondAttribute="top" id="NZk-PZ-Qu9"/>
+                            <constraint firstItem="yJc-ds-KaO" firstAttribute="leading" secondItem="hor-XZ-3O7" secondAttribute="leading" id="UR1-IH-dnh"/>
                             <constraint firstAttribute="bottom" secondItem="K2N-rr-bTX" secondAttribute="bottom" id="V2v-Rz-YAr"/>
                             <constraint firstItem="K2N-rr-bTX" firstAttribute="leading" secondItem="hor-XZ-3O7" secondAttribute="leading" id="iaG-SM-zmj"/>
                         </constraints>
@@ -489,7 +529,11 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" id="A2e-OJ-MOh"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="alphaViewOutLet" destination="yJc-ds-KaO" id="048-b6-uwD"/>
+                        <outlet property="pickerContainerViewOutlet" destination="SUK-Ae-8nf" id="ffZ-a4-FG9"/>
+                        <outlet property="pickerViewOutlet" destination="TJh-qZ-sED" id="q9p-aF-95p"/>
                         <outlet property="scrollView" destination="K2N-rr-bTX" id="oNn-dN-IpF"/>
+                        <outlet property="tableViewOutlet" destination="KT6-b5-NJD" id="ns5-Wd-Qzo"/>
                         <outlet property="textView" destination="V8t-sV-3fi" id="oGg-4A-gjH"/>
                     </connections>
                 </viewController>

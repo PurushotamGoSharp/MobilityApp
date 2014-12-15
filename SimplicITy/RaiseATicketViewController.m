@@ -11,13 +11,17 @@
 
 @interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 {
-    NSArray *arrOfPickerViewData;
+    NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
 }
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PlaceHolderTextView *textView;
+@property (weak, nonatomic) IBOutlet UIView *alphaViewOutLet;
+@property (weak, nonatomic) IBOutlet UIView *pickerContainerViewOutlet;
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 
 @end
 
@@ -35,6 +39,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.alphaViewOutLet.hidden = YES;
+    self.pickerContainerViewOutlet.hidden = YES;
+    self.alphaViewOutLet.alpha = 0;
+    self.pickerContainerViewOutlet.alpha = 0;
+
     
     initialOffsetOfSCrollView = self.scrollView.contentOffset;
     initialScollViewInset = self.scrollView.contentInset;
@@ -56,6 +66,23 @@
 
     [self.view endEditing:YES];
 }
+
+- (IBAction)doneBtnAction:(id)sender
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alphaViewOutLet.alpha = 0;
+        self.pickerContainerViewOutlet.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.alphaViewOutLet.hidden = YES;
+        self.pickerContainerViewOutlet.hidden = YES;
+    }];
+
+    UITableViewCell *cell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0 ]];
+    UILabel *lable = (UILabel *)[cell viewWithTag:101];
+    lable.text = arrOfPickerViewData[[self.pickerViewOutlet selectedRowInComponent:0]];
+}
+
+
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -82,15 +109,45 @@
     return [arrOfPickerViewData count];
 }
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    return arrOfPickerViewData[row];
+//}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-    return arrOfPickerViewData[row];
+    
+    UIView *containerView;
+    UIView *viewForImage;
+    UILabel *viewForLable;
+    
+    if (view == nil)
+    {
+        containerView = [[UIView alloc] init];
+        containerView.frame = CGRectMake(0, 0, self.pickerViewOutlet.frame.size.width, 30);
+        
+        viewForImage = [[UIView alloc] init];
+        viewForImage.frame = CGRectMake(10, 0, 40, 30);
+        
+        viewForLable = [[UILabel alloc] init];
+        viewForLable.frame = CGRectMake(60,0, 100, 30);
+        
+        [containerView addSubview:viewForImage];
+        [containerView  addSubview:viewForLable];
+    }
+    
+    viewForImage.backgroundColor = arrOfcolur[row];
+    viewForLable.text = arrOfPickerViewData[row];
+    return containerView;
+    
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-    return 25;
-}
+
+
+//- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+//{
+//    return 25;
+//}
 
 - (IBAction)imapctValueChanged:(UISlider *)sender
 {
@@ -106,12 +163,15 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     UILabel *header = (UILabel *)[cell viewWithTag:100];
+    
     if (indexPath.row == 0)
     {
         header.text = @"Requester";
     }else
     {
         header.text = @"Imapct";
+
+
     }
     
     return cell;
@@ -120,7 +180,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.row == 1)
+    {
+        self.alphaViewOutLet.hidden = NO;
+        self.pickerContainerViewOutlet.hidden = NO;
+
+        [UIView animateWithDuration:.3 animations:^{
+            self.alphaViewOutLet.alpha = .6;
+            self.pickerContainerViewOutlet.alpha = 1;
+//            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished)
+        {
+            
+        }];
+        
+    }
+    
 }
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
