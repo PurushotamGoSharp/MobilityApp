@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -1304,7 +1304,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="CTY-Dd-zKG">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="CTY-Dd-zKG">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.69803921570000005" green="0.91764705879999997" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1315,6 +1315,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="60G-XX-2H8" id="HmS-5V-IOl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQU-UI-aGF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                                 <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9aD-gd-EzJ">
                                                     <rect key="frame" x="8" y="9" width="30" height="30"/>
                                                 </imageView>
@@ -1333,10 +1337,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="USK-tW-jRx" secondAttribute="trailing" constant="2" id="6ly-hc-aIS"/>
+                                                <constraint firstAttribute="trailing" secondItem="yQU-UI-aGF" secondAttribute="trailing" constant="-33" id="88Q-0k-ngI"/>
                                                 <constraint firstAttribute="centerY" secondItem="USK-tW-jRx" secondAttribute="centerY" id="Pip-MY-Vcj"/>
+                                                <constraint firstAttribute="bottom" secondItem="yQU-UI-aGF" secondAttribute="bottom" constant="1" id="XKD-XE-o3n"/>
+                                                <constraint firstItem="yQU-UI-aGF" firstAttribute="leading" secondItem="HmS-5V-IOl" secondAttribute="leading" id="gWU-ND-kzd"/>
+                                                <constraint firstItem="yQU-UI-aGF" firstAttribute="top" secondItem="HmS-5V-IOl" secondAttribute="top" id="ohU-la-J6P"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90980392160000001" green="0.98039215690000003" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1551,8 +1559,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H7s-jm-oWD" id="w9w-3p-TPm">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2iP-aK-gYL">
-                                                    <rect key="frame" x="0.0" y="1" width="320" height="43"/>
+                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2iP-aK-gYL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEl-Vh-WgA">
@@ -1562,6 +1570,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2iP-aK-gYL" firstAttribute="leading" secondItem="w9w-3p-TPm" secondAttribute="leading" id="BYd-KI-8VA"/>
+                                                <constraint firstAttribute="trailing" secondItem="2iP-aK-gYL" secondAttribute="trailing" id="TZT-L5-Edt"/>
+                                                <constraint firstAttribute="bottom" secondItem="2iP-aK-gYL" secondAttribute="bottom" constant="1" id="bAC-Nl-ux0"/>
+                                                <constraint firstItem="2iP-aK-gYL" firstAttribute="top" secondItem="w9w-3p-TPm" secondAttribute="top" id="eAc-U4-Tgb"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -1622,7 +1636,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h27-CI-5BQ" id="0Ey-Za-X3f">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a5F-VK-gT4">
+                                                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a5F-VK-gT4">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -1633,6 +1647,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="a5F-VK-gT4" firstAttribute="leading" secondItem="0Ey-Za-X3f" secondAttribute="leading" id="L0H-up-cCn"/>
+                                                <constraint firstAttribute="bottom" secondItem="a5F-VK-gT4" secondAttribute="bottom" constant="1" id="L8c-Ne-cAa"/>
+                                                <constraint firstItem="a5F-VK-gT4" firstAttribute="top" secondItem="0Ey-Za-X3f" secondAttribute="top" id="nUg-vj-mO7"/>
+                                                <constraint firstAttribute="trailing" secondItem="a5F-VK-gT4" secondAttribute="trailing" id="soU-wA-Vsq"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -1694,7 +1714,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jmO-IU-fnh" id="YZ5-Ia-77e">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.69999999999999973" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C4s-ma-nqf">
+                                                <view alpha="0.69999999999999973" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4s-ma-nqf">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -1705,8 +1725,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="C4s-ma-nqf" secondAttribute="trailing" id="56Q-OM-6h4"/>
+                                                <constraint firstItem="C4s-ma-nqf" firstAttribute="leading" secondItem="YZ5-Ia-77e" secondAttribute="leading" id="W1i-TS-BgW"/>
+                                                <constraint firstAttribute="bottom" secondItem="C4s-ma-nqf" secondAttribute="bottom" constant="1" id="cGw-v7-HQQ"/>
+                                                <constraint firstItem="C4s-ma-nqf" firstAttribute="top" secondItem="YZ5-Ia-77e" secondAttribute="top" id="lFG-I0-xEu"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90980392160000001" green="0.98039215690000003" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1735,6 +1761,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableViewOutlet" destination="dsM-83-Obm" id="TU3-wt-pr2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8yd-ci-O4C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -105,8 +105,12 @@
     return cell;
 }
 
-#pragma mark UITableViewDelegate methods
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
 
+#pragma mark UITableViewDelegate methods
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

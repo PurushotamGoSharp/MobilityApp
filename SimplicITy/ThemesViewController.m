@@ -12,26 +12,44 @@
 {
     NSArray *arrOfThemesData;
 }
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 
 @end
 
 @implementation ThemesViewController
+{
+    NSInteger selectedRow;
+}
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfThemesData = @[@"Blue",@"Orange Yellow",@"French Lilac",@"Eton Blue"];
+    arrOfThemesData = @[@"Blue",@"Granny Smith",@"French Lilac",@"Orange Yellow"];
+    
+    selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 - (IBAction)cancelBtnPressed:(id)sender
 {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 - (IBAction)doneBtnPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [[ NSUserDefaults standardUserDefaults] setInteger:selectedRow forKey:@"BackgroundTheme"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
 }
 
 #pragma mark UITableViewDataSource methods
@@ -55,36 +73,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row) {
-        case 0:
-        {
-           [[ NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"BackgroundTheme"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-
-        }
-            break;
-        case 1:
-        {
-            [[ NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"BackgroundTheme"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-            break;
-        case 2:
-        {
-            [[ NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"BackgroundTheme"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-            break;
-        case 3:
-        {
-            [[ NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"BackgroundTheme"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-            break;
-            
-        default:
-            break;
-    }
+    selectedRow = indexPath.row;
 }
 
 
