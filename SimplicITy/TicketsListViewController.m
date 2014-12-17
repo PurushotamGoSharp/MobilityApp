@@ -8,8 +8,12 @@
 
 #import "TicketsListViewController.h"
 #import "TicketsListCell.h"
+#import "TicketDetailViewController.h"
+#import "TicketModel.h"
+
 @interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @end
 
 @implementation TicketsListViewController
@@ -24,6 +28,14 @@
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
     
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
+    TicketDetailViewController *ticketDeteilVC = segue.destinationViewController;
+    TicketModel *ticket = arrayOfData[indexPath.row];
+    ticketDeteilVC.tickModel = ticket;
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,7 +75,6 @@
 - (void)setUpData
 {
    
-    
     TicketModel *ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Provide VPN access";
     ticket.agentName = @"Jonathan";

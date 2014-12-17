@@ -188,7 +188,7 @@
 
     }else
     {
-        header.text = @"Imapct";
+        header.text = @"Impact";
         lable.text = @"Low";
         colourForline.backgroundColor = [UIColor greenColor];
         colourForRect.backgroundColor = [UIColor greenColor];
