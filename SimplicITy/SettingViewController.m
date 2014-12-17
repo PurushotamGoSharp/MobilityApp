@@ -47,21 +47,30 @@
         UINavigationController *navController = segue.destinationViewController;
         LanguageViewController *lang = navController.viewControllers[0];
         lang.delegate =self;
-    }else
+    }else if ([segue.identifier isEqualToString:@"location_segue"])
     {
         UINavigationController *navController = segue.destinationViewController;
         LocationViewController *locationVC = navController.viewControllers[0];
         locationVC.delegate = self;
 
-        
     }
+    
 }
 
 #pragma mark UITableViewDataSource methods
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [arrOfTableViewData count];
+    
+    if (section ==0) {
+        return [arrOfTableViewData count];
+    }
+    return 1;
     
 }
 
@@ -77,34 +86,51 @@
     
     UILabel *languageLabel = (UILabel *)[cell viewWithTag:201];
     
-    if (indexPath.row == 0) {
-        languageLabel.text = @"Dutch";
-
+    if (indexPath.section == 0)
+    {
+        if (indexPath.row == 0) {
+            languageLabel.text = @"Dutch";
+            
+        }else
+        {
+            languageLabel.text = @"Belgium";
+            
+        }
     }else
     {
-        languageLabel.text = @"Belgium";
-
+        titleLable.text = @"Themes";
+        languageLabel.text = @"Custom";
     }
-   
 
     return cell;
 }
 
 #pragma mark UITableViewDelegate methods
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0)
+    
+    if (indexPath.section == 0)
     {
-        [self performSegueWithIdentifier:@"language_segue" sender:self];
-
+        if (indexPath.row == 0)
+        {
+            [self performSegueWithIdentifier:@"language_segue" sender:self];
+            
+        }
+        else
+        {
+            [self performSegueWithIdentifier:@"location_segue" sender:self];
+            
+        }
     }
     else
     {
-        [self performSegueWithIdentifier:@"location_segue" sender:self];
-
+        [self performSegueWithIdentifier:@"themes_segue" sender:self];
     }
+    
+  
     
 }
 
