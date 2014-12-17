@@ -35,79 +35,143 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 3;
 
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    if (section == 0) {
+        return 4;
+
+    }else if (section == 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 1;
+    }
+
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    
+    if (section == 0) {
+        return @"";
+        
+    }else if (section == 1)
+    {
+        return @"Category";
+    }
+    else{
+        return @"Details";
+    }
+   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    UITableViewCell *cell = nil;
+    
+    if (indexPath.section == 2)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CellDetails" forIndexPath:indexPath];
+    }else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    }
+
     UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
     
     
     UILabel *linColour = (UILabel *)[cell viewWithTag:101];
     UILabel *circelColour = (UILabel *)[cell viewWithTag:102];
     UILabel *rightTable = (UILabel *)[cell viewWithTag:103];
-    
+//    UILabel *discriptionLable = (UILabel *)[cell1 viewWithTag:104];
+
+    rightTable.hidden = NO;
     circelColour.layer.cornerRadius = 10;
-
-    switch (indexPath.row)
-    {
-        case 0:
-        {
-            titleLable.text = @"Requester";
-            rightTable.text = @"Jean-Pierre";
-
-        }
-            
-            break;
-            
-        case 1:
-        {
-            titleLable.text = @"Impact";
-            rightTable.text = [self giveImpactForCOlor:self.tickModel.colorCode];
-            linColour.backgroundColor = self.tickModel.colorCode;
-            circelColour.backgroundColor = self.tickModel.colorCode;
-
-        }
-            break;
-        case 2:
-        {
-            titleLable.text = @"Agent";
-            rightTable.text = self.tickModel.agentName;
-
-        }
-            break;
-        case 3:
-        {
-            titleLable.text = @"Status";
-            rightTable.text = self.tickModel.currentStatus;
-
-        }
-            break;
-        case 4:
-        {
-
-            titleLable.text = self.tickModel.ticketSubject;
-            rightTable.text = @"";
-
-        }
-            break;
-        
-        default:
-            break;
+    titleLable.textColor = [UIColor blackColor];
+    
+    if (indexPath.section == 1) {
+        titleLable.text = self.tickModel.ticketSubject;
+        rightTable.text = @"";
     }
-    return cell;
+    else if (indexPath.section == 2)
+    {
+        titleLable.text = @"Describtion...";
+        rightTable.hidden = YES;
+        titleLable.textColor = [UIColor grayColor];
+
+    }
+    else
+    {
+        switch (indexPath.row)
+        {
+            case 0:
+            {
+                titleLable.text = @"Requester";
+                rightTable.text = @"Jean-Pierre";
+                
+            }
+                
+                break;
+                
+            case 1:
+            {
+                titleLable.text = @"Impact";
+                rightTable.text = [self giveImpactForCOlor:self.tickModel.colorCode];
+                linColour.backgroundColor = self.tickModel.colorCode;
+                circelColour.backgroundColor = self.tickModel.colorCode;
+                
+            }
+                break;
+            case 2:
+            {
+                titleLable.text = @"Agent";
+                rightTable.text = self.tickModel.agentName;
+                
+            }
+                break;
+            case 3:
+            {
+                titleLable.text = @"Status";
+                rightTable.text = self.tickModel.currentStatus;
+                
+            }
+                break;
+            case 4:
+            {
+                
+                titleLable.text = self.tickModel.ticketSubject;
+                rightTable.text = @"";
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+
+        return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2)
+    {
+        return 100;
+    }
+    
+    return 44;
 }
 
 - (NSString *)giveImpactForCOlor:(UIColor *)colorCode
