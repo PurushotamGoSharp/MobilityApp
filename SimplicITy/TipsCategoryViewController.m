@@ -16,6 +16,7 @@
 @implementation TipsCategoryViewController
 {
     NSArray *categoriesArray;
+    NSDictionary *subCategory;
 }
 
 - (void)viewDidLoad
@@ -23,7 +24,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    categoriesArray = @[@"Lync", @"WebEx", @"SAP"];
+    categoriesArray = @[@"Lync", @"WebEx", @"SAP",@"ITSM",@"Air-Watch"];
+    
+    subCategory = @{@"Lync":@[@"Instant Messaging", @"Voice Over IP", @"Voice conferencing"], @"WebEx": @[@"Web Conferencing",@"Video Conferencing"],@"SAP":@[@"Financial Accounting (FI)",@"Controlling (CO)",@"Investment Management (IM)"],@"ITSM":@[@"Configuration Management",@"Change Management",@"Release Management",@"Incident Management"],@"Air-Watch":@[@"Workspace Management",@"Mobile Security",@"Mobile Device Management",@"Mobile Application Management",@"Mobile Content Management",@"Mobile Email Management"] };
     
     self.navigationController.navigationBarHidden = NO;
 }
