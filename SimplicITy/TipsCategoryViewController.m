@@ -78,6 +78,7 @@
     {
         TipsSubCategoriesViewController *tipsSubVC = (TipsSubCategoriesViewController *)segue.destinationViewController;
         tipsSubVC.parentCategory = categoriesArray[[self.tableView indexPathForSelectedRow].row];
+        tipsSubVC.subCategoriesData = subCategory[tipsSubVC.parentCategory];
     }
 }
 

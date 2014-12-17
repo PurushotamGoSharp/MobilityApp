@@ -26,6 +26,7 @@
 		86287D441A2EE1A500B12893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86287D421A2EE1A500B12893 /* InfoPlist.strings */; };
 		86287D461A2EE1A500B12893 /* SimplicITyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86287D451A2EE1A500B12893 /* SimplicITyTests.m */; };
 		86309CAC1A3EB9B900D19804 /* TikcetCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86309CAB1A3EB9B900D19804 /* TikcetCategoryViewController.m */; };
+		863A16EE1A4185F000146B72 /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 863A16ED1A4185F000146B72 /* ThemesViewController.m */; };
 		86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A721A30773800711740 /* TipsCategoryViewController.m */; };
 		86491A761A30817100711740 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A751A30817100711740 /* ToolsViewController.m */; };
 		86491A791A30836C00711740 /* WebClipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A781A30836C00711740 /* WebClipViewController.m */; };
@@ -88,6 +89,8 @@
 		86287D451A2EE1A500B12893 /* SimplicITyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimplicITyTests.m; sourceTree = "<group>"; };
 		86309CAA1A3EB9B900D19804 /* TikcetCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikcetCategoryViewController.h; sourceTree = "<group>"; };
 		86309CAB1A3EB9B900D19804 /* TikcetCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikcetCategoryViewController.m; sourceTree = "<group>"; };
+		863A16EC1A4185F000146B72 /* ThemesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
+		863A16ED1A4185F000146B72 /* ThemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
 		86491A711A30773800711740 /* TipsCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsCategoryViewController.h; sourceTree = "<group>"; };
 		86491A721A30773800711740 /* TipsCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsCategoryViewController.m; sourceTree = "<group>"; };
 		86491A741A30817100711740 /* ToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsViewController.h; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 				86186D881A399C8700BFD000 /* LanguageViewController.m */,
 				86186D8A1A399C9700BFD000 /* LocationViewController.h */,
 				86186D8B1A399C9700BFD000 /* LocationViewController.m */,
+				863A16EC1A4185F000146B72 /* ThemesViewController.h */,
+				863A16ED1A4185F000146B72 /* ThemesViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -337,6 +342,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Vmoksha;
 				TargetAttributes = {
+					86287D131A2EE1A500B12893 = {
+						DevelopmentTeam = QGMN7468R5;
+					};
 					86287D371A2EE1A500B12893 = {
 						TestTargetID = 86287D131A2EE1A500B12893;
 					};
@@ -402,6 +410,7 @@
 				867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */,
 				867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */,
 				86491A791A30836C00711740 /* WebClipViewController.m in Sources */,
+				863A16EE1A4185F000146B72 /* ThemesViewController.m in Sources */,
 				86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
 				86DC31FF1A39C9C4002AF7A5 /* TicketsListCell.m in Sources */,
@@ -540,11 +549,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -554,11 +566,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -27,7 +27,7 @@
     
     detailsDictionary = @{
                           @"Instant Messaging":
-                              @"nstant messaging (IM) is a type of online chat which offers real-time text transmission over the Internet. A LAN messenger operates in a similar way over a local area network. Short messages are typically transmitted bi-directionally between two parties, when each user chooses to complete a thought and select 'send'. Some IM applications can use push technology to provide real-time text, which transmits messages character by character, as they are composed. More advanced instant messaging can add file transfer, clickable hyperlinks, Voice over IP, or video.",
+                              @"Instant messaging (IM) is a type of online chat which offers real-time text transmission over the Internet. A LAN messenger operates in a similar way over a local area network. Short messages are typically transmitted bi-directionally between two parties, when each user chooses to complete a thought and select 'send'. Some IM applications can use push technology to provide real-time text, which transmits messages character by character, as they are composed. More advanced instant messaging can add file transfer, clickable hyperlinks, Voice over IP, or video.",
                           
                           @"Voice Over IP":
                               @"Voice over IP (VoIP) is a methodology and group of technologies for the delivery of voice communications and multimedia sessions over Internet Protocol (IP) networks, such as the Internet. Other terms commonly associated with VoIP are IP telephony, Internet telephony, broadband telephony, and broadband phone service. The term Internet telephony specifically refers to the provisioning of communications services (voice, fax, SMS, voice-messaging) over the public Internet, rather than via the public (PSTN). The steps and principles involved in originating VoIP telephone calls are similar to traditional digital telephony and involve signalling, channel setup, digitization of the analog voice signals, and encoding. Instead of being transmitted over a circuit-switched network, however, the digital information is packetized, and transmission occurs as IP packets over a packet-switched network. Such transmission entails careful considerations about resource management different from time-division multiplexing (TDM) networks",
@@ -101,12 +101,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self.parentCategory isEqualToString:@"Lync"])
-    {
-        return 4;
-    }
-    
-    return 3;
+    return [self.subCategoriesData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,14 +109,20 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     UILabel *label = (UILabel *) [cell viewWithTag:100];
-    label.text = [self.parentCategory stringByAppendingFormat:@"-Subcategory %i", indexPath.row+1];
-    
+//    label.text = [self.parentCategory stringByAppendingFormat:@"-Subcategory %i", indexPath.row+1];
+    label.text = self.subCategoriesData[indexPath.row];
+
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
 }
 
 /*
@@ -139,8 +140,9 @@
     if ([segue.identifier isEqualToString:@"TipsSubToDetailsSegue"])
     {
         TipDetailsViewController *tipDetailsVC = (TipDetailsViewController *)segue.destinationViewController;
-        tipDetailsVC.parentCategory =  [self.parentCategory stringByAppendingFormat:@"-Subcategory %i", [self.tableView indexPathForSelectedRow].row+1];
+        tipDetailsVC.parentCategory =  self.subCategoriesData[[self.tableView indexPathForSelectedRow].row];
         tipDetailsVC.index = [self.tableView indexPathForSelectedRow].row;
+        tipDetailsVC.textToDisplay = detailsDictionary[tipDetailsVC.parentCategory];
     }
 }
 

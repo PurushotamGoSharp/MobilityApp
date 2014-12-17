@@ -18,7 +18,41 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+        case 0:
+        {
+            self.view.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
+
+        }
+            break;
+        case 1:
+        {
+            self.view.backgroundColor = [UIColor colorWithRed:.5 green:.55 blue:.55 alpha:1];
+        }
+            break;
+        case 2:
+        {
+            self.view.backgroundColor = [UIColor colorWithRed:.52 green:.4 blue:.6 alpha:1];
+
+        }
+            break;
+        case 3:
+        {
+            self.view.backgroundColor = [UIColor colorWithRed:1 green:.8 blue:.4 alpha:1];
+
+        }
+            break;
+            
+            
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
