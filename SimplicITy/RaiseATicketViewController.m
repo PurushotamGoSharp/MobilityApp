@@ -15,6 +15,7 @@
     NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
+    
 }
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -84,7 +85,12 @@
 
     UITableViewCell *cell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0 ]];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
+    UIView *colourForline = (UIView *)[cell viewWithTag:102];
+    UIView *colourForRect = (UIView *)[cell viewWithTag:103];
     lable.text = arrOfPickerViewData[[self.pickerViewOutlet selectedRowInComponent:0]];
+    colourForline.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
+    colourForRect.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
+
 }
 
 
@@ -169,7 +175,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     UILabel *header = (UILabel *)[cell viewWithTag:100];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
+    
+    UIView *colourForline = (UIView *)[cell viewWithTag:102];
+    UIView *colourForRect = (UIView *)[cell viewWithTag:103];
 
+    colourForRect.layer.cornerRadius = 10;
     
     if (indexPath.row == 0)
     {
@@ -178,11 +188,11 @@
 
     }else
     {
-        header.text = @"Imapct";
+        header.text = @"Impact";
         lable.text = @"Low";
-
-
-
+        colourForline.backgroundColor = [UIColor greenColor];
+        colourForRect.backgroundColor = [UIColor greenColor];
+    
     }
     
     return cell;

@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrayofData = @[@"My PC is broken",@"I want to reset my password",@"I can not access my application"];
+    arrayofData = @[@"Provide VPN access",@"Internet is very slow",@"My leave application password been expired and unable to reset it ",@"VPN is not accessible outside work",@"Cannot download any file to my desktop",@"Unable to make any outside call from my desk phone",@"Unable to access my office email",@"I'm unacle to connect my console to internet",@"Unable to track package",@"Do you ship perishables to Schmaltzburg?"];
 
 }
 - (IBAction)cancelBtnAction:(id)sender
