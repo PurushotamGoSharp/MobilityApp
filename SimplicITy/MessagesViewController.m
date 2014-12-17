@@ -26,14 +26,14 @@
     // Do any additional setup after loading the view.
     
 //    arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
-    arrOfTableData = @[@"Infra",@"Payroll",@" Helpdesk"];
+    arrOfTableData = @[@"HR policy: ",@"HR: Holiday Celebration: ",@" Helpdesk"];
     
-    arrOfSubjects = @[@"This mail is being sent to all employees on behalf of ISMS Team",@"Greetings from UCB Payroll Help Desk",@"SVN Credentials"];
+    arrOfSubjects = @[@"Employee Awareness: “Official Dress Code”",@"Merry Christmas & A Happy New Year 2015!!!",@"SVN Credentials"];
     
-    arrOfBody = @[@"Dear all,This email is the second part of an Employee Awareness Program about Information Security in preparation for our ISO 27001 External Audit. Please read carefully some important Employee responsibilities and organization policies. The Ucb Security Policy, Confidentiality, Access and Physical security policies have been sent in yesterday’s email.",@"We are happy to inform you that UCB Payroll Help Desk is available online and here is useful information on how to access and utilize the facility",@"Hi, Please find your SVN Credentials below"];
+    arrOfBody = @[@"Dear All,This is to inform all the employees that the policy on “Official Dress Code” under Dress Code is being revised effective on Mon December 01, 2014.Dress code for external customer meetings will be Business Formals (to create the winning impression!!!). Business Formals will include - salwar suits and sarees, western formal skirts / trousers for ladies. Full/ half sleeved light-coloured shirts with tie and (jacket / coat optional) formal trousers for gentlemen. Footwear must be formal leather-shoes for men.Monday and Tuesday are considered as Business days and dress code will be Business formals. Business formals will include salwar suits and western skirts / trousers for ladies. Full/ half sleeved shirts tucked in and trousers for gentlemen. For men footwear must be formal shoes.",@"Dear All,May this Christmas and New Year sparkle and shine. May all your wishes and dreams come true and may you feel this happiness all year round.So let’s get into Christmassy mood!!!",@"Hi, Please find your SVN Credentials below"];
     
         arrOfTimeLable = @[@"12 h",@"3 d",@"14 d",@"17 d"];
-    arrOfcurTime = @[@"Thu, Dec 11, 2014",@"Mon Dec 8, 2014",@"Thu Nov 27, 2014"];
+    arrOfcurTime = @[@"Mon Nov 17, 2014",@"Fri Dec 12, 2014",@"Thu Nov 27, 2014"];
     
     arrOfimageName = @[@"MessageClosed"];
     

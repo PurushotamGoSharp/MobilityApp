@@ -7,7 +7,12 @@
 //
 
 #import "CustomColoredViewController.h"
+#import "TicketModel.h"
 
 @interface TicketDetailViewController : CustomColoredViewController
+{
+    
+}
 
+@property (nonatomic,strong)TicketModel *tickModel;
 @end
