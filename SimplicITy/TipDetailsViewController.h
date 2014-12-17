@@ -12,4 +12,5 @@
 
 @property (strong, nonatomic) NSString *parentCategory;
 @property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) NSString *textToDisplay;
 @end

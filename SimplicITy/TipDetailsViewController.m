@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIView *viewAtIndex0;
 @property (weak, nonatomic) IBOutlet UIView *viewAtIndex1;
 
+@property (weak, nonatomic) IBOutlet UITextView *textView1;
+@property (weak, nonatomic) IBOutlet UITextView *textView2;
 @end
 
 @implementation TipDetailsViewController
@@ -28,15 +30,22 @@
 {
     [super viewWillAppear:animated];
     
+    [self.textView1 setFont:[UIFont systemFontOfSize:15]];
+    [self.textView2 setFont:[UIFont systemFontOfSize:15]];
+
     if (self.index == 0)
     {
+        self.textView1.text = self.textToDisplay;
         self.viewAtIndex0.hidden = NO;
         self.viewAtIndex1.hidden = YES;
     }else
     {
+        self.textView2.text = self.textToDisplay;
         self.viewAtIndex0.hidden = YES;
         self.viewAtIndex1.hidden = NO;
     }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
