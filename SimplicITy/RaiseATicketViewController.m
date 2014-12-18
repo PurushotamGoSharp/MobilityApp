@@ -251,9 +251,15 @@
 {
     if ([segue.identifier isEqualToString:@"SelectAcategorySegue"])
     {
+
         UINavigationController *navController = segue.destinationViewController;
         TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
         ticketCategoryVC.delegate = self;
+        
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+            ticketCategoryVC.orderItemDiffer = @"orderItemsData";
+        }
     }
 }
 
