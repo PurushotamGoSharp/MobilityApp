@@ -31,15 +31,15 @@
             break;
             
         case 1:
-            self.view.backgroundColor = [UIColor colorWithRed:.96 green:.67 blue:.53 alpha:1];
+            self.view.backgroundColor = [UIColor colorWithRed:.97 green:.84 blue:.76 alpha:1];
             break;
             
         case 2:
-            self.view.backgroundColor = [UIColor colorWithRed:.86 green:.43 blue:.58 alpha:1];
+            self.view.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
             break;
             
         case 3:
-            self.view.backgroundColor = [UIColor colorWithRed:.73 green:.82 blue:.58 alpha:1];
+            self.view.backgroundColor = [UIColor colorWithRed:.86 green:.91 blue:.79 alpha:1];
             break;
         default:
             break;
