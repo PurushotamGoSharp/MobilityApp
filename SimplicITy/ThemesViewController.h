@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ThemeSettingDelegate <NSObject>
+
+-(void)selectedThemeIs:(NSString *)theme;
+
+@end
+
 @interface ThemesViewController : CustomColoredViewController
+
+@property (weak,nonatomic)id<ThemeSettingDelegate> delegate;
+
 
 @end

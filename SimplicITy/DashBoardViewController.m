@@ -8,6 +8,7 @@
 
 #import "DashBoardViewController.h"
 #import "MessagesViewController.h"
+#import "RaiseATicketViewController.h"
 
 @interface DashBoardViewController ()
 {
@@ -125,7 +126,7 @@
 }
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -133,7 +134,12 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"dashToOrder_segue"])
+    {
+        RaiseATicketViewController *raiseTicket = segue.destinationViewController;
+    }
 }
-*/
+
 
 @end

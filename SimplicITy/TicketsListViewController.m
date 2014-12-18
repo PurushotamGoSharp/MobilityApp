@@ -107,7 +107,7 @@
     [arrayOfData addObject:ticket];
     ticket = [[TicketModel alloc] init];
     ticket = [[TicketModel alloc] init];
-    ticket.ticketSubject = @"VPN is not accessible outside work";
+    ticket.ticketSubject = @"VPN is not accessible outside network";
     ticket.agentName = @"Christina";
     ticket.currentStatus = @"#7, Overdue by 3 days";
     ticket.colorCode = [UIColor yellowColor];

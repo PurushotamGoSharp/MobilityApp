@@ -9,8 +9,9 @@
 #import "SettingViewController.h"
 #import "LanguageViewController.h"
 #import "LocationViewController.h"
+#import "ThemesViewController.h"
 
-@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate >
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate,ThemeSettingDelegate >
 {
    NSArray  *arrOfTableViewData, *arrOfImages ;
 }
@@ -42,17 +43,20 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+      UINavigationController *navController = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"language_segue"])
     {
-        UINavigationController *navController = segue.destinationViewController;
+      
         LanguageViewController *lang = navController.viewControllers[0];
         lang.delegate =self;
     }else if ([segue.identifier isEqualToString:@"location_segue"])
     {
-        UINavigationController *navController = segue.destinationViewController;
         LocationViewController *locationVC = navController.viewControllers[0];
         locationVC.delegate = self;
-
+    }else
+    {
+        ThemesViewController *themesVC = navController.viewControllers[0];
+        themesVC.delegate = self;
     }
     
 }
@@ -99,7 +103,8 @@
     }else
     {
         titleLable.text = @"Themes";
-        languageLabel.text = @"Custom";
+        imageView.image = [UIImage imageNamed:@"themes"];
+        languageLabel.text = [self stingForColorTheme];
     }
 
     return cell;
@@ -139,7 +144,7 @@
 }
 
 
-#pragma mark
+#pragma mark SettingDelegates
 
 -(void)selectedLanguageis:(NSString *)language
 {
@@ -155,6 +160,13 @@
     UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
     languageLabel.text = location;
 
+}
+
+-(void)selectedThemeIs:(NSString *)theme
+{
+    UITableViewCell *themesCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    UILabel *themeLable = (UILabel *)[themesCell viewWithTag:201];
+    themeLable.text = theme;
 }
 
 
