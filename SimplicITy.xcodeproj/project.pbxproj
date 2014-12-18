@@ -45,6 +45,8 @@
 		86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC31FE1A39C9C4002AF7A5 /* TicketsListViewController.m */; };
 		86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */; };
 		86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */; };
+		86E545881A42A4370027A817 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E545871A42A4370027A817 /* SliderView.m */; };
+		86E5458A1A42A45E0027A817 /* SliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86E545891A42A45E0027A817 /* SliderView.xib */; };
 		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
 		86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1E1A3992270045904C /* CustomColoredViewController.m */; };
 /* End PBXBuildFile section */
@@ -125,6 +127,9 @@
 		86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashBoardViewController.h; sourceTree = "<group>"; };
 		86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashBoardViewController.m; sourceTree = "<group>"; };
+		86E545861A42A4370027A817 /* SliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderView.h; sourceTree = "<group>"; };
+		86E545871A42A4370027A817 /* SliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderView.m; sourceTree = "<group>"; };
+		86E545891A42A45E0027A817 /* SliderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SliderView.xib; sourceTree = "<group>"; };
 		86EDBE1A1A395C940045904C /* TipDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipDetailsViewController.h; sourceTree = "<group>"; };
 		86EDBE1B1A395C940045904C /* TipDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipDetailsViewController.m; sourceTree = "<group>"; };
 		86EDBE1D1A3992270045904C /* CustomColoredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColoredViewController.h; sourceTree = "<group>"; };
@@ -291,6 +296,9 @@
 				86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */,
 				867B19B91A40126700462CA4 /* TicketDetailViewController.h */,
 				867B19BA1A40126700462CA4 /* TicketDetailViewController.m */,
+				86E545861A42A4370027A817 /* SliderView.h */,
+				86E545871A42A4370027A817 /* SliderView.m */,
+				86E545891A42A45E0027A817 /* SliderView.xib */,
 			);
 			name = "Tickets List";
 			sourceTree = "<group>";
@@ -375,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86DC31FA1A39B433002AF7A5 /* Main_iPhone.storyboard in Resources */,
+				86E5458A1A42A45E0027A817 /* SliderView.xib in Resources */,
 				86287D2E1A2EE1A500B12893 /* Main_iPad.storyboard in Resources */,
 				86287D331A2EE1A500B12893 /* Images.xcassets in Resources */,
 				86287D221A2EE1A500B12893 /* InfoPlist.strings in Resources */,
@@ -413,6 +422,7 @@
 				863A16EE1A4185F000146B72 /* ThemesViewController.m in Sources */,
 				86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
+				86E545881A42A4370027A817 /* SliderView.m in Sources */,
 				86DC31FF1A39C9C4002AF7A5 /* TicketsListCell.m in Sources */,
 				86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */,
 				8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */,
