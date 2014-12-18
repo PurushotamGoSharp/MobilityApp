@@ -54,7 +54,7 @@
         self.navigationItem.leftBarButtonItems = @[];
     }
     self.bulbImgOutlet.animationImages =
-    [NSArray arrayWithObjects:[UIImage imageNamed:@"Tips"],[UIImage imageNamed:@"Tips1"],nil];
+    [NSArray arrayWithObjects:[UIImage imageNamed:@"Tips"],[UIImage imageNamed:@"bulb"],nil];
     self.bulbImgOutlet.animationDuration = 1;
     self.bulbImgOutlet.animationRepeatCount = 200;
     [self.bulbImgOutlet startAnimating];
