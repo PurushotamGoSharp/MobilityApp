@@ -15,5 +15,5 @@
 @property (strong, nonatomic) NSString *currentStatus;
 @property (strong, nonatomic) UIColor *colorCode;
 @property (strong, nonatomic) NSString *timeStamp;
-
+@property(strong,nonatomic)NSString *details;
 @end

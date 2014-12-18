@@ -732,13 +732,13 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Co-vf-3h7">
-                                <rect key="frame" x="160" y="0.0" width="160" height="568"/>
+                                <rect key="frame" x="320" y="64" width="160" height="455"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7Us-rl-q5p">
-                                        <rect key="frame" x="0.0" y="71" width="160" height="568"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7Us-rl-q5p">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="455"/>
                                         <color key="backgroundColor" red="0.20388035220994472" green="0.0016314645393038353" blue="0.01662277518887147" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fCQ-Ox-oKh">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="fCQ-Ox-oKh">
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fCQ-Ox-oKh" id="ni1-uC-Hzi">
                                                     <autoresizingMask key="autoresizingMask"/>
@@ -757,27 +757,43 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="zx0-ax-jo4" id="TMn-ma-uXa"/>
+                                            <outlet property="delegate" destination="zx0-ax-jo4" id="Gcj-5C-i43"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="aPs-Dg-kDw"/>
+                                    <constraint firstItem="7Us-rl-q5p" firstAttribute="leading" secondItem="5Co-vf-3h7" secondAttribute="leading" id="e2z-kj-H4p"/>
+                                    <constraint firstAttribute="bottom" secondItem="7Us-rl-q5p" secondAttribute="bottom" id="iuN-YD-CMG"/>
+                                    <constraint firstItem="7Us-rl-q5p" firstAttribute="top" secondItem="5Co-vf-3h7" secondAttribute="top" id="pHl-oL-sKd"/>
+                                    <constraint firstAttribute="trailing" secondItem="7Us-rl-q5p" secondAttribute="trailing" id="tfe-E3-ezs"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5Co-vf-3h7" firstAttribute="top" secondItem="GQf-bF-zgb" secondAttribute="top" id="1yR-QB-zOi"/>
+                            <constraint firstItem="5Co-vf-3h7" firstAttribute="top" secondItem="lJb-Gu-Vzt" secondAttribute="bottom" id="3e8-fW-lFL"/>
                             <constraint firstAttribute="bottom" secondItem="Yho-CY-yPJ" secondAttribute="bottom" id="A9U-ol-bbR"/>
-                            <constraint firstAttribute="bottom" secondItem="5Co-vf-3h7" secondAttribute="bottom" id="AfR-4o-L8s"/>
-                            <constraint firstAttribute="trailing" secondItem="5Co-vf-3h7" secondAttribute="trailing" id="ODQ-8S-zuU"/>
+                            <constraint firstAttribute="trailing" secondItem="5Co-vf-3h7" secondAttribute="trailing" constant="-160" id="ODQ-8S-zuU"/>
                             <constraint firstAttribute="trailing" secondItem="Yho-CY-yPJ" secondAttribute="trailing" id="U2F-pD-ajQ"/>
                             <constraint firstItem="Yho-CY-yPJ" firstAttribute="top" secondItem="GQf-bF-zgb" secondAttribute="top" id="diO-LX-s1b"/>
                             <constraint firstItem="Yho-CY-yPJ" firstAttribute="leading" secondItem="GQf-bF-zgb" secondAttribute="leading" id="ePn-fG-Hy7"/>
+                            <constraint firstItem="Asj-dG-G20" firstAttribute="top" secondItem="5Co-vf-3h7" secondAttribute="bottom" id="oBR-gN-asf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Nex-X6-DrA"/>
+                    <navigationItem key="navigationItem" id="Nex-X6-DrA">
+                        <barButtonItem key="rightBarButtonItem" image="FilterBarIcon" id="Hfl-DY-YGz">
+                            <connections>
+                                <action selector="filterButtonPressed:" destination="zx0-ax-jo4" id="eq2-zW-T8e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="filterSliderTrailingConst" destination="ODQ-8S-zuU" id="alm-o3-mrC"/>
+                        <outlet property="filterTableView" destination="7Us-rl-q5p" id="n3u-8Z-GJE"/>
                         <outlet property="tableViewOutlet" destination="Yho-CY-yPJ" id="ebv-Q6-C5T"/>
                     </connections>
                 </viewController>
@@ -2300,6 +2316,7 @@
         <image name="BadgeIcon" width="20" height="20"/>
         <image name="Clock" width="16" height="16"/>
         <image name="FeatureWillBeComingSoonImage" width="175" height="89"/>
+        <image name="FilterBarIcon" width="30" height="30"/>
         <image name="HeadPhoneSmallimage" width="20" height="20"/>
         <image name="HouseTabIcon" width="30" height="26"/>
         <image name="MessageIcon" width="64" height="64"/>
