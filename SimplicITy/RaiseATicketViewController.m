@@ -25,6 +25,9 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
+@property (weak, nonatomic) IBOutlet UIView *tipViewOutlet;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
 
 @end
 
@@ -39,6 +42,15 @@
     arrOfcolur = @[[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
     self.textView.placeholder = @"Describe you request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        self.title = @"Order";
+        self.tipViewOutlet.hidden = YES;
+        self.CategoryTitleOutlet.text = @"Items";
+        self.selectedCategorylabel.text = @"Select a item";
+        self.navigationItem.leftBarButtonItems = @[];
+    }
     
 }
 

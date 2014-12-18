@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -605,13 +605,16 @@
                         <barButtonItem key="rightBarButtonItem" image="SubmitTickimage" id="A2e-OJ-MOh"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="CategoryTitleOutlet" destination="Rxt-rL-4Is" id="Jy2-Ak-C3C"/>
                         <outlet property="alphaViewOutLet" destination="yJc-ds-KaO" id="048-b6-uwD"/>
+                        <outlet property="listBarBtnOutlet" destination="zkL-pk-DCX" id="fwd-dG-xCM"/>
                         <outlet property="pickerContainerViewOutlet" destination="SUK-Ae-8nf" id="ffZ-a4-FG9"/>
                         <outlet property="pickerViewOutlet" destination="TJh-qZ-sED" id="q9p-aF-95p"/>
                         <outlet property="scrollView" destination="K2N-rr-bTX" id="oNn-dN-IpF"/>
                         <outlet property="selectedCategorylabel" destination="G0p-fX-K0m" id="S8a-zy-tv2"/>
                         <outlet property="tableViewOutlet" destination="KT6-b5-NJD" id="ns5-Wd-Qzo"/>
                         <outlet property="textView" destination="V8t-sV-3fi" id="oGg-4A-gjH"/>
+                        <outlet property="tipViewOutlet" destination="rIZ-hO-NqW" id="ZHB-Zs-3Fo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GG2-oL-4ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1479,15 +1482,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TUB-ry-69l">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TUB-ry-69l">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="Poo-z1-6ts">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Poo-z1-6ts" id="DDI-ty-J4W">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F3S-Hb-D5B">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEl-Dd-bnU">
                                                     <rect key="frame" x="8" y="0.0" width="304" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1495,6 +1502,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="F3S-Hb-D5B" secondAttribute="bottom" constant="1" id="93f-Pf-E5c"/>
+                                                <constraint firstItem="F3S-Hb-D5B" firstAttribute="top" secondItem="DDI-ty-J4W" secondAttribute="top" id="AG6-yH-a5U"/>
+                                                <constraint firstItem="F3S-Hb-D5B" firstAttribute="leading" secondItem="DDI-ty-J4W" secondAttribute="leading" id="bfC-lc-BcG"/>
+                                                <constraint firstAttribute="trailing" secondItem="F3S-Hb-D5B" secondAttribute="trailing" id="fiv-89-Dgm"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.90980392160000001" green="0.98039215690000003" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
@@ -1865,7 +1878,7 @@
                                 <action selector="cancelBtnPressed:" destination="0UQ-df-faO" id="w7r-83-v3B"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="ggW-NE-pQy">
+                        <barButtonItem key="rightBarButtonItem" title="Apply" id="ggW-NE-pQy">
                             <connections>
                                 <action selector="doneBtnPressed:" destination="0UQ-df-faO" id="awK-Jx-Hty"/>
                             </connections>

@@ -10,4 +10,9 @@
 
 @interface RaiseATicketViewController : CustomColoredViewController
 
+{
+    
+}
+@property (strong,nonatomic)NSString *orderDiffer;
+
 @end
