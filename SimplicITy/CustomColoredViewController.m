@@ -24,36 +24,74 @@
     [super viewWillAppear:YES];
 
     
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    {
         case 0:
-        {
             self.view.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
-
-        }
             break;
+            
         case 1:
-        {
-            self.view.backgroundColor = [UIColor colorWithRed:.5 green:.55 blue:.55 alpha:1];
-        }
+            self.view.backgroundColor = [UIColor colorWithRed:.96 green:.67 blue:.53 alpha:1];
             break;
+            
         case 2:
-        {
-            self.view.backgroundColor = [UIColor colorWithRed:.52 green:.4 blue:.6 alpha:1];
-
-        }
+            self.view.backgroundColor = [UIColor colorWithRed:.86 green:.43 blue:.58 alpha:1];
             break;
+            
         case 3:
-        {
-            self.view.backgroundColor = [UIColor colorWithRed:1 green:.8 blue:.4 alpha:1];
-
-        }
+            self.view.backgroundColor = [UIColor colorWithRed:.73 green:.82 blue:.58 alpha:1];
             break;
-            
-            
         default:
             break;
     }
 }
+
+- (NSString *)stingForColorTheme
+{
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+        case 0:
+            return @"Blue";
+
+            break;
+        case 1:
+            return @"Tonys Pink";
+            break;
+        case 2:
+            return @"Pale Voilet Red";
+            break;
+        case 3:
+            return @"Sprout";
+            break;
+        default:
+            break;
+    }
+    
+    return nil;
+}
+
+- (UIColor *)barColorForIndex:(NSInteger)index
+{
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+        case 0:
+            return [UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1];
+            
+            break;
+        case 1:
+            return [UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1];
+            break;
+        case 2:
+            return [UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1];
+            break;
+        case 3:
+            return [UIColor colorWithRed:.55 green:.7 blue:.31 alpha:1];
+            break;
+        default:
+            break;
+    }
+    
+    return nil;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

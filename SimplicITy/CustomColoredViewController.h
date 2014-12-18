@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CustomColoredViewController : UIViewController
+- (NSString *)stingForColorTheme;
+- (UIColor *)barColorForIndex:(NSInteger)index;
 
 @end

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfThemesData = @[@"Blue",@"Granny Smith",@"French Lilac",@"Orange Yellow"];
+    arrOfThemesData = @[@"Blue",@"Tonys Pink",@"Pale Voilet Red",@"Sprout"];
     
     selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
 
@@ -43,8 +43,13 @@
     
     [[ NSUserDefaults standardUserDefaults] setInteger:selectedRow forKey:@"BackgroundTheme"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[UITabBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];
+    [[UINavigationBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];
+    [self.delegate selectedThemeIs:arrOfThemesData[selectedRow]];
 
 }
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

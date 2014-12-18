@@ -14,11 +14,15 @@
 @interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+@property (weak, nonatomic) IBOutlet UITableView *filterTableView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterSliderTrailingConst;
 @end
 
 @implementation TicketsListViewController
 {
     NSMutableArray *arrayOfData;
+    BOOL filterIsShown;
 }
 
 - (void)viewDidLoad
@@ -28,6 +32,8 @@
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
     
+    filterIsShown = NO;
+    self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -36,6 +42,29 @@
     TicketDetailViewController *ticketDeteilVC = segue.destinationViewController;
     TicketModel *ticket = arrayOfData[indexPath.row];
     ticketDeteilVC.tickModel = ticket;
+}
+- (IBAction)filterButtonPressed:(UIBarButtonItem *)sender
+{
+    CGFloat constraintValue = 0.0;
+    
+    if (filterIsShown)
+    {
+        constraintValue = -self.filterTableView.frame.size.width;
+    }
+
+    [UIView animateWithDuration:.3
+                          delay:0
+                        options:(UIViewAnimationOptionBeginFromCurrentState)
+                     animations:^{
+                         
+                         self.filterSliderTrailingConst.constant = constraintValue;
+                         [self.view layoutIfNeeded];
+                         
+                     } completion:^(BOOL finished) {
+                         
+                     }];
+    
+    filterIsShown = ~filterIsShown;
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,13 +75,28 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [arrayOfData count];
+    if ([tableView isEqual:self.tableViewOutlet])
+    {
+        return [arrayOfData count];
+    }
+    
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TicketsListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    cell.ticketModel = arrayOfData[indexPath.row];
+    UITableViewCell *cell;
+    if ([tableView isEqual:self.tableViewOutlet])
+    {
+        TicketsListCell *ticketCell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        ticketCell.ticketModel = arrayOfData[indexPath.row];
+        cell = ticketCell;
+        
+    }else if ([tableView isEqual:self.filterTableView])
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    }
+
     
     return cell;
 }
@@ -74,9 +118,6 @@
 
 - (void)setUpData
 {
-   
-    
-    
     TicketModel *ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Provide VPN access";
     ticket.agentName = @"Jonathan";
@@ -85,10 +126,7 @@
     ticket.timeStamp = @"7 m";
     ticket.details=@"Please install the VPN software on my laptop. Please enable it ASAP.";
     [arrayOfData addObject:ticket];
-    
 
-    
-    
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Internet is very slow";
     ticket.agentName = @"Jim";
@@ -99,7 +137,6 @@
     
     [arrayOfData addObject:ticket];
 
-    
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"My leave application password been expired and unable to reset it ";
     ticket.agentName = @"Irene";
@@ -112,7 +149,7 @@
     
     
     ticket = [[TicketModel alloc] init];
-    ticket.ticketSubject = @"VPN is not accessible outside work";
+    ticket.ticketSubject = @"VPN is not accessible outside network";
     ticket.agentName = @"Christina";
     ticket.currentStatus = @"#7, Overdue by 3 days";
     ticket.colorCode = [UIColor yellowColor];
