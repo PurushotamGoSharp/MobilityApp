@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
+@property (weak, nonatomic) IBOutlet UIView *sliderView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterSliderTrailingConst;
 @end
@@ -57,16 +58,32 @@
     {
         hideFilterControl = [[UIControl alloc] initWithFrame:self.view.frame];
         [hideFilterControl addTarget:self action:@selector(hideFilter:) forControlEvents:(UIControlEventTouchDown)];
+        hideFilterControl.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
     if (filterIsShown)
     {
         constraintValue = -self.filterTableView.frame.size.width;
-        [self.view addSubview:hideFilterControl];
-        [self.view bringSubviewToFront:self.filterTableView];
+        [hideFilterControl removeFromSuperview];
     }else
     {
-        [hideFilterControl removeFromSuperview];
+        [self.view addSubview:hideFilterControl];
+        
+//Adding constaint for hideview so that all sides are fixed to view edges so it will grow as view grows
+        NSDictionary *viewsDict = NSDictionaryOfVariableBindings(hideFilterControl);
+        NSArray *constaints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[hideFilterControl]|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:viewsDict];
+        [self.view addConstraints:constaints];
+        
+        constaints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[hideFilterControl]|"
+                                                             options:0
+                                                             metrics:nil
+                                                               views:viewsDict];
+        [self.view addConstraints:constaints];
+        
+        [self.view bringSubviewToFront:self.sliderView];
     }
 
     [UIView animateWithDuration:.3
@@ -90,7 +107,19 @@
 
 - (void)hideFilter:(UIControl *)hideControl
 {
-    
+    filterIsShown = NO;
+    [UIView animateWithDuration:.3
+                          delay:0
+                        options:(UIViewAnimationOptionBeginFromCurrentState)
+                     animations:^{
+                         
+                         self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
+                         [self.view layoutIfNeeded];
+                         [hideFilterControl removeFromSuperview];
+
+                     } completion:^(BOOL finished) {
+                         
+                     }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,6 +155,10 @@
         
         UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
         countlabel.text = arrayOfNo[indexPath.row];
+
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
+        [cell setSelectedBackgroundView:bgColorView];
     }
 
     
@@ -134,7 +167,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([tableView isEqual:self.tableViewOutlet])
+    {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 /*
