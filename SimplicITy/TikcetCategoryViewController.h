@@ -16,6 +16,8 @@
 
 @interface TikcetCategoryViewController : CustomColoredViewController
 
+@property (strong, nonatomic)NSString *orderItemDiffer;
+
 @property (weak, nonatomic) id <TicketCategoryDelegate> delegate;
 
 @end
