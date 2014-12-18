@@ -29,7 +29,6 @@
     arrOfThemesData = @[@"Blue",@"Granny Smith",@"French Lilac",@"Orange Yellow"];
     
     selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 
 }
 - (IBAction)cancelBtnPressed:(id)sender

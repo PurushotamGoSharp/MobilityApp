@@ -14,14 +14,21 @@
 
 @implementation TikcetCategoryViewController
 {
-    NSArray *arrayofData;
+    NSArray *arrayofData ,*arrayofTips;
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrayofData = @[@"Provide VPN access",@"Internet is very slow",@"My leave application password been expired and unable to reset it ",@"VPN is not accessible outside work",@"Cannot download any file to my desktop",@"Unable to make any outside call from my desk phone",@"Unable to access my office email",@"I'm unacle to connect my console to internet",@"Unable to track package",@"Do you ship perishables to Schmaltzburg?"];
+//    arrayofData = @[@"Provide VPN access",@"Internet is very slow",@"My leave application password been expired and unable to reset it ",@"VPN is not accessible outside work",@"Cannot download any file to my desktop",@"Unable to make any outside call from my desk phone",@"Unable to access my office email",@"I'm unable to connect my console to internet",@"Unable to track package",@"Do you ship perishables to Schmaltzburg?"];
+    
+    arrayofData = @[@"Provide VPN access",@"Internet is very slow",@"My leave application password been expired and unable to reset it ",@"VPN is not accessible outside work",@"Cannot download any file to my desktop",@"Unable to make any outside call from my desk phone",@"Unable to access my office email"];
+
+    arrayofTips=@[@"Cannot do anything.Need IS help.So no tips",@"Please try to disconnect the internet and then reconnect it.",@"Please try to select the “Forget Password” link and enter your email address.",@" Please try to reinstall the VPN software.",@"Can you please close all the open browsers? Open a new browser and try downloading the file.",@"Please add the #9 before the dialling number for the external calls.",@" Please click on the “Forget Password” link and enter the email address to reset your password."];
+
+
 
 }
 - (IBAction)cancelBtnAction:(id)sender
