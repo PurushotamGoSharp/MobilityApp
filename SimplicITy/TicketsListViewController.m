@@ -23,6 +23,9 @@
 {
     NSMutableArray *arrayOfData;
     BOOL filterIsShown;
+    NSArray *arrayForStatus, *arrayOfNo;
+    
+    UIControl *hideFilterControl;
 }
 
 - (void)viewDidLoad
@@ -31,6 +34,9 @@
     // Do any additional setup after loading the view.
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
+    
+    arrayForStatus = @[@"Open", @"Assigned", @"Pending", @"Closed"];
+    arrayOfNo = @[@"3", @"1", @"2", @"4"];
     
     filterIsShown = NO;
     self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
@@ -47,9 +53,20 @@
 {
     CGFloat constraintValue = 0.0;
     
+    if (!hideFilterControl)
+    {
+        hideFilterControl = [[UIControl alloc] initWithFrame:self.view.frame];
+        [hideFilterControl addTarget:self action:@selector(hideFilter:) forControlEvents:(UIControlEventTouchDown)];
+    }
+    
     if (filterIsShown)
     {
         constraintValue = -self.filterTableView.frame.size.width;
+        [self.view addSubview:hideFilterControl];
+        [self.view bringSubviewToFront:self.filterTableView];
+    }else
+    {
+        [hideFilterControl removeFromSuperview];
     }
 
     [UIView animateWithDuration:.3
@@ -62,9 +79,18 @@
                          
                      } completion:^(BOOL finished) {
                          
+                         if (!filterIsShown)
+                         {
+                         }
+                         
                      }];
     
     filterIsShown = ~filterIsShown;
+}
+
+- (void)hideFilter:(UIControl *)hideControl
+{
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,7 +106,7 @@
         return [arrayOfData count];
     }
     
-    return 4;
+    return [arrayForStatus count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,6 +121,11 @@
     }else if ([tableView isEqual:self.filterTableView])
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        UILabel *statusLabel = (UILabel *)[cell viewWithTag:101];
+        statusLabel.text = arrayForStatus[indexPath.row];
+        
+        UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
+        countlabel.text = arrayOfNo[indexPath.row];
     }
 
     
