@@ -12,6 +12,7 @@
 {
     NSArray *arrayOfImages, *arrayOfDatas;
 }
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -21,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrayOfDatas = @[ @"Lync Connection checker", @"Web Clips", @"AD Expiration Date", @"Survey"];
+    arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"AD Expiration Date", @"Survey"];
         
     arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
     
@@ -33,15 +34,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([self.tableView indexPathForSelectedRow].row == 3)
+//    {
+//        UIViewController *cont =
+//    }
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

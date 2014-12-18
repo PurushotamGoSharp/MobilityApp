@@ -51,7 +51,13 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://products.office.com/en/lync/"]];
+    if (indexPath.item == 0)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://products.office.com/en/lync/"]];
+    }else
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.sap.com/index.html"]];
+    }
 }
 
 /*

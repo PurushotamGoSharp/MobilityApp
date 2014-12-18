@@ -42,7 +42,7 @@
     
     arrOfPickerViewData = @[@"Low",@"Medium",@"High",@"Critical"];
     arrOfcolur = @[[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
-    self.textView.placeholder = @"Describe you request here.";
+    self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
