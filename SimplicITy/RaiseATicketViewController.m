@@ -53,17 +53,19 @@
         self.selectedCategorylabel.text = @"Select a item";
         self.navigationItem.leftBarButtonItems = @[];
     }
-    self.bulbImgOutlet.animationImages =
-    [NSArray arrayWithObjects:[UIImage imageNamed:@"Tips"],[UIImage imageNamed:@"bulb"],nil];
-    self.bulbImgOutlet.animationDuration = 1;
-    self.bulbImgOutlet.animationRepeatCount = 200;
-    [self.bulbImgOutlet startAnimating];
+
     
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.bulbImgOutlet.animationImages =
+    [NSArray arrayWithObjects:[UIImage imageNamed:@"Tips"],[UIImage imageNamed:@"bulb"],nil];
+    self.bulbImgOutlet.animationDuration = 1;
+    self.bulbImgOutlet.animationRepeatCount = 1000;
+    [self.bulbImgOutlet startAnimating];
     
     self.alphaViewOutLet.hidden = YES;
     self.pickerContainerViewOutlet.hidden = YES;

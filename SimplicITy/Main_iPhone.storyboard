@@ -534,11 +534,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aj2-oD-YoY">
                                 <rect key="frame" x="0.0" y="479" width="320" height="40"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Tips" translatesAutoresizingMaskIntoConstraints="NO" id="bYM-Qm-8J6">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tips" translatesAutoresizingMaskIntoConstraints="NO" id="bYM-Qm-8J6">
                                         <rect key="frame" x="3" y="5" width="30" height="30"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips will be available here for selected category" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eO1-rn-FCl">
-                                        <rect key="frame" x="34" y="12" width="265" height="15"/>
+                                        <rect key="frame" x="34" y="17" width="265" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -561,14 +561,14 @@
                                 <rect key="frame" x="49" y="194" width="222" height="180"/>
                                 <subviews>
                                     <pickerView contentMode="left" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJh-qZ-sED">
-                                        <rect key="frame" x="-49" y="-194" width="320" height="162"/>
+                                        <rect key="frame" x="8" y="-6" width="200" height="140"/>
                                         <connections>
                                             <outlet property="dataSource" destination="Nvl-He-eXA" id="3v8-fc-DdW"/>
                                             <outlet property="delegate" destination="Nvl-He-eXA" id="Jem-II-OUn"/>
                                         </connections>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MP7-sg-K1O">
-                                        <rect key="frame" x="-49" y="-194" width="37" height="30"/>
+                                        <rect key="frame" x="93" y="140" width="37" height="30"/>
                                         <state key="normal" title="Done">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
