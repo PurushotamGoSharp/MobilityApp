@@ -76,6 +76,9 @@
     }else if (indexPath.row == 1)
     {
         [self performSegueWithIdentifier:@"toolsToWebClipVCSegue" sender:nil];
+    }else if (indexPath.row == 3)
+    {
+        [self performSegueWithIdentifier:@"toolsToSurveySegue" sender:nil];
     }
 }
 
