@@ -101,7 +101,7 @@
     }
     else if (indexPath.section == 2)
     {
-        titleLable.text = @"Describtion...";
+        titleLable.text = self.tickModel.details;
         rightTable.hidden = YES;
         titleLable.textColor = [UIColor grayColor];
 

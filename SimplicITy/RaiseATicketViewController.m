@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIView *tipViewOutlet;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *tipsLableOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
 
 @end
 
@@ -51,6 +53,11 @@
         self.selectedCategorylabel.text = @"Select a item";
         self.navigationItem.leftBarButtonItems = @[];
     }
+    self.bulbImgOutlet.animationImages =
+    [NSArray arrayWithObjects:[UIImage imageNamed:@"Tips"],[UIImage imageNamed:@"Tips1"],nil];
+    self.bulbImgOutlet.animationDuration = 1;
+    self.bulbImgOutlet.animationRepeatCount = 200;
+    [self.bulbImgOutlet startAnimating];
     
 }
 
@@ -269,4 +276,8 @@
     self.selectedCategorylabel.textColor = [UIColor blackColor];
 }
 
+-(void)selectedTips:(NSString *)tip
+{
+    self.tipsLableOutlet.text = tip;
+}
 @end

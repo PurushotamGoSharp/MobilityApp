@@ -11,6 +11,7 @@
 @protocol TicketCategoryDelegate <NSObject>
 
 - (void)selectedTicket:(NSString *)tickt;
+-(void)selectedTips:(NSString *)tip;
 
 @end
 
