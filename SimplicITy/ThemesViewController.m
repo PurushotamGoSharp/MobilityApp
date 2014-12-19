@@ -39,7 +39,6 @@
 }
 - (IBAction)doneBtnPressed:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
     
     [[ NSUserDefaults standardUserDefaults] setInteger:selectedRow forKey:@"BackgroundTheme"];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -47,6 +46,8 @@
     [[UITabBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];
     [[UINavigationBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];
     [self.delegate selectedThemeIs:arrOfThemesData[selectedRow]];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 
 }
 
