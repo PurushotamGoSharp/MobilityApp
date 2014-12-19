@@ -66,7 +66,7 @@
                                     <constraint firstAttribute="width" constant="320" id="U2E-f3-Sx2"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SimplicityLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6fB-mg-hKW">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="SimplicityLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6fB-mg-hKW">
                                 <rect key="frame" x="46" y="103" width="229" height="79"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="999" constant="79" id="DDQ-fh-a6o"/>
@@ -491,16 +491,16 @@
                                             <constraint firstAttribute="height" constant="350" id="EU7-kv-GKD"/>
                                             <constraint firstAttribute="trailing" secondItem="Mz2-sn-qHr" secondAttribute="trailing" constant="1" id="HSg-X9-axu"/>
                                             <constraint firstItem="Mz2-sn-qHr" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="-1" id="KIQ-qJ-O8N"/>
-                                            <constraint firstItem="G0p-fX-K0m" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="12" id="NOX-1p-lbj"/>
                                             <constraint firstAttribute="trailing" secondItem="KT6-b5-NJD" secondAttribute="trailing" constant="1" id="V09-3n-h8W"/>
                                             <constraint firstAttribute="bottom" secondItem="KT6-b5-NJD" secondAttribute="bottom" constant="251" id="bp4-ii-OeP"/>
                                             <constraint firstAttribute="trailing" secondItem="NeB-x9-9b8" secondAttribute="trailing" constant="8" id="h3n-h6-GpK"/>
+                                            <constraint firstItem="G0p-fX-K0m" firstAttribute="top" secondItem="Mz2-sn-qHr" secondAttribute="top" constant="10" id="hdd-Wd-tXR"/>
                                             <constraint firstItem="NeB-x9-9b8" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="7" id="ipX-my-v6J"/>
-                                            <constraint firstItem="pf2-GF-SyE" firstAttribute="top" secondItem="G0p-fX-K0m" secondAttribute="bottom" constant="31" id="kEP-v2-nfT"/>
                                             <constraint firstItem="pf2-GF-SyE" firstAttribute="top" secondItem="Mz2-sn-qHr" secondAttribute="bottom" constant="14" id="kX2-KF-9U2"/>
                                             <constraint firstItem="Mz2-sn-qHr" firstAttribute="top" secondItem="Rxt-rL-4Is" secondAttribute="bottom" constant="7" id="lPh-4v-JoZ"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="G0p-fX-K0m" secondAttribute="trailing" constant="10" id="lVQ-8J-ug0"/>
                                             <constraint firstItem="pf2-GF-SyE" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="8" id="mDt-dI-XhV"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="G0p-fX-K0m" secondAttribute="trailing" constant="10" id="ohT-qB-t3E"/>
+                                            <constraint firstItem="G0p-fX-K0m" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="12" id="psa-Lk-1pM"/>
                                             <constraint firstItem="Rxt-rL-4Is" firstAttribute="top" secondItem="KT6-b5-NJD" secondAttribute="bottom" constant="13" id="tHt-J3-MF1"/>
                                             <constraint firstItem="KT6-b5-NJD" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="-1" id="zcR-WR-oFp"/>
                                         </constraints>

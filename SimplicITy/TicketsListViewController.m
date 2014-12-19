@@ -263,7 +263,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Cannot download any file to my desktop";
     ticket.agentName = @"Monica";
-    ticket.currentStatus = @"#65676, Waiting for the customer reply for 2 days";
+    ticket.currentStatus = @"#65676, in progress";
     ticket.colorCode = [UIColor redColor];
     ticket.timeStamp = @"1 d";
     ticket.details = @"It is restricting me from downloading any email attachment. Can you please grant me the access?";
