@@ -26,9 +26,9 @@
     
 //    arrayofData = @[@"Provide VPN access",@"Internet is very slow",@"My leave application password been expired and unable to reset it ",@"VPN is not accessible outside work",@"Cannot download any file to my desktop",@"Unable to make any outside call from my desk phone",@"Unable to access my office email",@"I'm unable to connect my console to internet",@"Unable to track package",@"Do you ship perishables to Schmaltzburg?"];
     
-    arrayofData = @[@"Provide VPN access",@"Internet is very slow",@"My leave application password been expired and unable to reset it ",@"VPN is not accessible outside work",@"Cannot download any file to my desktop",@"Unable to make any outside call from my desk phone",@"Unable to access my office email"];
+    arrayofData = @[@"Provide VPN access",@"Internet is very slow",@"My leave application password has expired and I am not able to reset it ",@"VPN is not accessible outside UCB network",@"Cannot download any file to my desktop",@"Unable to make any outside call from my DeskPhone",@"Unable to access my Office email",@"Need permission to raise an Order in ITSM",@"Unable to setup Lync Meeting",@"Others"];
 
-    arrayofTips=@[@"Cannot do anything.Need IS help.So no tips",@"Please try to disconnect the internet and then reconnect it.",@"Please try to select the “Forget Password” link and enter your email address.",@" Please try to reinstall the VPN software.",@"Open a new browser and try downloading the file.",@"Please add the #9 before the dialling number for the external calls.",@" Please click on the “Forget Password” link and enter the email address to reset your password."];
+    arrayofTips=@[@"Cannot do anything.Need IS help.So no tips",@"Please try to disconnect the internet and then reconnect it.",@"Please try to select the “Forget Password” link and enter your email address.",@" Please try to reinstall the VPN software.",@"Open a new browser and try downloading the file.",@"Please add the #9 before the dialling number for the external calls.",@" Please click on the “Forget Password” link and enter the email address to reset your password.",@"Get approval from your manager",@"Use connection checker tool",@""];
     
      arrOfDataForItems = @[@"Wireless mouse",@"Headphone",@"Laptop Charger",@"iOS device"];
 
@@ -85,16 +85,12 @@
     {
         [self.delegate selectedTicket:arrOfDataForItems[indexPath.row]];
     }else{
-        [self.delegate selectedTicket:arrayofData[indexPath.row]];
         [self.delegate selectedTips:arrayofTips[indexPath.row]];
-
+        [self.delegate selectedTicket:arrayofData[indexPath.row]];
     }
-    
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
-    
-    
 }
 
 /*
