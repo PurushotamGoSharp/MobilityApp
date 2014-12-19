@@ -36,13 +36,8 @@
     
     [self.textView1 setFont:[UIFont systemFontOfSize:15]];
     [self.textView2 setFont:[UIFont systemFontOfSize:15]];
-
+    
     if (self.index == 0)
-    {
-        self.textView1.text = self.textToDisplay;
-        self.viewAtIndex0.hidden = NO;
-        self.viewAtIndex1.hidden = YES;
-    }else
     {
         self.textView2.text = self.textToDisplay;
         self.viewAtIndex0.hidden = YES;
@@ -58,12 +53,18 @@
             [self.videoController.view setFrame:CGRectMake(0, 50, 320, 160)];
             self.videoController.controlStyle = MPMovieControlStyleEmbedded;
             self.videoController.fullscreen = NO;
-            [self.videoController prepareToPlay];
-
-            [self.view addSubview:self.videoController.view];
             
+            [self.viewAtIndex1 addSubview:self.videoController.view];
+            [self.viewAtIndex1 bringSubviewToFront:self.playButton];
+            self.playButton.hidden = NO;
         }
-
+        
+    }else
+    {
+        self.textView1.text = self.textToDisplay;
+        self.viewAtIndex0.hidden = NO;
+        self.viewAtIndex1.hidden = YES;
+        
     }
 }
 
@@ -71,6 +72,7 @@
 {
     self.playButton.hidden = YES;
     NSLog(@"%hhd", self.videoController.isPreparedToPlay);
+    [self.videoController prepareToPlay];
     [self.videoController play];
 }
 
