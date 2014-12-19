@@ -193,7 +193,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = nil;
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"] && indexPath.row == 1)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
+        UISlider *sliderOutlet = (UISlider *)[cell viewWithTag:300];
+        [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
+        return cell;
+    }else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    }
+    
     UILabel *header = (UILabel *)[cell viewWithTag:100];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
     
@@ -221,6 +233,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        return;
+    }
+    
     if (indexPath.row == 1)
     {
         self.alphaViewOutLet.hidden = NO;
@@ -235,15 +252,15 @@
             
         }];
     }
-    
-}
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        return 72;
+    }
+    
     return 44;
 }
 
@@ -274,4 +291,25 @@
 {
     self.tipsLableOutlet.text = tip;
 }
+
+- (void)sliderValueChanged:(UISlider *)slider
+{
+    slider.value = roundf(slider.value);
+    
+    if (slider.value == 3 )
+    {
+        [slider setTintColor:([UIColor redColor])];
+
+    }else if (slider.value == 2)
+    {
+        [slider setTintColor:([UIColor orangeColor])];
+        
+    }if (slider.value == 1)
+    {
+        [slider setTintColor:([UIColor yellowColor])];
+    }
+}
+
+
+
 @end

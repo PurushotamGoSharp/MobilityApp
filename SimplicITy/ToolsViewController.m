@@ -78,10 +78,16 @@
     }else if (indexPath.row == 1)
     {
         [self performSegueWithIdentifier:@"toolsToWebClipVCSegue" sender:nil];
-    }else if (indexPath.row == 3 || indexPath.row == 2)
+    }else if (indexPath.row == 3)
     {
         [self performSegueWithIdentifier:@"toolsToSurveySegue" sender:nil];
+    }else if (indexPath.row == 2)
+    {
+        [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
     }
+
+
+
 }
 
 @end
