@@ -25,6 +25,11 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
+@property (weak, nonatomic) IBOutlet UIView *tipViewOutlet;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *tipsLableOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
 
 @end
 
@@ -37,14 +42,33 @@
     
     arrOfPickerViewData = @[@"Low",@"Medium",@"High",@"Critical"];
     arrOfcolur = @[[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
-    self.textView.placeholder = @"Describe you request here.";
+    self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        self.title = @"Order";
+        self.tipViewOutlet.hidden = YES;
+        self.CategoryTitleOutlet.text = @"Items";
+        self.selectedCategorylabel.text = @"Select a item";
+        self.navigationItem.leftBarButtonItems = @[];
+    }
+
+    
+    
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.bulbImgOutlet.animationImages =
+    [NSArray arrayWithObjects:[UIImage imageNamed:@"alert_tip"],[UIImage imageNamed:@"alert_tip1"],nil];
+    self.bulbImgOutlet.animationDuration = 1;
+    self.bulbImgOutlet.animationRepeatCount = 1000;
+    [self.bulbImgOutlet startAnimating];
     
     self.alphaViewOutLet.hidden = YES;
     self.pickerContainerViewOutlet.hidden = YES;
@@ -72,7 +96,6 @@
 
     [self.view endEditing:YES];
 }
-
 - (IBAction)doneBtnAction:(id)sender
 {
     [UIView animateWithDuration:0.3 animations:^{
@@ -92,9 +115,6 @@
     colourForRect.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
 
 }
-
-
-
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     if (self.scrollView.contentOffset.y <= 00)
@@ -138,7 +158,8 @@
         containerView.frame = CGRectMake(0, 0, self.pickerViewOutlet.frame.size.width, 30);
         
         viewForImage = [[UIView alloc] init];
-        viewForImage.frame = CGRectMake(10, 0, 40, 30);
+        viewForImage.frame = CGRectMake(10, 5, 20, 20);
+        viewForImage.layer.cornerRadius = 10;
         
         viewForLable = [[UILabel alloc] init];
         viewForLable.frame = CGRectMake(60,0, 100, 30);
@@ -185,14 +206,12 @@
     {
         header.text = @"Requester";
         lable.text = @"Jean-Pierre";
-
     }else
     {
         header.text = @"Impact";
         lable.text = @"Low";
         colourForline.backgroundColor = [UIColor greenColor];
         colourForRect.backgroundColor = [UIColor greenColor];
-    
     }
     
     return cell;
@@ -215,13 +234,9 @@
         {
             
         }];
-        
     }
     
 }
-
-
-
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
@@ -242,6 +257,10 @@
         UINavigationController *navController = segue.destinationViewController;
         TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
         ticketCategoryVC.delegate = self;
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+            ticketCategoryVC.orderItemDiffer = @"orderItemsData";
+        }
     }
 }
 
@@ -251,4 +270,8 @@
     self.selectedCategorylabel.textColor = [UIColor blackColor];
 }
 
+-(void)selectedTips:(NSString *)tip
+{
+    self.tipsLableOutlet.text = tip;
+}
 @end

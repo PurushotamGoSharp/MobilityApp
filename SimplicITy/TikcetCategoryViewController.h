@@ -11,10 +11,13 @@
 @protocol TicketCategoryDelegate <NSObject>
 
 - (void)selectedTicket:(NSString *)tickt;
+-(void)selectedTips:(NSString *)tip;
 
 @end
 
 @interface TikcetCategoryViewController : CustomColoredViewController
+
+@property (strong, nonatomic)NSString *orderItemDiffer;
 
 @property (weak, nonatomic) id <TicketCategoryDelegate> delegate;
 

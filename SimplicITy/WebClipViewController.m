@@ -8,9 +8,9 @@
 
 #import "WebClipViewController.h"
 
-@interface WebClipViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 {
-    NSArray *tableViewData;
+    NSArray *tableViewData, *arrayOfImages;
 }
 
 @end
@@ -22,6 +22,7 @@
     // Do any additional setup after loading the view.
     
     tableViewData = @[@"Reset Lync Password",@"Reset SAP Password"];
+    arrayOfImages = @[@"LyncWebClipIcon", @"SAPWebClipIcon"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,32 +30,34 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark UITableViewDataSource methods
+#pragma mark UICollectionViewDataSource methods
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [tableViewData count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    UILabel *titlelable = (UILabel *)[cell viewWithTag:200];
+    UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
     titlelable.text = tableViewData[indexPath.row];
+    
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
+    imageView.image = [UIImage imageNamed:arrayOfImages[indexPath.row]];
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://products.office.com/en/lync/"]];
+    if (indexPath.item == 0)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://products.office.com/en/lync/"]];
+    }else
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.sap.com/index.html"]];
+    }
 }
 
 /*

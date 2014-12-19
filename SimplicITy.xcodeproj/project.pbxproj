@@ -30,6 +30,11 @@
 		86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A721A30773800711740 /* TipsCategoryViewController.m */; };
 		86491A761A30817100711740 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A751A30817100711740 /* ToolsViewController.m */; };
 		86491A791A30836C00711740 /* WebClipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86491A781A30836C00711740 /* WebClipViewController.m */; };
+		864E5F6B1A43E3BB00C2542A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864E5F6A1A43E3BB00C2542A /* AVFoundation.framework */; };
+		864E5F6D1A43E3C500C2542A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864E5F6C1A43E3C500C2542A /* MediaPlayer.framework */; };
+		864E5F721A43E77700C2542A /* AirWatch_Video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F6F1A43E75300C2542A /* AirWatch_Video.mp4 */; };
+		864E5F731A43E77700C2542A /* Lync_Video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F701A43E75300C2542A /* Lync_Video.mp4 */; };
+		864E5F741A43E77700C2542A /* WebEx_Video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F711A43E75300C2542A /* WebEx_Video.mp4 */; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
 		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
 		867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */; };
@@ -99,6 +104,11 @@
 		86491A751A30817100711740 /* ToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsViewController.m; sourceTree = "<group>"; };
 		86491A771A30836C00711740 /* WebClipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebClipViewController.h; sourceTree = "<group>"; };
 		86491A781A30836C00711740 /* WebClipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebClipViewController.m; sourceTree = "<group>"; };
+		864E5F6A1A43E3BB00C2542A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		864E5F6C1A43E3C500C2542A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		864E5F6F1A43E75300C2542A /* AirWatch_Video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirWatch_Video.mp4; sourceTree = "<group>"; };
+		864E5F701A43E75300C2542A /* Lync_Video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lync_Video.mp4; sourceTree = "<group>"; };
+		864E5F711A43E75300C2542A /* WebEx_Video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebEx_Video.mp4; sourceTree = "<group>"; };
 		86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
 		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
@@ -141,6 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				864E5F6D1A43E3C500C2542A /* MediaPlayer.framework in Frameworks */,
+				864E5F6B1A43E3BB00C2542A /* AVFoundation.framework in Frameworks */,
 				86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */,
 				86287D1A1A2EE1A500B12893 /* CoreGraphics.framework in Frameworks */,
 				86287D1C1A2EE1A500B12893 /* UIKit.framework in Frameworks */,
@@ -198,6 +210,8 @@
 		86287D161A2EE1A500B12893 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				864E5F6C1A43E3C500C2542A /* MediaPlayer.framework */,
+				864E5F6A1A43E3BB00C2542A /* AVFoundation.framework */,
 				86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */,
 				86287D171A2EE1A500B12893 /* Foundation.framework */,
 				86287D191A2EE1A500B12893 /* CoreGraphics.framework */,
@@ -250,6 +264,7 @@
 				8607051C1A2F147700B9A814 /* CustomTabBar.m */,
 				86CB65331A386F58005FFFE8 /* messageModle.h */,
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
+				864E5F6E1A43E74600C2542A /* Videos */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
 			);
@@ -285,17 +300,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		864E5F6E1A43E74600C2542A /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				864E5F6F1A43E75300C2542A /* AirWatch_Video.mp4 */,
+				864E5F701A43E75300C2542A /* Lync_Video.mp4 */,
+				864E5F711A43E75300C2542A /* WebEx_Video.mp4 */,
+			);
+			name = Videos;
+			sourceTree = "<group>";
+		};
 		86D604391A3ABB5C00E9E9D7 /* Tickets List */ = {
 			isa = PBXGroup;
 			children = (
 				86DC31FD1A39C9C4002AF7A5 /* TicketsListViewController.h */,
 				86DC31FE1A39C9C4002AF7A5 /* TicketsListViewController.m */,
+				867B19B91A40126700462CA4 /* TicketDetailViewController.h */,
+				867B19BA1A40126700462CA4 /* TicketDetailViewController.m */,
 				86DC31FB1A39C9C4002AF7A5 /* TicketsListCell.h */,
 				86DC31FC1A39C9C4002AF7A5 /* TicketsListCell.m */,
 				86D6043A1A3ABBB900E9E9D7 /* TicketModel.h */,
 				86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */,
-				867B19B91A40126700462CA4 /* TicketDetailViewController.h */,
-				867B19BA1A40126700462CA4 /* TicketDetailViewController.m */,
 				86E545861A42A4370027A817 /* SliderView.h */,
 				86E545871A42A4370027A817 /* SliderView.m */,
 				86E545891A42A45E0027A817 /* SliderView.xib */,
@@ -382,6 +407,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				864E5F721A43E77700C2542A /* AirWatch_Video.mp4 in Resources */,
+				864E5F731A43E77700C2542A /* Lync_Video.mp4 in Resources */,
+				864E5F741A43E77700C2542A /* WebEx_Video.mp4 in Resources */,
 				86DC31FA1A39B433002AF7A5 /* Main_iPhone.storyboard in Resources */,
 				86E5458A1A42A45E0027A817 /* SliderView.xib in Resources */,
 				86287D2E1A2EE1A500B12893 /* Main_iPad.storyboard in Resources */,

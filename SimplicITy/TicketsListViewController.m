@@ -15,14 +15,21 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
+@property (weak, nonatomic) IBOutlet UIView *sliderView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterSliderTrailingConst;
+
+@property (strong ,nonatomic)UIRefreshControl *refreshControl;
+
 @end
 
 @implementation TicketsListViewController
 {
     NSMutableArray *arrayOfData;
     BOOL filterIsShown;
+    NSArray *arrayForStatus, *arrayOfNo;
+    
+    UIControl *hideFilterControl;
 }
 
 - (void)viewDidLoad
@@ -32,8 +39,46 @@
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
     
+    arrayForStatus = @[@"Open", @"Assigned", @"Pending", @"Closed"];
+    arrayOfNo = @[@"3", @"1", @"2", @"4"];
+    
     filterIsShown = NO;
     self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor purpleColor];
+    self.refreshControl.tintColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(pull)
+                  forControlEvents:UIControlEventValueChanged];
+    [self.tableViewOutlet  addSubview:self.refreshControl];
+}
+
+-(void)pull
+{
+    
+    [NSThread sleepForTimeInterval:1];
+    [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    
+}
+
+- (void)reloadData
+{
+    // Reload table data
+    [self.tableViewOutlet reloadData];
+    
+    // End the refreshing
+    if (self.refreshControl) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                    forKey:NSForegroundColorAttributeName];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        self.refreshControl.attributedTitle = attributedTitle;
+        [self.refreshControl endRefreshing];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -47,30 +92,81 @@
 {
     CGFloat constraintValue = 0.0;
     
+    if (!hideFilterControl)
+    {
+        hideFilterControl = [[UIControl alloc] initWithFrame:self.view.frame];
+        [hideFilterControl addTarget:self action:@selector(hideFilter:) forControlEvents:(UIControlEventTouchDown)];
+        hideFilterControl.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
     if (filterIsShown)
     {
         constraintValue = -self.filterTableView.frame.size.width;
+        [hideFilterControl removeFromSuperview];
+    }else
+    {
+        [self.view addSubview:hideFilterControl];
+        
+//Adding constaint for hideview so that all sides are fixed to view edges so it will grow as view grows
+        NSDictionary *viewsDict = NSDictionaryOfVariableBindings(hideFilterControl);
+        NSArray *constaints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[hideFilterControl]|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:viewsDict];
+        [self.view addConstraints:constaints];
+        
+        constaints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[hideFilterControl]|"
+                                                             options:0
+                                                             metrics:nil
+                                                               views:viewsDict];
+        [self.view addConstraints:constaints];
+        
+        [self.view bringSubviewToFront:self.sliderView];
     }
 
     [UIView animateWithDuration:.3
                           delay:0
                         options:(UIViewAnimationOptionBeginFromCurrentState)
                      animations:^{
-                         
                          self.filterSliderTrailingConst.constant = constraintValue;
                          [self.view layoutIfNeeded];
                          
                      } completion:^(BOOL finished) {
                          
+                         if (!filterIsShown)
+                         {
+                         }
                      }];
     
     filterIsShown = ~filterIsShown;
+}
+
+- (void)hideFilter:(UIControl *)hideControl
+{
+    filterIsShown = NO;
+    [UIView animateWithDuration:.3
+                          delay:0
+                        options:(UIViewAnimationOptionBeginFromCurrentState)
+                     animations:^{
+                         
+                         self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
+                         [self.view layoutIfNeeded];
+                         [hideFilterControl removeFromSuperview];
+
+                     } completion:^(BOOL finished) {
+                         
+                     }];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -80,7 +176,7 @@
         return [arrayOfData count];
     }
     
-    return 4;
+    return [arrayForStatus count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,17 +191,26 @@
     }else if ([tableView isEqual:self.filterTableView])
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    }
+        UILabel *statusLabel = (UILabel *)[cell viewWithTag:101];
+        statusLabel.text = arrayForStatus[indexPath.row];
+        
+        UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
+        countlabel.text = arrayOfNo[indexPath.row];
 
-    
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
+        [cell setSelectedBackgroundView:bgColorView];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([tableView isEqual:self.tableViewOutlet])
+    {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
-
 /*
 #pragma mark - Navigation
 
@@ -121,7 +226,7 @@
     TicketModel *ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Provide VPN access";
     ticket.agentName = @"Jonathan";
-    ticket.currentStatus = @"# 10, Overdue for 1 day";
+    ticket.currentStatus = @"# 10345, Overdue for 1 day";
     ticket.colorCode = [UIColor redColor];
     ticket.timeStamp = @"7 m";
     ticket.details=@"Please install the VPN software on my laptop. Please enable it ASAP.";
@@ -130,7 +235,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Internet is very slow";
     ticket.agentName = @"Jim";
-    ticket.currentStatus = @"#9, Overdue for 2 days";
+    ticket.currentStatus = @"#95677, Overdue for 2 days";
     ticket.colorCode = [UIColor greenColor];
     ticket.timeStamp = @"45 m";
     ticket.details = @"Work is affecting as not able to open any application. Please fix the issue ASAP as it is affecting the projects.";
@@ -140,19 +245,17 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"My leave application password been expired and unable to reset it ";
     ticket.agentName = @"Irene";
-    ticket.currentStatus = @"#8, Overdue for 3 days";
+    ticket.currentStatus = @"#87655, Overdue for 3 days";
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"2 h";
     ticket.details = @" Please reset the leave Application password";
     [arrayOfData addObject:ticket];
     
-    
-    
     ticket = [[TicketModel alloc] init];
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"VPN is not accessible outside network";
     ticket.agentName = @"Christina";
-    ticket.currentStatus = @"#7, Overdue by 3 days";
+    ticket.currentStatus = @"#75677, Overdue by 3 days";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"6 h";
     ticket.details = @"Need VPN access enabled to continue my work outside the office. Please provide me the access as soon as possible.";
@@ -161,7 +264,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Cannot download any file to my desktop";
     ticket.agentName = @"Monica";
-    ticket.currentStatus = @"#6, Waiting for the customer reply for 2 days";
+    ticket.currentStatus = @"#65676, in progress";
     ticket.colorCode = [UIColor redColor];
     ticket.timeStamp = @"1 d";
     ticket.details = @"It is restricting me from downloading any email attachment. Can you please grant me the access?";
@@ -170,7 +273,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Unable to make any outside call from my desk phone";
     ticket.agentName = @"Richard";
-    ticket.currentStatus = @"#5, Overdue by 4 days";
+    ticket.currentStatus = @"#55678, Overdue by 4 days";
     ticket.colorCode = [UIColor greenColor];
     ticket.timeStamp = @"3 d";
     ticket.details = @"Can you please grant external call facility from my office phone?";
@@ -179,7 +282,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Unable to access my office email";
     ticket.agentName = @"Anthony";
-    ticket.currentStatus = @"#4, Overdue by 2 days";
+    ticket.currentStatus = @"#46786, Overdue by 2 days";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"5 d";
     ticket.details = @"Need to reset my email password, as I am not able to log in to my email account.";
@@ -188,7 +291,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"I'm unacle to connect my console to internet";
     ticket.agentName = @"Bertie";
-    ticket.currentStatus = @"#3, Wating on Customer for 6 days";
+    ticket.currentStatus = @"#36766, Wating on Customer for 6 days";
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"7 d";
     [arrayOfData addObject:ticket];
@@ -196,7 +299,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Unable to track package";
     ticket.agentName = @"Saul";
-    ticket.currentStatus = @"#2, Overdue by 6 days";
+    ticket.currentStatus = @"#26786, Overdue by 6 days";
     ticket.colorCode = [UIColor greenColor];
     ticket.timeStamp = @"8 d";
     [arrayOfData addObject:ticket];
@@ -204,7 +307,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Do you ship perishables to Schmaltzburg?";
     ticket.agentName = @"Bertie";
-    ticket.currentStatus = @"#1, Overdue by 3 days";
+    ticket.currentStatus = @"#16778, Overdue by 3 days";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"9 d";
     [arrayOfData addObject:ticket];

@@ -138,6 +138,7 @@
     if ([segue.identifier isEqualToString:@"dashToOrder_segue"])
     {
         RaiseATicketViewController *raiseTicket = segue.destinationViewController;
+        raiseTicket.orderDiffer = @"orderBtnPressed";
     }
 }
 
