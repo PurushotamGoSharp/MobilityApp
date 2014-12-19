@@ -1171,7 +1171,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kk-aK-sI3" userLabel="View- Index 0">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kk-aK-sI3" userLabel="View- Index 0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="8pt-pM-fvi">
@@ -1200,7 +1200,7 @@
                                     <constraint firstAttribute="centerX" secondItem="8pt-pM-fvi" secondAttribute="centerX" id="x01-h7-3yn"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4m-U4-TEm" userLabel="View- Index 1">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4m-U4-TEm" userLabel="View- Index 1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znz-eE-wcK">
@@ -1249,13 +1249,22 @@
                                         </attributedString>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VideoPlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="3dL-xt-Xpm">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3dL-xt-Xpm">
                                         <rect key="frame" x="0.0" y="71" width="320" height="160"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="160" id="dbh-Jz-DFT"/>
                                             <constraint firstAttribute="width" constant="320" id="h6R-eV-Ah4"/>
                                         </constraints>
                                     </imageView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1k-ji-dXK">
+                                        <rect key="frame" x="128" y="106" width="64" height="64"/>
+                                        <state key="normal" image="PlayButton">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playButton:" destination="JCJ-Dj-X5S" eventType="touchUpInside" id="asD-nr-xak"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1284,6 +1293,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hW8-pl-jTw"/>
                     <connections>
+                        <outlet property="playButton" destination="e1k-ji-dXK" id="AFN-OM-BB6"/>
                         <outlet property="textView1" destination="UOU-Qx-oNQ" id="qhL-Ua-rss"/>
                         <outlet property="textView2" destination="Znz-eE-wcK" id="GFZ-wt-NhR"/>
                         <outlet property="viewAtIndex0" destination="8kk-aK-sI3" id="MTq-Q8-p9r"/>
@@ -2335,6 +2345,7 @@
         <image name="OrderTabIcon" width="30" height="26"/>
         <image name="PhoneIcon" width="64" height="64"/>
         <image name="PlaceholderImage" width="250" height="152"/>
+        <image name="PlayButton" width="64" height="64"/>
         <image name="RaiseTicketTabIcon" width="30" height="30"/>
         <image name="SettingsDashIcon" width="64" height="64"/>
         <image name="SettingsTabIcon" width="30" height="30"/>
@@ -2345,7 +2356,6 @@
         <image name="TipsIcon" width="64" height="64"/>
         <image name="TipsTabIcon" width="30" height="30"/>
         <image name="ToolTabIcon" width="30" height="30"/>
-        <image name="VideoPlaceholderImage" width="208" height="117"/>
         <image name="WhiteCircle" width="130" height="133"/>
         <image name="raiseATicketIcon" width="64" height="64"/>
         <image name="seperator" width="1" height="1"/>
