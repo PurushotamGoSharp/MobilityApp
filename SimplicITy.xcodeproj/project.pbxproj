@@ -35,6 +35,8 @@
 		864E5F721A43E77700C2542A /* AirWatch_Video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F6F1A43E75300C2542A /* AirWatch_Video.mp4 */; };
 		864E5F731A43E77700C2542A /* Lync_Video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F701A43E75300C2542A /* Lync_Video.mp4 */; };
 		864E5F741A43E77700C2542A /* WebEx_Video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F711A43E75300C2542A /* WebEx_Video.mp4 */; };
+		864E5F791A442DC400C2542A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F781A442DC400C2542A /* Localizable.strings */; };
+		864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
 		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
 		867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */; };
@@ -109,6 +111,9 @@
 		864E5F6F1A43E75300C2542A /* AirWatch_Video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirWatch_Video.mp4; sourceTree = "<group>"; };
 		864E5F701A43E75300C2542A /* Lync_Video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lync_Video.mp4; sourceTree = "<group>"; };
 		864E5F711A43E75300C2542A /* WebEx_Video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebEx_Video.mp4; sourceTree = "<group>"; };
+		864E5F781A442DC400C2542A /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		864E5F7A1A4439F200C2542A /* ADExpirationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADExpirationViewController.h; sourceTree = "<group>"; };
+		864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADExpirationViewController.m; sourceTree = "<group>"; };
 		86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
 		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
@@ -259,6 +264,8 @@
 				86491A751A30817100711740 /* ToolsViewController.m */,
 				86491A771A30836C00711740 /* WebClipViewController.h */,
 				86491A781A30836C00711740 /* WebClipViewController.m */,
+				864E5F7A1A4439F200C2542A /* ADExpirationViewController.h */,
+				864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */,
 				86186D861A399C5400BFD000 /* Setting */,
 				8607051B1A2F147700B9A814 /* CustomTabBar.h */,
 				8607051C1A2F147700B9A814 /* CustomTabBar.m */,
@@ -266,6 +273,7 @@
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				864E5F6E1A43E74600C2542A /* Videos */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
+				864E5F781A442DC400C2542A /* Localizable.strings */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
 			);
 			path = SimplicITy;
@@ -411,6 +419,7 @@
 				864E5F731A43E77700C2542A /* Lync_Video.mp4 in Resources */,
 				864E5F741A43E77700C2542A /* WebEx_Video.mp4 in Resources */,
 				86DC31FA1A39B433002AF7A5 /* Main_iPhone.storyboard in Resources */,
+				864E5F791A442DC400C2542A /* Localizable.strings in Resources */,
 				86E5458A1A42A45E0027A817 /* SliderView.xib in Resources */,
 				86287D2E1A2EE1A500B12893 /* Main_iPad.storyboard in Resources */,
 				86287D331A2EE1A500B12893 /* Images.xcassets in Resources */,
@@ -437,6 +446,7 @@
 				86287D311A2EE1A500B12893 /* ViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
 				867584121A3815EE0049EC10 /* SettingViewController.m in Sources */,
+				864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */,
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				861BBC321A30865A00714EB2 /* OrderViewController.m in Sources */,
