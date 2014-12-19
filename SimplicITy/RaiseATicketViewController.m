@@ -199,6 +199,7 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
         UISlider *sliderOutlet = (UISlider *)[cell viewWithTag:300];
+        [sliderOutlet setThumbImage:[self imageForSLiderThumb:roundf(sliderOutlet.value)] forState:(UIControlStateNormal)];
         [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
         return cell;
     }else
@@ -296,6 +297,8 @@
 {
     slider.value = roundf(slider.value);
     
+    [slider setThumbImage:[self imageForSLiderThumb:roundf(slider.value)] forState:(UIControlStateNormal)];
+
     if (slider.value == 3 )
     {
         [slider setTintColor:([UIColor redColor])];
@@ -310,6 +313,30 @@
     }
 }
 
-
+- (UIImage *)imageForSLiderThumb:(NSInteger)value
+{
+    switch (value)
+    {
+        case 0:
+            return [UIImage imageNamed:@"greenCirlce"];
+            break;
+            
+        case 1:
+            return [UIImage imageNamed:@"YellowCircle"];
+            break;
+            
+        case 2:
+            return [UIImage imageNamed:@"OrangeCircle"];
+            break;
+            
+        case 3:
+            return [UIImage imageNamed:@"RedCircle"];
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
+}
 
 @end
