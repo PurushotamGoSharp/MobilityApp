@@ -86,6 +86,9 @@
                           @"Mobile Email Management":
                               @"AirWatch® Mobile Email Management delivers comprehensive security for corporate email infrastructures. Email security requirements vary for organizations, depending on supported device ownership models and industry regulations. AirWatch offers flexible options for your email management strategy, giving you choice over the deployment strategy that best fits your business and security requirements. Integration with existing email infrastructures ensures you are maximizing your technology investments. Access to corporate email can be configured through the native device client or the AirWatch Inbox, a containerized email solution.",
                           };
+   
+//    fileNames = @[@"Lync_Video", @"WebEx_Video", @"AirWatch_Video"];
+//    categoresForVideo = @[@"Lync", @"WebEx", @"AirWatch"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -143,6 +146,17 @@
         tipDetailsVC.parentCategory =  self.subCategoriesData[[self.tableView indexPathForSelectedRow].row];
         tipDetailsVC.index = [self.tableView indexPathForSelectedRow].row;
         tipDetailsVC.textToDisplay = detailsDictionary[tipDetailsVC.parentCategory];
+        
+        if ([self.parentCategory isEqualToString:@"AirWatch"])
+        {
+            tipDetailsVC.fileName = @"AirWatch_Video";
+        }else if ([self.parentCategory isEqualToString:@"Lync"])
+        {
+            tipDetailsVC.fileName = @"Lync_Video";
+        }else if ([self.parentCategory isEqualToString:@"WebEx"])
+        {
+            tipDetailsVC.fileName = @"WebEx_Video";
+        }
     }
 }
 

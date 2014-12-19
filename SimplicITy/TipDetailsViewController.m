@@ -14,16 +14,20 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *textView1;
 @property (weak, nonatomic) IBOutlet UITextView *textView2;
+
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+
 @end
 
 @implementation TipDetailsViewController
+{
+}
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = self.parentCategory;
-    
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,9 +47,31 @@
         self.textView2.text = self.textToDisplay;
         self.viewAtIndex0.hidden = YES;
         self.viewAtIndex1.hidden = NO;
+        
+        if (self.fileName)
+        {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:self.fileName ofType:@"mp4"];
+            NSURL *videoURL = [NSURL fileURLWithPath:filePath];
+            NSLog(@"File path = %@", filePath);
+            self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
+            self.videoController.movieSourceType = MPMovieSourceTypeFile;
+            [self.videoController.view setFrame:CGRectMake(0, 50, 320, 160)];
+            self.videoController.controlStyle = MPMovieControlStyleEmbedded;
+            self.videoController.fullscreen = NO;
+            [self.videoController prepareToPlay];
+
+            [self.view addSubview:self.videoController.view];
+            
+        }
+
     }
-    
-    
+}
+
+- (IBAction)playButton:(UIButton *)sender
+{
+    self.playButton.hidden = YES;
+    NSLog(@"%hhd", self.videoController.isPreparedToPlay);
+    [self.videoController play];
 }
 
 - (void)didReceiveMemoryWarning {
