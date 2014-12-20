@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -573,7 +573,7 @@
                                     <constraint firstItem="o66-Px-mZn" firstAttribute="top" secondItem="K2N-rr-bTX" secondAttribute="top" id="yNr-qR-6rL"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aj2-oD-YoY">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aj2-oD-YoY" userLabel="TipView">
                                 <rect key="frame" x="0.0" y="479" width="320" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tips" translatesAutoresizingMaskIntoConstraints="NO" id="bYM-Qm-8J6">
@@ -586,7 +586,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.3177031152" blue="0.19319043080000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.40413560557865158" green="1" blue="0.47362424261543246" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eO1-rn-FCl" secondAttribute="trailing" constant="5" id="1eJ-Pl-RPp"/>
                                     <constraint firstAttribute="bottom" secondItem="eO1-rn-FCl" secondAttribute="bottom" constant="8" id="JVF-7Q-OvD"/>
@@ -780,8 +780,8 @@
                                     <outlet property="delegate" destination="zx0-ax-jo4" id="LXv-SR-9yB"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Co-vf-3h7">
-                                <rect key="frame" x="160" y="64" width="160" height="455"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Co-vf-3h7">
+                                <rect key="frame" x="320" y="64" width="160" height="455"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="40" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="7Us-rl-q5p">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="455"/>
