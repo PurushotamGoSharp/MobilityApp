@@ -262,6 +262,7 @@
     [arrayOfData addObject:ticket];
     
     ticket = [[TicketModel alloc] init];
+    ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"VPN is not accessible outside network";
     ticket.agentName = @"Christina";
     ticket.currentStatus = @"#75677, Overdue by 3 days";
