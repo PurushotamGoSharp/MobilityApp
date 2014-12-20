@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     
     arrOfPickerViewData = @[@"Low",@"Medium",@"High",@"Critical"];
-    arrOfcolur = @[[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
+    arrOfcolur = @[[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
@@ -64,11 +64,11 @@
 {
     [super viewWillAppear:animated];
     
-    self.bulbImgOutlet.animationImages =
-    [NSArray arrayWithObjects:[UIImage imageNamed:@"alert_tip"],[UIImage imageNamed:@"alert_tip1"],nil];
-    self.bulbImgOutlet.animationDuration = 1;
-    self.bulbImgOutlet.animationRepeatCount = 1000;
-    [self.bulbImgOutlet startAnimating];
+//    self.bulbImgOutlet.animationImages =
+//    [NSArray arrayWithObjects:[UIImage imageNamed:@"alert_tip"],[UIImage imageNamed:@"alert_tip1"],nil];
+//    self.bulbImgOutlet.animationDuration = 1;
+//    self.bulbImgOutlet.animationRepeatCount = 1000;
+//    [self.bulbImgOutlet startAnimating];
     
     self.alphaViewOutLet.hidden = YES;
     self.pickerContainerViewOutlet.hidden = YES;
@@ -199,6 +199,7 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
         UISlider *sliderOutlet = (UISlider *)[cell viewWithTag:300];
+        [sliderOutlet setThumbImage:[self imageForSLiderThumb:roundf(sliderOutlet.value)] forState:(UIControlStateNormal)];
         [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
         return cell;
     }else
@@ -222,8 +223,8 @@
     {
         header.text = @"Impact";
         lable.text = @"Low";
-        colourForline.backgroundColor = [UIColor greenColor];
-        colourForRect.backgroundColor = [UIColor greenColor];
+        colourForline.backgroundColor = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
+        colourForRect.backgroundColor = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     }
     
     return cell;
@@ -296,6 +297,8 @@
 {
     slider.value = roundf(slider.value);
     
+    [slider setThumbImage:[self imageForSLiderThumb:roundf(slider.value)] forState:(UIControlStateNormal)];
+
     if (slider.value == 3 )
     {
         [slider setTintColor:([UIColor redColor])];
@@ -310,6 +313,30 @@
     }
 }
 
-
+- (UIImage *)imageForSLiderThumb:(NSInteger)value
+{
+    switch (value)
+    {
+        case 0:
+            return [UIImage imageNamed:@"greenCirlce"];
+            break;
+            
+        case 1:
+            return [UIImage imageNamed:@"YellowCircle"];
+            break;
+            
+        case 2:
+            return [UIImage imageNamed:@"OrangeCircle"];
+            break;
+            
+        case 3:
+            return [UIImage imageNamed:@"RedCircle"];
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
+}
 
 @end

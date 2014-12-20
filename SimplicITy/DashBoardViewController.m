@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
+@property (weak, nonatomic) IBOutlet UIView *profileViewOutlet;
 
 @end
 
@@ -68,8 +69,16 @@
     self.navigationItem.titleView = titleView;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
+
 - (void)navTitleBtnPressed:(id)sender
 {
+    self.profileViewOutlet.backgroundColor = [self subViewsColours];
+    
     NSInteger constrainValue;
     if (!navBtnIsOn)
     {
@@ -92,11 +101,7 @@
                      }];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-}
+
 
 - (void)didReceiveMemoryWarning
 {

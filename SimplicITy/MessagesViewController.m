@@ -16,6 +16,8 @@
     NSMutableArray *arrOfModleData;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+@property (strong ,nonatomic)UIRefreshControl *refreshControl;
+
 
 @end
 
@@ -26,6 +28,16 @@
     // Do any additional setup after loading the view.
     
 //    arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [self subViewsColours];
+    self.refreshControl.tintColor = [UIColor blackColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(pull)
+                  forControlEvents:UIControlEventValueChanged];
+    [self.tableViewOutlet  addSubview:self.refreshControl];
+
+    
     arrOfTableData = @[@"Infra",@"Payroll",@" Helpdesk",@"HR policy: ",@"HR: Holiday Celebration: ",@"IS: Maintenance Activity"];
     
     arrOfSubjects = @[@"This mail is being sent to all employees on behalf of ISMS Team",@"Greetings from UCB Payroll Help Desk",@"SVN Credentials",@"Employee Awareness: “Official Dress Code”",@"Merry Christmas & A Happy New Year 2015!!!",@"IS Maintenance Activity on 26.07.2014"];
@@ -54,6 +66,34 @@
     }
     
 }
+
+-(void)pull
+{
+    
+    [NSThread sleepForTimeInterval:1];
+    [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    
+}
+
+- (void)reloadData
+{
+    // Reload table data
+    [self.tableViewOutlet reloadData];
+    
+    // End the refreshing
+    if (self.refreshControl) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MMM d, h:mm a"];
+        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+        NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor whiteColor]
+                                                                    forKey:NSForegroundColorAttributeName];
+        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+        self.refreshControl.attributedTitle = attributedTitle;
+        [self.refreshControl endRefreshing];
+    }
+}
+
 
  -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

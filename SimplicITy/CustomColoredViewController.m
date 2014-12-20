@@ -86,6 +86,27 @@
     return nil;
 }
 
+-(UIColor *)subViewsColours
+{
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+        case 0:
+            return [UIColor colorWithRed:.60 green:.78 blue:.84 alpha:1];
+            break;
+        case 1:
+            return [UIColor colorWithRed:.92 green:.69 blue:.53 alpha:1];
+            break;
+        case 2:
+            return [UIColor colorWithRed:.84 green:.49 blue:.58 alpha:1];
+            break;
+        case 3:
+            return [UIColor colorWithRed:.74 green:.82 blue:.57 alpha:1];
+            break;
+        default:
+            break;
+    }
+    
+    return nil;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

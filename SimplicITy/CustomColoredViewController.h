@@ -11,5 +11,6 @@
 @interface CustomColoredViewController : UIViewController
 - (NSString *)stingForColorTheme;
 - (UIColor *)barColorForIndex:(NSInteger)index;
+-(UIColor *)subViewsColours;
 
 @end

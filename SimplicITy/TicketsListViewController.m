@@ -46,8 +46,8 @@
     self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor purpleColor];
-    self.refreshControl.tintColor = [UIColor whiteColor];
+    self.refreshControl.backgroundColor = [self subViewsColours];
+    self.refreshControl.tintColor = [UIColor blackColor];
     [self.refreshControl addTarget:self
                             action:@selector(pull)
                   forControlEvents:UIControlEventValueChanged];
@@ -60,6 +60,13 @@
     [NSThread sleepForTimeInterval:1];
     [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.filterTableView.backgroundColor = [self subViewsColours];
+
 }
 
 - (void)reloadData
@@ -79,6 +86,7 @@
         self.refreshControl.attributedTitle = attributedTitle;
         [self.refreshControl endRefreshing];
     }
+
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -236,7 +244,7 @@
     ticket.ticketSubject = @"Internet is very slow";
     ticket.agentName = @"Jim";
     ticket.currentStatus = @"#95677, Overdue for 2 days";
-    ticket.colorCode = [UIColor greenColor];
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"45 m";
     ticket.details = @"Work is affecting as not able to open any application. Please fix the issue ASAP as it is affecting the projects.";
     
@@ -274,7 +282,7 @@
     ticket.ticketSubject = @"Unable to make any outside call from my desk phone";
     ticket.agentName = @"Richard";
     ticket.currentStatus = @"#55678, Overdue by 4 days";
-    ticket.colorCode = [UIColor greenColor];
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"3 d";
     ticket.details = @"Can you please grant external call facility from my office phone?";
     [arrayOfData addObject:ticket];
@@ -300,7 +308,7 @@
     ticket.ticketSubject = @"Unable to track package";
     ticket.agentName = @"Saul";
     ticket.currentStatus = @"#26786, Overdue by 6 days";
-    ticket.colorCode = [UIColor greenColor];
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"8 d";
     [arrayOfData addObject:ticket];
     
