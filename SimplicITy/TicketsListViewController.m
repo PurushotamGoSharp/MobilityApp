@@ -244,7 +244,7 @@
     ticket.ticketSubject = @"Internet is very slow";
     ticket.agentName = @"Jim";
     ticket.currentStatus = @"#95677, Overdue for 2 days";
-    ticket.colorCode = [UIColor greenColor];
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"45 m";
     ticket.details = @"Work is affecting as not able to open any application. Please fix the issue ASAP as it is affecting the projects.";
     
@@ -281,7 +281,7 @@
     ticket.ticketSubject = @"Unable to make any outside call from my desk phone";
     ticket.agentName = @"Richard";
     ticket.currentStatus = @"#55678, Overdue by 4 days";
-    ticket.colorCode = [UIColor greenColor];
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"3 d";
     ticket.details = @"Can you please grant external call facility from my office phone?";
     [arrayOfData addObject:ticket];
@@ -307,7 +307,7 @@
     ticket.ticketSubject = @"Unable to track package";
     ticket.agentName = @"Saul";
     ticket.currentStatus = @"#26786, Overdue by 6 days";
-    ticket.colorCode = [UIColor greenColor];
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"8 d";
     [arrayOfData addObject:ticket];
     

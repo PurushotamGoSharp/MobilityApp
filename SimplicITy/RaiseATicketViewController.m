@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     
     arrOfPickerViewData = @[@"Low",@"Medium",@"High",@"Critical"];
-    arrOfcolur = @[[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
+    arrOfcolur = @[[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
@@ -64,11 +64,11 @@
 {
     [super viewWillAppear:animated];
     
-    self.bulbImgOutlet.animationImages =
-    [NSArray arrayWithObjects:[UIImage imageNamed:@"alert_tip"],[UIImage imageNamed:@"alert_tip1"],nil];
-    self.bulbImgOutlet.animationDuration = 1;
-    self.bulbImgOutlet.animationRepeatCount = 1000;
-    [self.bulbImgOutlet startAnimating];
+//    self.bulbImgOutlet.animationImages =
+//    [NSArray arrayWithObjects:[UIImage imageNamed:@"alert_tip"],[UIImage imageNamed:@"alert_tip1"],nil];
+//    self.bulbImgOutlet.animationDuration = 1;
+//    self.bulbImgOutlet.animationRepeatCount = 1000;
+//    [self.bulbImgOutlet startAnimating];
     
     self.alphaViewOutLet.hidden = YES;
     self.pickerContainerViewOutlet.hidden = YES;
@@ -223,8 +223,8 @@
     {
         header.text = @"Impact";
         lable.text = @"Low";
-        colourForline.backgroundColor = [UIColor greenColor];
-        colourForRect.backgroundColor = [UIColor greenColor];
+        colourForline.backgroundColor = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
+        colourForRect.backgroundColor = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     }
     
     return cell;
