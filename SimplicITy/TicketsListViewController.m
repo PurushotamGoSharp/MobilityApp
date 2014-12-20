@@ -46,8 +46,8 @@
     self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor purpleColor];
-    self.refreshControl.tintColor = [UIColor whiteColor];
+    self.refreshControl.backgroundColor = [self subViewsColours];
+    self.refreshControl.tintColor = [UIColor blackColor];
     [self.refreshControl addTarget:self
                             action:@selector(pull)
                   forControlEvents:UIControlEventValueChanged];
@@ -60,6 +60,13 @@
     [NSThread sleepForTimeInterval:1];
     [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    self.filterTableView.backgroundColor = [self subViewsColours];
+
 }
 
 - (void)reloadData
@@ -79,6 +86,7 @@
         self.refreshControl.attributedTitle = attributedTitle;
         [self.refreshControl endRefreshing];
     }
+
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
