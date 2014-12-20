@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    arrOfLanguageData = @[@"Dutch",@"German",@"English",@"Franch",@"German",@"Spanish",@"Japanese"];
+    arrOfLanguageData = @[@"English",@"Dutch",@"German",@"Franch",@"German",@"Spanish",@"Japanese"];
 
 }
 

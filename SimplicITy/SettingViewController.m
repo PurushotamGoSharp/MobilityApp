@@ -30,8 +30,6 @@
     
     arrOfTableViewData = @[@"Language",@"Location"];
     arrOfImages = @[@"language.png",@"lacation.png"];
-    
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,7 +44,6 @@
       UINavigationController *navController = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"language_segue"])
     {
-      
         LanguageViewController *lang = navController.viewControllers[0];
         lang.delegate =self;
     }else if ([segue.identifier isEqualToString:@"location_segue"])
@@ -70,12 +67,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     if (section ==0) {
         return [arrOfTableViewData count];
     }
     return 1;
-    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,7 +88,7 @@
     if (indexPath.section == 0)
     {
         if (indexPath.row == 0) {
-            languageLabel.text = @"Dutch";
+            languageLabel.text = @"English";
             
         }else
         {
@@ -126,23 +121,18 @@
         if (indexPath.row == 0)
         {
             [self performSegueWithIdentifier:@"language_segue" sender:self];
-            
         }
         else
         {
             [self performSegueWithIdentifier:@"location_segue" sender:self];
-            
         }
     }
     else
     {
         [self performSegueWithIdentifier:@"themes_segue" sender:self];
     }
-    
-  
-    
+ 
 }
-
 
 #pragma mark SettingDelegates
 

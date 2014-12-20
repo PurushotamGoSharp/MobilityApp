@@ -31,6 +31,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    
+    //    for (NSString *family in [UIFont familyNames])
+    //    {
+    //        for (NSString *names in [UIFont fontNamesForFamilyName:family])
+    //        {
+    //            NSLog(@"%@ %@", family, names);
+    //        }
+    //    }
+    
     centerOfContainer = self.conatinerForTxtAndBtn.center;
     initialLoginViewBottomCons = self.loginViewBottomConst.constant;
 }
