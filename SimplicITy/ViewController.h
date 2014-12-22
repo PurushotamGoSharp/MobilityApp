@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : CustomColoredViewController
+@interface ViewController : UIViewController
 
 @end

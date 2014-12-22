@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
     
     arrOfPickerViewData = @[@"Critical",@"High",@"Medium",@"Low"];
-    arrOfcolur = @[[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor]];
+    arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
