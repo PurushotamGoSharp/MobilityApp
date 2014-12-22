@@ -1200,7 +1200,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="JCJ-Dj-X5S" kind="push" identifier="TipsSubToDetailsSegue" id="rUh-in-pZ8"/>
+                                            <segue destination="Spt-pk-vI2" kind="push" id="0WU-6l-zTs"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1345,7 +1345,59 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqv-Lg-Rz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3385" y="-1294"/>
+            <point key="canvasLocation" x="3487" y="-1834"/>
+        </scene>
+        <!--Tip Details View Controller-->
+        <scene sceneID="YRz-qD-8rC">
+            <objects>
+                <viewController id="Spt-pk-vI2" customClass="TipDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ItK-Uh-Ojz"/>
+                        <viewControllerLayoutGuide type="bottom" id="8XB-61-4ph"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5jF-yi-SW9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGQ-Fm-C8x">
+                                <rect key="frame" x="0.0" y="64" width="320" height="800"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-NJ-XLH">
+                                        <rect key="frame" x="0.0" y="5" width="320" height="153"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZD-eL-HY6">
+                                        <rect key="frame" x="0.0" y="162" width="320" height="180"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" name="Marion-Regular" family="Marion" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
+                                        <rect key="frame" x="0.0" y="165" width="320" height="175"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
+                                        <rect key="frame" x="0.0" y="462" width="320" height="150"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" name="Marion-Regular" family="Marion" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="OGQ-Fm-C8x" secondAttribute="trailing" constant="-16" id="Lrt-M4-iWY"/>
+                            <constraint firstItem="OGQ-Fm-C8x" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leadingMargin" constant="-16" id="au1-Re-E2J"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="OGQ-Fm-C8x" secondAttribute="bottom" constant="-296" id="m5p-W1-hUo"/>
+                            <constraint firstItem="OGQ-Fm-C8x" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" id="tAM-Lt-yth"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5Kh-zi-te7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A5e-fN-mAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3375" y="-1219"/>
         </scene>
         <!--Web Clips-->
         <scene sceneID="28D-vm-Fh7">
