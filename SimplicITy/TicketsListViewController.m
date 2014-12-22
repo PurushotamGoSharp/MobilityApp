@@ -254,6 +254,8 @@
     ticket.agentName = @"Jim";
     ticket.ticketNum = @"# 10445,";
     ticket.currentStatus = @"New";
+    ticket.date =cureentDate;
+
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"2 m";
     ticket.details = @"Work is affecting as not able to open any application. Please fix the issue ASAP as it is affecting the projects.";
@@ -267,6 +269,8 @@
     ticket.currentStatus = @"Pending";
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"2 h";
+    ticket.date =cureentDate;
+
     ticket.details = @" Please reset the leave Application password";
     [arrayOfData addObject:ticket];
     
@@ -279,6 +283,7 @@
     ticket.currentStatus = @"Assigned";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"6 h";
+    ticket.date =cureentDate;
     ticket.details = @"Access Management";
     [arrayOfData addObject:ticket];
 
@@ -292,7 +297,6 @@
     ticket.timeStamp = @"1 d";
     ticket.details = @"It is restricting me from downloading any email attachment. Can you please grant me the access?";
     [arrayOfData addObject:ticket];
-    
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Desktop";
     ticket.agentName = @"Richard";
