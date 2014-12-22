@@ -31,8 +31,8 @@
                     @"AD Password": @[@"Web Conferencing",@"Video Conferencing"],
                     @"ITMS":@[@"Financial Accounting (FI)",@"Controlling (CO)",@"Investment Management (IM)"],
                     @"Travel":@[@"Configuration Management",@"Change Management",@"Release Management",@"Incident Management"],
-                    @"Meeting Room":@[@"Workspace Management",@"Mobile Security",@"Mobile Device Management",@"Mobile Application Management",@"Mobile Content Management",@"Mobile Email Management"],
-                    
+                    @"Meeting Room":@[@"Workspace Management",@"Mobile Security",@"Mobile Device Management"],
+                    @"Wireless Password":@[@"Mobile Application Management",@"Mobile Content Management",@"Mobile Email Management"]
                     
                     };
     
