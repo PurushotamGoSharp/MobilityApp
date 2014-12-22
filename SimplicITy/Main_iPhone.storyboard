@@ -72,19 +72,19 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SimplicityLogo" translatesAutoresizingMaskIntoConstraints="NO" id="6fB-mg-hKW">
-                                <rect key="frame" x="46" y="103" width="229" height="79"/>
+                                <rect key="frame" x="61" y="103" width="196" height="187"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" priority="999" constant="79" id="DDQ-fh-a6o"/>
+                                    <constraint firstAttribute="height" priority="999" constant="187" id="DDQ-fh-a6o"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.81176470588235294" green="0.90196078431372551" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="6fB-mg-hKW" secondAttribute="centerY" priority="998" constant="142" id="1ys-fC-hhh"/>
+                            <constraint firstAttribute="centerY" secondItem="6fB-mg-hKW" secondAttribute="centerY" priority="998" constant="87.5" id="1ys-fC-hhh"/>
                             <constraint firstItem="G7n-6I-Tv3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6fB-mg-hKW" secondAttribute="bottom" constant="10" id="Deu-gl-XXh"/>
                             <constraint firstAttribute="centerX" secondItem="G7n-6I-Tv3" secondAttribute="centerX" id="h6W-S3-w8o"/>
                             <constraint firstItem="6fB-mg-hKW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="20" id="ibT-d1-pci"/>
-                            <constraint firstAttribute="centerX" secondItem="6fB-mg-hKW" secondAttribute="centerX" id="rrw-46-rca"/>
+                            <constraint firstAttribute="centerX" secondItem="6fB-mg-hKW" secondAttribute="centerX" constant="1" id="rrw-46-rca"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="G7n-6I-Tv3" secondAttribute="bottom" priority="998" constant="118" id="xIE-oU-m9W"/>
                         </constraints>
                         <connections>
@@ -224,8 +224,8 @@
                                                             <action selector="initiateCallForITHelpDesk:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Pxa-X4-9if"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="IT Helpdesk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piG-eZ-KI4">
-                                                        <rect key="frame" x="9" y="85" width="82" height="18"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dial Helpdesk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piG-eZ-KI4">
+                                                        <rect key="frame" x="3" y="85" width="95" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -658,7 +658,11 @@
                                 <segue destination="zx0-ax-jo4" kind="push" id="CXP-ec-zh5"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="SubmitTickimage" id="A2e-OJ-MOh"/>
+                        <barButtonItem key="rightBarButtonItem" image="SubmitTickimage" id="A2e-OJ-MOh">
+                            <connections>
+                                <action selector="saveBtnPressed:" destination="Nvl-He-eXA" id="pUL-I2-toV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="CategoryTitleOutlet" destination="Rxt-rL-4Is" id="Jy2-Ak-C3C"/>
@@ -2539,7 +2543,7 @@
         <image name="PlayButton" width="64" height="64"/>
         <image name="SettingsDashIcon" width="64" height="64"/>
         <image name="SettingsTabIcon" width="30" height="30"/>
-        <image name="SimplicityLogo" width="229" height="79"/>
+        <image name="SimplicityLogo" width="196" height="187"/>
         <image name="SubmitTickimage" width="30" height="30"/>
         <image name="TicketsListtBarIcon" width="30" height="30"/>
         <image name="TipsIcon" width="64" height="64"/>

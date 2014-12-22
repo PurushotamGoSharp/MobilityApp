@@ -58,6 +58,23 @@
     
 }
 
+- (IBAction)saveBtnPressed:(id)sender
+{
+    NSString *alertMessage;
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        alertMessage = @"Your Order has been saved !";
+    }
+    else
+    {
+        alertMessage = @"Your Ticket has been saved !";
+    }
+    
+    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!" message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [saveAlestView show];
+
+}
 
 
 - (void)viewWillAppear:(BOOL)animated
