@@ -39,7 +39,7 @@
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
     
-    arrayForStatus = @[@"Open", @"Assigned", @"Pending", @"Closed"];
+    arrayForStatus = @[@"Openmm", @"Assigned", @"Pending", @"Closed"];
     arrayOfNo = @[@"3", @"1", @"2", @"4"];
     
     filterIsShown = NO;
