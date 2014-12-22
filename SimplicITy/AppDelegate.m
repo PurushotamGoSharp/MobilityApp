@@ -14,6 +14,9 @@
 {
     // Override point for customization after application launch.
     
+    [NSThread sleepForTimeInterval:4.0];
+
+    
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
 
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];

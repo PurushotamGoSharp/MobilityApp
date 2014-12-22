@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfLable = @[@"Requester",@"Impact",@"Category",@"Agent",@"Status"];
+    arrOfLable = @[@"Requester",@"Impact",@"Services",@"Agent",@"Status"];
     
     
 }
@@ -62,7 +62,7 @@
         
     }else if (section == 1)
     {
-        return @"Category";
+        return @"Services";
     }
     else{
         return @"Details";
@@ -189,10 +189,8 @@
     {
         return @"Medium";
     }
-    
         return @"Low";
 
-    
 }
 
 /*

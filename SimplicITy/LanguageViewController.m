@@ -55,6 +55,8 @@
     titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLanguageData[indexPath.row];
     
+//    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -66,6 +68,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+
+
+
+//    UIView *bgColorView = [[UIView alloc] init];
+//    bgColorView.backgroundColor = [UIColor redColor];
+//    [cell setSelectedBackgroundView:bgColorView];
+    
 //    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 //    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     

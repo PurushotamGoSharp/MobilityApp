@@ -35,6 +35,12 @@
 {
     [super viewWillAppear:animated];
     
+    self.textView1.font = [UIFont fontWithName:@"Marion Regular" size:18];
+    self.textView1.font = [UIFont fontWithName:@"Marion Regular" size:18];
+
+    
+
+    
     self.shadowView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.shadowView.layer.borderWidth=.5;
     self.shadowView.layer.cornerRadius = 3;
