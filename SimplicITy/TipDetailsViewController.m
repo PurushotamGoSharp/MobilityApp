@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView2;
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIView *shadowView;
 
 @end
 
@@ -34,8 +35,61 @@
 {
     [super viewWillAppear:animated];
     
-    [self.textView1 setFont:[UIFont systemFontOfSize:15]];
-    [self.textView2 setFont:[UIFont systemFontOfSize:15]];
+    self.shadowView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.shadowView.layer.borderWidth=.5;
+    self.shadowView.layer.cornerRadius = 3;
+    [self.shadowView.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.shadowView.layer setShadowOpacity:0.8];
+    [self.shadowView.layer setShadowRadius:3.0];
+    [self.shadowView.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+    
+    
+//    [self.textView1 setFont:[UIFont systemFontOfSize:15]];
+//    [self.textView2 setFont:[UIFont systemFontOfSize:15]];
+//    
+//    self.viewAtIndex0.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    self.viewAtIndex1.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//
+//    
+//    self.viewAtIndex0.layer.borderWidth=1;
+//    self.viewAtIndex1.layer.borderWidth=1;
+//
+//    
+//    self.viewAtIndex0.layer.cornerRadius = 3;
+//    self.viewAtIndex0.layer.cornerRadius = 3;
+//
+//    
+//    
+//    
+//    [self.viewAtIndex0.layer setShadowColor:[UIColor blackColor].CGColor];
+//    [self.viewAtIndex1.layer setShadowColor:[UIColor blackColor].CGColor];
+//
+//    
+//    [self.viewAtIndex0.layer setShadowOpacity:0.8];
+//    [self.viewAtIndex1.layer setShadowOpacity:0.8];
+//
+//    
+//    [self.viewAtIndex0.layer setShadowRadius:3.0];
+//    [self.viewAtIndex0.layer setShadowRadius:3.0];
+//
+//    
+//    [self.viewAtIndex0.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+//    [self.viewAtIndex0.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+
+    
+    //    [self.shadowView.layer setShadowColor:[UIColor blackColor].CGColor];
+    
+    //    [self.shadowView.layer setShadowOpacity:4];
+    
+    //    [self.shadowView.layer setShadowRadius:3.0];
+    
+    //    [self.shadowView.layer setShadowOffset:CGSizeMake(1.0, 1.0)];
+    
+    //    self.shadowView.layer.shadowRadius=1;
+    
+    //    self.shadowView.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    //    self.shadowView.layer.opacity =.5;
     
     if (self.index == 0)
     {
@@ -50,7 +104,7 @@
             NSLog(@"File path = %@", filePath);
             self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
             self.videoController.movieSourceType = MPMovieSourceTypeFile;
-            [self.videoController.view setFrame:CGRectMake(0, 50, 320, 160)];
+            [self.videoController.view setFrame:CGRectMake(28,75, 320, 170)];
             self.videoController.controlStyle = MPMovieControlStyleEmbedded;
             self.videoController.fullscreen = NO;
             
