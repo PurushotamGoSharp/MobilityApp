@@ -24,6 +24,9 @@
         case 0:
             [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
             [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
+//            [[UITabBar appearance] setSelectedImageTintColor:[UIColor greenColor]];
+            
+            [UITabBar appearance];
 
             break;
             

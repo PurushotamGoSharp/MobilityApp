@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLable;
 
+@property (weak, nonatomic) IBOutlet UIView *separator1;
+@property (weak, nonatomic) IBOutlet UIView *separator2;
 
 @end
 
@@ -27,8 +29,48 @@
     self.subjectLable.text = self.mesgModel.subject;
     self.bodyTextView.text = self.mesgModel.body;
     self.timeLable.text = self.mesgModel.time;
+    
 
 }
+
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//
+//}
+
+
+
+//#pragma mark UITableViewDataSource methods
+//
+//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    return 3;
+//}
+//
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    if (indexPath.row == 0)
+//    {
+//        return 44;
+//    }else if (indexPath.row == 1)
+//    {
+//        return 44;
+//    }
+//    else
+//    {
+//        return 44;
+//    }
+//        
+//}
+//
+//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+//    
+//    
+//    return cell;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

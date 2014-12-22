@@ -67,9 +67,11 @@
     
 }
 
+
+
 -(void)pull
 {
-    
+
     [NSThread sleepForTimeInterval:1];
     [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     
@@ -79,10 +81,10 @@
 {
     // Reload table data
     [self.tableViewOutlet reloadData];
-    
+
     // End the refreshing
     if (self.refreshControl) {
-        
+
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
         NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
@@ -97,10 +99,19 @@
 
  -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+//    if ([segue.identifier isEqualToString:@"message_segue"])
+//    {
+//        NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
+//        MessageDetailViewController *messageDeteilVC = segue.destinationViewController;
+//        messageModle *message = arrOfModleData[indexPath.row];
+//        messageDeteilVC.mesgModel = message;
+//    }
+
     NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
     MessageDetailViewController *messageDeteilVC = segue.destinationViewController;
     messageModle *message = arrOfModleData[indexPath.row];
     messageDeteilVC.mesgModel = message;
+
 }
 
 #pragma mark UITableViewDataSource
@@ -142,7 +153,16 @@
 #pragma mark UITableViewDelegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   
+//    if ([segue.identifier isEqualToString:@"message_segue"])
+
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+//    if (indexPath.row == 0)
+//    {
+//        [self performSegueWithIdentifier:@"message_segue" sender:nil];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {

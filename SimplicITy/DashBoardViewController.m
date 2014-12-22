@@ -49,7 +49,7 @@
     titleButton.titleLabel.textColor = [UIColor whiteColor];
     [titleButton setTitle:@"Jean-Pierre" forState:(UIControlStateNormal)];
     titleButton.frame = CGRectMake(0, 0, 170, 40);
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
     [titleView addSubview:titleButton];
     
     

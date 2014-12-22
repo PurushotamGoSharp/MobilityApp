@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"days left for password expiry", @"Survey"];
+    arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"Days left for password expiry", @"Survey"];
         
     arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
     

@@ -82,7 +82,6 @@
         default:
             break;
     }
-    
     return nil;
 }
 
@@ -107,6 +106,7 @@
     
     return nil;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
