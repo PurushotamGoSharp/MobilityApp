@@ -47,11 +47,17 @@
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        self.title = @"Order";
+        self.title = @"Raise an Order";
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
         self.navigationItem.leftBarButtonItems = @[];
+    }
+    else
+    {
+        self.title = @"Raise a Ticket";
+
+        
     }
 
     

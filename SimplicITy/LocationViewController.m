@@ -61,9 +61,13 @@
     titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLocationData[indexPath.row];
     
+    
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
     [cell setSelectedBackgroundView:bgColorView];
+    
+
+    titleLable.highlightedTextColor = [UIColor whiteColor];
     
     return cell;
 }
@@ -77,6 +81,7 @@
 {
     selectedRow = indexPath.row;
     
+
 }
 
 

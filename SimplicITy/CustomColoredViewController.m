@@ -107,6 +107,30 @@
     return nil;
 }
 
+-(UIColor *)seperatorColours
+{
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+        case 0:
+            return [UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1];
+            break;
+        case 1:
+            return [UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1];
+            break;
+        case 2:
+            return [UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1];
+            break;
+        case 3:
+            return [UIColor colorWithRed:.55 green:.7 blue:.31 alpha:1];
+            break;
+        default:
+            break;
+    }
+    
+    return nil;
+
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

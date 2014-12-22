@@ -682,7 +682,7 @@
             </objects>
             <point key="canvasLocation" x="2488" y="-605"/>
         </scene>
-        <!--Tickets List View Controller-->
+        <!--My Tickets-->
         <scene sceneID="RSU-Fh-BKR">
             <objects>
                 <viewController id="zx0-ax-jo4" customClass="TicketsListViewController" sceneMemberID="viewController">
@@ -852,7 +852,7 @@
                             <constraint firstItem="Asj-dG-G20" firstAttribute="top" secondItem="5Co-vf-3h7" secondAttribute="bottom" id="oBR-gN-asf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Nex-X6-DrA">
+                    <navigationItem key="navigationItem" title="My Tickets" id="Nex-X6-DrA">
                         <barButtonItem key="rightBarButtonItem" image="FilterBarButtonImage" id="Hfl-DY-YGz">
                             <connections>
                                 <action selector="filterButtonPressed:" destination="zx0-ax-jo4" id="eq2-zW-T8e"/>
@@ -1843,7 +1843,7 @@
             </objects>
             <point key="canvasLocation" x="3325" y="72"/>
         </scene>
-        <!--Language View Controller-->
+        <!--Languages-->
         <scene sceneID="gmv-w4-RNm">
             <objects>
                 <viewController id="Aac-tY-6ne" customClass="LanguageViewController" sceneMemberID="viewController">
@@ -1901,7 +1901,7 @@
                             <constraint firstItem="zMk-Xf-Fyt" firstAttribute="top" secondItem="dR9-I4-jhO" secondAttribute="top" id="mpO-d3-f1E"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="zMf-qb-iEc">
+                    <navigationItem key="navigationItem" title="Languages" id="zMf-qb-iEc">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="bjY-8e-lcW">
                             <connections>
                                 <action selector="cancelBtnPressed:" destination="Aac-tY-6ne" id="PEj-90-cjI"/>
@@ -1921,7 +1921,7 @@
             </objects>
             <point key="canvasLocation" x="3906" y="787"/>
         </scene>
-        <!--Location-->
+        <!--Locations-->
         <scene sceneID="ZTP-uB-AUi">
             <objects>
                 <viewController id="2ok-pO-3Ag" customClass="LocationViewController" sceneMemberID="viewController">
@@ -1978,7 +1978,7 @@
                             <constraint firstItem="MeL-1z-mv0" firstAttribute="top" secondItem="MYY-yZ-rjf" secondAttribute="bottom" id="bdJ-BC-Td4"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Location" id="guf-oa-yAe">
+                    <navigationItem key="navigationItem" title="Locations" id="guf-oa-yAe">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="AeU-dH-rn9">
                             <connections>
                                 <action selector="CalcelBtnPressed:" destination="2ok-pO-3Ag" id="RuW-ws-DJ6"/>
@@ -1998,7 +1998,7 @@
             </objects>
             <point key="canvasLocation" x="3731" y="1499"/>
         </scene>
-        <!--Thems-->
+        <!--Themes-->
         <scene sceneID="YSP-no-aXW">
             <objects>
                 <viewController id="0UQ-df-faO" customClass="ThemesViewController" sceneMemberID="viewController">
@@ -2056,7 +2056,7 @@
                             <constraint firstAttribute="trailing" secondItem="dsM-83-Obm" secondAttribute="trailing" id="wMY-3a-qz2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Thems" id="pEg-7K-E5A">
+                    <navigationItem key="navigationItem" title="Themes" id="pEg-7K-E5A">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="g5l-yn-kKE">
                             <connections>
                                 <action selector="cancelBtnPressed:" destination="0UQ-df-faO" id="w7r-83-v3B"/>
