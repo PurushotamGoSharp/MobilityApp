@@ -16,4 +16,6 @@
 @property (strong, nonatomic) UIColor *colorCode;
 @property (strong, nonatomic) NSString *timeStamp;
 @property(strong,nonatomic)NSString *details;
+@property(strong,nonatomic)NSString *date;
+@property(strong,nonatomic)NSString *ticketNum;
 @end

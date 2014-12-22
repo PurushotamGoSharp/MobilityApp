@@ -233,10 +233,17 @@
 
 - (void)setUpData
 {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *cureentDate = [formatter stringFromDate:[NSDate date]];
+    
     TicketModel *ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Identity Service";
     ticket.agentName = @"Jonathan";
-    ticket.currentStatus = @"# 10345, New";
+    ticket.ticketNum = @"# 10345,";
+    ticket.currentStatus = @"New";
+    ticket.date =cureentDate;
     ticket.colorCode = [UIColor redColor];
     ticket.timeStamp = @"1 m";
     ticket.details=@"Please install the VPN software on my laptop. Please enable it ASAP.";
@@ -245,7 +252,8 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Authentication";
     ticket.agentName = @"Jim";
-    ticket.currentStatus = @"#95677, New";
+    ticket.ticketNum = @"# 10445,";
+    ticket.currentStatus = @"New";
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"2 m";
     ticket.details = @"Work is affecting as not able to open any application. Please fix the issue ASAP as it is affecting the projects.";
@@ -255,7 +263,8 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Others";
     ticket.agentName = @"Irene";
-    ticket.currentStatus = @"#87655, Pending";
+    ticket.ticketNum = @"#87655,";
+    ticket.currentStatus = @"Pending";
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"2 h";
     ticket.details = @" Please reset the leave Application password";
@@ -265,7 +274,9 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Messaging";
     ticket.agentName = @"Christina";
-    ticket.currentStatus = @"#75677, Assigned";
+    ticket.ticketNum = @"#75677";
+
+    ticket.currentStatus = @"Assigned";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"6 h";
     ticket.details = @"Access Management";
@@ -274,7 +285,9 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Productivity Software";
     ticket.agentName = @"Monica";
-    ticket.currentStatus = @"#65676, In progress";
+    ticket.ticketNum = @"#65676,";
+
+    ticket.currentStatus = @"In progress";
     ticket.colorCode = [UIColor redColor];
     ticket.timeStamp = @"1 d";
     ticket.details = @"It is restricting me from downloading any email attachment. Can you please grant me the access?";
@@ -283,7 +296,9 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Desktop";
     ticket.agentName = @"Richard";
-    ticket.currentStatus = @"#55678, Cancelled";
+    ticket.ticketNum = @"#55678,";
+
+    ticket.currentStatus = @"Cancelled";
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"3 d";
     ticket.details = @"Can you please grant external call facility from my office phone?";
@@ -292,7 +307,9 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Collaboration Services";
     ticket.agentName = @"Anthony";
-    ticket.currentStatus = @"#46786, Resolved";
+    ticket.ticketNum = @"#46786, ";
+
+    ticket.currentStatus = @"Resolved";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"5 d";
     ticket.details = @"Need to reset my email password, as I am not able to log in to my email account.";
@@ -301,7 +318,9 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Server";
     ticket.agentName = @"Bertie";
-    ticket.currentStatus = @"#36766, Closed";
+    ticket.ticketNum = @"#36766,";
+
+    ticket.currentStatus = @"Closed";
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"7 d";
     [arrayOfData addObject:ticket];
@@ -309,7 +328,9 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"SAP PE1";
     ticket.agentName = @"Saul";
-    ticket.currentStatus = @"#26786, Resolved";
+    ticket.ticketNum = @"#26786,";
+
+    ticket.currentStatus = @"Resolved";
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"8 d";
     [arrayOfData addObject:ticket];
@@ -317,7 +338,9 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Mobile";
     ticket.agentName = @"Bertie";
-    ticket.currentStatus = @"#16778, Closed";
+    ticket.ticketNum = @"#16778,";
+
+    ticket.currentStatus = @"Closed";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"9 d";
     [arrayOfData addObject:ticket];

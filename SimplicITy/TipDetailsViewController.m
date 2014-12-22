@@ -18,6 +18,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIView *shadowView;
 
+
+@property (weak, nonatomic) IBOutlet UITextView *text1;
+@property (weak, nonatomic) IBOutlet UIImageView *videoImage;
+
 @end
 
 @implementation TipDetailsViewController
@@ -35,36 +39,50 @@
 {
     [super viewWillAppear:animated];
 
+//    self.text1.text = self.textToDisplay;
     
-    if (self.index == 0)
-    {
-        self.textView2.text = self.textToDisplay;
-        self.viewAtIndex0.hidden = YES;
-        self.viewAtIndex1.hidden = NO;
-        
-        if (self.fileName)
-        {
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:self.fileName ofType:@"mp4"];
-            NSURL *videoURL = [NSURL fileURLWithPath:filePath];
-            NSLog(@"File path = %@", filePath);
-            self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
-            self.videoController.movieSourceType = MPMovieSourceTypeFile;
-            [self.videoController.view setFrame:CGRectMake(28,75, 320, 170)];
-            self.videoController.controlStyle = MPMovieControlStyleEmbedded;
-            self.videoController.fullscreen = NO;
-            
-            [self.viewAtIndex1 addSubview:self.videoController.view];
-            [self.viewAtIndex1 bringSubviewToFront:self.playButton];
-            self.playButton.hidden = NO;
-        }
-        
-    }else
-    {
-        self.textView1.text = self.textToDisplay;
-        self.viewAtIndex0.hidden = NO;
-        self.viewAtIndex1.hidden = YES;
-        
-    }
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:self.fileName ofType:@"mp4"];
+    NSURL *videoURL = [NSURL fileURLWithPath:filePath];
+    NSLog(@"File path = %@", filePath);
+    self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
+    self.videoController.movieSourceType = MPMovieSourceTypeFile;
+    [self.videoController.view setFrame:CGRectMake(0,0, 374, 134)];
+    self.videoController.controlStyle = MPMovieControlStyleEmbedded;
+    self.videoController.fullscreen = NO;
+    [self.videoImage addSubview:self.videoController.view];
+    [self.videoImage bringSubviewToFront:self.playButton];
+    
+    
+//    if (self.index == 0)
+//    {
+//        self.textView2.text = self.textToDisplay;
+//        self.viewAtIndex0.hidden = YES;
+//        self.viewAtIndex1.hidden = NO;
+//        
+//        if (self.fileName)
+//        {
+//            NSString *filePath = [[NSBundle mainBundle] pathForResource:self.fileName ofType:@"mp4"];
+//            NSURL *videoURL = [NSURL fileURLWithPath:filePath];
+//            NSLog(@"File path = %@", filePath);
+//            self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
+//            self.videoController.movieSourceType = MPMovieSourceTypeFile;
+//            [self.videoController.view setFrame:CGRectMake(28,75, 320, 170)];
+//            self.videoController.controlStyle = MPMovieControlStyleEmbedded;
+//            self.videoController.fullscreen = NO;
+//            
+//            [self.viewAtIndex1 addSubview:self.videoController.view];
+//            [self.viewAtIndex1 bringSubviewToFront:self.playButton];
+//            self.playButton.hidden = NO;
+//        }
+//        
+//    }else
+//    {
+//        self.textView1.text = self.textToDisplay;
+//        self.viewAtIndex0.hidden = NO;
+//        self.viewAtIndex1.hidden = YES;
+//        
+//    }
 }
 
 - (IBAction)playButton:(UIButton *)sender

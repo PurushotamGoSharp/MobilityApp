@@ -371,8 +371,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o66-Px-mZn" customClass="UIControl">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rxt-rL-4Is">
-                                                <rect key="frame" x="8" y="127" width="59" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secvice" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rxt-rL-4Is">
+                                                <rect key="frame" x="8" y="127" width="54" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -403,14 +403,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeB-x9-9b8">
-                                                <rect key="frame" x="0.0" y="235" width="319" height="100"/>
+                                                <rect key="frame" x="0.0" y="235" width="319" height="150"/>
                                                 <subviews>
                                                     <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ytg-uo-kXr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="319" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="319" height="150"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8t-sV-3fi" customClass="PlaceHolderTextView">
-                                                        <rect key="frame" x="4" y="0.0" width="295" height="100"/>
+                                                        <rect key="frame" x="4" y="0.0" width="295" height="150"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -423,7 +423,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Ytg-uo-kXr" secondAttribute="trailing" id="3j5-f4-kVs"/>
                                                     <constraint firstItem="V8t-sV-3fi" firstAttribute="top" secondItem="NeB-x9-9b8" secondAttribute="top" id="E9g-U8-1hT"/>
-                                                    <constraint firstAttribute="height" constant="100" id="QdT-vh-orV"/>
+                                                    <constraint firstAttribute="height" constant="150" id="QdT-vh-orV"/>
                                                     <constraint firstItem="V8t-sV-3fi" firstAttribute="leading" secondItem="NeB-x9-9b8" secondAttribute="leading" constant="4" id="a7V-46-3iz"/>
                                                     <constraint firstItem="Ytg-uo-kXr" firstAttribute="leading" secondItem="NeB-x9-9b8" secondAttribute="leading" id="crR-QC-zX6"/>
                                                     <constraint firstAttribute="bottom" secondItem="V8t-sV-3fi" secondAttribute="bottom" id="sHa-5c-m20"/>
@@ -1239,20 +1239,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0XA-eR-AnN">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0XA-eR-AnN">
                                 <rect key="frame" x="10" y="85" width="300" height="410"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kk-aK-sI3" userLabel="View- Index 0">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="8pt-pM-fvi">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="8pt-pM-fvi">
                                         <rect key="frame" x="35" y="101" width="250" height="152"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="152" id="ZJu-p1-G3H"/>
                                         </constraints>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOU-Qx-oNQ">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOU-Qx-oNQ">
                                         <rect key="frame" x="16" y="272" width="288" height="281"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1275,7 +1275,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4m-U4-TEm" userLabel="View- Index 1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znz-eE-wcK">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znz-eE-wcK">
                                         <rect key="frame" x="19" y="287" width="282" height="218"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1287,7 +1287,7 @@
                                         <fontDescription key="fontDescription" name="Marion-Regular" family="Marion" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="3dL-xt-Xpm">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="3dL-xt-Xpm">
                                         <rect key="frame" x="0.0" y="95" width="320" height="160"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="160" id="dbh-Jz-DFT"/>
@@ -1359,41 +1359,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGQ-Fm-C8x">
-                                <rect key="frame" x="0.0" y="64" width="320" height="800"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-NJ-XLH">
-                                        <rect key="frame" x="0.0" y="5" width="320" height="153"/>
-                                    </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wZD-eL-HY6">
-                                        <rect key="frame" x="0.0" y="162" width="320" height="180"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <fontDescription key="fontDescription" name="Marion-Regular" family="Marion" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
-                                        <rect key="frame" x="0.0" y="165" width="320" height="175"/>
-                                    </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
-                                        <rect key="frame" x="0.0" y="462" width="320" height="150"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <fontDescription key="fontDescription" name="Marion-Regular" family="Marion" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                            </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-NJ-XLH">
+                                <rect key="frame" x="0.0" y="64" width="320" height="133"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="133" id="7VF-WO-yV4"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZD-eL-HY6">
+                                <rect key="frame" x="0.0" y="201" width="320" height="125"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <string key="text">Controlling provides you with information for management decision-making. It facilitates coordination, monitoring and optimization of all processes in an organization. This involves recording both the consumption of production factors </string>
+                                <fontDescription key="fontDescription" name="Marion-Regular" family="Marion" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MicrosoftLyncServer" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
+                                <rect key="frame" x="0.0" y="331" width="320" height="92"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
+                                <rect key="frame" x="0.0" y="424" width="320" height="92"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="92" id="pRr-8P-ijL"/>
+                                </constraints>
+                                <string key="text">The first goal of the incident management process is to restore a normal service operation as quickly as possible and to minimize the impact on business operations,</string>
+                                <fontDescription key="fontDescription" name="Marion-Regular" family="Marion" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Un3-03-9Sq">
+                                <rect key="frame" x="91" y="95" width="119" height="64"/>
+                                <state key="normal" image="PlayButton">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButton:" destination="Spt-pk-vI2" eventType="touchUpInside" id="qRu-UR-zhw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="OGQ-Fm-C8x" secondAttribute="trailing" constant="-16" id="Lrt-M4-iWY"/>
-                            <constraint firstItem="OGQ-Fm-C8x" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leadingMargin" constant="-16" id="au1-Re-E2J"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="OGQ-Fm-C8x" secondAttribute="bottom" constant="-296" id="m5p-W1-hUo"/>
-                            <constraint firstItem="OGQ-Fm-C8x" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" id="tAM-Lt-yth"/>
+                            <constraint firstAttribute="trailing" secondItem="I4R-Zk-5qd" secondAttribute="trailing" id="61b-3T-8qU"/>
+                            <constraint firstItem="2eR-NJ-XLH" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="783-Zd-vdm"/>
+                            <constraint firstItem="sUy-4U-9MU" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="Gfx-pJ-MCR"/>
+                            <constraint firstItem="wZD-eL-HY6" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="JcD-gg-aqn"/>
+                            <constraint firstAttribute="trailing" secondItem="wZD-eL-HY6" secondAttribute="trailing" id="OAN-e5-1kw"/>
+                            <constraint firstItem="2eR-NJ-XLH" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" id="PBa-C6-Y82"/>
+                            <constraint firstAttribute="bottom" secondItem="I4R-Zk-5qd" secondAttribute="bottom" constant="52" id="Sqe-Ws-1Cb"/>
+                            <constraint firstAttribute="trailing" secondItem="2eR-NJ-XLH" secondAttribute="trailing" id="cAg-bt-ZTn"/>
+                            <constraint firstAttribute="trailing" secondItem="sUy-4U-9MU" secondAttribute="trailing" id="ivR-An-8fc"/>
+                            <constraint firstItem="I4R-Zk-5qd" firstAttribute="top" secondItem="sUy-4U-9MU" secondAttribute="bottom" constant="1" id="iw0-Fm-x0P"/>
+                            <constraint firstItem="wZD-eL-HY6" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" constant="137" id="mI8-cc-AvW"/>
+                            <constraint firstItem="sUy-4U-9MU" firstAttribute="top" secondItem="wZD-eL-HY6" secondAttribute="bottom" constant="5" id="pp9-S0-ZFG"/>
+                            <constraint firstItem="I4R-Zk-5qd" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="vpF-MK-k4k"/>
+                            <constraint firstItem="sUy-4U-9MU" firstAttribute="top" secondItem="2eR-NJ-XLH" secondAttribute="bottom" constant="134" id="xBz-ja-v3Y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5Kh-zi-te7"/>
+                    <connections>
+                        <outlet property="text1" destination="wZD-eL-HY6" id="fDt-17-Uv6"/>
+                        <outlet property="videoImage" destination="2eR-NJ-XLH" id="WJW-xn-wtd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A5e-fN-mAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2588,6 +2612,7 @@
         <image name="HeadPhoneSmallimage" width="20" height="20"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
+        <image name="MicrosoftLyncServer" width="430" height="112"/>
         <image name="OrderDashIcon" width="64" height="56"/>
         <image name="OrderTabIcon" width="30" height="26"/>
         <image name="PhoneIcon" width="64" height="64"/>
@@ -2615,6 +2640,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8h2-qg-Aot"/>
+        <segue reference="9RB-d2-cKB"/>
     </inferredMetricsTieBreakers>
 </document>

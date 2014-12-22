@@ -37,8 +37,10 @@
     
     self.colorCodeView.backgroundColor = ticketModel.colorCode;
     self.ticketHeadingLabel.text = ticketModel.ticketSubject;
-    self.agentAssignedLabel.text = ticketModel.agentName;
-    self.currentStatusLabel.text = ticketModel.currentStatus;
+    self.agentAssignedLabel.text =  ticketModel.agentName;
+    
+    NSString * status = [NSString stringWithFormat:@"%@, %@",ticketModel.ticketNum, ticketModel.currentStatus];
+    self.currentStatusLabel.text =status;
     self.timeLabel.text = ticketModel.timeStamp;
 }
 

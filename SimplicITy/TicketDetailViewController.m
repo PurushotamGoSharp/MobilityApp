@@ -41,7 +41,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 4;
+        return 5;
 
     }else if (section == 1)
     {
@@ -145,9 +145,16 @@
             case 4:
             {
                 
+                titleLable.text = @"Date";
+                rightTable.text = self.tickModel.date;
+                
+            }
+                break;
+            case 5:
+            {
+                
                 titleLable.text = self.tickModel.ticketSubject;
                 rightTable.text = @"";
-                
             }
                 break;
                 

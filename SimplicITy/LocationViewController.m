@@ -12,6 +12,9 @@
 {
     NSArray *arrOfLocationData;
     UILabel *titleLable;
+    NSInteger selectedRow;
+
+
 
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -58,6 +61,10 @@
     titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLocationData[indexPath.row];
     
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+    [cell setSelectedBackgroundView:bgColorView];
+    
     return cell;
 }
 
@@ -68,8 +75,7 @@
 #pragma mark UITableViewDelegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    selectedRow = indexPath.row;
     
 }
 

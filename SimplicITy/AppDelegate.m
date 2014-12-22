@@ -16,11 +16,13 @@
     
     [NSThread sleepForTimeInterval:4.0];
 
-    
+
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
+    
 
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    
     
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
     {

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfThemesData = @[@"Blue",@"Tonys Pink",@"Pale Voilet Red",@"Sprout"];
+    arrOfThemesData = @[@"Blue Ocean",@"Tangy Orange",@"Lovely Rose",@"Green Glow"];
     
     selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
 
@@ -72,6 +72,10 @@
     
     UILabel *titleLable= (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfThemesData[indexPath.row];
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+    [cell setSelectedBackgroundView:bgColorView];
     
     return cell;
 }

@@ -13,6 +13,8 @@
     NSArray  *arrOfLanguageData;
     UILabel *titleLable;
     NSIndexPath* lastIndexPath;
+    NSInteger selectedRow;
+
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -57,6 +59,11 @@
     
 //    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+    [cell setSelectedBackgroundView:bgColorView];
+
+    
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,6 +77,7 @@
 {
 
 
+    selectedRow = indexPath.row;
 
 
 //    UIView *bgColorView = [[UIView alloc] init];

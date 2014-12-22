@@ -14,6 +14,8 @@
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate,ThemeSettingDelegate >
 {
    NSArray  *arrOfTableViewData, *arrOfImages ;
+    NSInteger selectedRow;
+
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -97,10 +99,15 @@
         }
     }else
     {
-        titleLable.text = @"Themes";
+        titleLable.text = @"Theme";
         imageView.image = [UIImage imageNamed:@"themes"];
         languageLabel.text = [self stingForColorTheme];
     }
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+    [cell setSelectedBackgroundView:bgColorView];
+
 
     return cell;
 }
@@ -114,6 +121,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    selectedRow = indexPath.row;
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0)
@@ -133,6 +143,7 @@
     }
  
 }
+
 
 #pragma mark SettingDelegates
 
