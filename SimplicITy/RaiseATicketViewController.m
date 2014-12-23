@@ -47,7 +47,7 @@
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        self.title = @"Raise an Order";
+        self.title = @"Raise an order";
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
@@ -55,13 +55,8 @@
     }
     else
     {
-        self.title = @"Raise a Ticket";
-
-        
+        self.title = @"Raise a ticket";
     }
-
-    
-    
 }
 
 - (IBAction)saveBtnPressed:(id)sender
@@ -136,7 +131,6 @@
     lable.text = arrOfPickerViewData[[self.pickerViewOutlet selectedRowInComponent:0]];
     colourForline.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
     colourForRect.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
-
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -148,7 +142,6 @@
     
 //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
     [self.scrollView setContentOffset:(CGPointMake(0, 100)) animated:YES];
-    
 }
 
 #pragma mark UIPickerViewDataSource methods
@@ -261,7 +254,6 @@
     {
         return;
     }
-    
     if (indexPath.row == 1)
     {
         self.alphaViewOutLet.hidden = NO;
@@ -284,7 +276,6 @@
     {
         return 72;
     }
-    
     return 44;
 }
 
