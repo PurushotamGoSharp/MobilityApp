@@ -30,7 +30,7 @@
 
    
     
-    arrayofData = @[@"Identity Service",@"Authentication",@"Others ",@"Messaging",@"Access Management",@"Productivity Software",@"Desktop",@"Collaboration Services",@"Server",@"SAP PE1",@"Mobile Devices"];
+    arrayofData = @[@"Access Management",@"Authentication",@"Collaboration Services",@"Desktop",@"Identity Service",@"Messaging", @"Mobile Devices",@"Others",@"Productivity Software",@"SAP PE1",@"Server"];
     
 
     
