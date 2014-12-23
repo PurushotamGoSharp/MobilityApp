@@ -56,6 +56,8 @@
     [self.tableViewOutlet  addSubview:self.refreshControl];
 }
 
+
+
 -(void)pull
 {
     
@@ -113,6 +115,7 @@
     {
         constraintValue = -self.filterTableView.frame.size.width;
         [hideFilterControl removeFromSuperview];
+        hideFilterControl = nil;
     }else
     {
         [self.view addSubview:hideFilterControl];

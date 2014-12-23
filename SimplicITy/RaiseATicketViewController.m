@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *tipsLableOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBetweenimpactAndServiceConstant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceServiceToImpactConstant;
 
 @end
 
@@ -47,15 +49,23 @@
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        self.title = @"Raise an order";
+        
+        self.title = @"Place an Order";
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
         self.navigationItem.leftBarButtonItems = @[];
+        
+        self.spaceBetweenimpactAndServiceConstant.constant = 220;
+        self.spaceServiceToImpactConstant.constant = 2;
+
     }
     else
     {
-        self.title = @"Raise a ticket";
+        self.spaceServiceToImpactConstant.constant = 0;
+
+        self.title = @"Raise a Ticket";
+
     }
 }
 
@@ -274,7 +284,7 @@
 {
     if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        return 72;
+        return 200;
     }
     return 44;
 }
