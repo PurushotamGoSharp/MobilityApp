@@ -115,8 +115,6 @@
         [hideFilterControl removeFromSuperview];
     }else
     {
-         constraintValue = 0.0;
-
         [self.view addSubview:hideFilterControl];
         
 //Adding constaint for hideview so that all sides are fixed to view edges so it will grow as view grows
