@@ -124,7 +124,7 @@
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
 {
-    NSString *phoneNo = @"123456789";
+    NSString *phoneNo = @"9880425945";
     phoneNo = [@"tel://" stringByAppendingString:phoneNo];
     
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];

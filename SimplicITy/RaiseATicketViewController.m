@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *tipsLableOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBetweenimpactAndServiceConstant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceServiceToImpactConstant;
 
 @end
 
@@ -47,15 +49,24 @@
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        self.title = @"Order";
+        
+        self.title = @"Place an Order";
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
         self.navigationItem.leftBarButtonItems = @[];
-    }
+        
+        self.spaceBetweenimpactAndServiceConstant.constant = 220;
+        self.spaceServiceToImpactConstant.constant = 2;
 
-    
-    
+    }
+    else
+    {
+        self.spaceServiceToImpactConstant.constant = 0;
+
+        self.title = @"Raise a Ticket";
+
+    }
 }
 
 - (IBAction)saveBtnPressed:(id)sender
@@ -130,7 +141,6 @@
     lable.text = arrOfPickerViewData[[self.pickerViewOutlet selectedRowInComponent:0]];
     colourForline.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
     colourForRect.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
-
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -142,7 +152,6 @@
     
 //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
     [self.scrollView setContentOffset:(CGPointMake(0, 100)) animated:YES];
-    
 }
 
 #pragma mark UIPickerViewDataSource methods
@@ -255,7 +264,6 @@
     {
         return;
     }
-    
     if (indexPath.row == 1)
     {
         self.alphaViewOutLet.hidden = NO;
@@ -276,9 +284,8 @@
 {
     if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        return 72;
+        return 200;
     }
-    
     return 44;
 }
 

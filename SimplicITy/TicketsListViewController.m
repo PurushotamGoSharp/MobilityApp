@@ -42,6 +42,8 @@
     arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
     arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
     
+    self.filterTableView.separatorColor = [self seperatorColours];
+    
     filterIsShown = NO;
     self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
     
@@ -53,6 +55,8 @@
                   forControlEvents:UIControlEventValueChanged];
     [self.tableViewOutlet  addSubview:self.refreshControl];
 }
+
+
 
 -(void)pull
 {
@@ -111,10 +115,9 @@
     {
         constraintValue = -self.filterTableView.frame.size.width;
         [hideFilterControl removeFromSuperview];
+        hideFilterControl = nil;
     }else
     {
-         constraintValue = 0.0;
-
         [self.view addSubview:hideFilterControl];
         
 //Adding constaint for hideview so that all sides are fixed to view edges so it will grow as view grows
@@ -206,6 +209,7 @@
         
         UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
         countlabel.text = arrayOfNo[indexPath.row];
+        
 
         UIView *bgColorView = [[UIView alloc] init];
         bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];

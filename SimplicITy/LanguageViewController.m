@@ -56,6 +56,7 @@
     
     titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLanguageData[indexPath.row];
+    titleLable.highlightedTextColor = [UIColor whiteColor];
     
 //    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     

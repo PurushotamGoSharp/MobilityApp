@@ -13,6 +13,7 @@
     NSArray *arrayOfImages, *arrayOfDatas;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraintConstant;
 
 @end
 

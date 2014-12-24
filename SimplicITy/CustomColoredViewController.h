@@ -12,5 +12,7 @@
 - (NSString *)stingForColorTheme;
 - (UIColor *)barColorForIndex:(NSInteger)index;
 -(UIColor *)subViewsColours;
+-(UIColor *)seperatorColours;
+
 
 @end
