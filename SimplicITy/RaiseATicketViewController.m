@@ -52,9 +52,9 @@
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+//                                                                          action:@selector(dismissKeyboard)];
+//    [self.view addGestureRecognizer:tap];
     
 //    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [back setTitle:@"< Back" forState:UIControlStateNormal];

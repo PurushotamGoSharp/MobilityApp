@@ -1368,22 +1368,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-NJ-XLH">
-                                <rect key="frame" x="0.0" y="64" width="320" height="133"/>
+                                <rect key="frame" x="10" y="64" width="300" height="133"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="133" id="7VF-WO-yV4"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZD-eL-HY6">
-                                <rect key="frame" x="0.0" y="201" width="320" height="125"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZD-eL-HY6">
+                                <rect key="frame" x="10" y="201" width="300" height="125"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">Controlling provides you with information for management decision-making. It facilitates coordination, monitoring and optimization of all processes in an organization. This involves recording both the consumption of production factors </string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MicrosoftLyncServer" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
-                                <rect key="frame" x="0.0" y="331" width="320" height="92"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
+                                <rect key="frame" x="10" y="331" width="300" height="92"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
                                 <rect key="frame" x="0.0" y="424" width="320" height="92"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1406,14 +1406,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="I4R-Zk-5qd" secondAttribute="trailing" id="61b-3T-8qU"/>
-                            <constraint firstItem="2eR-NJ-XLH" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="783-Zd-vdm"/>
-                            <constraint firstItem="sUy-4U-9MU" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="Gfx-pJ-MCR"/>
-                            <constraint firstItem="wZD-eL-HY6" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="JcD-gg-aqn"/>
-                            <constraint firstAttribute="trailing" secondItem="wZD-eL-HY6" secondAttribute="trailing" id="OAN-e5-1kw"/>
+                            <constraint firstItem="2eR-NJ-XLH" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" constant="10" id="783-Zd-vdm"/>
+                            <constraint firstItem="sUy-4U-9MU" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" constant="10" id="Gfx-pJ-MCR"/>
+                            <constraint firstItem="wZD-eL-HY6" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" constant="10" id="JcD-gg-aqn"/>
+                            <constraint firstAttribute="trailing" secondItem="wZD-eL-HY6" secondAttribute="trailing" constant="10" id="OAN-e5-1kw"/>
                             <constraint firstItem="2eR-NJ-XLH" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" id="PBa-C6-Y82"/>
                             <constraint firstAttribute="bottom" secondItem="I4R-Zk-5qd" secondAttribute="bottom" constant="52" id="Sqe-Ws-1Cb"/>
-                            <constraint firstAttribute="trailing" secondItem="2eR-NJ-XLH" secondAttribute="trailing" id="cAg-bt-ZTn"/>
-                            <constraint firstAttribute="trailing" secondItem="sUy-4U-9MU" secondAttribute="trailing" id="ivR-An-8fc"/>
+                            <constraint firstAttribute="trailing" secondItem="2eR-NJ-XLH" secondAttribute="trailing" constant="10" id="cAg-bt-ZTn"/>
+                            <constraint firstAttribute="trailing" secondItem="sUy-4U-9MU" secondAttribute="trailing" constant="10" id="ivR-An-8fc"/>
                             <constraint firstItem="I4R-Zk-5qd" firstAttribute="top" secondItem="sUy-4U-9MU" secondAttribute="bottom" constant="1" id="iw0-Fm-x0P"/>
                             <constraint firstItem="wZD-eL-HY6" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" constant="137" id="mI8-cc-AvW"/>
                             <constraint firstItem="sUy-4U-9MU" firstAttribute="top" secondItem="wZD-eL-HY6" secondAttribute="bottom" constant="5" id="pp9-S0-ZFG"/>
@@ -1429,7 +1429,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A5e-fN-mAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3375" y="-1219"/>
+            <point key="canvasLocation" x="3476" y="-1200"/>
         </scene>
         <!--Web Clips-->
         <scene sceneID="28D-vm-Fh7">
@@ -2620,7 +2620,6 @@
         <image name="HeadPhoneSmallimage" width="20" height="20"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
-        <image name="MicrosoftLyncServer" width="430" height="112"/>
         <image name="OrderDashIcon" width="64" height="56"/>
         <image name="OrderTabIcon" width="30" height="26"/>
         <image name="PhoneIcon" width="64" height="64"/>
