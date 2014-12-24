@@ -16,6 +16,8 @@
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
     
+
+    
 }
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -32,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBetweenimpactAndServiceConstant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceServiceToImpactConstant;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lowRightCOnstraint;
 
 @end
 
@@ -62,7 +65,7 @@
     }
     else
     {
-        self.spaceServiceToImpactConstant.constant = 0;
+        self.spaceServiceToImpactConstant.constant = -3;
 
         self.title = @"Raise a Ticket";
 
@@ -233,6 +236,10 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     }
     
+    if (![self.orderDiffer isEqualToString:@"orderBtnPressed"] && (indexPath.row == 1))
+    {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     UILabel *header = (UILabel *)[cell viewWithTag:100];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
     
@@ -240,6 +247,10 @@
     UIView *colourForRect = (UIView *)[cell viewWithTag:103];
 
     colourForRect.layer.cornerRadius = 10;
+    
+  
+
+
     
     if (indexPath.row == 0)
     {
@@ -309,7 +320,7 @@
 - (void)selectedTicket:(NSString *)tickt
 {
     self.selectedCategorylabel.text = tickt;
-    self.selectedCategorylabel.textColor = [UIColor blackColor];
+    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
 }
 
 -(void)selectedTips:(NSString *)tip
@@ -319,6 +330,22 @@
 
 - (void)sliderValueChanged:(UISlider *)slider
 {
+    UILabel *critical;
+    UILabel *high;
+    UILabel *medium;
+    UILabel *low;
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"]) {
+        UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        
+
+        low = (UILabel *)[impactCell viewWithTag:10];
+        medium = (UILabel *)[impactCell viewWithTag:20];
+        high = (UILabel *)[impactCell viewWithTag:30];
+        critical = (UILabel *)[impactCell viewWithTag:40];
+
+    }
+    
     slider.value = roundf(slider.value);
     
     [slider setThumbImage:[self imageForSLiderThumb:roundf(slider.value)] forState:(UIControlStateNormal)];
@@ -326,14 +353,35 @@
     if (slider.value == 3 )
     {
         [slider setTintColor:([UIColor redColor])];
+        
+        low.textColor = [UIColor lightGrayColor];
+        medium.textColor = [UIColor lightGrayColor];
+        high.textColor = [UIColor lightGrayColor];
+        critical.textColor = [UIColor blackColor];
 
     }else if (slider.value == 2)
     {
         [slider setTintColor:([UIColor orangeColor])];
         
-    }if (slider.value == 1)
+        low.textColor = [UIColor lightGrayColor];
+        medium.textColor = [UIColor lightGrayColor];
+        high.textColor = [UIColor blackColor];
+        critical.textColor = [UIColor lightGrayColor];
+        
+    }else if (slider.value == 1)
     {
         [slider setTintColor:([UIColor yellowColor])];
+        
+        low.textColor = [UIColor lightGrayColor];
+        medium.textColor = [UIColor blackColor];
+        high.textColor = [UIColor lightGrayColor];
+        critical.textColor = [UIColor lightGrayColor];
+    } if (slider.value ==0)
+    {
+        low.textColor = [UIColor blackColor];
+        medium.textColor = [UIColor lightGrayColor];
+        high.textColor = [UIColor lightGrayColor];
+        critical.textColor = [UIColor lightGrayColor];
     }
 }
 

@@ -42,6 +42,7 @@
     self.navtitleBtnoutlet.selected = NO;
     
     self.profileViewTopConstraint.constant = -107;
+    
     titleButton = [[UIButton alloc] init];
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
@@ -49,7 +50,8 @@
     titleButton.titleLabel.textColor = [UIColor whiteColor];
     [titleButton setTitle:@"Jean-Pierre" forState:(UIControlStateNormal)];
     titleButton.frame = CGRectMake(0, 0, 170, 40);
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
+    
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 40)];
     [titleView addSubview:titleButton];
     
     
