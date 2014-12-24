@@ -10,6 +10,10 @@
 
 @interface CustomColoredViewController ()
 
+
+
+
+
 @end
 
 @implementation CustomColoredViewController
