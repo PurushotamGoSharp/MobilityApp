@@ -11,6 +11,8 @@
 @interface ToolsViewController ()
 {
     NSArray *arrayOfImages, *arrayOfDatas;
+    
+    UIBarButtonItem *backButton;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraintConstant;
@@ -23,11 +25,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setTitle:@"< Back" forState:UIControlStateNormal];
+    back.frame = CGRectMake(0, 0, 60, 40);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+
+    
     arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"Days left for password expiry", @"Survey"];
         
     arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
     
     self.title = @"Tools";
+}
+
+-(void)backBtnAction
+{
+    [self.tabBarController setSelectedIndex:0];
+    
 }
 
 - (void)didReceiveMemoryWarning {

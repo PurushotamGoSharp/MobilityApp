@@ -7,10 +7,12 @@
 //
 
 #import "TicketDetailViewController.h"
+#import "DashBoardViewController.h"
 
 @interface TicketDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *arrOfLable;
+    UIBarButtonItem *backButton;
 }
 
 @end
@@ -26,8 +28,31 @@
     arrOfLable = @[@"Requester",@"Impact",@"Services",@"Agent",@"Status"];
     
     
+//    self.navigationController.navigationItem.hidesBackButton = YES;
+    
+//    [self.navigationItem setHidesBackButton:YES animated:YES];
+
+
+    
+//    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [back setTitle:@"< Back" forState:UIControlStateNormal];
+//    back.frame = CGRectMake(0, 0, 60, 40);
+//    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+//    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+//    self.navigationItem.leftBarButtonItem = backButton;
+
+    
+    
 }
 
+//-(void)backBtnAction
+//{
+//    
+//    DashBoardViewController *raiseTicketVC = [[DashBoardViewController alloc] init];
+//    [self.navigationController popToViewController:raiseTicketVC animated:YES];
+//    
+//}
 
 
 - (void)didReceiveMemoryWarning {

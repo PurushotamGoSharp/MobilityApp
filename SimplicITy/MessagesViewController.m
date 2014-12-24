@@ -9,11 +9,13 @@
 #import "MessagesViewController.h"
 #import "MessageDetailViewController.h"
 #import "messageModle.h"
+#import "DashBoardViewController.h"
 
 @interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *arrOfTableData, *arrOfTimeLable, *arrOfSubjects, *arrOfBody, *arrOfimageName, *arrOfcurTime;
-    NSMutableArray *arrOfModleData;
+    NSMutableArray *arrOfModleData; UIBarButtonItem *backButton;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (strong ,nonatomic)UIRefreshControl *refreshControl;
@@ -28,6 +30,16 @@
     // Do any additional setup after loading the view.
     
 //    arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setTitle:@"< Back" forState:UIControlStateNormal];
+    back.frame = CGRectMake(0, 0, 60, 40);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+
+    
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [self subViewsColours];
@@ -67,7 +79,11 @@
     
 }
 
+-(void)backBtnAction
+{
+    [self.tabBarController setSelectedIndex:0];
 
+}
 
 -(void)pull
 {

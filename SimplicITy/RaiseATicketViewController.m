@@ -9,12 +9,14 @@
 #import "RaiseATicketViewController.h"
 #import "PlaceHolderTextView.h"
 #import "TikcetCategoryViewController.h"
-
+#import "TicketsListViewController.h"
 @interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate>
 {
     NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
+    
+    UIBarButtonItem *backButton;
     
 
     
@@ -50,6 +52,33 @@
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
+//    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [back setTitle:@"< Back" forState:UIControlStateNormal];
+//    back.frame = CGRectMake(80, 0, 60, 40);
+//    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+//    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIButton *listOfTickets = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [listOfTickets setImage:[UIImage imageNamed:@"TicketsListtBarIcon"] forState:UIControlStateNormal];
+//
+////    [back setTitle:@"< Back" forState:UIControlStateNormal];
+//    back.frame = CGRectMake(0, 0, 60, 40);
+//    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+//    [back  addTarget:self action:@selector(listBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//
+//    
+//    UIView *rightBarButtonItems = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 76, 32)];
+//    [rightBarButtonItems addSubview:listOfTickets];
+//    [rightBarButtonItems addSubview:back];
+//    
+//    backButton = [[UIBarButtonItem alloc] initWithCustomView:rightBarButtonItems];
+//    self.navigationItem.leftBarButtonItem = backButton;
+
+    
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
         
@@ -66,10 +95,56 @@
     else
     {
         self.spaceServiceToImpactConstant.constant = -3;
+        
+//        UILabel *titleLable = [[UILabel alloc] init];
+//        titleLable.textColor = [UIColor whiteColor];
+//        titleLable.text = @"Raise a Ticket";
+//        
+//        UIView *titleView = [[UIView alloc] init];
+//        [titleView addSubview:titleLable];
+//        
+//        self.navigationItem.titleView = titleView;
+        
+        UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
+        titleLabel.text = @"Raise a Ticket";
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textColor = [UIColor whiteColor];
+//        titleLabel.font = [UIFont fontWithName:(NSString *) size:<#(CGFloat)#>];
+        [titleView addSubview:titleLabel];
+        
+        self.navigationItem.titleView = titleView;
 
-        self.title = @"Raise a Ticket";
+
+
+//        self.title = @"Raise a Ticket";
 
     }
+}
+
+-(void)dismissKeyboard
+{
+    [self.view endEditing:YES];
+    [self hideKeyboard:nil];
+    
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+//    textView.text = @"";
+}
+
+-(void)backBtnAction
+{
+    [self.tabBarController setSelectedIndex:0];
+    
+}
+
+-(void)listBtnAction
+{
+//    TicketsListViewController *ticketList = [[TicketsListViewController alloc] init];
+//    [self.navigationController pushViewController:ticketList animated:YES];
 }
 
 - (IBAction)saveBtnPressed:(id)sender
@@ -87,6 +162,8 @@
     
     UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!" message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [saveAlestView show];
+    
+    self.textView.text = @"";
 
 }
 
@@ -267,9 +344,12 @@
     return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
     
     if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {

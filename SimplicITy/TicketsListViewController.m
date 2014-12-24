@@ -10,8 +10,12 @@
 #import "TicketsListCell.h"
 #import "TicketDetailViewController.h"
 #import "TicketModel.h"
+#import "RaiseATicketViewController.h"
 
 @interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate>
+{
+    UIBarButtonItem *backButton;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
@@ -39,6 +43,15 @@
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
     
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setTitle:@"< Back" forState:UIControlStateNormal];
+    back.frame = CGRectMake(0, 0, 60, 40);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+
+    
     arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
     arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
     
@@ -56,7 +69,11 @@
     [self.tableViewOutlet  addSubview:self.refreshControl];
 }
 
+-(void)backBtnAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 
+}
 
 -(void)pull
 {

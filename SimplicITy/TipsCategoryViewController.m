@@ -17,6 +17,9 @@
 {
     NSArray *categoriesArray;
     NSDictionary *subCategory;
+    UIBarButtonItem *backButton;
+    
+    
 }
 
 - (void)viewDidLoad
@@ -24,9 +27,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    categoriesArray = @[@"LYNC", @"AD Password", @"ITMS",@"Travel",@"Meeting Room",@"Wireless Password"];
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setTitle:@"< Back" forState:UIControlStateNormal];
+    back.frame = CGRectMake(0, 0, 60, 40);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+
     
-    subCategory = @{@"LYNC":
+    
+    categoriesArray = @[@"Lync", @"AD Password", @"ITMS",@"Travel",@"Meeting Room",@"Wireless Password"];
+    
+    subCategory = @{@"Lync":
                     @[@"Instant Messaging", @"Voice Over IP", @"Voice conferencing"],
                     @"AD Password": @[@"Web Conferencing",@"Video Conferencing"],
                     @"ITMS":@[@"Financial Accounting (FI)",@"Controlling (CO)",@"Investment Management (IM)"],
@@ -38,6 +51,13 @@
     
     self.navigationController.navigationBarHidden = NO;
 }
+
+-(void)backBtnAction
+{
+    [self.tabBarController setSelectedIndex:0];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {

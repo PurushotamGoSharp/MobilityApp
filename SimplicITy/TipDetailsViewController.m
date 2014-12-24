@@ -21,6 +21,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *text1;
 @property (weak, nonatomic) IBOutlet UIImageView *videoImage;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end
 
@@ -47,7 +48,7 @@
     NSLog(@"File path = %@", filePath);
     self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
     self.videoController.movieSourceType = MPMovieSourceTypeFile;
-    [self.videoController.view setFrame:CGRectMake(0,0, 374, 134)];
+    [self.videoController.view setFrame:CGRectMake(0,0, 335, 152)];
     self.videoController.controlStyle = MPMovieControlStyleEmbedded;
     self.videoController.fullscreen = NO;
     [self.videoImage addSubview:self.videoController.view];
@@ -91,6 +92,11 @@
     NSLog(@"%hhd", self.videoController.isPreparedToPlay);
     [self.videoController prepareToPlay];
     [self.videoController play];
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
 }
 
 - (void)didReceiveMemoryWarning {
