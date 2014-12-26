@@ -26,7 +26,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-
     
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
     {
@@ -91,7 +90,8 @@
 
 -(UIColor *)subViewsColours
 {
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    {
         case 0:
             return [UIColor colorWithRed:.60 green:.78 blue:.84 alpha:1];
             break;
@@ -129,9 +129,7 @@
         default:
             break;
     }
-    
     return nil;
-
     
 }
 
@@ -149,7 +147,6 @@
         case MuseoSans_700:
             customFont = [UIFont fontWithName:@"MuseoSans-700" size:size];
             break;
-            
         default:
             break;
     }
