@@ -15,6 +15,12 @@
     NSIndexPath* lastIndexPath;
     NSInteger selectedRow;
 
+    __weak IBOutlet UIBarButtonItem *languageCancleButton;
+
+
+    __weak IBOutlet UIBarButtonItem *languageDoneButton;
+
+
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -26,7 +32,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     arrOfLanguageData = @[@"English",@"Dutch",@"German",@"Franch",@"German",@"Spanish",@"Japanese"];
-
 
 
 
@@ -60,6 +65,8 @@
     titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLanguageData[indexPath.row];
     titleLable.highlightedTextColor = [UIColor whiteColor];
+   
+    titleLable.font=[self customFont:14 ofName:MuseoSans_700];
     
 //    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     

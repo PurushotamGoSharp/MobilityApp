@@ -117,6 +117,11 @@
     
     UILabel *languageLabel = (UILabel *)[cell viewWithTag:201];
     
+    titleLable.font=[self customFont:14 ofName:MuseoSans_700];
+    languageLabel.font=[self customFont:14 ofName:MuseoSans_700];
+    
+   
+    
     if (indexPath.section == 0)
     {
         if (indexPath.row == 0) {

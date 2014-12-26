@@ -112,6 +112,8 @@
 
     UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
     
+    titleLable.font=[self customFont:16 ofName:MuseoSans_700];
+    
     
     UILabel *linColour = (UILabel *)[cell viewWithTag:101];
     UILabel *circelColour = (UILabel *)[cell viewWithTag:102];

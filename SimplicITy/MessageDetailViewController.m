@@ -31,6 +31,12 @@
     self.timeLable.text = self.mesgModel.time;
     
 
+    
+    self.nameLable.font=[self customFont:18 ofName:MuseoSans_700];
+    self.bodyTextView.font=[self customFont:14 ofName:MuseoSans_300];
+    self.timeLable.font=[self customFont:14 ofName:MuseoSans_300];
+    self.subjectLable.font=[self customFont:20 ofName:MuseoSans_300];
+
 }
 
 //-(void)viewWillAppear:(BOOL)animated

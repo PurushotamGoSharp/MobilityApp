@@ -11,6 +11,19 @@
 @interface OrderViewController ()
 {
     NSArray *arrOfPickerViewData;
+
+    __weak IBOutlet UILabel *requester;
+
+    __weak IBOutlet UILabel *requesterName;
+
+    __weak IBOutlet UILabel *impactofOrede;
+
+    __weak IBOutlet UILabel *low;
+    __weak IBOutlet UILabel *medium;
+
+    __weak IBOutlet UILabel *high;
+
+    __weak IBOutlet UILabel *critical;
 }
 
 @end

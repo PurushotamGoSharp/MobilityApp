@@ -79,6 +79,9 @@
     
     UILabel *label = (UILabel *)[cell viewWithTag:100];
     label.text = arrayOfDatas[indexPath.row];
+    label.font=[self customFont:14 ofName:MuseoSans_700];
+    
+    
     
     UIImageView *imageCVIew = (UIImageView *)[cell viewWithTag:101];
     imageCVIew.image = arrayOfImages[indexPath.row];

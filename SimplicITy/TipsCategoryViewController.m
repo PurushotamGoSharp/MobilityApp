@@ -20,6 +20,7 @@
     UIBarButtonItem *backButton;
     
     
+   // __weak IBOutlet UILabel *TipsCategory;
 }
 
 - (void)viewDidLoad
@@ -81,6 +82,10 @@
     
     UILabel *label = (UILabel *)[cell viewWithTag:100];
     label.text = categoriesArray[indexPath.row];
+    
+   
+    label.font=[self customFont:14 ofName:MuseoSans_700];
+    
     
     return cell;
 }

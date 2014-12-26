@@ -14,7 +14,9 @@
     UILabel *titleLable;
     NSInteger selectedRow;
 
+    __weak IBOutlet UIBarButtonItem *locationCancleButton;
 
+    __weak IBOutlet UIBarButtonItem *locationDoneButton;
 
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -59,8 +61,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
   
     titleLable = (UILabel *)[cell viewWithTag:100];
-    titleLable.text = arrOfLocationData[indexPath.row];
     
+    titleLable.font=[self customFont:14 ofName:MuseoSans_700];
+    
+    titleLable.text = arrOfLocationData[indexPath.row];
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
