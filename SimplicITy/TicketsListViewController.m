@@ -168,7 +168,7 @@
                          }
                      }];
     
-    filterIsShown = ~filterIsShown;
+    filterIsShown = !filterIsShown;
 }
 
 - (void)hideFilter:(UIControl *)hideControl
