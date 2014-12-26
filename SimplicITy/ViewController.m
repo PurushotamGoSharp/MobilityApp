@@ -40,7 +40,7 @@
 //            }
 //        }
     
-    self.signInButton.titleLabel.font = [self c]
+//    self.signInButton.titleLabel.font = [self c]
     
     centerOfContainer = self.conatinerForTxtAndBtn.center;
     initialLoginViewBottomCons = self.loginViewBottomConst.constant;
