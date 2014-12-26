@@ -45,7 +45,7 @@
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setTitle:@"< Back" forState:UIControlStateNormal];
-    back.frame = CGRectMake(0, 0, 55, 40);
+    back.frame = CGRectMake(0, 0, 60, 40);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
