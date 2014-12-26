@@ -47,16 +47,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-    [back setTitle:@"< Back" forState:UIControlStateNormal];
-    back.frame = CGRectMake(0, 0, 60, 40);
-    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
-    self.navigationItem.leftBarButtonItem = backButton;
 
-    
     arrOfPickerViewData = @[@"Critical",@"High",@"Medium",@"Low"];
     arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
     self.textView.placeholder = @"Describe your request here.";
@@ -86,7 +77,15 @@
     else
     {
         self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
-
+        
+        UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+        [back setTitle:@"< Back" forState:UIControlStateNormal];
+        back.frame = CGRectMake(0, 0, 60, 40);
+        [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+        self.navigationItem.leftBarButtonItem = backButton;
+        
         self.spaceServiceToImpactConstant.constant = -3;
         
 //        UILabel *titleLable = [[UILabel alloc] init];
