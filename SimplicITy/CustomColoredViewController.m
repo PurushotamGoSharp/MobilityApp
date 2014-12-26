@@ -51,16 +51,16 @@
 {
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
         case 0:
-            return @"Blue";
+            return @"Blue Ocean";
             break;
         case 1:
-            return @"Tonys Pink";
+            return @"Orange Hue";
             break;
         case 2:
-            return @"Pale Voilet Red";
+            return @"Pink Rose";
             break;
         case 3:
-            return @"Sprout";
+            return @"Green Glow";
             break;
         default:
             break;
