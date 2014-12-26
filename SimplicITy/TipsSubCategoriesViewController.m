@@ -17,6 +17,10 @@
 {
     NSArray *dataArray;
     NSDictionary *detailsDictionary;
+
+   // __weak IBOutlet UILabel *TipsSubCategory;
+
+
 }
 
 - (void)viewDidLoad

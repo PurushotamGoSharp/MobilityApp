@@ -20,6 +20,7 @@
     UIBarButtonItem *backButton;
     
     
+   // __weak IBOutlet UILabel *TipsCategory;
 }
 
 - (void)viewDidLoad
