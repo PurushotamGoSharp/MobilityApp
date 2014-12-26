@@ -32,8 +32,10 @@
 //    arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-    [back setTitle:@"< Back" forState:UIControlStateNormal];
-    back.frame = CGRectMake(0, 0, 60, 40);
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Back" forState:UIControlStateNormal];
+    
+    back.frame = CGRectMake(0, 0,70, 40);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
