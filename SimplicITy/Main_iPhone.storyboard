@@ -380,8 +380,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o66-Px-mZn" customClass="UIControl">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secvice" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rxt-rL-4Is">
-                                                <rect key="frame" x="15" y="127" width="56" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rxt-rL-4Is">
+                                                <rect key="frame" x="15" y="127" width="53" height="18"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -594,6 +594,9 @@
                                                     <outlet property="delegate" destination="Nvl-He-eXA" id="wgK-Z8-fTD"/>
                                                 </connections>
                                             </tableView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-forward" translatesAutoresizingMaskIntoConstraints="NO" id="F3Q-G7-7wm">
+                                                <rect key="frame" x="287" y="163" width="24" height="24"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -603,9 +606,11 @@
                                             <constraint firstItem="KT6-b5-NJD" firstAttribute="top" secondItem="o66-Px-mZn" secondAttribute="top" id="DQF-ZD-SsR"/>
                                             <constraint firstAttribute="height" constant="350" id="EU7-kv-GKD"/>
                                             <constraint firstItem="Mz2-sn-qHr" firstAttribute="leading" secondItem="G0p-fX-K0m" secondAttribute="leading" constant="-17" id="Ghs-2a-RyH"/>
+                                            <constraint firstItem="G0p-fX-K0m" firstAttribute="bottom" secondItem="F3Q-G7-7wm" secondAttribute="bottom" constant="6" id="GyB-1X-3Fv"/>
                                             <constraint firstAttribute="trailing" secondItem="Mz2-sn-qHr" secondAttribute="trailing" constant="1" id="HSg-X9-axu"/>
                                             <constraint firstItem="Mz2-sn-qHr" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="-1" id="KIQ-qJ-O8N"/>
                                             <constraint firstAttribute="trailing" secondItem="KT6-b5-NJD" secondAttribute="trailing" constant="1" id="V09-3n-h8W"/>
+                                            <constraint firstItem="G0p-fX-K0m" firstAttribute="trailing" secondItem="F3Q-G7-7wm" secondAttribute="trailing" constant="2" id="VOF-eL-ZsW"/>
                                             <constraint firstItem="Mz2-sn-qHr" firstAttribute="top" secondItem="G0p-fX-K0m" secondAttribute="top" constant="-3" id="WFa-Vl-Hnx"/>
                                             <constraint firstAttribute="bottom" secondItem="KT6-b5-NJD" secondAttribute="bottom" constant="246" id="bp4-ii-OeP"/>
                                             <constraint firstItem="Mz2-sn-qHr" firstAttribute="trailing" secondItem="G0p-fX-K0m" secondAttribute="trailing" constant="6" id="cK0-MN-28j"/>
@@ -614,7 +619,9 @@
                                             <constraint firstItem="pf2-GF-SyE" firstAttribute="top" secondItem="Mz2-sn-qHr" secondAttribute="bottom" constant="13" id="kX2-KF-9U2"/>
                                             <constraint firstItem="Mz2-sn-qHr" firstAttribute="top" secondItem="Rxt-rL-4Is" secondAttribute="bottom" constant="7" id="lPh-4v-JoZ"/>
                                             <constraint firstItem="pf2-GF-SyE" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="15" id="mDt-dI-XhV"/>
+                                            <constraint firstItem="G0p-fX-K0m" firstAttribute="top" secondItem="F3Q-G7-7wm" secondAttribute="top" constant="-8" id="p4w-DN-jLX"/>
                                             <constraint firstItem="Rxt-rL-4Is" firstAttribute="top" secondItem="KT6-b5-NJD" secondAttribute="bottom" constant="23" id="tHt-J3-MF1"/>
+                                            <constraint firstAttribute="centerY" secondItem="F3Q-G7-7wm" secondAttribute="centerY" id="y3W-nI-pnw"/>
                                             <constraint firstItem="KT6-b5-NJD" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="-1" id="zcR-WR-oFp"/>
                                         </constraints>
                                         <connections>
@@ -2715,9 +2722,10 @@
         <image name="SettingsDashIcon" width="64" height="64"/>
         <image name="SettingsTabIcon" width="30" height="30"/>
         <image name="SimplicityLogo" width="160" height="150"/>
-        <image name="TicketsListtBarIcon" width="30" height="30"/>
+        <image name="TicketsListtBarIcon" width="21" height="22"/>
         <image name="TipsIcon" width="64" height="64"/>
         <image name="WhiteCircle" width="130" height="133"/>
+        <image name="arrow-forward" width="24" height="24"/>
         <image name="homeBlue" width="30" height="26"/>
         <image name="infoTip" width="30" height="30"/>
         <image name="messageBlue" width="30" height="30"/>

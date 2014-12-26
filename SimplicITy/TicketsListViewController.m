@@ -40,6 +40,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+    {
+        self.title = @"My Orders";
+    }
+    
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
     
@@ -54,7 +59,9 @@
     arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
     arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
     
-    self.filterTableView.separatorColor = [self seperatorColours];
+//    self.filterTableView.separatorColor = [self seperatorColours];
+    
+    self.filterTableView.separatorColor = [UIColor whiteColor];
     
     filterIsShown = NO;
     self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
@@ -230,7 +237,8 @@
         
 
         UIView *bgColorView = [[UIView alloc] init];
-        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
+//        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
+        bgColorView.backgroundColor = [self barColorForIndex:nil];
         [cell setSelectedBackgroundView:bgColorView];
     }
     return cell;
