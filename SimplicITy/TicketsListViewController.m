@@ -135,6 +135,12 @@
     TicketDetailViewController *ticketDeteilVC = segue.destinationViewController;
     TicketModel *ticket = arrayOfData[indexPath.row];
     ticketDeteilVC.tickModel = ticket;
+    
+    if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+    {
+        ticketDeteilVC.orderItemDifferForList = @"orderList";
+    }
+    
 }
 
 - (IBAction)filterButtonPressed:(UIBarButtonItem *)sender
@@ -255,7 +261,7 @@
 
         UIView *bgColorView = [[UIView alloc] init];
 //        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
-        bgColorView.backgroundColor = [self barColorForIndex:nil];
+        bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];
         [cell setSelectedBackgroundView:bgColorView];
     }
     return cell;
