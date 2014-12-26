@@ -96,6 +96,16 @@
     }
    
 }
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  tableView.bounds.size.width, 30)];
+//        
+//        UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake (0,0,320,30)];
+//        labelHeader.font = [self customFont:16 ofName:MuseoSans_700];
+//        labelHeader.textColor = [UIColor blackColor];
+//        [headerView addSubview:labelHeader];
+//        return headerView;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
