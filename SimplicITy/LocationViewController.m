@@ -14,7 +14,9 @@
     UILabel *titleLable;
     NSInteger selectedRow;
 
+    __weak IBOutlet UIBarButtonItem *locationCancleButton;
 
+    __weak IBOutlet UIBarButtonItem *locationDoneButton;
 
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

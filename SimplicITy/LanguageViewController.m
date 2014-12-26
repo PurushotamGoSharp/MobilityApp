@@ -15,6 +15,12 @@
     NSIndexPath* lastIndexPath;
     NSInteger selectedRow;
 
+    __weak IBOutlet UIBarButtonItem *languageCancleButton;
+
+
+    __weak IBOutlet UIBarButtonItem *languageDoneButton;
+
+
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
