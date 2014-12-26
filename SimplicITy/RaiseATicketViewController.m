@@ -425,8 +425,6 @@
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
         {
             ticketCategoryVC.orderItemDiffer = @"orderItemsData";
-            
-
         }
         
 //        if ([self.title isEqualToString:@"Place an Order"])
