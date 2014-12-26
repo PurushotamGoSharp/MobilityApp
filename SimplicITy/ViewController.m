@@ -17,6 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginViewBottomConst;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoHeightConst;
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextFldOutlet;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextFldOutlet;
 
 @end
 
@@ -40,7 +42,8 @@
 //            }
 //        }
     
-//    self.signInButton.titleLabel.font = [self c]
+    self.signInButton.titleLabel.font = [UIFont fontWithName:@"MuseoSans-700" size:18];
+    self.userNameTextFldOutlet.font = [UIFont fontWithName:@"MuseoSans-300" size:14];
     
     centerOfContainer = self.conatinerForTxtAndBtn.center;
     initialLoginViewBottomCons = self.loginViewBottomConst.constant;
