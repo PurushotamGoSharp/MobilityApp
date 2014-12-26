@@ -57,12 +57,17 @@
 //                                                                          action:@selector(dismissKeyboard)];
 //    [self.view addGestureRecognizer:tap];
     
+    self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
 
 
     self.navigationItem.leftBarButtonItems = @[];
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
+        
+        [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
+//        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
+
         
         self.title = @"Place an Order";
         self.tipViewOutlet.hidden = YES;
@@ -76,7 +81,6 @@
     }
     else
     {
-        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
         
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
         [back setTitle:@"< Back" forState:UIControlStateNormal];
@@ -381,10 +385,31 @@
         UINavigationController *navController = segue.destinationViewController;
         TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
         ticketCategoryVC.delegate = self;
+        
+        
+        
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
         {
             ticketCategoryVC.orderItemDiffer = @"orderItemsData";
+            
+
         }
+        
+//        if ([self.title isEqualToString:@"Place an Order"])
+//        {
+//            TicketsListViewController *orderList = segue.destinationViewController;
+//            orderList.orderItemDifferForList = @"orderList";
+//        }
+
+    }else
+    {
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+
+        TicketsListViewController *orderList = segue.destinationViewController;
+        orderList.orderItemDifferForList = @"orderList";
+        }
+
     }
 }
 

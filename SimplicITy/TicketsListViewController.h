@@ -10,4 +10,11 @@
 
 @interface TicketsListViewController : CustomColoredViewController
 
+{
+    
+}
+
+@property (strong, nonatomic)NSString *orderItemDifferForList;
+
+
 @end
