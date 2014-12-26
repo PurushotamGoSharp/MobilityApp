@@ -40,12 +40,17 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+    {
+        self.title = @"My Orders";
+    }
+    
     arrayOfData = [[NSMutableArray alloc] init];
     [self setUpData];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setTitle:@"< Back" forState:UIControlStateNormal];
-    back.frame = CGRectMake(0, 0, 50, 40);
+    back.frame = CGRectMake(0, 0, 60, 40);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
@@ -54,7 +59,9 @@
     arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
     arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
     
-    self.filterTableView.separatorColor = [self seperatorColours];
+//    self.filterTableView.separatorColor = [self seperatorColours];
+    
+    self.filterTableView.separatorColor = [UIColor whiteColor];
     
     filterIsShown = NO;
     self.filterSliderTrailingConst.constant = -self.filterTableView.frame.size.width;
@@ -106,7 +113,6 @@
         self.refreshControl.attributedTitle = attributedTitle;
         [self.refreshControl endRefreshing];
     }
-
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -116,6 +122,7 @@
     TicketModel *ticket = arrayOfData[indexPath.row];
     ticketDeteilVC.tickModel = ticket;
 }
+
 - (IBAction)filterButtonPressed:(UIBarButtonItem *)sender
 {
     CGFloat constraintValue = 0.0;
@@ -230,7 +237,8 @@
         
 
         UIView *bgColorView = [[UIView alloc] init];
-        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
+//        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
+        bgColorView.backgroundColor = [self barColorForIndex:nil];
         [cell setSelectedBackgroundView:bgColorView];
     }
     return cell;
@@ -344,9 +352,6 @@
     ticket.details = @"Need to reset my email password, as I am not able to log in to my email account.";
    [arrayOfData addObject:ticket];
     ticket.date =@"2014/12/17";
-    
-    
-    
     
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Server";

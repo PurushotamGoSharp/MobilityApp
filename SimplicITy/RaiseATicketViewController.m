@@ -57,12 +57,17 @@
 //                                                                          action:@selector(dismissKeyboard)];
 //    [self.view addGestureRecognizer:tap];
     
+    self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
 
 
     self.navigationItem.leftBarButtonItems = @[];
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
+        
+        [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
+//        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
+
         
         self.title = @"Place an Order";
         self.tipViewOutlet.hidden = YES;
@@ -76,6 +81,7 @@
     }
     else
     {
+        
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
         [back setTitle:@"< Back" forState:UIControlStateNormal];
         back.frame = CGRectMake(0, 0, 60, 40);
@@ -302,12 +308,17 @@
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"] && indexPath.row == 1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         UISlider *sliderOutlet = (UISlider *)[cell viewWithTag:300];
         [sliderOutlet setThumbImage:[self imageForSLiderThumb:roundf(sliderOutlet.value)] forState:(UIControlStateNormal)];
+        [sliderOutlet setThumbImage:[UIImage imageNamed:@"grayCircle"] forState:(UIControlStateHighlighted)];
         [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
+        
         return cell;
     }else
     {
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     }
     
@@ -329,6 +340,7 @@
     
     if (indexPath.row == 0)
     {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         header.text = @"Requester";
         lable.text = @"Jean-Pierre";
     }else
@@ -344,16 +356,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
-    
     if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
         return;
     }
     if (indexPath.row == 1)
     {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         self.alphaViewOutLet.hidden = NO;
         self.pickerContainerViewOutlet.hidden = NO;
 
@@ -387,10 +398,31 @@
         UINavigationController *navController = segue.destinationViewController;
         TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
         ticketCategoryVC.delegate = self;
+        
+        
+        
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
         {
             ticketCategoryVC.orderItemDiffer = @"orderItemsData";
+            
+
         }
+        
+//        if ([self.title isEqualToString:@"Place an Order"])
+//        {
+//            TicketsListViewController *orderList = segue.destinationViewController;
+//            orderList.orderItemDifferForList = @"orderList";
+//        }
+
+    }else
+    {
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+
+        TicketsListViewController *orderList = segue.destinationViewController;
+        orderList.orderItemDifferForList = @"orderList";
+        }
+
     }
 }
 
