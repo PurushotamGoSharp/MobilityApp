@@ -32,13 +32,15 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     
-    //    for (NSString *family in [UIFont familyNames])
-    //    {
-    //        for (NSString *names in [UIFont fontNamesForFamilyName:family])
-    //        {
-    //            NSLog(@"%@ %@", family, names);
-    //        }
-    //    }
+//        for (NSString *family in [UIFont familyNames])
+//        {
+//            for (NSString *names in [UIFont fontNamesForFamilyName:family])
+//            {
+//                NSLog(@"%@ %@", family, names);
+//            }
+//        }
+    
+    self.signInButton.titleLabel.font = [self c]
     
     centerOfContainer = self.conatinerForTxtAndBtn.center;
     initialLoginViewBottomCons = self.loginViewBottomConst.constant;

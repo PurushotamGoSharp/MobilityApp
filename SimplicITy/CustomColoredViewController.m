@@ -135,6 +135,27 @@
     
 }
 
+-(UIFont *)customFont:(NSInteger)size ofName:(CustomFontNames)fontName
+{
+    UIFont *customFont;
+    switch (fontName)
+    {
+        case MuseoSans_100:
+            customFont = [UIFont fontWithName:@"MuseoSans-100" size:size];
+            break;
+        case MuseoSans_300:
+            customFont = [UIFont fontWithName:@"MuseoSans-300" size:size];
+            break;
+        case MuseoSans_700:
+            customFont = [UIFont fontWithName:@"MuseoSans-700" size:size];
+            break;
+            
+        default:
+            break;
+    }
+    return customFont;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

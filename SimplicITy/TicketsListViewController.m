@@ -45,13 +45,12 @@
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setTitle:@"< Back" forState:UIControlStateNormal];
-    back.frame = CGRectMake(0, 0, 60, 40);
+    back.frame = CGRectMake(0, 0, 50, 40);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
 
-    
     arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
     arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
     
@@ -193,6 +192,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
