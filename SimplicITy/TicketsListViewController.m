@@ -45,7 +45,7 @@
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setTitle:@"< Back" forState:UIControlStateNormal];
-    back.frame = CGRectMake(0, 0, 50, 40);
+    back.frame = CGRectMake(0, 0, 55, 40);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
@@ -106,7 +106,6 @@
         self.refreshControl.attributedTitle = attributedTitle;
         [self.refreshControl endRefreshing];
     }
-
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -116,6 +115,7 @@
     TicketModel *ticket = arrayOfData[indexPath.row];
     ticketDeteilVC.tickModel = ticket;
 }
+
 - (IBAction)filterButtonPressed:(UIBarButtonItem *)sender
 {
     CGFloat constraintValue = 0.0;
@@ -344,9 +344,6 @@
     ticket.details = @"Need to reset my email password, as I am not able to log in to my email account.";
    [arrayOfData addObject:ticket];
     ticket.date =@"2014/12/17";
-    
-    
-    
     
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Server";
