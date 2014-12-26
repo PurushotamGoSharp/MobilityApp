@@ -262,7 +262,7 @@
     TicketModel *ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Identity Service";
     ticket.agentName = @"Jonathan";
-    ticket.ticketNum = @"# 10345,";
+    ticket.ticketNum = @"# 10345";
     ticket.currentStatus = @"New";
     ticket.date =cureentDate;
     ticket.colorCode = [UIColor redColor];
@@ -273,7 +273,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Authentication";
     ticket.agentName = @"Jim";
-    ticket.ticketNum = @"# 10445,";
+    ticket.ticketNum = @"# 10445";
     ticket.currentStatus = @"New";
     ticket.date =cureentDate;
 
@@ -286,7 +286,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Others";
     ticket.agentName = @"Irene";
-    ticket.ticketNum = @"#87655,";
+    ticket.ticketNum = @"#87655";
     ticket.currentStatus = @"Pending";
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"2 h";
@@ -311,7 +311,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Productivity Software";
     ticket.agentName = @"Monica";
-    ticket.ticketNum = @"#65676,";
+    ticket.ticketNum = @"#65676";
     ticket.date =@"2014/12/21";
     ticket.currentStatus = @"In progress";
     ticket.colorCode = [UIColor redColor];
@@ -323,7 +323,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Desktop";
     ticket.agentName = @"Richard";
-    ticket.ticketNum = @"#55678,";
+    ticket.ticketNum = @"#55678";
 
     ticket.currentStatus = @"Cancelled";
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
@@ -336,7 +336,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Collaboration Services";
     ticket.agentName = @"Anthony";
-    ticket.ticketNum = @"#46786, ";
+    ticket.ticketNum = @"#46786";
    ticket.currentStatus = @"Resolved";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"5 d";
@@ -350,7 +350,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Server";
     ticket.agentName = @"Bertie";
-    ticket.ticketNum = @"#36766,";
+    ticket.ticketNum = @"#36766";
     ticket.currentStatus = @"Closed";
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"7 d";
@@ -360,7 +360,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"SAP PE1";
     ticket.agentName = @"Saul";
-    ticket.ticketNum = @"#26786,";
+    ticket.ticketNum = @"#26786";
     ticket.currentStatus = @"Resolved";
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"8 d";
@@ -370,7 +370,7 @@
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Mobile";
     ticket.agentName = @"Bertie";
-    ticket.ticketNum = @"#16778,";
+    ticket.ticketNum = @"#16778";
 
     ticket.currentStatus = @"Closed";
     ticket.colorCode = [UIColor yellowColor];
