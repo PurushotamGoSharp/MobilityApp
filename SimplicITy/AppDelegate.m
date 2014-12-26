@@ -21,7 +21,9 @@
     
 
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                           NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-700" size:20]}];
+    
     
     
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
