@@ -20,6 +20,24 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
 @property (weak, nonatomic) IBOutlet UIView *profileViewOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardOrder;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardMessage;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardCallHelpDesk;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardTips;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardSetting;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardTicket;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonName;
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonCode;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonAddress;
+
+
+
+
+
+
+
 
 @end
 
@@ -69,6 +87,21 @@
     downArrowImageView.hidden = NO;
     
     self.navigationItem.titleView = titleView;
+    
+//    
+//    self.dashBoardMessage.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardCallHelpDesk.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardOrder.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardSetting.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardTicket.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardTips.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardPersonName.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardPersonAddress.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+//    self.dashBoardPersonCode.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+
+
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
