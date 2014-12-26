@@ -39,6 +39,7 @@
 //    arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Back" forState:UIControlStateNormal];
     
