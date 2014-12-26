@@ -122,13 +122,13 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Al-4h-7aB" userLabel="Dash container">
-                                <rect key="frame" x="0.0" y="163" width="320" height="243"/>
+                                <rect key="frame" x="0.0" y="101" width="320" height="367"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWZ-ae-XdY" userLabel="First Row">
-                                        <rect key="frame" x="1" y="0.0" width="320" height="122"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3K-gf-Q0s" userLabel="Raise A Ticket">
-                                                <rect key="frame" x="6" y="0.0" width="100" height="120"/>
+                                                <rect key="frame" x="7" y="0.0" width="100" height="120"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjJ-wS-Vxf">
                                                         <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
@@ -151,32 +151,32 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.40000000000000002" green="0.80000000000000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Tv-MCJ" userLabel="Order">
-                                                <rect key="frame" x="109" y="0.0" width="100" height="120"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygb-Zc-x4Q" userLabel="My Ticket">
+                                                <rect key="frame" x="110" y="1" width="100" height="120"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ete-0y-E1v">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bT5-Q7-JBe">
+                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="Nvl-He-eXA" kind="push" identifier="dashToOrder_segue" id="8h2-qg-Aot"/>
+                                                            <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyTicketsASegue" id="5s6-By-sBB"/>
                                                         </connections>
                                                     </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
-                                                        <rect key="frame" x="18" y="21" width="64" height="56"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyTickets" translatesAutoresizingMaskIntoConstraints="NO" id="5Fd-E5-elY">
+                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
                                                     </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
-                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Ticket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkU-1B-I3g">
+                                                        <rect key="frame" x="2" y="87" width="97" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.6588235294117647" green="0.41960784313725491" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifc-Dm-qqE" userLabel="Messages">
-                                                <rect key="frame" x="212" y="0.0" width="100" height="120"/>
+                                                <rect key="frame" x="213" y="0.0" width="100" height="120"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-C7-Ep8">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
@@ -187,8 +187,8 @@
                                                             <action selector="messageButtonPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="fsY-Ck-95V"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rh-ss-Chz">
-                                                        <rect key="frame" x="17" y="87" width="70" height="18"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rh-ss-Chz">
+                                                        <rect key="frame" x="3" y="87" width="95" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -214,32 +214,32 @@
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93t-qo-lzI" userLabel="Second Row">
                                         <rect key="frame" x="0.0" y="123" width="320" height="121"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60G-bx-fgm" userLabel="It Help Desk">
-                                                <rect key="frame" x="7" y="0.0" width="100" height="120"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Tv-MCJ" userLabel="Place Order">
+                                                <rect key="frame" x="7" y="1" width="100" height="120"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aon-Rm-RSq">
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ete-0y-E1v">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="initiateCallForITHelpDesk:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Pxa-X4-9if"/>
+                                                            <segue destination="Nvl-He-eXA" kind="push" identifier="dashToOrder_segue" id="8h2-qg-Aot"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Call Helpdesk" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piG-eZ-KI4">
-                                                        <rect key="frame" x="3" y="85" width="96" height="18"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
+                                                        <rect key="frame" x="18" y="21" width="64" height="56"/>
+                                                    </imageView>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
+                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PhoneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="xKx-aV-eZy">
-                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
-                                                    </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0t-NN-iT8" userLabel="Tips">
-                                                <rect key="frame" x="110" y="0.0" width="100" height="120"/>
+                                                <rect key="frame" x="213" y="1" width="100" height="120"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlj-GY-Rz3">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
@@ -262,8 +262,86 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.52156862745098043" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="itm-1L-AFt" userLabel="My Order">
+                                                <rect key="frame" x="110" y="1" width="100" height="120"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIT-hc-sds">
+                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                        <state key="normal">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyOrdersSegue" id="uWR-qu-A3S"/>
+                                                        </connections>
+                                                    </button>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyOrderedDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="3fU-LL-lWG">
+                                                        <rect key="frame" x="18" y="21" width="64" height="56"/>
+                                                    </imageView>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Orders" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyH-ht-g5P">
+                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.81960784313725488" green="0.73333333333333328" blue="0.59607843137254901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-it-nBX" userLabel="Third Row">
+                                        <rect key="frame" x="0.0" y="245" width="320" height="122"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60G-bx-fgm" userLabel="It Help Desk">
+                                                <rect key="frame" x="7" y="1" width="100" height="120"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aon-Rm-RSq">
+                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                        <state key="normal">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="initiateCallForITHelpDesk:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Pxa-X4-9if"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Call Helpdesk" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piG-eZ-KI4">
+                                                        <rect key="frame" x="3" y="85" width="96" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PhoneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="xKx-aV-eZy">
+                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LiG-Bq-B0U" userLabel="Web Clips">
+                                                <rect key="frame" x="110" y="1" width="100" height="120"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4V-Rr-0Zi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                        <state key="normal">
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <segue destination="yDK-B7-She" kind="push" id="Jrv-6w-ASy"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Web Clips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpL-rN-qvM">
+                                                        <rect key="frame" x="17" y="87" width="70" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MessageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="rWJ-Np-QfH">
+                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.70980392156862748" green="0.80392156862745101" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-eJ-48c" userLabel="Settings">
-                                                <rect key="frame" x="213" y="0.0" width="100" height="120"/>
+                                                <rect key="frame" x="213" y="1" width="100" height="120"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wW-Wc-WS8">
                                                         <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
@@ -293,7 +371,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="LCu-HL-0Fm"/>
-                                    <constraint firstAttribute="height" priority="999" constant="243" id="kGQ-Eb-Fdt"/>
+                                    <constraint firstAttribute="height" priority="999" constant="367" id="kGQ-Eb-Fdt"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1b-Pk-mKI" userLabel="ProfileView">
@@ -1946,7 +2024,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brW-TQ-yjS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3325" y="72"/>
+            <point key="canvasLocation" x="3325" y="66"/>
         </scene>
         <!--Languages-->
         <scene sceneID="gmv-w4-RNm">
@@ -2318,7 +2396,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view alpha="0.69999999999999973" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HE8-eK-DuC">
-                                <rect key="frame" x="0.0" y="39" width="320" height="298"/>
+                                <rect key="frame" x="0.0" y="39" width="320" height="480"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuI-Ch-7Si">
                                         <rect key="frame" x="20" y="63" width="300" height="1"/>
@@ -2360,11 +2438,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iad-Yg-fOr">
-                                        <rect key="frame" x="20" y="140" width="280" height="150"/>
+                                        <rect key="frame" x="20" y="138" width="280" height="334"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="uok-9a-xE4"/>
-                                        </constraints>
                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -2374,8 +2449,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Iad-Yg-fOr" firstAttribute="top" secondItem="HE8-eK-DuC" secondAttribute="top" constant="138" id="4fs-PO-s03"/>
                                     <constraint firstItem="Kg2-Qw-kEB" firstAttribute="leading" secondItem="HE8-eK-DuC" secondAttribute="leading" constant="20" id="9q5-IZ-h3r"/>
-                                    <constraint firstAttribute="height" constant="298" id="GQO-SR-e5T"/>
                                     <constraint firstItem="Iad-Yg-fOr" firstAttribute="leading" secondItem="HE8-eK-DuC" secondAttribute="leading" constant="20" id="YvT-3Q-C9o"/>
                                     <constraint firstAttribute="trailing" secondItem="lNC-aY-db7" secondAttribute="trailing" constant="25" id="ade-w8-61L"/>
                                     <constraint firstAttribute="trailing" secondItem="Iad-Yg-fOr" secondAttribute="trailing" constant="20" id="c0r-hg-uDf"/>
@@ -2390,6 +2465,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="HE8-eK-DuC" secondAttribute="trailing" id="9aV-v5-hoC"/>
                             <constraint firstItem="HE8-eK-DuC" firstAttribute="leading" secondItem="Frn-DZ-c7w" secondAttribute="leading" id="Cv7-MG-aKL"/>
+                            <constraint firstItem="A4M-CP-4te" firstAttribute="top" secondItem="HE8-eK-DuC" secondAttribute="bottom" id="DcK-Cr-yiZ"/>
                             <constraint firstItem="HE8-eK-DuC" firstAttribute="top" secondItem="Frn-DZ-c7w" secondAttribute="top" constant="39" id="gNv-PP-CIt"/>
                         </constraints>
                     </view>
@@ -2510,7 +2586,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eEK-66-pcD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2453" y="1833"/>
+            <point key="canvasLocation" x="2707" y="1821"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kgu-E0-yUa">
@@ -2731,7 +2807,9 @@
         <image name="LyncToolsIcon" width="30" height="30"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
-        <image name="OrderDashIcon" width="64" height="56"/>
+        <image name="MyOrderedDashIcon" width="64" height="64"/>
+        <image name="MyTickets" width="64" height="64"/>
+        <image name="OrderDashIcon" width="64" height="64"/>
         <image name="OrderTabIcon" width="30" height="26"/>
         <image name="PhoneIcon" width="64" height="64"/>
         <image name="PlaceholderImage" width="250" height="152"/>
@@ -2759,6 +2837,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="uWR-qu-A3S"/>
+        <segue reference="Jrv-6w-ASy"/>
         <segue reference="8h2-qg-Aot"/>
     </inferredMetricsTieBreakers>
 </document>
