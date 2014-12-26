@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBetweenimpactAndServiceConstant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceServiceToImpactConstant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lowRightCOnstraint;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
 
 @end
 
@@ -47,6 +48,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setTitle:@"< Back" forState:UIControlStateNormal];
+    back.frame = CGRectMake(0, 0, 60, 40);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+
+    
     arrOfPickerViewData = @[@"Critical",@"High",@"Medium",@"Low"];
     arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
     self.textView.placeholder = @"Describe your request here.";
@@ -56,28 +66,9 @@
 //                                                                          action:@selector(dismissKeyboard)];
 //    [self.view addGestureRecognizer:tap];
     
-//    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [back setTitle:@"< Back" forState:UIControlStateNormal];
-//    back.frame = CGRectMake(80, 0, 60, 40);
-//    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-//    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    UIButton *listOfTickets = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [listOfTickets setImage:[UIImage imageNamed:@"TicketsListtBarIcon"] forState:UIControlStateNormal];
-//
-////    [back setTitle:@"< Back" forState:UIControlStateNormal];
-//    back.frame = CGRectMake(0, 0, 60, 40);
-//    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-//    [back  addTarget:self action:@selector(listBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//
-//    
-//    UIView *rightBarButtonItems = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 76, 32)];
-//    [rightBarButtonItems addSubview:listOfTickets];
-//    [rightBarButtonItems addSubview:back];
-//    
-//    backButton = [[UIBarButtonItem alloc] initWithCustomView:rightBarButtonItems];
-//    self.navigationItem.leftBarButtonItem = backButton;
 
+
+    self.navigationItem.leftBarButtonItems = @[];
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
@@ -86,7 +77,7 @@
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
-        self.navigationItem.leftBarButtonItems = @[];
+        
         
         self.spaceBetweenimpactAndServiceConstant.constant = 220;
         self.spaceServiceToImpactConstant.constant = 2;
@@ -94,6 +85,8 @@
     }
     else
     {
+        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
+
         self.spaceServiceToImpactConstant.constant = -3;
         
 //        UILabel *titleLable = [[UILabel alloc] init];
