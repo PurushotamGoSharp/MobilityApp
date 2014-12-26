@@ -51,8 +51,8 @@
    
     self.CategoryTitleOutlet.font=[self customFont:16 ofName:MuseoSans_700];
     
-    self.CategoryTitleOutlet.font = [self customFont:14 ofName:MuseoSans_300];
-    self.detailLbl.font = [self customFont:14 ofName:MuseoSans_300];
+    self.CategoryTitleOutlet.font = [self customFont:16 ofName:MuseoSans_700];
+    self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
     
     arrOfPickerViewData = @[@"Critical",@"High",@"Medium",@"Low"];
     arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
@@ -293,7 +293,7 @@
     viewForImage.backgroundColor = arrOfcolur[row];
     viewForLable.text = arrOfPickerViewData[row];
     
-    viewForLable.font=[self customFont:14 ofName:MuseoSans_700];
+    viewForLable.font=[self customFont:16 ofName:MuseoSans_700];
     
     return containerView;
     

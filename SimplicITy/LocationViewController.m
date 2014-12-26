@@ -62,7 +62,7 @@
   
     titleLable = (UILabel *)[cell viewWithTag:100];
     
-    titleLable.font=[self customFont:14 ofName:MuseoSans_700];
+    titleLable.font=[self customFont:16 ofName:MuseoSans_700];
     
     titleLable.text = arrOfLocationData[indexPath.row];
     
