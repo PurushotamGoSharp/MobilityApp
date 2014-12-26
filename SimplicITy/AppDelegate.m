@@ -29,6 +29,8 @@
         case 0:
             [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
             [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
+            
+            
 //            [[UITabBar appearance] setSelectedImageTintColor:[UIColor greenColor]];
             
             [UITabBar appearance];
@@ -56,7 +58,12 @@
 
     return YES;
 }
-							
+
+- (void)setTabsWithColorIndex:(NSInteger)colorIndex
+{
+    
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

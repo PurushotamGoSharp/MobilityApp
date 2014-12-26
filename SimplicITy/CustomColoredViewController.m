@@ -135,7 +135,7 @@
     
 }
 
--(UIFont *)customFont:(NSInteger)size ofName:(CustomFontNames)fontName
+- (UIFont *)customFont:(NSInteger)size ofName:(CustomFontNames)fontName
 {
     UIFont *customFont;
     switch (fontName)
@@ -157,7 +157,9 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
