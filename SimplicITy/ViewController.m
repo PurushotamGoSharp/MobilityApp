@@ -157,6 +157,9 @@
     UITabBar *tabBar = tabBarController.tabBar;
     NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
     [self setTabImageForColorIndex:index onTabBar:tabBar];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index]} forState:(UIControlStateNormal)];
+
 }
 
 - (void)setTabImageForColorIndex:(NSInteger)colorIndex onTabBar:(UITabBar *)tabBar;
@@ -183,6 +186,33 @@
     
     tabBarItem = tabBar.items[4];
     tabBarItem.image = [[UIImage imageNamed:imageName4] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+}
+
+- (UIColor *)colorForIndex:(NSInteger)colorIndex
+{
+    switch (colorIndex)
+    {
+        case 0:
+            return [UIColor colorWithRed:.1 green:.16 blue:.2 alpha:1];
+            break;
+            
+        case 1:
+            return [UIColor colorWithRed:.4 green:.11 blue:.2 alpha:1];
+            break;
+            
+        case 2:
+            return [UIColor colorWithRed:.15 green:.18 blue:.09 alpha:1];
+            break;
+            
+        case 3:
+            return [UIColor colorWithRed:.35 green:.2 blue:.13 alpha:1];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
 }
 
 @end
