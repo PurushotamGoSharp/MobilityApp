@@ -338,7 +338,6 @@
     return cell;
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
      [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -437,26 +436,34 @@
     {
         [slider setTintColor:([UIColor orangeColor])];
         
+        high.textColor = [UIColor blackColor];
+
         low.textColor = [UIColor lightGrayColor];
         medium.textColor = [UIColor lightGrayColor];
-        high.textColor = [UIColor blackColor];
         critical.textColor = [UIColor lightGrayColor];
         
     }else if (slider.value == 1)
     {
         [slider setTintColor:([UIColor yellowColor])];
         
-        low.textColor = [UIColor lightGrayColor];
         medium.textColor = [UIColor blackColor];
+
+        low.textColor = [UIColor lightGrayColor];
         high.textColor = [UIColor lightGrayColor];
         critical.textColor = [UIColor lightGrayColor];
     } if (slider.value ==0)
     {
         low.textColor = [UIColor blackColor];
+        
         medium.textColor = [UIColor lightGrayColor];
         high.textColor = [UIColor lightGrayColor];
         critical.textColor = [UIColor lightGrayColor];
     }
+}
+
+-(void)grayColour
+{
+    
 }
 
 - (UIImage *)imageForSLiderThumb:(NSInteger)value

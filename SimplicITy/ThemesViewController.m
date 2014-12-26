@@ -33,13 +33,10 @@
 }
 - (IBAction)cancelBtnPressed:(id)sender
 {
-    
     [self dismissViewControllerAnimated:YES completion:nil];
-
 }
 - (IBAction)doneBtnPressed:(id)sender
 {
-    
     [[ NSUserDefaults standardUserDefaults] setInteger:selectedRow forKey:@"BackgroundTheme"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -47,7 +44,6 @@
     [[UINavigationBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];
     [self.delegate selectedThemeIs:arrOfThemesData[selectedRow]];
     [self dismissViewControllerAnimated:YES completion:nil];
-
 
 }
 
@@ -62,13 +58,11 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [arrOfThemesData count];
-    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
     
     UILabel *titleLable= (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfThemesData[indexPath.row];
@@ -77,7 +71,6 @@
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
     [cell setSelectedBackgroundView:bgColorView];
-    
     return cell;
 }
 
@@ -85,7 +78,6 @@
 {
     selectedRow = indexPath.row;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

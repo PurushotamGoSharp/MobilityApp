@@ -76,10 +76,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-
     selectedRow = indexPath.row;
-
 
 //    UIView *bgColorView = [[UIView alloc] init];
 //    bgColorView.backgroundColor = [UIColor redColor];
