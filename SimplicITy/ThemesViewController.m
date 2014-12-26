@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfThemesData = @[@"Blue Ocean",@"Orange Hue",@"Red Rose",@"Green Glow"];
+    arrOfThemesData = @[@"Blue Ocean",@"Orange Hue",@"Pink Rose",@"Green Glow"];
     
     selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
 

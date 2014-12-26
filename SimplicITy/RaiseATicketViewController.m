@@ -308,12 +308,17 @@
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"] && indexPath.row == 1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         UISlider *sliderOutlet = (UISlider *)[cell viewWithTag:300];
         [sliderOutlet setThumbImage:[self imageForSLiderThumb:roundf(sliderOutlet.value)] forState:(UIControlStateNormal)];
+        [sliderOutlet setThumbImage:[UIImage imageNamed:@"grayCircle"] forState:(UIControlStateHighlighted)];
         [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
+        
         return cell;
     }else
     {
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     }
     
@@ -335,6 +340,7 @@
     
     if (indexPath.row == 0)
     {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         header.text = @"Requester";
         lable.text = @"Jean-Pierre";
     }else
@@ -350,16 +356,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
-    
     if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
         return;
     }
     if (indexPath.row == 1)
     {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         self.alphaViewOutLet.hidden = NO;
         self.pickerContainerViewOutlet.hidden = NO;
 
