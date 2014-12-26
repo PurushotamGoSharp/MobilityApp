@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceServiceToImpactConstant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lowRightCOnstraint;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
+@property (weak, nonatomic) IBOutlet UILabel *detailLbl;
 
 @end
 
@@ -48,6 +49,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+   
+    self.CategoryTitleOutlet.font=[self customFont:16 ofName:MuseoSans_700];
+    
+    self.CategoryTitleOutlet.font = [self customFont:14 ofName:MuseoSans_300];
+    self.detailLbl.font = [self customFont:14 ofName:MuseoSans_300];
+    
     arrOfPickerViewData = @[@"Critical",@"High",@"Medium",@"Low"];
     arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
     self.textView.placeholder = @"Describe your request here.";
@@ -280,6 +287,9 @@
     
     viewForImage.backgroundColor = arrOfcolur[row];
     viewForLable.text = arrOfPickerViewData[row];
+    
+    viewForLable.font=[self customFont:14 ofName:MuseoSans_700];
+    
     return containerView;
     
 }
@@ -328,6 +338,12 @@
     }
     UILabel *header = (UILabel *)[cell viewWithTag:100];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
+    
+    header.font=[self customFont:16 ofName:MuseoSans_700];
+    lable.font=[self customFont:16 ofName:MuseoSans_700];
+
+    
+    
     
     UIView *colourForline = (UIView *)[cell viewWithTag:102];
     UIView *colourForRect = (UIView *)[cell viewWithTag:103];

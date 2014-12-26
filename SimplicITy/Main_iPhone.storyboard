@@ -725,6 +725,7 @@
                         <outlet property="CategoryTitleOutlet" destination="Rxt-rL-4Is" id="Jy2-Ak-C3C"/>
                         <outlet property="alphaViewOutLet" destination="yJc-ds-KaO" id="048-b6-uwD"/>
                         <outlet property="bulbImgOutlet" destination="bYM-Qm-8J6" id="yxe-xF-D2z"/>
+                        <outlet property="detailLbl" destination="pf2-GF-SyE" id="78B-AL-9Eg"/>
                         <outlet property="listBarBtnOutlet" destination="zkL-pk-DCX" id="fwd-dG-xCM"/>
                         <outlet property="pickerContainerViewOutlet" destination="SUK-Ae-8nf" id="ffZ-a4-FG9"/>
                         <outlet property="pickerViewOutlet" destination="TJh-qZ-sED" id="q9p-aF-95p"/>
@@ -739,7 +740,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GG2-oL-4ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2488" y="-605"/>
+            <point key="canvasLocation" x="2494" y="-605"/>
         </scene>
         <!--My Tickets-->
         <scene sceneID="RSU-Fh-BKR">
@@ -2286,10 +2287,19 @@
                     <tabBarItem key="tabBarItem" title="Order" image="OrderTabIcon" id="ms2-UV-x5J"/>
                     <navigationItem key="navigationItem" id="ewB-pR-NBO"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="critical" destination="5Ft-OZ-sch" id="xvs-rW-V1F"/>
+                        <outlet property="high" destination="2dO-kV-hJS" id="GUU-rS-mbk"/>
+                        <outlet property="impactofOrede" destination="lUh-a8-g4n" id="ned-8e-64F"/>
+                        <outlet property="low" destination="QP3-vA-uET" id="djS-Cn-xSV"/>
+                        <outlet property="medium" destination="xuQ-2T-gbf" id="57F-pp-RjS"/>
+                        <outlet property="requester" destination="vfZ-b8-Zyi" id="jPs-2f-kKY"/>
+                        <outlet property="requesterName" destination="f2i-Ab-lD6" id="pKA-Ku-FnV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WDQ-4L-uRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2488" y="772"/>
+            <point key="canvasLocation" x="2536" y="777"/>
         </scene>
         <!--Message Detail View Controller-->
         <scene sceneID="N0l-e2-jZd">

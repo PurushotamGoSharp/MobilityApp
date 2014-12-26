@@ -232,8 +232,11 @@
         UILabel *statusLabel = (UILabel *)[cell viewWithTag:101];
         statusLabel.text = arrayForStatus[indexPath.row];
         
+        statusLabel.font=[self customFont:14 ofName:MuseoSans_700];
+        
         UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
         countlabel.text = arrayOfNo[indexPath.row];
+        countlabel.font=[self customFont:14 ofName:MuseoSans_700];
         
 
         UIView *bgColorView = [[UIView alloc] init];
