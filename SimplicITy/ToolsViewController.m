@@ -79,7 +79,7 @@
     
     UILabel *label = (UILabel *)[cell viewWithTag:100];
     label.text = arrayOfDatas[indexPath.row];
-    label.font=[self customFont:14 ofName:MuseoSans_700];
+    label.font=[self customFont:16 ofName:MuseoSans_700];
     
     
     
