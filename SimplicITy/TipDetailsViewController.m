@@ -12,11 +12,11 @@
 @property (weak, nonatomic) IBOutlet UIView *viewAtIndex0;
 @property (weak, nonatomic) IBOutlet UIView *viewAtIndex1;
 
-@property (weak, nonatomic) IBOutlet UITextView *textView1;
-@property (weak, nonatomic) IBOutlet UITextView *textView2;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIView *shadowView;
+@property (weak, nonatomic) IBOutlet UITextView *textview2;
 
 
 @property (weak, nonatomic) IBOutlet UITextView *text1;
@@ -40,7 +40,7 @@
 
 
     self.text1.font=[self customFont:14 ofName:MuseoSans_300];
-    self.textView2.font=[self customFont:20 ofName:MuseoSans_700];
+    self.textview2.font=[self customFont:14 ofName:MuseoSans_300];
 
     
 

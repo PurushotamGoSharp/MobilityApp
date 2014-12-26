@@ -66,7 +66,8 @@
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@"Jean-Pierre" forState:(UIControlStateNormal)];
+    [titleButton setTitle:@" Jean-Pierre" forState:(UIControlStateNormal)];
+    titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleButton.frame = CGRectMake(0, 0, 170, 40);
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 40)];

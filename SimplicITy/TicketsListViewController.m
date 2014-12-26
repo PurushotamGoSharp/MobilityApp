@@ -52,6 +52,8 @@
     [back setTitle:@"< Back" forState:UIControlStateNormal];
     back.frame = CGRectMake(0, 0, 60, 40);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    back.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
+
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;

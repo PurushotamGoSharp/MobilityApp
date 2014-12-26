@@ -18,7 +18,6 @@
     
     UIBarButtonItem *backButton;
     
-
     
 }
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -76,7 +75,7 @@
 //        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
 
         
-        self.title = @"Place an Order";
+        self.title = @"Place Order";
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
@@ -93,6 +92,8 @@
         [back setTitle:@"< Back" forState:UIControlStateNormal];
         back.frame = CGRectMake(0, 0, 60, 40);
         [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        back.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
+
         [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
         backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
         self.navigationItem.leftBarButtonItem = backButton;
@@ -111,7 +112,9 @@
         UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
-        titleLabel.text = @"Raise a Ticket";
+        titleLabel.text = @"Raise Ticket";
+        titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
+
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
 //        titleLabel.font = [UIFont fontWithName:(NSString *) size:<#(CGFloat)#>];
