@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -1161,24 +1161,20 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h2l-05-0RR">
-                                                    <rect key="frame" x="9" y="4" width="36" height="36"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="36" id="bfk-yh-cZY"/>
-                                                    </constraints>
+                                                <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LyncToolsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="h2l-05-0RR">
+                                                    <rect key="frame" x="9" y="7" width="30" height="30"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="h2l-05-0RR" firstAttribute="leading" secondItem="pj2-Lr-ofu" secondAttribute="leading" constant="9" id="1wK-0N-TzD"/>
                                                 <constraint firstAttribute="centerY" secondItem="jdu-LI-Gzb" secondAttribute="centerY" constant="-1" id="3bH-I0-iI8"/>
-                                                <constraint firstAttribute="bottom" secondItem="h2l-05-0RR" secondAttribute="bottom" constant="4" id="6Mx-j8-SKf"/>
                                                 <constraint firstItem="51s-WH-aOp" firstAttribute="leading" secondItem="pj2-Lr-ofu" secondAttribute="leading" id="H5D-2N-tGr"/>
                                                 <constraint firstItem="jdu-LI-Gzb" firstAttribute="leading" secondItem="pj2-Lr-ofu" secondAttribute="leadingMargin" constant="54" id="Jhn-Nr-w1V"/>
                                                 <constraint firstItem="51s-WH-aOp" firstAttribute="top" secondItem="pj2-Lr-ofu" secondAttribute="top" id="Kae-cV-F4f"/>
                                                 <constraint firstAttribute="trailing" secondItem="51s-WH-aOp" secondAttribute="trailing" constant="-33" id="SY1-9d-085"/>
                                                 <constraint firstAttribute="bottom" secondItem="51s-WH-aOp" secondAttribute="bottom" constant="1" id="Skx-zL-xTA"/>
-                                                <constraint firstItem="h2l-05-0RR" firstAttribute="top" secondItem="pj2-Lr-ofu" secondAttribute="top" constant="4" id="lcq-z8-fUp"/>
+                                                <constraint firstItem="h2l-05-0RR" firstAttribute="leading" secondItem="51s-WH-aOp" secondAttribute="leading" constant="9" id="ndQ-Hg-AlL"/>
+                                                <constraint firstAttribute="centerY" secondItem="h2l-05-0RR" secondAttribute="centerY" id="oIT-ka-Wqw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2808,6 +2804,7 @@
         <image name="FeatureWillBeComingSoonImage" width="175" height="89"/>
         <image name="FilterBarButtonImage" width="30" height="30"/>
         <image name="HeadPhoneSmallimage" width="20" height="20"/>
+        <image name="LyncToolsIcon" width="30" height="30"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
         <image name="MyOrderedDashIcon" width="64" height="64"/>
