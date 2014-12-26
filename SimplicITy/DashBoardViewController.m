@@ -9,6 +9,7 @@
 #import "DashBoardViewController.h"
 #import "MessagesViewController.h"
 #import "RaiseATicketViewController.h"
+#import "TicketsListViewController.h"
 
 @interface DashBoardViewController ()
 {
@@ -180,6 +181,11 @@
     {
         RaiseATicketViewController *raiseTicket = segue.destinationViewController;
         raiseTicket.orderDiffer = @"orderBtnPressed";
+        
+    }if ([segue.identifier isEqualToString:@"DashToMyOrdersSegue"])
+    {
+        TicketsListViewController *orderList = segue.destinationViewController;
+        orderList.orderItemDifferForList = @"orderList";
     }
 }
 
