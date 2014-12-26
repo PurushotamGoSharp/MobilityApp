@@ -48,7 +48,7 @@
     NSLog(@"File path = %@", filePath);
     self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
     self.videoController.movieSourceType = MPMovieSourceTypeFile;
-    [self.videoController.view setFrame:CGRectMake(0,0, 335, 152)];
+    [self.videoController.view setFrame:CGRectMake(0,0, 300, 133)];
     self.videoController.controlStyle = MPMovieControlStyleEmbedded;
     self.videoController.fullscreen = NO;
     [self.videoImage addSubview:self.videoController.view];
