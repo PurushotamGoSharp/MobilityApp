@@ -61,8 +61,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
   
     titleLable = (UILabel *)[cell viewWithTag:100];
-    titleLable.text = arrOfLocationData[indexPath.row];
     
+    titleLable.font=[self customFont:14 ofName:MuseoSans_700];
+    
+    titleLable.text = arrOfLocationData[indexPath.row];
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];

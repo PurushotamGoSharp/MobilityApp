@@ -36,6 +36,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = self.parentCategory;
+
+
+
+    self.text1.font=[self customFont:14 ofName:MuseoSans_300];
+    self.textView2.font=[self customFont:20 ofName:MuseoSans_700];
+
+    
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated

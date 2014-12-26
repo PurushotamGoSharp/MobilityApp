@@ -119,6 +119,9 @@
 //    label.text = [self.parentCategory stringByAppendingFormat:@"-Subcategory %i", indexPath.row+1];
     label.text = self.subCategoriesData[indexPath.row];
 
+    label.font=[self customFont:14 ofName:MuseoSans_700];
+    
+    
     return cell;
 }
 

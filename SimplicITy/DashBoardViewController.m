@@ -88,16 +88,16 @@
     
     self.navigationItem.titleView = titleView;
     
-//    
-//    self.dashBoardMessage.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardCallHelpDesk.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardOrder.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardSetting.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardTicket.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardTips.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardPersonName.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardPersonAddress.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
-//    self.dashBoardPersonCode.font=[self customFont:<#(NSInteger)#> ofName:<#(CustomFontNames)#>];
+    
+    self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardCallHelpDesk.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardOrder.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardSetting.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardTicket.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardTips.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardPersonName.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardPersonAddress.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardPersonCode.font=[self customFont:14 ofName:MuseoSans_300];
 
 
 

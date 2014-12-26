@@ -67,6 +67,7 @@
     UILabel *titleLable= (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfThemesData[indexPath.row];
     titleLable.highlightedTextColor = [UIColor whiteColor];
+    titleLable.font=[self customFont:14 ofName:MuseoSans_700];
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];

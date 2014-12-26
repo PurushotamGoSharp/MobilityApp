@@ -35,7 +35,6 @@
 
 
 
-
 }
 
 - (IBAction)cancelBtnPressed:(id)sender
@@ -66,6 +65,8 @@
     titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfLanguageData[indexPath.row];
     titleLable.highlightedTextColor = [UIColor whiteColor];
+   
+    titleLable.font=[self customFont:14 ofName:MuseoSans_700];
     
 //    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     

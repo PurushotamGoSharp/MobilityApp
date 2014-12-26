@@ -16,6 +16,13 @@
     NSArray *arrOfTableData, *arrOfTimeLable, *arrOfSubjects, *arrOfBody, *arrOfimageName, *arrOfcurTime;
     NSMutableArray *arrOfModleData; UIBarButtonItem *backButton;
     
+
+   
+
+
+
+
+
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (strong ,nonatomic)UIRefreshControl *refreshControl;
@@ -38,7 +45,7 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-
+ 
     
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -49,6 +56,9 @@
                   forControlEvents:UIControlEventValueChanged];
     [self.tableViewOutlet  addSubview:self.refreshControl];
 
+    
+    
+    
     
     arrOfTableData = @[@"Infra",@"Payroll",@" Helpdesk",@"HR policy: ",@"HR: Holiday Celebration: ",@"IS: Maintenance Activity"];
     
@@ -142,17 +152,26 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = arrOfTableData[indexPath.row];
+    titleLable.font=[self customFont:18 ofName:MuseoSans_700];
+    
+    
     
     UILabel *timeTitleLable = (UILabel *)[cell viewWithTag:200];
     timeTitleLable.text = arrOfTimeLable[indexPath.row];
     
     UILabel *subjectTitleLable = (UILabel *)[cell viewWithTag:300];
     subjectTitleLable.text = arrOfSubjects[indexPath.row];
+    subjectTitleLable.font= [self customFont:20 ofName:MuseoSans_300];
+    
+    
+    
     
     UILabel *bodyTitleLable = (UILabel *)[cell viewWithTag:400];
     bodyTitleLable.text = arrOfBody[indexPath.row];
-    
+    bodyTitleLable.font=[self customFont:14 ofName:MuseoSans_300];
    
+    
+    
     UIImageView *mailImageView = (UIImageView *)[cell viewWithTag:500];
 
     if (indexPath.row == 0 || indexPath.row == 1) {

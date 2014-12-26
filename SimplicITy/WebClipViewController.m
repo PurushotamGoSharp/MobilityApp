@@ -49,6 +49,8 @@
     UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
     titlelable.text = tableViewData[indexPath.row];
     
+    titlelable.font=[self customFont:14 ofName:MuseoSans_700];
+    
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
     imageView.image = [UIImage imageNamed:arrayOfImages[indexPath.row]];
     return cell;
