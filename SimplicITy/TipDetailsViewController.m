@@ -20,8 +20,10 @@
 
 
 @property (weak, nonatomic) IBOutlet UITextView *text1;
-@property (weak, nonatomic) IBOutlet UIImageView *videoImage;
-@property (weak, nonatomic) IBOutlet UIView *containerView;
+//@property (weak, nonatomic) IBOutlet UIImageView *videoImage;
+
+@property (weak, nonatomic) IBOutlet UIView *scrollContainerView;
+@property (weak, nonatomic) IBOutlet UIView *videoContainerView;
 
 @end
 
@@ -49,10 +51,12 @@
     self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
     self.videoController.movieSourceType = MPMovieSourceTypeFile;
     [self.videoController.view setFrame:CGRectMake(0,0, 300, 133)];
+    
+    
     self.videoController.controlStyle = MPMovieControlStyleEmbedded;
     self.videoController.fullscreen = NO;
-    [self.videoImage addSubview:self.videoController.view];
-    [self.videoImage bringSubviewToFront:self.playButton];
+    [self.videoContainerView addSubview:self.videoController.view];
+    [self.scrollContainerView bringSubviewToFront:self.playButton];
     
     
 //    if (self.index == 0)
@@ -89,7 +93,6 @@
 - (IBAction)playButton:(UIButton *)sender
 {
     self.playButton.hidden = YES;
-    NSLog(@"%hhd", self.videoController.isPreparedToPlay);
     [self.videoController prepareToPlay];
     [self.videoController play];
 }
