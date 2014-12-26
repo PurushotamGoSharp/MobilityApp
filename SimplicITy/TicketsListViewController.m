@@ -113,7 +113,6 @@
         self.refreshControl.attributedTitle = attributedTitle;
         [self.refreshControl endRefreshing];
     }
-
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -123,6 +122,7 @@
     TicketModel *ticket = arrayOfData[indexPath.row];
     ticketDeteilVC.tickModel = ticket;
 }
+
 - (IBAction)filterButtonPressed:(UIBarButtonItem *)sender
 {
     CGFloat constraintValue = 0.0;
@@ -352,9 +352,6 @@
     ticket.details = @"Need to reset my email password, as I am not able to log in to my email account.";
    [arrayOfData addObject:ticket];
     ticket.date =@"2014/12/17";
-    
-    
-    
     
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Server";

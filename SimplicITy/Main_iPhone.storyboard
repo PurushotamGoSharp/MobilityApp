@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UiY-jU-vuT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -344,6 +344,15 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="dashBoardCallHelpDesk" destination="piG-eZ-KI4" id="o6y-os-Pcv"/>
+                        <outlet property="dashBoardMessage" destination="3rh-ss-Chz" id="81q-p2-G4Q"/>
+                        <outlet property="dashBoardOrder" destination="XCq-jq-RvN" id="Ybe-Is-UCE"/>
+                        <outlet property="dashBoardPersonAddress" destination="4xg-6e-VzR" id="Pmx-Bc-z8O"/>
+                        <outlet property="dashBoardPersonCode" destination="KCL-LX-nWW" id="J2o-k2-eBd"/>
+                        <outlet property="dashBoardPersonName" destination="HnJ-S8-IfS" id="BNl-Ia-Gyj"/>
+                        <outlet property="dashBoardSetting" destination="Icl-Qv-c9G" id="oTr-JH-bcp"/>
+                        <outlet property="dashBoardTicket" destination="iKp-SK-I9D" id="fPC-fu-dED"/>
+                        <outlet property="dashBoardTips" destination="ZtV-sT-i8u" id="xJ9-vp-86U"/>
                         <outlet property="profileViewHeightConstraint" destination="ewW-zv-gVD" id="DgP-Jv-HM9"/>
                         <outlet property="profileViewOutlet" destination="l1b-Pk-mKI" id="5XW-di-SL4"/>
                         <outlet property="profileViewTopConstraint" destination="fIi-Kf-0I8" id="hCm-p8-jL9"/>
@@ -1145,7 +1154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcg-pl-RFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="689" y="2608"/>
+            <point key="canvasLocation" x="645" y="2608"/>
         </scene>
         <!--Tips-->
         <scene sceneID="nwp-KY-sYf">
@@ -1406,7 +1415,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqv-Lg-Rz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3487" y="-1834"/>
+            <point key="canvasLocation" x="3400" y="-2024"/>
         </scene>
         <!--Tip Details View Controller-->
         <scene sceneID="YRz-qD-8rC">
@@ -1420,69 +1429,101 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-NJ-XLH">
-                                <rect key="frame" x="10" y="74" width="300" height="133"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="133" id="7VF-WO-yV4"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
-                                <rect key="frame" x="10" y="341" width="300" height="82"/>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
-                                <rect key="frame" x="10" y="424" width="300" height="92"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sVe-YP-X4C">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NHx-Gy-coJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="543"/>
+                                        <subviews>
+                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-NJ-XLH">
+                                                <rect key="frame" x="10" y="19" width="300" height="133"/>
+                                            </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43u-YQ-jzc">
+                                                <rect key="frame" x="10" y="30" width="300" height="133"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="133" id="je0-Xy-SMf"/>
+                                                    <constraint firstAttribute="width" constant="300" id="wq5-Dh-CEQ"/>
+                                                </constraints>
+                                            </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
+                                                <rect key="frame" x="35" y="289" width="250" height="152"/>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
+                                                <rect key="frame" x="12" y="440" width="300" height="106"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <string key="text">The first goal of the incident management process is to restore a normal service operation as quickly as possible and to minimize the impact on business operations,</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZD-eL-HY6">
+                                                <rect key="frame" x="10" y="160" width="300" height="124"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <string key="text">Controlling provides you with information for management decision-making. It facilitates coordination, monitoring and optimization of all processes in an organization. This involves recording both the consumption of production factors </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Un3-03-9Sq">
+                                                <rect key="frame" x="100" y="54" width="119" height="64"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="119" id="RuY-so-kOs"/>
+                                                    <constraint firstAttribute="height" constant="64" id="oGe-q7-Qeu"/>
+                                                </constraints>
+                                                <state key="normal" image="PlayButton">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="playButton:" destination="Spt-pk-vI2" eventType="touchUpInside" id="qRu-UR-zhw"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="wZD-eL-HY6" secondAttribute="trailing" constant="10" id="0ht-Tm-uKp"/>
+                                            <constraint firstItem="I4R-Zk-5qd" firstAttribute="top" secondItem="wZD-eL-HY6" secondAttribute="bottom" constant="156" id="4Lm-Dy-lsq"/>
+                                            <constraint firstItem="wZD-eL-HY6" firstAttribute="leading" secondItem="NHx-Gy-coJ" secondAttribute="leading" constant="10" id="6an-JI-ukt"/>
+                                            <constraint firstAttribute="trailing" secondItem="I4R-Zk-5qd" secondAttribute="trailing" constant="8" id="7gC-Xq-dY9"/>
+                                            <constraint firstAttribute="centerX" secondItem="43u-YQ-jzc" secondAttribute="centerX" id="DJg-JR-dj5"/>
+                                            <constraint firstAttribute="bottom" secondItem="I4R-Zk-5qd" secondAttribute="bottom" constant="-3" id="Fth-re-4qJ"/>
+                                            <constraint firstAttribute="centerX" secondItem="sUy-4U-9MU" secondAttribute="centerX" id="N2s-oL-QAS"/>
+                                            <constraint firstItem="sUy-4U-9MU" firstAttribute="top" secondItem="wZD-eL-HY6" secondAttribute="bottom" constant="5" id="QFz-Bb-9pg"/>
+                                            <constraint firstItem="Un3-03-9Sq" firstAttribute="top" secondItem="NHx-Gy-coJ" secondAttribute="top" constant="54" id="Tan-7M-30G"/>
+                                            <constraint firstItem="43u-YQ-jzc" firstAttribute="top" secondItem="NHx-Gy-coJ" secondAttribute="top" constant="30" id="YFj-88-fHA"/>
+                                            <constraint firstItem="I4R-Zk-5qd" firstAttribute="leading" secondItem="NHx-Gy-coJ" secondAttribute="leading" constant="12" id="dIx-Nt-vr3"/>
+                                            <constraint firstAttribute="centerX" secondItem="Un3-03-9Sq" secondAttribute="centerX" id="jjE-3S-27e"/>
+                                            <constraint firstItem="wZD-eL-HY6" firstAttribute="top" secondItem="43u-YQ-jzc" secondAttribute="bottom" constant="-3" id="lTc-11-wVI"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="92" id="pRr-8P-ijL"/>
+                                    <constraint firstItem="NHx-Gy-coJ" firstAttribute="leading" secondItem="sVe-YP-X4C" secondAttribute="leading" id="PEA-Gr-5xE"/>
+                                    <constraint firstAttribute="trailing" secondItem="NHx-Gy-coJ" secondAttribute="trailing" id="RXD-eg-zHc"/>
+                                    <constraint firstAttribute="width" secondItem="NHx-Gy-coJ" secondAttribute="width" id="aSb-2b-xNv"/>
+                                    <constraint firstItem="NHx-Gy-coJ" firstAttribute="top" secondItem="sVe-YP-X4C" secondAttribute="top" id="lU2-Xq-AHi"/>
+                                    <constraint firstAttribute="bottom" secondItem="NHx-Gy-coJ" secondAttribute="bottom" id="vdW-Yb-Orb"/>
                                 </constraints>
-                                <string key="text">The first goal of the incident management process is to restore a normal service operation as quickly as possible and to minimize the impact on business operations,</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Un3-03-9Sq">
-                                <rect key="frame" x="91" y="95" width="119" height="64"/>
-                                <state key="normal" image="PlayButton">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="playButton:" destination="Spt-pk-vI2" eventType="touchUpInside" id="qRu-UR-zhw"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZD-eL-HY6">
-                                <rect key="frame" x="10" y="219" width="300" height="114"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <string key="text">Controlling provides you with information for management decision-making. It facilitates coordination, monitoring and optimization of all processes in an organization. This involves recording both the consumption of production factors </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="I4R-Zk-5qd" secondAttribute="trailing" constant="10" id="61b-3T-8qU"/>
-                            <constraint firstItem="2eR-NJ-XLH" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" constant="10" id="783-Zd-vdm"/>
-                            <constraint firstItem="sUy-4U-9MU" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" constant="10" id="Gfx-pJ-MCR"/>
-                            <constraint firstItem="wZD-eL-HY6" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" constant="10" id="JcD-gg-aqn"/>
-                            <constraint firstAttribute="trailing" secondItem="wZD-eL-HY6" secondAttribute="trailing" constant="10" id="OAN-e5-1kw"/>
-                            <constraint firstItem="2eR-NJ-XLH" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" constant="10" id="PBa-C6-Y82"/>
-                            <constraint firstAttribute="bottom" secondItem="I4R-Zk-5qd" secondAttribute="bottom" constant="52" id="Sqe-Ws-1Cb"/>
-                            <constraint firstAttribute="trailing" secondItem="2eR-NJ-XLH" secondAttribute="trailing" constant="10" id="cAg-bt-ZTn"/>
-                            <constraint firstAttribute="trailing" secondItem="sUy-4U-9MU" secondAttribute="trailing" constant="10" id="ivR-An-8fc"/>
-                            <constraint firstItem="I4R-Zk-5qd" firstAttribute="top" secondItem="sUy-4U-9MU" secondAttribute="bottom" constant="1" id="iw0-Fm-x0P"/>
-                            <constraint firstItem="wZD-eL-HY6" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" constant="155" id="mI8-cc-AvW"/>
-                            <constraint firstItem="sUy-4U-9MU" firstAttribute="top" secondItem="wZD-eL-HY6" secondAttribute="bottom" constant="8" id="pp9-S0-ZFG"/>
-                            <constraint firstItem="I4R-Zk-5qd" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" constant="10" id="vpF-MK-k4k"/>
-                            <constraint firstItem="sUy-4U-9MU" firstAttribute="top" secondItem="2eR-NJ-XLH" secondAttribute="bottom" constant="134" id="xBz-ja-v3Y"/>
+                            <constraint firstAttribute="trailing" secondItem="sVe-YP-X4C" secondAttribute="trailing" id="4zc-MF-ghr"/>
+                            <constraint firstItem="sVe-YP-X4C" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="9U1-PB-zZy"/>
+                            <constraint firstItem="8XB-61-4ph" firstAttribute="top" secondItem="sVe-YP-X4C" secondAttribute="bottom" constant="-49" id="CWQ-UT-5JS"/>
+                            <constraint firstItem="sVe-YP-X4C" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" constant="-64" id="O9k-Xr-Kgd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5Kh-zi-te7"/>
                     <connections>
+                        <outlet property="playButton" destination="Un3-03-9Sq" id="voD-aS-JO3"/>
+                        <outlet property="scrollContainerView" destination="NHx-Gy-coJ" id="7o1-Xn-jfZ"/>
                         <outlet property="text1" destination="wZD-eL-HY6" id="fDt-17-Uv6"/>
-                        <outlet property="videoImage" destination="2eR-NJ-XLH" id="WJW-xn-wtd"/>
+                        <outlet property="videoContainerView" destination="43u-YQ-jzc" id="b0E-bz-2d1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A5e-fN-mAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3476" y="-1200"/>
+            <point key="canvasLocation" x="3400" y="-1288"/>
         </scene>
         <!--Web Clips-->
         <scene sceneID="28D-vm-Fh7">
@@ -1552,7 +1593,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDa-P3-7WB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1139" y="2654"/>
+            <point key="canvasLocation" x="1028" y="2608"/>
         </scene>
         <!--Survey View Controller-->
         <scene sceneID="lmq-Ej-XtV">
@@ -1580,7 +1621,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksY-xL-4Dy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1472" y="2667"/>
+            <point key="canvasLocation" x="1400" y="2608"/>
         </scene>
         <!--Expiration View Controller-->
         <scene sceneID="Oou-c1-oOn">
@@ -1627,7 +1668,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OM2-6K-FME" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528" y="2054"/>
+            <point key="canvasLocation" x="1518" y="1886"/>
         </scene>
         <!--Settings-->
         <scene sceneID="8qs-G3-Wlj">
@@ -1980,7 +2021,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXX-Bp-3Jx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3906" y="787"/>
+            <point key="canvasLocation" x="3753" y="707"/>
         </scene>
         <!--Locations-->
         <scene sceneID="ZTP-uB-AUi">
@@ -2057,7 +2098,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMj-vq-huE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3731" y="1499"/>
+            <point key="canvasLocation" x="3731" y="1515"/>
         </scene>
         <!--Themes-->
         <scene sceneID="YSP-no-aXW">
@@ -2135,7 +2176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8yd-ci-O4C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3332" y="2157"/>
+            <point key="canvasLocation" x="3325" y="2157"/>
         </scene>
         <!--Order-->
         <scene sceneID="6vp-Jl-B2D">
@@ -2348,7 +2389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DNQ-lV-B8n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2243" y="1432"/>
+            <point key="canvasLocation" x="2297" y="1423"/>
         </scene>
         <!--Message Detail View Controller-->
         <scene sceneID="t6e-xM-oFJ">
@@ -2453,7 +2494,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eEK-66-pcD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2454" y="1807"/>
+            <point key="canvasLocation" x="2453" y="1833"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kgu-E0-yUa">
@@ -2661,7 +2702,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3TJ-GA-DcT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2929" y="2145"/>
+            <point key="canvasLocation" x="2929" y="2157"/>
         </scene>
     </scenes>
     <resources>

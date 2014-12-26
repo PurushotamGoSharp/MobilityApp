@@ -30,14 +30,14 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
 @property (weak, nonatomic) IBOutlet UIView *tipViewOutlet;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *tipsLableOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBetweenimpactAndServiceConstant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceServiceToImpactConstant;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lowRightCOnstraint;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
 
 @end
 
@@ -173,6 +173,14 @@
 //    self.bulbImgOutlet.animationDuration = 1;
 //    self.bulbImgOutlet.animationRepeatCount = 1000;
 //    [self.bulbImgOutlet startAnimating];
+    
+    if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
+    }else
+    {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
     
     self.alphaViewOutLet.hidden = YES;
     self.pickerContainerViewOutlet.hidden = YES;
