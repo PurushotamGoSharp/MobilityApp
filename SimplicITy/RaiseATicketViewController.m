@@ -167,9 +167,13 @@
 //    self.bulbImgOutlet.animationDuration = 1;
 //    self.bulbImgOutlet.animationRepeatCount = 1000;
 //    [self.bulbImgOutlet startAnimating];
+    
     if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
         self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
+    }else
+    {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     
     self.alphaViewOutLet.hidden = YES;
