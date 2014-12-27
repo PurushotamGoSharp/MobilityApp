@@ -81,20 +81,51 @@
 
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    
+//    if (section == 0) {
+//        return @"";
+//        
+//    }else if (section == 1)
+//    {
+//        return @"Services";
+//    }
+//    else{
+//        return @"Details";
+//    }
+//   
+//}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  tableView.bounds.size.width, 30)];
     
-    if (section == 0) {
-        return @"";
+        UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake (17,4,320,30)];
+        labelHeader.font = [self customFont:16 ofName:MuseoSans_700];
+        labelHeader.textColor = [UIColor blackColor];
+        [headerView addSubview:labelHeader];
+    
+    
+    if (section == 0)
+    {
         
     }else if (section == 1)
     {
-        return @"Services";
+        if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+        {
+            labelHeader.text = @"Item";
+        }else
+        {
+            labelHeader.text = @"Service";
+        }
+        
     }
-    else{
-        return @"Details";
+    else
+    {
+        labelHeader.text = @"Details";
     }
-   
+    
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -212,6 +243,11 @@
     }
     
     return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 35;
 }
 
 - (NSString *)giveImpactForCOlor:(UIColor *)colorCode

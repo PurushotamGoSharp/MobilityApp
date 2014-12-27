@@ -15,4 +15,6 @@
 }
 
 @property (nonatomic,strong)TicketModel *tickModel;
+@property (strong, nonatomic)NSString *orderItemDifferForList;
+
 @end
