@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lowRightCOnstraint;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
 @property (weak, nonatomic) IBOutlet UILabel *detailLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *serviceTopToTableViewBottomConst;
 
 @end
 
@@ -58,12 +59,6 @@
     arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
-    
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-//                                                                          action:@selector(dismissKeyboard)];
-//    [self.view addGestureRecognizer:tap];
-    
-    self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
 
 
     self.navigationItem.leftBarButtonItems = @[];
@@ -72,9 +67,6 @@
     {
         
         [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
-//        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
-
-        
         self.title = @"Place Order";
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
@@ -102,15 +94,6 @@
         
         self.spaceServiceToImpactConstant.constant = -3;
         
-//        UILabel *titleLable = [[UILabel alloc] init];
-//        titleLable.textColor = [UIColor whiteColor];
-//        titleLable.text = @"Raise a Ticket";
-//        
-//        UIView *titleView = [[UIView alloc] init];
-//        [titleView addSubview:titleLable];
-//        
-//        self.navigationItem.titleView = titleView;
-        
         UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
@@ -123,9 +106,6 @@
         [titleView addSubview:titleLabel];
         
         self.navigationItem.titleView = titleView;
-
-
-
 //        self.title = @"Raise a Ticket";
 
     }
@@ -188,7 +168,11 @@
     
     if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
+//        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
+        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
+        self.serviceTopToTableViewBottomConst.constant = -10;
+
+
     }else
     {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;

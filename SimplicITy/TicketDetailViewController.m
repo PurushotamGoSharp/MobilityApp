@@ -118,6 +118,8 @@
     UILabel *linColour = (UILabel *)[cell viewWithTag:101];
     UILabel *circelColour = (UILabel *)[cell viewWithTag:102];
     UILabel *rightTable = (UILabel *)[cell viewWithTag:103];
+    rightTable.font=[self customFont:16 ofName:MuseoSans_300];
+
 //    UILabel *discriptionLable = (UILabel *)[cell1 viewWithTag:104];
 
     rightTable.hidden = NO;
@@ -127,13 +129,15 @@
     if (indexPath.section == 1) {
         titleLable.text = self.tickModel.ticketSubject;
         rightTable.text = @"";
+        titleLable.font=[self customFont:16 ofName:MuseoSans_300];
+        titleLable.textColor = [UIColor lightGrayColor];
     }
     else if (indexPath.section == 2)
     {
         titleLable.text = self.tickModel.details;
         rightTable.hidden = YES;
-        titleLable.textColor = [UIColor grayColor];
-
+        titleLable.textColor = [UIColor lightGrayColor];
+        titleLable.font=[self customFont:16 ofName:MuseoSans_300];
     }
     else
     {
