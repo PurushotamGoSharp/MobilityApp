@@ -112,6 +112,8 @@
 {
     [super viewWillAppear:YES];
     self.filterTableView.backgroundColor = [self subViewsColours];
+    self.refreshControl.backgroundColor = [self subViewsColours];
+
 
 }
 
