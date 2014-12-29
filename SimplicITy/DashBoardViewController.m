@@ -32,16 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dashMyTicketsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dashMyOrdersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dashWebClipLabel;
-
-
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonAddress;
-
-
-
-
-
-
-
 
 @end
 
@@ -70,7 +61,7 @@
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@" Jean-Pierre" forState:(UIControlStateNormal)];
+    [titleButton setTitle:@" Jim Kohler" forState:(UIControlStateNormal)];
     titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleButton.frame = CGRectMake(0, 0, 170, 40);
@@ -116,11 +107,11 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    self.profileViewOutlet.backgroundColor = [self subViewsColours];
 }
 
 - (void)navTitleBtnPressed:(id)sender
 {
-    self.profileViewOutlet.backgroundColor = [self subViewsColours];
     
     NSInteger constrainValue;
     if (!navBtnIsOn)
@@ -146,7 +137,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [self navTitleBtnPressed:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning

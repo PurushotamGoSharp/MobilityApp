@@ -30,6 +30,7 @@
     self.bodyTextView.text = self.mesgModel.body;
     self.timeLable.text = self.mesgModel.time;
     
+    self.bodyTextView.textAlignment = NSTextAlignmentJustified;
 
     
     self.nameLable.font=[self customFont:18 ofName:MuseoSans_700];

@@ -165,10 +165,12 @@
     }
     else if (indexPath.section == 2)
     {
-        titleLable.text = self.tickModel.details;
+        UITextView *titleTextView = (UITextView *)[cell viewWithTag:100];
+        titleTextView.text = self.tickModel.details;
+        titleTextView.textAlignment = NSTextAlignmentJustified;
         rightTable.hidden = YES;
-        titleLable.textColor = [UIColor lightGrayColor];
-        titleLable.font=[self customFont:16 ofName:MuseoSans_300];
+        titleTextView.textColor = [UIColor lightGrayColor];
+        titleTextView.font = [self customFont:16 ofName:MuseoSans_300];
     }
     else
     {
@@ -177,7 +179,7 @@
             case 0:
             {
                 titleLable.text = @"Requester";
-                rightTable.text = @"Jean-Pierre";
+                rightTable.text = @"Jim Kohler";
                 
             }
                 

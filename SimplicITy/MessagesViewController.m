@@ -97,6 +97,12 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.refreshControl.backgroundColor = [self subViewsColours];
+}
+
 -(void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];
