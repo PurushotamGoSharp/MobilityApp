@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *filterTableView;
 @property (weak, nonatomic) IBOutlet UIView *sliderView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *filterBtnOutlet;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *filterSliderTrailingConst;
 
@@ -43,6 +44,8 @@
 
     
     arrayOfData = [[NSMutableArray alloc] init];
+    self.filterBtnOutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 8);
+
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {

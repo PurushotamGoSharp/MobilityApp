@@ -17,6 +17,7 @@
     UIButton *titleButton;
     UIImageView *downArrowImageView;
 }
+
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
@@ -57,21 +58,20 @@
     self.profileViewTopConstraint.constant = -107;
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
-    titleImageView.frame = CGRectMake(0, 0, 32, 32);
-    titleImageView.center = CGPointMake(20, 20);
+    titleImageView.frame = CGRectMake(0, 5, 32, 32);
+//    titleImageView.center = CGPointMake(20, 20);
     
     titleButton = [[UIButton alloc] init];
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@" Jim Kohler" forState:(UIControlStateNormal)];
-    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [titleButton setTitle:@"Jim Kohler" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-    titleButton.frame = CGRectMake(titleImageView.frame.size.width, 0, 0, 0);
+    titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     [titleButton sizeToFit];
     
-    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x;
+    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
     [titleView addSubview:titleButton];
     [titleView addSubview:titleImageView];
@@ -97,8 +97,6 @@
     self.dashMyTicketsLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
-
-
 
 }
 

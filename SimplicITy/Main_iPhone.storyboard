@@ -378,25 +378,19 @@
                                 <rect key="frame" x="0.0" y="-43" width="320" height="107"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HQ, Paulo Street 1070, Brussels, Belgium" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="4xg-6e-VzR">
-                                        <rect key="frame" x="138" y="36" width="152" height="36"/>
+                                        <rect key="frame" x="138" y="34" width="152" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-ZD-gzE">
-                                        <rect key="frame" x="23" y="17" width="50" height="50"/>
+                                        <rect key="frame" x="23" y="15" width="50" height="50"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jim Kohler" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HnJ-S8-IfS">
-                                        <rect key="frame" x="8" y="68" width="92" height="20"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperator" translatesAutoresizingMaskIntoConstraints="NO" id="vtt-hj-YU1">
-                                        <rect key="frame" x="107" y="40" width="1" height="28"/>
+                                        <rect key="frame" x="107" y="38" width="1" height="28"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UHID001" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="59" translatesAutoresizingMaskIntoConstraints="NO" id="KCL-LX-nWW">
-                                        <rect key="frame" x="18" y="88" width="60" height="16"/>
+                                        <rect key="frame" x="18" y="76" width="60" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -429,7 +423,6 @@
                         <outlet property="dashBoardOrder" destination="XCq-jq-RvN" id="Ybe-Is-UCE"/>
                         <outlet property="dashBoardPersonAddress" destination="4xg-6e-VzR" id="Pmx-Bc-z8O"/>
                         <outlet property="dashBoardPersonCode" destination="KCL-LX-nWW" id="J2o-k2-eBd"/>
-                        <outlet property="dashBoardPersonName" destination="HnJ-S8-IfS" id="BNl-Ia-Gyj"/>
                         <outlet property="dashBoardSetting" destination="Icl-Qv-c9G" id="oTr-JH-bcp"/>
                         <outlet property="dashBoardTicket" destination="iKp-SK-I9D" id="fPC-fu-dED"/>
                         <outlet property="dashBoardTips" destination="ZtV-sT-i8u" id="xJ9-vp-86U"/>
@@ -443,7 +436,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdB-mB-65N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2382" y="79"/>
+            <point key="canvasLocation" x="2382" y="75"/>
         </scene>
         <!--Ticket-->
         <scene sceneID="6vg-IN-1Lk">
@@ -1010,6 +1003,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="filterBtnOutlet" destination="Hfl-DY-YGz" id="BiI-dx-f4d"/>
                         <outlet property="filterSliderTrailingConst" destination="ODQ-8S-zuU" id="alm-o3-mrC"/>
                         <outlet property="filterTableView" destination="7Us-rl-q5p" id="n3u-8Z-GJE"/>
                         <outlet property="sliderView" destination="5Co-vf-3h7" id="4SS-T4-IBy"/>
@@ -1402,7 +1396,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="8pt-pM-fvi">
-                                        <rect key="frame" x="35" y="101" width="250" height="152"/>
+                                        <rect key="frame" x="10" y="101" width="300" height="152"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="152" id="ZJu-p1-G3H"/>
                                         </constraints>
@@ -1532,7 +1526,7 @@
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
-                                                <rect key="frame" x="10" y="289" width="300" height="152"/>
+                                                <rect key="frame" x="10" y="289" width="300" height="150"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="300" id="4AK-dp-4jh"/>
                                                 </constraints>
@@ -2831,7 +2825,7 @@
         <image name="OrderDashIcon" width="64" height="64"/>
         <image name="OrderTabIcon" width="30" height="26"/>
         <image name="PhoneIcon" width="64" height="64"/>
-        <image name="PlaceholderImage" width="250" height="152"/>
+        <image name="PlaceholderImage" width="300" height="150"/>
         <image name="PlayButton" width="64" height="64"/>
         <image name="SettingsDashIcon" width="64" height="64"/>
         <image name="SettingsTabIcon" width="30" height="30"/>
