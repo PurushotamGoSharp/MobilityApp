@@ -159,7 +159,6 @@
     [self setTabImageForColorIndex:index onTabBar:tabBar];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index]} forState:(UIControlStateNormal)];
-
 }
 
 - (void)setTabImageForColorIndex:(NSInteger)colorIndex onTabBar:(UITabBar *)tabBar;

@@ -17,7 +17,6 @@
     UIButton *titleButton;
     UIImageView *downArrowImageView;
 }
-
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
@@ -134,9 +133,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    
-}
 
+}
 
 - (void)didReceiveMemoryWarning
 {
