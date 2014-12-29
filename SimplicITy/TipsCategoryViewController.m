@@ -43,8 +43,7 @@
     
     categoriesArray = @[@"Lync", @"AD Password", @"ITMS",@"Travel",@"Meeting Room",@"Wireless Password"];
     
-    subCategory = @{@"Lync":
-                    @[@"Instant Messaging", @"Voice Over IP", @"Voice conferencing"],
+    subCategory = @{@"Lync":@[@"Instant Messaging", @"Voice Over IP", @"Voice conferencing"],
                     @"AD Password": @[@"Web Conferencing",@"Video Conferencing"],
                     @"ITMS":@[@"Financial Accounting (FI)",@"Controlling (CO)",@"Investment Management (IM)"],
                     @"Travel":@[@"Configuration Management",@"Change Management",@"Release Management",@"Incident Management"],
