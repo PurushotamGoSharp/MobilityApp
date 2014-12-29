@@ -179,7 +179,7 @@
             case 0:
             {
                 titleLable.text = @"Requester";
-                rightTable.text = @"Jean-Pierre";
+                rightTable.text = @"Jim Kohler";
                 
             }
                 

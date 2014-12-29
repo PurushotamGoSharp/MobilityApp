@@ -107,11 +107,11 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    self.profileViewOutlet.backgroundColor = [self subViewsColours];
 }
 
 - (void)navTitleBtnPressed:(id)sender
 {
-    self.profileViewOutlet.backgroundColor = [self subViewsColours];
     
     NSInteger constrainValue;
     if (!navBtnIsOn)
