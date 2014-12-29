@@ -357,7 +357,7 @@
     {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         header.text = @"Requester";
-        lable.text = @"Jean-Pierre";
+        lable.text = @"Jim Kohler";
     }else
     {
         header.text = @"Impact";
