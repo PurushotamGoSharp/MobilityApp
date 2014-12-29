@@ -52,13 +52,14 @@
    
     self.CategoryTitleOutlet.font=[self customFont:16 ofName:MuseoSans_700];
     
-    self.CategoryTitleOutlet.font = [self customFont:16 ofName:MuseoSans_700];
+    self.selectedCategorylabel.font = [self customFont:16 ofName:MuseoSans_300];
     self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
     
     arrOfPickerViewData = @[@"Critical",@"High",@"Medium",@"Low"];
     arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
+    self.textView.font = [self customFont:16 ofName:MuseoSans_300];
 
 
     self.navigationItem.leftBarButtonItems = @[];
@@ -170,7 +171,7 @@
     {
 //        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
         self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
-        self.serviceTopToTableViewBottomConst.constant = -10;
+        self.serviceTopToTableViewBottomConst.constant = -15;
 
 
     }else
@@ -328,8 +329,8 @@
     UILabel *header = (UILabel *)[cell viewWithTag:100];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
     
-    header.font=[self customFont:16 ofName:MuseoSans_700];
-    lable.font=[self customFont:16 ofName:MuseoSans_700];
+    header.font=[self customFont:16 ofName:MuseoSans_300];
+    lable.font=[self customFont:16 ofName:MuseoSans_300];
 
     
     
@@ -432,7 +433,7 @@
 - (void)selectedTicket:(NSString *)tickt
 {
     self.selectedCategorylabel.text = tickt;
-    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
+    self.selectedCategorylabel.textColor = [UIColor blackColor];
 }
 
 -(void)selectedTips:(NSString *)tip

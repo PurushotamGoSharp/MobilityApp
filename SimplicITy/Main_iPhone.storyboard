@@ -1048,7 +1048,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1N4-hF-lAa">
-                                                    <rect key="frame" x="8" y="29" width="34" height="15"/>
+                                                    <rect key="frame" x="8" y="25" width="34" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1082,7 +1082,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" tag="500" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MessageOpen" translatesAutoresizingMaskIntoConstraints="NO" id="BQO-fc-U42">
-                                                    <rect key="frame" x="5" y="60" width="17" height="15"/>
+                                                    <rect key="frame" x="5" y="61" width="17" height="15"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -1099,7 +1099,7 @@
                                                 <constraint firstItem="w2t-qR-Ma8" firstAttribute="top" secondItem="7iE-Fc-A4W" secondAttribute="topMargin" constant="-3" id="lSq-N7-Ps4"/>
                                                 <constraint firstItem="1N4-hF-lAa" firstAttribute="leading" secondItem="7iE-Fc-A4W" secondAttribute="leadingMargin" id="nkf-aa-7hV"/>
                                                 <constraint firstAttribute="bottom" secondItem="AdZ-ya-ILo" secondAttribute="bottom" constant="1" id="q9G-bc-FkG"/>
-                                                <constraint firstItem="1N4-hF-lAa" firstAttribute="top" secondItem="7iE-Fc-A4W" secondAttribute="topMargin" constant="21" id="qKu-jh-kCw"/>
+                                                <constraint firstItem="1N4-hF-lAa" firstAttribute="top" secondItem="7iE-Fc-A4W" secondAttribute="topMargin" constant="17" id="qKu-jh-kCw"/>
                                                 <constraint firstItem="ahn-gX-NZR" firstAttribute="leading" secondItem="Wfk-Fx-gMp" secondAttribute="trailing" constant="6" id="tFs-ke-pHs"/>
                                                 <constraint firstItem="w2t-qR-Ma8" firstAttribute="leading" secondItem="7iE-Fc-A4W" secondAttribute="leadingMargin" id="y8q-ij-NdI"/>
                                                 <constraint firstItem="Wfk-Fx-gMp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="w2t-qR-Ma8" secondAttribute="trailing" constant="10" id="zUh-0b-BOa"/>
@@ -1531,7 +1531,10 @@
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="sUy-4U-9MU">
-                                                <rect key="frame" x="35" y="289" width="250" height="152"/>
+                                                <rect key="frame" x="10" y="289" width="300" height="152"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="300" id="4AK-dp-4jh"/>
+                                                </constraints>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4R-Zk-5qd">
                                                 <rect key="frame" x="12" y="440" width="300" height="106"/>
@@ -1608,7 +1611,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A5e-fN-mAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3435" y="-1323"/>
+            <point key="canvasLocation" x="3460" y="-1323"/>
         </scene>
         <!--Web Clips-->
         <scene sceneID="28D-vm-Fh7">
@@ -2841,8 +2844,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jrv-6w-ASy"/>
+        <segue reference="CXP-ec-zh5"/>
         <segue reference="8h2-qg-Aot"/>
-        <segue reference="uWR-qu-A3S"/>
+        <segue reference="Jrv-6w-ASy"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -37,9 +37,13 @@
     self.navigationItem.leftBarButtonItem = backButton;
 
     
-    arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"Days left for password expiry", @"Survey"];
-        
-    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
+//    arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"Days left for password expiry", @"Survey"];
+    
+    arrayOfDatas = @[ @"Lync Connection Checker", @"Days left for password expiry", @"Survey"];
+
+//    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
+    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
+
     
     self.title = @"Tools";
 }
@@ -105,15 +109,15 @@
     {
         [self performSegueWithIdentifier:@"ToolToLyncTestSegue" sender:nil];
     }
+//    else if (indexPath.row == 1)
+//    {
+//        [self performSegueWithIdentifier:@"toolsToWebClipVCSegue" sender:nil];
+//    }
     else if (indexPath.row == 1)
-    {
-        [self performSegueWithIdentifier:@"toolsToWebClipVCSegue" sender:nil];
-    }
-    else if (indexPath.row == 2)
     {
         [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
     }
-   else if (indexPath.row == 3)
+   else if (indexPath.row == 2)
     {
         [self performSegueWithIdentifier:@"toolsToSurveySegue" sender:nil];
     }
