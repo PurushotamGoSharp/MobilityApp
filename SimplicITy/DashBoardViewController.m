@@ -139,6 +139,7 @@
     
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -162,10 +163,8 @@
 {
     NSString *phoneNo = @"9880425945";
     phoneNo = [@"tel://" stringByAppendingString:phoneNo];
-    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
 }
-
 
 
 #pragma mark - Navigation
