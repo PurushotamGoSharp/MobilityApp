@@ -17,6 +17,7 @@
     UIButton *titleButton;
     UIImageView *downArrowImageView;
 }
+
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
@@ -65,10 +66,9 @@
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@" Jim Kohler" forState:(UIControlStateNormal)];
-    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    [titleButton setTitle:@"Jim Kohler" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-    titleButton.frame = CGRectMake(titleImageView.frame.size.width, 0, 0, 0);
+    titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     [titleButton sizeToFit];
     
     CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x;
@@ -97,8 +97,6 @@
     self.dashMyTicketsLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
-
-
 
 }
 
