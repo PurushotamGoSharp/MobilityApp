@@ -56,6 +56,10 @@
     
     self.profileViewTopConstraint.constant = -107;
     
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
+    titleImageView.frame = CGRectMake(0, 0, 32, 32);
+    titleImageView.center = CGPointMake(20, 20);
+    
     titleButton = [[UIButton alloc] init];
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
@@ -64,17 +68,13 @@
     [titleButton setTitle:@" Jim Kohler" forState:(UIControlStateNormal)];
     titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-    titleButton.frame = CGRectMake(0, 0, 170, 40);
+    titleButton.frame = CGRectMake(titleImageView.frame.size.width, 0, 0, 0);
+    [titleButton sizeToFit];
     
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 120, 40)];
+    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x;
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
     [titleView addSubview:titleButton];
-    
-    
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
-    titleImageView.frame = CGRectMake(0, 0, 32, 32);
-    titleImageView.center = CGPointMake(20, 20);
     [titleView addSubview:titleImageView];
-    
     
     downArrowImageView = [[UIImageView alloc] initWithImage:([UIImage imageNamed:@"DashBoardDropDownBarImage"])];
     downArrowImageView.frame = CGRectMake(0, 0, 36, 3);
@@ -84,7 +84,6 @@
     downArrowImageView.hidden = NO;
     
     self.navigationItem.titleView = titleView;
-    
     
     self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashBoardCallHelpDesk.font=[self customFont:14 ofName:MuseoSans_300];
