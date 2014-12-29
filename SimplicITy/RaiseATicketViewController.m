@@ -95,9 +95,9 @@
         
         self.spaceServiceToImpactConstant.constant = -3;
         
-        UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
+        UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 120, 40))];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
         titleLabel.text = @"Raise Ticket";
         titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
 
