@@ -29,6 +29,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardTicket;
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonName;
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonCode;
+@property (weak, nonatomic) IBOutlet UILabel *dashMyTicketsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dashMyOrdersLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dashWebClipLabel;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonAddress;
@@ -101,7 +104,9 @@
     self.dashBoardPersonName.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashBoardPersonAddress.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashBoardPersonCode.font=[self customFont:14 ofName:MuseoSans_300];
-
+    self.dashMyTicketsLabel.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
 
 
 

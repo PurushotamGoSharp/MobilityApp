@@ -40,14 +40,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    
+    arrayOfData = [[NSMutableArray alloc] init];
+    
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
         self.title = @"My Orders";
+        [self setUpDataForOrder];
+        
+    }else
+    {
+        [self setUpData];
     }
-    
-    arrayOfData = [[NSMutableArray alloc] init];
-    [self setUpData];
-    
 //    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [back setTitle:@"< Back" forState:UIControlStateNormal];
 //    back.frame = CGRectMake(0, 0, 80, 40);
@@ -308,11 +313,9 @@
     ticket.ticketNum = @"# 10445";
     ticket.currentStatus = @"New";
     ticket.date =cureentDate;
-
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"2 m";
     ticket.details = @"Work is affecting as not able to open any application. Please fix the issue ASAP as it is affecting the projects.";
-    
     [arrayOfData addObject:ticket];
 
     ticket = [[TicketModel alloc] init];
@@ -323,7 +326,6 @@
     ticket.colorCode = [UIColor orangeColor];
     ticket.timeStamp = @"2 h";
     ticket.date =cureentDate;
-
     ticket.details = @" Please reset the leave Application password";
     [arrayOfData addObject:ticket];
     
@@ -332,7 +334,6 @@
     ticket.ticketSubject = @"Messaging";
     ticket.agentName = @"Christina";
     ticket.ticketNum = @"#75677";
-
     ticket.currentStatus = @"Assigned";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"6 h";
@@ -356,24 +357,22 @@
     ticket.ticketSubject = @"Desktop";
     ticket.agentName = @"Richard";
     ticket.ticketNum = @"#55678";
-
     ticket.currentStatus = @"Cancelled";
     ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
     ticket.timeStamp = @"3 d";
     ticket.details = @"Can you please grant external call facility from my office phone?";
-     ticket.date =@"2014/12/19";
-    
+    ticket.date =@"2014/12/19";
     [arrayOfData addObject:ticket];
     
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Collaboration Services";
     ticket.agentName = @"Anthony";
     ticket.ticketNum = @"#46786";
-   ticket.currentStatus = @"Resolved";
+    ticket.currentStatus = @"Resolved";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"5 d";
     ticket.details = @"Need to reset my email password, as I am not able to log in to my email account.";
-   [arrayOfData addObject:ticket];
+    [arrayOfData addObject:ticket];
     ticket.date =@"2014/12/17";
     
     ticket = [[TicketModel alloc] init];
@@ -400,13 +399,130 @@
     ticket.ticketSubject = @"Mobile";
     ticket.agentName = @"Bertie";
     ticket.ticketNum = @"#16778";
-
     ticket.currentStatus = @"Closed";
     ticket.colorCode = [UIColor yellowColor];
     ticket.timeStamp = @"9 d";
     ticket.date =@"2014/12/13";
     [arrayOfData addObject:ticket];
+}
 
+- (void)setUpDataForOrder
+{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *cureentDate = [formatter stringFromDate:[NSDate date]];
+    
+    TicketModel *ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"iPhone 6";
+    ticket.agentName = @"Jonathan";
+    ticket.ticketNum = @"# 10345";
+    ticket.currentStatus = @"New";
+    ticket.date =cureentDate;
+    ticket.colorCode = [UIColor redColor];
+    ticket.timeStamp = @"1 m";
+    ticket.details=@"Need iPhone 6 32GB, for project related work.";
+    [arrayOfData addObject:ticket];
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"iPhone 5S";
+    ticket.agentName = @"Jim";
+    ticket.ticketNum = @"# 10445";
+    ticket.currentStatus = @"New";
+    ticket.date =cureentDate;
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
+    ticket.timeStamp = @"2 m";
+    ticket.details = @"Need iPhone 5S 32GB, for project related work.";
+    [arrayOfData addObject:ticket];
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"iPad 4";
+    ticket.agentName = @"Irene";
+    ticket.ticketNum = @"#87655";
+    ticket.currentStatus = @"Pending";
+    ticket.colorCode = [UIColor orangeColor];
+    ticket.timeStamp = @"2 h";
+    ticket.date =cureentDate;
+    ticket.details = @"Need iPad 4 32GB, for project related work.";
+    [arrayOfData addObject:ticket];
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"Wireless Mouse";
+    ticket.agentName = @"Christina";
+    ticket.ticketNum = @"#75677";
+    ticket.currentStatus = @"Assigned";
+    ticket.colorCode = [UIColor yellowColor];
+    ticket.timeStamp = @"6 h";
+    ticket.date =cureentDate;
+    ticket.details = @"Need a Wireless Mouse for using along with Laptop.";
+    [arrayOfData addObject:ticket];
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"Wireless Keyboard";
+    ticket.agentName = @"Monica";
+    ticket.ticketNum = @"#65676";
+    ticket.date =@"2014/12/21";
+    ticket.currentStatus = @"In progress";
+    ticket.colorCode = [UIColor redColor];
+    ticket.timeStamp = @"1 d";
+    ticket.details = @"Need a wireless Keyboard for using along with Laptop.";
+    [arrayOfData addObject:ticket];
+    
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"Laptop";
+    ticket.agentName = @"Richard";
+    ticket.ticketNum = @"#55678";
+    ticket.currentStatus = @"Cancelled";
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
+    ticket.timeStamp = @"3 d";
+    ticket.details = @"Need Acer Aspire E1-572 Laptop for project related work.";
+    ticket.date =@"2014/12/19";
+    [arrayOfData addObject:ticket];
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"Desktop";
+    ticket.agentName = @"Anthony";
+    ticket.ticketNum = @"#46786";
+    ticket.currentStatus = @"Resolved";
+    ticket.colorCode = [UIColor yellowColor];
+    ticket.timeStamp = @"5 d";
+    ticket.details = @"Need Lenovo All In One Desktop C255 for project related work.";
+    [arrayOfData addObject:ticket];
+    ticket.date =@"2014/12/17";
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"Headphone";
+    ticket.agentName = @"Bertie";
+    ticket.ticketNum = @"#36766";
+    ticket.currentStatus = @"Closed";
+    ticket.colorCode = [UIColor orangeColor];
+    ticket.timeStamp = @"7 d";
+    ticket.details = @"Need Head Phone with Mic for attending  Lync meeting.";
+    ticket.date =@"2014/12/15";
+    [arrayOfData addObject:ticket];
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"Network Cable";
+    ticket.agentName = @"Saul";
+    ticket.ticketNum = @"#26786";
+    ticket.currentStatus = @"Resolved";
+    ticket.colorCode = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
+    ticket.timeStamp = @"8 d";
+    ticket.date =@"2014/12/14";
+    ticket.details = @"Need network cable for Lan connectivity.";
+    [arrayOfData addObject:ticket];
+    
+    ticket = [[TicketModel alloc] init];
+    ticket.ticketSubject = @"Power Code";
+    ticket.agentName = @"Bertie";
+    ticket.ticketNum = @"#16778";
+    ticket.currentStatus = @"Closed";
+    ticket.colorCode = [UIColor yellowColor];
+    ticket.timeStamp = @"9 d";
+    ticket.date =@"2014/12/13";
+    ticket.details = @"Need Power code for Desktop.";
+    [arrayOfData addObject:ticket];
 }
 
 @end

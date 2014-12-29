@@ -35,7 +35,7 @@
 
     arrayofTips=@[@"Cannot do anything.Need IS help.So no tips",@"Please try to disconnect the internet and then reconnect it.",@"Please try to select the “Forget Password” link and enter your email address.",@" Please try to reinstall the VPN software.",@"Open a new browser and try downloading the file.",@"Please add the #9 before the dialling number for the external calls.",@" Please click on the “Forget Password” link and enter the email address to reset your password.",@"Get approval from your manager",@"Use connection checker tool",@""];
     
-     arrOfDataForItems = @[@"Wireless mouse",@"Headphone",@"Laptop Charger",@"iOS device"];
+     arrOfDataForItems = @[@"iPhone 6",@"iPhone 5S",@"iPad 4",@"Wireless Mouse", @"Wireless Keyboard",@"Laptop",@"Desktop",@"Headphone", @"Network Cable", @"Power Code"];
 
 }
 - (IBAction)cancelBtnAction:(id)sender
