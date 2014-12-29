@@ -61,6 +61,8 @@
     self.textView.placeholder = @"Describe your request here.";
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     self.textView.font = [self customFont:16 ofName:MuseoSans_300];
+    
+    self.tickBtnoutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 8);
 
 
     self.navigationItem.leftBarButtonItems = @[];
