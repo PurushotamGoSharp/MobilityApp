@@ -57,8 +57,8 @@
     self.profileViewTopConstraint.constant = -107;
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
-    titleImageView.frame = CGRectMake(0, 0, 32, 32);
-    titleImageView.center = CGPointMake(20, 20);
+    titleImageView.frame = CGRectMake(0, 5, 32, 32);
+//    titleImageView.center = CGPointMake(20, 20);
     
     titleButton = [[UIButton alloc] init];
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -70,7 +70,7 @@
     titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     [titleButton sizeToFit];
     
-    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x;
+    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
     [titleView addSubview:titleButton];
     [titleView addSubview:titleImageView];

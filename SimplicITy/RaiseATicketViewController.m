@@ -340,7 +340,7 @@
     UILabel *header = (UILabel *)[cell viewWithTag:100];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
     
-    header.font=[self customFont:16 ofName:MuseoSans_300];
+    header.font=[self customFont:16 ofName:MuseoSans_700];
     lable.font=[self customFont:16 ofName:MuseoSans_300];
 
     
