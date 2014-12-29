@@ -597,6 +597,7 @@
                                                                 </label>
                                                                 <slider opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="3" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHQ-Fb-rdW">
                                                                     <rect key="frame" x="17" y="22" width="289" height="31"/>
+                                                                    <color key="minimumTrackTintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <color key="thumbTintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </slider>
                                                                 <label opaque="NO" userInteractionEnabled="NO" tag="30" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tiv-QA-Opr">
@@ -1019,7 +1020,7 @@
             </objects>
             <point key="canvasLocation" x="2834" y="66"/>
         </scene>
-        <!--Messages-->
+        <!--My Messages-->
         <scene sceneID="6YM-8H-ZaV">
             <objects>
                 <viewController storyboardIdentifier="MessageVCID" id="nfm-ky-qnN" customClass="MessagesViewController" sceneMemberID="viewController">
@@ -1125,7 +1126,7 @@
                             <constraint firstItem="tfR-MZ-pGI" firstAttribute="top" secondItem="odE-g8-2Fr" secondAttribute="top" id="crE-9T-3gK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Messages" id="dOX-Pz-n5q"/>
+                    <navigationItem key="navigationItem" title="My Messages" id="dOX-Pz-n5q"/>
                     <connections>
                         <outlet property="tableViewOutlet" destination="tfR-MZ-pGI" id="8aZ-ca-MRk"/>
                     </connections>
@@ -1993,19 +1994,30 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Describe your request here." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBd-sg-JhZ">
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Describe your request here." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBd-sg-JhZ">
                                                     <rect key="frame" x="12" y="15" width="190" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-FG-5mf">
+                                                    <rect key="frame" x="12" y="2" width="292" height="111"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="VHL-FG-5mf" firstAttribute="top" secondItem="Cs6-qy-YTJ" secondAttribute="top" constant="2" id="A1x-GI-ito"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hBd-sg-JhZ" secondAttribute="trailing" constant="20" id="BbK-2O-z6x"/>
                                                 <constraint firstAttribute="bottom" secondItem="Oxd-W3-H5H" secondAttribute="bottom" constant="1" id="CPi-Jn-1EX"/>
                                                 <constraint firstItem="Oxd-W3-H5H" firstAttribute="leading" secondItem="Cs6-qy-YTJ" secondAttribute="leading" id="LNc-Ml-avI"/>
                                                 <constraint firstItem="Oxd-W3-H5H" firstAttribute="top" secondItem="Cs6-qy-YTJ" secondAttribute="top" id="Lsd-7T-J7F"/>
+                                                <constraint firstAttribute="bottom" secondItem="VHL-FG-5mf" secondAttribute="bottom" constant="7" id="QtH-Jw-ndR"/>
                                                 <constraint firstItem="hBd-sg-JhZ" firstAttribute="top" secondItem="Cs6-qy-YTJ" secondAttribute="top" constant="15" id="m2w-SN-cBM"/>
+                                                <constraint firstAttribute="trailing" secondItem="VHL-FG-5mf" secondAttribute="trailing" constant="16" id="nVT-4K-YKZ"/>
+                                                <constraint firstItem="VHL-FG-5mf" firstAttribute="leading" secondItem="Cs6-qy-YTJ" secondAttribute="leading" constant="12" id="oom-fB-H8K"/>
                                                 <constraint firstItem="hBd-sg-JhZ" firstAttribute="leading" secondItem="Cs6-qy-YTJ" secondAttribute="leading" constant="12" id="stX-So-U0X"/>
                                                 <constraint firstAttribute="trailing" secondItem="Oxd-W3-H5H" secondAttribute="trailing" id="yeY-UG-qNO"/>
                                             </constraints>
@@ -2111,7 +2123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXX-Bp-3Jx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3753" y="707"/>
+            <point key="canvasLocation" x="3842" y="777"/>
         </scene>
         <!--Locations-->
         <scene sceneID="ZTP-uB-AUi">
@@ -2444,7 +2456,7 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iad-Yg-fOr">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iad-Yg-fOr">
                                         <rect key="frame" x="20" y="138" width="280" height="334"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>

@@ -39,6 +39,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
 @property (weak, nonatomic) IBOutlet UILabel *detailLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *serviceTopToTableViewBottomConst;
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @end
 
@@ -466,7 +467,7 @@
     if (slider.value == 3 )
     {
         [slider setTintColor:([UIColor redColor])];
-        
+        [slider setMinimumTrackTintColor:([UIColor redColor])];
         low.textColor = [UIColor lightGrayColor];
         medium.textColor = [UIColor lightGrayColor];
         high.textColor = [UIColor lightGrayColor];
@@ -475,7 +476,8 @@
     }else if (slider.value == 2)
     {
         [slider setTintColor:([UIColor orangeColor])];
-        
+        [slider setMinimumTrackTintColor:([UIColor orangeColor])];
+
         high.textColor = [UIColor blackColor];
 
         low.textColor = [UIColor lightGrayColor];
@@ -485,14 +487,19 @@
     }else if (slider.value == 1)
     {
         [slider setTintColor:([UIColor yellowColor])];
-        
+        [slider setMinimumTrackTintColor:([UIColor yellowColor])];
+
         medium.textColor = [UIColor blackColor];
 
         low.textColor = [UIColor lightGrayColor];
         high.textColor = [UIColor lightGrayColor];
         critical.textColor = [UIColor lightGrayColor];
+        
     } if (slider.value ==0)
     {
+        [slider setTintColor:([UIColor greenColor])];
+        [slider setMinimumTrackTintColor:([UIColor greenColor])];
+
         low.textColor = [UIColor blackColor];
         
         medium.textColor = [UIColor lightGrayColor];
