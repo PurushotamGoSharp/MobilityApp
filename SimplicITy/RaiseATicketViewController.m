@@ -131,6 +131,14 @@
     }
 }
 
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    [self hideKeyboard:nil];
+}
+
+
 -(void)dismissKeyboard
 {
     [self.view endEditing:YES];
