@@ -144,7 +144,10 @@
                      }];
 }
 
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self navTitleBtnPressed:nil];
+}
 
 - (void)didReceiveMemoryWarning
 {
