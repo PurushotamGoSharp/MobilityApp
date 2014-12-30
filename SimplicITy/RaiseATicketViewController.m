@@ -62,8 +62,10 @@
     self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     self.textView.font = [self customFont:16 ofName:MuseoSans_300];
     
-    self.tickBtnoutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 8);
+//    self.tickBtnoutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 6);
 
+    
+    
 
     self.navigationItem.leftBarButtonItems = @[];
     
@@ -72,6 +74,7 @@
         
         [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
         self.title = @"Place Order";
+        
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
@@ -87,9 +90,13 @@
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
         [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
         [back setTitle:@"Back" forState:UIControlStateNormal];
-        back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+        
+        //back.imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, <#CGFloat right#>)
+
+        back.titleLabel.font = [UIFont systemFontOfSize:17];
+        back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
         back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-        back.frame = CGRectMake(0, 0,80, 40);
+        back.frame = CGRectMake(0, 0,80, 30);
         [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
 
         [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -103,7 +110,6 @@
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
         titleLabel.text = @"Raise Ticket";
         titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
 //        titleLabel.font = [UIFont fontWithName:(NSString *) size:<#(CGFloat)#>];

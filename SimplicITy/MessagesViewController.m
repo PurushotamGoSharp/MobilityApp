@@ -68,7 +68,7 @@
     
     
     
-    arrOfTableData = @[@"Infra",@"Payroll",@" Helpdesk",@"HR policy: ",@"HR: Holiday Celebration: ",@"IS: Maintenance Activity"];
+    arrOfTableData = @[@"Infra",@"Payroll",@"Helpdesk",@"HR policy: ",@"HR: Holiday Celebration: ",@"IS: Maintenance Activity"];
     
     arrOfSubjects = @[@"This mail is being sent to all employees on behalf of ISMS Team",@"Greetings from UCB Payroll Help Desk",@"SVN Credentials",@"Employee Awareness: “Official Dress Code”",@"Merry Christmas & A Happy New Year 2015!!!",@"IS Maintenance Activity on 26.07.2014"];
     
