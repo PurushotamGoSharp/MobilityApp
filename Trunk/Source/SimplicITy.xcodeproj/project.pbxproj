@@ -59,11 +59,6 @@
 		86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */; };
 		86E545881A42A4370027A817 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E545871A42A4370027A817 /* SliderView.m */; };
 		86E5458A1A42A45E0027A817 /* SliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86E545891A42A45E0027A817 /* SliderView.xib */; };
-		86ED7D401A54080100400360 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D3D1A54080100400360 /* NavigationController.m */; };
-		86ED7D411A54080100400360 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D3F1A54080100400360 /* TabBarViewController.m */; };
-		86ED7D471A54083B00400360 /* CEPanAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D441A54083B00400360 /* CEPanAnimationController.m */; };
-		86ED7D481A54083B00400360 /* CEReversibleAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D461A54083B00400360 /* CEReversibleAnimationController.m */; };
-		86ED7D4B1A54153D00400360 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D4A1A54153D00400360 /* TestViewController.m */; };
 		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
 		86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1E1A3992270045904C /* CustomColoredViewController.m */; };
 		DACBC5BAE456ADF14DCA0DD4 /* libPods-SimplicITy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 075A1155144476E942168182 /* libPods-SimplicITy.a */; };
@@ -164,16 +159,6 @@
 		86E545861A42A4370027A817 /* SliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderView.h; sourceTree = "<group>"; };
 		86E545871A42A4370027A817 /* SliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderView.m; sourceTree = "<group>"; };
 		86E545891A42A45E0027A817 /* SliderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SliderView.xib; sourceTree = "<group>"; };
-		86ED7D3C1A54080100400360 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		86ED7D3D1A54080100400360 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		86ED7D3E1A54080100400360 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
-		86ED7D3F1A54080100400360 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
-		86ED7D431A54083B00400360 /* CEPanAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEPanAnimationController.h; sourceTree = "<group>"; };
-		86ED7D441A54083B00400360 /* CEPanAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEPanAnimationController.m; sourceTree = "<group>"; };
-		86ED7D451A54083B00400360 /* CEReversibleAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEReversibleAnimationController.h; sourceTree = "<group>"; };
-		86ED7D461A54083B00400360 /* CEReversibleAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEReversibleAnimationController.m; sourceTree = "<group>"; };
-		86ED7D491A54153D00400360 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		86ED7D4A1A54153D00400360 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		86EDBE1A1A395C940045904C /* TipDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipDetailsViewController.h; sourceTree = "<group>"; };
 		86EDBE1B1A395C940045904C /* TipDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipDetailsViewController.m; sourceTree = "<group>"; };
 		86EDBE1D1A3992270045904C /* CustomColoredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColoredViewController.h; sourceTree = "<group>"; };
@@ -392,16 +377,6 @@
 		86ED7D421A54080600400360 /* AnimationControllers */ = {
 			isa = PBXGroup;
 			children = (
-				86ED7D3C1A54080100400360 /* NavigationController.h */,
-				86ED7D3D1A54080100400360 /* NavigationController.m */,
-				86ED7D3E1A54080100400360 /* TabBarViewController.h */,
-				86ED7D3F1A54080100400360 /* TabBarViewController.m */,
-				86ED7D431A54083B00400360 /* CEPanAnimationController.h */,
-				86ED7D441A54083B00400360 /* CEPanAnimationController.m */,
-				86ED7D451A54083B00400360 /* CEReversibleAnimationController.h */,
-				86ED7D461A54083B00400360 /* CEReversibleAnimationController.m */,
-				86ED7D491A54153D00400360 /* TestViewController.h */,
-				86ED7D4A1A54153D00400360 /* TestViewController.m */,
 			);
 			name = AnimationControllers;
 			sourceTree = "<group>";
@@ -550,16 +525,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86ED7D471A54083B00400360 /* CEPanAnimationController.m in Sources */,
 				86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */,
 				86DCEB921A4E8C0F0014FEC7 /* SurveyViewController.m in Sources */,
 				86287D311A2EE1A500B12893 /* ViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
 				867584121A3815EE0049EC10 /* SettingViewController.m in Sources */,
-				86ED7D4B1A54153D00400360 /* TestViewController.m in Sources */,
-				86ED7D401A54080100400360 /* NavigationController.m in Sources */,
 				864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */,
-				86ED7D411A54080100400360 /* TabBarViewController.m in Sources */,
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				861BBC321A30865A00714EB2 /* OrderViewController.m in Sources */,
@@ -568,7 +539,6 @@
 				86491A761A30817100711740 /* ToolsViewController.m in Sources */,
 				86CB65351A386F58005FFFE8 /* messageModle.m in Sources */,
 				867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */,
-				86ED7D481A54083B00400360 /* CEReversibleAnimationController.m in Sources */,
 				867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */,
 				86491A791A30836C00711740 /* WebClipViewController.m in Sources */,
 				863A16EE1A4185F000146B72 /* ThemesViewController.m in Sources */,
