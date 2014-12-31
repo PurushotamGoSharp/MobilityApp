@@ -573,6 +573,8 @@
 {
     [self parseResponseData:response];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+    
 }
 
 -(void)parseResponseData:(NSData *)response
