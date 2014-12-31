@@ -10,7 +10,10 @@
 #import "PlaceHolderTextView.h"
 #import "TikcetCategoryViewController.h"
 #import "TicketsListViewController.h"
-@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate>
+#import "CategoryModel.h"
+#import "Postman.h"
+
+@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate>
 {
     NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
@@ -18,7 +21,9 @@
     
     UIBarButtonItem *backButton;
     
+    Postman *postMan;
     
+    NSMutableArray *categoriesArr;
 }
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -63,10 +68,6 @@
     self.textView.font = [self customFont:16 ofName:MuseoSans_300];
     
 //    self.tickBtnoutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 6);
-
-    
-    
-
     self.navigationItem.leftBarButtonItems = @[];
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
@@ -78,15 +79,13 @@
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
-        
-        
+
         self.spaceBetweenimpactAndServiceConstant.constant = 220;
         self.spaceServiceToImpactConstant.constant = 2;
 
     }
     else
     {
-        
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
         [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
         [back setTitle:@"Back" forState:UIControlStateNormal];
@@ -94,7 +93,7 @@
         //back.imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, <#CGFloat right#>)
 
         back.titleLabel.font = [UIFont systemFontOfSize:17];
-        back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+        back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
         back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
         back.frame = CGRectMake(0, 0,80, 30);
         [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
@@ -117,10 +116,21 @@
         
         self.navigationItem.titleView = titleView;
 //        self.title = @"Raise a Ticket";
-
     }
 }
 
+- (void)tryToUpdateCategories
+{
+    categoriesArr = [[NSMutableArray alloc] init];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/Category";
+    NSString *parameterString = @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}";
+    
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    [postMan post:URLString withParameters:parameterString];
+}
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -133,7 +143,6 @@
 {
     [self.view endEditing:YES];
     [self hideKeyboard:nil];
-    
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView
@@ -177,6 +186,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        [self tryToUpdateCategories];
+    }
     
 //    self.bulbImgOutlet.animationImages =
 //    [NSArray arrayWithObjects:[UIImage imageNamed:@"alert_tip"],[UIImage imageNamed:@"alert_tip1"],nil];
@@ -484,49 +498,47 @@
     {
         [slider setTintColor:([UIColor redColor])];
         [slider setMinimumTrackTintColor:([UIColor redColor])];
-        low.textColor = [UIColor lightGrayColor];
-        medium.textColor = [UIColor lightGrayColor];
-        high.textColor = [UIColor lightGrayColor];
-        critical.textColor = [UIColor blackColor];
+        
+        [self setBlackColorFor:critical];
 
     }else if (slider.value == 2)
     {
         [slider setTintColor:([UIColor orangeColor])];
         [slider setMinimumTrackTintColor:([UIColor orangeColor])];
 
-        high.textColor = [UIColor blackColor];
-
-        low.textColor = [UIColor lightGrayColor];
-        medium.textColor = [UIColor lightGrayColor];
-        critical.textColor = [UIColor lightGrayColor];
+        [self setBlackColorFor:high];
         
     }else if (slider.value == 1)
     {
         [slider setTintColor:([UIColor yellowColor])];
         [slider setMinimumTrackTintColor:([UIColor yellowColor])];
 
-        medium.textColor = [UIColor blackColor];
-
-        low.textColor = [UIColor lightGrayColor];
-        high.textColor = [UIColor lightGrayColor];
-        critical.textColor = [UIColor lightGrayColor];
+        [self setBlackColorFor:medium];
         
     } if (slider.value ==0)
     {
         [slider setTintColor:([UIColor greenColor])];
         [slider setMinimumTrackTintColor:([UIColor greenColor])];
 
-        low.textColor = [UIColor blackColor];
-        
-        medium.textColor = [UIColor lightGrayColor];
-        high.textColor = [UIColor lightGrayColor];
-        critical.textColor = [UIColor lightGrayColor];
+        [self setBlackColorFor:low];
     }
 }
 
--(void)grayColour
+- (void)setBlackColorFor:(UILabel *)blackLabel
 {
+    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     
+    UILabel *low = (UILabel *)[impactCell viewWithTag:10];
+    UILabel *medium = (UILabel *)[impactCell viewWithTag:20];
+    UILabel *high = (UILabel *)[impactCell viewWithTag:30];
+    UILabel *critical = (UILabel *)[impactCell viewWithTag:40];
+    
+    low.textColor = [UIColor lightGrayColor];
+    medium.textColor = [UIColor lightGrayColor];
+    high.textColor = [UIColor lightGrayColor];
+    critical.textColor = [UIColor lightGrayColor];
+    
+    blackLabel.textColor = [UIColor blackColor];
 }
 
 - (UIImage *)imageForSLiderThumb:(NSInteger)value
@@ -553,6 +565,35 @@
             break;
     }
     return nil;
+}
+
+#pragma mark
+#pragma mark: postmanDelegate
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response
+{
+    [self parseResponseData:response];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+-(void)parseResponseData:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
+    
+    NSLog(@"%@",arr);
+    for (NSDictionary *aDict in arr)
+    {
+        CategoryModel *category = [[CategoryModel alloc] init];
+        category.categoryName = aDict[@"Name"];
+        category.categoryCode = aDict[@"Code"];
+        [categoriesArr addObject:category];
+    }
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error
+{
+    
 }
 
 @end

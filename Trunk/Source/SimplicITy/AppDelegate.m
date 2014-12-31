@@ -57,6 +57,7 @@
             break;
     }
     
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 
     return YES;
 }
