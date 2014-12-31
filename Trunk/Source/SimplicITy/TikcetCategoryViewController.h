@@ -7,17 +7,19 @@
 //
 
 #import "CustomColoredViewController.h"
+#import "CategoryModel.h"
+
 
 @protocol TicketCategoryDelegate <NSObject>
 
-- (void)selectedTicket:(NSString *)tickt;
--(void)selectedTips:(NSString *)tip;
+- (void)selectedCategory:(CategoryModel *)category;
 
 @end
 
 @interface TikcetCategoryViewController : CustomColoredViewController
 
 @property (strong, nonatomic)NSString *orderItemDiffer;
+@property (strong,nonatomic)NSArray *categoryArray;
 
 @property (weak, nonatomic) id <TicketCategoryDelegate> delegate;
 
