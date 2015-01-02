@@ -30,7 +30,7 @@
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Back" forState:UIControlStateNormal];
+    [back setTitle:@"Home" forState:UIControlStateNormal];
     
     back.titleLabel.font = [UIFont systemFontOfSize:17];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -58,10 +58,9 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
--(void)backBtnAction
+- (void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];
-    
 }
 
 

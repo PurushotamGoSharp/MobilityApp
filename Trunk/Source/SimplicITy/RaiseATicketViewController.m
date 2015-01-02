@@ -25,6 +25,7 @@
     
     NSMutableArray *categoriesArr;
 }
+
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PlaceHolderTextView *textView;
@@ -88,10 +89,7 @@
     {
         UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
         [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-        [back setTitle:@"Back" forState:UIControlStateNormal];
-        
-        //back.imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, <#CGFloat right#>)
-
+        [back setTitle:@"Home" forState:UIControlStateNormal];
         back.titleLabel.font = [UIFont systemFontOfSize:17];
         back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
         back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -203,8 +201,7 @@
 //        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
         self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
         self.serviceTopToTableViewBottomConst.constant = -15;
-
-
+        
     }else
     {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
@@ -215,7 +212,6 @@
     self.alphaViewOutLet.alpha = 0;
     self.pickerContainerViewOutlet.alpha = 0;
 
-    
     initialOffsetOfSCrollView = self.scrollView.contentOffset;
     initialScollViewInset = self.scrollView.contentInset;
 }
@@ -312,10 +308,7 @@
     viewForLable.font=[self customFont:16 ofName:MuseoSans_700];
     
     return containerView;
-    
 }
-
-
 
 //- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
 //{
@@ -362,18 +355,11 @@
     
     header.font=[self customFont:16 ofName:MuseoSans_700];
     lable.font=[self customFont:16 ofName:MuseoSans_300];
-
-    
-    
     
     UIView *colourForline = (UIView *)[cell viewWithTag:102];
     UIView *colourForRect = (UIView *)[cell viewWithTag:103];
 
     colourForRect.layer.cornerRadius = 10;
-    
-  
-
-
     
     if (indexPath.row == 0)
     {
@@ -436,8 +422,6 @@
         TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
         ticketCategoryVC.delegate = self;
         
-        
-        
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
         {
             ticketCategoryVC.orderItemDiffer = @"orderItemsData";
@@ -448,7 +432,6 @@
 //            TicketsListViewController *orderList = segue.destinationViewController;
 //            orderList.orderItemDifferForList = @"orderList";
 //        }
-
     }else
     {
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
@@ -457,7 +440,6 @@
         TicketsListViewController *orderList = segue.destinationViewController;
         orderList.orderItemDifferForList = @"orderList";
         }
-
     }
 }
 
@@ -482,7 +464,6 @@
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"]) {
         UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         
-
         low = (UILabel *)[impactCell viewWithTag:10];
         medium = (UILabel *)[impactCell viewWithTag:20];
         high = (UILabel *)[impactCell viewWithTag:30];
@@ -573,8 +554,6 @@
 {
     [self parseResponseData:response];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    
-    
 }
 
 -(void)parseResponseData:(NSData *)response
