@@ -119,11 +119,21 @@
 
 - (void)tryToUpdateCategories
 {
+    NSString *parameterString;
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        parameterString = @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}";
+
+    }else
+    {
+        parameterString = @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}";
+
+    }
+
     categoriesArr = [[NSMutableArray alloc] init];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
     NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/Category";
-    NSString *parameterString = @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}";
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -429,8 +439,7 @@
         
 //        if ([self.title isEqualToString:@"Place an Order"])
 //        {
-//            TicketsListViewController *orderList = segue.destinationViewController;
-//            orderList.orderItemDifferForList = @"orderList";
+//            ticketCategoryVC.orderItemDiffer = @"orderItemsData";
 //        }
     }else
     {
@@ -441,18 +450,25 @@
         orderList.orderItemDifferForList = @"orderList";
         }
     }
+    
+//    else
+//    {
+//        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+//        {
+//        TicketsListViewController *orderList = segue.destinationViewController;
+//        orderList.orderItemDifferForList = @"orderList";
+//        }
+//    }
+    
 }
 
-- (void)selectedTicket:(NSString *)tickt
+- (void)selectedCategory:(CategoryModel *)category
 {
-    self.selectedCategorylabel.text = tickt;
+    self.selectedCategorylabel.text = category.categoryName;
     self.selectedCategorylabel.textColor = [UIColor blackColor];
 }
 
--(void)selectedTips:(NSString *)tip
-{
-    self.tipsLableOutlet.text = tip;
-}
+
 
 - (void)sliderValueChanged:(UISlider *)slider
 {
@@ -574,7 +590,7 @@
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error
 {
-    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 @end

@@ -28,6 +28,9 @@
     
    // arrayofData = @[@"Provideee VPN access",@"Internet is very slow",@"My leave application password has expired and I am not able to reset it ",@"VPN is not accessible outside UCB network",@"Cannot download any file to my desktop",@"Unable to make any outside call from my DeskPhone",@"Unable to access my Office email",@"Need permission to raise an Order in ITSM",@"Unable to setup Lync Meeting",@"Others"];
 
+    NSLog(@"Categories %@",self.categoryArray);
+    
+    
    
     
     arrayofData = @[@"Access Management",@"Authentication",@"Collaboration Services",@"Desktop",@"Identity Service",@"Messaging", @"Mobile Devices",@"Others",@"Productivity Software",@"SAP PE1",@"Server"];
@@ -51,11 +54,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    if ([self.orderItemDiffer isEqualToString:@"orderItemsData"])
-    {
-        return [arrOfDataForItems count];
-    }else
-    return [arrayofData count];
+    return [self.categoryArray count];
+//    if ([self.orderItemDiffer isEqualToString:@"orderItemsData"])
+//    {
+//        return [arrOfDataForItems count];
+//    }else
+//    return [arrayofData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -66,15 +70,18 @@
     label.font=[self customFont:16 ofName:MuseoSans_700];
     
     
-    if ([self.orderItemDiffer isEqualToString:@"orderItemsData"])
-    {
-        label.text = arrOfDataForItems[indexPath.row];
-    }else
-    {
-        label.text = arrayofData[indexPath.row];
-        
-    }
+//    if ([self.orderItemDiffer isEqualToString:@"orderItemsData"])
+//    {
+//        label.text = arrOfDataForItems[indexPath.row];
+//    }else
+//    {
+//        label.text = arrayofData[indexPath.row];
+//        
+//    }
     
+    CategoryModel *category = self.categoryArray[indexPath.row];
+
+    label.text = category.categoryName;
     return cell;
 }
 
@@ -87,13 +94,17 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if ([self.orderItemDiffer isEqualToString:@"orderItemsData"])
-    {
-        [self.delegate selectedTicket:arrOfDataForItems[indexPath.row]];
-    }else{
-        [self.delegate selectedTips:arrayofTips[indexPath.row]];
-        [self.delegate selectedTicket:arrayofData[indexPath.row]];
-    }
+    [self.delegate selectedCategory:self.categoryArray[indexPath.row]];
+    
+//    if ([self.orderItemDiffer isEqualToString:@"orderItemsData"])
+//    {
+//        [self.delegate selectedTicket:arrOfDataForItems[indexPath.row]];
+//    }else{
+//        [self.delegate selectedTips:arrayofTips[indexPath.row]];
+//        [self.delegate selectedTicket:arrayofData[indexPath.row]];
+//    }
+    
+    
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
