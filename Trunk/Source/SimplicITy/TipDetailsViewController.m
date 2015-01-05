@@ -9,40 +9,22 @@
 #import "TipDetailsViewController.h"
 
 @interface TipDetailsViewController ()
-@property (weak, nonatomic) IBOutlet UIView *viewAtIndex0;
-@property (weak, nonatomic) IBOutlet UIView *viewAtIndex1;
 
-
-
-@property (weak, nonatomic) IBOutlet UIButton *playButton;
-@property (weak, nonatomic) IBOutlet UIView *shadowView;
-@property (weak, nonatomic) IBOutlet UITextView *textview2;
-
-
-@property (weak, nonatomic) IBOutlet UITextView *text1;
-//@property (weak, nonatomic) IBOutlet UIImageView *videoImage;
-
-@property (weak, nonatomic) IBOutlet UIView *scrollContainerView;
-@property (weak, nonatomic) IBOutlet UIView *videoContainerView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
 
 @implementation TipDetailsViewController
 {
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = self.parentCategory;
-
-
-
-    self.text1.font=[self customFont:14 ofName:MuseoSans_300];
-    self.textview2.font=[self customFont:14 ofName:MuseoSans_300];
-
     
+    self.title = self.tipModel.question;
 
 
 }
@@ -50,61 +32,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-//    self.text1.text = self.textToDisplay;
-    
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:self.fileName ofType:@"mp4"];
-    NSURL *videoURL = [NSURL fileURLWithPath:filePath];
-    NSLog(@"File path = %@", filePath);
-    self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
-    self.videoController.movieSourceType = MPMovieSourceTypeFile;
-    [self.videoController.view setFrame:CGRectMake(0,0, 300, 133)];
-    
-    
-    self.videoController.controlStyle = MPMovieControlStyleEmbedded;
-    self.videoController.fullscreen = NO;
-    [self.videoContainerView addSubview:self.videoController.view];
-    [self.scrollContainerView bringSubviewToFront:self.playButton];
-    
-    
-//    if (self.index == 0)
-//    {
-//        self.textView2.text = self.textToDisplay;
-//        self.viewAtIndex0.hidden = YES;
-//        self.viewAtIndex1.hidden = NO;
-//        
-//        if (self.fileName)
-//        {
-//            NSString *filePath = [[NSBundle mainBundle] pathForResource:self.fileName ofType:@"mp4"];
-//            NSURL *videoURL = [NSURL fileURLWithPath:filePath];
-//            NSLog(@"File path = %@", filePath);
-//            self.videoController = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
-//            self.videoController.movieSourceType = MPMovieSourceTypeFile;
-//            [self.videoController.view setFrame:CGRectMake(28,75, 320, 170)];
-//            self.videoController.controlStyle = MPMovieControlStyleEmbedded;
-//            self.videoController.fullscreen = NO;
-//            
-//            [self.viewAtIndex1 addSubview:self.videoController.view];
-//            [self.viewAtIndex1 bringSubviewToFront:self.playButton];
-//            self.playButton.hidden = NO;
-//        }
-//        
-//    }else
-//    {
-//        self.textView1.text = self.textToDisplay;
-//        self.viewAtIndex0.hidden = NO;
-//        self.viewAtIndex1.hidden = YES;
-//        
-//    }
+        
+    [self.webView loadHTMLString:self.tipModel.answer baseURL:nil];
 }
 
-- (IBAction)playButton:(UIButton *)sender
-{
-    self.playButton.hidden = YES;
-    [self.videoController prepareToPlay];
-    [self.videoController play];
-}
+
 
 - (BOOL)shouldAutorotate
 {

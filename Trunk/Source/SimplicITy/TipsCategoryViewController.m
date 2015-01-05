@@ -8,17 +8,20 @@
 
 #import "TipsCategoryViewController.h"
 #import "TipsSubCategoriesViewController.h"
-@interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation TipsCategoryViewController
 {
-    NSArray *categoriesArray;
-    NSDictionary *subCategory;
     UIBarButtonItem *backButton;
+    Postman *postMan;
     
+    NSMutableArray *tipscategoryArray;
+    
+    NSArray *combinedDicts; //contains dicts with code and tips category.
     
    // __weak IBOutlet UILabel *TipsCategory;
 }
@@ -41,21 +44,14 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-
-    
-    
-    categoriesArray = @[@"Lync", @"AD Password", @"ITMS",@"Travel",@"Meeting Room",@"Wireless Password"];
-    
-    subCategory = @{@"Lync":@[@"Instant Messaging", @"Voice Over IP", @"Voice conferencing"],
-                    @"AD Password": @[@"Web Conferencing",@"Video Conferencing"],
-                    @"ITMS":@[@"Financial Accounting (FI)",@"Controlling (CO)",@"Investment Management (IM)"],
-                    @"Travel":@[@"Configuration Management",@"Change Management",@"Release Management",@"Incident Management"],
-                    @"Meeting Room":@[@"Workspace Management",@"Mobile Security",@"Mobile Device Management"],
-                    @"Wireless Password":@[@"Mobile Application Management",@"Mobile Content Management",@"Mobile Email Management"]
-                    
-                    };
     
     self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self tryToUpdateCategories];
 }
 
 - (void)backBtnAction
@@ -63,6 +59,20 @@
     [self.tabBarController setSelectedIndex:0];
 }
 
+- (void)tryToUpdateCategories
+{
+    NSString *parameterString;
+    parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
+    
+    tipscategoryArray = [[NSMutableArray alloc] init];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
+    
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    [postMan post:URLString withParameters:parameterString];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -77,7 +87,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [categoriesArray count];
+    return [tipscategoryArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,11 +95,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
     
     UILabel *label = (UILabel *)[cell viewWithTag:100];
-    label.text = categoriesArray[indexPath.row];
+    label.text = tipscategoryArray[indexPath.row];
     
    
     label.font=[self customFont:16 ofName:MuseoSans_700];
     
+    [label sizeToFit];
+    [cell layoutIfNeeded];
     
     return cell;
 }
@@ -109,14 +121,57 @@
 }
 */
 
+- (NSString *)codeForTipCategory:(NSString *)category
+{
+    for (NSDictionary *aDict in combinedDicts)
+    {
+        if ([aDict[@"Name"] isEqualToString:category])
+        {
+            return aDict[@"Code"];
+        }
+    }
+    
+    return nil;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"TipsCatToSubcatSegue"])
     {
         TipsSubCategoriesViewController *tipsSubVC = (TipsSubCategoriesViewController *)segue.destinationViewController;
-        tipsSubVC.parentCategory = categoriesArray[[self.tableView indexPathForSelectedRow].row];
-        tipsSubVC.subCategoriesData = subCategory[tipsSubVC.parentCategory];
+        tipsSubVC.parentCategory = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
+        tipsSubVC.parentCode = [self codeForTipCategory:tipsSubVC.parentCategory];
     }
+}
+
+#pragma mark
+#pragma mark: postmanDelegate
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response
+{
+    [self parseResponseData:response];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+- (void)parseResponseData:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    combinedDicts = json[@"aaData"][@"GenericSearchViewModels"];
+    
+    for (NSDictionary *aDict in combinedDicts)
+    {
+        if ([aDict[@"Status"] boolValue])
+        {
+            [tipscategoryArray addObject:aDict[@"Name"]];
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 @end

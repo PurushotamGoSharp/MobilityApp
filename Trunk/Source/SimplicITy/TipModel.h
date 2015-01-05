@@ -10,6 +10,11 @@
 
 @interface TipModel : NSObject
 
+@property (strong, nonatomic) NSString *code;
+@property (strong, nonatomic) NSString *question;
+@property (strong, nonatomic) NSString *answer;
+@property (strong, nonatomic) NSString *groupCode;
+@property (strong, nonatomic) NSString *groupName;
 
 
 @end

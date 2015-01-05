@@ -11,5 +11,5 @@
 @interface TipsSubCategoriesViewController : CustomColoredViewController
 
 @property (strong, nonatomic) NSString *parentCategory;
-@property (strong, nonatomic) NSArray *subCategoriesData;
+@property (strong, nonatomic) NSString *parentCode;
 @end
