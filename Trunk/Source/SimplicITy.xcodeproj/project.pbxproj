@@ -45,6 +45,7 @@
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
 		86848E101A56721A0063E433 /* CustomAFRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */; };
+		86848E131A56C47E0063E433 /* CustomURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E121A56C47E0063E433 /* CustomURLCache.m */; };
 		869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */; };
 		86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A355291A5406900065B457 /* RaiseATicketViewController.m */; };
 		86A3552E1A5406980065B457 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A3552D1A5406980065B457 /* CategoryModel.m */; };
@@ -143,6 +144,8 @@
 		867B19BA1A40126700462CA4 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
 		86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAFRequestOperationManager.h; sourceTree = "<group>"; };
 		86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAFRequestOperationManager.m; sourceTree = "<group>"; };
+		86848E111A56C47E0063E433 /* CustomURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomURLCache.h; sourceTree = "<group>"; };
+		86848E121A56C47E0063E433 /* CustomURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomURLCache.m; sourceTree = "<group>"; };
 		869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86A355291A5406900065B457 /* RaiseATicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseATicketViewController.m; sourceTree = "<group>"; };
 		86A3552A1A5406900065B457 /* RaiseATicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseATicketViewController.h; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				8623D5BA1A5417800022A370 /* Postman.m */,
 				86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */,
 				86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */,
+				86848E111A56C47E0063E433 /* CustomURLCache.h */,
+				86848E121A56C47E0063E433 /* CustomURLCache.m */,
 			);
 			name = "PostMan Classes";
 			sourceTree = "<group>";
@@ -574,6 +579,7 @@
 				86ED7D6D1A541F1A00400360 /* CEPanAnimationController.m in Sources */,
 				86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */,
 				86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */,
+				86848E131A56C47E0063E433 /* CustomURLCache.m in Sources */,
 				86DCEB921A4E8C0F0014FEC7 /* SurveyViewController.m in Sources */,
 				86287D311A2EE1A500B12893 /* ViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,

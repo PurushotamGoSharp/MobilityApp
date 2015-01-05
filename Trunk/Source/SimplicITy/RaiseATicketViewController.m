@@ -195,7 +195,7 @@
 {
     [super viewWillAppear:animated];
     
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
+//    if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
         [self tryToUpdateCategories];
     }
@@ -432,23 +432,12 @@
         TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
         ticketCategoryVC.delegate = self;
         
-        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-        {
-            ticketCategoryVC.orderItemDiffer = @"orderItemsData";
-        }
+        ticketCategoryVC.categoryArray = categoriesArr;
         
-//        if ([self.title isEqualToString:@"Place an Order"])
+//        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
 //        {
 //            ticketCategoryVC.orderItemDiffer = @"orderItemsData";
 //        }
-    }else
-    {
-        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-        {
-
-        TicketsListViewController *orderList = segue.destinationViewController;
-        orderList.orderItemDifferForList = @"orderList";
-        }
     }
     
 //    else
