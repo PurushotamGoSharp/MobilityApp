@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8607051C1A2F147700B9A814 /* CustomTabBar.m */; };
 		86186D891A399C8700BFD000 /* LanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86186D881A399C8700BFD000 /* LanguageViewController.m */; };
 		86186D8C1A399C9700BFD000 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86186D8B1A399C9700BFD000 /* LocationViewController.m */; };
 		861BBC321A30865A00714EB2 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 861BBC311A30865A00714EB2 /* OrderViewController.m */; };
@@ -45,6 +44,8 @@
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
+		86848E101A56721A0063E433 /* CustomAFRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */; };
+		86848E131A56C47E0063E433 /* CustomURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E121A56C47E0063E433 /* CustomURLCache.m */; };
 		869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */; };
 		86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A355291A5406900065B457 /* RaiseATicketViewController.m */; };
 		86A3552E1A5406980065B457 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A3552D1A5406980065B457 /* CategoryModel.m */; };
@@ -82,8 +83,6 @@
 
 /* Begin PBXFileReference section */
 		075A1155144476E942168182 /* libPods-SimplicITy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimplicITy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8607051B1A2F147700B9A814 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
-		8607051C1A2F147700B9A814 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
 		86186D871A399C8700BFD000 /* LanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageViewController.h; sourceTree = "<group>"; };
 		86186D881A399C8700BFD000 /* LanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageViewController.m; sourceTree = "<group>"; };
 		86186D8A1A399C9700BFD000 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
@@ -143,6 +142,10 @@
 		867584111A3815EE0049EC10 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		867B19B91A40126700462CA4 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
 		867B19BA1A40126700462CA4 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
+		86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAFRequestOperationManager.h; sourceTree = "<group>"; };
+		86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAFRequestOperationManager.m; sourceTree = "<group>"; };
+		86848E111A56C47E0063E433 /* CustomURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomURLCache.h; sourceTree = "<group>"; };
+		86848E121A56C47E0063E433 /* CustomURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomURLCache.m; sourceTree = "<group>"; };
 		869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86A355291A5406900065B457 /* RaiseATicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseATicketViewController.m; sourceTree = "<group>"; };
 		86A3552A1A5406900065B457 /* RaiseATicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseATicketViewController.h; sourceTree = "<group>"; };
@@ -313,29 +316,12 @@
 				867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */,
 				86EDBE1A1A395C940045904C /* TipDetailsViewController.h */,
 				86EDBE1B1A395C940045904C /* TipDetailsViewController.m */,
-				86491A741A30817100711740 /* ToolsViewController.h */,
-				86491A751A30817100711740 /* ToolsViewController.m */,
-				8632070C1A455794006FBD52 /* LyncConnectionCheckerViewController.h */,
-				8632070D1A455794006FBD52 /* LyncConnectionCheckerViewController.m */,
+				86848E0D1A5671D30063E433 /* Tools VCs */,
 				86491A771A30836C00711740 /* WebClipViewController.h */,
 				86491A781A30836C00711740 /* WebClipViewController.m */,
-				864E5F7A1A4439F200C2542A /* ADExpirationViewController.h */,
-				864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */,
-				86DCEB901A4E8C0F0014FEC7 /* SurveyViewController.h */,
-				86DCEB911A4E8C0F0014FEC7 /* SurveyViewController.m */,
-				8623D5BA1A5417800022A370 /* Postman.m */,
-				8623D5BC1A5417840022A370 /* Postman.h */,
-				86ED7D651A541F1A00400360 /* CEPanAnimationController.h */,
-				86ED7D661A541F1A00400360 /* CEPanAnimationController.m */,
-				86ED7D671A541F1A00400360 /* CEReversibleAnimationController.h */,
-				86ED7D681A541F1A00400360 /* CEReversibleAnimationController.m */,
-				86ED7D691A541F1A00400360 /* NavigationController.h */,
-				86ED7D6A1A541F1A00400360 /* NavigationController.m */,
-				86ED7D6B1A541F1A00400360 /* TabBarViewController.h */,
-				86ED7D6C1A541F1A00400360 /* TabBarViewController.m */,
+				86848E0C1A5671AF0063E433 /* PostMan Classes */,
+				86848E0B1A56719E0063E433 /* TabBar Animation */,
 				86186D861A399C5400BFD000 /* Setting */,
-				8607051B1A2F147700B9A814 /* CustomTabBar.h */,
-				8607051C1A2F147700B9A814 /* CustomTabBar.m */,
 				86CB65331A386F58005FFFE8 /* messageModle.h */,
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				864E5F6E1A43E74600C2542A /* Videos */,
@@ -383,6 +369,49 @@
 				864E5F711A43E75300C2542A /* WebEx_Video.mp4 */,
 			);
 			name = Videos;
+			sourceTree = "<group>";
+		};
+		86848E0B1A56719E0063E433 /* TabBar Animation */ = {
+			isa = PBXGroup;
+			children = (
+				86ED7D651A541F1A00400360 /* CEPanAnimationController.h */,
+				86ED7D661A541F1A00400360 /* CEPanAnimationController.m */,
+				86ED7D671A541F1A00400360 /* CEReversibleAnimationController.h */,
+				86ED7D681A541F1A00400360 /* CEReversibleAnimationController.m */,
+				86ED7D691A541F1A00400360 /* NavigationController.h */,
+				86ED7D6A1A541F1A00400360 /* NavigationController.m */,
+				86ED7D6B1A541F1A00400360 /* TabBarViewController.h */,
+				86ED7D6C1A541F1A00400360 /* TabBarViewController.m */,
+			);
+			name = "TabBar Animation";
+			sourceTree = "<group>";
+		};
+		86848E0C1A5671AF0063E433 /* PostMan Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8623D5BC1A5417840022A370 /* Postman.h */,
+				8623D5BA1A5417800022A370 /* Postman.m */,
+				86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */,
+				86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */,
+				86848E111A56C47E0063E433 /* CustomURLCache.h */,
+				86848E121A56C47E0063E433 /* CustomURLCache.m */,
+			);
+			name = "PostMan Classes";
+			sourceTree = "<group>";
+		};
+		86848E0D1A5671D30063E433 /* Tools VCs */ = {
+			isa = PBXGroup;
+			children = (
+				86491A741A30817100711740 /* ToolsViewController.h */,
+				86491A751A30817100711740 /* ToolsViewController.m */,
+				8632070C1A455794006FBD52 /* LyncConnectionCheckerViewController.h */,
+				8632070D1A455794006FBD52 /* LyncConnectionCheckerViewController.m */,
+				864E5F7A1A4439F200C2542A /* ADExpirationViewController.h */,
+				864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */,
+				86DCEB901A4E8C0F0014FEC7 /* SurveyViewController.h */,
+				86DCEB911A4E8C0F0014FEC7 /* SurveyViewController.m */,
+			);
+			name = "Tools VCs";
 			sourceTree = "<group>";
 		};
 		86D604391A3ABB5C00E9E9D7 /* Tickets List */ = {
@@ -550,11 +579,13 @@
 				86ED7D6D1A541F1A00400360 /* CEPanAnimationController.m in Sources */,
 				86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */,
 				86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */,
+				86848E131A56C47E0063E433 /* CustomURLCache.m in Sources */,
 				86DCEB921A4E8C0F0014FEC7 /* SurveyViewController.m in Sources */,
 				86287D311A2EE1A500B12893 /* ViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
 				867584121A3815EE0049EC10 /* SettingViewController.m in Sources */,
 				864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */,
+				86848E101A56721A0063E433 /* CustomAFRequestOperationManager.m in Sources */,
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				861BBC321A30865A00714EB2 /* OrderViewController.m in Sources */,
@@ -576,7 +607,6 @@
 				86E545881A42A4370027A817 /* SliderView.m in Sources */,
 				86DC31FF1A39C9C4002AF7A5 /* TicketsListCell.m in Sources */,
 				86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */,
-				8607051D1A2F147700B9A814 /* CustomTabBar.m in Sources */,
 				86A3552E1A5406980065B457 /* CategoryModel.m in Sources */,
 				86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */,
 				86309CAC1A3EB9B900D19804 /* TikcetCategoryViewController.m in Sources */,

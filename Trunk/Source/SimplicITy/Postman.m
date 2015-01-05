@@ -7,10 +7,11 @@
 //
 
 #import "Postman.h"
+#import "CustomAFRequestOperationManager.h"
 
 @implementation Postman
 {
-    AFHTTPRequestOperationManager *manager;
+    CustomAFRequestOperationManager *manager;
 }
 
 - (id)init
@@ -25,7 +26,7 @@
 
 - (void)initiate
 {
-    manager = [AFHTTPRequestOperationManager manager];
+    manager = [CustomAFRequestOperationManager manager];
     AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
     
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

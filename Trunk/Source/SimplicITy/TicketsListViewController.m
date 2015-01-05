@@ -12,7 +12,7 @@
 #import "TicketModel.h"
 #import "RaiseATicketViewController.h"
 
-@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate>
 {
     UIBarButtonItem *backButton;
 }
@@ -34,6 +34,8 @@
     BOOL filterIsShown;
     NSArray *arrayForStatus, *arrayOfNo;
     
+    Postman *postMan;
+
     UIControl *hideFilterControl;
 }
 
@@ -56,19 +58,10 @@
     {
         [self setUpData];
     }
-//    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [back setTitle:@"< Back" forState:UIControlStateNormal];
-//    back.frame = CGRectMake(0, 0, 80, 40);
-//    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-//    back.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-//
-//    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
-//    self.navigationItem.leftBarButtonItem = backButton;
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Back" forState:UIControlStateNormal];
+    [back setTitle:@"Home" forState:UIControlStateNormal];
     back.titleLabel.font = [UIFont systemFontOfSize:17];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -99,18 +92,15 @@
     [self.tableViewOutlet  addSubview:self.refreshControl];
 }
 
--(void)backBtnAction
+- (void)backBtnAction
 {
     [self.navigationController popViewControllerAnimated:YES];
-
 }
 
 -(void)pull
 {
-    
     [NSThread sleepForTimeInterval:1];
     [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -118,8 +108,6 @@
     [super viewWillAppear:YES];
     self.filterTableView.backgroundColor = [self subViewsColours];
     self.refreshControl.backgroundColor = [self subViewsColours];
-
-
 }
 
 - (void)reloadData
@@ -139,6 +127,16 @@
         self.refreshControl.attributedTitle = attributedTitle;
         [self.refreshControl endRefreshing];
     }
+}
+
+- (void)tryToUpdateTipsLevel1
+{
+    NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
+    NSString *parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
+    
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    [postMan post:URLString withParameters:parameterString];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -337,7 +335,6 @@
     [arrayOfData addObject:ticket];
     
     ticket = [[TicketModel alloc] init];
-    ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Messaging";
     ticket.agentName = @"Christina";
     ticket.ticketNum = @"#75677";
@@ -530,6 +527,32 @@
     ticket.date =@"2014/12/13";
     ticket.details = @"Need Power code for Desktop.";
     [arrayOfData addObject:ticket];
+}
+
+#pragma mark
+#pragma mark: postmanDelegate
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response
+{
+    [self parseResponseData:response];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+-(void)parseResponseData:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
+    
+    NSLog(@"%@",arr);
+    for (NSDictionary *aDict in arr)
+    {
+
+    }
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error
+{
+    
 }
 
 @end
