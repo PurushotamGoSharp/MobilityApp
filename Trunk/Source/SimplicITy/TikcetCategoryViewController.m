@@ -30,9 +30,6 @@
 
     NSLog(@"Categories %@",self.categoryArray);
     
-    
-   
-    
     arrayofData = @[@"Access Management",@"Authentication",@"Collaboration Services",@"Desktop",@"Identity Service",@"Messaging", @"Mobile Devices",@"Others",@"Productivity Software",@"SAP PE1",@"Server"];
     
 

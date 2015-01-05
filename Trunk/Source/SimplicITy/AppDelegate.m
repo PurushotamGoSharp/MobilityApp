@@ -9,6 +9,10 @@
 #import "AppDelegate.h"
 #import "CustomURLCache.h"
 
+#import "UAirship.h"
+#import "UAConfig.h"
+#import "UAPush.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -17,6 +21,52 @@
     
     [NSThread sleepForTimeInterval:4.0];
 
+    
+    // Override point for customization after application launch
+    // [self.window setRootViewController:_controller];
+    [self.window makeKeyAndVisible];
+    
+    // Display a UIAlertView warning developers that push notifications do not work in the simulator
+    // You should remove this in your app.
+    [self failIfSimulator];
+    
+    // Set log level for debugging config loading (optional)
+    // It will be set to the value in the loaded config upon takeOff
+    [UAirship setLogLevel:UALogLevelTrace];
+    
+    // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
+    // or set runtime properties here.
+    UAConfig *config = [UAConfig defaultConfig];
+    
+    // You can then programmatically override the plist values:
+    // config.developmentAppKey = @"YourKey";
+    // etc.
+    
+    // Call takeOff (which creates the UAirship singleton)
+    [UAirship takeOff:config];
+    
+    // Print out the application configuration for debugging (optional)
+    UA_LDEBUG(@"Config:\n%@", [config description]);
+    
+    // Set the icon badge to zero on startup (optional)
+    [[UAPush shared] resetBadge];
+    
+    // Set the notification types required for the app (optional). This value defaults
+    // to badge, alert and sound, so it's only necessary to set it if you want
+    // to add or remove types.
+    [UAPush shared].userNotificationTypes = (UIUserNotificationTypeAlert |
+                                             UIUserNotificationTypeBadge |
+                                             UIUserNotificationTypeSound);
+    
+    
+    // User notifications will not be enabled until userPushNotificationsEnabled is
+    // set YES on UAPush. Once enabled, the setting will be persisted and the user
+    // will be prompted to allow notifications. You should wait for a more appropriate
+    // time to enable push to increase the likelihood that the user will accept
+    // notifications.
+    
+     [UAPush shared].userPushNotificationsEnabled = YES;
+    
 
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     
@@ -101,5 +151,48 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    UA_LINFO(@"Received remote notification (in appDelegate): %@", userInfo);
+    
+    // Optionally provide a delegate that will be used to handle notifications received while the app is running
+    // [UAPush shared].pushNotificationDelegate = your custom push delegate class conforming to the UAPushNotificationDelegate protocol
+    
+    // Reset the badge after a push received (optional)
+    [[UAPush shared] resetBadge];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    UA_LINFO(@"Received remote notification (in appDelegate): %@", userInfo);
+    
+    // Optionally provide a delegate that will be used to handle notifications received while the app is running
+    // [UAPush shared].pushNotificationDelegate = your custom push delegate class conforming to the UAPushNotificationDelegate protocol
+    
+    // Reset the badge after a push is received in a active or inactive state
+    if (application.applicationState != UIApplicationStateBackground) {
+        [[UAPush shared] resetBadge];
+    }
+    
+    completionHandler(UIBackgroundFetchResultNoData);
+}
+
+- (void)failIfSimulator {
+    if ([[[UIDevice currentDevice] model] rangeOfString:@"Simulator"].location != NSNotFound) {
+        UIAlertView *someError = [[UIAlertView alloc] initWithTitle:@"Notice"
+                                                            message:@"You will not be able to receive push notifications in the simulator."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        
+        // Let the UI finish launching first so it doesn't complain about the lack of a root view controller
+        // Delay execution of the block for 1/2 second.
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [someError show];
+        });
+        
+    }
+}
+
 
 @end
