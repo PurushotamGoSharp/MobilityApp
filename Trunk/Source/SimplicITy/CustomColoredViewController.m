@@ -44,6 +44,46 @@
         default:
             break;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self
+                                                   name:UIDeviceOrientationDidChangeNotification
+                                                 object:nil];
+    
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void)adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
+    
+    switch (orientation)
+    {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+        {
+            //load the portrait view
+        }
+            
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+        {
+            //load the landscape view
+        }
+            break;
+        case UIInterfaceOrientationUnknown:break;
+    }
 }
 
 - (NSString *)stingForColorTheme

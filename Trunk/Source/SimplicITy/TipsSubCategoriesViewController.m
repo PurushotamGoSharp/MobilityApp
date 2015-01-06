@@ -74,8 +74,7 @@
     TipModel *tip = subCategoriesCollection[indexPath.row];
     label.text = tip.question;
 
-    label.font=[self customFont:16 ofName:MuseoSans_700];
-    
+    label.font = [self customFont:16 ofName:MuseoSans_700];
     [label sizeToFit];
     
     return cell;
@@ -88,7 +87,24 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    TipModel *tip = subCategoriesCollection[indexPath.row];
+    NSDictionary *attributes = @{NSFontAttributeName: [self customFont:16 ofName:MuseoSans_700]};
+    
+    CGFloat maxWidthAllowed = self.view.frame.size.width - 16 - 33;
+    
+//    if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait)
+//    {
+//        maxWidthAllowed = self.view.frame.size.height - 16 - 33;
+//    }
+    
+    CGRect expectedSizeOfLabel = [tip.question boundingRectWithSize:(CGSizeMake(maxWidthAllowed, 10000))
+                                                            options:(NSStringDrawingUsesLineFragmentOrigin)
+                                                         attributes:attributes
+                                                            context:nil];
+    
+    CGFloat expectedHeightOfCell = expectedSizeOfLabel.size.height + 24;
+    NSLog(@"%f", expectedHeightOfCell);
+    return expectedHeightOfCell;
 }
 
 /*
@@ -108,6 +124,29 @@
         TipDetailsViewController *tipDetailsVC = (TipDetailsViewController *)segue.destinationViewController;
         tipDetailsVC.tipModel =  subCategoriesCollection[[self.tableView indexPathForSelectedRow].row];
     }
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
+    
+    switch (orientation)
+    {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+        {
+            //load the portrait view
+        }
+            
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+        {
+            //load the landscape view
+        }
+            break;
+        case UIInterfaceOrientationUnknown:break;
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark

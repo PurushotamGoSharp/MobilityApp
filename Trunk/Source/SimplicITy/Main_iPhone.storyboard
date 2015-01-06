@@ -1330,23 +1330,24 @@
                                             <subviews>
                                                 <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAj-JC-raX">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laB-O2-cGy">
-                                                            <rect key="frame" x="18" y="11" width="42" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laB-O2-cGy">
+                                                    <rect key="frame" x="8" y="11" width="271" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="qAj-JC-raX" firstAttribute="top" secondItem="pfI-n0-kHV" secondAttribute="top" id="F39-Yt-HYv"/>
                                                 <constraint firstItem="qAj-JC-raX" firstAttribute="leading" secondItem="pfI-n0-kHV" secondAttribute="leading" id="VQP-Fy-nAc"/>
                                                 <constraint firstAttribute="trailing" secondItem="qAj-JC-raX" secondAttribute="trailing" constant="-33" id="c2x-Cp-kth"/>
+                                                <constraint firstAttribute="centerY" secondItem="laB-O2-cGy" secondAttribute="centerY" id="h3P-50-jGc"/>
+                                                <constraint firstAttribute="trailing" secondItem="laB-O2-cGy" secondAttribute="trailing" constant="8" id="jIH-m4-ZCy"/>
                                                 <constraint firstAttribute="bottom" secondItem="qAj-JC-raX" secondAttribute="bottom" constant="1" id="lWA-sk-RtX"/>
+                                                <constraint firstItem="laB-O2-cGy" firstAttribute="leading" secondItem="pfI-n0-kHV" secondAttribute="leading" constant="8" id="uhe-Wz-5rA"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
