@@ -7,8 +7,9 @@
 //
 
 #import "WebClipViewController.h"
+#import "webClipModel.h"
 
-@interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate>
 {
     NSArray *tableViewData, *arrayOfImages;
     
@@ -39,6 +40,10 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
+    Postman *postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    [postMan get:@"http://simplicitytst.ripple-io.in/WebClip"];
+    
 }
 
 - (void)backBtnAction
@@ -54,6 +59,33 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+
+#pragma mark 
+#pragma mark postmanDelegate
+
+-(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    [self parseResponsedata:response];
+}
+-(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    
+}
+
+-(void)parseResponsedata:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSArray *arr = json[@"aaData"][@"WebClips"];
+    
+    for (NSDictionary *aDict in arr)
+    {
+        webClipModel *webClip = [[webClipModel alloc]init];
+        webClip.title = aDict[@"Title"];
+        webClip.urlLink = aDict[@"HREF"];
+        webClip.imageCode = aDict[@"DocumentCode"];
+
+    }
 }
 
 #pragma mark UICollectionViewDataSource methods

@@ -42,10 +42,10 @@
        parameters:parameterDict
           success:^(AFHTTPRequestOperation *operation, id responseObject){
               NSData *responseData = [operation responseData];
-              [self.delegate postman:self gotSuccess:responseData];
+              [self.delegate postman:self gotSuccess:responseData forURL:URLString];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              [self.delegate postman:self gotFailure:error];
+              [self.delegate postman:self gotFailure:error forURL:URLString];
               NSLog(@"%@",error);
           }];
 }
@@ -57,11 +57,11 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSData *responseData = [operation responseData];
-             [self.delegate postman:self gotSuccess:responseData];
+             [self.delegate postman:self gotSuccess:responseData forURL:URLString] ;
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
-             [self.delegate postman:self gotFailure:error];
+             [self.delegate postman:self gotFailure:error forURL:URLString];
              NSLog(@"%@",error);
              
          }];

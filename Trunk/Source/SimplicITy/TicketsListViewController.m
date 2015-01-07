@@ -11,6 +11,7 @@
 #import "TicketDetailViewController.h"
 #import "TicketModel.h"
 #import "RaiseATicketViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate>
 {

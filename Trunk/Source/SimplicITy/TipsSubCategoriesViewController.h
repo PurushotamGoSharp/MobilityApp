@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) NSString *parentCategory;
 @property (strong, nonatomic) NSString *parentCode;
+@property (strong, nonatomic) NSData *resposeData;
+
 @end

@@ -9,6 +9,9 @@
 #import "TipsSubCategoriesViewController.h"
 #import "TipDetailsViewController.h"
 #import "TipModel.h"
+#import <sqlite3.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+
 
 @interface TipsSubCategoriesViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -20,6 +23,11 @@
     NSMutableArray *subCategoriesCollection;
     
     Postman *postMan;
+    
+    NSString *URLString;
+    
+    NSString *databasePath;
+    sqlite3 *database;
 }
 
 - (void)viewDidLoad
@@ -28,20 +36,30 @@
     // Do any additional setup after loading the view.
     self.title = self.parentCategory;
     
-    [self tryToUpdateCategories];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    URLString = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", self.parentCode];
+
+    [self getData];
+    
 }
 
 - (void)tryToUpdateCategories
 {
-    subCategoriesCollection = [[NSMutableArray alloc] init];
+    
+    URLString = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", self.parentCode];
+
+//    if (![AFNetworkReachabilityManager sharedManager].reachable)
+//    {
+//        [self getData];
+//        return;
+//    }
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *URLString = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", self.parentCode];
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -151,14 +169,18 @@
 
 #pragma mark
 #pragma mark: postmanDelegate
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseResponseData:response];
+    [self saveTipsCategory:response];
+
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void)parseResponseData:(NSData *)response
 {
+    subCategoriesCollection = [[NSMutableArray alloc] init];
+
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     
     NSArray *tips = json[@"aaData"][@"Tips"];
@@ -188,10 +210,133 @@
     [self.tableView reloadData];
 }
 
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
+-(void)saveTipsCategory:(NSData *)response
+{
+    
+    NSString *docsDir;
+    NSArray *dirPaths;
+    
+    sqlite3_stmt *statement ;
+    
+    dirPaths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    docsDir = dirPaths[0];
+    databasePath = [[NSString alloc] initWithString:
+                    [docsDir stringByAppendingPathComponent: @"Tips.db"]];
+    
+    NSLog(@"Data Base Path %@",databasePath);
+    
+    NSFileManager *filemgr = [NSFileManager defaultManager];
+    const char *dbpath = [databasePath UTF8String];
+    if (![filemgr fileExistsAtPath: databasePath ])
+    {
+        if (sqlite3_open(dbpath, &database)== SQLITE_OK)
+        {
+            sqlite3_close(database);
+            
+        }
+    }
+    
+    if (sqlite3_open(dbpath, &database) == SQLITE_OK)
+    {
+        char *errMsg;
+        
+        //                const char *sql_stmt = "create table if not exists answer (regno integer primary key, name text, department text, year text)";
+        
+        const char *sql_stmt = "create table if not exists tipCategory (API text PRIMARY KEY, data text)";
+        
+        if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg)
+            != SQLITE_OK)
+        {
+            NSLog(@"Failed to create table");
+        }
+        sqlite3_close(database);
+    }
+    else {
+        NSLog(@"Failed to open/create database");
+    }
+    
+    const char *dbPath = [databasePath UTF8String];
+    
+    if (sqlite3_open(dbPath, &database) == SQLITE_OK)
+    {
+        NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@", stringFromData);
+        NSRange rangeofString;
+        rangeofString.location = 0;
+        rangeofString.length = stringFromData.length;
+        [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", URLString, stringFromData];
+        
+        NSLog(@"Qury %@",insertSQL);
+        const char *insert_stmt = [insertSQL UTF8String];
+        sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+            NSLog(@"saved Sucessfully");
+        }
+        else
+        {
+            NSLog(@"Not saved ");
+            
+        }
+    }
+}
+
+-(void)getData
+{
+    NSString *docsDir;
+    NSArray *dirPaths;
+    
+    
+    dirPaths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    docsDir = dirPaths[0];
+    databasePath = [[NSString alloc] initWithString:
+                    [docsDir stringByAppendingPathComponent: @"Tips.db"]];
+    
+    NSLog(@"Data Base Path %@",databasePath);
+    const char *dbPathUTF8 = [ databasePath UTF8String];
+    
+    
+    if (sqlite3_open(dbPathUTF8, &database) == SQLITE_OK)
+    {
+        NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
+        const char *queryUTF = [queryString UTF8String];
+        
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(database, queryUTF, -1, &statement, NULL) == SQLITE_OK)
+        {
+            if (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+                
+                NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+                
+                
+                [self parseResponseData:data];
+  
+            }else
+            {
+                [self tryToUpdateCategories];
+            }
+            sqlite3_finalize(statement);
+        }
+        
+        sqlite3_close(database);
+    }else
+    {
+        NSLog(@"Unable to open db");
+    }
+    
+    
+}
 
 @end

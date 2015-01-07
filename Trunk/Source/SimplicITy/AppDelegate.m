@@ -32,6 +32,7 @@
     
     // Set log level for debugging config loading (optional)
     // It will be set to the value in the loaded config upon takeOff
+    
     [UAirship setLogLevel:UALogLevelTrace];
     
     // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
@@ -43,6 +44,7 @@
     // etc.
     
     // Call takeOff (which creates the UAirship singleton)
+    
     [UAirship takeOff:config];
     
     // Print out the application configuration for debugging (optional)
