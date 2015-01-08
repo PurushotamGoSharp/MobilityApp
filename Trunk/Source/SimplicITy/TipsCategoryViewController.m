@@ -10,8 +10,9 @@
 #import "TipsSubCategoriesViewController.h"
 #import <sqlite3.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "DBManager.h"
 
-@interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate>
+@interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate,DBManagerDelegate, TipsSubCategoriesViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -31,8 +32,10 @@
     sqlite3 *database;
     
     NSMutableDictionary *codeAndResponse;
+    DBManager *dbManager;
     
     
+    BOOL loadData;
    // __weak IBOutlet UILabel *TipsCategory;
 }
 
@@ -56,7 +59,7 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     self.navigationController.navigationBarHidden = NO;
-    
+    loadData = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,8 +68,19 @@
     
     URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
 
-    [self getData];
+    if ([AFNetworkReachabilityManager sharedManager].isReachable && loadData)
+    {
+        [self tryToUpdateCategories];
+    }else
+    {
+        [self getData];
+    }
+}
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    loadData = YES;
 }
 
 - (void)backBtnAction
@@ -161,7 +175,7 @@
         TipsSubCategoriesViewController *tipsSubVC = (TipsSubCategoriesViewController *)segue.destinationViewController;
         tipsSubVC.parentCategory = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
         tipsSubVC.parentCode = [self codeForTipCategory:tipsSubVC.parentCategory];
-        
+        tipsSubVC.delegate = self;
     }
 }
 
@@ -217,7 +231,7 @@
 }
 
 
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
@@ -225,6 +239,8 @@
 - (NSString *)parentCodeForResponse:(NSData *)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    
     NSArray *subCatagoryArray = json[@"aaData"][@"Tips"];
     
     NSDictionary *aTip = [subCatagoryArray lastObject];
@@ -234,121 +250,59 @@
 
 - (void)saveTipsCategory:(NSData *)response forURL:(NSString *)APILink
 {
-    NSString *docsDir;
-    NSArray *dirPaths;
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"Tips.db"];
+        dbManager.delegate=self;
+    }
     
-    sqlite3_stmt *statement ;
+    NSString *createQuery = @"create table if not exists tipCategory (API text PRIMARY KEY, data text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", APILink,stringFromData];
 
-    dirPaths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = dirPaths[0];
-    databasePath = [[NSString alloc] initWithString:
-                    [docsDir stringByAppendingPathComponent: @"Tips.db"]];
+    [dbManager saveDataToDBForQuery:insertSQL];
     
-    NSLog(@"Data Base Path %@",databasePath);
-    
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    const char *dbpath = [databasePath UTF8String];
-    if (![filemgr fileExistsAtPath: databasePath ])
-    {
-        if (sqlite3_open(dbpath, &database)== SQLITE_OK)
-        {
-            sqlite3_close(database);
-        }
-    }
-    
-    if (sqlite3_open(dbpath, &database) == SQLITE_OK)
-    {
-        char *errMsg;
-        
-        //                const char *sql_stmt = "create table if not exists answer (regno integer primary key, name text, department text, year text)";
-        
-        const char *sql_stmt = "create table if not exists tipCategory (API text PRIMARY KEY, data text)";
-        
-        if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg)
-            != SQLITE_OK)
-        {
-            NSLog(@"Failed to create table");
-        }
-        sqlite3_close(database);
-    }
-    else {
-        NSLog(@"Failed to open/create database");
-    }
-    const char *dbPath = [databasePath UTF8String];
-    
-    if (sqlite3_open(dbPath, &database) == SQLITE_OK)
-    {
-        NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-        //        NSLog(@"%@", stringFromData);
-        NSRange rangeofString;
-        rangeofString.location = 0;
-        rangeofString.length = stringFromData.length;
-        [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-        
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", APILink,stringFromData];
-        
-        const char *insert_stmt = [insertSQL UTF8String];
-        sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL);
-        if (sqlite3_step(statement) == SQLITE_DONE)
-        {
-            NSLog(@"saved Sucessfully");
-        }
-        else
-        {
-            NSLog(@"Not saved ");
-        }
-    }
 }
 
 - (void)getData
 {
-    NSString *docsDir;
-    NSArray *dirPaths;
     
-    
-    dirPaths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
-    docsDir = dirPaths[0];
-    databasePath = [[NSString alloc] initWithString:
-                    [docsDir stringByAppendingPathComponent: @"Tips.db"]];
-    
-    NSLog(@"Data Base Path %@",databasePath);
-    const char *dbPathUTF8 = [ databasePath UTF8String];
-
-    
-    if (sqlite3_open(dbPathUTF8, &database) == SQLITE_OK)
+    if (dbManager == nil)
     {
-        NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
-        const char *queryUTF = [queryString UTF8String];
-        
-        sqlite3_stmt *statement;
-        
-        if (sqlite3_prepare_v2(database, queryUTF, -1, &statement, NULL) == SQLITE_OK)
-        {
-            if (sqlite3_step(statement) == SQLITE_ROW)
-            {
-                NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
-                
-                NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-
-                [self parseResponseData:data andUpdateSubCategories:NO];
-            }
-            else
-            {
-                [self tryToUpdateCategories];
-            }
-            sqlite3_finalize(statement);
-        }else
-        {
-            [self tryToUpdateCategories];
-        }
-        
-        sqlite3_close(database);
-    }else
+        dbManager = [[DBManager alloc] initWithFileName:@"Tips.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
+    if (![dbManager getDataForQuery:queryString])
     {
-        NSLog(@"Unable to open db");
+        [self tryToUpdateCategories];
+    }
+    
+
+}
+
+-(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [self parseResponseData:data andUpdateSubCategories:NO];
     }
 }
 
+- (void)VCIsGoingToDisappear
+{
+    loadData = NO;
+}
 @end

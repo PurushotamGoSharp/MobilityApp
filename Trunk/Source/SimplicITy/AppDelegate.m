@@ -28,7 +28,7 @@
     
     // Display a UIAlertView warning developers that push notifications do not work in the simulator
     // You should remove this in your app.
-    [self failIfSimulator];
+//    [self failIfSimulator];
     
     // Set log level for debugging config loading (optional)
     // It will be set to the value in the loaded config upon takeOff

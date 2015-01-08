@@ -8,13 +8,26 @@
 
 #import "WebClipViewController.h"
 #import "webClipModel.h"
+#import "DBManager.h"
 
-@interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate>
+
+@interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate>
 {
     NSArray *tableViewData, *arrayOfImages;
     
     UIBarButtonItem *backButton;
+    Postman *postMan;
+    NSMutableArray *webClipArr;
+    
+    NSString *databasePath;
+    sqlite3 *database;
+    
+    DBManager *dbManager;
+    NSString *URLString;
+
+
 }
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOutlet;
 
 @end
 
@@ -40,10 +53,26 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    Postman *postMan = [[Postman alloc] init];
-    postMan.delegate = self;
-    [postMan get:@"http://simplicitytst.ripple-io.in/WebClip"];
+    URLString = @"http://simplicitytst.ripple-io.in/WebClip";
     
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        [self tryUpdatewebClip];
+    }else
+    {
+        [self  getData];
+    }
+
+}
+
+-(void)tryUpdatewebClip
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    [postMan get:URLString];
+
 }
 
 - (void)backBtnAction
@@ -66,25 +95,147 @@
 
 -(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    [self parseResponsedata:response];
-}
--(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
+    if ([urlString isEqualToString:@"http://simplicitytst.ripple-io.in/WebClip"])
+    {
+        [self parseResponsedata:response andgetImages:YES];
+        [self saveWebClipsData:response forURL:urlString];
+
+    }else
+    {
+        [self createImages:response forUrl:urlString];
+    }
 }
 
--(void)parseResponsedata:(NSData *)response
+-(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
+}
+
+- (void)parseResponsedata:(NSData *)response andgetImages:(BOOL)download
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     NSArray *arr = json[@"aaData"][@"WebClips"];
     
+    webClipArr = [[NSMutableArray alloc] init];
+    
     for (NSDictionary *aDict in arr)
     {
-        webClipModel *webClip = [[webClipModel alloc]init];
-        webClip.title = aDict[@"Title"];
-        webClip.urlLink = aDict[@"HREF"];
-        webClip.imageCode = aDict[@"DocumentCode"];
+        
+        if ([aDict[@"Status"] boolValue])
+        {
+            webClipModel *webClip = [[webClipModel alloc]init];
+            webClip.title = aDict[@"Title"];
+            webClip.urlLink = aDict[@"HREF"];
+            
+            webClip.imageCode = aDict[@"DocumentCode"];
+            webClip.image = nil;
+            
+            [webClipArr addObject:webClip];
+            
+            if (download)
+            {
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                
+                NSString *imageUrl = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/RenderDocument/%@",webClip.imageCode];
+                [postMan get:imageUrl];
+            }
+        }
+        
+        }
+    [self.collectionViewOutlet reloadData];
 
+}
+
+-(void)createImages:(NSData *)response forUrl:(NSString *)url
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    if (![json[@"aaData"][@"Success"] boolValue])
+    {
+        return;
+    }
+    NSString *imageAsBlob = json[@"aaData"][@"Base64Model"][@"Image"];
+//    NSLog(@"%@",imageAsBlob);
+    NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    
+    NSData *imageDataForFromBase64 = [[NSData alloc] initWithBase64EncodedString:imageAsBlob options:kNilOptions];
+    UIImage *image = [UIImage imageWithData:imageDataForFromBase64];
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSString *pathToImage;
+    
+//    NSMutableString *webClipFileName = [[NSMutableString alloc] init];
+//    webClipFileName = @""
+    NSRange rangeOfFileName;
+    rangeOfFileName.length = url.length;
+    rangeOfFileName.location = 0;
+//
+//    [webClipFileName replaceOccurrencesOfString:@".png" withString:@"" options:NSCaseInsensitiveSearch range:rangeOfFileName];
+    NSMutableString *mutableURL = [url mutableCopy];
+    [mutableURL replaceOccurrencesOfString:@"http://simplicitytst.ripple-io.in/RenderDocument/"
+                                withString:@""
+                                   options:NSCaseInsensitiveSearch
+                                     range:rangeOfFileName];
+    
+    pathToImage = [NSString stringWithFormat:@"%@/%@@2x.png", pathToDoc, mutableURL];
+    NSLog(@"%@", pathToImage);
+    [imageData writeToFile:pathToImage atomically:YES];
+    
+    [self.collectionViewOutlet reloadData];
+
+    
+}
+
+- (void)saveWebClipsData:(NSData *)response forURL:(NSString *)APILink
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"WebClips.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *createQuery = @"create table if not exists webClips (API text PRIMARY KEY, data text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  webClips (API,data) values ('%@', '%@')", APILink,stringFromData];
+    
+    [dbManager saveDataToDBForQuery:insertSQL];
+    
+}
+
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"WebClips.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM webClips WHERE API = '%@'", URLString];
+    if (![dbManager getDataForQuery:queryString])
+    {
+        [self tryUpdatewebClip];
+    }
+}
+
+
+-(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [self parseResponsedata:data andgetImages:NO];
     }
 }
 
@@ -92,7 +243,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [tableViewData count];
+    return [webClipArr count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -100,26 +251,41 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
     UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
-    titlelable.text = tableViewData[indexPath.row];
+    
+    webClipModel *webClip = webClipArr[indexPath.row];
+
+    titlelable.text = webClip.title;
     
     titlelable.font=[self customFont:14 ofName:MuseoSans_700];
     
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
-    imageView.image = [UIImage imageNamed:arrayOfImages[indexPath.row]];
+    imageView.image = [self getimageForDocCode:webClip.imageCode];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.item == 0)
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://products.office.com/en/lync/"]];
-    }else
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.sap.com/index.html"]];
-    }
+    webClipModel *webClip = webClipArr[indexPath.row];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
 }
 
+- (UIImage *)getimageForDocCode:(NSString *)docCode
+{
+    NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *filePath = [pathToDoc stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.png", docCode]];
+    
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    
+    if (imageData)
+    {
+        UIImage *tempImage = [UIImage imageWithData:imageData];
+        UIImage *webClipImage = [UIImage imageWithCGImage:tempImage.CGImage scale:2 orientation:tempImage.imageOrientation] ;
+        
+        return webClipImage;
+    }
+    
+    return nil;
+}
 /*
 #pragma mark - Navigation
 

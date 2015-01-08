@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TipsSubCategoriesViewControllerDelegate <NSObject>
+
+- (void)VCIsGoingToDisappear;
+
+
+@end
+
 @interface TipsSubCategoriesViewController : CustomColoredViewController
+
+@property (weak, nonatomic) id <TipsSubCategoriesViewControllerDelegate>delegate;
 
 @property (strong, nonatomic) NSString *parentCategory;
 @property (strong, nonatomic) NSString *parentCode;

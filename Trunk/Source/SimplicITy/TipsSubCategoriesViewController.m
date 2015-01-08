@@ -48,6 +48,14 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.delegate VCIsGoingToDisappear];
+    
+}
+
 - (void)tryToUpdateCategories
 {
     

@@ -556,7 +556,7 @@
 
 #pragma mark
 #pragma mark: postmanDelegate
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseResponseData:response];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -578,7 +578,7 @@
     }
 }
 
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }

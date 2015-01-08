@@ -13,7 +13,7 @@
 @property (nonatomic,strong)NSString *title;
 @property (nonatomic,strong)NSString *urlLink;
 @property (nonatomic,strong)NSString *imageCode;
-
+@property (nonatomic,strong)UIImage *image;
 
 
 @end
