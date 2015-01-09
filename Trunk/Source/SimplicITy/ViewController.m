@@ -26,6 +26,9 @@
 {
     CGPoint centerOfContainer;
     CGFloat initialLoginViewBottomCons;
+    
+
+
 }
 
 - (void)viewDidLoad
@@ -47,7 +50,10 @@
     
     centerOfContainer = self.conatinerForTxtAndBtn.center;
     initialLoginViewBottomCons = self.loginViewBottomConst.constant;
+    
+    
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -61,7 +67,11 @@
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+    
 }
+
+
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {

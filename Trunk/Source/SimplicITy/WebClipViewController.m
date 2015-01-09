@@ -55,22 +55,31 @@
     
     URLString = @"http://simplicitytst.ripple-io.in/WebClip";
     
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        [self tryUpdatewebClip];
-    }else
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
+        {
+            [self tryUpdatewebClip];
+
+        }else
+        {
+            [self  getData];
+        }
+    
+    }
+    else
     {
         [self  getData];
     }
-
 }
 
 -(void)tryUpdatewebClip
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-    postMan = [[Postman alloc] init];
-    postMan.delegate = self;
     [postMan get:URLString];
 
 }
@@ -100,11 +109,17 @@
     if ([urlString isEqualToString:@"http://simplicitytst.ripple-io.in/WebClip"])
     {
         [self parseResponsedata:response andgetImages:YES];
+        
         [self saveWebClipsData:response forURL:urlString];
+        
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"webclip"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
 
     }else
     {
         [self createImages:response forUrl:urlString];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"document"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -135,12 +150,16 @@
             
             [webClipArr addObject:webClip];
             
-            if (download)
+            if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {
-                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                
-                NSString *imageUrl = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/RenderDocument/%@",webClip.imageCode];
-                [postMan get:imageUrl];
+             
+             
+                    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    
+                    NSString *imageUrl = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/RenderDocument/%@",webClip.imageCode];
+                    [postMan get:imageUrl];
+
+              
             }
         }
         
@@ -192,7 +211,7 @@
 {
     if (dbManager == nil)
     {
-        dbManager = [[DBManager alloc] initWithFileName:@"WebClips.db"];
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
     
@@ -215,7 +234,7 @@
 {
     if (dbManager == nil)
     {
-        dbManager = [[DBManager alloc] initWithFileName:@"WebClips.db"];
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
     
