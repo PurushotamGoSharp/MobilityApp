@@ -46,7 +46,7 @@
 
 - (void)setSelectedIndex:(NSUInteger)selectedIndex
 {
-    id viewControllerObj = [super selectedViewController];
+    id viewControllerObj = [super viewControllers][selectedIndex];
     
     if ([viewControllerObj isKindOfClass:[UINavigationController class]])
     {

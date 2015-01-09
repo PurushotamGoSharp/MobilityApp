@@ -23,14 +23,10 @@
     NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
-    
     UIBarButtonItem *backButton;
-    
     Postman *postMan;
-    
     NSArray *categoriesArr;
     DBManager *dbManager;
-
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -80,6 +76,9 @@
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
+    self.spaceBetweenimpactAndServiceConstant.constant = 220;
+    self.spaceServiceToImpactConstant.constant = 2;
+
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
@@ -91,8 +90,8 @@
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
 
-        self.spaceBetweenimpactAndServiceConstant.constant = 220;
-        self.spaceServiceToImpactConstant.constant = 2;
+//        self.spaceBetweenimpactAndServiceConstant.constant = 220;
+//        self.spaceServiceToImpactConstant.constant = 2;
 
     }
     else
@@ -215,11 +214,13 @@
 //    self.bulbImgOutlet.animationRepeatCount = 1000;
 //    [self.bulbImgOutlet startAnimating];
     
+
+    
     if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
 //        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
         self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
-        self.serviceTopToTableViewBottomConst.constant = -15;
+//        self.serviceTopToTableViewBottomConst.constant = -15;
         
     }else
     {
@@ -348,7 +349,7 @@
 {
     UITableViewCell *cell = nil;
     
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"] && indexPath.row == 1)
+    if ( indexPath.row == 1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -404,26 +405,26 @@
 
         return;
     }
-    if (indexPath.row == 1)
-    {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        self.alphaViewOutLet.hidden = NO;
-        self.pickerContainerViewOutlet.hidden = NO;
-
-        [UIView animateWithDuration:.3 animations:^{
-            self.alphaViewOutLet.alpha = .6;
-            self.pickerContainerViewOutlet.alpha = 1;
-//            [self.view layoutIfNeeded];
-        } completion:^(BOOL finished)
-        {
-            
-        }];
-    }
+//    if (indexPath.row == 1)
+//    {
+//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//        self.alphaViewOutLet.hidden = NO;
+//        self.pickerContainerViewOutlet.hidden = NO;
+//
+//        [UIView animateWithDuration:.3 animations:^{
+//            self.alphaViewOutLet.alpha = .6;
+//            self.pickerContainerViewOutlet.alpha = 1;
+////            [self.view layoutIfNeeded];
+//        } completion:^(BOOL finished)
+//        {
+//            
+//        }];
+//    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    if (indexPath.row == 1 )
     {
         return 200;
     }
