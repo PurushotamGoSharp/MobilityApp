@@ -13,8 +13,12 @@
 #import "CategoryModel.h"
 #import "Postman.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <sqlite3.h>
+#import "DBManager.h"
 
-@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate>
+#define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
+#define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
+@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate>
 {
     NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
@@ -24,7 +28,9 @@
     
     Postman *postMan;
     
-    NSMutableArray *categoriesArr;
+    NSArray *categoriesArr;
+    DBManager *dbManager;
+
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -71,6 +77,9 @@
     
 //    self.tickBtnoutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 6);
     self.navigationItem.leftBarButtonItems = @[];
+    
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
@@ -120,29 +129,19 @@
 
 - (void)tryToUpdateCategories
 {
-    NSString *parameterString;
-    
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-    {
-        parameterString = @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}";
+    [self postWithParameter:ORDER_PARAMETER];
+    [self postWithParameter:TICKET_PARAMETER];
+}
 
-    }else
-    {
-        parameterString = @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}";
-
-    }
-
-    categoriesArr = [[NSMutableArray alloc] init];
+- (void)postWithParameter:(NSString *)parameterString
+{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
     NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/Category";
-    
-    postMan = [[Postman alloc] init];
-    postMan.delegate = self;
+
     [postMan post:URLString withParameters:parameterString];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     [self hideKeyboard:nil];
@@ -192,14 +191,22 @@
 
 }
 
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-//    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
-        [self tryToUpdateCategories];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"category"])
+        {
+            [self tryToUpdateCategories];
+        }else
+        {
+            [self getData];
+        }
+    }else
+    {
+        [self getData];
     }
     
 //    self.bulbImgOutlet.animationImages =
@@ -435,22 +442,7 @@
         ticketCategoryVC.delegate = self;
         
         ticketCategoryVC.categoryArray = categoriesArr;
-        
-//        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-//        {
-//            ticketCategoryVC.orderItemDiffer = @"orderItemsData";
-//        }
     }
-    
-//    else
-//    {
-//        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-//        {
-//        TicketsListViewController *orderList = segue.destinationViewController;
-//        orderList.orderItemDifferForList = @"orderList";
-//        }
-//    }
-    
 }
 
 - (void)selectedCategory:(CategoryModel *)category
@@ -458,8 +450,6 @@
     self.selectedCategorylabel.text = category.categoryName;
     self.selectedCategorylabel.textColor = [UIColor blackColor];
 }
-
-
 
 - (void)sliderValueChanged:(UISlider *)slider
 {
@@ -562,12 +552,27 @@
     NSArray *responseArray = [self parseResponseData:response];
     CategoryModel *category = [responseArray lastObject];
     
-    if (!category)
+    if (category)
     {
         if ([category.categoryType isEqualToString:@"Order"])
         {
+            [self saveResponse:response forParameter:ORDER_PARAMETER];
             
+            if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+            {
+                categoriesArr = responseArray;
+            }
+        }else
+        {
+            [self saveResponse:response forParameter:TICKET_PARAMETER];
+            
+            if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
+            {
+                categoriesArr = responseArray;
+            }
         }
+        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"category"];
     }
     
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -597,6 +602,62 @@
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
-//- (void)save
+- (void)saveResponse:(NSData *)response forParameter:(NSString *)parameter
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *createQuery = @"create table if not exists categoryTable (API text PRIMARY KEY, data text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  categoryTable (API,data) values ('%@', '%@')", parameter,stringFromData];
+    
+    [dbManager saveDataToDBForQuery:insertSQL];
+    
+}
+
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString;
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        queryString = [NSString stringWithFormat:@"SELECT * FROM categoryTable WHERE API = '%@'", ORDER_PARAMETER];
+    }else
+    {
+        queryString = [NSString stringWithFormat:@"SELECT * FROM categoryTable WHERE API = '%@'", TICKET_PARAMETER];
+    }
+
+    if (![dbManager getDataForQuery:queryString])
+    {
+        [self tryToUpdateCategories];
+    }
+}
+
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        
+        categoriesArr = [self parseResponseData:data];
+    }
+}
 
 @end

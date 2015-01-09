@@ -298,8 +298,6 @@
     {
         [self tryToUpdateCategories];
     }
-    
-
 }
 
 
