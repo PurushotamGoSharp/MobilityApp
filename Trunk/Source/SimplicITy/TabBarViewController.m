@@ -44,7 +44,18 @@
     }
 }
 
-
+- (void)setSelectedIndex:(NSUInteger)selectedIndex
+{
+    id viewControllerObj = [super selectedViewController];
+    
+    if ([viewControllerObj isKindOfClass:[UINavigationController class]])
+    {
+        UINavigationController *navCOntroller = (UINavigationController *)viewControllerObj;
+        [navCOntroller popToRootViewControllerAnimated:NO];
+    }
+    
+    [super setSelectedIndex:selectedIndex];
+}
 
 - (id <UIViewControllerAnimatedTransitioning>)tabBarController:(UITabBarController *)tabBarController
             animationControllerForTransitionFromViewController:(UIViewController *)fromVC
@@ -57,6 +68,12 @@
     return _animationController;
 }
 
-
-
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    if ([viewController isKindOfClass:[UINavigationController class]])
+    {
+        UINavigationController *navCOntroller = (UINavigationController *)viewController;
+        [navCOntroller popToRootViewControllerAnimated:NO];
+    }
+}
 @end
