@@ -12,6 +12,7 @@
 
 @property(strong,nonatomic)NSString *categoryName;
 @property(strong,nonatomic)NSString *categoryCode;
+@property(strong,nonatomic)NSString *categoryType;
 
 
 @end

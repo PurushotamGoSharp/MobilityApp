@@ -559,15 +559,25 @@
 #pragma mark: postmanDelegate
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    [self parseResponseData:response];
+    NSArray *responseArray = [self parseResponseData:response];
+    CategoryModel *category = [responseArray lastObject];
+    
+    if (!category)
+    {
+        if ([category.categoryType isEqualToString:@"Order"])
+        {
+            
+        }
+    }
+    
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
--(void)parseResponseData:(NSData *)response
+- (NSArray *)parseResponseData:(NSData *)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     
     NSLog(@"%@",arr);
     for (NSDictionary *aDict in arr)
@@ -575,13 +585,18 @@
         CategoryModel *category = [[CategoryModel alloc] init];
         category.categoryName = aDict[@"Name"];
         category.categoryCode = aDict[@"Code"];
-        [categoriesArr addObject:category];
+        category.categoryType = aDict[@"CategoryType"];
+        [tempArray addObject:category];
     }
+    
+    return tempArray;
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
+
+//- (void)save
 
 @end
