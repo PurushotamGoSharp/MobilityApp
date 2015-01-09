@@ -123,8 +123,6 @@
 		86DCEB921A4E8C0F0014FEC7 /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DCEB911A4E8C0F0014FEC7 /* SurveyViewController.m */; };
 		86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */; };
 		86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */; };
-		86E545881A42A4370027A817 /* SliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E545871A42A4370027A817 /* SliderView.m */; };
-		86E5458A1A42A45E0027A817 /* SliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86E545891A42A45E0027A817 /* SliderView.xib */; };
 		86ED7D6D1A541F1A00400360 /* CEPanAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D661A541F1A00400360 /* CEPanAnimationController.m */; };
 		86ED7D6E1A541F1A00400360 /* CEReversibleAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D681A541F1A00400360 /* CEReversibleAnimationController.m */; };
 		86ED7D6F1A541F1A00400360 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D6A1A541F1A00400360 /* NavigationController.m */; };
@@ -422,9 +420,6 @@
 		86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashBoardViewController.h; sourceTree = "<group>"; };
 		86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashBoardViewController.m; sourceTree = "<group>"; };
-		86E545861A42A4370027A817 /* SliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderView.h; sourceTree = "<group>"; };
-		86E545871A42A4370027A817 /* SliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderView.m; sourceTree = "<group>"; };
-		86E545891A42A45E0027A817 /* SliderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SliderView.xib; sourceTree = "<group>"; };
 		86ED7D651A541F1A00400360 /* CEPanAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEPanAnimationController.h; sourceTree = "<group>"; };
 		86ED7D661A541F1A00400360 /* CEPanAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEPanAnimationController.m; sourceTree = "<group>"; };
 		86ED7D671A541F1A00400360 /* CEReversibleAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEReversibleAnimationController.h; sourceTree = "<group>"; };
@@ -1048,9 +1043,6 @@
 				86DC31FC1A39C9C4002AF7A5 /* TicketsListCell.m */,
 				86D6043A1A3ABBB900E9E9D7 /* TicketModel.h */,
 				86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */,
-				86E545861A42A4370027A817 /* SliderView.h */,
-				86E545871A42A4370027A817 /* SliderView.m */,
-				86E545891A42A45E0027A817 /* SliderView.xib */,
 			);
 			name = "Tickets List";
 			sourceTree = "<group>";
@@ -1173,7 +1165,6 @@
 				869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */,
 				864532A61A5A661D00A656A3 /* list-image-placeholder@2x.png in Resources */,
 				8645329D1A5A661D00A656A3 /* UAInteractiveNotifications.strings in Resources */,
-				86E5458A1A42A45E0027A817 /* SliderView.xib in Resources */,
 				864532BC1A5A661D00A656A3 /* top-detail.png in Resources */,
 				864532A41A5A661D00A656A3 /* UAInboxUI.strings in Resources */,
 				864532C71A5A661D00A656A3 /* UAPushSettingsUserInfoView.xib in Resources */,
@@ -1279,7 +1270,6 @@
 				864532B31A5A661D00A656A3 /* UAPushSettingsTagsViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
 				8632070E1A455794006FBD52 /* LyncConnectionCheckerViewController.m in Sources */,
-				86E545881A42A4370027A817 /* SliderView.m in Sources */,
 				86DC31FF1A39C9C4002AF7A5 /* TicketsListCell.m in Sources */,
 				86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */,
 				86A3552E1A5406980065B457 /* CategoryModel.m in Sources */,
