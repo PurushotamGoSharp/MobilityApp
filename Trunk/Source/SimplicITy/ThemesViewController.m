@@ -29,6 +29,8 @@
     arrOfThemesData = @[@"Blue Ocean",@"Orange Hue",@"Pink Rose",@"Green Glow"];
     
     selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
+    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedRow inSection:0];
+    [self.tableViewOutlet selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
 
 }
 - (IBAction)cancelBtnPressed:(id)sender
