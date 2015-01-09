@@ -712,7 +712,7 @@
                                                 </connections>
                                             </tableView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-forward" translatesAutoresizingMaskIntoConstraints="NO" id="F3Q-G7-7wm">
-                                                <rect key="frame" x="287" y="163" width="24" height="24"/>
+                                                <rect key="frame" x="287" y="165" width="20" height="20"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1564,7 +1564,7 @@
                                 <rect key="frame" x="10" y="134" width="300" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days left for password expiry!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7M3-Rg-BnG">
-                                        <rect key="frame" x="22" y="183" width="223" height="71"/>
+                                        <rect key="frame" x="39" y="183" width="223" height="71"/>
                                         <fontDescription key="fontDescription" name="sketch-me_FREE-version" family="sketch me_FREE-version" pointSize="20"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1575,6 +1575,16 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJm-ZU-Ct6">
+                                        <rect key="frame" x="61" y="232" width="179" height="68"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Password Self Service">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="paswordSelfServiceBtnPressed:" destination="W95-uH-vGV" eventType="touchUpInside" id="hKO-Di-ndZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -2674,7 +2684,7 @@
         <image name="TipsIcon" width="64" height="64"/>
         <image name="WebClipDash" width="64" height="64"/>
         <image name="WhiteCircle" width="130" height="133"/>
-        <image name="arrow-forward" width="24" height="24"/>
+        <image name="arrow-forward" width="20" height="20"/>
         <image name="homeBlue" width="30" height="26"/>
         <image name="infoTip" width="30" height="30"/>
         <image name="messageBlue" width="30" height="30"/>
