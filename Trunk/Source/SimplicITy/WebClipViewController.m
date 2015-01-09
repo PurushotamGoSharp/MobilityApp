@@ -9,6 +9,7 @@
 #import "WebClipViewController.h"
 #import "webClipModel.h"
 #import "DBManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 
 @interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate>
