@@ -16,6 +16,9 @@
    NSArray  *arrOfTableViewData, *arrOfImages ;
     NSInteger selectedRow;
     UIBarButtonItem *backButton;
+    
+    NSArray *arrOfLocationData, *arrOfLanguageData;
+    NSInteger selectedLocation, selectedLanaguage;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -33,6 +36,9 @@
     arrOfTableViewData = @[@"Language",@"Location"];
     arrOfImages = @[@"language.png",@"lacation.png"];
     
+    arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
+    arrOfLanguageData = @[@"English",@"Dutch",@"German",@"French",@"German",@"Spanish",@"Japanese"];
+
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
@@ -55,11 +61,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    selectedLocation = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLocation"];
+    selectedLanaguage = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLanguage"];
     
+    [self.tableView reloadData];
     self.navigationController.navigationBarHidden = NO;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
       UINavigationController *navController = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"language_segue"])
@@ -114,11 +123,11 @@
     if (indexPath.section == 0)
     {
         if (indexPath.row == 0) {
-            languageLabel.text = @"English";
+            languageLabel.text = arrOfLanguageData[selectedLanaguage];
             
         }else
         {
-            languageLabel.text = @"Belgium";
+            languageLabel.text = arrOfLocationData[selectedLocation];
             
         }
     }else

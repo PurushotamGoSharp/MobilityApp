@@ -31,6 +31,17 @@
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
 
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSInteger selectedindex = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLocation"];
+    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedindex inSection:0];
+    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
+    
+}
+
 - (IBAction)CalcelBtnPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -40,6 +51,10 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     NSString *selectedLocation = arrOfLocationData[[self.tableView indexPathForSelectedRow].row];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:[self.tableView indexPathForSelectedRow].row forKey:@"SelectedLocation"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self.delegate selectedLocationIs:selectedLocation];
 }
 

@@ -31,10 +31,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    arrOfLanguageData = @[@"English",@"Dutch",@"German",@"Franch",@"German",@"Spanish",@"Japanese"];
+    arrOfLanguageData = @[@"English",@"Dutch",@"German",@"French",@"German",@"Spanish",@"Japanese"];
 
 
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSInteger selectedindex = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLanguage"];
+    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedindex inSection:0];
+    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
+    
 }
 
 - (IBAction)cancelBtnPressed:(id)sender
@@ -46,6 +56,10 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     NSString *selectedlanguage = arrOfLanguageData[[self.tableView indexPathForSelectedRow].row];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:[self.tableView indexPathForSelectedRow].row forKey:@"SelectedLanguage"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self.delegate selectedLanguageis:selectedlanguage];
 }
 
