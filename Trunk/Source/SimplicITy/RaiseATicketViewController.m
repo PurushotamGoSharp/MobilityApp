@@ -134,6 +134,7 @@
 
     categoriesArr = [[NSMutableArray alloc] init];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/Category";
     
     postMan = [[Postman alloc] init];

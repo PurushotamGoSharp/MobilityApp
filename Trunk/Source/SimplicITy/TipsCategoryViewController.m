@@ -67,11 +67,23 @@
     [super viewWillAppear:animated];
     
     URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
+    
+
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
 
     if ([AFNetworkReachabilityManager sharedManager].isReachable && loadData)
     {
-        [self tryToUpdateCategories];
-    }else
+        
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"tipsgroup"])
+        {
+            [self tryToUpdateCategories];
+        }else
+        {
+            [self getData];
+        }
+    }
+    else
     {
         [self getData];
     }
@@ -97,15 +109,12 @@
 //        [self getData];
 //        return;
 //    }
-    
     NSString *parameterString;
     parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
-    
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    postMan = [[Postman alloc] init];
-    postMan.delegate = self;
+
     [postMan post:URLString withParameters:parameterString];
+
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -191,6 +200,9 @@
         
         [self parseResponseData:response andUpdateSubCategories:YES];
         [self saveTipsCategory:response forURL:urlString];
+        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tipsgroup"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }else
     {
         NSString *parentCode = [self parentCodeForResponse:response];
@@ -199,6 +211,8 @@
         codeAndResponse[parentCode] = response;
         
         [self saveTipsCategory:response forURL:urlString];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tips"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 
 }
@@ -217,19 +231,18 @@
             
             [tipscategoryArray addObject:aDict[@"Name"]];
             
-            if (update)
+            if (update || [[NSUserDefaults standardUserDefaults] boolForKey:@"tips"])
             {
-                NSString *tipscategoryCode = aDict[@"Code"];
-                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                NSString *subCategoryURL = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", tipscategoryCode];
-                [postMan get:subCategoryURL];
+                    NSString *tipscategoryCode = aDict[@"Code"];
+                    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    NSString *subCategoryURL = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", tipscategoryCode];
+                    [postMan get:subCategoryURL];
             }
         }
     }
     
     [self.tableView reloadData];
 }
-
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
@@ -252,7 +265,7 @@
 {
     if (dbManager == nil)
     {
-        dbManager = [[DBManager alloc] initWithFileName:@"Tips.db"];
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
     
@@ -276,7 +289,7 @@
     
     if (dbManager == nil)
     {
-        dbManager = [[DBManager alloc] initWithFileName:@"Tips.db"];
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
     
@@ -288,6 +301,7 @@
     
 
 }
+
 
 -(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {

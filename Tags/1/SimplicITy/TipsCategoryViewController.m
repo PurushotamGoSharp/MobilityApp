@@ -46,8 +46,8 @@
     
     categoriesArray = @[@"Lync", @"AD Password", @"ITMS",@"Travel",@"Meeting Room",@"Wireless Password"];
     
-    subCategory = @{@"Lync":@[@"Instant Messaging", @"Voice Over IP", @"Voice conferencing"],
-                    @"AD Password": @[@"Web Conferencing",@"Video Conferencing"],
+    subCategory = @{@"Lync":@[@"Instant Messaging", @"Instant Messaging", @"Voice conferencing"],
+                    @"AD Password": @[@"Web Conferencing",@"Web Conferencing"],
                     @"ITMS":@[@"Financial Accounting (FI)",@"Controlling (CO)",@"Investment Management (IM)"],
                     @"Travel":@[@"Configuration Management",@"Change Management",@"Release Management",@"Incident Management"],
                     @"Meeting Room":@[@"Workspace Management",@"Mobile Security",@"Mobile Device Management"],

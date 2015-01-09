@@ -110,6 +110,8 @@
 		86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D4A1A5D0CD70090F5E5 /* DBManager.m */; };
 		86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A355291A5406900065B457 /* RaiseATicketViewController.m */; };
 		86A3552E1A5406980065B457 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A3552D1A5406980065B457 /* CategoryModel.m */; };
+		86A9A3EE1A5E58DB006D8A46 /* SeedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */; };
+		86A9A3F11A5E601F006D8A46 /* SplashDelayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */; };
 		86B5A96E1A4D4713009018AD /* MuseoSans-100.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96B1A4D45F9009018AD /* MuseoSans-100.otf */; };
 		86B5A96F1A4D4713009018AD /* MuseoSans-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96C1A4D45F9009018AD /* MuseoSans-300.otf */; };
 		86B5A9701A4D4713009018AD /* MuseoSans-700.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96D1A4D45F9009018AD /* MuseoSans-700.otf */; };
@@ -398,6 +400,10 @@
 		86A3552A1A5406900065B457 /* RaiseATicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseATicketViewController.h; sourceTree = "<group>"; };
 		86A3552C1A5406980065B457 /* CategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryModel.h; sourceTree = "<group>"; };
 		86A3552D1A5406980065B457 /* CategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryModel.m; sourceTree = "<group>"; };
+		86A9A3EC1A5E58DB006D8A46 /* SeedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeedModel.h; sourceTree = "<group>"; };
+		86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeedModel.m; sourceTree = "<group>"; };
+		86A9A3EF1A5E601F006D8A46 /* SplashDelayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashDelayViewController.h; sourceTree = "<group>"; };
+		86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashDelayViewController.m; sourceTree = "<group>"; };
 		86B5A96B1A4D45F9009018AD /* MuseoSans-100.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-100.otf"; sourceTree = "<group>"; };
 		86B5A96C1A4D45F9009018AD /* MuseoSans-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-300.otf"; sourceTree = "<group>"; };
 		86B5A96D1A4D45F9009018AD /* MuseoSans-700.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-700.otf"; sourceTree = "<group>"; };
@@ -560,8 +566,12 @@
 				86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */,
 				86EDBE1D1A3992270045904C /* CustomColoredViewController.h */,
 				86EDBE1E1A3992270045904C /* CustomColoredViewController.m */,
+				86A9A3EF1A5E601F006D8A46 /* SplashDelayViewController.h */,
+				86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */,
 				86287D2F1A2EE1A500B12893 /* ViewController.h */,
 				86287D301A2EE1A500B12893 /* ViewController.m */,
+				86A9A3EC1A5E58DB006D8A46 /* SeedModel.h */,
+				86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */,
 				86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */,
 				86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */,
 				86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */,
@@ -1264,6 +1274,7 @@
 				864532AA1A5A661D00A656A3 /* UALocationDemoAnnotation.m in Sources */,
 				86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */,
 				86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */,
+				86A9A3EE1A5E58DB006D8A46 /* SeedModel.m in Sources */,
 				864532AE1A5A661D00A656A3 /* UAPushNotificationHandler.m in Sources */,
 				864532B31A5A661D00A656A3 /* UAPushSettingsTagsViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
@@ -1274,6 +1285,7 @@
 				86A3552E1A5406980065B457 /* CategoryModel.m in Sources */,
 				86A21D481A5D052D0090F5E5 /* webClipModel.m in Sources */,
 				864532A21A5A661D00A656A3 /* UAInboxMessageListController.m in Sources */,
+				86A9A3F11A5E601F006D8A46 /* SplashDelayViewController.m in Sources */,
 				86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */,
 				864532B21A5A661D00A656A3 /* UAPushSettingsSoundsViewController.m in Sources */,
 				86309CAC1A3EB9B900D19804 /* TikcetCategoryViewController.m in Sources */,

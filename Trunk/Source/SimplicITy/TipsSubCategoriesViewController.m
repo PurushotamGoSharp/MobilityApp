@@ -235,7 +235,7 @@
     (NSDocumentDirectory, NSUserDomainMask, YES);
     docsDir = dirPaths[0];
     databasePath = [[NSString alloc] initWithString:
-                    [docsDir stringByAppendingPathComponent: @"Tips.db"]];
+                    [docsDir stringByAppendingPathComponent: @"APIBackup.db"]];
     
     NSLog(@"Data Base Path %@",databasePath);
     
@@ -307,7 +307,7 @@
     (NSDocumentDirectory, NSUserDomainMask, YES);
     docsDir = dirPaths[0];
     databasePath = [[NSString alloc] initWithString:
-                    [docsDir stringByAppendingPathComponent: @"Tips.db"]];
+                    [docsDir stringByAppendingPathComponent: @"APIBackup.db"]];
     
     NSLog(@"Data Base Path %@",databasePath);
     const char *dbPathUTF8 = [ databasePath UTF8String];
