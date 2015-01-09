@@ -13,7 +13,7 @@
 #import "RaiseATicketViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate>
+@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate>
 {
     UIBarButtonItem *backButton;
 }
@@ -130,15 +130,7 @@
     }
 }
 
-- (void)tryToUpdateTipsLevel1
-{
-    NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
-    NSString *parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
-    
-    postMan = [[Postman alloc] init];
-    postMan.delegate = self;
-    [postMan post:URLString withParameters:parameterString];
-}
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -530,30 +522,5 @@
     [arrayOfData addObject:ticket];
 }
 
-#pragma mark
-#pragma mark: postmanDelegate
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response
-{
-    [self parseResponseData:response];
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-}
-
--(void)parseResponseData:(NSData *)response
-{
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
-    NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
-    
-    NSLog(@"%@",arr);
-    for (NSDictionary *aDict in arr)
-    {
-
-    }
-}
-
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error
-{
-    
-}
 
 @end
