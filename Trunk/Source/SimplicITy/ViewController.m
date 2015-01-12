@@ -25,9 +25,6 @@
 {
     CGPoint centerOfContainer;
     CGFloat initialLoginViewBottomCons;
-    
-
-
 }
 
 - (void)viewDidLoad
@@ -70,8 +67,6 @@
                                                object:nil];
     
 }
-
-
 
 
 - (void)viewDidDisappear:(BOOL)animated

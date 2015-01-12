@@ -36,9 +36,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PlaceHolderTextView *textView;
-//@property (weak, nonatomic) IBOutlet UIView *alphaViewOutLet;
-//@property (weak, nonatomic) IBOutlet UIView *pickerContainerViewOutlet;
-//@property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
 @property (weak, nonatomic) IBOutlet UIView *tipViewOutlet;
@@ -62,7 +59,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
     self.CategoryTitleOutlet.font=[self customFont:16 ofName:MuseoSans_700];
     self.selectedCategorylabel.font = [self customFont:16 ofName:MuseoSans_300];
     self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
@@ -76,7 +73,7 @@
     postMan.delegate = self;
     self.spaceBetweenimpactAndServiceConstant.constant = 220;
     self.spaceServiceToImpactConstant.constant = 2;
-
+    
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
@@ -89,7 +86,7 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-
+    
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
@@ -125,7 +122,7 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/Category";
-
+    
     [postMan post:URLString withParameters:parameterString];
 }
 
@@ -134,12 +131,12 @@
     [super viewWillDisappear:YES];
     [self hideKeyboard:nil];
     
-//    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
-//    sliderOutlet.value = 0;
-//
-//    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-//    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
-//    [self setBlackColorFor:low];
+    //    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
+    //    sliderOutlet.value = 0;
+    //
+    //    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    //    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
+    //    [self setBlackColorFor:low];
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
@@ -149,7 +146,7 @@
     {
         self.selectedCategorylabel.text = @"Select a service";
     }
-
+    
 }
 
 
@@ -171,7 +168,7 @@
     UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
     [self setBlackColorFor:low];
-
+    
     sliderOutlet.value = 0;
     [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
     self.textView.text = @"";
@@ -184,31 +181,33 @@
     {
         [self.tabBarController setSelectedIndex:0];
     }
-
+    
     
 }
 
 - (void)listBtnAction
 {
-//    TicketsListViewController *ticketList = [[TicketsListViewController alloc] init];
-//    [self.navigationController pushViewController:ticketList animated:YES];
+    //    TicketsListViewController *ticketList = [[TicketsListViewController alloc] init];
+    //    [self.navigationController pushViewController:ticketList animated:YES];
 }
 
 - (IBAction)saveBtnPressed:(id)sender
 {
+    
+    
     NSString *alertMessage;
     self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
     sliderOutlet.value = 0;
     
-//    [sliderOutlet ]
+    //    [sliderOutlet ]
     
     [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
-
+    
     
     UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-   UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
+    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
     [self setBlackColorFor:low];
-
+    
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
         alertMessage = @"Your Order has been saved !";
@@ -224,33 +223,37 @@
     
     
     self.textView.text = @"";
-       if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-       {
-           self.selectedCategorylabel.text = @"Select a item";
-
-       }else
-       {
-           self.selectedCategorylabel.text = @"Select a service";
-       }
-
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        self.selectedCategorylabel.text = @"Select a item";
+        
+    }else
+    {
+        self.selectedCategorylabel.text = @"Select a service";
+    }
+    
 }
 
+- (void)saveEntriesLocally
+{
+    
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
-//    [self.tabBarController setSelectedIndex:0];
-//    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-//    {
-//        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-//
-//        
-//    }else
-//    {
-//        [self performSegueWithIdentifier:@"DashToMyTicketsASegue" sender:nil];
-//
-//        
-//    }
-
+    //    [self.tabBarController setSelectedIndex:0];
+    //    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    //    {
+    //        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+    //
+    //
+    //    }else
+    //    {
+    //        [self performSegueWithIdentifier:@"DashToMyTicketsASegue" sender:nil];
+    //
+    //
+    //    }
+    
     [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
 }
 
@@ -281,7 +284,7 @@
     {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
-
+    
     initialOffsetOfSCrollView = self.scrollView.contentOffset;
     initialScollViewInset = self.scrollView.contentInset;
 }
@@ -299,7 +302,7 @@
     {
         [self.scrollView setContentOffset:initialOffsetOfSCrollView animated:YES];
     }
-
+    
     [self.view endEditing:YES];
 }
 
@@ -311,7 +314,7 @@
         initialScollViewInset = self.scrollView.contentInset;
     }
     
-//    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
+    //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
     [self.scrollView setContentOffset:(CGPointMake(0, 100)) animated:YES];
 }
 
@@ -350,7 +353,7 @@
     
     if (![self.orderDiffer isEqualToString:@"orderBtnPressed"] && (indexPath.row == 1))
     {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     UILabel *header = (UILabel *)[cell viewWithTag:100];
     UILabel *lable = (UILabel *)[cell viewWithTag:101];
@@ -360,7 +363,7 @@
     
     UIView *colourForline = (UIView *)[cell viewWithTag:102];
     UIView *colourForRect = (UIView *)[cell viewWithTag:103];
-
+    
     colourForRect.layer.cornerRadius = 10;
     
     if (indexPath.row == 0)
@@ -384,7 +387,7 @@
     if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
-
+        
         return;
     }
 }
@@ -401,7 +404,7 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"SelectAcategorySegue"])
     {
@@ -414,11 +417,11 @@
     
     if ([segue.identifier isEqualToString:@"myTicketList_segue"])
     {
-         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-         {
-             TicketsListViewController *ticketList = segue.destinationViewController;
-             ticketList.orderItemDifferForList = @"orderList";
-         }
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+            TicketsListViewController *ticketList = segue.destinationViewController;
+            ticketList.orderItemDifferForList = @"orderList";
+        }
     }
 }
 
@@ -435,43 +438,43 @@
     UILabel *medium;
     UILabel *low;
     
-        UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        
-        low = (UILabel *)[impactCell viewWithTag:10];
-        medium = (UILabel *)[impactCell viewWithTag:20];
-        high = (UILabel *)[impactCell viewWithTag:30];
-        critical = (UILabel *)[impactCell viewWithTag:40];
+    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    
+    low = (UILabel *)[impactCell viewWithTag:10];
+    medium = (UILabel *)[impactCell viewWithTag:20];
+    high = (UILabel *)[impactCell viewWithTag:30];
+    critical = (UILabel *)[impactCell viewWithTag:40];
     
     slider.value = roundf(slider.value);
     
     [slider setThumbImage:[self imageForSLiderThumb:roundf(slider.value)] forState:(UIControlStateNormal)];
-
+    
     if (slider.value == 3 )
     {
         [slider setTintColor:([UIColor redColor])];
         [slider setMinimumTrackTintColor:([UIColor redColor])];
         
         [self setBlackColorFor:critical];
-
+        
     }else if (slider.value == 2)
     {
         [slider setTintColor:([UIColor orangeColor])];
         [slider setMinimumTrackTintColor:([UIColor orangeColor])];
-
+        
         [self setBlackColorFor:high];
         
     }else if (slider.value == 1)
     {
         [slider setTintColor:([UIColor yellowColor])];
         [slider setMinimumTrackTintColor:([UIColor yellowColor])];
-
+        
         [self setBlackColorFor:medium];
         
     } if (slider.value ==0)
     {
         [slider setTintColor:([UIColor greenColor])];
         [slider setMinimumTrackTintColor:([UIColor greenColor])];
-
+        
         [self setBlackColorFor:low];
     }
 }
@@ -616,10 +619,14 @@
     {
         queryString = [NSString stringWithFormat:@"SELECT * FROM categoryTable WHERE API = '%@'", TICKET_PARAMETER];
     }
-
+    
     if (![dbManager getDataForQuery:queryString])
     {
         [self tryToUpdateCategories];
+    }else
+    {
+//        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The Internet connection appears to be offline." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//        [noNetworkAlert show];
     }
 }
 
