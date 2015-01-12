@@ -13,6 +13,7 @@
     NSArray *arrOfData;
      UIBarButtonItem *backButton;
 }
+@property (weak, nonatomic) IBOutlet UITableView *tableViewoutlet;
 
 @end
 
@@ -23,6 +24,9 @@
     // Do any additional setup after loading the view.
     
     arrOfData= @[@" Mobility",@"Service Desk",@" HR",@"Local Site Services",@"Other"];
+    
+    
+//    [self.tableViewoutlet setContentInset:UIEdgeInsetsMake(-40, 0, 0, 0)];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -39,7 +43,6 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-
     
 }
 
@@ -59,7 +62,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 88;
+    return 75;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,16 +70,21 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
+    titleLable.layer.cornerRadius= 5;
+    titleLable.layer.masksToBounds = YES;
     titleLable.text = arrOfData[indexPath.row];
     titleLable.font=[self customFont:18 ofName:MuseoSans_700];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
+    titleLable.backgroundColor = [UIColor redColor];
 }
 
 
