@@ -42,7 +42,7 @@
 {
     [super viewWillAppear:animated];
     
-    URLString = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", self.parentCode];
+    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
 
     [self getData];
     
@@ -59,7 +59,7 @@
 - (void)tryToUpdateCategories
 {
     
-    URLString = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", self.parentCode];
+    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
 
 //    if (![AFNetworkReachabilityManager sharedManager].reachable)
 //    {

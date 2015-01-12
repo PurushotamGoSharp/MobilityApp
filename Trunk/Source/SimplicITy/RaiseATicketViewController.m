@@ -121,7 +121,7 @@
 - (void)postWithParameter:(NSString *)parameterString
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *URLString = @"http://simplicitytst.ripple-io.in/Search/Category";
+    NSString *URLString = SEARCH_CATEGORY_API;
     
     [postMan post:URLString withParameters:parameterString];
 }

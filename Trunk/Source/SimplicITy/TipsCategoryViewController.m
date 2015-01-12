@@ -66,7 +66,7 @@
 {
     [super viewWillAppear:animated];
     
-    URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
+    URLString = TIPS_CATEGORY_API;
     
 
     postMan = [[Postman alloc] init];
@@ -103,7 +103,7 @@
 
 - (void)tryToUpdateCategories
 {
-    URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
+    URLString = TIPS_CATEGORY_API;
 
 //    if (![AFNetworkReachabilityManager sharedManager].reachable)
 //    {
@@ -196,7 +196,7 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
-    if ([urlString isEqualToString:@"http://simplicitytst.ripple-io.in/Search/TipsGroup"])
+    if ([urlString isEqualToString:TIPS_CATEGORY_API])
     {
         
         [self parseResponseData:response andUpdateSubCategories:YES];
@@ -236,7 +236,7 @@
             {
                     NSString *tipscategoryCode = aDict[@"Code"];
                     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    NSString *subCategoryURL = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", tipscategoryCode];
+                    NSString *subCategoryURL = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, tipscategoryCode];
                     [postMan get:subCategoryURL];
             }
         }

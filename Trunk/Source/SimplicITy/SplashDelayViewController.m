@@ -48,7 +48,7 @@
         self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage"];
     }
     
-    URLString = @"http://simplicitytst.ripple-io.in/Seed";
+    URLString = SEED_API;
     
     
 
@@ -81,7 +81,7 @@
 
 -(void)tryToUpdateSeedData
 {
-    URLString = @"http://simplicitytst.ripple-io.in/Seed";
+    URLString = SEED_API;
     
     Postman *postMan = [[Postman alloc] init];
     postMan.delegate = self;
