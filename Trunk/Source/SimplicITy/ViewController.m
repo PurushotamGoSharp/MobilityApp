@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-
 @interface ViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *userNameContainer;
 @property (weak, nonatomic) IBOutlet UIView *passwordContainer;
@@ -75,7 +74,7 @@
 
 
 
--(void)viewDidDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter]removeObserver:self

@@ -52,29 +52,30 @@
     
     
 
+
+
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    self.navigationController.navigationBarHidden = YES;
+    
+    
 //    if ([AFNetworkReachabilityManager sharedManager].isReachable)
 //    {
-//            [self tryToUpdateSeedData];
+//        [self tryToUpdateSeedData];
 //        NSLog(@"Rechable");
 //    }
 //    else
 //    {
 //        NSLog(@"Not rechable");
-//
+//        
 //        [self getData];
 //    }
-
+    
     [self tryToUpdateSeedData];
-//    [NSThread sleepForTimeInterval:.20];
     
     [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    self.navigationController.navigationBarHidden = YES;
-
 }
 
 

@@ -19,7 +19,7 @@
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
-@interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate>
+@interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate, UIAlertViewDelegate>
 {
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
