@@ -98,6 +98,7 @@
 - (void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];
+    
 }
 
 - (void)tryToUpdateCategories

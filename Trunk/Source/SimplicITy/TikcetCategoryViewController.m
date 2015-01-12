@@ -28,7 +28,7 @@
     
    // arrayofData = @[@"Provideee VPN access",@"Internet is very slow",@"My leave application password has expired and I am not able to reset it ",@"VPN is not accessible outside UCB network",@"Cannot download any file to my desktop",@"Unable to make any outside call from my DeskPhone",@"Unable to access my Office email",@"Need permission to raise an Order in ITSM",@"Unable to setup Lync Meeting",@"Others"];
 
-    NSLog(@"Categories %@",self.categoryArray);
+//    NSLog(@"Categories %@",self.categoryArray);
     
     arrayofData = @[@"Access Management",@"Authentication",@"Collaboration Services",@"Desktop",@"Identity Service",@"Messaging", @"Mobile Devices",@"Others",@"Productivity Software",@"SAP PE1",@"Server"];
     
