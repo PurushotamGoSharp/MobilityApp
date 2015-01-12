@@ -18,7 +18,7 @@
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
-@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate>
+@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate,UIAlertViewDelegate>
 {
     NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
@@ -27,6 +27,8 @@
     Postman *postMan;
     NSArray *categoriesArr;
     DBManager *dbManager;
+    
+    UISlider *sliderOutlet;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -144,6 +146,23 @@
 {
     [super viewWillDisappear:YES];
     [self hideKeyboard:nil];
+    
+//    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
+//    sliderOutlet.value = 0;
+//
+//    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+//    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
+//    [self setBlackColorFor:low];
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        self.selectedCategorylabel.text = @"Select a item";
+        
+    }else
+    {
+        self.selectedCategorylabel.text = @"Select a service";
+    }
+
 }
 
 
@@ -173,7 +192,18 @@
 - (IBAction)saveBtnPressed:(id)sender
 {
     NSString *alertMessage;
+    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
+    sliderOutlet.value = 0;
     
+//    [sliderOutlet ]
+    
+    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
+
+    
+    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+   UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
+    [self setBlackColorFor:low];
+
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
         alertMessage = @"Your Order has been saved !";
@@ -184,11 +214,41 @@
     }
     
     UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!" message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    saveAlestView.delegate= self;
     [saveAlestView show];
     
+    
     self.textView.text = @"";
+       if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+       {
+           self.selectedCategorylabel.text = @"Select a item";
+
+       }else
+       {
+           self.selectedCategorylabel.text = @"Select a service";
+       }
 
 }
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+//    [self.tabBarController setSelectedIndex:0];
+//    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+//    {
+//        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+//
+//        
+//    }else
+//    {
+//        [self performSegueWithIdentifier:@"DashToMyTicketsASegue" sender:nil];
+//
+//        
+//    }
+
+    [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -235,6 +295,7 @@
     initialOffsetOfSCrollView = self.scrollView.contentOffset;
     initialScollViewInset = self.scrollView.contentInset;
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -354,7 +415,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UISlider *sliderOutlet = (UISlider *)[cell viewWithTag:300];
+        sliderOutlet = (UISlider *)[cell viewWithTag:300];
         [sliderOutlet setThumbImage:[self imageForSLiderThumb:roundf(sliderOutlet.value)] forState:(UIControlStateNormal)];
         [sliderOutlet setThumbImage:[UIImage imageNamed:@"grayCircle"] forState:(UIControlStateHighlighted)];
         [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
@@ -444,6 +505,15 @@
         
         ticketCategoryVC.categoryArray = categoriesArr;
     }
+    
+    if ([segue.identifier isEqualToString:@"myTicketList_segue"])
+    {
+         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+         {
+             TicketsListViewController *ticketList = segue.destinationViewController;
+             ticketList.orderItemDifferForList = @"orderList";
+         }
+    }
 }
 
 - (void)selectedCategory:(CategoryModel *)category
@@ -459,15 +529,12 @@
     UILabel *medium;
     UILabel *low;
     
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"]) {
         UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         
         low = (UILabel *)[impactCell viewWithTag:10];
         medium = (UILabel *)[impactCell viewWithTag:20];
         high = (UILabel *)[impactCell viewWithTag:30];
         critical = (UILabel *)[impactCell viewWithTag:40];
-
-    }
     
     slider.value = roundf(slider.value);
     

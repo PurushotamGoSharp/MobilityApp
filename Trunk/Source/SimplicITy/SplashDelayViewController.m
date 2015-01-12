@@ -29,17 +29,29 @@
 
 @implementation SplashDelayViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
 //    self.backGroundImageOutlet.image = @"LyncImage";
     
-    self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage"];
+    if ([UIScreen mainScreen].bounds.size.height == 568)
+    {
+        self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage-568h@2x.png"];
+    }else if ([UIScreen mainScreen].bounds.size.height == 667)
+    {
+        self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage-800-667h@2x.png"];
+
+    }else
+    {
+        self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage"];
+    }
     
     URLString = @"http://simplicitytst.ripple-io.in/Seed";
     
     
+
 //    if ([AFNetworkReachabilityManager sharedManager].isReachable)
 //    {
 //            [self tryToUpdateSeedData];
@@ -53,10 +65,9 @@
 //    }
 
     [self tryToUpdateSeedData];
+//    [NSThread sleepForTimeInterval:.20];
     
-    
-//    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-
+    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 
 }
 
@@ -83,7 +94,7 @@
     [self parseSeedata:response];
     [self saveSeeddata:response forUrl:urlString];
     
-    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+//    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 
 }
 

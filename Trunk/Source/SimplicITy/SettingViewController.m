@@ -37,7 +37,7 @@
     arrOfImages = @[@"language.png",@"lacation.png"];
     
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
-    arrOfLanguageData = @[@"English",@"Dutch",@"German",@"French",@"German",@"Spanish",@"Japanese"];
+    arrOfLanguageData = @[@"English",@"Dutch",@"German",@"French",@"Portuguese",@"Spanish",@"Japanese"];
 
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
