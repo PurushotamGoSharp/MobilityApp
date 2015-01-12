@@ -18,9 +18,9 @@
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
-@interface RaiseATicketViewController () <UIPickerViewDataSource,UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate>
+
+@interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate>
 {
-    NSArray *arrOfPickerViewData, *arrOfcolur;
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
     UIBarButtonItem *backButton;
@@ -32,9 +32,9 @@
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PlaceHolderTextView *textView;
-@property (weak, nonatomic) IBOutlet UIView *alphaViewOutLet;
-@property (weak, nonatomic) IBOutlet UIView *pickerContainerViewOutlet;
-@property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
+//@property (weak, nonatomic) IBOutlet UIView *alphaViewOutLet;
+//@property (weak, nonatomic) IBOutlet UIView *pickerContainerViewOutlet;
+//@property (weak, nonatomic) IBOutlet UIPickerView *pickerViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
 @property (weak, nonatomic) IBOutlet UIView *tipViewOutlet;
@@ -59,19 +59,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-   
     self.CategoryTitleOutlet.font=[self customFont:16 ofName:MuseoSans_700];
-    
     self.selectedCategorylabel.font = [self customFont:16 ofName:MuseoSans_300];
     self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
     
-    arrOfPickerViewData = @[@"Critical",@"High",@"Medium",@"Low"];
-    arrOfcolur = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1]];
     self.textView.placeholder = @"Describe your request here.";
-    self.pickerContainerViewOutlet.layer.cornerRadius = 5;
     self.textView.font = [self customFont:16 ofName:MuseoSans_300];
     
-//    self.tickBtnoutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 6);
     self.navigationItem.leftBarButtonItems = @[];
     
     postMan = [[Postman alloc] init];
@@ -95,22 +89,15 @@
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        
         [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
         self.title = @"Place Order";
         
         self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
-
-//        self.spaceBetweenimpactAndServiceConstant.constant = 220;
-//        self.spaceServiceToImpactConstant.constant = 2;
-
     }
     else
     {
-        self.spaceServiceToImpactConstant.constant = -3;
-        
         UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
@@ -118,11 +105,9 @@
         titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
-//        titleLabel.font = [UIFont fontWithName:(NSString *) size:<#(CGFloat)#>];
         [titleView addSubview:titleLabel];
         
         self.navigationItem.titleView = titleView;
-//        self.title = @"Raise a Ticket";
     }
 }
 
@@ -155,16 +140,14 @@
 
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
-//    textView.text = @"";
 }
 
 -(void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];
-    
 }
 
--(void)listBtnAction
+- (void)listBtnAction
 {
 //    TicketsListViewController *ticketList = [[TicketsListViewController alloc] init];
 //    [self.navigationController pushViewController:ticketList animated:YES];
@@ -208,29 +191,14 @@
         [self getData];
     }
     
-//    self.bulbImgOutlet.animationImages =
-//    [NSArray arrayWithObjects:[UIImage imageNamed:@"alert_tip"],[UIImage imageNamed:@"alert_tip1"],nil];
-//    self.bulbImgOutlet.animationDuration = 1;
-//    self.bulbImgOutlet.animationRepeatCount = 1000;
-//    [self.bulbImgOutlet startAnimating];
-    
-
-    
     if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-//        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet,self.listBarBtnOutlet];
         self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
-//        self.serviceTopToTableViewBottomConst.constant = -15;
         
     }else
     {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
-    
-    self.alphaViewOutLet.hidden = YES;
-    self.pickerContainerViewOutlet.hidden = YES;
-    self.alphaViewOutLet.alpha = 0;
-    self.pickerContainerViewOutlet.alpha = 0;
 
     initialOffsetOfSCrollView = self.scrollView.contentOffset;
     initialScollViewInset = self.scrollView.contentInset;
@@ -246,30 +214,12 @@
 {
     if (self.scrollView.contentOffset.y >= 100)
     {
-//        [self.scrollView setContentInset:initialScollViewInset];
         [self.scrollView setContentOffset:initialOffsetOfSCrollView animated:YES];
     }
 
     [self.view endEditing:YES];
 }
-- (IBAction)doneBtnAction:(id)sender
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        self.alphaViewOutLet.alpha = 0;
-        self.pickerContainerViewOutlet.alpha = 0;
-    } completion:^(BOOL finished) {
-        self.alphaViewOutLet.hidden = YES;
-        self.pickerContainerViewOutlet.hidden = YES;
-    }];
 
-    UITableViewCell *cell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0 ]];
-    UILabel *lable = (UILabel *)[cell viewWithTag:101];
-    UIView *colourForline = (UIView *)[cell viewWithTag:102];
-    UIView *colourForRect = (UIView *)[cell viewWithTag:103];
-    lable.text = arrOfPickerViewData[[self.pickerViewOutlet selectedRowInComponent:0]];
-    colourForline.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
-    colourForRect.backgroundColor = arrOfcolur[[self.pickerViewOutlet selectedRowInComponent:0]];
-}
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     if (self.scrollView.contentOffset.y <= 00)
@@ -282,58 +232,7 @@
     [self.scrollView setContentOffset:(CGPointMake(0, 100)) animated:YES];
 }
 
-#pragma mark UIPickerViewDataSource methods
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [arrOfPickerViewData count];
-}
-
-//-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    return arrOfPickerViewData[row];
-//}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-    
-    UIView *containerView;
-    UIView *viewForImage;
-    UILabel *viewForLable;
-    
-    if (view == nil)
-    {
-        containerView = [[UIView alloc] init];
-        containerView.frame = CGRectMake(0, 0, self.pickerViewOutlet.frame.size.width, 30);
-        
-        viewForImage = [[UIView alloc] init];
-        viewForImage.frame = CGRectMake(10, 5, 20, 20);
-        viewForImage.layer.cornerRadius = 10;
-        
-        viewForLable = [[UILabel alloc] init];
-        viewForLable.frame = CGRectMake(60,0, 100, 30);
-        
-        [containerView addSubview:viewForImage];
-        [containerView  addSubview:viewForLable];
-    }
-    
-    viewForImage.backgroundColor = arrOfcolur[row];
-    viewForLable.text = arrOfPickerViewData[row];
-    
-    viewForLable.font=[self customFont:16 ofName:MuseoSans_700];
-    
-    return containerView;
-}
-
-//- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-//{
-//    return 25;
-//}
 
 - (IBAction)imapctValueChanged:(UISlider *)sender
 {
@@ -405,21 +304,6 @@
 
         return;
     }
-//    if (indexPath.row == 1)
-//    {
-//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//        self.alphaViewOutLet.hidden = NO;
-//        self.pickerContainerViewOutlet.hidden = NO;
-//
-//        [UIView animateWithDuration:.3 animations:^{
-//            self.alphaViewOutLet.alpha = .6;
-//            self.pickerContainerViewOutlet.alpha = 1;
-////            [self.view layoutIfNeeded];
-//        } completion:^(BOOL finished)
-//        {
-//            
-//        }];
-//    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

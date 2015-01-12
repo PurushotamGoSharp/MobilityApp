@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -774,50 +774,14 @@
                                     <constraint firstItem="bYM-Qm-8J6" firstAttribute="leading" secondItem="Aj2-oD-YoY" secondAttribute="leading" constant="3" id="ss5-VQ-3E0"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJc-ds-KaO">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUK-Ae-8nf">
-                                <rect key="frame" x="49" y="194" width="222" height="180"/>
-                                <subviews>
-                                    <pickerView contentMode="left" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJh-qZ-sED">
-                                        <rect key="frame" x="8" y="-6" width="200" height="140"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="Nvl-He-eXA" id="3v8-fc-DdW"/>
-                                            <outlet property="delegate" destination="Nvl-He-eXA" id="Jem-II-OUn"/>
-                                        </connections>
-                                    </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MP7-sg-K1O">
-                                        <rect key="frame" x="93" y="140" width="37" height="30"/>
-                                        <state key="normal" title="Done">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="doneBtnAction:" destination="Nvl-He-eXA" eventType="touchUpInside" id="Wcm-tL-8tr"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="3La-qB-Up6"/>
-                                    <constraint firstAttribute="width" constant="222" id="Kib-zv-GrC"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="yJc-ds-KaO" secondAttribute="bottom" id="03k-Mj-NXx"/>
                             <constraint firstAttribute="trailing" secondItem="Aj2-oD-YoY" secondAttribute="trailing" id="89J-Qd-7i0"/>
-                            <constraint firstAttribute="trailing" secondItem="yJc-ds-KaO" secondAttribute="trailing" id="BAP-Ax-wdU"/>
-                            <constraint firstAttribute="centerY" secondItem="SUK-Ae-8nf" secondAttribute="centerY" id="Byu-13-QB3"/>
-                            <constraint firstItem="yJc-ds-KaO" firstAttribute="top" secondItem="hor-XZ-3O7" secondAttribute="top" id="Dh9-0K-nH9"/>
                             <constraint firstAttribute="trailing" secondItem="K2N-rr-bTX" secondAttribute="trailing" id="Gc8-TX-J9x"/>
-                            <constraint firstAttribute="centerX" secondItem="SUK-Ae-8nf" secondAttribute="centerX" id="KzL-nN-h3g"/>
                             <constraint firstItem="cW8-ok-l98" firstAttribute="top" secondItem="Aj2-oD-YoY" secondAttribute="bottom" id="Ltl-ws-X3Q"/>
                             <constraint firstItem="K2N-rr-bTX" firstAttribute="top" secondItem="hor-XZ-3O7" secondAttribute="top" id="NZk-PZ-Qu9"/>
                             <constraint firstItem="Aj2-oD-YoY" firstAttribute="leading" secondItem="hor-XZ-3O7" secondAttribute="leading" id="PyJ-pn-srQ"/>
-                            <constraint firstItem="yJc-ds-KaO" firstAttribute="leading" secondItem="hor-XZ-3O7" secondAttribute="leading" id="UR1-IH-dnh"/>
                             <constraint firstAttribute="bottom" secondItem="K2N-rr-bTX" secondAttribute="bottom" id="V2v-Rz-YAr"/>
                             <constraint firstItem="Aj2-oD-YoY" firstAttribute="top" secondItem="K2N-rr-bTX" secondAttribute="bottom" constant="-89" id="g2p-qD-LEk"/>
                             <constraint firstItem="K2N-rr-bTX" firstAttribute="leading" secondItem="hor-XZ-3O7" secondAttribute="leading" id="iaG-SM-zmj"/>
@@ -840,12 +804,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="CategoryTitleOutlet" destination="Rxt-rL-4Is" id="Jy2-Ak-C3C"/>
-                        <outlet property="alphaViewOutLet" destination="yJc-ds-KaO" id="048-b6-uwD"/>
                         <outlet property="bulbImgOutlet" destination="bYM-Qm-8J6" id="yxe-xF-D2z"/>
                         <outlet property="detailLbl" destination="pf2-GF-SyE" id="78B-AL-9Eg"/>
                         <outlet property="listBarBtnOutlet" destination="zkL-pk-DCX" id="fwd-dG-xCM"/>
-                        <outlet property="pickerContainerViewOutlet" destination="SUK-Ae-8nf" id="ffZ-a4-FG9"/>
-                        <outlet property="pickerViewOutlet" destination="TJh-qZ-sED" id="q9p-aF-95p"/>
                         <outlet property="scrollView" destination="K2N-rr-bTX" id="oNn-dN-IpF"/>
                         <outlet property="selectedCategorylabel" destination="G0p-fX-K0m" id="S8a-zy-tv2"/>
                         <outlet property="serviceTopToTableViewBottomConst" destination="IQD-5W-4KL" id="YU1-wi-QdP"/>
@@ -2691,8 +2652,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jrv-6w-ASy"/>
-        <segue reference="uWR-qu-A3S"/>
         <segue reference="8h2-qg-Aot"/>
+        <segue reference="Jrv-6w-ASy"/>
+        <segue reference="CXP-ec-zh5"/>
     </inferredMetricsTieBreakers>
 </document>
