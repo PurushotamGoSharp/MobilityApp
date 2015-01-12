@@ -165,7 +165,27 @@
 
 -(void)backBtnAction
 {
-    [self.tabBarController setSelectedIndex:0];
+    
+    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
+    
+    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
+    [self setBlackColorFor:low];
+
+    sliderOutlet.value = 0;
+    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
+    self.textView.text = @"";
+    
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else
+    {
+        [self.tabBarController setSelectedIndex:0];
+    }
+
+    
 }
 
 - (void)listBtnAction
