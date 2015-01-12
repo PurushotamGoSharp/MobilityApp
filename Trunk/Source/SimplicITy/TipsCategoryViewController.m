@@ -229,7 +229,6 @@
     {
         if ([aDict[@"Status"] boolValue])
         {
-            
             [tipscategoryArray addObject:aDict[@"Name"]];
             
             if (update || [[NSUserDefaults standardUserDefaults] boolForKey:@"tips"])
@@ -299,7 +298,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The Internet connection appears to be offline." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

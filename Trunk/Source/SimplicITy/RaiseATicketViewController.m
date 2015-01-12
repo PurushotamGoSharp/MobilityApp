@@ -193,8 +193,6 @@
 
 - (IBAction)saveBtnPressed:(id)sender
 {
-    
-    
     NSString *alertMessage;
     self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
     sliderOutlet.value = 0;
@@ -234,10 +232,27 @@
     
 }
 
-- (void)saveEntriesLocally
-{
-    
-}
+//- (void)saveEntriesLocallyFor:(NSString *)type
+//{
+//    if (dbManager == nil)
+//    {
+//        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+//        dbManager.delegate = self;
+//    }
+//    
+//    NSString *createQuery = @"create table if not exists categoryTable (API text PRIMARY KEY, data text)";
+//    [dbManager createTableForQuery:createQuery];
+//    
+//    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+//    NSRange rangeofString;
+//    rangeofString.location = 0;
+//    rangeofString.length = stringFromData.length;
+//    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+//    
+//    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  categoryTable (API,data) values ('%@', '%@')", parameter,stringFromData];
+//    
+//    [dbManager saveDataToDBForQuery:insertSQL];
+//}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
@@ -317,8 +332,6 @@
     //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
     [self.scrollView setContentOffset:(CGPointMake(0, 100)) animated:YES];
 }
-
-
 
 - (IBAction)imapctValueChanged:(UISlider *)sender
 {
@@ -564,11 +577,14 @@
     NSLog(@"%@",arr);
     for (NSDictionary *aDict in arr)
     {
-        CategoryModel *category = [[CategoryModel alloc] init];
-        category.categoryName = aDict[@"Name"];
-        category.categoryCode = aDict[@"Code"];
-        category.categoryType = aDict[@"CategoryType"];
-        [tempArray addObject:category];
+        if ([aDict[@"Status"] boolValue])
+        {
+            CategoryModel *category = [[CategoryModel alloc] init];
+            category.categoryName = aDict[@"Name"];
+            category.categoryCode = aDict[@"Code"];
+            category.categoryType = aDict[@"CategoryType"];
+            [tempArray addObject:category];
+        }
     }
     
     return tempArray;
@@ -599,7 +615,6 @@
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  categoryTable (API,data) values ('%@', '%@')", parameter,stringFromData];
     
     [dbManager saveDataToDBForQuery:insertSQL];
-    
 }
 
 - (void)getData
@@ -624,7 +639,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The Internet connection appears to be offline." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

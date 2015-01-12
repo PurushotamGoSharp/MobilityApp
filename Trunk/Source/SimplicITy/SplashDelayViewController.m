@@ -175,7 +175,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The Internet connection appears to be offline." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
         }
     }
@@ -194,7 +194,7 @@
     }
 }
 
--(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     seedDataArrDB = [[NSMutableArray alloc] init ];
     seeddataDictFromDB = [[NSMutableDictionary alloc] init];
