@@ -155,6 +155,17 @@
     [self.tabBarController setSelectedIndex:3];
 }
 
+- (IBAction)myTicketsBtnPressed:(id)sender
+{
+//    [self.tabBarController setSelectedIndex:1];
+
+}
+
+- (IBAction)myOrderBtnPresed:(id)sender
+{
+    
+}
+
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
 {
     NSString *phoneNo = @"9880425945";

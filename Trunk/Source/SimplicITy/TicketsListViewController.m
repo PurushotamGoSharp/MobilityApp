@@ -95,7 +95,7 @@
 
 - (void)backBtnAction
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:0];
 }
 
 -(void)pull

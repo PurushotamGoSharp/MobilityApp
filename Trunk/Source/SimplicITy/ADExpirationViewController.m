@@ -20,6 +20,12 @@
     
     self.title = @"Password Expiry";
 }
+- (IBAction)paswordSelfServiceBtnPressed:(id)sender
+{
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://mdm2.ucb.com/psynch/docs/en-us/indexf.html"]];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

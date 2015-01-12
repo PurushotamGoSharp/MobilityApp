@@ -57,6 +57,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBarHidden = YES;
+
     [super viewWillAppear:animated];
     
     [self setUpViewWithCornerRadius:self.userNameContainer];
