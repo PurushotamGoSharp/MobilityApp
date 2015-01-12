@@ -170,9 +170,14 @@
 //    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM seed WHERE API = '%@'", URLString];
     
     NSString *queryString = @"SELECT * FROM seed";
+    
     if (![dbManager getDataForQuery:queryString])
     {
-        
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The Internet connection appears to be offline." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
     }
     
     NSArray *arrkeys = [seedDataDictFromAPI allKeys];
