@@ -29,6 +29,8 @@
     DBManager *dbManager;
     
     UISlider *sliderOutlet;
+    
+    BOOL serviceIsSelected;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;

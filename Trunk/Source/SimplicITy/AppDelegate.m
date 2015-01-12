@@ -117,7 +117,7 @@
 //                                                             diskPath:nil];
 //    [NSURLCache setSharedURLCache:URLCache];
     
-    [CustomURLCache activate];
+//    [CustomURLCache activate];
 
     return YES;
 }
