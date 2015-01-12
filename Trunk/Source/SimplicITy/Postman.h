@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Vmoksha. All rights reserved.
 //
 
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 #import <Foundation/Foundation.h>
 
 @class Postman;

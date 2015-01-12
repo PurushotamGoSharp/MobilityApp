@@ -10,6 +10,6 @@
 
 @interface CustomURLCache : NSURLCache
 
-+(void)activate;
++ (void)activate;
 
 @end

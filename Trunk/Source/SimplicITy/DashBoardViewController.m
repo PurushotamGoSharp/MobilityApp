@@ -16,6 +16,7 @@
     BOOL navBtnIsOn;
     UIButton *titleButton;
     UIImageView *downArrowImageView;
+    NSDictionary *serverConfig;
 }
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -104,6 +105,25 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
+    
+    [self updateProfileView];
+}
+
+- (void)updateProfileView
+{
+    static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
+    serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+    
+    if (serverConfig != nil)
+    {
+        NSString *cropID = serverConfig[@"corpID"];
+        
+        if (cropID)
+        {
+            self.dashBoardPersonCode.text = cropID;
+        }
+    }
+
 }
 
 - (void)navTitleBtnPressed:(id)sender

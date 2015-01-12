@@ -54,7 +54,7 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    URLString = @"http://simplicitytst.ripple-io.in/WebClip";
+    URLString = WEB_CLIPS_BASE_API;
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -107,7 +107,7 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
-    if ([urlString isEqualToString:@"http://simplicitytst.ripple-io.in/WebClip"])
+    if ([urlString isEqualToString:WEB_CLIPS_BASE_API])
     {
         [self parseResponsedata:response andgetImages:YES];
         
@@ -157,7 +157,7 @@
              
                     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                     
-                    NSString *imageUrl = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/RenderDocument/%@",webClip.imageCode];
+                    NSString *imageUrl = [NSString stringWithFormat:WEB_CLIPS_DOC_API,webClip.imageCode];
                     [postMan get:imageUrl];
 
               
@@ -169,7 +169,7 @@
 
 }
 
--(void)createImages:(NSData *)response forUrl:(NSString *)url
+- (void)createImages:(NSData *)response forUrl:(NSString *)url
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     
@@ -191,10 +191,16 @@
     NSRange rangeOfFileName;
     rangeOfFileName.length = url.length;
     rangeOfFileName.location = 0;
-//
-//    [webClipFileName replaceOccurrencesOfString:@".png" withString:@"" options:NSCaseInsensitiveSearch range:rangeOfFileName];
+    
+    NSMutableString *stringToRemove = [WEB_CLIPS_DOC_API mutableCopy];
+    NSRange rangeOfBaseURL;
+    rangeOfBaseURL.length = stringToRemove.length;
+    rangeOfBaseURL.location = 0;
+    [stringToRemove replaceOccurrencesOfString:@"%@" withString:@"" options:NSCaseInsensitiveSearch range:rangeOfBaseURL];
+    
+    NSLog(@"Base URL = %@", stringToRemove);
     NSMutableString *mutableURL = [url mutableCopy];
-    [mutableURL replaceOccurrencesOfString:@"http://simplicitytst.ripple-io.in/RenderDocument/"
+    [mutableURL replaceOccurrencesOfString:stringToRemove
                                 withString:@""
                                    options:NSCaseInsensitiveSearch
                                      range:rangeOfFileName];
@@ -204,8 +210,6 @@
     [imageData writeToFile:pathToImage atomically:YES];
     
     [self.collectionViewOutlet reloadData];
-
-    
 }
 
 - (void)saveWebClipsData:(NSData *)response forURL:(NSString *)APILink
@@ -242,6 +246,12 @@
     NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM webClips WHERE API = '%@'", URLString];
     if (![dbManager getDataForQuery:queryString])
     {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+        
         [self tryUpdatewebClip];
     }
 }

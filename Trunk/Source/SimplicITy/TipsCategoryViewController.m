@@ -66,7 +66,7 @@
 {
     [super viewWillAppear:animated];
     
-    URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
+    URLString = TIPS_CATEGORY_API;
     
 
     postMan = [[Postman alloc] init];
@@ -103,7 +103,7 @@
 
 - (void)tryToUpdateCategories
 {
-    URLString = @"http://simplicitytst.ripple-io.in/Search/TipsGroup";
+    URLString = TIPS_CATEGORY_API;
 
 //    if (![AFNetworkReachabilityManager sharedManager].reachable)
 //    {
@@ -196,7 +196,7 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
-    if ([urlString isEqualToString:@"http://simplicitytst.ripple-io.in/Search/TipsGroup"])
+    if ([urlString isEqualToString:TIPS_CATEGORY_API])
     {
         
         [self parseResponseData:response andUpdateSubCategories:YES];
@@ -229,14 +229,13 @@
     {
         if ([aDict[@"Status"] boolValue])
         {
-            
             [tipscategoryArray addObject:aDict[@"Name"]];
             
             if (update || [[NSUserDefaults standardUserDefaults] boolForKey:@"tips"])
             {
                     NSString *tipscategoryCode = aDict[@"Code"];
                     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    NSString *subCategoryURL = [NSString stringWithFormat:@"http://simplicitytst.ripple-io.in/%@/Tips", tipscategoryCode];
+                    NSString *subCategoryURL = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, tipscategoryCode];
                     [postMan get:subCategoryURL];
             }
         }
@@ -297,6 +296,12 @@
     NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
     if (![dbManager getDataForQuery:queryString])
     {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+        
         [self tryToUpdateCategories];
     }
 }

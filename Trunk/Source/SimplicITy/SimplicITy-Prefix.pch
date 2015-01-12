@@ -15,10 +15,19 @@
     #import <Foundation/Foundation.h>
 #import "CustomColoredViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import <AFNetworking/AFNetworking.h>
 
 #import "Postman.h"
 
 #define Updation_Is_Required @"UpdationIsRequired"
+
+
+#define BASE_URL @"http://www.simplicitystg.ripple-io.in/"
+
+#define SEED_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Seed"]
+#define SEARCH_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Category"]
+#define TIPS_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/TipsGroup"]
+#define TIPS_SUBCATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"%@/Tips"]
+#define WEB_CLIPS_BASE_API  [NSString stringWithFormat:@"%@%@",BASE_URL, @"WebClip"]
+#define WEB_CLIPS_DOC_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"RenderDocument/%@"]
 
 #endif

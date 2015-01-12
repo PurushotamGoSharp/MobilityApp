@@ -48,7 +48,7 @@
         self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage"];
     }
     
-    URLString = @"http://simplicitytst.ripple-io.in/Seed";
+    URLString = SEED_API;
     
     
 
@@ -81,7 +81,7 @@
 
 -(void)tryToUpdateSeedData
 {
-    URLString = @"http://simplicitytst.ripple-io.in/Seed";
+    URLString = SEED_API;
     
     Postman *postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -170,9 +170,14 @@
 //    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM seed WHERE API = '%@'", URLString];
     
     NSString *queryString = @"SELECT * FROM seed";
+    
     if (![dbManager getDataForQuery:queryString])
     {
-        
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
     }
     
     NSArray *arrkeys = [seedDataDictFromAPI allKeys];
@@ -189,7 +194,7 @@
     }
 }
 
--(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     seedDataArrDB = [[NSMutableArray alloc] init ];
     seeddataDictFromDB = [[NSMutableDictionary alloc] init];

@@ -11,7 +11,7 @@
 
 @implementation Postman
 {
-    CustomAFRequestOperationManager *manager;
+    AFHTTPRequestOperationManager *manager;
 }
 
 - (id)init
@@ -26,7 +26,7 @@
 
 - (void)initiate
 {
-    manager = [CustomAFRequestOperationManager manager];
+    manager = [AFHTTPRequestOperationManager manager];
     AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
     
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
