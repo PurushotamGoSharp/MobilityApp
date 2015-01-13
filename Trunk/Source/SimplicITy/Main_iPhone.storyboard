@@ -1546,7 +1546,11 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJm-ZU-Ct6">
-                                <rect key="frame" x="124" y="345" width="72" height="72"/>
+                                <rect key="frame" x="138" y="345" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="8Ec-r5-D49"/>
+                                    <constraint firstAttribute="width" constant="44" id="JjL-iA-ktv"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" backgroundImage="PasswordManagement">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1556,16 +1560,27 @@
                                     <action selector="paswordSelfServiceBtnPressed:" destination="W95-uH-vGV" eventType="touchUpInside" id="hKO-Di-ndZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Tool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVt-6x-Zoe">
+                                <rect key="frame" x="104" y="394" width="112" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="6JO-Uw-s7S" secondAttribute="centerY" constant="32" id="2od-h2-3RI"/>
+                            <constraint firstAttribute="centerX" secondItem="kVt-6x-Zoe" secondAttribute="centerX" id="Dvo-rn-33n"/>
                             <constraint firstItem="IJm-ZU-Ct6" firstAttribute="top" secondItem="6JO-Uw-s7S" secondAttribute="bottom" constant="-57" id="J6T-Bb-eau"/>
                             <constraint firstAttribute="centerX" secondItem="IJm-ZU-Ct6" secondAttribute="centerX" id="MLu-cT-80s"/>
                             <constraint firstAttribute="centerX" secondItem="6JO-Uw-s7S" secondAttribute="centerX" id="T4F-Zn-W2c"/>
+                            <constraint firstItem="kVt-6x-Zoe" firstAttribute="top" secondItem="IJm-ZU-Ct6" secondAttribute="bottom" constant="5" id="jcF-LK-MML"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JVi-QH-eCX"/>
+                    <connections>
+                        <outlet property="passwordToolLabel" destination="kVt-6x-Zoe" id="SdY-Vo-emS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OM2-6K-FME" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -9,6 +9,7 @@
 #import "ADExpirationViewController.h"
 
 @interface ADExpirationViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *passwordToolLabel;
 
 @end
 
@@ -19,6 +20,7 @@
     // Do any additional setup after loading the view.
     
     self.title = @"Password Expiry";
+    self.passwordToolLabel.font = [self customFont:16 ofName:MuseoSans_300];
 }
 - (IBAction)paswordSelfServiceBtnPressed:(id)sender
 {
