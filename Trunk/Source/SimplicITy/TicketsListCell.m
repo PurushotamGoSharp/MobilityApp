@@ -19,9 +19,15 @@
 @end
 
 @implementation TicketsListCell
+{
+    NSDateFormatter *dateFormatter;
+}
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd MMM"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -50,6 +56,8 @@
     
     self.colorCodeView.backgroundColor = [self colorForImpact:requestModel.requestImpact];
     self.ticketHeadingLabel.text = requestModel.requestServiceName;
+    
+    self.timeLabel.text = [dateFormatter stringFromDate:requestModel.requestDate];
 }
 
 - (UIColor *)colorForImpact:(NSInteger)imapact

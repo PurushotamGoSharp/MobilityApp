@@ -111,26 +111,26 @@
     static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
     serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
     
-//    if (serverConfig != nil)
-//    {
-//        [[NSUserDefaults standardUserDefaults] setObject:serverConfig[@"location"] forKey:@"SelectedLocationCode"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        
-//        [self getDataForCountryCode:serverConfig[@"location"]];
-//        
-//        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//    }
+    if (serverConfig != nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:serverConfig[@"location"] forKey:@"SelectedLocationCode"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self getDataForCountryCode:serverConfig[@"location"]];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     selectedLocation = [[LocationModel alloc] init];
 
-    [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:@"SelectedLocationCode"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self getDataForCountryCode:@"IND"];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:@"SelectedLocationCode"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//    [self getDataForCountryCode:@"IND"];
+//    
+//    [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)viewWillAppear:(BOOL)animated

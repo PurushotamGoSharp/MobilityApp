@@ -65,7 +65,14 @@
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    
+    if (self.fromRasieRequsetVC)
+    {
+        [back setTitle:@"Back" forState:UIControlStateNormal];
+    }else
+    {
+        [back setTitle:@"Home" forState:UIControlStateNormal];
+    }
     back.titleLabel.font = [UIFont systemFontOfSize:17];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -98,12 +105,10 @@
 
 - (void)backBtnAction
 {
-//    [self.tabBarController setSelectedIndex:0];
-    
     [self .navigationController popViewControllerAnimated:YES];
 }
 
--(void)pull
+- (void)pull
 {
     [NSThread sleepForTimeInterval:1];
     [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -322,7 +327,9 @@
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     [arrayOfData removeAllObjects];
-    
+    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    [converter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+
     while (sqlite3_step(statment) == SQLITE_ROW)
     {
         RequestModel *request = [[RequestModel alloc] init];
@@ -332,6 +339,8 @@
         request.requestServiceName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
         request.requestDetails = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
         
+        NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
+        request.requestDate = [converter dateFromString:dateInString];
         [arrayOfData addObject:request];
     }
 }

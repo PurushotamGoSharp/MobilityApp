@@ -16,6 +16,8 @@
 @property (strong, nonatomic) NSString *requestServiceName;
 @property (strong, nonatomic) NSString *requestDetails;
 
+@property (strong, nonatomic) NSDate *requestDate;
+
 @property (assign, nonatomic) NSInteger requestSyncFlag;
 
 @end

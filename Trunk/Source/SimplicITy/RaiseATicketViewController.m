@@ -33,6 +33,8 @@
     UISlider *sliderOutlet;
     
     BOOL serviceIsSelected;
+    
+    NSDateFormatter *dateFormatter;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -231,11 +233,11 @@
         valid = NO;
     }
     
-//    if (self.textView.text.length == 0)
-//    {
-//        [alertMessages addObject:@"# Give details about request."];
-//        valid = NO;
-//    }
+    if (self.textView.text.length == 0)
+    {
+        [alertMessages addObject:@"# Give details about request."];
+        valid = NO;
+    }
     
     if (!valid)
     {
@@ -247,7 +249,12 @@
                                                      cancelButtonTitle:@"OK"
                                                      otherButtonTitles:nil];
         [invalidAlert show];
+        
+    }else if (self.textView.text.length == 0)
+    {
+        
     }
+
     
     return valid;
 }
@@ -273,6 +280,8 @@
     request.requestDetails = mutableDetails;
     request.requestSyncFlag = 0;
     
+    request.requestDate = [NSDate date];
+    
     return request;
 }
 
@@ -292,16 +301,24 @@
     NSString *createQuery;
     NSString *insertSQL;
     
+    if (!dateFormatter)
+    {
+        dateFormatter = [[NSDateFormatter alloc] init];
+    }
+    
+    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+    NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
+    
     if ([request.requestType isEqualToString:@"TIKCET"])
     {
-        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, syncFlag INTEGER)";
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text, syncFlag INTEGER)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, syncFlag) values (%i, '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, date, syncFlag) values (%i, '%@', '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, dateInString, request.requestSyncFlag];
     }else
     {
-        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, syncFlag INTEGER)";
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text,syncFlag INTEGER)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, syncFlag) values (%i, '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, syncFlag) values (%i, '%@', '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, dateInString, request.requestSyncFlag];
     }
     
     [dbManager createTableForQuery:createQuery];
@@ -486,11 +503,12 @@
     
     if ([segue.identifier isEqualToString:@"myTicketList_segue"])
     {
+        TicketsListViewController *ticketList = segue.destinationViewController;
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
         {
-            TicketsListViewController *ticketList = segue.destinationViewController;
             ticketList.orderItemDifferForList = @"orderList";
         }
+        ticketList.fromRasieRequsetVC = YES;
     }
 }
 

@@ -13,6 +13,8 @@
 {
     NSArray *arrOfLable;
     UIBarButtonItem *backButton;
+    
+    NSDateFormatter *dateFormatter;
 }
 
 @end
@@ -27,7 +29,8 @@
     
     arrOfLable = @[@"Requester",@"Impact",@"Services",@"Agent",@"Status"];
     
-    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
 //    self.navigationController.navigationItem.hidesBackButton = YES;
     
 //    [self.navigationItem setHidesBackButton:YES animated:YES];
@@ -214,17 +217,9 @@
                 
                 titleLable.text = @"Date";
 //                rightTable.text = self.tickModel.date;
-                rightTable.text = @"";
+                rightTable.text = [dateFormatter stringFromDate:self.requestModel.requestDate];
             }
                 break;
-            case 5:
-            {
-                
-//                titleLable.text = self.tickModel.ticketSubject;
-                rightTable.text = @"";
-            }
-                break;
-                
             default:
                 break;
         }

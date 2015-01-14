@@ -15,6 +15,6 @@
 }
 
 @property (strong, nonatomic)NSString *orderItemDifferForList;
-
+@property (assign, nonatomic) BOOL fromRasieRequsetVC;
 
 @end
