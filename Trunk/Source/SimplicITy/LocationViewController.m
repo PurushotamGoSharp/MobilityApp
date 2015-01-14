@@ -7,12 +7,17 @@
 //
 
 #import "LocationViewController.h"
+#import "DBManager.h"
+#import "LocationModel.h"
 
-@interface LocationViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@interface LocationViewController ()<UITableViewDataSource,UITableViewDelegate,DBManagerDelegate>
 {
-    NSArray *arrOfLocationData;
+    NSMutableArray *arrOfLocationData;
     UILabel *titleLable;
     NSInteger selectedRow;
+    DBManager *dbManager;
+
 
     __weak IBOutlet UIBarButtonItem *locationCancleButton;
 
@@ -28,18 +33,60 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
+//    arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
+    
+    arrOfLocationData = [[NSMutableArray alloc] init];
+    
+    [self getAllLocationData];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)getAllLocationData
+{
     
-    NSInteger selectedindex = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLocation"];
-    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedindex inSection:0];
-    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
     
+//    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM location WHERE countryCode = '%@'", countryCode];
+    
+        NSString *queryString = @"SELECT * FROM location";
+    
+    
+    if (![dbManager getDataForQuery:queryString])
+    {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+    }
+    
+}
+
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    while (sqlite3_step(statment) == SQLITE_ROW)
+    {
+    
+        LocationModel *anLocation = [[LocationModel alloc] init];
+        anLocation.countryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
+        anLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        anLocation.countryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
+        anLocation.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        
+        [arrOfLocationData addObject:anLocation];
+    }
+    
+    
+    [self.tableView reloadData];
 }
 
 - (IBAction)CalcelBtnPressed:(id)sender
@@ -50,12 +97,16 @@
 - (IBAction)doneBtnPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    NSString *selectedLocation = arrOfLocationData[[self.tableView indexPathForSelectedRow].row];
     
-    [[NSUserDefaults standardUserDefaults] setInteger:[self.tableView indexPathForSelectedRow].row forKey:@"SelectedLocation"];
+    LocationModel *location = arrOfLocationData[[self.tableView indexPathForSelectedRow].row ];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:location.countryCode forKey:@"SelectedLocationCode"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self.delegate selectedLocationIs:selectedLocation];
+    [[NSUserDefaults standardUserDefaults] setObject:location.countryName forKey:@"SelectedLocationName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self.delegate selectedLocationIs:location.countryName];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,7 +122,7 @@
     
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
   
@@ -79,7 +130,10 @@
     
     titleLable.font=[self customFont:16 ofName:MuseoSans_700];
     
-    titleLable.text = arrOfLocationData[indexPath.row];
+//    titleLable.text = arrOfLocationData[indexPath.row];
+    
+    LocationModel *location = arrOfLocationData[indexPath.row];
+    titleLable.text = location.countryName;
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
@@ -87,6 +141,11 @@
     
 
     titleLable.highlightedTextColor = [UIColor whiteColor];
+    
+    if ([location.countryCode isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"]])
+    {
+        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
+    }
     
     return cell;
 }
@@ -99,7 +158,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectedRow = indexPath.row;
-    
 
 }
 
