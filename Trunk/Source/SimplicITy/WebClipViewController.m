@@ -256,7 +256,6 @@
     }
 }
 
-
 -(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     if (sqlite3_step(statment) == SQLITE_ROW)
@@ -316,6 +315,7 @@
     
     return nil;
 }
+
 /*
 #pragma mark - Navigation
 
