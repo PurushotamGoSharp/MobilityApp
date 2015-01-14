@@ -17,6 +17,8 @@
     UIButton *titleButton;
     UIImageView *downArrowImageView;
     NSDictionary *serverConfig;
+    UIView *titleView;
+    UIImageView *titleImageView;
 }
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -34,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *dashMyOrdersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dashWebClipLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonAddress;
+@property (weak, nonatomic) IBOutlet UILabel *emailID;
+@property (weak, nonatomic) IBOutlet UILabel *nameOfUserLabel;
 
 @end
 
@@ -57,7 +61,7 @@
     
     self.profileViewTopConstraint.constant = -107;
     
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
+    titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
     titleImageView.frame = CGRectMake(0, 5, 32, 32);
 //    titleImageView.center = CGPointMake(20, 20);
     
@@ -66,13 +70,13 @@
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@"Jim Kohler" forState:(UIControlStateNormal)];
+    [titleButton setTitle:@"Jim" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     [titleButton sizeToFit];
     
     CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
+    titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
     [titleView addSubview:titleButton];
     [titleView addSubview:titleImageView];
     
@@ -119,10 +123,48 @@
     if (serverConfig != nil)
     {
         NSString *cropID = serverConfig[@"corpID"];
+        NSString *firstName = serverConfig[@"firstName"];
+        NSString *lastName = serverConfig[@"lastName"];
+        NSString *location = serverConfig[@"location"];
+        NSString *emailIDValue = serverConfig[@"mail"];
+
+        NSString *nameOfPerson;
         
         if (cropID)
         {
             self.dashBoardPersonCode.text = cropID;
+        }
+        
+        if (firstName)
+        {
+            [titleButton setTitle:firstName forState:(UIControlStateNormal)];
+            [titleButton sizeToFit];
+            
+            CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+            titleView.frame = CGRectMake(0, 0, widthOfView, 40);
+            downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 18);
+        }
+        
+        if (firstName || lastName)
+        {
+            if (firstName)
+            {
+                nameOfPerson = [firstName stringByAppendingString:[NSString stringWithFormat:@" %@",lastName]];
+                
+            }else if (lastName)
+            {
+                nameOfPerson = lastName;
+            }
+            
+            self.nameOfUserLabel.text = nameOfPerson;
+        }
+        if (location)
+        {
+            self.dashBoardPersonAddress.text = location;
+        }
+        if (emailIDValue)
+        {
+            self.emailID.text = emailIDValue;
         }
     }
 

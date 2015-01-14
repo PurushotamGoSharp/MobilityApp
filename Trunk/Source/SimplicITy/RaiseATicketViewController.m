@@ -15,6 +15,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <sqlite3.h>
 #import "DBManager.h"
+#import "RequestModel.h"
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
@@ -27,6 +28,7 @@
     Postman *postMan;
     NSArray *categoriesArr;
     DBManager *dbManager;
+    CategoryModel *selectedCategory;
     
     UISlider *sliderOutlet;
     
@@ -149,20 +151,40 @@
     
 }
 
+- (void)resetForms
+{
+    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
+    sliderOutlet.value = 0;
+    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
+    
+    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
+    [self setBlackColorFor:low];
+    
+    self.textView.text = @"";
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        self.selectedCategorylabel.text = @"Select a item";
+        
+    }else
+    {
+        self.selectedCategorylabel.text = @"Select a service";
+    }
 
--(void)dismissKeyboard
+}
+
+- (void)dismissKeyboard
 {
     [self.view endEditing:YES];
     [self hideKeyboard:nil];
 }
 
--(void)textViewDidEndEditing:(UITextView *)textView
+- (void)textViewDidEndEditing:(UITextView *)textView
 {
 }
 
--(void)backBtnAction
+- (void)backBtnAction
 {
-    
     self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
     
     UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
@@ -181,8 +203,6 @@
     {
         [self.tabBarController setSelectedIndex:0];
     }
-    
-    
 }
 
 - (void)listBtnAction
@@ -193,19 +213,11 @@
 
 - (IBAction)saveBtnPressed:(id)sender
 {
+    [self saveEntriesLocallyForRequest:[self requestForCurrentValues]];
+    [self resetForms];
+    
     NSString *alertMessage;
-    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
-    sliderOutlet.value = 0;
-    
-    //    [sliderOutlet ]
-    
-    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
-    
-    
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
-    [self setBlackColorFor:low];
-    
+
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
         alertMessage = @"Your Order has been saved !";
@@ -218,41 +230,77 @@
     UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!" message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     saveAlestView.delegate= self;
     [saveAlestView show];
-    
-    
-    self.textView.text = @"";
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-    {
-        self.selectedCategorylabel.text = @"Select a item";
-        
-    }else
-    {
-        self.selectedCategorylabel.text = @"Select a service";
-    }
-    
 }
 
-//- (void)saveEntriesLocallyFor:(NSString *)type
-//{
-//    if (dbManager == nil)
-//    {
-//        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
-//        dbManager.delegate = self;
-//    }
-//    
-//    NSString *createQuery = @"create table if not exists categoryTable (API text PRIMARY KEY, data text)";
-//    [dbManager createTableForQuery:createQuery];
-//    
-//    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-//    NSRange rangeofString;
-//    rangeofString.location = 0;
-//    rangeofString.length = stringFromData.length;
-//    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-//    
-//    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  categoryTable (API,data) values ('%@', '%@')", parameter,stringFromData];
-//    
-//    [dbManager saveDataToDBForQuery:insertSQL];
-//}
+- (BOOL)validatEntriesMade
+{
+    BOOL valid = NO;
+    
+    if (selectedCategory == nil)
+    {
+        
+    }
+    
+    return valid;
+}
+
+- (RequestModel *)requestForCurrentValues
+{
+    RequestModel *request = [[RequestModel alloc] init];
+    request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TIKCET";
+    request.requestImpact = roundf(sliderOutlet.value);
+    request.requestServiceCode = selectedCategory.categoryCode;
+    
+    
+    NSRange rangeOfDetails;
+    rangeOfDetails.length = self.textView.text.length;
+    rangeOfDetails.location = 0;
+    
+    NSMutableString *mutableDetails = [self.textView.text mutableCopy];
+    [mutableDetails replaceOccurrencesOfString:@"'"
+                                    withString:@"''"
+                                       options:NSCaseInsensitiveSearch
+                                         range:rangeOfDetails];
+    
+    request.requestDetails = mutableDetails;
+    request.requestSyncFlag = 0;
+    
+    return request;
+}
+
+- (void)saveEntriesLocallyForRequest:(RequestModel *)request
+{
+    if (request == nil)
+    {
+        NSLog(@"failed to save request");
+        return;
+    }
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *createQuery;
+    NSString *insertSQL;
+    
+    if ([request.requestType isEqualToString:@"TICKET"])
+    {
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, service text, details text, syncFlag INTEGER)";
+        
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, service, details, syncFlag) values (%i, '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestDetails, request.requestSyncFlag];
+    }else
+    {
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, service text, details text, syncFlag INTEGER)";
+        
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, service, details, syncFlag) values (%i, '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestDetails, request.requestSyncFlag];
+    }
+    
+    [dbManager createTableForQuery:createQuery];
+    [dbManager saveDataToDBForQuery:insertSQL];
+    
+    return;
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
@@ -440,6 +488,7 @@
 
 - (void)selectedCategory:(CategoryModel *)category
 {
+    selectedCategory = category;
     self.selectedCategorylabel.text = category.categoryName;
     self.selectedCategorylabel.textColor = [UIColor blackColor];
 }
