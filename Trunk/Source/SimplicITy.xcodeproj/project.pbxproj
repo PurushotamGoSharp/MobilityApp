@@ -502,6 +502,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		861584221A66931200D2D12A /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				86173AC51A600A8400902088 /* MessageTileViewController.h */,
+				86173AC61A600A8500902088 /* MessageTileViewController.m */,
+				86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */,
+				86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */,
+				86679F011A2EFD4300612BBA /* MessageDetailViewController.h */,
+				86679F021A2EFD4400612BBA /* MessageDetailViewController.m */,
+			);
+			name = Messages;
+			sourceTree = "<group>";
+		};
 		86186D861A399C5400BFD000 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,23 +604,10 @@
 				86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */,
 				863E3DDC1A6642FB009D1FB0 /* LocationModel.h */,
 				863E3DDD1A6642FB009D1FB0 /* LocationModel.m */,
-				86173AC51A600A8400902088 /* MessageTileViewController.h */,
-				86173AC61A600A8500902088 /* MessageTileViewController.m */,
-				86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */,
-				86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */,
-				86679F011A2EFD4300612BBA /* MessageDetailViewController.h */,
-				86679F021A2EFD4400612BBA /* MessageDetailViewController.m */,
-				86A3552A1A5406900065B457 /* RaiseATicketViewController.h */,
-				86A355291A5406900065B457 /* RaiseATicketViewController.m */,
-				864039851A6542FF000D705E /* RequestModel.h */,
-				864039861A6542FF000D705E /* RequestModel.m */,
-				86A3552C1A5406980065B457 /* CategoryModel.h */,
-				86A3552D1A5406980065B457 /* CategoryModel.m */,
-				86309CAA1A3EB9B900D19804 /* TikcetCategoryViewController.h */,
-				86309CAB1A3EB9B900D19804 /* TikcetCategoryViewController.m */,
+				861584221A66931200D2D12A /* Messages */,
 				86D6043D1A3B11D600E9E9D7 /* PlaceHolderTextView.h */,
 				86D6043E1A3B11D600E9E9D7 /* PlaceHolderTextView.m */,
-				86D604391A3ABB5C00E9E9D7 /* Tickets List */,
+				86D604391A3ABB5C00E9E9D7 /* Request VC */,
 				861BBC301A30865A00714EB2 /* OrderViewController.h */,
 				861BBC311A30865A00714EB2 /* OrderViewController.m */,
 				864E8C661A5A4D90006F27C4 /* TIps */,
@@ -1058,9 +1058,17 @@
 			name = "Tools VCs";
 			sourceTree = "<group>";
 		};
-		86D604391A3ABB5C00E9E9D7 /* Tickets List */ = {
+		86D604391A3ABB5C00E9E9D7 /* Request VC */ = {
 			isa = PBXGroup;
 			children = (
+				86A3552A1A5406900065B457 /* RaiseATicketViewController.h */,
+				86A355291A5406900065B457 /* RaiseATicketViewController.m */,
+				864039851A6542FF000D705E /* RequestModel.h */,
+				864039861A6542FF000D705E /* RequestModel.m */,
+				86A3552C1A5406980065B457 /* CategoryModel.h */,
+				86A3552D1A5406980065B457 /* CategoryModel.m */,
+				86309CAA1A3EB9B900D19804 /* TikcetCategoryViewController.h */,
+				86309CAB1A3EB9B900D19804 /* TikcetCategoryViewController.m */,
 				86DC31FD1A39C9C4002AF7A5 /* TicketsListViewController.h */,
 				86DC31FE1A39C9C4002AF7A5 /* TicketsListViewController.m */,
 				867B19B91A40126700462CA4 /* TicketDetailViewController.h */,
@@ -1070,7 +1078,7 @@
 				86D6043A1A3ABBB900E9E9D7 /* TicketModel.h */,
 				86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */,
 			);
-			name = "Tickets List";
+			name = "Request VC";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -49,11 +49,6 @@
     }
     
     URLString = SEED_API;
-    
-    
-
-
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{

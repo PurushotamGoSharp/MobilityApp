@@ -33,6 +33,8 @@
     UISlider *sliderOutlet;
     
     BOOL serviceIsSelected;
+    
+    NSDateFormatter *dateFormatter;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -132,23 +134,6 @@
 {
     [super viewWillDisappear:YES];
     [self hideKeyboard:nil];
-    
-    //    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
-    //    sliderOutlet.value = 0;
-    //
-    //    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    //    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
-    //    [self setBlackColorFor:low];
-    
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-    {
-        self.selectedCategorylabel.text = @"Select a item";
-        
-    }else
-    {
-        self.selectedCategorylabel.text = @"Select a service";
-    }
-    
 }
 
 - (void)resetForms
@@ -170,7 +155,8 @@
     {
         self.selectedCategorylabel.text = @"Select a service";
     }
-
+    
+    selectedCategory = nil;
 }
 
 - (void)dismissKeyboard
@@ -181,20 +167,12 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
+    
 }
 
 - (void)backBtnAction
 {
-    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
-    
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
-    [self setBlackColorFor:low];
-    
-    sliderOutlet.value = 0;
-    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
-    self.textView.text = @"";
-    
+    [self resetForms];
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
@@ -213,6 +191,10 @@
 
 - (IBAction)saveBtnPressed:(id)sender
 {
+    if (![self validateEntriesMade])
+    {
+        return;
+    }
     [self saveEntriesLocallyForRequest:[self requestForCurrentValues]];
     [self resetForms];
     
@@ -232,14 +214,47 @@
     [saveAlestView show];
 }
 
-- (BOOL)validatEntriesMade
+- (BOOL)validateEntriesMade
 {
-    BOOL valid = NO;
+    BOOL valid = YES;
+    
+    NSMutableArray *alertMessages = [[NSMutableArray alloc] init];
     
     if (selectedCategory == nil)
     {
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+            [alertMessages addObject:@"# Select an item.\n"];
+        }else
+        {
+            [alertMessages addObject:@"# Select an service.\n"];
+        }
+        
+        valid = NO;
+    }
+    
+    if (self.textView.text.length == 0)
+    {
+        [alertMessages addObject:@"# Give details about request."];
+        valid = NO;
+    }
+    
+    if (!valid)
+    {
+        NSString *alertMessage = [alertMessages componentsJoinedByString:@" "];
+        
+        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                               message:alertMessage
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+        [invalidAlert show];
+        
+    }else if (self.textView.text.length == 0)
+    {
         
     }
+
     
     return valid;
 }
@@ -250,7 +265,7 @@
     request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TIKCET";
     request.requestImpact = roundf(sliderOutlet.value);
     request.requestServiceCode = selectedCategory.categoryCode;
-    
+    request.requestServiceName = selectedCategory.categoryName;
     
     NSRange rangeOfDetails;
     rangeOfDetails.length = self.textView.text.length;
@@ -264,6 +279,8 @@
     
     request.requestDetails = mutableDetails;
     request.requestSyncFlag = 0;
+    
+    request.requestDate = [NSDate date];
     
     return request;
 }
@@ -284,16 +301,24 @@
     NSString *createQuery;
     NSString *insertSQL;
     
-    if ([request.requestType isEqualToString:@"TICKET"])
+    if (!dateFormatter)
     {
-        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, service text, details text, syncFlag INTEGER)";
+        dateFormatter = [[NSDateFormatter alloc] init];
+    }
+    
+    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+    NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
+    
+    if ([request.requestType isEqualToString:@"TIKCET"])
+    {
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text, syncFlag INTEGER)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, service, details, syncFlag) values (%i, '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestDetails, request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, date, syncFlag) values (%i, '%@', '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, dateInString, request.requestSyncFlag];
     }else
     {
-        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, service text, details text, syncFlag INTEGER)";
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text,syncFlag INTEGER)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, service, details, syncFlag) values (%i, '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestDetails, request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, syncFlag) values (%i, '%@', '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, dateInString, request.requestSyncFlag];
     }
     
     [dbManager createTableForQuery:createQuery];
@@ -478,11 +503,12 @@
     
     if ([segue.identifier isEqualToString:@"myTicketList_segue"])
     {
+        TicketsListViewController *ticketList = segue.destinationViewController;
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
         {
-            TicketsListViewController *ticketList = segue.destinationViewController;
             ticketList.orderItemDifferForList = @"orderList";
         }
+        ticketList.fromRasieRequsetVC = YES;
     }
 }
 

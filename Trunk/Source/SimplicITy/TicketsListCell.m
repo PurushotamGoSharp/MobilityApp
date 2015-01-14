@@ -19,9 +19,15 @@
 @end
 
 @implementation TicketsListCell
+{
+    NSDateFormatter *dateFormatter;
+}
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd MMM"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -42,6 +48,43 @@
     NSString * status = [NSString stringWithFormat:@"%@, %@",ticketModel.ticketNum, ticketModel.currentStatus];
     self.currentStatusLabel.text =status;
     self.timeLabel.text = ticketModel.timeStamp;
+}
+
+- (void)setRequestModel:(RequestModel *)requestModel
+{
+    _requestModel = requestModel;
+    
+    self.colorCodeView.backgroundColor = [self colorForImpact:requestModel.requestImpact];
+    self.ticketHeadingLabel.text = requestModel.requestServiceName;
+    
+    self.timeLabel.text = [dateFormatter stringFromDate:requestModel.requestDate];
+}
+
+- (UIColor *)colorForImpact:(NSInteger)imapact
+{
+    switch (imapact)
+    {
+        case 0:
+            return [UIColor greenColor];
+            break;
+          
+        case 1:
+            return [UIColor yellowColor];
+            break;
+            
+        case 2:
+            return [UIColor orangeColor];
+            break;
+        
+        case 3:
+            return [UIColor redColor];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
 }
 
 @end
