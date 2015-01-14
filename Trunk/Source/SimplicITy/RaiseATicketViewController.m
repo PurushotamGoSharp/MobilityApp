@@ -132,23 +132,6 @@
 {
     [super viewWillDisappear:YES];
     [self hideKeyboard:nil];
-    
-    //    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
-    //    sliderOutlet.value = 0;
-    //
-    //    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    //    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
-    //    [self setBlackColorFor:low];
-    
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-    {
-        self.selectedCategorylabel.text = @"Select a item";
-        
-    }else
-    {
-        self.selectedCategorylabel.text = @"Select a service";
-    }
-    
 }
 
 - (void)resetForms
@@ -170,7 +153,8 @@
     {
         self.selectedCategorylabel.text = @"Select a service";
     }
-
+    
+    selectedCategory = nil;
 }
 
 - (void)dismissKeyboard
@@ -181,20 +165,12 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
+    
 }
 
 - (void)backBtnAction
 {
-    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
-    
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
-    [self setBlackColorFor:low];
-    
-    sliderOutlet.value = 0;
-    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
-    self.textView.text = @"";
-    
+    [self resetForms];
     
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
@@ -213,6 +189,10 @@
 
 - (IBAction)saveBtnPressed:(id)sender
 {
+    if (![self validateEntriesMade])
+    {
+        return;
+    }
     [self saveEntriesLocallyForRequest:[self requestForCurrentValues]];
     [self resetForms];
     
@@ -232,13 +212,41 @@
     [saveAlestView show];
 }
 
-- (BOOL)validatEntriesMade
+- (BOOL)validateEntriesMade
 {
-    BOOL valid = NO;
+    BOOL valid = YES;
+    
+    NSMutableArray *alertMessages = [[NSMutableArray alloc] init];
     
     if (selectedCategory == nil)
     {
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+            [alertMessages addObject:@"# Select an item.\n"];
+        }else
+        {
+            [alertMessages addObject:@"# Select an service.\n"];
+        }
         
+        valid = NO;
+    }
+    
+    if (self.textView.text.length == 0)
+    {
+        [alertMessages addObject:@"# Give details about request."];
+        valid = NO;
+    }
+    
+    if (!valid)
+    {
+        NSString *alertMessage = [alertMessages componentsJoinedByString:@" "];
+        
+        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                               message:alertMessage
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+        [invalidAlert show];
     }
     
     return valid;
