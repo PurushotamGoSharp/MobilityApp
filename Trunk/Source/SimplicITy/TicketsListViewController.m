@@ -12,8 +12,10 @@
 #import "TicketModel.h"
 #import "RaiseATicketViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "DBManager.h"
+#import "RequestModel.h"
 
-@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate, DBManagerDelegate>
 {
     UIBarButtonItem *backButton;
 }
@@ -35,9 +37,9 @@
     BOOL filterIsShown;
     NSArray *arrayForStatus, *arrayOfNo;
     
-    Postman *postMan;
-
     UIControl *hideFilterControl;
+    DBManager *dbManager;
+
 }
 
 - (void)viewDidLoad
@@ -53,12 +55,13 @@
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
         self.title = @"My Orders";
-        [self setUpDataForOrder];
+//        [self setUpDataForOrder];
         
     }else
     {
-        [self setUpData];
+//        [self setUpData];
     }
+    [self getData];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
@@ -134,12 +137,14 @@
 
 
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
     TicketDetailViewController *ticketDeteilVC = segue.destinationViewController;
-    TicketModel *ticket = arrayOfData[indexPath.row];
-    ticketDeteilVC.tickModel = ticket;
+//    TicketModel *ticket = arrayOfData[indexPath.row];
+//    ticketDeteilVC.tickModel = ticket;
+    
+    ticketDeteilVC.requestModel = arrayOfData[indexPath.row];
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
@@ -227,7 +232,7 @@
 
 
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
@@ -248,7 +253,9 @@
     if ([tableView isEqual:self.tableViewOutlet])
     {
         TicketsListCell *ticketCell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-        ticketCell.ticketModel = arrayOfData[indexPath.row];
+//        ticketCell.ticketModel = arrayOfData[indexPath.row];
+        ticketCell.requestModel = arrayOfData[indexPath.row];
+
         cell = ticketCell;
         
     }else if ([tableView isEqual:self.filterTableView])
@@ -289,9 +296,48 @@
 }
 */
 
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString;
+    
+    if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+    {
+        queryString = @"SELECT * FROM raisedOrders";
+    }else
+    {
+        queryString = @"SELECT * FROM raisedTickets";
+    }
+    
+    [dbManager getDataForQuery:queryString];
+    
+    [self.tableViewOutlet reloadData];
+}
+
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    [arrayOfData removeAllObjects];
+    
+    while (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        RequestModel *request = [[RequestModel alloc] init];
+        
+        request.requestImpact = sqlite3_column_int(statment, 1);
+        request.requestServiceCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
+        request.requestServiceName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        request.requestDetails = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
+        
+        [arrayOfData addObject:request];
+    }
+}
+
 - (void)setUpData
 {
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *cureentDate = [formatter stringFromDate:[NSDate date]];
@@ -351,7 +397,6 @@
     ticket.details = @"It is restricting me from downloading any email attachment. Can you please grant me the access?";
     [arrayOfData addObject:ticket];
     
-    
     ticket = [[TicketModel alloc] init];
     ticket.ticketSubject = @"Desktop";
     ticket.agentName = @"Richard";
@@ -407,7 +452,6 @@
 
 - (void)setUpDataForOrder
 {
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *cureentDate = [formatter stringFromDate:[NSDate date]];

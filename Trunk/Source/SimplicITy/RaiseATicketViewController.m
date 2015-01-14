@@ -231,11 +231,11 @@
         valid = NO;
     }
     
-    if (self.textView.text.length == 0)
-    {
-        [alertMessages addObject:@"# Give details about request."];
-        valid = NO;
-    }
+//    if (self.textView.text.length == 0)
+//    {
+//        [alertMessages addObject:@"# Give details about request."];
+//        valid = NO;
+//    }
     
     if (!valid)
     {
@@ -258,7 +258,7 @@
     request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TIKCET";
     request.requestImpact = roundf(sliderOutlet.value);
     request.requestServiceCode = selectedCategory.categoryCode;
-    
+    request.requestServiceName = selectedCategory.categoryName;
     
     NSRange rangeOfDetails;
     rangeOfDetails.length = self.textView.text.length;
@@ -292,16 +292,16 @@
     NSString *createQuery;
     NSString *insertSQL;
     
-    if ([request.requestType isEqualToString:@"TICKET"])
+    if ([request.requestType isEqualToString:@"TIKCET"])
     {
-        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, service text, details text, syncFlag INTEGER)";
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, syncFlag INTEGER)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, service, details, syncFlag) values (%i, '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestDetails, request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, syncFlag) values (%i, '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, request.requestSyncFlag];
     }else
     {
-        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, service text, details text, syncFlag INTEGER)";
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, syncFlag INTEGER)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, service, details, syncFlag) values (%i, '%@', '%@', %i)",request.requestImpact, request.requestServiceCode, request.requestDetails, request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, syncFlag) values (%i, '%@', '%@', '%@', %i)",request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, request.requestSyncFlag];
     }
     
     [dbManager createTableForQuery:createQuery];

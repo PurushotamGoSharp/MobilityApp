@@ -158,7 +158,7 @@
     titleLable.textColor = [UIColor blackColor];
     
     if (indexPath.section == 1) {
-        titleLable.text = self.tickModel.ticketSubject;
+        titleLable.text = self.requestModel.requestServiceName;
         rightTable.text = @"";
         titleLable.font=[self customFont:16 ofName:MuseoSans_300];
         titleLable.textColor = [UIColor lightGrayColor];
@@ -166,7 +166,7 @@
     else if (indexPath.section == 2)
     {
         UITextView *titleTextView = (UITextView *)[cell viewWithTag:100];
-        titleTextView.text = self.tickModel.details;
+        titleTextView.text = self.requestModel.requestDetails;
         titleTextView.textAlignment = NSTextAlignmentJustified;
         rightTable.hidden = YES;
         titleTextView.textColor = [UIColor lightGrayColor];
@@ -188,38 +188,39 @@
             case 1:
             {
                 titleLable.text = @"Impact";
-                rightTable.text = [self giveImpactForCOlor:self.tickModel.colorCode];
-                linColour.backgroundColor = self.tickModel.colorCode;
-                circelColour.backgroundColor = self.tickModel.colorCode;
+                rightTable.text = [self giveImpactForCOlor:self.requestModel.requestImpact];
+                linColour.backgroundColor = [self colorForImpact:self.requestModel.requestImpact];
+                circelColour.backgroundColor = [self colorForImpact:self.requestModel.requestImpact];
                 
             }
                 break;
             case 2:
             {
                 titleLable.text = @"Agent";
-                rightTable.text = self.tickModel.agentName;
+//                rightTable.text = self.tickModel.agentName;
+                rightTable.text = @"";
                 
             }
                 break;
             case 3:
             {
                 titleLable.text = @"Status";
-                rightTable.text = self.tickModel.currentStatus;
-                
+//                rightTable.text = self.tickModel.currentStatus;
+                rightTable.text = @"";
             }
                 break;
             case 4:
             {
                 
                 titleLable.text = @"Date";
-                rightTable.text = self.tickModel.date;
-                
+//                rightTable.text = self.tickModel.date;
+                rightTable.text = @"";
             }
                 break;
             case 5:
             {
                 
-                titleLable.text = self.tickModel.ticketSubject;
+//                titleLable.text = self.tickModel.ticketSubject;
                 rightTable.text = @"";
             }
                 break;
@@ -252,25 +253,60 @@
     return 35;
 }
 
-- (NSString *)giveImpactForCOlor:(UIColor *)colorCode
+- (NSString *)giveImpactForCOlor:(NSInteger)colorCode
 {
+    switch (colorCode)
+    {
+        case 0:
+            return @"Low";
+            break;
+            
+        case 1:
+            return @"Medium";
+            break;
+            
+        case 2:
+            return @"High";
+            break;
+            
+        case 3:
+            return @"Critical";
+            break;
+            
+        default:
+            break;
+    }
     
-    if ([colorCode isEqual:[UIColor redColor]])
-    {
-        return @"Critical";
-    }
-    if ([colorCode isEqual:[UIColor orangeColor]])
-    {
-        return @"High";
-    }
-    if ([colorCode isEqual:[UIColor yellowColor]])
-    {
-        return @"Medium";
-    }
-        return @"Low";
-
+    return nil;
 }
 
+
+- (UIColor *)colorForImpact:(NSInteger)imapact
+{
+    switch (imapact)
+    {
+        case 0:
+            return [UIColor greenColor];
+            break;
+            
+        case 1:
+            return [UIColor yellowColor];
+            break;
+            
+        case 2:
+            return [UIColor orangeColor];
+            break;
+            
+        case 3:
+            return [UIColor redColor];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+}
 /*
 #pragma mark - Navigation
 
