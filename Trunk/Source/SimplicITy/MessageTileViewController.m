@@ -7,6 +7,7 @@
 //
 
 #import "MessageTileViewController.h"
+#import "MessagesViewController.h"
 
 @interface MessageTileViewController ()
 {
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfData= @[@" Mobility",@"Service Desk",@" HR",@"Local Site Services",@"Other"];
+    arrOfData= @[@" Mobility",@"Service Desk",@"Human Resources",@"Local Site Services",@"Other"];
     
     
 //    [self.tableViewoutlet setContentInset:UIEdgeInsetsMake(-40, 0, 0, 0)];
@@ -52,40 +53,45 @@
     
 }
 
-
-#pragma mark UITableViewDataSource
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (IBAction)btnAction:(id)sender
 {
-    return [arrOfData count];
-    
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 75;
+    [self performSegueWithIdentifier:@"messagesList_segue" sender:self];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
-    titleLable.layer.cornerRadius= 5;
-    titleLable.layer.masksToBounds = YES;
-    titleLable.text = arrOfData[indexPath.row];
-    titleLable.font=[self customFont:18 ofName:MuseoSans_700];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
-    titleLable.backgroundColor = [UIColor redColor];
-}
+//#pragma mark UITableViewDataSource
+//
+//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    return [arrOfData count];
+//    
+//}
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 75;
+//}
+//
+//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//
+//{
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+//    UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
+//    titleLable.layer.cornerRadius= 5;
+//    titleLable.layer.masksToBounds = YES;
+//    titleLable.text = arrOfData[indexPath.row];
+//    titleLable.font=[self customFont:18 ofName:MuseoSans_700];
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    
+//    return cell;
+//}
+//
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+//    UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
+//    titleLable.backgroundColor = [UIColor redColor];
+//}
 
 
 - (void)didReceiveMemoryWarning {
@@ -93,14 +99,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    // Get the new view controller using [segue destinationViewController].
+//    // Pass the selected object to the new view controller.
+//    
+//    MessagesViewController *messagesVC = (MessagesViewController *) segue.destinationViewController;
+//    
+//    messagesVC.navBarTitleName = arrOfData[[self.tableViewoutlet indexPathForSelectedRow].row];
+//    
+//    
+//}
+
 
 @end

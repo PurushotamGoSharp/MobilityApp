@@ -109,6 +109,8 @@
     [self updateProfileView];
 }
 
+
+
 - (void)updateProfileView
 {
     static NSString * const kConfigurationKey = @"com.apple.configuration.managed";

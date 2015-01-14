@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface MessagesViewController : CustomColoredViewController
+{
+    
+}
+@property(nonatomic,strong)NSString  *navBarTitleName;
+
+
 
 @end
