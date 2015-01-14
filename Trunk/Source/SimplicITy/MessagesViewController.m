@@ -16,13 +16,6 @@
     NSArray *arrOfTableData, *arrOfTimeLable, *arrOfSubjects, *arrOfBody, *arrOfimageName, *arrOfcurTime;
     NSMutableArray *arrOfModleData; UIBarButtonItem *backButton;
     
-
-   
-
-
-
-
-
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (strong ,nonatomic)UIRefreshControl *refreshControl;
@@ -41,7 +34,7 @@
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:@"Back" forState:UIControlStateNormal];
     
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -54,7 +47,7 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
  
-    
+    self.title = self.navBarTitleName;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [self subViewsColours];
@@ -105,7 +98,8 @@
 
 -(void)backBtnAction
 {
-    [self.tabBarController setSelectedIndex:0];
+//    [self.tabBarController setSelectedIndex:0];
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 
@@ -121,6 +115,7 @@
 {
     // Reload table data
     [self.tableViewOutlet reloadData];
+    
 
     // End the refreshing
     if (self.refreshControl) {

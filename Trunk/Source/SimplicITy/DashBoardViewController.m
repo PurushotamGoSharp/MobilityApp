@@ -10,8 +10,9 @@
 #import "MessagesViewController.h"
 #import "RaiseATicketViewController.h"
 #import "TicketsListViewController.h"
+#import "Postman.h"
 
-@interface DashBoardViewController ()
+@interface DashBoardViewController () <postmanDelegate>
 {
     BOOL navBtnIsOn;
     UIButton *titleButton;
@@ -101,6 +102,8 @@
     self.dashMyTicketsLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
+    
+    [self tryToGetITServicePhoneNum];
 
 }
 
@@ -109,9 +112,10 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
-    
     [self updateProfileView];
 }
+
+
 
 - (void)updateProfileView
 {
@@ -167,6 +171,29 @@
     }
 
 }
+
+-(void)tryToGetITServicePhoneNum
+{
+    Postman *postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    NSString *URLString = [NSString stringWithFormat:@"%@%@",BASE_URL,@"Countries"];
+    NSString *parameter =  @"{\"request\":{\"Name\":\"\"}}";
+    
+    [postMan post:URLString withParameters:parameter];
+    
+}
+
+-(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    
+}
+
+-(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    
+}
+
+//-(void)
 
 - (void)navTitleBtnPressed:(id)sender
 {
