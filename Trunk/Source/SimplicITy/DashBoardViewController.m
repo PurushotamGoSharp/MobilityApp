@@ -11,8 +11,10 @@
 #import "RaiseATicketViewController.h"
 #import "TicketsListViewController.h"
 #import "Postman.h"
+#import "LocationModel.h"
+#import "DBManager.h"
 
-@interface DashBoardViewController () <postmanDelegate>
+@interface DashBoardViewController () <postmanDelegate,DBManagerDelegate>
 {
     BOOL navBtnIsOn;
     UIButton *titleButton;
@@ -20,6 +22,9 @@
     NSDictionary *serverConfig;
     UIView *titleView;
     UIImageView *titleImageView;
+    NSMutableArray *locationdataArr ;
+    LocationModel *selectedLocation;
+    DBManager *dbManager;
 }
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -103,8 +108,29 @@
     self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
     
-    [self tryToGetITServicePhoneNum];
+    static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
+    serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+    
+//    if (serverConfig != nil)
+//    {
+//        [[NSUserDefaults standardUserDefaults] setObject:serverConfig[@"location"] forKey:@"SelectedLocationCode"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        
+//        [self getDataForCountryCode:serverConfig[@"location"]];
+//        
+//        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
+    
+    selectedLocation = [[LocationModel alloc] init];
 
+    [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:@"SelectedLocationCode"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self getDataForCountryCode:@"IND"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -113,15 +139,22 @@
     self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
     [self updateProfileView];
+    
+
+    
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"country"])
+        {
+            [self tryToGetITServicePhoneNum];
+        }
+    }
 }
 
 
 
 - (void)updateProfileView
 {
-    static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
-    serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-    
     if (serverConfig != nil)
     {
         NSString *cropID = serverConfig[@"corpID"];
@@ -185,7 +218,12 @@
 
 -(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    
+    [self parseResponseData:response];
+    [self saveLocationdata:response forUrl:urlString];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+
 }
 
 -(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
@@ -193,7 +231,93 @@
     
 }
 
-//-(void)
+-(void)parseResponseData:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
+    locationdataArr = [[NSMutableArray alloc] init];
+
+
+    for (NSDictionary *aDict in arr)
+    {
+        if ([aDict[@"Status"]boolValue])
+        {
+            LocationModel *locationdata = [[LocationModel alloc] init];
+            locationdata.code = aDict[@"Code"];
+            locationdata.countryCode = aDict[@"CountryCode"];
+            locationdata.countryName = aDict[@"Name"];
+            locationdata.serviceDeskNumber = aDict[@"ServiceDeskNumber"];
+            [locationdataArr addObject:locationdata];
+        }
+    }
+}
+
+-(void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *createQuery = @"create table if not exists location (countryCode text PRIMARY KEY, serviceDeskNumber text,countryName text, code text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    for (LocationModel *alocation in locationdataArr) {
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, alocation.serviceDeskNumber, alocation.countryName, alocation.code];
+        
+        [dbManager saveDataToDBForQuery:insertSQL];
+    }
+    
+    
+}
+
+- (void)getDataForCountryCode:(NSString *)countryCode
+{
+    
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+        NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM location WHERE countryCode = '%@'", countryCode];
+    
+//    NSString *queryString = @"SELECT * FROM location WHERE countryCode = '%@'";
+    
+    
+    if (![dbManager getDataForQuery:queryString])
+    {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+    }
+    
+}
+
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    locationdataArr = [[NSMutableArray alloc] init];
+    
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        selectedLocation.countryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
+        selectedLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        selectedLocation.countryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
+        selectedLocation.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        [locationdataArr addObject:selectedLocation];
+    }
+}
+
+
 
 - (void)navTitleBtnPressed:(id)sender
 {
@@ -257,7 +381,10 @@
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
 {
-    NSString *phoneNo = @"9880425945";
+    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
+    [self getDataForCountryCode:countryCode];
+    
+    NSString *phoneNo = selectedLocation.serviceDeskNumber;
     phoneNo = [@"tel://" stringByAppendingString:phoneNo];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
 }

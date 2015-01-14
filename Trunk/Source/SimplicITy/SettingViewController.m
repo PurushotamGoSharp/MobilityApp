@@ -18,7 +18,9 @@
     UIBarButtonItem *backButton;
     
     NSArray *arrOfLocationData, *arrOfLanguageData;
-    NSInteger selectedLocation, selectedLanaguage;
+    NSInteger selectedLanaguage;
+    
+    NSString *selectedLocationName;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -61,7 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    selectedLocation = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLocation"];
+    selectedLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationName"];
     selectedLanaguage = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLanguage"];
     
     [self.tableView reloadData];
@@ -127,7 +129,7 @@
             
         }else
         {
-            languageLabel.text = arrOfLocationData[selectedLocation];
+            languageLabel.text = selectedLocationName;
             
         }
     }else
