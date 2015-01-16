@@ -11,7 +11,7 @@
 
 @interface MessageTileViewController ()<UITabBarControllerDelegate,UITableViewDataSource>
 {
-    NSArray *arrOfData, *arrOfImages;
+    NSArray *arrOfData, *arrOfImages,*arrayOfBadgeNUm;
      UIBarButtonItem *backButton;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewoutlet;
@@ -28,6 +28,7 @@
 
     
     arrOfData= @[@" Mobility",@"Service Desk",@"Human Resources",@"Local Site Services",@"Other"];
+    arrayOfBadgeNUm = @[@"0",@"4",@"0",@"2",@"1"];
     
     
 //    [self.tableViewoutlet setContentInset:UIEdgeInsetsMake(-40, 0, 0, 0)];
@@ -103,18 +104,19 @@
     
     if (indexPath.row == 0 || indexPath.row == 2)
     {
-        emailImage.image = [UIImage imageNamed:@"Email-Closed-Green"];
+        emailImage.image = [UIImage imageNamed:@"Email-Opened"];
 //        badgeView.backgroundColor = [UIColor colorWithRed:.6 green:.8 blue:0 alpha:1];
-        lableForBadege.text = @"0";
-    
+//        lableForBadege.text = @"0";
+        
+        lableForBadege.hidden= YES;
+        badgeView.hidden = YES;
 
     }else
     {
-        emailImage.image = [UIImage imageNamed:@"Email-Opened"];
+//        emailImage.image = [UIImage imageNamed:@"Email-Opened"];
+        emailImage.image = [UIImage imageNamed:@"Email-Closed-Green"];
 //        badgeView.backgroundColor = [UIColor redColor];
-        lableForBadege.text = @"13";
-
-
+        lableForBadege.text =arrayOfBadgeNUm[indexPath.row];
     }
 
     
@@ -144,8 +146,9 @@
     // Pass the selected object to the new view controller.
     
     MessagesViewController *messagesVC = (MessagesViewController *) segue.destinationViewController;
-    
     messagesVC.navBarTitleName = arrOfData[[self.tableViewoutlet indexPathForSelectedRow].row];
+    
+    messagesVC.emailreadNum = [arrayOfBadgeNUm[[self.tableViewoutlet indexPathForSelectedRow].row] integerValue];
     
     
 }

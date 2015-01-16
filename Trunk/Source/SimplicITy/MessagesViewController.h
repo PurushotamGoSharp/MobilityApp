@@ -13,6 +13,7 @@
     
 }
 @property(nonatomic,strong)NSString  *navBarTitleName;
+@property(nonatomic,assign) int emailreadNum;
 
 
 

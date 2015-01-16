@@ -183,7 +183,8 @@
     
     UIImageView *mailImageView = (UIImageView *)[cell viewWithTag:500];
 
-    if (indexPath.row == 0 || indexPath.row == 1) {
+    if (indexPath.row < self.emailreadNum)
+    {
         mailImageView.image = [UIImage imageNamed:arrOfimageName[0]];
     }else
     {
