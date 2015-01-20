@@ -17,7 +17,8 @@
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface DashBoardViewController () <postmanDelegate,DBManagerDelegate>
+
+@interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate>
 {
     BOOL navBtnIsOn;
     UIButton *titleButton;
@@ -51,7 +52,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonAddress;
 @property (weak, nonatomic) IBOutlet UILabel *emailID;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfUserLabel;
+@property (weak, nonatomic) IBOutlet UIView *alphaViewOutlet;
+@property (weak, nonatomic) IBOutlet UIView *containerViewOutlet;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *popOverHeightConst;
 @end
 
 @implementation DashBoardViewController
@@ -256,6 +261,10 @@
             [locationdataArr addObject:locationdata];
         }
     }
+    
+    [self.tableViewOutlet reloadData];
+    [self adjustHeightOfPopOverView];
+    
 }
 
 - (void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink
@@ -335,12 +344,16 @@
                                                                              options:kNilOptions
                                                                                error:nil];
 //        selectedLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
-
         
         selectedLocation.countryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
         selectedLocation.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        
         [locationdataArr addObject:selectedLocation];
     }
+    
+    [self.tableViewOutlet reloadData];
+    [self adjustHeightOfPopOverView];
+
 }
 
 
@@ -420,10 +433,36 @@
     }
     
     NSLog(@"country %@",selectedLocation.serviceDeskNumber);
+    
+
+
 
     
-    if (selectedLocation.serviceDeskNumber.count > 1 ) {
-        [self performSegueWithIdentifier:@"serviceDeskNum_Segue" sender:self];
+    if (selectedLocation.serviceDeskNumber.count > 1 )
+    {
+//        [self performSegueWithIdentifier:@"serviceDeskNum_Segue" sender:self];
+//        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select"
+//                                                                 delegate:self
+//                                                        cancelButtonTitle:@"Cancel"
+//                                                   destructiveButtonTitle:nil
+//                                                        otherButtonTitles:@"Copy", @"Move", @"Duplicate", nil];
+//        
+//        [actionSheet showInView:self.view];
+        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Select" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"fgvffr",@"fgvffr",@"fgvffr", nil];
+//        [alert show];
+        
+        self.alphaViewOutlet.hidden = NO;
+        self.containerViewOutlet.hidden = NO;
+        
+        [UIView animateWithDuration:.3 animations:^{
+            self.alphaViewOutlet.alpha= .5;
+            self.containerViewOutlet.alpha = 1;
+        } completion:^(BOOL finished)
+         {
+             
+         }];
+        
     }else
     {
         NSDictionary *dict = [selectedLocation.serviceDeskNumber lastObject];
@@ -434,6 +473,108 @@
     }
 }
 
+
+#pragma mark UITableViewDataSource methods
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [selectedLocation.serviceDeskNumber count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    UILabel *name = (UILabel*)[cell viewWithTag:100];
+    name.font = [self customFont:14 ofName:MuseoSans_300];
+
+    
+    
+    //    phoneNum.text = self.serviceDeskDeteils;
+    
+    NSDictionary *dict = selectedLocation.serviceDeskNumber[indexPath.row];
+    
+    name.text = dict[@"Name"];
+    
+    
+    return cell;
+}
+
+#pragma mark UITableViewDelegate methods
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    [UIView animateWithDuration:.3 animations:^{
+        self.alphaViewOutlet.alpha= 0;
+        self.containerViewOutlet.alpha = 0;
+
+    } completion:^(BOOL finished) {
+        self.alphaViewOutlet.hidden = YES;
+        self.containerViewOutlet.hidden = YES;
+    }];
+
+    
+    NSDictionary *dict = selectedLocation.serviceDeskNumber[indexPath.row];
+    NSString *phoneNo = dict[@"Number"];
+    
+    //    // Input
+    //    NSString *originalString = @"This is my string. #1234";
+    //
+    //    // Intermediate
+    //    NSString *numberString;
+    //
+    //    NSScanner *scanner = [NSScanner scannerWithString:originalString];
+    //    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"+0123456789"];
+    //
+    //    // Throw away characters before the first number.
+    //    [scanner scanUpToCharactersFromSet:numbers intoString:NULL];
+    //
+    //    // Collect numbers.
+    //    [scanner scanCharactersFromSet:numbers intoString:&numberString];
+    
+    
+    
+    phoneNo = [@"tel://" stringByAppendingString:phoneNo];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+}
+
+- (void)adjustHeightOfPopOverView
+{
+    if ([selectedLocation.serviceDeskNumber count] > 1)
+    {
+        CGFloat heightOfTableView = [self.tableViewOutlet contentSize].height;
+        heightOfTableView = MIN(300, heightOfTableView);
+        
+        CGFloat heightOfPopOverView = 30 + heightOfTableView + 30;
+        
+        self.popOverHeightConst.constant = heightOfPopOverView;
+        [self.view layoutIfNeeded];
+    }
+}
+- (IBAction)cancelPopUp:(UIControl *)sender
+{
+    [UIView animateWithDuration:.3 animations:^{
+        self.alphaViewOutlet.alpha= 0;
+        self.containerViewOutlet.alpha = 0;
+        
+    } completion:^(BOOL finished) {
+        self.alphaViewOutlet.hidden = YES;
+        self.containerViewOutlet.hidden = YES;
+    }];
+}
 
 #pragma mark - Navigation
 

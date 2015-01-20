@@ -64,9 +64,7 @@
     name.text = dict[@"Name"];
     phoneNum.text = dict[@"Number"];
     
-    
 
-    
     return cell;
 }
 
