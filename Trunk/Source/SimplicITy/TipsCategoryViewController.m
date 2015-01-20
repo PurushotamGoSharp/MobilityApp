@@ -194,7 +194,7 @@
 
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 
     if ([urlString isEqualToString:TIPS_CATEGORY_API])
     {
@@ -207,9 +207,12 @@
     }else
     {
         NSString *parentCode = [self parentCodeForResponse:response];
-        NSLog(@"%@",[self parentCodeForResponse:response]);
+        NSLog(@"Parent code %@",parentCode);
         
-        codeAndResponse[parentCode] = response;
+        if (parentCode)
+        {
+            codeAndResponse[parentCode] = response;
+        }
         
         [self saveTipsCategory:response forURL:urlString];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tips"];
@@ -246,13 +249,12 @@
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (NSString *)parentCodeForResponse:(NSData *)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
     
     NSArray *subCatagoryArray = json[@"aaData"][@"Tips"];
     

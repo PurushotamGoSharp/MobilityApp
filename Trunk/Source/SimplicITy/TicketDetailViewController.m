@@ -8,6 +8,7 @@
 
 #import "TicketDetailViewController.h"
 #import "DashBoardViewController.h"
+#import "UserInfo.h"
 
 @interface TicketDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 {
@@ -182,7 +183,7 @@
             case 0:
             {
                 titleLable.text = @"Requester";
-                rightTable.text = @"Jim Kohler";
+                rightTable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohier";;
                 
             }
                 

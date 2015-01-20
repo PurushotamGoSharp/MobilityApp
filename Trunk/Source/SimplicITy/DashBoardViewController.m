@@ -13,18 +13,21 @@
 #import "Postman.h"
 #import "LocationModel.h"
 #import "DBManager.h"
+#import "UserInfo.h"
 
 @interface DashBoardViewController () <postmanDelegate,DBManagerDelegate>
 {
     BOOL navBtnIsOn;
     UIButton *titleButton;
     UIImageView *downArrowImageView;
-    NSDictionary *serverConfig;
+//    NSDictionary *serverConfig;
     UIView *titleView;
     UIImageView *titleImageView;
     NSMutableArray *locationdataArr ;
     LocationModel *selectedLocation;
     DBManager *dbManager;
+    
+    UserInfo *userInfo;
 }
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -108,29 +111,29 @@
     self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
     
-    static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
-    serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+    userInfo = [UserInfo sharedUserInfo];
     
-    if (serverConfig != nil)
+    if ([userInfo getServerConfig] != nil)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:serverConfig[@"location"] forKey:@"SelectedLocationCode"];
+        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:@"SelectedLocationCode"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        [self getDataForCountryCode:serverConfig[@"location"]];
+        [self getDataForCountryCode:userInfo.location];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }else
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:@"SelectedLocationCode"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self getDataForCountryCode:@"IND"];
         
         [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     selectedLocation = [[LocationModel alloc] init];
-
-//    [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:@"SelectedLocationCode"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    
-//    [self getDataForCountryCode:@"IND"];
-//    
-//    [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -139,8 +142,6 @@
     self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
     [self updateProfileView];
-    
-
     
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
@@ -151,17 +152,15 @@
     }
 }
 
-
-
 - (void)updateProfileView
 {
-    if (serverConfig != nil)
+    if ([userInfo getServerConfig] != nil)
     {
-        NSString *cropID = serverConfig[@"corpID"];
-        NSString *firstName = serverConfig[@"firstName"];
-        NSString *lastName = serverConfig[@"lastName"];
-        NSString *location = serverConfig[@"location"];
-        NSString *emailIDValue = serverConfig[@"mail"];
+        NSString *cropID = userInfo.cropID;
+        NSString *firstName = userInfo.firstName;
+        NSString *lastName = userInfo.lastName;
+        NSString *location = userInfo.location;
+        NSString *emailIDValue = userInfo.emailIDValue;
 
         NSString *nameOfPerson;
         
@@ -202,10 +201,9 @@
             self.emailID.text = emailIDValue;
         }
     }
-
 }
 
--(void)tryToGetITServicePhoneNum
+- (void)tryToGetITServicePhoneNum
 {
     Postman *postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -216,22 +214,20 @@
     
 }
 
--(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseResponseData:response];
     [self saveLocationdata:response forUrl:urlString];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
-
 }
 
--(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     
 }
 
--(void)parseResponseData:(NSData *)response
+- (void)parseResponseData:(NSData *)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];

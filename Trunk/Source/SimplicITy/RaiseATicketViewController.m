@@ -16,6 +16,7 @@
 #import <sqlite3.h>
 #import "DBManager.h"
 #import "RequestModel.h"
+#import "UserInfo.h"
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
@@ -456,7 +457,7 @@
     {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         header.text = @"Requester";
-        lable.text = @"Jim Kohler";
+        lable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohier";
     }else
     {
         header.text = @"Impact";

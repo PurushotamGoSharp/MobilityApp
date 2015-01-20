@@ -20,7 +20,6 @@
 {
     if (self = [super init])
     {
-        
         NSString *docsDir;
         NSArray *dirPaths;
         

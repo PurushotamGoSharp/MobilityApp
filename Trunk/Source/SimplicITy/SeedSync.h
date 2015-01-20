@@ -10,4 +10,6 @@
 
 @interface SeedSync : NSObject
 
++ (instancetype)sharedSync;
+
 @end
