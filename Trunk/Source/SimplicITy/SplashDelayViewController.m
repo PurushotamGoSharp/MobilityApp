@@ -68,11 +68,29 @@
 //        [self getData];
 //    }
     
-    [self tryToUpdateSeedData];
-    
-    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+//    [self tryToUpdateSeedData];
+//    
+//    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        [self tryToUpdateSeedData];
+        NSLog(@"Rechable");
+    }
+    else
+    {
+        NSLog(@"Not rechable");
+        
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noNetworkAlert show];
+        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+    }
+
+}
 
 -(void)tryToUpdateSeedData
 {
@@ -90,16 +108,16 @@
     [self parseSeedata:response];
     [self saveSeeddata:response forUrl:urlString];
     
-//    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 
 }
 
--(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
-    
+    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
--(void)parseSeedata:(NSData *)response
+- (void)parseSeedata:(NSData *)response
 {
     
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];

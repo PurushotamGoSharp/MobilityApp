@@ -75,13 +75,11 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    NSDictionary *dict = self.serviceDeskDeteils[indexPath.row];
-//    NSString *phoneNo = dict[@"Number"];
-    
-//    NSString *phoneNo = self.serviceDeskDeteils;
-//    
-//    phoneNo = [@"tel://" stringByAppendingString:phoneNo];
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
+    NSDictionary *dict = self.serviceDeskDeteils[indexPath.row];
+    NSString *phoneNo = dict[@"Number"];
+        
+    phoneNo = [@"tel://" stringByAppendingString:phoneNo];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 

@@ -15,6 +15,7 @@
 #import "LocationModel.h"
 #import "DBManager.h"
 #import "UserInfo.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface DashBoardViewController () <postmanDelegate,DBManagerDelegate>
 {
@@ -29,6 +30,8 @@
     DBManager *dbManager;
     
     UserInfo *userInfo;
+    
+    Postman *postMan;
 }
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -144,6 +147,9 @@
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
     [self updateProfileView];
     
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"country"])
@@ -206,17 +212,17 @@
 
 - (void)tryToGetITServicePhoneNum
 {
-    Postman *postMan = [[Postman alloc] init];
-    postMan.delegate = self;
     NSString *URLString = [NSString stringWithFormat:@"%@%@",BASE_URL,@"Countries"];
     NSString *parameter =  @"{\"request\":{\"Name\":\"\"}}";
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [postMan post:URLString withParameters:parameter];
     
 }
 
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self parseResponseData:response];
     [self saveLocationdata:response forUrl:urlString];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
@@ -225,7 +231,7 @@
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
-    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 - (void)parseResponseData:(NSData *)response
@@ -253,7 +259,7 @@
     }
 }
 
--(void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink
+- (void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink
 {
     if (dbManager == nil)
     {
@@ -287,7 +293,7 @@
     
 }
 
-- (void)getDataForCountryCode:(NSString *)countryCode
+- (BOOL)getDataForCountryCode:(NSString *)countryCode
 {
     
     if (dbManager == nil)
@@ -307,9 +313,15 @@
         {
             UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
+            
+            return NO;
+        }else
+        {
+            [self tryToGetITServicePhoneNum];
+            return NO;
         }
     }
-    
+    return YES;
 }
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
@@ -398,7 +410,12 @@
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
 {
     NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
-    [self getDataForCountryCode:countryCode];
+    
+    if (![self getDataForCountryCode:countryCode])
+    {
+        return;
+    }
+    
     NSLog(@"country %@",selectedLocation.serviceDeskNumber);
 
     
@@ -412,9 +429,6 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
         
     }
-    
-
-    
 }
 
 
