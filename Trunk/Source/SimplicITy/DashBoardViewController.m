@@ -10,6 +10,7 @@
 #import "MessagesViewController.h"
 #import "RaiseATicketViewController.h"
 #import "TicketsListViewController.h"
+#import "ServiceDeskNumListsViewController.h"
 #import "Postman.h"
 #import "LocationModel.h"
 #import "DBManager.h"
@@ -246,7 +247,11 @@
             locationdata.code = aDict[@"Code"];
             locationdata.countryCode = aDict[@"CountryCode"];
             locationdata.countryName = aDict[@"Name"];
-            locationdata.serviceDeskNumber = aDict[@"ServiceDeskNumber"];
+            NSString *JSONString = aDict[@"ServiceDeskNumber"];
+            
+            locationdata.serviceDeskNumber = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
+                                                                             options:kNilOptions
+                                                                               error:nil];
             [locationdataArr addObject:locationdata];
         }
     }
@@ -269,8 +274,16 @@
     rangeofString.length = stringFromData.length;
     [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
     
-    for (LocationModel *alocation in locationdataArr) {
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, alocation.serviceDeskNumber, alocation.countryName, alocation.code];
+    for (LocationModel *alocation in locationdataArr)
+    {
+        NSData *JSONData = [NSJSONSerialization dataWithJSONObject:alocation.serviceDeskNumber
+                                                           options:kNilOptions
+                                                             error:nil];
+        NSString *serviceDeskNoJSON = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
+        
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, serviceDeskNoJSON, alocation.countryName, alocation.code];
+        
+//                NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, alocation.serviceDeskNumber, alocation.countryName, alocation.code];
         
         [dbManager saveDataToDBForQuery:insertSQL];
     }
@@ -310,7 +323,14 @@
     if (sqlite3_step(statment) == SQLITE_ROW)
     {
         selectedLocation.countryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
-        selectedLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        
+        NSString *JSONString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        selectedLocation.serviceDeskNumber = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
+                                                                             options:kNilOptions
+                                                                               error:nil];
+//        selectedLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+
+        
         selectedLocation.countryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
         selectedLocation.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
         [locationdataArr addObject:selectedLocation];
@@ -383,10 +403,22 @@
 {
     NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
     [self getDataForCountryCode:countryCode];
+    NSLog(@"country %@",selectedLocation.serviceDeskNumber);
+
     
-    NSString *phoneNo = selectedLocation.serviceDeskNumber;
-    phoneNo = [@"tel://" stringByAppendingString:phoneNo];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
+    if (selectedLocation.serviceDeskNumber.count > 1 ) {
+        [self performSegueWithIdentifier:@"serviceDeskNum_Segue" sender:self];
+    }else
+    {
+        NSDictionary *dict = [selectedLocation.serviceDeskNumber lastObject];
+        NSString *phoneNo = dict[@"Number"];
+        phoneNo = [@"tel://" stringByAppendingString:phoneNo];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
+        
+    }
+    
+
+    
 }
 
 
@@ -407,6 +439,18 @@
     {
         TicketsListViewController *orderList = segue.destinationViewController;
         orderList.orderItemDifferForList = @"orderList";
+    }
+    
+    if ([segue.identifier isEqualToString:@"serviceDeskNum_Segue"])
+    {
+        UINavigationController *navigation = segue.destinationViewController;
+        
+        ServiceDeskNumListsViewController *serviceDeskVC = navigation.viewControllers[0];
+        NSLog(@"country %@",selectedLocation.countryName);
+        NSLog(@"country %@",selectedLocation.serviceDeskNumber);
+        serviceDeskVC.country = selectedLocation.countryName;
+        serviceDeskVC.serviceDeskDeteils = selectedLocation.serviceDeskNumber;
+        
     }
 }
 

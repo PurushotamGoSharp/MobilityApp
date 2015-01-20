@@ -26,7 +26,6 @@
     
     self.title = self.tipModel.question;
 
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -34,14 +33,16 @@
     [super viewWillAppear:animated];
         
     [self.webView loadHTMLString:self.tipModel.answer baseURL:nil];
+    NSLog(@"Html %@",self.tipModel.answer);
 }
-
 
 
 - (BOOL)shouldAutorotate
 {
     return NO;
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
