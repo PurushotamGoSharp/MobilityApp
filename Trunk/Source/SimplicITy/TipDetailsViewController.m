@@ -33,7 +33,10 @@
 {
     [super viewWillAppear:animated];
 
-    [self.webView loadHTMLString:self.tipModel.answer baseURL:nil];
+    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachePath = [cachedirs lastObject];
+    NSLog(@"Cache path = %@", cachePath);
+    [self.webView loadHTMLString:self.tipModel.answer baseURL:[NSURL URLWithString:cachePath]];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -53,17 +56,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"Cache policy %lu", request.cachePolicy);
-    if (request.cachePolicy != NSURLRequestReturnCacheDataElseLoad)
-    {
-        NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:request.URL
-                                                         cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                                     timeoutInterval:request.timeoutInterval];
-        
-        [webView loadRequest:urlRequest];
-        
-        return NO;
-    }
+
     return YES;
 }
 
