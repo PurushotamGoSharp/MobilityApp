@@ -218,7 +218,6 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tips"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-
 }
 
 - (void)parseResponseData:(NSData *)response andUpdateSubCategories:(BOOL)update
@@ -288,7 +287,6 @@
 
 - (void)getData
 {
-    
     if (dbManager == nil)
     {
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
@@ -307,7 +305,6 @@
         [self tryToUpdateCategories];
     }
 }
-
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
