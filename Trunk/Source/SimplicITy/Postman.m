@@ -46,7 +46,7 @@
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               [self.delegate postman:self gotFailure:error forURL:URLString];
-              NSLog(@"%@",error);
+              NSLog(@"ERROR %@",error);
           }];
 }
 
@@ -62,7 +62,7 @@
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              [self.delegate postman:self gotFailure:error forURL:URLString];
-             NSLog(@"%@",error);
+             NSLog(@"ERROR %@",error);
              
          }];
 }
