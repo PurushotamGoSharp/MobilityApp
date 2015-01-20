@@ -77,7 +77,24 @@
     
     NSDictionary *dict = self.serviceDeskDeteils[indexPath.row];
     NSString *phoneNo = dict[@"Number"];
-        
+    
+//    // Input
+//    NSString *originalString = @"This is my string. #1234";
+//    
+//    // Intermediate
+//    NSString *numberString;
+//    
+//    NSScanner *scanner = [NSScanner scannerWithString:originalString];
+//    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"+0123456789"];
+//    
+//    // Throw away characters before the first number.
+//    [scanner scanUpToCharactersFromSet:numbers intoString:NULL];
+//    
+//    // Collect numbers.
+//    [scanner scanCharactersFromSet:numbers intoString:&numberString];
+    
+    
+    
     phoneNo = [@"tel://" stringByAppendingString:phoneNo];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
     
