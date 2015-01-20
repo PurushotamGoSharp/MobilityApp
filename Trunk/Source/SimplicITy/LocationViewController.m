@@ -78,7 +78,12 @@
     
         LocationModel *anLocation = [[LocationModel alloc] init];
         anLocation.countryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
-        anLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        
+        NSString *JSONString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        anLocation.serviceDeskNumber = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
+                                                                             options:kNilOptions
+                                                                               error:nil];
+        
         anLocation.countryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
         anLocation.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
         
