@@ -35,6 +35,7 @@
     
     NSLog(@"%@", self.tipModel.answer);
     [self.webView loadHTMLString:self.tipModel.answer baseURL:nil];
+    NSLog(@"Html %@",self.tipModel.answer);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
@@ -48,6 +49,8 @@
 {
     return NO;
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -16,7 +16,7 @@
 @property(nonatomic,strong)NSString *code;
 @property(nonatomic,strong)NSString *countryCode;
 @property(nonatomic,strong)NSString *countryName;
-@property(nonatomic,strong)NSString *serviceDeskNumber;
+@property(nonatomic,strong)NSArray *serviceDeskNumber;
 
 
 @end

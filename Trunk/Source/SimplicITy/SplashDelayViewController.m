@@ -155,7 +155,6 @@
 
 - (void)getData
 {
-    
     if (dbManager == nil)
     {
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
@@ -174,7 +173,6 @@
             [noNetworkAlert show];
         }
     }
-    
     NSArray *arrkeys = [seedDataDictFromAPI allKeys];
     
     for (NSString *newkey in arrkeys)
