@@ -143,10 +143,10 @@
         [seedDataDictFromAPI setObject:value  forKey:seed.name];
         
     }
+    
     NSLog( @"Seed data from API's are %@ ",seedDataDictFromAPI);
     
     [self getData];
-    
 }
 
 -(void)saveSeeddata:(NSData *)response forUrl:(NSString *)APILink
