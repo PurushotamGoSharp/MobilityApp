@@ -76,6 +76,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self performSelector:@selector(checkRechability) withObject:nil afterDelay:1];
+}
+
+- (void)checkRechability
+{
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
         [self tryToUpdateSeedData];
@@ -89,10 +95,8 @@
         [noNetworkAlert show];
         [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
     }
-
 }
-
--(void)tryToUpdateSeedData
+- (void)tryToUpdateSeedData
 {
     URLString = SEED_API;
     
@@ -103,7 +107,7 @@
 
 #pragma mark
 #pragma mark postmanDelegate
--(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseSeedata:response];
     [self saveSeeddata:response forUrl:urlString];

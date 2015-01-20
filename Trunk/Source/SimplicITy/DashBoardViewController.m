@@ -116,7 +116,8 @@
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
     
     userInfo = [UserInfo sharedUserInfo];
-    
+    selectedLocation = [[LocationModel alloc] init];
+
     if ([userInfo getServerConfig] != nil)
     {
         [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:@"SelectedLocationCode"];
@@ -137,7 +138,6 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    selectedLocation = [[LocationModel alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -217,7 +217,6 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [postMan post:URLString withParameters:parameter];
-    
 }
 
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
@@ -317,7 +316,6 @@
             return NO;
         }else
         {
-            [self tryToGetITServicePhoneNum];
             return NO;
         }
     }
@@ -413,6 +411,11 @@
     
     if (![self getDataForCountryCode:countryCode])
     {
+        if ([AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            [self tryToGetITServicePhoneNum];
+        }
+        
         return;
     }
     

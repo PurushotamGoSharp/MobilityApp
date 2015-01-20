@@ -32,17 +32,39 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    NSLog(@"%@", self.tipModel.answer);
+
     [self.webView loadHTMLString:self.tipModel.answer baseURL:nil];
-    NSLog(@"Html %@",self.tipModel.answer);
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: none;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
+    
+    [webView stringByEvaluatingJavaScriptFromString:javascript];
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     
-//    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: none;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
-//    [webView stringByEvaluatingJavaScriptFromString:javascript];
+    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: none;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
+    [webView stringByEvaluatingJavaScriptFromString:javascript];
     
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSLog(@"Cache policy %lu", request.cachePolicy);
+    if (request.cachePolicy != NSURLRequestReturnCacheDataElseLoad)
+    {
+        NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:request.URL
+                                                         cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                                     timeoutInterval:request.timeoutInterval];
+        
+        [webView loadRequest:urlRequest];
+        
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)shouldAutorotate
