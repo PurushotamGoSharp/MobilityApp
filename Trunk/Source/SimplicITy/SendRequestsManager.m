@@ -90,6 +90,8 @@
 
 //    queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
 //    [dbManager getDataForQuery:queryString];
+    
+    [self startSendingRequests];
 }
 
 
@@ -101,14 +103,86 @@
         
         for (RequestModel *aRequest in arrayOfRequestsToBeSend)
         {
-            NSString *parameter = [self parameterForRequest:aRequest];
-            
+            [self sendRequestSyncronouslyForRequest:aRequest];
         }
         
     });
 }
 
-- (NSString *)parameterForRequest:(RequestModel *)request
+- (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel
+{
+    NSData *parameter = [self parameterForRequest:requestModel];
+    NSURL *URL = [NSURL URLWithString:RAISE_A_TICKET_API];
+    NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
+    [URLRequest setHTTPMethod:@"POST"];
+    [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [URLRequest setHTTPBody:parameter];
+    
+    NSURLResponse *URLresponse = nil;
+    NSError *error = nil;
+    
+    NSData *responseData =[NSURLConnection sendSynchronousRequest:URLRequest
+                                                returningResponse:&URLresponse
+                                                            error:&error];
+    if (error != nil)
+    {
+        if (responseData)
+        {
+            NSError *JSONError;
+            NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseData
+                                                                    options:kNilOptions
+                                                                      error:&JSONError];
+            if (JSONError != nil)
+            {
+                NSString *incidentNo = JSONDict[@"Incident_Number"];
+                
+                if (incidentNo != nil)
+                {
+                    requestModel.requestIncidentNo = incidentNo;
+                    [self updateLocalDBForRequest:requestModel];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [self updateUI];
+                        
+                    });
+                    
+                }else
+                {
+                    NSLog(@"Error: Inident no is nil");
+                }
+            }else
+            {
+                NSLog(@"JSON parsing error");
+            }
+        }
+        
+    }else
+    {
+        NSLog(@"Failure for %@", [[NSString alloc] initWithData:parameter
+                                                       encoding:NSUTF8StringEncoding]);
+    }
+}
+
+- (void)updateLocalDBForRequest:(RequestModel *)requestModel
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
+
+    [dbManager saveDataToDBForQuery:insertSQL];
+}
+
+- (void)updateUI
+{
+    
+}
+
+- (NSData *)parameterForRequest:(RequestModel *)request
 {
     if (request == nil)
     {
@@ -126,8 +200,7 @@
                                                        options:kNilOptions
                                                          error:nil];
     
-    return [[NSString alloc] initWithData:JSONData
-                                 encoding:NSUTF8StringEncoding];
+    return JSONData;
 }
 
 #pragma mark
@@ -138,6 +211,7 @@
     {
         RequestModel *request = [[RequestModel alloc] init];
         
+        request.requestLocalID = sqlite3_column_int(statment, 0);
         request.requestImpact = sqlite3_column_int(statment, 1);
         request.requestServiceCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
         request.requestServiceName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];

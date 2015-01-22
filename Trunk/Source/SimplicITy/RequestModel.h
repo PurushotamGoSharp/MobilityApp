@@ -10,6 +10,9 @@
 
 @interface RequestModel : NSObject
 
+@property (assign, nonatomic) NSInteger requestLocalID;
+@property (strong, nonatomic) NSString *requestIncidentNo;
+
 @property (strong, nonatomic) NSString *requestType;
 @property (assign, nonatomic) NSInteger requestImpact;
 @property (strong, nonatomic) NSString *requestServiceCode;
