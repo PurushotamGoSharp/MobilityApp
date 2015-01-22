@@ -19,11 +19,13 @@
 @implementation SendRequestsManager
 {
     DBManager *dbManager;
-//    NSDateFormatter *dateFormatter;
+    //    NSDateFormatter *dateFormatter;
     NSMutableArray *arrayOfRequestsToBeSend;
     NSArray *statusArray;
     
     Postman *postman;
+    
+    NSOperationQueue *operationQueue;
 }
 
 + (instancetype)sharedManager
@@ -63,8 +65,8 @@
     postman = [[Postman alloc] init];
     postman.delegate = self;
     
-//    dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+    //    dateFormatter = [[NSDateFormatter alloc] init];
+    //    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
 }
 
 - (void)networkStatusChanged:(AFNetworkReachabilityStatus)status
@@ -83,30 +85,34 @@
         dbManager.delegate = self;
     }
     
+    if (operationQueue)
+    {
+        [operationQueue cancelAllOperations];
+    }
+    
+    operationQueue = [[NSOperationQueue alloc] init];
+    [operationQueue setMaxConcurrentOperationCount:1];
+    
     [arrayOfRequestsToBeSend removeAllObjects];
     
     NSString *queryString =  @"SELECT * FROM raisedTickets where syncFlag = 0";
     [dbManager getDataForQuery:queryString];
-
-//    queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
-//    [dbManager getDataForQuery:queryString];
+    
+    //    queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
+    //    [dbManager getDataForQuery:queryString];
     
     [self startSendingRequests];
 }
 
-
-
 - (void)startSendingRequests
 {
     //Get background queue and call methods one after another (synchronously)
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        for (RequestModel *aRequest in arrayOfRequestsToBeSend)
-        {
-            [self sendRequestSyncronouslyForRequest:aRequest];
-        }
-        
-    });
+    
+    for (RequestModel *aRequest in arrayOfRequestsToBeSend)
+    {
+        [self sendRequestSyncronouslyForRequest:aRequest];
+    }
+    
 }
 
 - (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel
@@ -118,18 +124,13 @@
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [URLRequest setHTTPBody:parameter];
     
-    NSURLResponse *URLresponse = nil;
-    NSError *error = nil;
-    
-    NSData *responseData =[NSURLConnection sendSynchronousRequest:URLRequest
-                                                returningResponse:&URLresponse
-                                                            error:&error];
-    if (error != nil)
-    {
-        if (responseData)
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:URLRequest];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (responseObject)
         {
             NSError *JSONError;
-            NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseData
+            NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseObject
                                                                     options:kNilOptions
                                                                       error:&JSONError];
             if (JSONError != nil)
@@ -157,11 +158,57 @@
             }
         }
         
-    }else
-    {
-        NSLog(@"Failure for %@", [[NSString alloc] initWithData:parameter
-                                                       encoding:NSUTF8StringEncoding]);
-    }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+    [operationQueue addOperation:operation];
+    
+    
+    //    NSURLResponse *URLresponse = nil;
+    //    NSError *error = nil;
+    //
+    //    NSData *responseData =[NSURLConnection sendSynchronousRequest:URLRequest
+    //                                                returningResponse:&URLresponse
+    //                                                            error:&error];
+    //    if (error != nil)
+    //    {
+    //        if (responseData)
+    //        {
+    //            NSError *JSONError;
+    //            NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseData
+    //                                                                    options:kNilOptions
+    //                                                                      error:&JSONError];
+    //            if (JSONError != nil)
+    //            {
+    //                NSString *incidentNo = JSONDict[@"Incident_Number"];
+    //
+    //                if (incidentNo != nil)
+    //                {
+    //                    requestModel.requestIncidentNo = incidentNo;
+    //                    [self updateLocalDBForRequest:requestModel];
+    //
+    //                    dispatch_async(dispatch_get_main_queue(), ^{
+    //
+    //                        [self updateUI];
+    //
+    //                    });
+    //
+    //                }else
+    //                {
+    //                    NSLog(@"Error: Inident no is nil");
+    //                }
+    //            }else
+    //            {
+    //                NSLog(@"JSON parsing error");
+    //            }
+    //        }
+    //
+    //    }else
+    //    {
+    //        NSLog(@"Failure for %@", [[NSString alloc] initWithData:parameter
+    //                                                       encoding:NSUTF8StringEncoding]);
+    //    }
 }
 
 - (void)updateLocalDBForRequest:(RequestModel *)requestModel
@@ -173,7 +220,7 @@
     }
     
     NSString *insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
-
+    
     [dbManager saveDataToDBForQuery:insertSQL];
 }
 
