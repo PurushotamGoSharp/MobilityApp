@@ -10,7 +10,8 @@
 
 @interface SeedModel : NSObject
 
-@property(nonatomic,strong)NSString *name;
-@property(nonatomic,assign)int upDateCount;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic, assign) int upDateCount;
 
 @end

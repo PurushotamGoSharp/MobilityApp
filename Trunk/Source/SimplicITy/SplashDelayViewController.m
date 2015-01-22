@@ -123,7 +123,6 @@
 
 - (void)parseSeedata:(NSData *)response
 {
-    
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     
     NSArray *arr= json[@"aaData"][@"seedmaster"];
@@ -134,6 +133,7 @@
     {
         SeedModel *seed = [[SeedModel alloc] init];
         seed.name = aDict[@"Name"];
+        seed.type = aDict[@"Type"];
         seed.upDateCount = [aDict[@"Value"] intValue];
         [seedDataArrAPI addObject:seed];
         
@@ -149,7 +149,7 @@
     [self getData];
 }
 
--(void)saveSeeddata:(NSData *)response forUrl:(NSString *)APILink
+- (void)saveSeeddata:(NSData *)response forUrl:(NSString *)APILink
 {
     if (dbManager == nil)
     {
@@ -171,8 +171,6 @@
         
         [dbManager saveDataToDBForQuery:insertSQL];
     }
-    
-
 }
 
 - (void)getData
