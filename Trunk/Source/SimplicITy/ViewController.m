@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-@interface ViewController () <UITextFieldDelegate>
+#import "Postman.h"
+@interface ViewController () <UITextFieldDelegate, postmanDelegate>
 @property (weak, nonatomic) IBOutlet UIView *userNameContainer;
 @property (weak, nonatomic) IBOutlet UIView *passwordContainer;
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
@@ -66,6 +67,10 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     
+    NSString *str = @"{\"firstName\": \"Marc\",\"lastName\": \"Van Cutsem\", \"impact\": \"low\", \"service\": \"mobility\", \"description\": \"Bibendum porta iaculis ante mollis malesuada Est dolor hymenaeos eu dapibus, placerat facilisis iaculis ligula curabitur metus in hymenaeos dui. Justo volutpat ad sociosqu Litora maecenas magna metus tortor. Nunc cubilia facilisi magna quam dis pretium orci diam inceptos magnis dapibus mus. Potenti torquent sapien. Vivamus nonummy proin. Mi elementum. Suscipit co\"}";
+    Postman *po = [[Postman alloc] init];
+    po.delegate = self;
+    [po UCB_post:@"https://simplicity-dev.ucb.com/itsm/ticket/" withParameters:str];
 }
 
 
@@ -218,6 +223,20 @@
     }
     
     return nil;
+}
+
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    NSDictionary *JsonDict = [NSJSONSerialization JSONObjectWithData:response
+                                                             options:kNilOptions
+                                                               error:nil];
+    
+    NSLog(@"%@", JsonDict);
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    
 }
 
 @end

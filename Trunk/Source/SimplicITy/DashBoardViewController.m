@@ -17,7 +17,8 @@
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface DashBoardViewController () <postmanDelegate,DBManagerDelegate>
+
+@interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate>
 {
     BOOL navBtnIsOn;
     UIButton *titleButton;
@@ -51,7 +52,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonAddress;
 @property (weak, nonatomic) IBOutlet UILabel *emailID;
 @property (weak, nonatomic) IBOutlet UILabel *nameOfUserLabel;
+@property (weak, nonatomic) IBOutlet UIView *alphaViewOutlet;
+@property (weak, nonatomic) IBOutlet UIView *containerViewOutlet;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *serviceDesksLbl;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *popOverHeightConst;
 @end
 
 @implementation DashBoardViewController
@@ -115,6 +121,8 @@
     self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
     
+    self.serviceDesksLbl.font = [self customFont:18 ofName:MuseoSans_700];
+    
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
 
@@ -156,6 +164,24 @@
         {
             [self tryToGetITServicePhoneNum];
         }
+    }
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    {
+        case 0:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
+            break;
+        case 1:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.97 green:.84 blue:.76 alpha:1];
+            break;
+        case 2:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
+            break;
+        case 3:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.86 green:.91 blue:.79 alpha:1];
+            break;
+        default:
+            break;
     }
 }
 
@@ -256,6 +282,10 @@
             [locationdataArr addObject:locationdata];
         }
     }
+    
+    [self.tableViewOutlet reloadData];
+    [self adjustHeightOfPopOverView];
+    
 }
 
 - (void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink
@@ -300,7 +330,6 @@
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
-    
         NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM location WHERE countryCode = '%@'", countryCode];
     
 //    NSString *queryString = @"SELECT * FROM location WHERE countryCode = '%@'";
@@ -335,12 +364,16 @@
                                                                              options:kNilOptions
                                                                                error:nil];
 //        selectedLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
-
         
         selectedLocation.countryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
         selectedLocation.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        
         [locationdataArr addObject:selectedLocation];
     }
+    
+    [self.tableViewOutlet reloadData];
+    [self adjustHeightOfPopOverView];
+
 }
 
 
@@ -420,20 +453,160 @@
     }
     
     NSLog(@"country %@",selectedLocation.serviceDeskNumber);
+    
+
+
 
     
-    if (selectedLocation.serviceDeskNumber.count > 1 ) {
-        [self performSegueWithIdentifier:@"serviceDeskNum_Segue" sender:self];
+    if (selectedLocation.serviceDeskNumber.count > 1 )
+    {
+//        [self performSegueWithIdentifier:@"serviceDeskNum_Segue" sender:self];
+//        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select"
+//                                                                 delegate:self
+//                                                        cancelButtonTitle:@"Cancel"
+//                                                   destructiveButtonTitle:nil
+//                                                        otherButtonTitles:@"Copy", @"Move", @"Duplicate", nil];
+//        
+//        [actionSheet showInView:self.view];
+        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Select" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"fgvffr",@"fgvffr",@"fgvffr", nil];
+//        [alert show];
+        
+        self.alphaViewOutlet.hidden = NO;
+        self.containerViewOutlet.hidden = NO;
+        
+        [UIView animateWithDuration:.3 animations:^{
+            self.alphaViewOutlet.alpha= .5;
+            self.containerViewOutlet.alpha = 1;
+        } completion:^(BOOL finished)
+         {
+             
+         }];
+        
     }else
     {
-        NSDictionary *dict = [selectedLocation.serviceDeskNumber lastObject];
-        NSString *phoneNo = dict[@"Number"];
-        phoneNo = [@"tel://" stringByAppendingString:phoneNo];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
-        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
     }
 }
 
+
+#pragma mark UITableViewDataSource methods
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [selectedLocation.serviceDeskNumber count];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    UILabel *name = (UILabel*)[cell viewWithTag:100];
+    name.font = [self customFont:14 ofName:MuseoSans_300];
+
+    
+    
+    //    phoneNum.text = self.serviceDeskDeteils;
+    
+    NSDictionary *dict = selectedLocation.serviceDeskNumber[indexPath.row];
+    
+    name.text = dict[@"Name"];
+    
+    
+    return cell;
+}
+
+#pragma mark UITableViewDelegate methods
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    [UIView animateWithDuration:.3 animations:^{
+        self.alphaViewOutlet.alpha= 0;
+        self.containerViewOutlet.alpha = 0;
+
+    } completion:^(BOOL finished) {
+        self.alphaViewOutlet.hidden = YES;
+        self.containerViewOutlet.hidden = YES;
+    }];
+
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
+    
+    NSLog(@"%@", [self phoneNumValidation]);
+
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+}
+
+-(NSString*)phoneNumValidation
+{
+
+    
+    
+    NSIndexPath *indexpath = [self.tableViewOutlet indexPathForSelectedRow];
+    
+     NSDictionary *dict = selectedLocation.serviceDeskNumber[indexpath.row];
+    
+    NSString *phoneNoFromDict = dict[@"Number"];
+    
+    
+    NSMutableString *phoneNoToCall = [NSMutableString
+                                      stringWithCapacity:phoneNoFromDict.length];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:phoneNoFromDict];
+    NSCharacterSet *numbers = [NSCharacterSet
+                               characterSetWithCharactersInString:@"+0123456789"];
+    
+    while ([scanner isAtEnd] == NO) {
+        NSString *buffer;
+        if ([scanner scanCharactersFromSet:numbers intoString:&buffer])
+        {
+            [phoneNoToCall appendString:buffer];
+        } else {
+            [scanner setScanLocation:([scanner scanLocation] + 1)];
+        }
+    }
+    
+//    NSLog(@"%@", phoneNoToCall); // "123123123"
+    phoneNoToCall = [[@"tel://" stringByAppendingString:phoneNoToCall] mutableCopy];
+    return phoneNoToCall;
+
+}
+
+- (void)adjustHeightOfPopOverView
+{
+    if ([selectedLocation.serviceDeskNumber count] > 1)
+    {
+        CGFloat heightOfTableView = [self.tableViewOutlet contentSize].height;
+        heightOfTableView = MIN(300, heightOfTableView);
+        
+        CGFloat heightOfPopOverView = 30 + heightOfTableView + 30;
+        
+        self.popOverHeightConst.constant = heightOfPopOverView;
+        [self.view layoutIfNeeded];
+    }
+}
+- (IBAction)cancelPopUp:(UIControl *)sender
+{
+    [UIView animateWithDuration:.3 animations:^{
+        self.alphaViewOutlet.alpha= 0;
+        self.containerViewOutlet.alpha = 0;
+        
+    } completion:^(BOOL finished) {
+        self.alphaViewOutlet.hidden = YES;
+        self.containerViewOutlet.hidden = YES;
+    }];
+}
 
 #pragma mark - Navigation
 

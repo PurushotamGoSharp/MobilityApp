@@ -15,24 +15,25 @@
 
 @implementation ADExpirationViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.title = @"Password Expiry";
     self.passwordToolLabel.font = [self customFont:16 ofName:MuseoSans_300];
 }
+
 - (IBAction)paswordSelfServiceBtnPressed:(id)sender
 {
-    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://mdm2.ucb.com/psynch/docs/en-us/indexf.html"]];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

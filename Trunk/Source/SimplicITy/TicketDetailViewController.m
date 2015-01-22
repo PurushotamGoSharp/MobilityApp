@@ -169,12 +169,21 @@
     }
     else if (indexPath.section == 2)
     {
-        UITextView *titleTextView = (UITextView *)[cell viewWithTag:100];
+        UILabel *titleTextView = (UILabel *)[cell viewWithTag:100];
         titleTextView.text = self.requestModel.requestDetails;
         titleTextView.textAlignment = NSTextAlignmentJustified;
         rightTable.hidden = YES;
         titleTextView.textColor = [UIColor lightGrayColor];
         titleTextView.font = [self customFont:16 ofName:MuseoSans_300];
+        
+        
+//        CGSize lableSize = [titleTextView.text sizeWithFont:titleTextView.font constrainedToSize:titleTextView.frame.size lineBreakMode:NSLineBreakByWordWrapping];
+//        
+//        CGFloat lableHight = lableSize.height;
+        
+
+        
+
     }
     else
     {
@@ -238,7 +247,20 @@
 {
     if (indexPath.section == 2)
     {
-        return 100;
+        CGFloat widthLabel = [UIScreen mainScreen].bounds.size.width - 20;
+        CGSize maximumLabelSize = CGSizeMake(widthLabel, FLT_MAX);
+        
+        
+        CGSize expectedLabelSize = [self.requestModel.requestDetails boundingRectWithSize:maximumLabelSize
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                    attributes:@{ NSFontAttributeName : [self customFont:16 ofName:MuseoSans_300] }
+                                                       context:nil].size;
+        
+        CGFloat heigthOFcell = expectedLabelSize.height + 12 + 12;
+        
+        heigthOFcell = MAX(44, heigthOFcell);
+        
+        return heigthOFcell;
     }
     
     return 44;
