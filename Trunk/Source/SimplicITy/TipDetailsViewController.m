@@ -36,8 +36,11 @@
     NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cachePath = [cachedirs lastObject];
     NSLog(@"Cache path = %@", cachePath);
-    [self.webView loadHTMLString:self.tipModel.answer baseURL:[NSURL URLWithString:cachePath]];
+    
+    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: 320px; word-wrap: break-word\"> %@ </div>",self.tipModel.answer];
+    [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
 }
+
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
