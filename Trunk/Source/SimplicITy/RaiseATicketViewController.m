@@ -533,6 +533,15 @@
     medium = (UILabel *)[impactCell viewWithTag:20];
     high = (UILabel *)[impactCell viewWithTag:30];
     critical = (UILabel *)[impactCell viewWithTag:40];
+   
+    
+    low.font=[self customFont:14 ofName:MuseoSans_300];
+    medium.font=[self customFont:14 ofName:MuseoSans_300];
+    high.font=[self customFont:14 ofName:MuseoSans_300];
+    critical.font=[self customFont:14 ofName:MuseoSans_300];
+   
+    
+    
     
     slider.value = roundf(slider.value);
     
