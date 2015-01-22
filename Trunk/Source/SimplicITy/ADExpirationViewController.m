@@ -39,8 +39,7 @@
         {
             cropID = (NSString *)serverConfig[@"corpID"];
         }
-        NSString *urlString = [TEST_URL stringByAppendingFormat:@"G800189"];
-        //    NSString *urlString = TEST_URL_2;
+        NSString *urlString = [TEST_URL stringByAppendingString:cropID];
         
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *req = [NSURLRequest requestWithURL:url];
@@ -173,10 +172,11 @@
     
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     
+    NSLog(@"%@",json);
+
     NSString *dateInString = json[@"password-expires"];
     
     NSDate *passwordExpiresDate = [formater dateFromString:dateInString];
-    
     
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:currentDate toDate:passwordExpiresDate options:0];
     
@@ -191,7 +191,6 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
 }
 
 

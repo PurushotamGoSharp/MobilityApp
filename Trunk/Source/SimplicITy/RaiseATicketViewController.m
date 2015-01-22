@@ -21,6 +21,13 @@
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
+#define ALERT_FOR_ORDER_SAVED @"Your Order has been saved !"
+#define ALERT_FOR_TICKET_SAVED @"Your Ticket has been saved !"
+#define ALERT_FOR_SELECT_ITEM_VALIDATION @"Select an item.\n"
+#define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Select a service.\n"
+#define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Give details about request."
+
+
 @interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate, UIAlertViewDelegate>
 {
     CGPoint initialOffsetOfSCrollView;
@@ -203,11 +210,11 @@
 
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
     {
-        alertMessage = @"Your Order has been saved !";
+        alertMessage = ALERT_FOR_ORDER_SAVED;
     }
     else
     {
-        alertMessage = @"Your Ticket has been saved !";
+        alertMessage = ALERT_FOR_TICKET_SAVED;
     }
     
     UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!" message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -225,10 +232,10 @@
     {
         if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
         {
-            [alertMessages addObject:@"# Select an item.\n"];
+            [alertMessages addObject:ALERT_FOR_SELECT_ITEM_VALIDATION];
         }else
         {
-            [alertMessages addObject:@"# Select an service.\n"];
+            [alertMessages addObject:ALERT_FOR_SELECT_SERVICE_VALIDATION];
         }
         
         valid = NO;
@@ -236,7 +243,7 @@
     
     if (self.textView.text.length == 0)
     {
-        [alertMessages addObject:@"# Give details about request."];
+        [alertMessages addObject:ALERT_FOR_SELECT_DETAIL_VALIDATION];
         valid = NO;
     }
     
@@ -244,7 +251,7 @@
     {
         NSString *alertMessage = [alertMessages componentsJoinedByString:@" "];
         
-        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Alert"
                                                                message:alertMessage
                                                               delegate:nil
                                                      cancelButtonTitle:@"OK"
