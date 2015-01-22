@@ -31,7 +31,7 @@
     AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
     
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     [requestSerializer setValue:@"G800189" forHTTPHeaderField:@"x-cropid"];
     [requestSerializer setValue:@"test.mailadminbraexcap0112@ucb.com" forHTTPHeaderField:@"x-emailid"];
