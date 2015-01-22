@@ -459,15 +459,15 @@
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBT-Lz-n5A">
                                 <rect key="frame" x="35" y="215" width="250" height="140"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="657-ge-pqu">
-                                        <rect key="frame" x="15" y="5" width="50" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Desks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="657-ge-pqu">
+                                        <rect key="frame" x="69" y="5" width="112" height="21"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xle-dc-3iP">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Xle-dc-3iP">
                                         <rect key="frame" x="0.0" y="30" width="250" height="80"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="guT-iC-hQ3">
@@ -476,21 +476,19 @@
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="guT-iC-hQ3" id="mk0-oz-PGH">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="grA-Aq-ATD">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Call" translatesAutoresizingMaskIntoConstraints="NO" id="z56-eq-Lx5">
                                                             <rect key="frame" x="0.0" y="1" width="250" height="42"/>
-                                                            <color key="backgroundColor" red="0.85092474489795922" green="0.85092474489795922" blue="0.85092474489795922" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </view>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgL-JK-ZtL">
                                                             <rect key="frame" x="52" y="12" width="190" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="call" translatesAutoresizingMaskIntoConstraints="NO" id="dF4-Nk-L33">
-                                                            <rect key="frame" x="8" y="7" width="30" height="30"/>
-                                                        </imageView>
                                                     </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </tableViewCell>
                                         </prototypes>
@@ -505,6 +503,8 @@
                                     <constraint firstAttribute="height" constant="140" id="2Pr-tl-JOS"/>
                                     <constraint firstItem="Xle-dc-3iP" firstAttribute="top" secondItem="aBT-Lz-n5A" secondAttribute="top" constant="30" id="7Ml-R9-247"/>
                                     <constraint firstItem="Xle-dc-3iP" firstAttribute="leading" secondItem="aBT-Lz-n5A" secondAttribute="leading" id="8Zg-qb-JIn"/>
+                                    <constraint firstAttribute="centerX" secondItem="657-ge-pqu" secondAttribute="centerX" id="KAc-HM-xN5"/>
+                                    <constraint firstItem="657-ge-pqu" firstAttribute="top" secondItem="aBT-Lz-n5A" secondAttribute="top" constant="5" id="ge1-hu-PYZ"/>
                                     <constraint firstAttribute="width" constant="250" id="iSZ-6V-HHk"/>
                                     <constraint firstAttribute="trailing" secondItem="Xle-dc-3iP" secondAttribute="trailing" id="pid-FO-7fW"/>
                                     <constraint firstAttribute="bottom" secondItem="Xle-dc-3iP" secondAttribute="bottom" constant="30" id="rlG-0j-ADb"/>
@@ -552,6 +552,7 @@
                         <outlet property="profileViewHeightConstraint" destination="ewW-zv-gVD" id="DgP-Jv-HM9"/>
                         <outlet property="profileViewOutlet" destination="l1b-Pk-mKI" id="5XW-di-SL4"/>
                         <outlet property="profileViewTopConstraint" destination="fIi-Kf-0I8" id="hCm-p8-jL9"/>
+                        <outlet property="serviceDesksLbl" destination="657-ge-pqu" id="knS-XI-RA5"/>
                         <outlet property="tableViewOutlet" destination="Xle-dc-3iP" id="1d9-MN-W7i"/>
                         <segue destination="Fhu-W8-yuL" kind="modal" identifier="serviceDeskNum_Segue" id="90K-JC-zqq"/>
                     </connections>
@@ -1907,31 +1908,22 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Describe your request here." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBd-sg-JhZ">
-                                                    <rect key="frame" x="12" y="15" width="190" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Describe your request here." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBd-sg-JhZ">
+                                                    <rect key="frame" x="16" y="8" width="190" height="104"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-FG-5mf">
-                                                    <rect key="frame" x="12" y="2" width="292" height="111"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="VHL-FG-5mf" firstAttribute="top" secondItem="Cs6-qy-YTJ" secondAttribute="top" constant="2" id="A1x-GI-ito"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hBd-sg-JhZ" secondAttribute="trailing" constant="20" id="BbK-2O-z6x"/>
                                                 <constraint firstAttribute="bottom" secondItem="Oxd-W3-H5H" secondAttribute="bottom" constant="1" id="CPi-Jn-1EX"/>
                                                 <constraint firstItem="Oxd-W3-H5H" firstAttribute="leading" secondItem="Cs6-qy-YTJ" secondAttribute="leading" id="LNc-Ml-avI"/>
                                                 <constraint firstItem="Oxd-W3-H5H" firstAttribute="top" secondItem="Cs6-qy-YTJ" secondAttribute="top" id="Lsd-7T-J7F"/>
-                                                <constraint firstAttribute="bottom" secondItem="VHL-FG-5mf" secondAttribute="bottom" constant="7" id="QtH-Jw-ndR"/>
-                                                <constraint firstItem="hBd-sg-JhZ" firstAttribute="top" secondItem="Cs6-qy-YTJ" secondAttribute="top" constant="15" id="m2w-SN-cBM"/>
-                                                <constraint firstAttribute="trailing" secondItem="VHL-FG-5mf" secondAttribute="trailing" constant="16" id="nVT-4K-YKZ"/>
-                                                <constraint firstItem="VHL-FG-5mf" firstAttribute="leading" secondItem="Cs6-qy-YTJ" secondAttribute="leading" constant="12" id="oom-fB-H8K"/>
-                                                <constraint firstItem="hBd-sg-JhZ" firstAttribute="leading" secondItem="Cs6-qy-YTJ" secondAttribute="leading" constant="12" id="stX-So-U0X"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hBd-sg-JhZ" secondAttribute="bottom" id="Tf3-At-Skc"/>
+                                                <constraint firstItem="hBd-sg-JhZ" firstAttribute="leading" secondItem="Cs6-qy-YTJ" secondAttribute="leadingMargin" constant="8" id="hG5-c6-fMD"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="hBd-sg-JhZ" secondAttribute="trailing" constant="10" id="pvW-En-Mr7"/>
+                                                <constraint firstItem="hBd-sg-JhZ" firstAttribute="top" secondItem="Cs6-qy-YTJ" secondAttribute="topMargin" id="rj2-dz-UTJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="Oxd-W3-H5H" secondAttribute="trailing" id="yeY-UG-qNO"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -3054,6 +3046,7 @@
     <resources>
         <image name="Avatar" width="64" height="64"/>
         <image name="BadgeIcon" width="20" height="20"/>
+        <image name="Call" width="250" height="42"/>
         <image name="Clock" width="16" height="16"/>
         <image name="Email-Closed-Green" width="50" height="51"/>
         <image name="FeatureWillBeComingSoonImage" width="175" height="89"/>

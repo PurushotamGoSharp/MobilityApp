@@ -55,6 +55,7 @@
 @property (weak, nonatomic) IBOutlet UIView *alphaViewOutlet;
 @property (weak, nonatomic) IBOutlet UIView *containerViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *serviceDesksLbl;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *popOverHeightConst;
 @end
@@ -120,6 +121,8 @@
     self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
     self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
     
+    self.serviceDesksLbl.font = [self customFont:18 ofName:MuseoSans_700];
+    
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
 
@@ -161,6 +164,24 @@
         {
             [self tryToGetITServicePhoneNum];
         }
+    }
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    {
+        case 0:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
+            break;
+        case 1:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.97 green:.84 blue:.76 alpha:1];
+            break;
+        case 2:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
+            break;
+        case 3:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.86 green:.91 blue:.79 alpha:1];
+            break;
+        default:
+            break;
     }
 }
 
@@ -309,7 +330,6 @@
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
-    
         NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM location WHERE countryCode = '%@'", countryCode];
     
 //    NSString *queryString = @"SELECT * FROM location WHERE countryCode = '%@'";
@@ -465,11 +485,7 @@
         
     }else
     {
-        NSDictionary *dict = [selectedLocation.serviceDeskNumber lastObject];
-        NSString *phoneNo = dict[@"Number"];
-        phoneNo = [@"tel://" stringByAppendingString:phoneNo];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
-        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
     }
 }
 
@@ -522,33 +538,49 @@
         self.containerViewOutlet.hidden = YES;
     }];
 
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
     
-    NSDictionary *dict = selectedLocation.serviceDeskNumber[indexPath.row];
-    NSString *phoneNo = dict[@"Number"];
-    
-    //    // Input
-    //    NSString *originalString = @"This is my string. #1234";
-    //
-    //    // Intermediate
-    //    NSString *numberString;
-    //
-    //    NSScanner *scanner = [NSScanner scannerWithString:originalString];
-    //    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"+0123456789"];
-    //
-    //    // Throw away characters before the first number.
-    //    [scanner scanUpToCharactersFromSet:numbers intoString:NULL];
-    //
-    //    // Collect numbers.
-    //    [scanner scanCharactersFromSet:numbers intoString:&numberString];
-    
-    
-    
-    phoneNo = [@"tel://" stringByAppendingString:phoneNo];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNo]];
+    NSLog(@"%@", [self phoneNumValidation]);
+
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     
+}
+
+-(NSString*)phoneNumValidation
+{
+
+    
+    
+    NSIndexPath *indexpath = [self.tableViewOutlet indexPathForSelectedRow];
+    
+     NSDictionary *dict = selectedLocation.serviceDeskNumber[indexpath.row];
+    
+    NSString *phoneNoFromDict = dict[@"Number"];
+    
+    
+    NSMutableString *phoneNoToCall = [NSMutableString
+                                      stringWithCapacity:phoneNoFromDict.length];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:phoneNoFromDict];
+    NSCharacterSet *numbers = [NSCharacterSet
+                               characterSetWithCharactersInString:@"+0123456789"];
+    
+    while ([scanner isAtEnd] == NO) {
+        NSString *buffer;
+        if ([scanner scanCharactersFromSet:numbers intoString:&buffer])
+        {
+            [phoneNoToCall appendString:buffer];
+        } else {
+            [scanner setScanLocation:([scanner scanLocation] + 1)];
+        }
+    }
+    
+//    NSLog(@"%@", phoneNoToCall); // "123123123"
+    phoneNoToCall = [[@"tel://" stringByAppendingString:phoneNoToCall] mutableCopy];
+    return phoneNoToCall;
+
 }
 
 - (void)adjustHeightOfPopOverView
