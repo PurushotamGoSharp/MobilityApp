@@ -17,6 +17,7 @@
 #import "DBManager.h"
 #import "RequestModel.h"
 #import "UserInfo.h"
+#import "SendRequestsManager.h"
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
@@ -41,8 +42,10 @@
     UISlider *sliderOutlet;
     
     BOOL serviceIsSelected;
+    BOOL saveButtonIsPressed;
     
     NSDateFormatter *dateFormatter;
+    RequestModel *currentRequest;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -203,9 +206,17 @@
     {
         return;
     }
-    [self saveEntriesLocallyForRequest:[self requestForCurrentValues]];
+    
+    saveButtonIsPressed = YES;
+    
+    currentRequest = [self requestForCurrentValues];
+    [self saveEntriesLocallyForRequest:currentRequest];
     [self resetForms];
     
+    [[SendRequestsManager sharedManager] authenticateServer];
+    [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest];
+    
+    saveButtonIsPressed = NO;
     NSString *alertMessage;
 
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
@@ -217,7 +228,12 @@
         alertMessage = ALERT_FOR_TICKET_SAVED;
     }
     
-    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!" message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
+                                                            message:alertMessage
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+    
     saveAlestView.delegate= self;
     [saveAlestView show];
 }
@@ -748,6 +764,16 @@
         
         categoriesArr = [self parseResponseData:data];
     }
+}
+
+- (void)DBMAnager:(DBManager *)manager savedSuccessfullyWithID:(NSInteger)lastID
+{
+    if (saveButtonIsPressed)
+    {
+        currentRequest.requestLocalID = lastID;
+    }
+    
+    NSLog(@"Last ID %li",(long)lastID);
 }
 
 @end

@@ -180,9 +180,6 @@
 //        CGSize lableSize = [titleTextView.text sizeWithFont:titleTextView.font constrainedToSize:titleTextView.frame.size lineBreakMode:NSLineBreakByWordWrapping];
 //        
 //        CGFloat lableHight = lableSize.height;
-        
-
-        
 
     }
     else

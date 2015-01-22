@@ -341,11 +341,14 @@
         
         NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
         request.requestDate = [converter dateFromString:dateInString];
+        
+        const char *incidentNo = (const char *)sqlite3_column_text(statment, 7);
+        if (incidentNo != NULL)
+        {
+            request.requestIncidentNo = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 7)];
+        }
         [arrayOfData addObject:request];
     }
 }
-
-
-
 
 @end

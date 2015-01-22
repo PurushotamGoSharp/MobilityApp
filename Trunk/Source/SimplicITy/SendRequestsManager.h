@@ -7,9 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RequestModel.h"
 
 @interface SendRequestsManager : NSObject
 
 + (instancetype)sharedManager;
+- (void)sendRequestsToServer;
+- (void)authenticateServer;
+- (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel;
 
 @end

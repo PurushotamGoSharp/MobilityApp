@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "Postman.h"
+#import "SendRequestsManager.h"
+
 @interface ViewController () <UITextFieldDelegate, postmanDelegate>
 @property (weak, nonatomic) IBOutlet UIView *userNameContainer;
 @property (weak, nonatomic) IBOutlet UIView *passwordContainer;
@@ -47,10 +49,7 @@
     
     centerOfContainer = self.conatinerForTxtAndBtn.center;
     initialLoginViewBottomCons = self.loginViewBottomConst.constant;
-    
-    
 }
-
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -67,10 +66,7 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     
-    NSString *str = @"{\"firstName\": \"Marc\",\"lastName\": \"Van Cutsem\", \"impact\": \"low\", \"service\": \"mobility\", \"description\": \"Bibendum porta iaculis ante mollis malesuada Est dolor hymenaeos eu dapibus, placerat facilisis iaculis ligula curabitur metus in hymenaeos dui. Justo volutpat ad sociosqu Litora maecenas magna metus tortor. Nunc cubilia facilisi magna quam dis pretium orci diam inceptos magnis dapibus mus. Potenti torquent sapien. Vivamus nonummy proin. Mi elementum. Suscipit co\"}";
-    Postman *po = [[Postman alloc] init];
-    po.delegate = self;
-    [po UCB_post:@"https://simplicity-dev.ucb.com/itsm/ticket/" withParameters:str];
+//    [[SendRequestsManager sharedManager] sendRequestsToServer];
 }
 
 

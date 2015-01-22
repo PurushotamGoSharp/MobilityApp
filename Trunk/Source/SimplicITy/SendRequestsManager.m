@@ -12,6 +12,9 @@
 #import "RequestModel.h"
 #import "Postman.h"
 
+
+#define TEST_URL_2 @"https://simplicity-dev.ucb.com/itsm"
+
 @interface SendRequestsManager () <DBManagerDelegate, postmanDelegate>
 
 @end
@@ -93,7 +96,13 @@
     operationQueue = [[NSOperationQueue alloc] init];
     [operationQueue setMaxConcurrentOperationCount:1];
     
-    [arrayOfRequestsToBeSend removeAllObjects];
+    if (arrayOfRequestsToBeSend)
+    {
+        [arrayOfRequestsToBeSend removeAllObjects];
+    }else
+    {
+        arrayOfRequestsToBeSend = [[NSMutableArray alloc] init];
+    }
     
     NSString *queryString =  @"SELECT * FROM raisedTickets where syncFlag = 0";
     [dbManager getDataForQuery:queryString];
@@ -101,7 +110,32 @@
     //    queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
     //    [dbManager getDataForQuery:queryString];
     
+    [self authenticateServer];
     [self startSendingRequests];
+    
+}
+
+- (void)authenticateServer
+{
+    NSString *urlString = TEST_URL_2;
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"Success %@", [operation responseString]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Failer%@", [operation responseString]);
+        NSLog(@"%@", error);
+        
+    }];
+    
+    [self setAuthenticationBlockForOperation:operation];
+    [operationQueue addOperation:operation];
 }
 
 - (void)startSendingRequests
@@ -112,11 +146,15 @@
     {
         [self sendRequestSyncronouslyForRequest:aRequest];
     }
-    
 }
 
 - (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel
 {
+    if ([requestModel.requestType isEqualToString:@"ORDER"])
+    {
+        return;
+    }
+    
     NSData *parameter = [self parameterForRequest:requestModel];
     NSURL *URL = [NSURL URLWithString:RAISE_A_TICKET_API];
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
@@ -133,12 +171,13 @@
             NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseObject
                                                                     options:kNilOptions
                                                                       error:&JSONError];
-            if (JSONError != nil)
+            if (JSONDict)
             {
                 NSString *incidentNo = JSONDict[@"Incident_Number"];
                 
                 if (incidentNo != nil)
                 {
+                    NSLog(@"Incident_Number %@", incidentNo);
                     requestModel.requestIncidentNo = incidentNo;
                     [self updateLocalDBForRequest:requestModel];
                     
@@ -154,61 +193,45 @@
                 }
             }else
             {
-                NSLog(@"JSON parsing error");
+                NSLog(@"JSON parsing error %@", [[NSString alloc] initWithData:responseObject
+                                                                      encoding:NSUTF8StringEncoding]);
             }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        NSLog(@"Error : %@", error);
     }];
     
+    [self setAuthenticationBlockForOperation:operation];
     [operationQueue addOperation:operation];
-    
-    
-    //    NSURLResponse *URLresponse = nil;
-    //    NSError *error = nil;
-    //
-    //    NSData *responseData =[NSURLConnection sendSynchronousRequest:URLRequest
-    //                                                returningResponse:&URLresponse
-    //                                                            error:&error];
-    //    if (error != nil)
-    //    {
-    //        if (responseData)
-    //        {
-    //            NSError *JSONError;
-    //            NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseData
-    //                                                                    options:kNilOptions
-    //                                                                      error:&JSONError];
-    //            if (JSONError != nil)
-    //            {
-    //                NSString *incidentNo = JSONDict[@"Incident_Number"];
-    //
-    //                if (incidentNo != nil)
-    //                {
-    //                    requestModel.requestIncidentNo = incidentNo;
-    //                    [self updateLocalDBForRequest:requestModel];
-    //
-    //                    dispatch_async(dispatch_get_main_queue(), ^{
-    //
-    //                        [self updateUI];
-    //
-    //                    });
-    //
-    //                }else
-    //                {
-    //                    NSLog(@"Error: Inident no is nil");
-    //                }
-    //            }else
-    //            {
-    //                NSLog(@"JSON parsing error");
-    //            }
-    //        }
-    //
-    //    }else
-    //    {
-    //        NSLog(@"Failure for %@", [[NSString alloc] initWithData:parameter
-    //                                                       encoding:NSUTF8StringEncoding]);
-    //    }
+}
+
+- (void)setAuthenticationBlockForOperation:(AFHTTPRequestOperation *)operation
+{
+    [operation setWillSendRequestForAuthenticationChallengeBlock:^(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge) {
+        
+        NSString *certPath = [[NSBundle mainBundle] pathForResource:@"cert" ofType:@"p12"];
+        NSData *certData = [[NSData alloc] initWithContentsOfFile:certPath];
+        
+        SecIdentityRef identity = NULL;
+        SecCertificateRef certificate = NULL;
+        
+        [self identity:&identity
+        andCertificate:&certificate
+          forPKC12Data:certData
+        withPassphrase:@"test"];
+        
+        NSURLCredential *credential = [NSURLCredential credentialWithIdentity:identity
+                                                                 certificates:@[(__bridge id)certificate] persistence:NSURLCredentialPersistencePermanent];
+        if (credential)
+        {
+            [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
+        }else
+        {
+            NSLog(@"Error in credential");
+        }
+        
+    }];
 }
 
 - (void)updateLocalDBForRequest:(RequestModel *)requestModel
@@ -246,8 +269,50 @@
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:dict
                                                        options:kNilOptions
                                                          error:nil];
-    
     return JSONData;
+}
+
+- (void)identity:(SecIdentityRef *)identity andCertificate:(SecCertificateRef *)certificate forPKC12Data:(NSData *)certData withPassphrase:(NSString *)passphrase
+{
+    // bridge the import data to foundation objects
+    CFStringRef importPassphrase = (__bridge CFStringRef)passphrase;
+    CFDataRef importData = (__bridge CFDataRef)certData;
+    
+    // create dictionary of options for the PKCS12 import
+    const void *keys[] = { kSecImportExportPassphrase };
+    const void *values[] = { importPassphrase };
+    CFDictionaryRef importOptions = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
+    
+    // create array to store our import results
+    CFArrayRef importResults = CFArrayCreate(NULL, 0, 0, NULL);
+    OSStatus pkcs12ImportStatus = errSecSuccess;
+    pkcs12ImportStatus = SecPKCS12Import(importData, importOptions, &importResults);
+    
+    // check if import was successful
+    if (pkcs12ImportStatus == errSecSuccess)
+    {
+        CFDictionaryRef identityAndTrust = CFArrayGetValueAtIndex (importResults, 0);
+        
+        // retrieve the identity from the certificate imported
+        const void *tempIdentity = NULL;
+        tempIdentity = CFDictionaryGetValue (identityAndTrust, kSecImportItemIdentity);
+        *identity = (SecIdentityRef)tempIdentity;
+        
+        // extract the certificate from the identity
+        SecCertificateRef tempCertificate = NULL;
+        OSStatus certificateStatus = errSecSuccess;
+        certificateStatus = SecIdentityCopyCertificate (*identity, &tempCertificate);
+        *certificate = (SecCertificateRef)tempCertificate;
+    }else
+    {
+        NSLog(@"Status is %d", (int)pkcs12ImportStatus);
+    }
+    
+    // clean up
+    if (importOptions)
+    {
+        CFRelease(importOptions);
+    }
 }
 
 #pragma mark
