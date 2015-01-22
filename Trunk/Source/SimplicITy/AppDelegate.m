@@ -67,6 +67,9 @@
     
      [UAPush shared].userPushNotificationsEnabled = YES;
     
+//    [[UAPush shared] addTag:@"a_tag"];
+//    [[UAPush shared] updateRegistration];
+    
 
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor],}
@@ -125,6 +128,12 @@
 - (void)setTabsWithColorIndex:(NSInteger)colorIndex
 {
     
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    UA_LTRACE(@"Application registered for remote notifications with device token: %@", deviceToken);
+    [[UAPush shared] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
