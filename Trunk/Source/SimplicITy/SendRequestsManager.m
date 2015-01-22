@@ -96,13 +96,13 @@
 
 - (void)startSendingRequests
 {
-    
     //Get background queue and call methods one after another (synchronously)
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         for (RequestModel *aRequest in arrayOfRequestsToBeSend)
         {
             NSString *parameter = [self parameterForRequest:aRequest];
+            
         }
         
     });
