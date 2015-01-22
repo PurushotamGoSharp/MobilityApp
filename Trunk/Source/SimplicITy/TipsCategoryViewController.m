@@ -233,13 +233,13 @@
         {
             [tipscategoryArray addObject:aDict[@"Name"]];
             
-            if (update || [[NSUserDefaults standardUserDefaults] boolForKey:@"tips"])
-            {
-                    NSString *tipscategoryCode = aDict[@"Code"];
-                    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    NSString *subCategoryURL = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, tipscategoryCode];
-                    [postMan get:subCategoryURL];
-            }
+//            if (update || [[NSUserDefaults standardUserDefaults] boolForKey:@"tips"])
+//            {
+//                    NSString *tipscategoryCode = aDict[@"Code"];
+//                    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//                    NSString *subCategoryURL = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, tipscategoryCode];
+//                    [postMan get:subCategoryURL];
+//            }
         }
     }
     

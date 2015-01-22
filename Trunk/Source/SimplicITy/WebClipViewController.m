@@ -256,7 +256,7 @@
     }
 }
 
--(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     if (sqlite3_step(statment) == SQLITE_ROW)
     {

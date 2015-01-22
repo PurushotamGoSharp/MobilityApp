@@ -110,6 +110,7 @@
 		86783D351A5FE7600094CB9E /* SeedSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 86783D341A5FE7600094CB9E /* SeedSync.m */; };
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
+		867EBD601A6FAC7D00B5DD2E /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 867EBD5F1A6FA69800B5DD2E /* cert.p12 */; };
 		86848E101A56721A0063E433 /* CustomAFRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */; };
 		86848E131A56C47E0063E433 /* CustomURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E121A56C47E0063E433 /* CustomURLCache.m */; };
 		869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */; };
@@ -405,6 +406,7 @@
 		86783D341A5FE7600094CB9E /* SeedSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeedSync.m; sourceTree = "<group>"; };
 		867B19B91A40126700462CA4 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
 		867B19BA1A40126700462CA4 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
+		867EBD5F1A6FA69800B5DD2E /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAFRequestOperationManager.h; sourceTree = "<group>"; };
 		86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAFRequestOperationManager.m; sourceTree = "<group>"; };
 		86848E111A56C47E0063E433 /* CustomURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomURLCache.h; sourceTree = "<group>"; };
@@ -1043,6 +1045,7 @@
 		86848E0C1A5671AF0063E433 /* PostMan Classes */ = {
 			isa = PBXGroup;
 			children = (
+				867EBD5F1A6FA69800B5DD2E /* cert.p12 */,
 				8623D5BC1A5417840022A370 /* Postman.h */,
 				8623D5BA1A5417800022A370 /* Postman.m */,
 				86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */,
@@ -1180,6 +1183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				867EBD601A6FAC7D00B5DD2E /* cert.p12 in Resources */,
 				86B5A96E1A4D4713009018AD /* MuseoSans-100.otf in Resources */,
 				864532C21A5A661D00A656A3 /* UAPushSettingsAliasView.xib in Resources */,
 				86B5A96F1A4D4713009018AD /* MuseoSans-300.otf in Resources */,
