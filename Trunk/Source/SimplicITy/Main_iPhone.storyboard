@@ -968,8 +968,14 @@
                                                     <color key="textColor" red="0.57820991850000003" green="0.57820991850000003" blue="0.57820991850000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="500" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oA-10-ceR">
+                                                    <rect key="frame" x="19" y="45" width="7" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hit-mE-xGr">
-                                                    <rect key="frame" x="13" y="45" width="36" height="15"/>
+                                                    <rect key="frame" x="39" y="45" width="36" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -982,12 +988,13 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="lZw-vn-VKK" secondAttribute="trailing" constant="8" id="0B2-gR-0mq"/>
                                                 <constraint firstAttribute="bottom" secondItem="T4w-oS-ChU" secondAttribute="bottom" constant="7" id="115-Iv-kID"/>
-                                                <constraint firstItem="Hit-mE-xGr" firstAttribute="leading" secondItem="rlH-5K-RqG" secondAttribute="trailing" constant="8" id="8Vl-PD-qnC"/>
+                                                <constraint firstItem="Hit-mE-xGr" firstAttribute="leading" secondItem="2oA-10-ceR" secondAttribute="trailing" constant="13" id="5Bf-od-JVQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Hit-mE-xGr" secondAttribute="bottom" constant="-1" id="8Yn-qt-7LO"/>
                                                 <constraint firstAttribute="trailing" secondItem="94r-Ie-h63" secondAttribute="trailing" constant="-33" id="HzA-Qd-cv7"/>
                                                 <constraint firstAttribute="bottom" secondItem="94r-Ie-h63" secondAttribute="bottom" constant="1" id="IWK-Lq-Gf5"/>
-                                                <constraint firstItem="T4w-oS-ChU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hit-mE-xGr" secondAttribute="trailing" constant="4" id="NKX-1T-8tg"/>
                                                 <constraint firstItem="rlH-5K-RqG" firstAttribute="top" secondItem="BR8-NK-Or1" secondAttribute="top" id="Nwf-dJ-7n2"/>
                                                 <constraint firstAttribute="trailing" secondItem="zFg-yD-M3R" secondAttribute="trailing" constant="8" id="Sey-kf-VB9"/>
+                                                <constraint firstItem="2oA-10-ceR" firstAttribute="leading" secondItem="BR8-NK-Or1" secondAttribute="leadingMargin" constant="11" id="TLd-38-Hcg"/>
                                                 <constraint firstItem="zFg-yD-M3R" firstAttribute="leading" secondItem="T4w-oS-ChU" secondAttribute="trailing" constant="4" id="TNu-ni-mrz"/>
                                                 <constraint firstItem="xnD-XQ-hUr" firstAttribute="top" secondItem="lZw-vn-VKK" secondAttribute="bottom" constant="2" id="Uly-9a-WOF"/>
                                                 <constraint firstItem="lZw-vn-VKK" firstAttribute="leading" secondItem="rlH-5K-RqG" secondAttribute="trailing" constant="8" id="YAE-Xg-w4p"/>
@@ -997,8 +1004,8 @@
                                                 <constraint firstItem="lZw-vn-VKK" firstAttribute="top" secondItem="BR8-NK-Or1" secondAttribute="top" constant="4" id="gaL-gv-U8o"/>
                                                 <constraint firstItem="94r-Ie-h63" firstAttribute="leading" secondItem="BR8-NK-Or1" secondAttribute="leading" id="hbx-Ps-ubG"/>
                                                 <constraint firstItem="94r-Ie-h63" firstAttribute="top" secondItem="BR8-NK-Or1" secondAttribute="top" id="iIJ-qH-WH6"/>
-                                                <constraint firstItem="Hit-mE-xGr" firstAttribute="top" secondItem="xnD-XQ-hUr" secondAttribute="bottom" constant="2" id="lNj-DL-Bzq"/>
                                                 <constraint firstItem="rlH-5K-RqG" firstAttribute="leading" secondItem="BR8-NK-Or1" secondAttribute="leading" id="mkD-Ox-lXb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2oA-10-ceR" secondAttribute="bottom" constant="-1" id="onF-MK-8Y0"/>
                                                 <constraint firstItem="bji-OO-gH7" firstAttribute="leading" secondItem="rlH-5K-RqG" secondAttribute="trailing" constant="7" id="u1d-fb-c2g"/>
                                                 <constraint firstItem="xnD-XQ-hUr" firstAttribute="leading" secondItem="bji-OO-gH7" secondAttribute="trailing" constant="3" id="yUd-nz-lko"/>
                                             </constraints>
@@ -1041,7 +1048,7 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ma-09-4Cp">
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ma-09-4Cp">
                                                             <rect key="frame" x="128" y="9" width="21" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                             <color key="textColor" red="0.77114556759999997" green="0.1532588087" blue="0.024688299019999999" alpha="1" colorSpace="calibratedRGB"/>
