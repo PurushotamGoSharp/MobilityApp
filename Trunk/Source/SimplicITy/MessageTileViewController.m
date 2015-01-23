@@ -38,9 +38,9 @@
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
     
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 40);
+    back.frame = CGRectMake(0, 0,80, 30);
     
     //    back imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, <#CGFloat right#>);
     
