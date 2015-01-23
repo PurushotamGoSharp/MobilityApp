@@ -480,7 +480,7 @@
     {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         header.text = @"Requester";
-        lable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohier";
+        lable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohler";
     }else
     {
         header.text = @"Impact";
