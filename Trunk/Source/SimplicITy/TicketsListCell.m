@@ -33,7 +33,6 @@
     self.agentAssignedLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
     self.timeLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
     self.currentStatusLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
