@@ -11,7 +11,7 @@
 #define TEST_URL @"https://simplicity-dev.ucb.com/ad/account-status/id/"
 #import <MBProgressHUD/MBProgressHUD.h>
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
-
+#define IPHONE_6_CROPID  @"G800189"
 
 @interface ADExpirationViewController () <NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *passwordToolLabel;
@@ -35,11 +35,15 @@
         static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
         serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
         NSString *cropID;
+        NSString *urlString;
         if (serverConfig != nil)
         {
             cropID = (NSString *)serverConfig[@"corpID"];
+           urlString = [TEST_URL stringByAppendingString:cropID];
+        }else
+        {
+            urlString = [TEST_URL stringByAppendingString:IPHONE_6_CROPID];
         }
-        NSString *urlString = [TEST_URL stringByAppendingString:cropID];
         
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *req = [NSURLRequest requestWithURL:url];
@@ -50,7 +54,11 @@
     }
     else
     {
-        self.numOfDaysLeftLbl.text = [[NSUserDefaults standardUserDefaults] objectForKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+//        self.numOfDaysLeftLbl.text = [[NSUserDefaults standardUserDefaults] objectForKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+        
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. For checking \"Days Left  for Password Expiry\" Internet connection is required" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noNetworkAlert show];
+
     }
 
     
@@ -142,8 +150,6 @@
     [self parseresponseData:data];
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    
-    
 }
 
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace
@@ -189,8 +195,8 @@
     
     self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%i",daysLeft];
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 

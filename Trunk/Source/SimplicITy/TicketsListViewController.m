@@ -85,7 +85,7 @@
     self.navigationItem.leftBarButtonItem = backButton;
 
     arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
-    arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
+//    arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
     
 //    self.filterTableView.separatorColor = [self seperatorColours];
     
@@ -272,7 +272,14 @@
         statusLabel.font=[self customFont:16 ofName:MuseoSans_700];
         
         UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
-        countlabel.text = arrayOfNo[indexPath.row];
+        
+        
+//        countlabel.text = arrayOfNo[indexPath.row];
+        
+        if (indexPath.row == 0)
+        {
+            countlabel.text =[NSString stringWithFormat:@"%i",[arrayOfData count]];
+        }
         countlabel.font=[self customFont:16 ofName:MuseoSans_700];
         
 

@@ -72,7 +72,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 5;
+        return 6;
 
     }else if (section == 1)
     {
@@ -112,7 +112,8 @@
     
     if (section == 0)
     {
-        
+
+
     }else if (section == 1)
     {
         if ([self.orderItemDifferForList isEqualToString:@"orderList"])
@@ -161,7 +162,20 @@
     circelColour.layer.cornerRadius = 10;
     titleLable.textColor = [UIColor blackColor];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 1)
+    {
+//        if (indexPath.row == 1)
+//        {
+//            if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+//            {
+//                titleLable.text = @"Order Number";
+//            }else
+//            {
+//                titleLable.text = @"Ticket Number";
+//            }
+//        }
+     
+        
         titleLable.text = self.requestModel.requestServiceName;
         rightTable.text = @"";
         titleLable.font=[self customFont:16 ofName:MuseoSans_300];
@@ -186,7 +200,23 @@
     {
         switch (indexPath.row)
         {
+                
             case 0:
+            {
+                if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+                {
+                    titleLable.text = @"Order Number";
+
+                }else
+                {
+                    titleLable.text = @"Ticket Number";
+                }
+                
+                rightTable.text = @"";
+            }
+                break;
+
+            case 1:
             {
                 titleLable.text = @"Requester";
                 rightTable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohier";;
@@ -195,7 +225,7 @@
                 
                 break;
                 
-            case 1:
+            case 2:
             {
                 titleLable.text = @"Impact";
                 rightTable.text = [self giveImpactForCOlor:self.requestModel.requestImpact];
@@ -204,7 +234,7 @@
                 
             }
                 break;
-            case 2:
+            case 3:
             {
                 titleLable.text = @"Agent";
 //                rightTable.text = self.tickModel.agentName;
@@ -212,20 +242,21 @@
                 
             }
                 break;
-            case 3:
+            case 4:
             {
                 titleLable.text = @"Status";
 //                rightTable.text = self.tickModel.currentStatus;
                 rightTable.text = @"";
             }
                 break;
-            case 4:
+            case 5:
             {
                 
                 titleLable.text = @"Date";
 //                rightTable.text = self.tickModel.date;
                 rightTable.text = [dateFormatter stringFromDate:self.requestModel.requestDate];
             }
+
                 break;
             default:
                 break;
