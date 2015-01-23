@@ -134,6 +134,7 @@
         
         [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
     }else
     {
         [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:@"SelectedLocationCode"];
@@ -144,7 +145,6 @@
         [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -244,7 +244,6 @@
     [self parseResponseData:response];
     [self saveLocationdata:response forUrl:urlString];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
@@ -446,10 +445,6 @@
     }
     
     NSLog(@"country %@",selectedLocation.serviceDeskNumber);
-    
-
-
-
     
     if (selectedLocation.serviceDeskNumber.count > 1 )
     {
