@@ -188,12 +188,12 @@
     
     NSLog(@"Password Expires Date is %@ and current Date is %@",passwordExpiresDate,currentDate);
     
-    NSLog(@"The difference between from date and to date is %d days and %d hours and %d minute and %d second",components.day,components.hour,components.minute,components.second);
+    NSLog(@"The difference between from date and to date is %ld days and %ld hours and %ld minute and %ld second",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second);
     
-   int daysLeft =  MAX(0, components.day);
-    NSLog(@"%i",daysLeft);
+   NSInteger daysLeft =  MAX(0, components.day);
+    NSLog(@"%li",(long)daysLeft);
     
-    self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%i",daysLeft];
+    self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long)daysLeft];
     
     [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
     [[NSUserDefaults standardUserDefaults] synchronize];

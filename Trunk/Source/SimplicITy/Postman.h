@@ -23,7 +23,6 @@
 - (void)post:(NSString *)URLString withParameters:(NSString *)parameter;
 - (void)get:(NSString *)URLString ;
 
-- (void)UCB_post:(NSString *)URLString withParameters:(NSString *)parameter;
 
 @end
 

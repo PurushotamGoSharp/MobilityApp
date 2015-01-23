@@ -53,18 +53,13 @@
 @property (weak, nonatomic) IBOutlet PlaceHolderTextView *textView;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
-@property (weak, nonatomic) IBOutlet UIView *tipViewOutlet;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *tipsLableOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceBetweenimpactAndServiceConstant;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *spaceServiceToImpactConstant;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lowRightCOnstraint;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
 @property (weak, nonatomic) IBOutlet UILabel *detailLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *serviceTopToTableViewBottomConst;
-@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @end
 
@@ -75,7 +70,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.CategoryTitleOutlet.font=[self customFont:16 ofName:MuseoSans_700];
+    self.CategoryTitleOutlet.font = [self customFont:16 ofName:MuseoSans_700];
     self.selectedCategorylabel.font = [self customFont:16 ofName:MuseoSans_300];
     self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
     
@@ -86,8 +81,6 @@
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
-    self.spaceBetweenimpactAndServiceConstant.constant = 220;
-    self.spaceServiceToImpactConstant.constant = 2;
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
@@ -108,7 +101,6 @@
         [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
         self.title = @"Place Order";
         
-        self.tipViewOutlet.hidden = YES;
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = @"Select a item";
     }
@@ -127,6 +119,43 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"category"])
+        {
+            [self tryToUpdateCategories];
+        }else
+        {
+            [self getData];
+        }
+    }else
+    {
+        [self getData];
+    }
+    
+    if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
+        
+    }else
+    {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+    
+    initialOffsetOfSCrollView = self.scrollView.contentOffset;
+    initialScollViewInset = self.scrollView.contentInset;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    [self hideKeyboard:nil];
+}
+
 - (void)tryToUpdateCategories
 {
     [self postWithParameter:ORDER_PARAMETER];
@@ -139,12 +168,6 @@
     NSString *URLString = SEARCH_CATEGORY_API;
     
     [postMan post:URLString withParameters:parameterString];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:YES];
-    [self hideKeyboard:nil];
 }
 
 - (void)resetForms
@@ -372,39 +395,6 @@
     [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
 }
 
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"category"])
-        {
-            [self tryToUpdateCategories];
-        }else
-        {
-            [self getData];
-        }
-    }else
-    {
-        [self getData];
-    }
-    
-    if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
-    {
-        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
-        
-    }else
-    {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    }
-    
-    initialOffsetOfSCrollView = self.scrollView.contentOffset;
-    initialScollViewInset = self.scrollView.contentInset;
-}
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -566,9 +556,6 @@
     high.font=[self customFont:14 ofName:MuseoSans_300];
     critical.font=[self customFont:14 ofName:MuseoSans_300];
    
-    
-    
-    
     slider.value = roundf(slider.value);
     
     [slider setThumbImage:[self imageForSLiderThumb:roundf(slider.value)] forState:(UIControlStateNormal)];

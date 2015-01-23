@@ -10,7 +10,6 @@
 #import "MessagesViewController.h"
 #import "RaiseATicketViewController.h"
 #import "TicketsListViewController.h"
-#import "ServiceDeskNumListsViewController.h"
 #import "Postman.h"
 #import "LocationModel.h"
 #import "DBManager.h"
@@ -604,18 +603,7 @@
         TicketsListViewController *orderList = segue.destinationViewController;
         orderList.orderItemDifferForList = @"orderList";
     }
-    
-    if ([segue.identifier isEqualToString:@"serviceDeskNum_Segue"])
-    {
-        UINavigationController *navigation = segue.destinationViewController;
-        
-        ServiceDeskNumListsViewController *serviceDeskVC = navigation.viewControllers[0];
-        NSLog(@"country %@",selectedLocation.countryName);
-        NSLog(@"country %@",selectedLocation.serviceDeskNumber);
-        serviceDeskVC.country = selectedLocation.countryName;
-        serviceDeskVC.serviceDeskDeteils = selectedLocation.serviceDeskNumber;
-        
-    }
+
 }
 
 @end

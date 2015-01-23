@@ -9,7 +9,6 @@
 #import "TicketsListViewController.h"
 #import "TicketsListCell.h"
 #import "TicketDetailViewController.h"
-#import "TicketModel.h"
 #import "RaiseATicketViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
@@ -85,9 +84,6 @@
     self.navigationItem.leftBarButtonItem = backButton;
 
     arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
-//    arrayOfNo = @[@"2", @"1", @"1", @"3",@"1",@"1",@"1"];
-    
-//    self.filterTableView.separatorColor = [self seperatorColours];
     
     self.filterTableView.separatorColor = [UIColor whiteColor];
     
@@ -100,6 +96,7 @@
     [self.refreshControl addTarget:self
                             action:@selector(pull)
                   forControlEvents:UIControlEventValueChanged];
+    
     [self.tableViewOutlet  addSubview:self.refreshControl];
 }
 
@@ -162,9 +159,6 @@
 {
     NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
     TicketDetailViewController *ticketDeteilVC = segue.destinationViewController;
-//    TicketModel *ticket = arrayOfData[indexPath.row];
-//    ticketDeteilVC.tickModel = ticket;
-    
     ticketDeteilVC.requestModel = arrayOfData[indexPath.row];
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
@@ -272,7 +266,6 @@
     if ([tableView isEqual:self.tableViewOutlet])
     {
         TicketsListCell *ticketCell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-//        ticketCell.ticketModel = arrayOfData[indexPath.row];
         ticketCell.requestModel = arrayOfData[indexPath.row];
 
         cell = ticketCell;
@@ -290,14 +283,10 @@
         statusLabel.font=[self customFont:16 ofName:MuseoSans_700];
         
         UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
-        
-        
-//        countlabel.text = arrayOfNo[indexPath.row];
-        
 
         if (indexPath.row == 0 &&  [arrayOfData count] > 0)
         {
-            countlabel.text =[NSString stringWithFormat:@"%i",[arrayOfData count]];
+            countlabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[arrayOfData count]];
             
         }else
             countlabel.text = @"";
@@ -311,21 +300,11 @@
             countlabel.hidden = NO;
             whiteCircleImage.hidden = NO;
         }
-        
-//        if (indexPath.row == 0)
-//        {
-//            countlabel.text =[NSString stringWithFormat:@"%i",[arrayOfData count]];
-//        }else
-//        {
-//            countlabel.hidden = YES;
-//            whiteCircleImage.hidden = YES;
-//        }
-        
+
         countlabel.font=[self customFont:16 ofName:MuseoSans_700];
         
 
         UIView *bgColorView = [[UIView alloc] init];
-//        bgColorView.backgroundColor = [UIColor colorWithRed:.7 green:0 blue:0 alpha:1];
         bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];
         [cell setSelectedBackgroundView:bgColorView];
     }

@@ -32,22 +32,6 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
-//    self.navigationController.navigationItem.hidesBackButton = YES;
-    
-//    [self.navigationItem setHidesBackButton:YES animated:YES];
-
-
-    
-//    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [back setTitle:@"< Back" forState:UIControlStateNormal];
-//    back.frame = CGRectMake(0, 0, 60, 40);
-//    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-//    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
-//    self.navigationItem.leftBarButtonItem = backButton;
-
-    
-    
 }
 
 //-(void)backBtnAction
@@ -85,21 +69,6 @@
 
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    
-//    if (section == 0) {
-//        return @"";
-//        
-//    }else if (section == 1)
-//    {
-//        return @"Services";
-//    }
-//    else{
-//        return @"Details";
-//    }
-//   
-//}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  tableView.bounds.size.width, 30)];
@@ -155,27 +124,15 @@
     UILabel *circelColour = (UILabel *)[cell viewWithTag:102];
     UILabel *rightTable = (UILabel *)[cell viewWithTag:103];
     rightTable.font=[self customFont:16 ofName:MuseoSans_300];
-
-//    UILabel *discriptionLable = (UILabel *)[cell1 viewWithTag:104];
-
+    
+    //    UILabel *discriptionLable = (UILabel *)[cell1 viewWithTag:104];
+    
     rightTable.hidden = NO;
     circelColour.layer.cornerRadius = 10;
     titleLable.textColor = [UIColor blackColor];
     
     if (indexPath.section == 1)
     {
-//        if (indexPath.row == 1)
-//        {
-//            if ([self.orderItemDifferForList isEqualToString:@"orderList"])
-//            {
-//                titleLable.text = @"Order Number";
-//            }else
-//            {
-//                titleLable.text = @"Ticket Number";
-//            }
-//        }
-     
-        
         titleLable.text = self.requestModel.requestServiceName;
         rightTable.text = @"";
         titleLable.font=[self customFont:16 ofName:MuseoSans_300];
@@ -190,11 +147,6 @@
         titleTextView.textColor = [UIColor lightGrayColor];
         titleTextView.font = [self customFont:16 ofName:MuseoSans_300];
         
-        
-//        CGSize lableSize = [titleTextView.text sizeWithFont:titleTextView.font constrainedToSize:titleTextView.frame.size lineBreakMode:NSLineBreakByWordWrapping];
-//        
-//        CGFloat lableHight = lableSize.height;
-
     }
     else
     {
@@ -202,67 +154,54 @@
         {
                 
             case 0:
-            {
                 if ([self.orderItemDifferForList isEqualToString:@"orderList"])
                 {
                     titleLable.text = @"Order Number";
-
+                    
                 }else
                 {
                     titleLable.text = @"Ticket Number";
                 }
                 
                 rightTable.text = self.requestModel.requestIncidentNo;
-            }
                 break;
-
+                
             case 1:
-            {
                 titleLable.text = @"Requester";
                 rightTable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohier";;
-            }
                 break;
                 
             case 2:
-            {
                 titleLable.text = @"Impact";
                 rightTable.text = [self giveImpactForCOlor:self.requestModel.requestImpact];
                 linColour.backgroundColor = [self colorForImpact:self.requestModel.requestImpact];
                 circelColour.backgroundColor = [self colorForImpact:self.requestModel.requestImpact];
-                
-            }
                 break;
                 
             case 3:
-            {
                 titleLable.text = @"Agent";
-//                rightTable.text = self.tickModel.agentName;
+                //                rightTable.text = self.tickModel.agentName;
                 rightTable.text = @"";
-                
-            }
                 break;
+                
             case 4:
-            {
                 titleLable.text = @"Status";
-//                rightTable.text = self.tickModel.currentStatus;
+                //                rightTable.text = self.tickModel.currentStatus;
                 rightTable.text = @"";
-            }
                 break;
-            case 5:
-            {
                 
+            case 5:
                 titleLable.text = @"Date";
-//                rightTable.text = self.tickModel.date;
+                //                rightTable.text = self.tickModel.date;
                 rightTable.text = [dateFormatter stringFromDate:self.requestModel.requestDate];
-            }
-
                 break;
+                
             default:
                 break;
         }
     }
-
-        return cell;
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

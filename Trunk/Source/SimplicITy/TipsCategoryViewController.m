@@ -13,6 +13,7 @@
 #import "DBManager.h"
 
 @interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate,DBManagerDelegate, TipsSubCategoriesViewControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -104,12 +105,6 @@
 - (void)tryToUpdateCategories
 {
     URLString = TIPS_CATEGORY_API;
-
-//    if (![AFNetworkReachabilityManager sharedManager].reachable)
-//    {
-//        [self getData];
-//        return;
-//    }
     NSString *parameterString;
     parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
 

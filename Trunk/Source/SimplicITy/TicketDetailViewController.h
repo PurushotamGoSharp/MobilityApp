@@ -7,7 +7,6 @@
 //
 
 #import "CustomColoredViewController.h"
-#import "TicketModel.h"
 #import "RequestModel.h"
 @interface TicketDetailViewController : CustomColoredViewController
 {
