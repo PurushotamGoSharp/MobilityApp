@@ -51,26 +51,10 @@
     URLString = SEED_API;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
-    
-    
-//    if ([AFNetworkReachabilityManager sharedManager].isReachable)
-//    {
-//        [self tryToUpdateSeedData];
-//        NSLog(@"Rechable");
-//    }
-//    else
-//    {
-//        NSLog(@"Not rechable");
-//        
-//        [self getData];
-//    }
-    
-//    [self tryToUpdateSeedData];
-//    
-//    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -220,7 +204,6 @@
         [seedDataArrDB addObject:anSeed];
         
         NSNumber *value = [NSNumber numberWithInt:anSeed.upDateCount];
-        
         [seeddataDictFromDB setObject:value forKey:anSeed.name];
     }
 }

@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "CustomURLCache.h"
-
 #import "UAirship.h"
 #import "UAConfig.h"
 #import "UAPush.h"
@@ -18,20 +16,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
 
-    
-    // Override point for customization after application launch
-    // [self.window setRootViewController:_controller];
     [self.window makeKeyAndVisible];
-    
-    // Display a UIAlertView warning developers that push notifications do not work in the simulator
-    // You should remove this in your app.
-//    [self failIfSimulator];
-    
-    // Set log level for debugging config loading (optional)
-    // It will be set to the value in the loaded config upon takeOff
-    
     [SendRequestsManager sharedManager];
     
     [UAirship setLogLevel:UALogLevelTrace];
@@ -39,13 +25,6 @@
     // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
     // or set runtime properties here.
     UAConfig *config = [UAConfig defaultConfig];
-    
-    // You can then programmatically override the plist values:
-    // config.developmentAppKey = @"YourKey";
-    // etc.
-    
-    // Call takeOff (which creates the UAirship singleton)
-    
     [UAirship takeOff:config];
     
     // Print out the application configuration for debugging (optional)
@@ -54,25 +33,11 @@
     // Set the icon badge to zero on startup (optional)
     [[UAPush shared] resetBadge];
     
-    // Set the notification types required for the app (optional). This value defaults
-    // to badge, alert and sound, so it's only necessary to set it if you want
-    // to add or remove types.
     [UAPush shared].userNotificationTypes = (UIUserNotificationTypeAlert |
                                              UIUserNotificationTypeBadge |
                                              UIUserNotificationTypeSound);
     
-    
-    // User notifications will not be enabled until userPushNotificationsEnabled is
-    // set YES on UAPush. Once enabled, the setting will be persisted and the user
-    // will be prompted to allow notifications. You should wait for a more appropriate
-    // time to enable push to increase the likelihood that the user will accept
-    // notifications.
-    
      [UAPush shared].userPushNotificationsEnabled = YES;
-    
-//    [[UAPush shared] addTag:@"a_tag"];
-//    [[UAPush shared] updateRegistration];
-    
 
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}
@@ -123,8 +88,6 @@
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
-//    [CustomURLCache activate];
-
     return YES;
 }
 

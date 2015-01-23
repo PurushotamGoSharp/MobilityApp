@@ -111,8 +111,6 @@
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
 		867EBD601A6FAC7D00B5DD2E /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 867EBD5F1A6FA69800B5DD2E /* cert.p12 */; };
-		86848E101A56721A0063E433 /* CustomAFRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */; };
-		86848E131A56C47E0063E433 /* CustomURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 86848E121A56C47E0063E433 /* CustomURLCache.m */; };
 		869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */; };
 		86A21D481A5D052D0090F5E5 /* webClipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D471A5D052D0090F5E5 /* webClipModel.m */; };
 		86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D4A1A5D0CD70090F5E5 /* DBManager.m */; };
@@ -408,10 +406,6 @@
 		867B19B91A40126700462CA4 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
 		867B19BA1A40126700462CA4 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
 		867EBD5F1A6FA69800B5DD2E /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
-		86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAFRequestOperationManager.h; sourceTree = "<group>"; };
-		86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAFRequestOperationManager.m; sourceTree = "<group>"; };
-		86848E111A56C47E0063E433 /* CustomURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomURLCache.h; sourceTree = "<group>"; };
-		86848E121A56C47E0063E433 /* CustomURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomURLCache.m; sourceTree = "<group>"; };
 		869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86A21D461A5D052D0090F5E5 /* webClipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webClipModel.h; sourceTree = "<group>"; };
 		86A21D471A5D052D0090F5E5 /* webClipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = webClipModel.m; sourceTree = "<group>"; };
@@ -607,8 +601,6 @@
 				86173AC21A5FF56E00902088 /* LaunchImage-800-667h@2x.png */,
 				86287D2F1A2EE1A500B12893 /* ViewController.h */,
 				86287D301A2EE1A500B12893 /* ViewController.m */,
-				86A9A3EC1A5E58DB006D8A46 /* SeedModel.h */,
-				86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */,
 				86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */,
 				86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */,
 				863E3DDC1A6642FB009D1FB0 /* LocationModel.h */,
@@ -1055,16 +1047,11 @@
 				867EBD5F1A6FA69800B5DD2E /* cert.p12 */,
 				8623D5BC1A5417840022A370 /* Postman.h */,
 				8623D5BA1A5417800022A370 /* Postman.m */,
-				86783D331A5FE7600094CB9E /* SeedSync.h */,
-				86783D341A5FE7600094CB9E /* SeedSync.m */,
-				863B66981A6D274400CC8033 /* UserInfo.h */,
-				863B66991A6D274400CC8033 /* UserInfo.m */,
 				86AD6B691A70C880006A127B /* SendRequestsManager.h */,
 				86AD6B6A1A70C880006A127B /* SendRequestsManager.m */,
-				86848E0E1A56721A0063E433 /* CustomAFRequestOperationManager.h */,
-				86848E0F1A56721A0063E433 /* CustomAFRequestOperationManager.m */,
-				86848E111A56C47E0063E433 /* CustomURLCache.h */,
-				86848E121A56C47E0063E433 /* CustomURLCache.m */,
+				86E2E5431A72734F00217619 /* Seed Classes */,
+				863B66981A6D274400CC8033 /* UserInfo.h */,
+				863B66991A6D274400CC8033 /* UserInfo.m */,
 			);
 			name = "Network API Handlers";
 			sourceTree = "<group>";
@@ -1105,6 +1092,17 @@
 				86D6043B1A3ABBB900E9E9D7 /* TicketModel.m */,
 			);
 			name = "Request VC";
+			sourceTree = "<group>";
+		};
+		86E2E5431A72734F00217619 /* Seed Classes */ = {
+			isa = PBXGroup;
+			children = (
+				86783D331A5FE7600094CB9E /* SeedSync.h */,
+				86783D341A5FE7600094CB9E /* SeedSync.m */,
+				86A9A3EC1A5E58DB006D8A46 /* SeedModel.h */,
+				86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */,
+			);
+			name = "Seed Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1300,14 +1298,12 @@
 				864532B41A5A661D00A656A3 /* UAPushSettingsTokenViewController.m in Sources */,
 				864532B51A5A661D00A656A3 /* UAPushSettingsUserInfoViewController.m in Sources */,
 				86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */,
-				86848E131A56C47E0063E433 /* CustomURLCache.m in Sources */,
 				86DCEB921A4E8C0F0014FEC7 /* SurveyViewController.m in Sources */,
 				86287D311A2EE1A500B12893 /* ViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
 				867584121A3815EE0049EC10 /* SettingViewController.m in Sources */,
 				864532B11A5A661D00A656A3 /* UAPushSettingsChannelInfoViewController.m in Sources */,
 				864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */,
-				86848E101A56721A0063E433 /* CustomAFRequestOperationManager.m in Sources */,
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				861BBC321A30865A00714EB2 /* OrderViewController.m in Sources */,

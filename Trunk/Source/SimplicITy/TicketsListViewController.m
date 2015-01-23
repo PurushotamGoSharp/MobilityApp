@@ -119,10 +119,26 @@
     [super viewWillAppear:YES];
     self.filterTableView.backgroundColor = [self subViewsColours];
     self.refreshControl.backgroundColor = [self subViewsColours];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadData)
+                                                 name:REQUEST_SYNC_NOTIFICATION_KEY
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:REQUEST_SYNC_NOTIFICATION_KEY
+                                                  object:nil];
 }
 
 - (void)reloadData
 {
+    [self getData];
+    
     // Reload table data
     [self.tableViewOutlet reloadData];
     
@@ -155,7 +171,6 @@
     {
         ticketDeteilVC.orderItemDifferForList = @"orderList";
     }
-    
 }
 
 - (IBAction)filterButtonPressed:(UIBarButtonItem *)sender

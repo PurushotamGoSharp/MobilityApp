@@ -213,8 +213,11 @@
     [self saveEntriesLocallyForRequest:currentRequest];
     [self resetForms];
     
-    [[SendRequestsManager sharedManager] authenticateServer];
-    [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        [[SendRequestsManager sharedManager] authenticateServer];
+        [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
+    }
     
     saveButtonIsPressed = NO;
     NSString *alertMessage;

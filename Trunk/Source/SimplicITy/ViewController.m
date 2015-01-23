@@ -7,10 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "Postman.h"
 #import "SendRequestsManager.h"
 
-@interface ViewController () <UITextFieldDelegate, postmanDelegate>
+@interface ViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *userNameContainer;
 @property (weak, nonatomic) IBOutlet UIView *passwordContainer;
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
@@ -66,7 +65,6 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     
-//    [[SendRequestsManager sharedManager] sendRequestsToServer];
 }
 
 
@@ -128,7 +126,6 @@
                      }];
     
     [self.view endEditing:YES];
-    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -172,11 +169,11 @@
 {
     NSInteger imageIndex = colorIndex+1; //Image name say Commercial-01.png, staring index is 1.
     
-    NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%i.png", imageIndex];
-    NSString *imageName1 = [NSString stringWithFormat:@"Commercial-0%i.png", imageIndex];
-    NSString *imageName2 = [NSString stringWithFormat:@"Message-0%i.png", imageIndex];
-    NSString *imageName3 = [NSString stringWithFormat:@"TipsIcon-0%i.png", imageIndex];
-    NSString *imageName4 = [NSString stringWithFormat:@"Spanner-0%i.png", imageIndex];
+    NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%li.png", (long)imageIndex];
+    NSString *imageName1 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
+    NSString *imageName2 = [NSString stringWithFormat:@"Message-0%li.png", (long)imageIndex];
+    NSString *imageName3 = [NSString stringWithFormat:@"TipsIcon-0%li.png", (long)imageIndex];
+    NSString *imageName4 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
     
     UITabBarItem *tabBarItem = tabBar.items[0];
     tabBarItem.image = [[UIImage imageNamed:imageName0] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -221,18 +218,6 @@
     return nil;
 }
 
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
-{
-    NSDictionary *JsonDict = [NSJSONSerialization JSONObjectWithData:response
-                                                             options:kNilOptions
-                                                               error:nil];
-    
-    NSLog(@"%@", JsonDict);
-}
 
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    
-}
 
 @end
