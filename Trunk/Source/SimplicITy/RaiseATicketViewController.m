@@ -214,7 +214,7 @@
     [self resetForms];
     
     [[SendRequestsManager sharedManager] authenticateServer];
-    [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest];
+    [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
     
     saveButtonIsPressed = NO;
     NSString *alertMessage;

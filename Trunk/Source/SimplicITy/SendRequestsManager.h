@@ -14,6 +14,6 @@
 + (instancetype)sharedManager;
 - (void)sendRequestsToServer;
 - (void)authenticateServer;
-- (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel;
+- (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel blockUI:(BOOL)blockUI;
 
 @end

@@ -12,6 +12,7 @@
 #import "UAirship.h"
 #import "UAConfig.h"
 #import "UAPush.h"
+#import "SendRequestsManager.h"
 
 @implementation AppDelegate
 
@@ -30,6 +31,8 @@
     
     // Set log level for debugging config loading (optional)
     // It will be set to the value in the loaded config upon takeOff
+    
+    [SendRequestsManager sharedManager];
     
     [UAirship setLogLevel:UALogLevelTrace];
     

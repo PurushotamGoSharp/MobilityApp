@@ -10,6 +10,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "DBManager.h"
 #import "UserInfo.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
 @interface SendRequestsManager () <DBManagerDelegate>
 
 @end
@@ -145,21 +147,29 @@
 
 - (void)startSendingRequests
 {
-    
     for (RequestModel *aRequest in arrayOfRequestsToBeSend)
     {
-        [self sendRequestSyncronouslyForRequest:aRequest];
+        [self sendRequestSyncronouslyForRequest:aRequest blockUI:NO];
     }
 }
 
-- (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel
+- (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel blockUI:(BOOL)blockUI
 {
+    if (![AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        return;
+    }
+    
+    if (blockUI)
+    {
+        [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:NO];
+    }
+    
     NSURL *URL;
     
     if ([requestModel.requestType isEqualToString:@"ORDER"])
     {
         URL = [NSURL URLWithString:RAISE_AN_ORDER_API];
-        
     }else
     {
          URL = [NSURL URLWithString:RAISE_A_TICKET_API];
@@ -173,6 +183,11 @@
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:URLRequest];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (blockUI)
+        {
+            [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:NO];
+        }
         
         if (responseObject)
         {
@@ -203,6 +218,12 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if (blockUI)
+        {
+            [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:NO];
+        }
+        
         NSLog(@"Error : %@", error);
     }];
     
