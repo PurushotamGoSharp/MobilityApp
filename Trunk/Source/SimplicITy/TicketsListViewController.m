@@ -161,6 +161,7 @@
 - (IBAction)filterButtonPressed:(UIBarButtonItem *)sender
 {
     CGFloat constraintValue = 0.0;
+    [self.filterTableView reloadData];
     
     if (!hideFilterControl)
     {
@@ -266,6 +267,10 @@
     }else if ([tableView isEqual:self.filterTableView])
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        
+        UIImageView *whiteCircleImage = (UIImageView*)[cell viewWithTag:100];
+        whiteCircleImage.image = [UIImage imageNamed:@"WhiteCircle"];
+        
         UILabel *statusLabel = (UILabel *)[cell viewWithTag:101];
         statusLabel.text = arrayForStatus[indexPath.row];
         
@@ -276,10 +281,33 @@
         
 //        countlabel.text = arrayOfNo[indexPath.row];
         
+
         if (indexPath.row == 0)
         {
             countlabel.text =[NSString stringWithFormat:@"%i",[arrayOfData count]];
+            
+        }else
+            countlabel.text = @"";
+        
+        if ([countlabel.text isEqualToString:@""])
+        {
+            countlabel.hidden = YES;
+            whiteCircleImage.hidden = YES;
+        }else
+        {
+            countlabel.hidden = NO;
+            whiteCircleImage.hidden = NO;
         }
+        
+//        if (indexPath.row == 0)
+//        {
+//            countlabel.text =[NSString stringWithFormat:@"%i",[arrayOfData count]];
+//        }else
+//        {
+//            countlabel.hidden = YES;
+//            whiteCircleImage.hidden = YES;
+//        }
+        
         countlabel.font=[self customFont:16 ofName:MuseoSans_700];
         
 
