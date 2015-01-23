@@ -9,6 +9,7 @@
 #import "TikcetCategoryViewController.h"
 
 @interface TikcetCategoryViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancleBarBtn;
 
 @end
 
@@ -18,6 +19,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 - (IBAction)cancelBtnAction:(id)sender
 {

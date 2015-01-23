@@ -50,6 +50,10 @@
     
     
     
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                           NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-700" size:16]}
+                                                forState:(UIControlStateNormal)];
+    
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
     {
         case 0:

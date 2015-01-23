@@ -13,7 +13,9 @@
     NSArray *arrOfThemesData;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancleBarBtn;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarBtn;
 @end
 
 @implementation ThemesViewController

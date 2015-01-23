@@ -31,7 +31,7 @@
     
     self.ticketHeadingLabel.font = [UIFont fontWithName:@"MuseoSans-700" size:16];
     self.agentAssignedLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
-    self.timeLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:14];
+    self.timeLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
     self.currentStatusLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
 
 }
