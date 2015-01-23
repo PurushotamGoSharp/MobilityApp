@@ -280,7 +280,7 @@
 //        countlabel.text = arrayOfNo[indexPath.row];
         
 
-        if (indexPath.row == 0)
+        if (indexPath.row == 0 &&  [arrayOfData count] > 0)
         {
             countlabel.text =[NSString stringWithFormat:@"%i",[arrayOfData count]];
             
