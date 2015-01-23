@@ -40,6 +40,51 @@
     CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
     NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
     [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
+    
+    switch (orientation)
+    {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+        {
+            
+            NSLog(@"UIInterfaceOrientationPortrait");
+            //load the portrait view
+            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *cachePath = [cachedirs lastObject];
+
+            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
+            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
+            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+        }
+            
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+        {
+            //load the landscape view
+            NSLog(@"UIInterfaceOrientationLandscapeLeft");
+            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *cachePath = [cachedirs lastObject];
+            
+            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
+            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
+            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+
+        }
+            break;
+        case UIInterfaceOrientationUnknown:break;
+    }
 }
 
 
@@ -60,9 +105,10 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-
     return YES;
 }
+
+
 
 - (BOOL)shouldAutorotate
 {
