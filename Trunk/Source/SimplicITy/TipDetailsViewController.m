@@ -37,7 +37,8 @@
     NSString *cachePath = [cachedirs lastObject];
     NSLog(@"Cache path = %@", cachePath);
     
-    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: 320px; word-wrap: break-word\"> %@ </div>",self.tipModel.answer];
+    CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
+    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
     [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
 }
 
