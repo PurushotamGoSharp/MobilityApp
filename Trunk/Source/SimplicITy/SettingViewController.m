@@ -216,11 +216,11 @@
 {
     NSInteger imageIndex = colorIndex+1; //Image name say Commercial-01.png, staring index is 1.
     
-    NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%i.png", imageIndex];
-    NSString *imageName1 = [NSString stringWithFormat:@"Commercial-0%i.png", imageIndex];
-    NSString *imageName2 = [NSString stringWithFormat:@"Message-0%i.png", imageIndex];
-    NSString *imageName3 = [NSString stringWithFormat:@"TipsIcon-0%i.png", imageIndex];
-    NSString *imageName4 = [NSString stringWithFormat:@"Spanner-0%i.png", imageIndex];
+    NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%li.png", (long)imageIndex];
+    NSString *imageName1 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
+    NSString *imageName2 = [NSString stringWithFormat:@"Message-0%li.png", (long)imageIndex];
+    NSString *imageName3 = [NSString stringWithFormat:@"TipsIcon-0%li.png", (long)imageIndex];
+    NSString *imageName4 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
     
     UITabBarItem *tabBarItem = tabBar.items[0];
     tabBarItem.image = [[UIImage imageNamed:imageName0] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

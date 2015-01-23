@@ -7,7 +7,6 @@
 //
 
 #import "Postman.h"
-#import "CustomAFRequestOperationManager.h"
 
 @implementation Postman
 {
@@ -80,46 +79,6 @@
          }];
 }
 
-- (void)UCB_post:(NSString *)URLString withParameters:(NSString *)parameter
-{
-    if (!credential)
-    {
-        credential = [self createCredential];
-    }
-    
-    manager.credential = credential;
-    
-    NSDictionary *parameterDict = [NSJSONSerialization JSONObjectWithData:[parameter dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-    
-//    [manager POST:URLString
-//       parameters:parameterDict
-//          success:^(AFHTTPRequestOperation *operation, id responseObject){
-//              NSData *responseData = [operation responseData];
-//              [self.delegate postman:self gotSuccess:responseData forURL:URLString];
-//          }
-//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//              [self.delegate postman:self gotFailure:error forURL:URLString];
-//              NSLog(@"ERROR %@",[operation responseString]);
-//          }];
-    
-    NSString *urlString = [@"https://simplicity-dev.ucb.com/ad/account-status/id/" stringByAppendingFormat:@"G800189"];
-    
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-
-    [manager HTTPRequestOperationWithRequest:req
-                                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                         
-                                         NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-                                         
-                                         NSLog(@"%@", string);
-                                         
-                                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                         
-                                         NSLog(@"ERROR %@", operation);
-                                         
-                                     }];
-}
 
 - (NSURLCredential *)createCredential
 {

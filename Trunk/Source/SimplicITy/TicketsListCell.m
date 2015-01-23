@@ -43,19 +43,6 @@
     // Configure the view for the selected state
 }
 
-- (void)setTicketModel:(TicketModel *)ticketModel
-{
-    _ticketModel = ticketModel;
-    
-    self.colorCodeView.backgroundColor = ticketModel.colorCode;
-    self.ticketHeadingLabel.text = ticketModel.ticketSubject;
-    self.agentAssignedLabel.text =  ticketModel.agentName;
-    
-    NSString * status = [NSString stringWithFormat:@"%@, %@",ticketModel.ticketNum, ticketModel.currentStatus];
-    self.currentStatusLabel.text =status;
-    self.timeLabel.text = ticketModel.timeStamp;
-}
-
 - (void)setRequestModel:(RequestModel *)requestModel
 {
     _requestModel = requestModel;
