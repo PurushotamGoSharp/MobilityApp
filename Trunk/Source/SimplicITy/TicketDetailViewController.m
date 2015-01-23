@@ -194,9 +194,6 @@
 //        CGSize lableSize = [titleTextView.text sizeWithFont:titleTextView.font constrainedToSize:titleTextView.frame.size lineBreakMode:NSLineBreakByWordWrapping];
 //        
 //        CGFloat lableHight = lableSize.height;
-        
-
-        
 
     }
     else
@@ -215,7 +212,7 @@
                     titleLable.text = @"Ticket Number";
                 }
                 
-                rightTable.text = @"";
+                rightTable.text = self.requestModel.requestIncidentNo;
             }
                 break;
 
@@ -223,9 +220,7 @@
             {
                 titleLable.text = @"Requester";
                 rightTable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohier";;
-                
             }
-                
                 break;
                 
             case 2:
@@ -237,6 +232,7 @@
                 
             }
                 break;
+                
             case 3:
             {
                 titleLable.text = @"Agent";

@@ -28,6 +28,12 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd MMM"];
+    
+    self.ticketHeadingLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:16];
+    self.agentAssignedLabel.font = [UIFont fontWithName:@"MuseoSans-100" size:12];
+    self.timeLabel.font = [UIFont fontWithName:@"MuseoSans-100" size:14];
+    self.currentStatusLabel.font = [UIFont fontWithName:@"MuseoSans-100" size:12];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -58,6 +64,9 @@
     self.ticketHeadingLabel.text = requestModel.requestServiceName;
     
     self.timeLabel.text = [dateFormatter stringFromDate:requestModel.requestDate];
+    
+    NSString *staus = [requestModel.requestIncidentNo stringByAppendingString:@", In Progress"];
+    self.currentStatusLabel.text = staus;
 }
 
 - (UIColor *)colorForImpact:(NSInteger)imapact

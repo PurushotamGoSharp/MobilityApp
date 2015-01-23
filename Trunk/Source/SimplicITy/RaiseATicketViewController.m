@@ -17,6 +17,7 @@
 #import "DBManager.h"
 #import "RequestModel.h"
 #import "UserInfo.h"
+#import "SendRequestsManager.h"
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
@@ -41,8 +42,10 @@
     UISlider *sliderOutlet;
     
     BOOL serviceIsSelected;
+    BOOL saveButtonIsPressed;
     
     NSDateFormatter *dateFormatter;
+    RequestModel *currentRequest;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -203,9 +206,17 @@
     {
         return;
     }
-    [self saveEntriesLocallyForRequest:[self requestForCurrentValues]];
+    
+    saveButtonIsPressed = YES;
+    
+    currentRequest = [self requestForCurrentValues];
+    [self saveEntriesLocallyForRequest:currentRequest];
     [self resetForms];
     
+    [[SendRequestsManager sharedManager] authenticateServer];
+    [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest];
+    
+    saveButtonIsPressed = NO;
     NSString *alertMessage;
 
     if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
@@ -217,7 +228,12 @@
         alertMessage = ALERT_FOR_TICKET_SAVED;
     }
     
-    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!" message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
+                                                            message:alertMessage
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+    
     saveAlestView.delegate= self;
     [saveAlestView show];
 }
@@ -270,7 +286,7 @@
 - (RequestModel *)requestForCurrentValues
 {
     RequestModel *request = [[RequestModel alloc] init];
-    request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TIKCET";
+    request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TICKET";
     request.requestImpact = roundf(sliderOutlet.value);
     request.requestServiceCode = selectedCategory.categoryCode;
     request.requestServiceName = selectedCategory.categoryName;
@@ -309,24 +325,24 @@
     NSString *createQuery;
     NSString *insertSQL;
     
-    if (!dateFormatter)
-    {
-        dateFormatter = [[NSDateFormatter alloc] init];
-    }
+//    if (!dateFormatter)
+//    {
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//    }
+//    
+//    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+//    NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
     
-    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
-    NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
-    
-    if ([request.requestType isEqualToString:@"TIKCET"])
+    if ([request.requestType isEqualToString:@"TICKET"])
     {
         createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text, syncFlag INTEGER, incidentNumber text)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, date, syncFlag) values (%li, '%@', '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, dateInString, (long)request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, syncFlag) values (%li, '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, (long)request.requestSyncFlag];
     }else
     {
         createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text,syncFlag INTEGER, incidentNumber text)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, date, syncFlag) values (%li, '%@', '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, dateInString, (long)request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, syncFlag) values (%li, '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, (long)request.requestSyncFlag];
     }
     
     [dbManager createTableForQuery:createQuery];
@@ -748,6 +764,16 @@
         
         categoriesArr = [self parseResponseData:data];
     }
+}
+
+- (void)DBMAnager:(DBManager *)manager savedSuccessfullyWithID:(NSInteger)lastID
+{
+    if (saveButtonIsPressed)
+    {
+        currentRequest.requestLocalID = lastID;
+    }
+    
+    NSLog(@"Last ID %li",(long)lastID);
 }
 
 @end

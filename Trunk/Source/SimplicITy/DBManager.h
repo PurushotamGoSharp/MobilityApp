@@ -14,6 +14,8 @@
 @protocol DBManagerDelegate <NSObject>
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment;
+@optional
+- (void)DBMAnager:(DBManager *)manager savedSuccessfullyWithID:(NSInteger)lastID;
 
 @end
 

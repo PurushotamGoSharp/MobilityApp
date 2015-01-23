@@ -9,23 +9,20 @@
 #import "SendRequestsManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "DBManager.h"
-#import "RequestModel.h"
-#import "Postman.h"
 
-@interface SendRequestsManager () <DBManagerDelegate, postmanDelegate>
+@interface SendRequestsManager () <DBManagerDelegate>
 
 @end
 
 @implementation SendRequestsManager
 {
     DBManager *dbManager;
-    //    NSDateFormatter *dateFormatter;
+    NSDateFormatter *dateFormatter;
     NSMutableArray *arrayOfRequestsToBeSend;
     NSArray *statusArray;
     
-    Postman *postman;
-    
     NSOperationQueue *operationQueue;
+    BOOL isRaisingTicket;
 }
 
 + (instancetype)sharedManager
@@ -61,12 +58,12 @@
     }];
     
     statusArray = @[@"low", @"medium", @"high", @"critical"];
+        
+    operationQueue = [[NSOperationQueue alloc] init];
+    [operationQueue setMaxConcurrentOperationCount:1];
     
-    postman = [[Postman alloc] init];
-    postman.delegate = self;
-    
-    //    dateFormatter = [[NSDateFormatter alloc] init];
-    //    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
 }
 
 - (void)networkStatusChanged:(AFNetworkReachabilityStatus)status
@@ -93,32 +90,82 @@
     operationQueue = [[NSOperationQueue alloc] init];
     [operationQueue setMaxConcurrentOperationCount:1];
     
-    [arrayOfRequestsToBeSend removeAllObjects];
+    if (arrayOfRequestsToBeSend)
+    {
+        [arrayOfRequestsToBeSend removeAllObjects];
+    }else
+    {
+        arrayOfRequestsToBeSend = [[NSMutableArray alloc] init];
+    }
     
+    [self getNonSyncedTicketsFromLocal];
+    [self getNonSyncedOrdersFromLocal];
+    
+    [self authenticateServer];
+    [self startSendingRequests];
+}
+
+- (void)getNonSyncedTicketsFromLocal
+{
+    isRaisingTicket = YES;
     NSString *queryString =  @"SELECT * FROM raisedTickets where syncFlag = 0";
     [dbManager getDataForQuery:queryString];
+}
+
+- (void)getNonSyncedOrdersFromLocal
+{
+    isRaisingTicket = NO;
+    NSString *queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
+    [dbManager getDataForQuery:queryString];
+}
+
+
+- (void)authenticateServer
+{
+    NSString *urlString = ITSM_AUTH_API;
     
-    //    queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
-    //    [dbManager getDataForQuery:queryString];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
     
-    [self startSendingRequests];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"Success %@", [operation responseString]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Failer%@", [operation responseString]);
+        NSLog(@"%@", error);
+        
+    }];
+    
+    [self setAuthenticationBlockForOperation:operation];
+    [operationQueue addOperation:operation];
 }
 
 - (void)startSendingRequests
 {
-    //Get background queue and call methods one after another (synchronously)
     
     for (RequestModel *aRequest in arrayOfRequestsToBeSend)
     {
         [self sendRequestSyncronouslyForRequest:aRequest];
     }
-    
 }
 
 - (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel
 {
+    NSURL *URL;
+    
+    if ([requestModel.requestType isEqualToString:@"ORDER"])
+    {
+        URL = [NSURL URLWithString:RAISE_AN_ORDER_API];
+        
+    }else
+    {
+         URL = [NSURL URLWithString:RAISE_A_TICKET_API];
+    }
+    
     NSData *parameter = [self parameterForRequest:requestModel];
-    NSURL *URL = [NSURL URLWithString:RAISE_A_TICKET_API];
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
     [URLRequest setHTTPMethod:@"POST"];
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -133,20 +180,16 @@
             NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseObject
                                                                     options:kNilOptions
                                                                       error:&JSONError];
-            if (JSONError != nil)
+            if (JSONDict)
             {
                 NSString *incidentNo = JSONDict[@"Incident_Number"];
                 
                 if (incidentNo != nil)
                 {
+                    NSLog(@"Incident_Number %@", incidentNo);
                     requestModel.requestIncidentNo = incidentNo;
                     [self updateLocalDBForRequest:requestModel];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [self updateUI];
-                        
-                    });
+                    [self updateUIWithRequest:requestModel];
                     
                 }else
                 {
@@ -154,61 +197,45 @@
                 }
             }else
             {
-                NSLog(@"JSON parsing error");
+                NSLog(@"JSON parsing error %@", [[NSString alloc] initWithData:responseObject
+                                                                      encoding:NSUTF8StringEncoding]);
             }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        NSLog(@"Error : %@", error);
     }];
     
+    [self setAuthenticationBlockForOperation:operation];
     [operationQueue addOperation:operation];
-    
-    
-    //    NSURLResponse *URLresponse = nil;
-    //    NSError *error = nil;
-    //
-    //    NSData *responseData =[NSURLConnection sendSynchronousRequest:URLRequest
-    //                                                returningResponse:&URLresponse
-    //                                                            error:&error];
-    //    if (error != nil)
-    //    {
-    //        if (responseData)
-    //        {
-    //            NSError *JSONError;
-    //            NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseData
-    //                                                                    options:kNilOptions
-    //                                                                      error:&JSONError];
-    //            if (JSONError != nil)
-    //            {
-    //                NSString *incidentNo = JSONDict[@"Incident_Number"];
-    //
-    //                if (incidentNo != nil)
-    //                {
-    //                    requestModel.requestIncidentNo = incidentNo;
-    //                    [self updateLocalDBForRequest:requestModel];
-    //
-    //                    dispatch_async(dispatch_get_main_queue(), ^{
-    //
-    //                        [self updateUI];
-    //
-    //                    });
-    //
-    //                }else
-    //                {
-    //                    NSLog(@"Error: Inident no is nil");
-    //                }
-    //            }else
-    //            {
-    //                NSLog(@"JSON parsing error");
-    //            }
-    //        }
-    //
-    //    }else
-    //    {
-    //        NSLog(@"Failure for %@", [[NSString alloc] initWithData:parameter
-    //                                                       encoding:NSUTF8StringEncoding]);
-    //    }
+}
+
+- (void)setAuthenticationBlockForOperation:(AFHTTPRequestOperation *)operation
+{
+    [operation setWillSendRequestForAuthenticationChallengeBlock:^(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge) {
+        
+        NSString *certPath = [[NSBundle mainBundle] pathForResource:@"cert" ofType:@"p12"];
+        NSData *certData = [[NSData alloc] initWithContentsOfFile:certPath];
+        
+        SecIdentityRef identity = NULL;
+        SecCertificateRef certificate = NULL;
+        
+        [self identity:&identity
+        andCertificate:&certificate
+          forPKC12Data:certData
+        withPassphrase:@"test"];
+        
+        NSURLCredential *credential = [NSURLCredential credentialWithIdentity:identity
+                                                                 certificates:@[(__bridge id)certificate] persistence:NSURLCredentialPersistencePermanent];
+        if (credential)
+        {
+            [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
+        }else
+        {
+            NSLog(@"Error in credential");
+        }
+        
+    }];
 }
 
 - (void)updateLocalDBForRequest:(RequestModel *)requestModel
@@ -219,14 +246,25 @@
         dbManager.delegate = self;
     }
     
-    NSString *insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
+    requestModel.requestDate = [NSDate date];
+    NSString *dateOfSync = [dateFormatter stringFromDate:requestModel.requestDate];
+    
+    NSString *insertSQL;
+    if ([requestModel.requestType isEqualToString:@"ORDER"])
+    {
+        insertSQL = [NSString stringWithFormat:@"UPDATE raisedOrders SET syncFlag = 1, incidentNumber = '%@', date = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, dateOfSync, (long)requestModel.requestLocalID];
+    }else
+    {
+         insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@', date = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, dateOfSync, (long)requestModel.requestLocalID];
+    }
     
     [dbManager saveDataToDBForQuery:insertSQL];
+    
 }
 
-- (void)updateUI
+- (void)updateUIWithRequest:(RequestModel *)requestModel
 {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_SYNC_NOTIFICATION_KEY object:requestModel];
 }
 
 - (NSData *)parameterForRequest:(RequestModel *)request
@@ -246,8 +284,50 @@
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:dict
                                                        options:kNilOptions
                                                          error:nil];
-    
     return JSONData;
+}
+
+- (void)identity:(SecIdentityRef *)identity andCertificate:(SecCertificateRef *)certificate forPKC12Data:(NSData *)certData withPassphrase:(NSString *)passphrase
+{
+    // bridge the import data to foundation objects
+    CFStringRef importPassphrase = (__bridge CFStringRef)passphrase;
+    CFDataRef importData = (__bridge CFDataRef)certData;
+    
+    // create dictionary of options for the PKCS12 import
+    const void *keys[] = { kSecImportExportPassphrase };
+    const void *values[] = { importPassphrase };
+    CFDictionaryRef importOptions = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
+    
+    // create array to store our import results
+    CFArrayRef importResults = CFArrayCreate(NULL, 0, 0, NULL);
+    OSStatus pkcs12ImportStatus = errSecSuccess;
+    pkcs12ImportStatus = SecPKCS12Import(importData, importOptions, &importResults);
+    
+    // check if import was successful
+    if (pkcs12ImportStatus == errSecSuccess)
+    {
+        CFDictionaryRef identityAndTrust = CFArrayGetValueAtIndex (importResults, 0);
+        
+        // retrieve the identity from the certificate imported
+        const void *tempIdentity = NULL;
+        tempIdentity = CFDictionaryGetValue (identityAndTrust, kSecImportItemIdentity);
+        *identity = (SecIdentityRef)tempIdentity;
+        
+        // extract the certificate from the identity
+        SecCertificateRef tempCertificate = NULL;
+        OSStatus certificateStatus = errSecSuccess;
+        certificateStatus = SecIdentityCopyCertificate (*identity, &tempCertificate);
+        *certificate = (SecCertificateRef)tempCertificate;
+    }else
+    {
+        NSLog(@"Status is %d", (int)pkcs12ImportStatus);
+    }
+    
+    // clean up
+    if (importOptions)
+    {
+        CFRelease(importOptions);
+    }
 }
 
 #pragma mark
@@ -264,22 +344,19 @@
         request.requestServiceName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
         request.requestDetails = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
         
-        //        NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
-        //        request.requestDate = [dateFormatter dateFromString:dateInString];
+        if (isRaisingTicket)
+        {
+            request.requestType = @"TICKET";
+        }else
+        {
+            request.requestType = @"ORDER";
+        }
+
+//        NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
+//        request.requestDate = [dateFormatter dateFromString:dateInString];
         [arrayOfRequestsToBeSend addObject:request];
     }
 }
 
-#pragma mark
-#pragma mark DBManagerDelegate
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
-{
-    
-}
-
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    
-}
 
 @end

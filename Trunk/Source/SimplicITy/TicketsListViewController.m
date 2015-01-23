@@ -236,8 +236,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -374,13 +372,20 @@
         request.requestServiceName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
         request.requestDetails = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
         
-        NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
-        request.requestDate = [converter dateFromString:dateInString];
+        const char *date = (const char *)sqlite3_column_text(statment, 5);
+        if (date != NULL)
+        {
+            NSString *dateInString = [NSString stringWithUTF8String:date];
+            request.requestDate = [converter dateFromString:dateInString];
+        }
+        
+        const char *incidentNo = (const char *)sqlite3_column_text(statment, 7);
+        if (incidentNo != NULL)
+        {
+            request.requestIncidentNo = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 7)];
+        }
         [arrayOfData addObject:request];
     }
 }
-
-
-
 
 @end
