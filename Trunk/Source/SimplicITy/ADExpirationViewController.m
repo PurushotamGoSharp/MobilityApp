@@ -54,10 +54,10 @@
     }
     else
     {
-//        self.numOfDaysLeftLbl.text = [[NSUserDefaults standardUserDefaults] objectForKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+        self.numOfDaysLeftLbl.text = [[NSUserDefaults standardUserDefaults] objectForKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
         
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. For checking \"Days Left  for Password Expiry\" Internet connection is required" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [noNetworkAlert show];
+//        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. For checking \"Days Left  for Password Expiry\" Internet connection is required" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//        [noNetworkAlert show];
 
     }
 
@@ -195,8 +195,8 @@
     
     self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%i",daysLeft];
     
-//    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
