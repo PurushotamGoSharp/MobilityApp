@@ -68,6 +68,9 @@
     postman = [[Postman alloc] init];
     postman.delegate = self;
     
+    operationQueue = [[NSOperationQueue alloc] init];
+    [operationQueue setMaxConcurrentOperationCount:1];
+    
     //    dateFormatter = [[NSDateFormatter alloc] init];
     //    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
 }
