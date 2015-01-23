@@ -165,7 +165,7 @@
     NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
     [self setTabImageForColorIndex:index onTabBar:tabBar];
     
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index]} forState:(UIControlStateNormal)];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index],NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-300" size:12]} forState:(UIControlStateNormal)];
 }
 
 - (void)setTabImageForColorIndex:(NSInteger)colorIndex onTabBar:(UITabBar *)tabBar;
