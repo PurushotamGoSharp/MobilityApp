@@ -286,7 +286,7 @@
 - (RequestModel *)requestForCurrentValues
 {
     RequestModel *request = [[RequestModel alloc] init];
-    request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TIKCET";
+    request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TICKET";
     request.requestImpact = roundf(sliderOutlet.value);
     request.requestServiceCode = selectedCategory.categoryCode;
     request.requestServiceName = selectedCategory.categoryName;
@@ -333,7 +333,7 @@
     [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
     NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
     
-    if ([request.requestType isEqualToString:@"TIKCET"])
+    if ([request.requestType isEqualToString:@"TICKET"])
     {
         createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text, syncFlag INTEGER, incidentNumber text)";
         

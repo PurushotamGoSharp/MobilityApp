@@ -194,13 +194,10 @@
         NSString *lastName = userInfo.lastName;
         NSString *location = userInfo.location;
         NSString *emailIDValue = userInfo.emailIDValue;
-
+        
         NSString *nameOfPerson;
         
-        if (cropID)
-        {
-            self.dashBoardPersonCode.text = cropID;
-        }
+        self.dashBoardPersonCode.text = cropID;
         
         if (firstName)
         {
@@ -225,14 +222,11 @@
             
             self.nameOfUserLabel.text = nameOfPerson;
         }
-        if (location)
-        {
-            self.dashBoardPersonAddress.text = location;
-        }
-        if (emailIDValue)
-        {
-            self.emailID.text = emailIDValue;
-        }
+        
+        [self getDataForCountryCode:location];
+
+        self.dashBoardPersonAddress.text = selectedLocation.countryName?:location;
+        self.emailID.text = emailIDValue;
     }
 }
 
@@ -460,18 +454,6 @@
     
     if (selectedLocation.serviceDeskNumber.count > 1 )
     {
-//        [self performSegueWithIdentifier:@"serviceDeskNum_Segue" sender:self];
-//        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select"
-//                                                                 delegate:self
-//                                                        cancelButtonTitle:@"Cancel"
-//                                                   destructiveButtonTitle:nil
-//                                                        otherButtonTitles:@"Copy", @"Move", @"Duplicate", nil];
-//        
-//        [actionSheet showInView:self.view];
-        
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Select" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"fgvffr",@"fgvffr",@"fgvffr", nil];
-//        [alert show];
-        
         self.alphaViewOutlet.hidden = NO;
         self.containerViewOutlet.hidden = NO;
         
@@ -488,7 +470,6 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
     }
 }
-
 
 #pragma mark UITableViewDataSource methods
 
@@ -550,9 +531,6 @@
 
 -(NSString*)phoneNumValidation
 {
-
-    
-    
     NSIndexPath *indexpath = [self.tableViewOutlet indexPathForSelectedRow];
     
      NSDictionary *dict = selectedLocation.serviceDeskNumber[indexpath.row];
@@ -580,7 +558,6 @@
 //    NSLog(@"%@", phoneNoToCall); // "123123123"
     phoneNoToCall = [[@"tel://" stringByAppendingString:phoneNoToCall] mutableCopy];
     return phoneNoToCall;
-
 }
 
 - (void)adjustHeightOfPopOverView
@@ -596,6 +573,7 @@
         [self.view layoutIfNeeded];
     }
 }
+
 - (IBAction)cancelPopUp:(UIControl *)sender
 {
     [UIView animateWithDuration:.3 animations:^{
@@ -639,6 +617,5 @@
         
     }
 }
-
 
 @end

@@ -10,10 +10,9 @@
 #import <AFNetworking/AFNetworking.h>
 #import "DBManager.h"
 #import "RequestModel.h"
-#import "Postman.h"
+//#import "Postman.h"
 
 
-#define TEST_URL_2 @"https://simplicity-dev.ucb.com/itsm"
 
 @interface SendRequestsManager () <DBManagerDelegate, postmanDelegate>
 
@@ -29,6 +28,7 @@
     Postman *postman;
     
     NSOperationQueue *operationQueue;
+    BOOL isRaisingTicket;
 }
 
 + (instancetype)sharedManager
@@ -107,20 +107,31 @@
         arrayOfRequestsToBeSend = [[NSMutableArray alloc] init];
     }
     
-    NSString *queryString =  @"SELECT * FROM raisedTickets where syncFlag = 0";
-    [dbManager getDataForQuery:queryString];
-    
-    //    queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
-    //    [dbManager getDataForQuery:queryString];
+    [self getNonSyncedTicketsFromLocal];
+    [self getNonSyncedOrdersFromLocal];
     
     [self authenticateServer];
     [self startSendingRequests];
-    
 }
+
+- (void)getNonSyncedTicketsFromLocal
+{
+    isRaisingTicket = YES;
+    NSString *queryString =  @"SELECT * FROM raisedTickets where syncFlag = 0";
+    [dbManager getDataForQuery:queryString];
+}
+
+- (void)getNonSyncedOrdersFromLocal
+{
+    isRaisingTicket = NO;
+    NSString *queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
+    [dbManager getDataForQuery:queryString];
+}
+
 
 - (void)authenticateServer
 {
-    NSString *urlString = TEST_URL_2;
+    NSString *urlString = ITSM_AUTH_API;
     
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
@@ -143,7 +154,6 @@
 
 - (void)startSendingRequests
 {
-    //Get background queue and call methods one after another (synchronously)
     
     for (RequestModel *aRequest in arrayOfRequestsToBeSend)
     {
@@ -153,13 +163,18 @@
 
 - (void)sendRequestSyncronouslyForRequest:(RequestModel *)requestModel
 {
+    NSURL *URL;
+    
     if ([requestModel.requestType isEqualToString:@"ORDER"])
     {
-        return;
+        URL = [NSURL URLWithString:RAISE_AN_ORDER_API];
+        
+    }else
+    {
+         URL = [NSURL URLWithString:RAISE_A_TICKET_API];
     }
     
     NSData *parameter = [self parameterForRequest:requestModel];
-    NSURL *URL = [NSURL URLWithString:RAISE_A_TICKET_API];
     NSMutableURLRequest *URLRequest = [NSMutableURLRequest requestWithURL:URL];
     [URLRequest setHTTPMethod:@"POST"];
     [URLRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -245,14 +260,23 @@
         dbManager.delegate = self;
     }
     
-    NSString *insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
+    NSString *insertSQL;
+    if ([requestModel.requestType isEqualToString:@"ORDER"])
+    {
+        insertSQL = [NSString stringWithFormat:@"UPDATE raisedOrders SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
+    }else
+    {
+         insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
+    }
     
     [dbManager saveDataToDBForQuery:insertSQL];
+    
+    [self updateUIWithRequest:requestModel];
 }
 
-- (void)updateUI
+- (void)updateUIWithRequest:(RequestModel *)requestModel
 {
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_SYNC_NOTIFICATION_KEY object:requestModel];
 }
 
 - (NSData *)parameterForRequest:(RequestModel *)request
@@ -332,6 +356,13 @@
         request.requestServiceName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
         request.requestDetails = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
         
+        if (isRaisingTicket)
+        {
+            request.requestType = @"TICKET";
+        }else
+        {
+            request.requestType = @"ORDER";
+        }
         //        NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
         //        request.requestDate = [dateFormatter dateFromString:dateInString];
         [arrayOfRequestsToBeSend addObject:request];

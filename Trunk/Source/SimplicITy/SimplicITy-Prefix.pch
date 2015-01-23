@@ -20,9 +20,9 @@
 
 #define Updation_Is_Required @"UpdationIsRequired"
 
+#define REQUEST_SYNC_NOTIFICATION_KEY  @"requestSyncNotificationKey"
 
 #define BASE_URL @"http://simplicitytst.ripple-io.in/"
-#define NASE_URL_UCB @"https://simplicity-dev.ucb.com/"
 
 #define SEED_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Seed"]
 #define SEARCH_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Category"]
@@ -32,5 +32,10 @@
 #define WEB_CLIPS_DOC_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"RenderDocument/%@"]
 #define ALL_TIPS_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Tips"]
 
+// UCB
+#define BASE_URL_UCB @"https://simplicity-dev.ucb.com/"
+#define ITSM_AUTH_API @"https://simplicity-dev.ucb.com/itsm"
 #define RAISE_A_TICKET_API @"https://simplicity-dev.ucb.com/itsm/ticket/"
+#define RAISE_AN_ORDER_API @"https://simplicity-dev.ucb.com/itsm/ticket/"
+
 #endif
