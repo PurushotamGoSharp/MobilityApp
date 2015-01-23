@@ -48,7 +48,8 @@
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
     
-    back.titleLabel.font = [UIFont systemFontOfSize:17];
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.frame = CGRectMake(0, 0,80, 30);
