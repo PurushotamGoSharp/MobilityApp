@@ -9,23 +9,17 @@
 #import "SendRequestsManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "DBManager.h"
-#import "RequestModel.h"
-//#import "Postman.h"
 
-
-
-@interface SendRequestsManager () <DBManagerDelegate, postmanDelegate>
+@interface SendRequestsManager () <DBManagerDelegate>
 
 @end
 
 @implementation SendRequestsManager
 {
     DBManager *dbManager;
-    //    NSDateFormatter *dateFormatter;
+    NSDateFormatter *dateFormatter;
     NSMutableArray *arrayOfRequestsToBeSend;
     NSArray *statusArray;
-    
-    Postman *postman;
     
     NSOperationQueue *operationQueue;
     BOOL isRaisingTicket;
@@ -64,15 +58,12 @@
     }];
     
     statusArray = @[@"low", @"medium", @"high", @"critical"];
-    
-    postman = [[Postman alloc] init];
-    postman.delegate = self;
-    
+        
     operationQueue = [[NSOperationQueue alloc] init];
     [operationQueue setMaxConcurrentOperationCount:1];
     
-    //    dateFormatter = [[NSDateFormatter alloc] init];
-    //    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
 }
 
 - (void)networkStatusChanged:(AFNetworkReachabilityStatus)status
@@ -255,13 +246,16 @@
         dbManager.delegate = self;
     }
     
+    requestModel.requestDate = [NSDate date];
+    NSString *dateOfSync = [dateFormatter stringFromDate:requestModel.requestDate];
+    
     NSString *insertSQL;
     if ([requestModel.requestType isEqualToString:@"ORDER"])
     {
-        insertSQL = [NSString stringWithFormat:@"UPDATE raisedOrders SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
+        insertSQL = [NSString stringWithFormat:@"UPDATE raisedOrders SET syncFlag = 1, incidentNumber = '%@', date = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, dateOfSync, (long)requestModel.requestLocalID];
     }else
     {
-         insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, (long)requestModel.requestLocalID];
+         insertSQL = [NSString stringWithFormat:@"UPDATE raisedTickets SET syncFlag = 1, incidentNumber = '%@', date = '%@' WHERE  loaclID = %li", requestModel.requestIncidentNo, dateOfSync, (long)requestModel.requestLocalID];
     }
     
     [dbManager saveDataToDBForQuery:insertSQL];
@@ -357,22 +351,12 @@
         {
             request.requestType = @"ORDER";
         }
-        //        NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
-        //        request.requestDate = [dateFormatter dateFromString:dateInString];
+
+//        NSString *dateInString = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
+//        request.requestDate = [dateFormatter dateFromString:dateInString];
         [arrayOfRequestsToBeSend addObject:request];
     }
 }
 
-#pragma mark
-#pragma mark DBManagerDelegate
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
-{
-    
-}
-
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    
-}
 
 @end

@@ -325,24 +325,24 @@
     NSString *createQuery;
     NSString *insertSQL;
     
-    if (!dateFormatter)
-    {
-        dateFormatter = [[NSDateFormatter alloc] init];
-    }
-    
-    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
-    NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
+//    if (!dateFormatter)
+//    {
+//        dateFormatter = [[NSDateFormatter alloc] init];
+//    }
+//    
+//    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+//    NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
     
     if ([request.requestType isEqualToString:@"TICKET"])
     {
         createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text, syncFlag INTEGER, incidentNumber text)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, date, syncFlag) values (%li, '%@', '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, dateInString, (long)request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, syncFlag) values (%li, '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, (long)request.requestSyncFlag];
     }else
     {
         createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text,syncFlag INTEGER, incidentNumber text)";
         
-        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, date, syncFlag) values (%li, '%@', '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, dateInString, (long)request.requestSyncFlag];
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, syncFlag) values (%li, '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, (long)request.requestSyncFlag];
     }
     
     [dbManager createTableForQuery:createQuery];
