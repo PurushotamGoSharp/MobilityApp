@@ -10,10 +10,6 @@
 
 @interface CustomColoredViewController ()
 
-
-
-
-
 @end
 
 @implementation CustomColoredViewController
@@ -128,7 +124,7 @@
     return nil;
 }
 
--(UIColor *)subViewsColours
+- (UIColor *)subViewsColours
 {
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
     {
@@ -151,7 +147,7 @@
     return nil;
 }
 
--(UIColor *)seperatorColours
+- (UIColor *)seperatorColours
 {
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
         case 0:
@@ -192,8 +188,6 @@
     }
     return customFont;
 }
-
-
 
 - (void)didReceiveMemoryWarning
 {

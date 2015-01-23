@@ -9,7 +9,7 @@
 #import "SendRequestsManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "DBManager.h"
-
+#import "UserInfo.h"
 @interface SendRequestsManager () <DBManagerDelegate>
 
 @end
@@ -275,8 +275,8 @@
     }
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    dict[@"firstName"] = @"Marc";
-    dict[@"lastName"] = @"Van Cutsem";
+    dict[@"firstName"] = [UserInfo sharedUserInfo].firstName ? : @"Marc";
+    dict[@"lastName"] = [UserInfo sharedUserInfo].lastName ? :@"Van Cutsem";
     dict[@"impact"] = statusArray[request.requestImpact];
     dict[@"service"] = @"mobility";
     dict[@"description"] = request.requestDetails;
