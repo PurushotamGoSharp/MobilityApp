@@ -198,12 +198,7 @@
                     NSLog(@"Incident_Number %@", incidentNo);
                     requestModel.requestIncidentNo = incidentNo;
                     [self updateLocalDBForRequest:requestModel];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [self updateUI];
-                        
-                    });
+                    [self updateUIWithRequest:requestModel];
                     
                 }else
                 {
@@ -271,7 +266,6 @@
     
     [dbManager saveDataToDBForQuery:insertSQL];
     
-    [self updateUIWithRequest:requestModel];
 }
 
 - (void)updateUIWithRequest:(RequestModel *)requestModel

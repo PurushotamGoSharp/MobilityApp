@@ -410,8 +410,8 @@
                                     <constraint firstAttribute="height" priority="999" constant="367" id="kGQ-Eb-Fdt"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l1b-Pk-mKI" userLabel="ProfileView">
-                                <rect key="frame" x="0.0" y="100" width="320" height="107"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1b-Pk-mKI" userLabel="ProfileView">
+                                <rect key="frame" x="0.0" y="-43" width="320" height="107"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-ZD-gzE">
                                         <rect key="frame" x="23" y="15" width="50" height="50"/>
@@ -458,8 +458,8 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Yqx-FC-vlW" secondAttribute="trailing" constant="4" id="zuF-IG-Q1l"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.29999999999999966" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-yX-dCJ" userLabel="AlphaView" customClass="UIControl">
-                                <rect key="frame" x="0.0" y="1000" width="320" height="568"/>
+                            <view hidden="YES" alpha="0.29999999999999966" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-yX-dCJ" userLabel="AlphaView" customClass="UIControl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="cancelPopUp:" destination="Wvs-fA-k09" eventType="touchDown" id="U9S-3y-YLf"/>
