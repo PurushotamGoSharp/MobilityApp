@@ -206,7 +206,7 @@
     themeLable.text = theme;
     
     UITabBar *tabBar = self.tabBarController.tabBar;
-    NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
+    NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     [self setTabImageForColorIndex:index onTabBar:tabBar];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index]} forState:(UIControlStateNormal)];

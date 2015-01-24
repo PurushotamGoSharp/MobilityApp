@@ -22,6 +22,18 @@
 
 #define REQUEST_SYNC_NOTIFICATION_KEY  @"requestSyncNotificationKey"
 
+#define THEME_BLUE_OCEAN @"Blue Ocean"
+#define THEME_ORANGE_HUE @"Orange Hue"
+#define THEME_PINK_ROSE @"Pink Rose"
+#define THEME_GREEN_GLOW @"Green Glow"
+
+#define BACKGROUND_THEME_VALUE @"BackgroundTheme"
+
+#define SELECTED_LOCATION @"SelectedLocationCode"
+
+#define INTERNET_IS_REQUIRED_TO_SYNC_DATA @"The device is not connected to internet. Please connect the device to sync data"
+#define WARNING_TEXT @"Warning !"
+
 #define BASE_URL @"http://simplicitytst.ripple-io.in/"
 
 #define SEED_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Seed"]

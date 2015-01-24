@@ -127,21 +127,21 @@
 
     if ([userInfo getServerConfig] != nil)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:@"SelectedLocationCode"];
+        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self getDataForCountryCode:userInfo.location];
         
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }else
     {
-        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:@"SelectedLocationCode"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:SELECTED_LOCATION];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self getDataForCountryCode:@"IND"];
         
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:@"SelectedLocationName"];
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
@@ -165,7 +165,7 @@
         }
     }
     
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
             self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
@@ -332,7 +332,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. Please connect the device to sync data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
             
             return NO;

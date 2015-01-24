@@ -54,7 +54,7 @@
                                                            NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-700" size:16]}
                                                 forState:(UIControlStateNormal)];
     
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
             [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];

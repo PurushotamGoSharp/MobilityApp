@@ -25,7 +25,6 @@
     // Do any additional setup after loading the view.
     
     self.title = self.tipModel.question;
-    
     self.webView.delegate = self;
 }
 
@@ -41,7 +40,6 @@
     NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
     [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
 }
 
@@ -50,14 +48,13 @@
     [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
-- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
-    
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
+{
     switch (orientation)
     {
         case UIInterfaceOrientationPortrait:
         case UIInterfaceOrientationPortraitUpsideDown:
         {
-            
             NSLog(@"UIInterfaceOrientationPortrait");
             //load the portrait view
             NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -67,7 +64,6 @@
             NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
             [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
         }
-            
             break;
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
@@ -80,27 +76,22 @@
             CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
             NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
             [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
-
         }
             break;
         case UIInterfaceOrientationUnknown:break;
     }
 }
 
-
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
-    
     [webView stringByEvaluatingJavaScriptFromString:javascript];
-
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
     NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
     [webView stringByEvaluatingJavaScriptFromString:javascript];
-    
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

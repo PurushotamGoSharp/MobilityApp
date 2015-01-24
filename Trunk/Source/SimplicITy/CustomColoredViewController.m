@@ -23,7 +23,7 @@
 {
     [super viewWillAppear:YES];
     
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
             self.view.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
@@ -84,18 +84,18 @@
 
 - (NSString *)stingForColorTheme
 {
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE]) {
         case 0:
-            return @"Blue Ocean";
+            return THEME_BLUE_OCEAN;
             break;
         case 1:
-            return @"Orange Hue";
+            return THEME_ORANGE_HUE;
             break;
         case 2:
-            return @"Pink Rose";
+            return THEME_PINK_ROSE;
             break;
         case 3:
-            return @"Green Glow";
+            return THEME_GREEN_GLOW;
             break;
         default:
             break;
@@ -105,7 +105,7 @@
 
 - (UIColor *)barColorForIndex:(NSInteger)index
 {
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE]) {
         case 0:
             return [UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1];
             break;
@@ -126,7 +126,7 @@
 
 - (UIColor *)subViewsColours
 {
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"])
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
             return [UIColor colorWithRed:.60 green:.78 blue:.84 alpha:1];
@@ -149,7 +149,7 @@
 
 - (UIColor *)seperatorColours
 {
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE]) {
         case 0:
             return [UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1];
             break;

@@ -28,9 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfThemesData = @[@"Blue Ocean",@"Orange Hue",@"Pink Rose",@"Green Glow"];
+    arrOfThemesData = @[THEME_BLUE_OCEAN,THEME_ORANGE_HUE,THEME_PINK_ROSE,THEME_GREEN_GLOW];
     
-    selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
+    selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedRow inSection:0];
     [self.tableViewOutlet selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
 
@@ -41,7 +41,7 @@
 }
 - (IBAction)doneBtnPressed:(id)sender
 {
-    [[ NSUserDefaults standardUserDefaults] setInteger:selectedRow forKey:@"BackgroundTheme"];
+    [[ NSUserDefaults standardUserDefaults] setInteger:selectedRow forKey:BACKGROUND_THEME_VALUE];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[UITabBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];

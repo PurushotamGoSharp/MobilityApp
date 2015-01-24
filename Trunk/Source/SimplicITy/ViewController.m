@@ -159,7 +159,7 @@
 {
     UITabBarController *tabBarController = segue.destinationViewController;
     UITabBar *tabBar = tabBarController.tabBar;
-    NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackgroundTheme"];
+    NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     [self setTabImageForColorIndex:index onTabBar:tabBar];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index],NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-300" size:12]} forState:(UIControlStateNormal)];
