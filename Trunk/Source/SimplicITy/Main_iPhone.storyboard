@@ -426,7 +426,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="4xg-6e-VzR">
-                                        <rect key="frame" x="135" y="40" width="31" height="17"/>
+                                        <rect key="frame" x="135" y="48" width="31" height="17"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -438,7 +438,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jim Kohler" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="kuE-EK-KAA">
-                                        <rect key="frame" x="135" y="20" width="69" height="17"/>
+                                        <rect key="frame" x="135" y="28" width="69" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -447,13 +447,13 @@
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.65098039220000004" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kuE-EK-KAA" secondAttribute="trailing" constant="4" id="7wn-fO-0y4"/>
-                                    <constraint firstItem="4xg-6e-VzR" firstAttribute="top" secondItem="Yqx-FC-vlW" secondAttribute="bottom" constant="-17" id="8i9-Yn-sPO"/>
-                                    <constraint firstItem="Yqx-FC-vlW" firstAttribute="top" secondItem="kuE-EK-KAA" secondAttribute="bottom" constant="3" id="Icz-vP-bHN"/>
+                                    <constraint firstItem="4xg-6e-VzR" firstAttribute="top" secondItem="Yqx-FC-vlW" secondAttribute="bottom" constant="-9" id="8i9-Yn-sPO"/>
+                                    <constraint firstItem="Yqx-FC-vlW" firstAttribute="top" secondItem="kuE-EK-KAA" secondAttribute="bottom" constant="-5" id="Icz-vP-bHN"/>
                                     <constraint firstItem="4xg-6e-VzR" firstAttribute="leading" secondItem="l1b-Pk-mKI" secondAttribute="leading" constant="135" id="KMv-ef-syJ"/>
                                     <constraint firstItem="Yqx-FC-vlW" firstAttribute="leading" secondItem="l1b-Pk-mKI" secondAttribute="leading" constant="135" id="R8h-Wh-5HO"/>
                                     <constraint firstAttribute="height" constant="107" id="ewW-zv-gVD"/>
                                     <constraint firstItem="kuE-EK-KAA" firstAttribute="leading" secondItem="l1b-Pk-mKI" secondAttribute="leading" constant="135" id="flh-sA-Cas"/>
-                                    <constraint firstItem="kuE-EK-KAA" firstAttribute="top" secondItem="l1b-Pk-mKI" secondAttribute="top" constant="20" id="mLt-cN-HZD"/>
+                                    <constraint firstItem="kuE-EK-KAA" firstAttribute="top" secondItem="l1b-Pk-mKI" secondAttribute="top" constant="28" id="mLt-cN-HZD"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4xg-6e-VzR" secondAttribute="trailing" constant="4" id="xuU-K7-XfA"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Yqx-FC-vlW" secondAttribute="trailing" constant="4" id="zuF-IG-Q1l"/>
                                 </constraints>
@@ -1329,19 +1329,18 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip Category 1" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-j7-rMM">
-                                                    <rect key="frame" x="14" y="12" width="101" height="18"/>
+                                                    <rect key="frame" x="14" y="12" width="265" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="p3c-j7-rMM" firstAttribute="top" secondItem="qsZ-cr-Wr2" secondAttribute="topMargin" constant="4" id="5bp-Kc-BHZ"/>
                                                 <constraint firstItem="i9m-5t-yDg" firstAttribute="leading" secondItem="qsZ-cr-Wr2" secondAttribute="leading" id="DyX-3P-lUk"/>
-                                                <constraint firstItem="p3c-j7-rMM" firstAttribute="leading" secondItem="qsZ-cr-Wr2" secondAttribute="leadingMargin" constant="6" id="GqW-TH-4aq"/>
                                                 <constraint firstItem="i9m-5t-yDg" firstAttribute="top" secondItem="qsZ-cr-Wr2" secondAttribute="top" id="Kk4-F6-MTa"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="p3c-j7-rMM" secondAttribute="trailing" constant="8" id="RxK-Ar-dIG"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="p3c-j7-rMM" secondAttribute="bottom" constant="4" id="mRa-6I-aE0"/>
+                                                <constraint firstAttribute="trailing" secondItem="p3c-j7-rMM" secondAttribute="trailing" constant="8" id="QYJ-Y0-oIW"/>
+                                                <constraint firstAttribute="centerY" secondItem="p3c-j7-rMM" secondAttribute="centerY" id="Uzj-Qa-9g4"/>
+                                                <constraint firstItem="p3c-j7-rMM" firstAttribute="leading" secondItem="qsZ-cr-Wr2" secondAttribute="leading" constant="14" id="hm2-x2-NSF"/>
                                                 <constraint firstAttribute="bottom" secondItem="i9m-5t-yDg" secondAttribute="bottom" constant="1" id="raR-eu-CpU"/>
                                                 <constraint firstAttribute="trailing" secondItem="i9m-5t-yDg" secondAttribute="trailing" constant="-34" id="rjD-ce-XFG"/>
                                             </constraints>
@@ -2655,8 +2654,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="9RB-d2-cKB"/>
-        <segue reference="CXP-ec-zh5"/>
-        <segue reference="iex-Pf-cLz"/>
+        <segue reference="uWR-qu-A3S"/>
+        <segue reference="Jrv-6w-ASy"/>
+        <segue reference="8h2-qg-Aot"/>
     </inferredMetricsTieBreakers>
 </document>
