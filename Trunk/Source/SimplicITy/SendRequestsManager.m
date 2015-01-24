@@ -288,6 +288,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_SYNC_NOTIFICATION_KEY object:requestModel];
 }
 
+- (void)updateUIForFailureWithRequest:(RequestModel *)requestModel
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY object:requestModel];
+}
+
 - (NSData *)parameterForRequest:(RequestModel *)request
 {
     if (request == nil)

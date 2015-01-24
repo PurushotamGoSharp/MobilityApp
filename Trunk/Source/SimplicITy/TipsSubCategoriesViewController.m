@@ -134,7 +134,7 @@
                                                             context:nil];
     
     CGFloat expectedHeightOfCell = expectedSizeOfLabel.size.height + 24;
-    NSLog(@"%f", expectedHeightOfCell);
+
     return expectedHeightOfCell;
 }
 

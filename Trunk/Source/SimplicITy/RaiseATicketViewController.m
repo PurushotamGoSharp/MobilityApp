@@ -102,7 +102,7 @@
         self.title = @"Place Order";
         
         self.CategoryTitleOutlet.text = @"Items";
-        self.selectedCategorylabel.text = @"Select a item";
+        self.selectedCategorylabel.text = @"Select an item";
     }
     else
     {
@@ -117,6 +117,7 @@
         
         self.navigationItem.titleView = titleView;
     }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,12 +149,71 @@
     
     initialOffsetOfSCrollView = self.scrollView.contentOffset;
     initialScollViewInset = self.scrollView.contentInset;
+    
+    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    
+    UILabel *low = (UILabel *)[impactCell viewWithTag:10];
+    UILabel *medium = (UILabel *)[impactCell viewWithTag:20];
+    UILabel *high = (UILabel *)[impactCell viewWithTag:30];
+    UILabel *critical = (UILabel *)[impactCell viewWithTag:40];
+    
+    
+    low.font=[self customFont:14 ofName:MuseoSans_300];
+    medium.font=[self customFont:14 ofName:MuseoSans_300];
+    high.font=[self customFont:14 ofName:MuseoSans_300];
+    critical.font=[self customFont:14 ofName:MuseoSans_300];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(successfulSync)
+                                                 name:REQUEST_SYNC_NOTIFICATION_KEY
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(failureSync)
+                                                 name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     [self hideKeyboard:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:REQUEST_SYNC_NOTIFICATION_KEY
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
+                                                  object:nil];
+}
+
+- (void)successfulSync
+{
+    NSString *alertMessage;
+    
+    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    {
+        alertMessage = ALERT_FOR_ORDER_SAVED;
+    }
+    else
+    {
+        alertMessage = ALERT_FOR_TICKET_SAVED;
+    }
+    
+    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
+                                                            message:alertMessage
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+    
+    saveAlestView.delegate= self;
+    [saveAlestView show];
+}
+
+- (void)failureSync
+{
+    
 }
 
 - (void)tryToUpdateCategories
@@ -240,28 +300,31 @@
     {
         [[SendRequestsManager sharedManager] authenticateServer];
         [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
+    }else
+    {
+        NSString *alertMessage;
+        
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+            alertMessage = ALERT_FOR_ORDER_SAVED;
+        }
+        else
+        {
+            alertMessage = ALERT_FOR_TICKET_SAVED;
+        }
+        
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
+                                                                message:alertMessage
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+        
+        saveAlestView.delegate= self;
+        [saveAlestView show];
+
     }
     
     saveButtonIsPressed = NO;
-    NSString *alertMessage;
-
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-    {
-        alertMessage = ALERT_FOR_ORDER_SAVED;
-    }
-    else
-    {
-        alertMessage = ALERT_FOR_TICKET_SAVED;
-    }
-    
-    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
-                                                            message:alertMessage
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-    
-    saveAlestView.delegate= self;
-    [saveAlestView show];
 }
 
 - (BOOL)validateEntriesMade
@@ -420,7 +483,7 @@
     }
     
     //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
-    [self.scrollView setContentOffset:(CGPointMake(0, 100)) animated:YES];
+    [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
 }
 
 - (IBAction)imapctValueChanged:(UISlider *)sender
@@ -549,12 +612,6 @@
     medium = (UILabel *)[impactCell viewWithTag:20];
     high = (UILabel *)[impactCell viewWithTag:30];
     critical = (UILabel *)[impactCell viewWithTag:40];
-   
-    
-    low.font=[self customFont:14 ofName:MuseoSans_300];
-    medium.font=[self customFont:14 ofName:MuseoSans_300];
-    high.font=[self customFont:14 ofName:MuseoSans_300];
-    critical.font=[self customFont:14 ofName:MuseoSans_300];
    
     slider.value = roundf(slider.value);
     
