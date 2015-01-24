@@ -396,6 +396,11 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    self.profileViewTopConstraint.constant = -107;
+    navBtnIsOn = NO;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning

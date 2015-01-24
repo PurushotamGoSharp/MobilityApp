@@ -300,7 +300,6 @@
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", APILink,stringFromData];
 
     [dbManager saveDataToDBForQuery:insertSQL];
-    
 }
 
 - (void)getData
