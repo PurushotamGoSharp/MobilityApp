@@ -46,6 +46,7 @@
     
     NSDateFormatter *dateFormatter;
     RequestModel *currentRequest;
+    BOOL haveRasiedRequest;
 }
 
 @property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
@@ -60,6 +61,7 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
 @property (weak, nonatomic) IBOutlet UILabel *detailLbl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *serviceTopToTableViewBottomConst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailsBottomMaxConst;
 
 @end
 
@@ -190,25 +192,29 @@
 
 - (void)successfulSync
 {
-    NSString *alertMessage;
-    
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    if (haveRasiedRequest)
     {
-        alertMessage = ALERT_FOR_ORDER_SAVED;
+        NSString *alertMessage;
+        
+        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        {
+            alertMessage = ALERT_FOR_ORDER_SAVED;
+        }
+        else
+        {
+            alertMessage = ALERT_FOR_TICKET_SAVED;
+        }
+        
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
+                                                                message:alertMessage
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+        
+        saveAlestView.delegate= self;
+        [saveAlestView show];
+        haveRasiedRequest = NO;
     }
-    else
-    {
-        alertMessage = ALERT_FOR_TICKET_SAVED;
-    }
-    
-    UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
-                                                            message:alertMessage
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-    
-    saveAlestView.delegate= self;
-    [saveAlestView show];
 }
 
 - (void)failureSync
@@ -298,6 +304,7 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
+        haveRasiedRequest = YES;
         [[SendRequestsManager sharedManager] authenticateServer];
         [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
     }else
@@ -466,17 +473,21 @@
 
 - (IBAction)hideKeyboard:(UIControl *)sender
 {
+    [self.view endEditing:YES];
+
     if (self.scrollView.contentOffset.y >= 100)
     {
-        [self.scrollView setContentOffset:initialOffsetOfSCrollView animated:YES];
+        self.detailsBottomMaxConst.constant = 70;
+        [self.view layoutIfNeeded];
+
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+
     }
-    
-    [self.view endEditing:YES];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if (self.scrollView.contentOffset.y <= 00)
+    if (self.scrollView.contentOffset.y <= 0)
     {
         initialOffsetOfSCrollView = self.scrollView.contentOffset;
         initialScollViewInset = self.scrollView.contentInset;
@@ -484,6 +495,8 @@
     
     //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
     [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
+    self.detailsBottomMaxConst.constant = 220;
+    [self.view layoutIfNeeded];
 }
 
 - (IBAction)imapctValueChanged:(UISlider *)sender
