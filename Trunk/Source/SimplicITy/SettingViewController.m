@@ -64,6 +64,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    
     selectedLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationName"];
     selectedLanaguage = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLanguage"];
     
@@ -209,7 +211,6 @@
     NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     [self setTabImageForColorIndex:index onTabBar:tabBar];
     
-    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index]} forState:(UIControlStateNormal)];
 }
 
 - (void)setTabImageForColorIndex:(NSInteger)colorIndex onTabBar:(UITabBar *)tabBar;

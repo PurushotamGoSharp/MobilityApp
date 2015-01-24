@@ -151,6 +151,28 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *tipsCategory = tipscategoryArray[indexPath.row];
+    NSDictionary *attributes = @{NSFontAttributeName: [self customFont:16 ofName:MuseoSans_700]};
+    
+    CGFloat maxWidthAllowed = self.view.frame.size.width - 16 - 33;
+    
+    //    if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait)
+    //    {
+    //        maxWidthAllowed = self.view.frame.size.height - 16 - 33;
+    //    }
+    
+    CGRect expectedSizeOfLabel = [tipsCategory boundingRectWithSize:(CGSizeMake(maxWidthAllowed, 10000))
+                                                            options:(NSStringDrawingUsesLineFragmentOrigin)
+                                                         attributes:attributes
+                                                            context:nil];
+    
+    CGFloat expectedHeightOfCell = expectedSizeOfLabel.size.height + 24;
+    NSLog(@"%f", expectedHeightOfCell);
+    return expectedHeightOfCell;
+}
+
 /*
 #pragma mark - Navigation
 

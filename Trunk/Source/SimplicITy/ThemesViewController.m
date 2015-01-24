@@ -45,10 +45,39 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[UITabBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:selectedRow],NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-300" size:12]} forState:(UIControlStateNormal)];
+
     [[UINavigationBar appearance] setBarTintColor:[self barColorForIndex:selectedRow]];
     [self.delegate selectedThemeIs:arrOfThemesData[selectedRow]];
     [self dismissViewControllerAnimated:YES completion:nil];
 
+}
+
+- (UIColor *)colorForIndex:(NSInteger)colorIndex
+{
+    switch (colorIndex)
+    {
+        case 0:
+            return [UIColor colorWithRed:.1 green:.16 blue:.2 alpha:1];
+            break;
+            
+        case 1:
+            return [UIColor colorWithRed:.4 green:.11 blue:.2 alpha:1];
+            break;
+            
+        case 2:
+            return [UIColor colorWithRed:.15 green:.18 blue:.09 alpha:1];
+            break;
+            
+        case 3:
+            return [UIColor colorWithRed:.35 green:.2 blue:.13 alpha:1];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
 }
 
 
