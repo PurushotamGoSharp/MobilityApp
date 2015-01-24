@@ -191,6 +191,11 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+//    if (subCategoriesCollection.count <=1)
+//    {
+//        [self performSegueWithIdentifier:@"TipsSubToDetailsSegue" sender:self];
+//    }
 }
 
 - (void)parseResponseData:(NSData *)response
