@@ -88,7 +88,7 @@
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@"Jim" forState:(UIControlStateNormal)];
+    [titleButton setTitle:@"" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     [titleButton sizeToFit];
@@ -127,22 +127,22 @@
 
     if ([userInfo getServerConfig] != nil)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION];
+        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION_CODE];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self getDataForCountryCode:userInfo.location];
         
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION];
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
     }else
     {
-        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:SELECTED_LOCATION];
+        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:SELECTED_LOCATION_CODE];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self getDataForCountryCode:@"IND"];
         
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION];
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
@@ -532,7 +532,7 @@
     
 }
 
--(NSString*)phoneNumValidation
+- (NSString*)phoneNumValidation
 {
     NSIndexPath *indexpath = [self.tableViewOutlet indexPathForSelectedRow];
     

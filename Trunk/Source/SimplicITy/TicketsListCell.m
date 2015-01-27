@@ -51,7 +51,7 @@
     
     self.timeLabel.text = [dateFormatter stringFromDate:requestModel.requestDate];
     
-    NSString *staus = [requestModel.requestIncidentNo stringByAppendingString:@", In Progress"];
+    NSString *staus = [requestModel.requestIncidentNo stringByAppendingString:@", New"];
     self.currentStatusLabel.text = staus;
 }
 

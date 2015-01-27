@@ -24,9 +24,9 @@
 
 #define ALERT_FOR_ORDER_SAVED @"Your Order has been saved !"
 #define ALERT_FOR_TICKET_SAVED @"Your Ticket has been saved !"
-#define ALERT_FOR_SELECT_ITEM_VALIDATION @"Select an item.\n"
-#define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Select a service.\n"
-#define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Give details about request."
+#define ALERT_FOR_SELECT_ITEM_VALIDATION @"Item is required.\n"
+#define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Service is required.\n"
+#define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Details is required."
 
 
 @interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate, UIAlertViewDelegate>
@@ -205,7 +205,7 @@
             alertMessage = ALERT_FOR_TICKET_SAVED;
         }
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
                                                                 message:alertMessage
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
@@ -320,7 +320,7 @@
             alertMessage = ALERT_FOR_TICKET_SAVED;
         }
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Alert!"
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
                                                                 message:alertMessage
                                                                delegate:self
                                                       cancelButtonTitle:@"OK"
@@ -363,7 +363,7 @@
     {
         NSString *alertMessage = [alertMessages componentsJoinedByString:@" "];
         
-        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:@"Alert"
+        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
                                                                message:alertMessage
                                                               delegate:nil
                                                      cancelButtonTitle:@"OK"
@@ -549,7 +549,7 @@
     {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         header.text = @"Requester";
-        lable.text = [UserInfo sharedUserInfo].fullName?:@"Jim Kohler";
+        lable.text = [UserInfo sharedUserInfo].fullName?:@"";
     }else
     {
         header.text = @"Impact";

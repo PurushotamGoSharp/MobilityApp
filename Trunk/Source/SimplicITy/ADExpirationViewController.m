@@ -11,7 +11,7 @@
 #define TEST_URL @"https://simplicity-dev.ucb.com/ad/account-status/id/"
 #import <MBProgressHUD/MBProgressHUD.h>
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
-#define IPHONE_6_CROPID  @"G800189"
+#define IPHONE_6_CROPID  @""
 
 @interface ADExpirationViewController () <NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *passwordToolLabel;

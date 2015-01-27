@@ -12,6 +12,8 @@
 #import "UAPush.h"
 #import "SendRequestsManager.h"
 
+#define ENABLE_PUSH_NOTIFICATION NO
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -37,7 +39,7 @@
                                              UIUserNotificationTypeBadge |
                                              UIUserNotificationTypeSound);
     
-     [UAPush shared].userPushNotificationsEnabled = YES;
+     [UAPush shared].userPushNotificationsEnabled = ENABLE_PUSH_NOTIFICATION;
 
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}

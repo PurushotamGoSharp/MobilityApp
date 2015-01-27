@@ -105,10 +105,10 @@
     
     LocationModel *location = arrOfLocationData[[self.tableView indexPathForSelectedRow].row ];
     
-    [[NSUserDefaults standardUserDefaults] setObject:location.countryCode forKey:SELECTED_LOCATION];
+    [[NSUserDefaults standardUserDefaults] setObject:location.countryCode forKey:SELECTED_LOCATION_CODE];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [[NSUserDefaults standardUserDefaults] setObject:location.countryName forKey:SELECTED_LOCATION];
+    [[NSUserDefaults standardUserDefaults] setObject:location.countryName forKey:SELECTED_LOCATION_NAME];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self.delegate selectedLocationIs:location.countryName];
@@ -147,7 +147,7 @@
 
     titleLable.highlightedTextColor = [UIColor whiteColor];
     
-    if ([location.countryCode isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION]])
+    if ([location.countryCode isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_CODE]])
     {
         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
     }
