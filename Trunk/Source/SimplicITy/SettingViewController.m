@@ -198,7 +198,6 @@
     UITableViewCell *languageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
     languageLabel.text = location;
-
 }
 
 -(void)selectedThemeIs:(NSString *)theme
@@ -218,10 +217,10 @@
     NSInteger imageIndex = colorIndex+1; //Image name say Commercial-01.png, staring index is 1.
     
     NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%li.png", (long)imageIndex];
-    NSString *imageName1 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
-    NSString *imageName2 = [NSString stringWithFormat:@"Message-0%li.png", (long)imageIndex];
-    NSString *imageName3 = [NSString stringWithFormat:@"TipsIcon-0%li.png", (long)imageIndex];
-    NSString *imageName4 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
+    NSString *imageName1 = [NSString stringWithFormat:@"Message-0%li.png", (long)imageIndex];
+    NSString *imageName2 = [NSString stringWithFormat:@"TipsIcon-0%li.png", (long)imageIndex];
+    NSString *imageName3 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
+    NSString *imageName4 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
     
     UITabBarItem *tabBarItem = tabBar.items[0];
     tabBarItem.image = [[UIImage imageNamed:imageName0] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

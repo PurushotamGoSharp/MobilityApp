@@ -10,8 +10,9 @@
 #import "DBManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "TipModel.h"
+#import "TipsSubCategoriesViewController.h"
 
-@interface TipDetailsViewController () <UIWebViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, postmanDelegate, DBManagerDelegate>
+@interface TipDetailsViewController () <UIWebViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, postmanDelegate, DBManagerDelegate, TipsSubCategoriesViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -70,6 +71,18 @@
 //    [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+}
+
+- (void)setPageForIndex:(NSInteger)index
+{
+    if ([subCategoriesCollection count] <= index)
+    {
+        return;
+    }
+    
+    CGFloat widthOfCollectionView = self.collectionView.frame.size.width;
+    CGFloat xOfContentOffset = widthOfCollectionView * index;
+    [self.collectionView setContentOffset:CGPointMake(xOfContentOffset, 0) animated:YES];
 }
 
 - (void)tryToUpdateCategories
@@ -156,6 +169,18 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"detailsToListSegue"])
+    {
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        TipsSubCategoriesViewController *tipsList = navController.viewControllers[0];
+        tipsList.listOfTips = subCategoriesCollection;
+        tipsList.parentCategory = self.parentCategory;
+        tipsList.delegate = self;
+    }
 }
 
 #pragma mark
@@ -322,6 +347,15 @@
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", URLString, stringFromData];
     
     [dbManager saveDataToDBForQuery:insertSQL];
+}
+
+#pragma mark
+#pragma mark: TipsSubCategoriesViewControllerDelegate
+
+- (void)tipsSub:(TipsSubCategoriesViewController *)tipsSub selectedIndex:(NSInteger)selectedIndex
+{
+    [self setPageForIndex:selectedIndex];
+    currentPageNo = selectedIndex;
 }
 
 @end
