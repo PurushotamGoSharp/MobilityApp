@@ -7,12 +7,13 @@
 //
 
 #import "TipsCategoryViewController.h"
-#import "TipsSubCategoriesViewController.h"
+//#import "TipsSubCategoriesViewController.h"
 #import <sqlite3.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
+#import "TipDetailsViewController.h"
 
-@interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate,DBManagerDelegate, TipsSubCategoriesViewControllerDelegate>
+@interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate,DBManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -198,12 +199,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"TipsCatToSubcatSegue"])
+    if ([segue.identifier isEqualToString:@"tipsCatToDetailsSegue"])
     {
-        TipsSubCategoriesViewController *tipsSubVC = (TipsSubCategoriesViewController *)segue.destinationViewController;
-        tipsSubVC.parentCategory = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
-        tipsSubVC.parentCode = [self codeForTipCategory:tipsSubVC.parentCategory];
-        tipsSubVC.delegate = self;
+        TipDetailsViewController *tipDetailVC = (TipDetailsViewController *)segue.destinationViewController;
+        tipDetailVC.parentCategory = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
+        tipDetailVC.parentCode = [self codeForTipCategory:tipDetailVC.parentCategory];
     }
 }
 

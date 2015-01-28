@@ -77,7 +77,6 @@
     NSArray *stringArray = @[self.parentCode, self.parentCategory];
     NSString *userDeafultKey = [stringArray componentsJoinedByString:@","];
     return [userDeafultKey lowercaseString];
-
 }
 
 - (void)didReceiveMemoryWarning

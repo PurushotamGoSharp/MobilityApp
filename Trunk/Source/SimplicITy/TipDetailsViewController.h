@@ -15,5 +15,7 @@
 @property (strong, nonatomic) TipModel *tipModel;
 
 @property (strong, nonatomic) MPMoviePlayerController *videoController;
+@property (strong, nonatomic) NSString *parentCategory;
+@property (strong, nonatomic) NSString *parentCode;
 
 @end

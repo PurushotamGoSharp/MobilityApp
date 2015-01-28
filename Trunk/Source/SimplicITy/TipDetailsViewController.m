@@ -7,16 +7,26 @@
 //
 
 #import "TipDetailsViewController.h"
+#import "DBManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "TipModel.h"
 
-@interface TipDetailsViewController () <UIWebViewDelegate>
+@interface TipDetailsViewController () <UIWebViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, postmanDelegate, DBManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @end
 
 @implementation TipDetailsViewController
 {
+    NSMutableArray *subCategoriesCollection;
+    Postman *postMan;
+    NSString *URLString;
     
+    DBManager *dbManager;
+    NSInteger currentPageNo;
 }
 
 - (void)viewDidLoad
@@ -24,23 +34,55 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = self.tipModel.question;
+//    self.title = self.tipModel.question;
     self.webView.delegate = self;
+    
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachePath = [cachedirs lastObject];
-    NSLog(@"Cache path = %@", cachePath);
+    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
     
-    CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
-    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
-    [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:[self userDefaultKey]])
+        {
+            [self tryToUpdateCategories];
+        }else
+        {
+            [self getData];
+        }
+    }else
+    {
+        [self getData];
+    }
+    
+//    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+//    NSString *cachePath = [cachedirs lastObject];
+//    
+//    CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
+//    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
+//    [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+}
+
+- (void)tryToUpdateCategories
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [postMan get:URLString];
+}
+
+- (NSString *)userDefaultKey
+{
+    NSArray *stringArray = @[self.parentCode, self.parentCategory];
+    NSString *userDeafultKey = [stringArray componentsJoinedByString:@","];
+    return [userDeafultKey lowercaseString];
 }
 
 - (void)orientationChanged:(NSNotification *)notification
@@ -50,36 +92,42 @@
 
 - (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
 {
-    switch (orientation)
-    {
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-        {
-            NSLog(@"UIInterfaceOrientationPortrait");
-            //load the portrait view
-            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *cachePath = [cachedirs lastObject];
-
-            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
-            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
-            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
-        }
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-        {
-            //load the landscape view
-            NSLog(@"UIInterfaceOrientationLandscapeLeft");
-            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *cachePath = [cachedirs lastObject];
-            
-            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
-            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
-            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
-        }
-            break;
-        case UIInterfaceOrientationUnknown:break;
-    }
+    [self.collectionView reloadData];
+    
+    CGFloat widthOfCollectonView = self.collectionView.frame.size.width;
+    
+    [self.collectionView setContentOffset:(CGPointMake(widthOfCollectonView*currentPageNo, 0)) animated:YES];
+    
+//    switch (orientation)
+//    {
+//        case UIInterfaceOrientationPortrait:
+//        case UIInterfaceOrientationPortraitUpsideDown:
+//        {
+//            NSLog(@"UIInterfaceOrientationPortrait");
+//            //load the portrait view
+//            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+//            NSString *cachePath = [cachedirs lastObject];
+//
+//            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
+//            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
+//            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+//        }
+//            break;
+//        case UIInterfaceOrientationLandscapeLeft:
+//        case UIInterfaceOrientationLandscapeRight:
+//        {
+//            //load the landscape view
+//            NSLog(@"UIInterfaceOrientationLandscapeLeft");
+//            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+//            NSString *cachePath = [cachedirs lastObject];
+//            
+//            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
+//            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
+//            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+//        }
+//            break;
+//        case UIInterfaceOrientationUnknown:break;
+//    }
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -105,20 +153,175 @@
 }
 
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark
+#pragma mark: UICollectionViewDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    self.pageControl.numberOfPages = [subCategoriesCollection count];
+
+    return [subCategoriesCollection count];
 }
-*/
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCell" forIndexPath:indexPath];
+    
+    UIWebView *webView = (UIWebView *)[cell viewWithTag:100];
+    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachePath = [cachedirs lastObject];
+    
+    CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
+    TipModel *aTipModel = subCategoriesCollection[indexPath.row];
+    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView, aTipModel.answer];
+    [webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+    
+    
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize sizeOfCell = self.collectionView.bounds.size;
+    
+    sizeOfCell = CGSizeMake(sizeOfCell.width - 20, sizeOfCell.height - 20);
+    
+    return sizeOfCell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.collectionView])
+    {
+        CGFloat xValueOfContentOffset = self.collectionView.contentOffset.x;
+        NSInteger pageNo = roundf(xValueOfContentOffset/self.collectionView.frame.size.width);
+        
+        self.pageControl.currentPage = pageNo;
+        currentPageNo = pageNo;
+    }
+}
+
+#pragma mark
+#pragma mark: postmanDelegate
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    [self parseResponseData:response];
+    [self saveTipsCategory:response];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[self userDefaultKey]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+    //    if (subCategoriesCollection.count <=1)
+    //    {
+    //        [self performSegueWithIdentifier:@"TipsSubToDetailsSegue" sender:self];
+    //    }
+}
+
+- (void)parseResponseData:(NSData *)response
+{
+    subCategoriesCollection = [[NSMutableArray alloc] init];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    NSArray *tips = json[@"aaData"][@"Tips"];
+    
+    for (NSDictionary *aDict in tips)
+    {
+        if ([aDict[@"Status"] boolValue])
+        {
+            TipModel *tip = [[TipModel alloc] init];
+            tip.code = aDict[@"Code"];
+            
+            tip.groupCode = aDict[@"TipsGroupCode"];
+            tip.groupName = aDict[@"TipsGroup"];
+            
+            NSString *JSONString = aDict[@"JSON"];
+            NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
+                                                                         options:kNilOptions
+                                                                           error:nil];
+            tip.question = dictFromJSON[@"Question"];
+            tip.answer = dictFromJSON[@"Answer"];
+            
+            [subCategoriesCollection addObject:tip];
+            
+        }
+    }
+    
+    [self.collectionView reloadData];
+    
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
+    
+    if (![dbManager getDataForQuery:queryString])
+    {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+        
+        [self tryToUpdateCategories];
+    }
+}
+
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [self parseResponseData:data];
+        
+    }else if (![AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noNetworkAlert show];
+    }
+}
+
+- (void)saveTipsCategory:(NSData *)response
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *createQuery = @"create table if not exists tipCategory (API text PRIMARY KEY, data text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", URLString, stringFromData];
+    
+    [dbManager saveDataToDBForQuery:insertSQL];
+}
 
 @end
