@@ -417,15 +417,15 @@
 
 - (IBAction)messageButtonPressed:(UIButton *)sender
 {
-    [self.tabBarController setSelectedIndex:2];
+    [self.tabBarController setSelectedIndex:1];
 }
 - (IBAction)raiseATicketPressed:(UIButton *)sender
 {
-    [self.tabBarController setSelectedIndex:1];
+//    [self.tabBarController setSelectedIndex:1];
 }
 - (IBAction)tipsButtonPressed:(UIButton *)sender
 {
-    [self.tabBarController setSelectedIndex:3];
+    [self.tabBarController setSelectedIndex:2];
 }
 
 - (IBAction)myTicketsBtnPressed:(id)sender

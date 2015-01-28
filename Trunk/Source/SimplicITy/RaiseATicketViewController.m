@@ -273,14 +273,15 @@
 - (void)backBtnAction
 {
     [self resetForms];
+    [self.navigationController popViewControllerAnimated:YES];
+
     
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else
-    {
-        [self.tabBarController setSelectedIndex:0];
-    }
+//    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+//    {
+//    }else
+//    {
+//        [self.tabBarController setSelectedIndex:0];
+//    }
 }
 
 - (void)listBtnAction

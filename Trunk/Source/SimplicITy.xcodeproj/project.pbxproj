@@ -100,6 +100,7 @@
 		864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
 		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
+		8669DABD1A77A37900BE63A6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8669DABC1A77A37900BE63A6 /* AboutViewController.m */; };
 		867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */; };
 		867101B01A386FD900AE2ED6 /* TipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AF1A386FD900AE2ED6 /* TipModel.m */; };
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
@@ -163,7 +164,7 @@
 		86287D1F1A2EE1A500B12893 /* SimplicITy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimplicITy-Info.plist"; sourceTree = "<group>"; };
 		86287D211A2EE1A500B12893 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		86287D231A2EE1A500B12893 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		86287D251A2EE1A500B12893 /* SimplicITy-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimplicITy-Prefix.pch"; sourceTree = "<group>"; };
+		86287D251A2EE1A500B12893 /* SimplicITy-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimplicITy-Prefix.pch"; sourceTree = "<group>"; wrapsLines = 1; };
 		86287D261A2EE1A500B12893 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		86287D271A2EE1A500B12893 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		86287D2D1A2EE1A500B12893 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
@@ -384,6 +385,8 @@
 		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
 		86679F021A2EFD4400612BBA /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
+		8669DABB1A77A37900BE63A6 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		8669DABC1A77A37900BE63A6 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		867101AB1A386DB600AE2ED6 /* TipsSubCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsSubCategoriesViewController.h; sourceTree = "<group>"; };
 		867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsSubCategoriesViewController.m; sourceTree = "<group>"; };
 		867101AE1A386FD900AE2ED6 /* TipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipModel.h; sourceTree = "<group>"; };
@@ -588,6 +591,8 @@
 				86287D301A2EE1A500B12893 /* ViewController.m */,
 				86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */,
 				86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */,
+				8669DABB1A77A37900BE63A6 /* AboutViewController.h */,
+				8669DABC1A77A37900BE63A6 /* AboutViewController.m */,
 				863E3DDC1A6642FB009D1FB0 /* LocationModel.h */,
 				863E3DDD1A6642FB009D1FB0 /* LocationModel.m */,
 				861584221A66931200D2D12A /* Messages */,
@@ -1293,6 +1298,7 @@
 				86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */,
 				86173AC71A600A8500902088 /* MessageTileViewController.m in Sources */,
 				86A9A3EE1A5E58DB006D8A46 /* SeedModel.m in Sources */,
+				8669DABD1A77A37900BE63A6 /* AboutViewController.m in Sources */,
 				864532AE1A5A661D00A656A3 /* UAPushNotificationHandler.m in Sources */,
 				864532B31A5A661D00A656A3 /* UAPushSettingsTagsViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,

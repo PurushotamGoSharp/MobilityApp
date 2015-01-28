@@ -214,14 +214,75 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UITabBarController *tabBarController = segue.destinationViewController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
+    [self setTabImageForColorIndex:index onTabBar:tabBar];
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index],NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-300" size:12]} forState:(UIControlStateNormal)];
 }
-*/
+
+- (void)setTabImageForColorIndex:(NSInteger)colorIndex onTabBar:(UITabBar *)tabBar;
+{
+    NSInteger imageIndex = colorIndex+1; //Image name say Commercial-01.png, staring index is 1.
+    
+    NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%li.png", (long)imageIndex];
+    NSString *imageName1 = [NSString stringWithFormat:@"Message-0%li.png", (long)imageIndex];
+    NSString *imageName2 = [NSString stringWithFormat:@"TipsIcon-0%li.png", (long)imageIndex];
+    NSString *imageName3 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
+    NSString *imageName4 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
+    
+    
+    
+    UITabBarItem *tabBarItem = tabBar.items[0];
+    tabBarItem.image = [[UIImage imageNamed:imageName0] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    tabBarItem = tabBar.items[1];
+    tabBarItem.image = [[UIImage imageNamed:imageName1] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    tabBarItem = tabBar.items[2];
+    tabBarItem.image = [[UIImage imageNamed:imageName2] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    tabBarItem = tabBar.items[3];
+    tabBarItem.image = [[UIImage imageNamed:imageName3] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    tabBarItem = tabBar.items[4];
+    tabBarItem.image = [[UIImage imageNamed:imageName4] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+}
+
+- (UIColor *)colorForIndex:(NSInteger)colorIndex
+{
+    switch (colorIndex)
+    {
+        case 0:
+            return [UIColor colorWithRed:.1 green:.16 blue:.2 alpha:1];
+            break;
+            
+        case 1:
+            return [UIColor colorWithRed:.4 green:.11 blue:.2 alpha:1];
+            break;
+            
+        case 2:
+            return [UIColor colorWithRed:.15 green:.18 blue:.09 alpha:1];
+            break;
+            
+        case 3:
+            return [UIColor colorWithRed:.35 green:.2 blue:.13 alpha:1];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+}
+
+
 
 @end
