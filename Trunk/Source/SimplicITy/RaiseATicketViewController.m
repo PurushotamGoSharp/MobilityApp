@@ -219,7 +219,7 @@
 
 - (void)failureSync
 {
-    
+    [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
 }
 
 - (void)tryToUpdateCategories

@@ -342,10 +342,10 @@
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
-        queryString = @"SELECT * FROM raisedOrders";
+        queryString = @"SELECT * FROM raisedOrders ORDER BY date ASC";
     }else
     {
-        queryString = @"SELECT * FROM raisedTickets";
+        queryString = @"SELECT * FROM raisedTickets ORDER BY date ASC";
     }
     
     [dbManager getDataForQuery:queryString];
@@ -357,7 +357,9 @@
 {
     [arrayOfData removeAllObjects];
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-    [converter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+//    [converter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+    
+    [converter setDateFormat:@"yyyy MM dd hh mm a"];
 
     while (sqlite3_step(statment) == SQLITE_ROW)
     {
