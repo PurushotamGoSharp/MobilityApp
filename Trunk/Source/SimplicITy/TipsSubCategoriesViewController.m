@@ -19,64 +19,22 @@
 @end
 
 @implementation TipsSubCategoriesViewController
-{
-    NSMutableArray *subCategoriesCollection;
-    Postman *postMan;
-    NSString *URLString;
-    NSString *databasePath;
-    sqlite3 *database;
-    
-    DBManager *dbManager;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = self.parentCategory;
-    
-    postMan = [[Postman alloc] init];
-    postMan.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
-
-    if ([AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:[self userDefaultKey]])
-        {
-            [self tryToUpdateCategories];
-        }else
-        {
-            [self getData];
-        }
-    }else
-    {
-        [self getData];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.delegate VCIsGoingToDisappear];
-}
-
-- (void)tryToUpdateCategories
-{
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [postMan get:URLString];
-}
-
-- (NSString *)userDefaultKey
-{
-    NSArray *stringArray = @[self.parentCode, self.parentCategory];
-    NSString *userDeafultKey = [stringArray componentsJoinedByString:@","];
-    return [userDeafultKey lowercaseString];
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,7 +50,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [subCategoriesCollection count];
+    return [self.listOfTips count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,7 +59,7 @@
     
     UILabel *label = (UILabel *) [cell viewWithTag:100];
     
-    TipModel *tip = subCategoriesCollection[indexPath.row];
+    TipModel *tip = self.listOfTips[indexPath.row];
     label.text = tip.question;
 
     label.font = [self customFont:16 ofName:MuseoSans_700];
@@ -113,11 +71,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        [self.delegate tipsSub:self selectedIndex:indexPath.row];
+        
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TipModel *tip = subCategoriesCollection[indexPath.row];
+    TipModel *tip = self.listOfTips[indexPath.row];
     NSDictionary *attributes = @{NSFontAttributeName: [self customFont:16 ofName:MuseoSans_700]};
     
     CGFloat maxWidthAllowed = self.view.frame.size.width - 16 - 33;
@@ -137,24 +101,6 @@
     return expectedHeightOfCell;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"TipsSubToDetailsSegue"])
-    {
-        TipDetailsViewController *tipDetailsVC = (TipDetailsViewController *)segue.destinationViewController;
-        tipDetailsVC.tipModel =  subCategoriesCollection[[self.tableView indexPathForSelectedRow].row];
-    }
-}
 
 - (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
     
@@ -177,123 +123,6 @@
     }
     
     [self.tableView reloadData];
-}
-
-#pragma mark
-#pragma mark: postmanDelegate
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
-{
-    [self parseResponseData:response];
-    [self saveTipsCategory:response];
-
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[self userDefaultKey]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    
-//    if (subCategoriesCollection.count <=1)
-//    {
-//        [self performSegueWithIdentifier:@"TipsSubToDetailsSegue" sender:self];
-//    }
-}
-
-- (void)parseResponseData:(NSData *)response
-{
-    subCategoriesCollection = [[NSMutableArray alloc] init];
-
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
-    NSArray *tips = json[@"aaData"][@"Tips"];
-    
-    for (NSDictionary *aDict in tips)
-    {
-        if ([aDict[@"Status"] boolValue])
-        {
-            TipModel *tip = [[TipModel alloc] init];
-            tip.code = aDict[@"Code"];
-
-            tip.groupCode = aDict[@"TipsGroupCode"];
-            tip.groupName = aDict[@"TipsGroup"];
-            
-            NSString *JSONString = aDict[@"JSON"];
-            NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
-                                                                         options:kNilOptions
-                                                                           error:nil];
-            tip.question = dictFromJSON[@"Question"];
-            tip.answer = dictFromJSON[@"Answer"];
-            
-            [subCategoriesCollection addObject:tip];
-
-        }
-    }
-    
-    [self.tableView reloadData];
-}
-
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-}
-
-- (void)getData
-{
-    if (dbManager == nil)
-    {
-        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
-        dbManager.delegate = self;
-    }
-    
-    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
-    
-    if (![dbManager getDataForQuery:queryString])
-    {
-        if (![AFNetworkReachabilityManager sharedManager].reachable)
-        {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [noNetworkAlert show];
-        }
-        
-        [self tryToUpdateCategories];
-    }
-}
-
-- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
-{
-    if (sqlite3_step(statment) == SQLITE_ROW)
-    {
-        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
-        
-        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-        
-        [self parseResponseData:data];
-        
-    }else if (![AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [noNetworkAlert show];
-    }
-}
-
-- (void)saveTipsCategory:(NSData *)response
-{
-    if (dbManager == nil)
-    {
-        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
-        dbManager.delegate = self;
-    }
-    
-    NSString *createQuery = @"create table if not exists tipCategory (API text PRIMARY KEY, data text)";
-    [dbManager createTableForQuery:createQuery];
-    
-    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-    NSRange rangeofString;
-    rangeofString.location = 0;
-    rangeofString.length = stringFromData.length;
-    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-    
-    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", URLString, stringFromData];
-    
-    [dbManager saveDataToDBForQuery:insertSQL];
 }
 
 @end

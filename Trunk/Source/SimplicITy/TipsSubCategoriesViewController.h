@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class TipsSubCategoriesViewController;
+
 @protocol TipsSubCategoriesViewControllerDelegate <NSObject>
 
-- (void)VCIsGoingToDisappear;
+- (void)tipsSub:(TipsSubCategoriesViewController *)tipsSub selectedIndex:(NSInteger)selectedIndex;
 
 
 @end
@@ -21,6 +23,6 @@
 
 @property (strong, nonatomic) NSString *parentCategory;
 @property (strong, nonatomic) NSString *parentCode;
-@property (strong, nonatomic) NSData *resposeData;
+@property (strong, nonatomic) NSArray *listOfTips;
 
 @end
