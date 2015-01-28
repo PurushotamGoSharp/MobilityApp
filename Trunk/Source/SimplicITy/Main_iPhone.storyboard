@@ -1342,7 +1342,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2jE-QP-EN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3438" y="-1288"/>
+            <point key="canvasLocation" x="3855" y="-1288"/>
         </scene>
         <!--Tip Details View Controller-->
         <scene sceneID="RG5-2Q-x8N">
@@ -1416,7 +1416,7 @@
                     <navigationItem key="navigationItem" id="58B-Fo-C39">
                         <barButtonItem key="rightBarButtonItem" title="Item" id="gzp-Wq-AaH">
                             <connections>
-                                <segue destination="TZ3-aq-B9P" kind="modal" identifier="detailsToListSegue" id="amg-l6-VCI"/>
+                                <segue destination="Xsd-LS-a0E" kind="modal" identifier="detailsToListSegue" modalPresentationStyle="currentContext" id="amg-l6-VCI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2420,7 +2420,7 @@
         <scene sceneID="knE-Oh-xrU">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="H0N-D3-8qt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="103" title="News" image="messageBlue" badgeValue="7" id="Dbf-AO-NHx"/>
+                    <tabBarItem key="tabBarItem" tag="103" title="News" image="Message-01" badgeValue="7" id="Dbf-AO-NHx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b4z-7L-87i">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2617,7 +2617,7 @@
         <scene sceneID="NTQ-9k-ubV">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u6c-LW-jJe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="About" id="fQv-4y-eZ1"/>
+                    <tabBarItem key="tabBarItem" title="About" image="Commercial-01" id="fQv-4y-eZ1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ofl-JQ-VaW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2632,17 +2632,37 @@
             </objects>
             <point key="canvasLocation" x="2069" y="105"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MzL-7N-fWj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xsd-LS-a0E" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lFs-6P-GUN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TZ3-aq-B9P" kind="relationship" relationship="rootViewController" id="4z3-aQ-gGn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FCA-FN-J5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3438" y="-1288"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Avatar" width="64" height="64"/>
         <image name="BadgeIcon" width="20" height="20"/>
         <image name="Call_Phone" width="250" height="42"/>
         <image name="Clock" width="16" height="16"/>
+        <image name="Commercial-01" width="30" height="30"/>
         <image name="Email-Closed-Green" width="50" height="51"/>
         <image name="FeatureWillBeComingSoonImage" width="175" height="89"/>
         <image name="FilterBarButtonImage" width="32" height="32"/>
         <image name="HeadPhoneSmallimage" width="20" height="20"/>
         <image name="LyncToolsIcon" width="30" height="30"/>
+        <image name="Message-01" width="30" height="30"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
         <image name="Mobility" width="50" height="51"/>
@@ -2660,7 +2680,6 @@
         <image name="arrow-forward" width="20" height="20"/>
         <image name="cell_Background" width="266" height="77"/>
         <image name="homeBlue" width="30" height="26"/>
-        <image name="messageBlue" width="30" height="30"/>
         <image name="raiseATicketIcon" width="64" height="64"/>
         <image name="seperator" width="1" height="1"/>
         <image name="tick-mark" width="22" height="22"/>

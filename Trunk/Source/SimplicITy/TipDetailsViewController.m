@@ -175,7 +175,8 @@
 {
     if ([segue.identifier isEqualToString:@"detailsToListSegue"])
     {
-        TipsSubCategoriesViewController *tipsList = (TipsSubCategoriesViewController *)segue.destinationViewController;
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        TipsSubCategoriesViewController *tipsList = navController.viewControllers[0];
         tipsList.listOfTips = subCategoriesCollection;
         tipsList.parentCategory = self.parentCategory;
         tipsList.delegate = self;
