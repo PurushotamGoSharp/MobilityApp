@@ -45,6 +45,8 @@
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+    
+
 
 }
 
