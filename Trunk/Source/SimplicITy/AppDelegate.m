@@ -40,6 +40,9 @@
                                              UIUserNotificationTypeSound);
     
      [UAPush shared].userPushNotificationsEnabled = ENABLE_PUSH_NOTIFICATION;
+    
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
+
 
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}
