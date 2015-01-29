@@ -600,7 +600,7 @@
     if ([segue.identifier isEqualToString:@"dashToOrder_segue"])
     {
         RaiseATicketViewController *raiseTicket = segue.destinationViewController;
-        raiseTicket.orderDiffer = @"orderBtnPressed";
+        raiseTicket.orderDiffer = FLOW_FOR_ORDER;
         
     }if ([segue.identifier isEqualToString:@"DashToMyOrdersSegue"])
     {
