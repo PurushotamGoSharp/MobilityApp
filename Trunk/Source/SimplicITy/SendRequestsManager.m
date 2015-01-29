@@ -309,7 +309,7 @@
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     dict[@"firstName"] = [UserInfo sharedUserInfo].firstName ? : @"Anthony";
-    dict[@"lastName"] = [UserInfo sharedUserInfo].lastName ? :@"Yekula";
+    dict[@"lastName"] = [UserInfo sharedUserInfo].lastName ? : @"Yekula";
     dict[@"impact"] = statusArray[request.requestImpact];
     dict[@"service"] = @"mobility";
     dict[@"description"] = request.requestDetails;

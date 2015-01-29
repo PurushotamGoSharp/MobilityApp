@@ -16,7 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+//@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UILabel *currentPageNoLabel;
 
 @end
 
@@ -40,7 +41,7 @@
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
-
+    self.currentPageNoLabel.font = [self customFont:14 ofName:MuseoSans_300];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -183,13 +184,22 @@
     }
 }
 
+- (void)setPageNoLabelFor:(NSInteger)pageNo
+{
+    NSInteger noOfTotalPages = [subCategoriesCollection count];
+    if (pageNo >= noOfTotalPages)
+    {
+        return;
+    }
+    self.currentPageNoLabel.text = [NSString stringWithFormat:@"%li of %li", (long)pageNo+1, (long)noOfTotalPages];
+}
+
 #pragma mark
 #pragma mark: UICollectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    self.pageControl.numberOfPages = [subCategoriesCollection count];
-
+    [self setPageNoLabelFor:currentPageNo];
     return [subCategoriesCollection count];
 }
 
@@ -226,7 +236,7 @@
         CGFloat xValueOfContentOffset = self.collectionView.contentOffset.x;
         NSInteger pageNo = roundf(xValueOfContentOffset/self.collectionView.frame.size.width);
         
-        self.pageControl.currentPage = pageNo;
+        [self setPageNoLabelFor:pageNo];
         currentPageNo = pageNo;
     }
 }
@@ -310,6 +320,8 @@
     }
 }
 
+#pragma mark
+#pragma mark: DBManagerDelegate
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     if (sqlite3_step(statment) == SQLITE_ROW)
