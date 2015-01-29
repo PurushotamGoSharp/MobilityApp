@@ -124,27 +124,8 @@
     
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
-
-    if ([userInfo getServerConfig] != nil)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION_CODE];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [self getDataForCountryCode:userInfo.location];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-    }else
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:SELECTED_LOCATION_CODE];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [self getDataForCountryCode:@"IND"];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+    
+    [self setupLocation];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -181,6 +162,30 @@
             break;
         default:
             break;
+    }
+}
+
+- (void)setupLocation
+{
+    if ([userInfo getServerConfig] != nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION_CODE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self getDataForCountryCode:userInfo.location];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }else
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:SELECTED_LOCATION_CODE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self getDataForCountryCode:@"IND"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -278,6 +283,10 @@
     [self.tableViewOutlet reloadData];
     [self adjustHeightOfPopOverView];
     
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
+    {
+        [self setupLocation];
+    }
 }
 
 - (void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink

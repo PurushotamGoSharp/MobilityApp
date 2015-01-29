@@ -20,6 +20,7 @@
 
 @property (strong, nonatomic)NSString *orderItemDiffer;
 @property (strong,nonatomic)NSArray *categoryArray;
+@property (strong,nonatomic)CategoryModel *selectedCategory;
 
 @property (weak, nonatomic) id <TicketCategoryDelegate> delegate;
 

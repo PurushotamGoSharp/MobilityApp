@@ -593,6 +593,7 @@
         ticketCategoryVC.delegate = self;
         
         ticketCategoryVC.categoryArray = categoriesArr;
+        ticketCategoryVC.selectedCategory = selectedCategory;
     }
     
     if ([segue.identifier isEqualToString:@"myTicketList_segue"])
