@@ -12,10 +12,12 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 #import "TipDetailsViewController.h"
+#import "TipsGroupModel.h"
 
 @interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate,DBManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeightConst;
 
 @end
 
@@ -70,7 +72,6 @@
     [super viewWillAppear:animated];
     
     URLString = TIPS_CATEGORY_API;
-    
 
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -121,6 +122,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark
+#pragma mark: UITableViewDelegate
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -135,14 +139,15 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
     
+    TipsGroupModel *tipsModel = tipscategoryArray[indexPath.row];
+    
     UILabel *label = (UILabel *)[cell viewWithTag:100];
-    label.text = tipscategoryArray[indexPath.row];
-    
-   
+    label.text = tipsModel.tipsGroupName;
     label.font=[self customFont:16 ofName:MuseoSans_700];
-    
     [label sizeToFit];
-    [cell layoutIfNeeded];
+    
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
+    imageView.image = [self getimageForDocCode:tipsModel.tipsGroupDocCode];
     
     return cell;
 }
@@ -154,24 +159,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *tipsCategory = tipscategoryArray[indexPath.row];
-    NSDictionary *attributes = @{NSFontAttributeName: [self customFont:16 ofName:MuseoSans_700]};
-    
-    CGFloat maxWidthAllowed = self.view.frame.size.width - 16 - 33;
-    
-    //    if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait)
-    //    {
-    //        maxWidthAllowed = self.view.frame.size.height - 16 - 33;
-    //    }
-    
-    CGRect expectedSizeOfLabel = [tipsCategory boundingRectWithSize:(CGSizeMake(maxWidthAllowed, 10000))
-                                                            options:(NSStringDrawingUsesLineFragmentOrigin)
-                                                         attributes:attributes
-                                                            context:nil];
-    
-    CGFloat expectedHeightOfCell = expectedSizeOfLabel.size.height + 24;
-    NSLog(@"%f", expectedHeightOfCell);
-    return expectedHeightOfCell;
+    return 70;
 }
 
 /*
@@ -202,7 +190,8 @@
     if ([segue.identifier isEqualToString:@"tipsCatToDetailsSegue"])
     {
         TipDetailsViewController *tipDetailVC = (TipDetailsViewController *)segue.destinationViewController;
-        tipDetailVC.parentCategory = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
+        TipsGroupModel *selectedTipsGroup = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
+        tipDetailVC.parentCategory = selectedTipsGroup.tipsGroupName;
         tipDetailVC.parentCode = [self codeForTipCategory:tipDetailVC.parentCategory];
     }
 }
@@ -212,33 +201,24 @@
 
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
     if ([urlString isEqualToString:TIPS_CATEGORY_API])
     {
-        
-        [self parseResponseData:response andUpdateSubCategories:YES];
+        [self parseResponseData:response andGetImages:YES];
         [self saveTipsCategory:response forURL:urlString];
         
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tipsgroup"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }else
     {
-        NSString *parentCode = [self parentCodeForResponse:response];
-        NSLog(@"Parent code %@",parentCode);
-        
-        if (parentCode)
-        {
-            codeAndResponse[parentCode] = response;
-        }
-        
-        [self saveTipsCategory:response forURL:urlString];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tips"];
+        [self createImages:response forUrl:urlString];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"document"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
-- (void)parseResponseData:(NSData *)response andUpdateSubCategories:(BOOL)update
+- (void)parseResponseData:(NSData *)response andGetImages:(BOOL)download
 {
     codeAndResponse = [[NSMutableDictionary alloc] init];
     tipscategoryArray = [[NSMutableArray alloc] init];
@@ -249,15 +229,19 @@
     {
         if ([aDict[@"Status"] boolValue])
         {
-            [tipscategoryArray addObject:aDict[@"Name"]];
+            TipsGroupModel *tipsGroup = [[TipsGroupModel alloc] init];
+            tipsGroup.tipsGroupName = aDict[@"Name"];
+            tipsGroup.tipsGroupDocCode = aDict[@"DocumentCode"];
             
-//            if (update || [[NSUserDefaults standardUserDefaults] boolForKey:@"tips"])
-//            {
-//                    NSString *tipscategoryCode = aDict[@"Code"];
-//                    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//                    NSString *subCategoryURL = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, tipscategoryCode];
-//                    [postMan get:subCategoryURL];
-//            }
+            if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
+            {
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                
+                NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, aDict[@"DocumentCode"]];
+                [postMan get:imageUrl];
+            }
+            
+            [tipscategoryArray addObject:tipsGroup];
         }
     }
     
@@ -331,13 +315,74 @@
         
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         
-        [self parseResponseData:data andUpdateSubCategories:NO];
+        [self parseResponseData:data andGetImages:NO];
     }
 }
 
 - (void)VCIsGoingToDisappear
 {
     loadData = NO;
+}
+
+- (void)createImages:(NSData *)response forUrl:(NSString *)url
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    if (![json[@"aaData"][@"Success"] boolValue])
+    {
+        return;
+    }
+    NSString *imageAsBlob = json[@"aaData"][@"Base64Model"][@"Image"];
+    //    NSLog(@"%@",imageAsBlob);
+    NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    
+    NSData *imageDataForFromBase64 = [[NSData alloc] initWithBase64EncodedString:imageAsBlob options:kNilOptions];
+    UIImage *image = [UIImage imageWithData:imageDataForFromBase64];
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSString *pathToImage;
+    
+    //    NSMutableString *webClipFileName = [[NSMutableString alloc] init];
+    //    webClipFileName = @""
+    NSRange rangeOfFileName;
+    rangeOfFileName.length = url.length;
+    rangeOfFileName.location = 0;
+    
+    NSMutableString *stringToRemove = [RENDER_DOC_API mutableCopy];
+    NSRange rangeOfBaseURL;
+    rangeOfBaseURL.length = stringToRemove.length;
+    rangeOfBaseURL.location = 0;
+    [stringToRemove replaceOccurrencesOfString:@"%@" withString:@"" options:NSCaseInsensitiveSearch range:rangeOfBaseURL];
+    
+    NSLog(@"Base URL = %@", stringToRemove);
+    NSMutableString *docCode = [url mutableCopy];
+    [docCode replaceOccurrencesOfString:stringToRemove
+                                withString:@""
+                                   options:NSCaseInsensitiveSearch
+                                     range:rangeOfFileName];
+    
+    pathToImage = [NSString stringWithFormat:@"%@/%@@2x.png", pathToDoc, docCode];
+    NSLog(@"%@", pathToImage);
+    [imageData writeToFile:pathToImage atomically:YES];
+    
+    [self.tableView reloadData];
+}
+
+- (UIImage *)getimageForDocCode:(NSString *)docCode
+{
+    NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *filePath = [pathToDoc stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.png", docCode]];
+    
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    
+    if (imageData)
+    {
+        UIImage *tempImage = [UIImage imageWithData:imageData];
+        UIImage *webClipImage = [UIImage imageWithCGImage:tempImage.CGImage scale:2 orientation:tempImage.imageOrientation] ;
+        
+        return webClipImage;
+    }
+    
+    return nil;
 }
 
 @end

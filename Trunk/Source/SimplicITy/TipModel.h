@@ -16,5 +16,4 @@
 @property (strong, nonatomic) NSString *groupCode;
 @property (strong, nonatomic) NSString *groupName;
 
-
 @end

@@ -25,9 +25,8 @@
     
     DBManager *dbManager;
     NSString *URLString;
-
-
 }
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOutlet;
 
 @end
@@ -78,12 +77,11 @@
     }
 }
 
--(void)tryUpdatewebClip
+- (void)tryUpdatewebClip
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     [postMan get:URLString];
-
 }
 
 - (void)backBtnAction
@@ -96,7 +94,7 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 }
@@ -104,7 +102,7 @@
 #pragma mark 
 #pragma mark postmanDelegate
 
--(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
@@ -125,10 +123,9 @@
     }
 }
 
--(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-
 }
 
 - (void)parseResponsedata:(NSData *)response andgetImages:(BOOL)download
@@ -154,20 +151,15 @@
             
             if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {
-             
-             
-                    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    
-                    NSString *imageUrl = [NSString stringWithFormat:WEB_CLIPS_DOC_API,webClip.imageCode];
-                    [postMan get:imageUrl];
-
-              
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                
+                NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API,webClip.imageCode];
+                [postMan get:imageUrl];
             }
         }
-        
-        }
+    }
+    
     [self.collectionViewOutlet reloadData];
-
 }
 
 - (void)createImages:(NSData *)response forUrl:(NSString *)url
@@ -193,20 +185,20 @@
     rangeOfFileName.length = url.length;
     rangeOfFileName.location = 0;
     
-    NSMutableString *stringToRemove = [WEB_CLIPS_DOC_API mutableCopy];
+    NSMutableString *stringToRemove = [RENDER_DOC_API mutableCopy];
     NSRange rangeOfBaseURL;
     rangeOfBaseURL.length = stringToRemove.length;
     rangeOfBaseURL.location = 0;
     [stringToRemove replaceOccurrencesOfString:@"%@" withString:@"" options:NSCaseInsensitiveSearch range:rangeOfBaseURL];
     
     NSLog(@"Base URL = %@", stringToRemove);
-    NSMutableString *mutableURL = [url mutableCopy];
-    [mutableURL replaceOccurrencesOfString:stringToRemove
+    NSMutableString *docCode = [url mutableCopy];
+    [docCode replaceOccurrencesOfString:stringToRemove
                                 withString:@""
                                    options:NSCaseInsensitiveSearch
                                      range:rangeOfFileName];
     
-    pathToImage = [NSString stringWithFormat:@"%@/%@@2x.png", pathToDoc, mutableURL];
+    pathToImage = [NSString stringWithFormat:@"%@/%@@2x.png", pathToDoc, docCode];
     NSLog(@"%@", pathToImage);
     [imageData writeToFile:pathToImage atomically:YES];
     
@@ -233,7 +225,6 @@
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  webClips (API,data) values ('%@', '%@')", APILink,stringFromData];
     
     [dbManager saveDataToDBForQuery:insertSQL];
-    
 }
 
 - (void)getData

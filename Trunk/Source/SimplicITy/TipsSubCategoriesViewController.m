@@ -13,12 +13,15 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 
-@interface TipsSubCategoriesViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate, DBManagerDelegate>
+@interface TipsSubCategoriesViewController () <UITableViewDataSource, UITableViewDelegate >
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation TipsSubCategoriesViewController
+{
+    BOOL userTappedOnVC; //if user selects a question or cancels, vlaue will be set to yes;
+}
 
 - (void)viewDidLoad
 {
@@ -30,11 +33,27 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    userTappedOnVC = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+//    if (!userTappedOnVC)
+//    {
+//        [self dismissViewControllerAnimated:NO completion:^{
+//            
+//            
+//        }];
+//    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,6 +90,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    userTappedOnVC = YES;
     
     [self dismissViewControllerAnimated:YES completion:^{
         
@@ -123,6 +144,16 @@
     }
     
     [self.tableView reloadData];
+}
+
+- (IBAction)cancel:(UIBarButtonItem *)sender
+{
+    userTappedOnVC = YES;
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        
+    }];
 }
 
 @end
