@@ -18,6 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeightConst;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end
 
@@ -389,6 +390,7 @@
 {
     NSInteger noOfCells = [tipscategoryArray count];
     
+//    CGFloat cellHeigth =
 }
 
 @end
