@@ -385,4 +385,10 @@
     return nil;
 }
 
+- (void)adjustTableViewHeigth
+{
+    NSInteger noOfCells = [tipscategoryArray count];
+    
+}
+
 @end
