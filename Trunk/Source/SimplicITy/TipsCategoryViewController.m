@@ -150,12 +150,15 @@
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
     imageView.image = [self getimageForDocCode:tipsModel.tipsGroupDocCode];
     
+    UIView *containerView = [cell viewWithTag:102];
+    containerView.layer.cornerRadius = 15;
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -247,6 +250,7 @@
     }
     
     [self.tableView reloadData];
+    [self adjustTableViewHeigth];
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
@@ -366,6 +370,7 @@
     [imageData writeToFile:pathToImage atomically:YES];
     
     [self.tableView reloadData];
+    [self adjustTableViewHeigth];
 }
 
 - (UIImage *)getimageForDocCode:(NSString *)docCode
@@ -389,8 +394,14 @@
 - (void)adjustTableViewHeigth
 {
     NSInteger noOfCells = [tipscategoryArray count];
+    CGFloat cellHeigth = [self.tableView rowHeight];
     
-//    CGFloat cellHeigth =
+    CGFloat heigthOfTableView = cellHeigth*noOfCells;
+    
+    heigthOfTableView = MIN(heigthOfTableView, self.containerView.frame.size.height);
+    
+    self.tableViewHeightConst.constant = heigthOfTableView;
+    [self.containerView layoutIfNeeded];
 }
 
 @end
