@@ -2492,11 +2492,11 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ige-Y2-6Me">
                                         <rect key="frame" x="69" y="7" width="16" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.30588235289999999" green="0.65098039220000004" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qic-er-Lwo">
-                                        <rect key="frame" x="56" y="78" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Very Good" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qic-er-Lwo">
+                                        <rect key="frame" x="37" y="78" width="81" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -2504,25 +2504,31 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="Qic-er-Lwo" secondAttribute="centerX" id="R6m-Se-IGK"/>
+                                    <constraint firstItem="Qic-er-Lwo" firstAttribute="top" secondItem="VGs-mq-T5Y" secondAttribute="top" constant="78" id="Sua-H7-kkZ"/>
                                     <constraint firstAttribute="width" constant="155" id="Ukc-6B-4XH"/>
                                     <constraint firstAttribute="height" constant="109" id="rty-pm-1Ja"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYu-1Z-T8n">
-                                <rect key="frame" x="59" y="99" width="89" height="21"/>
+                                <rect key="frame" x="54" y="99" width="89" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write a Review" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtf-c8-A9m">
-                                <rect key="frame" x="59" y="246" width="114" height="21"/>
+                                <rect key="frame" x="54" y="257" width="114" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doO-LR-9NP">
-                                <rect key="frame" x="46" y="277" width="240" height="106"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doO-LR-9NP">
+                                <rect key="frame" x="36" y="288" width="240" height="106"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="1Et-At-jUk"/>
+                                    <constraint firstAttribute="height" constant="106" id="VhW-bP-DO2"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -2530,11 +2536,15 @@
                                 <rect key="frame" x="32" y="104" width="12" height="11"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starEmpty.png" translatesAutoresizingMaskIntoConstraints="NO" id="HWt-mH-CuW">
-                                <rect key="frame" x="32" y="251" width="12" height="11"/>
+                                <rect key="frame" x="32" y="262" width="12" height="11"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oj7-PZ-dau">
-                                <rect key="frame" x="97" y="406" width="127" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oj7-PZ-dau">
+                                <rect key="frame" x="97" y="414" width="127" height="30"/>
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.65098039220000004" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="127" id="Prh-57-hBo"/>
+                                    <constraint firstAttribute="height" constant="30" id="YSa-oB-WMJ"/>
+                                </constraints>
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2545,24 +2555,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="oj7-PZ-dau" firstAttribute="top" secondItem="doO-LR-9NP" secondAttribute="bottom" constant="20" id="CmT-mK-h5T"/>
+                            <constraint firstItem="doO-LR-9NP" firstAttribute="top" secondItem="gtf-c8-A9m" secondAttribute="bottom" constant="10" id="I3m-eR-wNR"/>
                             <constraint firstItem="UNl-pO-wDQ" firstAttribute="top" secondItem="N4W-la-zZJ" secondAttribute="bottom" constant="40" id="PZU-JU-7Sd"/>
                             <constraint firstItem="tYu-1Z-T8n" firstAttribute="top" secondItem="N4W-la-zZJ" secondAttribute="bottom" constant="35" id="WuJ-RV-QXW"/>
                             <constraint firstItem="HWt-mH-CuW" firstAttribute="leading" secondItem="t8k-fu-Pp0" secondAttribute="leading" constant="32" id="ZW5-ll-IuV"/>
+                            <constraint firstItem="doO-LR-9NP" firstAttribute="leading" secondItem="t8k-fu-Pp0" secondAttribute="leadingMargin" constant="20" id="aCT-hC-jNJ"/>
                             <constraint firstItem="VGs-mq-T5Y" firstAttribute="top" secondItem="N4W-la-zZJ" secondAttribute="bottom" constant="61" id="aRW-LD-VAd"/>
-                            <constraint firstItem="tYu-1Z-T8n" firstAttribute="leading" secondItem="UNl-pO-wDQ" secondAttribute="trailing" constant="15" id="bAq-UD-APY"/>
+                            <constraint firstItem="tYu-1Z-T8n" firstAttribute="leading" secondItem="UNl-pO-wDQ" secondAttribute="trailing" constant="10" id="bAq-UD-APY"/>
                             <constraint firstItem="UNl-pO-wDQ" firstAttribute="leading" secondItem="t8k-fu-Pp0" secondAttribute="leading" constant="32" id="cX3-SN-X3R"/>
                             <constraint firstAttribute="centerX" secondItem="VGs-mq-T5Y" secondAttribute="centerX" id="dI3-es-lFJ"/>
-                            <constraint firstItem="HWt-mH-CuW" firstAttribute="top" secondItem="VGs-mq-T5Y" secondAttribute="bottom" constant="17" id="hBX-pc-qIB"/>
-                            <constraint firstItem="gtf-c8-A9m" firstAttribute="leading" secondItem="HWt-mH-CuW" secondAttribute="trailing" constant="15" id="rMF-qz-FTL"/>
-                            <constraint firstItem="gtf-c8-A9m" firstAttribute="top" secondItem="VGs-mq-T5Y" secondAttribute="bottom" constant="12" id="zUB-PJ-nvB"/>
+                            <constraint firstItem="HWt-mH-CuW" firstAttribute="top" secondItem="VGs-mq-T5Y" secondAttribute="bottom" constant="28" id="hBX-pc-qIB"/>
+                            <constraint firstItem="gtf-c8-A9m" firstAttribute="leading" secondItem="HWt-mH-CuW" secondAttribute="trailing" constant="10" id="rMF-qz-FTL"/>
+                            <constraint firstAttribute="centerX" secondItem="oj7-PZ-dau" secondAttribute="centerX" id="tfw-f8-KLg"/>
+                            <constraint firstItem="gtf-c8-A9m" firstAttribute="top" secondItem="VGs-mq-T5Y" secondAttribute="bottom" constant="23" id="zUB-PJ-nvB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3fq-ak-F8D"/>
                     <connections>
+                        <outlet property="feedbackLblOutlet" destination="Qic-er-Lwo" id="Ocp-5t-bw4"/>
                         <outlet property="rateView" destination="fcr-3Z-b3Z" id="4kB-GC-0ok"/>
                         <outlet property="statusLabel" destination="Ige-Y2-6Me" id="0Wj-HO-UQq"/>
                         <outlet property="submitBtnOutlet" destination="oj7-PZ-dau" id="SsO-sK-79h"/>
                         <outlet property="textViewOutlet" destination="doO-LR-9NP" id="l02-HU-B4N"/>
+                        <outlet property="writeReviewLblOutlet" destination="gtf-c8-A9m" id="xXR-71-1pY"/>
+                        <outlet property="yourRatingLblOutlet" destination="tYu-1Z-T8n" id="zC6-ea-6oN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6m-a9-OEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2876,6 +2893,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="uWR-qu-A3S"/>
-        <segue reference="J1A-hZ-SrU"/>
+        <segue reference="9RB-d2-cKB"/>
     </inferredMetricsTieBreakers>
 </document>

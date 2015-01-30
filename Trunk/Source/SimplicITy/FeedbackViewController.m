@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UITextView *textViewOutlet;
 @property (weak, nonatomic) IBOutlet UIButton *submitBtnOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *yourRatingLblOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *feedbackLblOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *writeReviewLblOutlet;
 
 @end
 
@@ -31,6 +34,18 @@
     self.rateView.editable = YES;
     self.rateView.maxRating = 5;
     self.rateView.delegate = self;
+    
+    self.textViewOutlet.layer.borderWidth = 1;
+    self.textViewOutlet.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    self.submitBtnOutlet.layer.cornerRadius = 5;
+    
+    self.yourRatingLblOutlet.font = [self customFont:18 ofName:MuseoSans_300];
+    self.statusLabel.font = [self customFont:18 ofName:MuseoSans_300];
+    self.feedbackLblOutlet.font = [self customFont:18 ofName:MuseoSans_300];
+    self.writeReviewLblOutlet.font = [self customFont:18 ofName:MuseoSans_300];
+    self.submitBtnOutlet.titleLabel.font = [self customFont:18 ofName:MuseoSans_300];
+
 }
 
 - (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
