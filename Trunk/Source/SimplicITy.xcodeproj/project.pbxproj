@@ -110,6 +110,8 @@
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
 		867EBD601A6FAC7D00B5DD2E /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 867EBD5F1A6FA69800B5DD2E /* cert.p12 */; };
+		8691A42F1A7B630F006D3663 /* starEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8691A42D1A7B630F006D3663 /* starEmpty@2x.png */; };
+		8691A4301A7B630F006D3663 /* starFull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8691A42E1A7B630F006D3663 /* starFull@2x.png */; };
 		869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */; };
 		86A21D481A5D052D0090F5E5 /* webClipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D471A5D052D0090F5E5 /* webClipModel.m */; };
 		86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D4A1A5D0CD70090F5E5 /* DBManager.m */; };
@@ -118,6 +120,8 @@
 		86A9A3EE1A5E58DB006D8A46 /* SeedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */; };
 		86A9A3F11A5E601F006D8A46 /* SplashDelayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */; };
 		86AD6B6B1A70C880006A127B /* SendRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86AD6B6A1A70C880006A127B /* SendRequestsManager.m */; };
+		86B1218F1A7B5DB0006C2701 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B1218E1A7B5DB0006C2701 /* FeedbackViewController.m */; };
+		86B121921A7B5DBC006C2701 /* RateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B121911A7B5DBC006C2701 /* RateView.m */; };
 		86B5A96E1A4D4713009018AD /* MuseoSans-100.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96B1A4D45F9009018AD /* MuseoSans-100.otf */; };
 		86B5A96F1A4D4713009018AD /* MuseoSans-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96C1A4D45F9009018AD /* MuseoSans-300.otf */; };
 		86B5A9701A4D4713009018AD /* MuseoSans-700.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96D1A4D45F9009018AD /* MuseoSans-700.otf */; };
@@ -404,6 +408,8 @@
 		867B19B91A40126700462CA4 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
 		867B19BA1A40126700462CA4 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
 		867EBD5F1A6FA69800B5DD2E /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
+		8691A42D1A7B630F006D3663 /* starEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starEmpty@2x.png"; sourceTree = "<group>"; };
+		8691A42E1A7B630F006D3663 /* starFull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starFull@2x.png"; sourceTree = "<group>"; };
 		869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86A21D461A5D052D0090F5E5 /* webClipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webClipModel.h; sourceTree = "<group>"; };
 		86A21D471A5D052D0090F5E5 /* webClipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = webClipModel.m; sourceTree = "<group>"; };
@@ -419,6 +425,10 @@
 		86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashDelayViewController.m; sourceTree = "<group>"; };
 		86AD6B691A70C880006A127B /* SendRequestsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRequestsManager.h; sourceTree = "<group>"; };
 		86AD6B6A1A70C880006A127B /* SendRequestsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRequestsManager.m; sourceTree = "<group>"; };
+		86B1218D1A7B5DB0006C2701 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		86B1218E1A7B5DB0006C2701 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		86B121901A7B5DBC006C2701 /* RateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateView.h; sourceTree = "<group>"; };
+		86B121911A7B5DBC006C2701 /* RateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateView.m; sourceTree = "<group>"; };
 		86B5A96B1A4D45F9009018AD /* MuseoSans-100.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-100.otf"; sourceTree = "<group>"; };
 		86B5A96C1A4D45F9009018AD /* MuseoSans-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-300.otf"; sourceTree = "<group>"; };
 		86B5A96D1A4D45F9009018AD /* MuseoSans-700.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-700.otf"; sourceTree = "<group>"; };
@@ -599,8 +609,7 @@
 				86287D301A2EE1A500B12893 /* ViewController.m */,
 				86DEEB321A2EF27F00EA4C84 /* DashBoardViewController.h */,
 				86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */,
-				8669DABB1A77A37900BE63A6 /* AboutViewController.h */,
-				8669DABC1A77A37900BE63A6 /* AboutViewController.m */,
+				86B1218C1A7B5D72006C2701 /* About */,
 				863E3DDC1A6642FB009D1FB0 /* LocationModel.h */,
 				863E3DDD1A6642FB009D1FB0 /* LocationModel.m */,
 				861584221A66931200D2D12A /* Messages */,
@@ -1056,6 +1065,21 @@
 			name = "Tools VCs";
 			sourceTree = "<group>";
 		};
+		86B1218C1A7B5D72006C2701 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				8669DABB1A77A37900BE63A6 /* AboutViewController.h */,
+				8669DABC1A77A37900BE63A6 /* AboutViewController.m */,
+				86B1218D1A7B5DB0006C2701 /* FeedbackViewController.h */,
+				86B1218E1A7B5DB0006C2701 /* FeedbackViewController.m */,
+				86B121901A7B5DBC006C2701 /* RateView.h */,
+				86B121911A7B5DBC006C2701 /* RateView.m */,
+				8691A42D1A7B630F006D3663 /* starEmpty@2x.png */,
+				8691A42E1A7B630F006D3663 /* starFull@2x.png */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
 		86D604391A3ABB5C00E9E9D7 /* Request VC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,11 +1204,13 @@
 				867EBD601A6FAC7D00B5DD2E /* cert.p12 in Resources */,
 				86B5A96E1A4D4713009018AD /* MuseoSans-100.otf in Resources */,
 				864532C21A5A661D00A656A3 /* UAPushSettingsAliasView.xib in Resources */,
+				8691A42F1A7B630F006D3663 /* starEmpty@2x.png in Resources */,
 				86B5A96F1A4D4713009018AD /* MuseoSans-300.otf in Resources */,
 				864532C11A5A661D00A656A3 /* UAPushSettingsAddTagViewController.xib in Resources */,
 				864532B71A5A661D00A656A3 /* UAPushUI.strings in Resources */,
 				864532BA1A5A661D00A656A3 /* middle-detail.png in Resources */,
 				864532BB1A5A661D00A656A3 /* middle-detail@2x.png in Resources */,
+				8691A4301A7B630F006D3663 /* starFull@2x.png in Resources */,
 				86B5A9701A4D4713009018AD /* MuseoSans-700.otf in Resources */,
 				864531D51A5A659000A656A3 /* AirshipConfig.plist in Resources */,
 				864532A81A5A661D00A656A3 /* UAInboxMessageListController.xib in Resources */,
@@ -1270,6 +1296,7 @@
 				863E3DDE1A6642FB009D1FB0 /* LocationModel.m in Sources */,
 				8645329B1A5A661D00A656A3 /* NSString+UALocalization.m in Sources */,
 				8645329C1A5A661D00A656A3 /* NSString+UASizeWithFontCompatibility.m in Sources */,
+				86B121921A7B5DBC006C2701 /* RateView.m in Sources */,
 				864039871A6542FF000D705E /* RequestModel.m in Sources */,
 				864532B61A5A661D00A656A3 /* UAPushSettingsViewController.m in Sources */,
 				8645329F1A5A661D00A656A3 /* UADateUtils.m in Sources */,
@@ -1303,6 +1330,7 @@
 				86783D351A5FE7600094CB9E /* SeedSync.m in Sources */,
 				867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */,
 				86491A791A30836C00711740 /* WebClipViewController.m in Sources */,
+				86B1218F1A7B5DB0006C2701 /* FeedbackViewController.m in Sources */,
 				863A16EE1A4185F000146B72 /* ThemesViewController.m in Sources */,
 				86ED7D6F1A541F1A00400360 /* NavigationController.m in Sources */,
 				864532AA1A5A661D00A656A3 /* UALocationDemoAnnotation.m in Sources */,
