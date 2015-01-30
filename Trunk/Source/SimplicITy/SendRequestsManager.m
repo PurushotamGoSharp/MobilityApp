@@ -287,7 +287,6 @@
     }
     
     [dbManager saveDataToDBForQuery:insertSQL];
-    
 }
 
 - (void)updateUIWithRequest:(RequestModel *)requestModel

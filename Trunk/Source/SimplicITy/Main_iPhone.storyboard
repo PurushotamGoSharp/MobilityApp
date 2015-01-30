@@ -2443,7 +2443,7 @@
         <!--About-->
         <scene sceneID="j17-jo-VJW">
             <objects>
-                <viewController id="cG9-7M-qsn" customClass="AboutViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="cG9-7M-qsn" customClass="AboutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qNv-zA-yVP"/>
                         <viewControllerLayoutGuide type="bottom" id="eV7-Fx-VOx"/>
@@ -2479,21 +2479,6 @@
                                         <rect key="frame" x="80" y="346" width="160" height="31"/>
                                         <color key="backgroundColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Average Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4k-XS-HdA">
-                                        <rect key="frame" x="102" y="317" width="117" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0B-h6-hPe">
-                                        <rect key="frame" x="137" y="399" width="46" height="30"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="sb4-b7-IHU" kind="push" id="OSI-If-GeO"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -2503,6 +2488,7 @@
                     <connections>
                         <outlet property="aboutUsLabel" destination="xUP-Hz-oD8" id="16Y-a0-7jX"/>
                         <outlet property="averageLabel" destination="Q4k-XS-HdA" id="Nr1-bA-WIt"/>
+                        <outlet property="descriptionHeightConst" destination="3MZ-Ju-eDJ" id="nH3-LA-8Ga"/>
                         <outlet property="descriptionTextView" destination="Gby-I2-20a" id="DwI-Uw-nMY"/>
                         <outlet property="leftSideImageView" destination="Qn5-Xj-iQd" id="hRa-eZ-B8P"/>
                         <outlet property="rateButton" destination="Z0B-h6-hPe" id="zER-kM-1XL"/>
@@ -2512,7 +2498,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tZl-7W-dID" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2532" y="-539"/>
+            <point key="canvasLocation" x="2540" y="-539"/>
         </scene>
         <!--Feedback View Controller-->
         <scene sceneID="3k8-yt-UBf">

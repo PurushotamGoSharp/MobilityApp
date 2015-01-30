@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rateButton;
 @property (weak, nonatomic) IBOutlet UILabel *aboutUsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *averageLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConst;
 @end
 
 @implementation AboutViewController
@@ -80,8 +81,15 @@
     self.rateView.editable = NO;
     self.rateView.maxRating = 5;
     
-    self.descriptionTextView.font = [self customFont:14 ofName:MuseoSans_300];
-    self.rateButton.titleLabel.font = [self customFont:14 ofName:MuseoSans_700];
+    self.descriptionTextView.editable = YES;
+    [self.descriptionTextView setFont:[self customFont:14 ofName:MuseoSans_300]];
+    self.descriptionTextView.editable = NO;
+
+    self.rateButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    self.averageLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    self.aboutUsLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    
+    self.rateButton.layer.cornerRadius = 10;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,6 +99,15 @@
     [self updateUI];
     
     [self.rateButton setBackgroundColor:[self barColorForIndex:[[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE]]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
 }
 
 - (void)backBtnAction
@@ -114,12 +131,33 @@
 {
     self.rateView.rating = 5;
     
-    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
-    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
+//    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
+//    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
+//
+    NSString *testString = @"This mobile app was developed in a partnership between Vmoksha Technologies and the UCB Mobility Team.  If you have an idea for a new app, or questions about app development, please contact the UCB Mobility Team at mobility.apple@ucb.com and we will schedule a meeting to understand your needs.  For more information, see www.vmokshagroup.com.";
+    self.descriptionTextView.text = testString;
     
-    self.descriptionTextView.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+    
+    CGSize expectedSize = [testString boundingRectWithSize:(CGSizeMake(self.descriptionTextView.frame.size.width, 10000))
+                                           options:NSStringDrawingUsesLineFragmentOrigin
+                                        attributes:@{NSFontAttributeName: self.descriptionTextView.font}
+                                           context:nil].size;
+    
+    self.descriptionHeightConst.constant = expectedSize.height + 20;
+    [self.view layoutIfNeeded];
+    
 }
 
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
+{
+    [self updateUI];
+}
 #pragma mark
 #pragma mark postmanDelegate
 
@@ -147,6 +185,7 @@
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [self updateUI];
 }
 
 - (void)parseResponsedata:(NSData *)response andgetImages:(BOOL)download
