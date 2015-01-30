@@ -9,6 +9,7 @@
 #import "AboutViewController.h"
 #import "DBManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "RateView.h"
 
 @interface AboutViewController () <postmanDelegate, DBManagerDelegate>
 {
@@ -22,6 +23,13 @@
     NSString *vmokshaLogoDocCode;
 }
 
+@property (weak, nonatomic) IBOutlet RateView *rateView;
+@property (weak, nonatomic) IBOutlet UIImageView *leftSideImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *rightSideImageView;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UIButton *rateButton;
+@property (weak, nonatomic) IBOutlet UILabel *aboutUsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *averageLabel;
 @end
 
 @implementation AboutViewController
@@ -45,7 +53,6 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    
     URLString = ABOUT_DETAILS_API;
     
     postMan = [[Postman alloc] init];
@@ -66,6 +73,24 @@
     {
         [self  getData];
     }
+    
+    self.rateView.notSelectedImage = [UIImage imageNamed:@"starEmpty.png"];
+    self.rateView.fullSelectedImage = [UIImage imageNamed:@"starFull.png"];
+    self.rateView.rating = 0;
+    self.rateView.editable = NO;
+    self.rateView.maxRating = 5;
+    
+    self.descriptionTextView.font = [self customFont:14 ofName:MuseoSans_300];
+    self.rateButton.titleLabel.font = [self customFont:14 ofName:MuseoSans_700];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self updateUI];
+    
+    [self.rateButton setBackgroundColor:[self barColorForIndex:[[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE]]];
 }
 
 - (void)backBtnAction
@@ -87,7 +112,12 @@
 
 - (void)updateUI
 {
+    self.rateView.rating = 5;
     
+    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
+    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
+    
+    self.descriptionTextView.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 }
 
 #pragma mark
