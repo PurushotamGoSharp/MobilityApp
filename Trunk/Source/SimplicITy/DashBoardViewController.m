@@ -88,7 +88,7 @@
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@"" forState:(UIControlStateNormal)];
+    [titleButton setTitle:@"Test" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     [titleButton sizeToFit];
@@ -249,6 +249,12 @@
     [self parseResponseData:response];
     [self saveLocationdata:response forUrl:urlString];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
+    {
+        [self setupLocation];
+    }
+    [self updateProfileView];
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
@@ -282,11 +288,6 @@
     
     [self.tableViewOutlet reloadData];
     [self adjustHeightOfPopOverView];
-    
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
-    {
-        [self setupLocation];
-    }
 }
 
 - (void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink

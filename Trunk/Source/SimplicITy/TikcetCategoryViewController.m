@@ -53,10 +53,6 @@
         
         if ([model.categoryCode isEqualToString:self.selectedCategory.categoryCode])
         {
-            NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            [self.tableView selectRowAtIndexPath:selectedIndexPath
-                                        animated:YES
-                                  scrollPosition:(UITableViewScrollPositionNone)];
             selectedRow = i;
         }
     }
@@ -91,9 +87,16 @@
 
     label.text = category.categoryName;
     
+    label.highlightedTextColor = [UIColor whiteColor];
+
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
     [cell setSelectedBackgroundView:bgColorView];
+    
+    if (indexPath.row == selectedRow && self.selectedCategory != nil)
+    {
+        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
+    }
     
     return cell;
 }

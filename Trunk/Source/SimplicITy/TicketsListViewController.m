@@ -359,7 +359,7 @@
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
 //    [converter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
     
-    [converter setDateFormat:@"yyyy MM dd hh mm a"];
+    [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
 
     while (sqlite3_step(statment) == SQLITE_ROW)
     {

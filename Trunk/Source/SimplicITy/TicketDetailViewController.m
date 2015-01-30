@@ -168,7 +168,7 @@
                 
             case 1:
                 titleLable.text = @"Requester";
-                rightTable.text = [UserInfo sharedUserInfo].fullName?:@"";;
+                rightTable.text = [UserInfo sharedUserInfo].fullName?:@"Test User";;
                 break;
                 
             case 2:
