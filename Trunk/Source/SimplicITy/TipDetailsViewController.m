@@ -166,7 +166,6 @@
     return NO;
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -222,7 +221,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize sizeOfCell = self.collectionView.bounds.size;
+    CGSize sizeOfCell = self.collectionView.frame.size;
     
     sizeOfCell = CGSizeMake(sizeOfCell.width - 20, sizeOfCell.height - 20);
     
