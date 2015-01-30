@@ -31,6 +31,8 @@
     [super viewWillAppear:animated];
     [self selectTableViewCell];
     
+    NSLog(@"from %@",self.orderItemDiffer);
+    
     if ([self.orderItemDiffer isEqualToString:@"orderList"])
     {
         self.title = @"Items";

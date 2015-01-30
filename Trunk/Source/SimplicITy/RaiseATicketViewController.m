@@ -488,7 +488,7 @@
 
     if (self.scrollView.contentOffset.y >= 100)
     {
-        self.detailsBottomMaxConst.constant = 375;
+        self.detailsBottomMaxConst.constant = 70;
         [self.view layoutIfNeeded];
 
         [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
@@ -601,6 +601,11 @@
         UINavigationController *navController = segue.destinationViewController;
         TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
         ticketCategoryVC.delegate = self;
+        
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+        {
+            ticketCategoryVC.orderItemDiffer = @"orderList";
+        }
         
         ticketCategoryVC.categoryArray = categoriesArr;
         ticketCategoryVC.selectedCategory = selectedCategory;

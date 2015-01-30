@@ -42,6 +42,9 @@
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     self.currentPageNoLabel.font = [self customFont:14 ofName:MuseoSans_300];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -180,6 +183,9 @@
         tipsList.listOfTips = subCategoriesCollection;
         tipsList.parentCategory = self.parentCategory;
         tipsList.delegate = self;
+        tipsList.curentpageNum = currentPageNo;
+        NSLog(@"curent page Number %i",currentPageNo);
+
     }
 }
 

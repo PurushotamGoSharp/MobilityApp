@@ -32,6 +32,14 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
+    
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+
+ 
 }
 
 //-(void)backBtnAction

@@ -8,7 +8,7 @@
 
 #import "FeedbackViewController.h"
 
-@interface FeedbackViewController ()
+@interface FeedbackViewController ()<UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet RateView *rateView;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
@@ -50,7 +50,7 @@
 
 - (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
 {
-    self.statusLabel.text = [NSString stringWithFormat:@"%f", rating];
+    self.statusLabel.text = [NSString stringWithFormat:@"%i", (int)rating];
 }
 - (IBAction)submitBtnAction:(id)sender {
 }
