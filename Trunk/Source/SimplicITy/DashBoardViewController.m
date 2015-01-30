@@ -90,7 +90,7 @@
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
-    [titleButton setTitle:@"" forState:(UIControlStateNormal)];
+    [titleButton setTitle:@"Test" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     [titleButton sizeToFit];
@@ -126,27 +126,8 @@
     
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
-
-    if ([userInfo getServerConfig] != nil)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION_CODE];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [self getDataForCountryCode:userInfo.location];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-    }else
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:SELECTED_LOCATION_CODE];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [self getDataForCountryCode:@"IND"];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+    
+    [self setupLocation];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -183,6 +164,30 @@
             break;
         default:
             break;
+    }
+}
+
+- (void)setupLocation
+{
+    if ([userInfo getServerConfig] != nil)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION_CODE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self getDataForCountryCode:userInfo.location];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }else
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:@"IND" forKey:SELECTED_LOCATION_CODE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self getDataForCountryCode:@"IND"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:selectedLocation.countryName forKey:SELECTED_LOCATION_NAME];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -246,6 +251,12 @@
     [self parseResponseData:response];
     [self saveLocationdata:response forUrl:urlString];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
+    {
+        [self setupLocation];
+    }
+    [self updateProfileView];
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
@@ -278,7 +289,6 @@
     
     [self.tableViewOutlet reloadData];
     [self adjustHeightOfPopOverView];
-    
 }
 
 - (void)saveLocationdata:(NSData *)response forUrl:(NSString *)APILink

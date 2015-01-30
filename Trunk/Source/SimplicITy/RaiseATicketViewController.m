@@ -310,7 +310,6 @@
     
     currentRequest = [self requestForCurrentValues];
     [self saveEntriesLocallyForRequest:currentRequest];
-    [self resetForms];
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
@@ -472,6 +471,8 @@
     //
     //    }
     
+    [self resetForms];
+
     [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
 }
 
@@ -559,7 +560,7 @@
     {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         header.text = @"Requester";
-        lable.text = [UserInfo sharedUserInfo].fullName?:@"";
+        lable.text = [UserInfo sharedUserInfo].fullName?:@"Test User";
     }else
     {
         header.text = @"Impact";
@@ -602,6 +603,7 @@
         ticketCategoryVC.delegate = self;
         
         ticketCategoryVC.categoryArray = categoriesArr;
+        ticketCategoryVC.selectedCategory = selectedCategory;
     }
     
     if ([segue.identifier isEqualToString:@"myTicketList_segue"])

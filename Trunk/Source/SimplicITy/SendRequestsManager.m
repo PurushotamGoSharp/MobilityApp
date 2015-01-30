@@ -67,7 +67,7 @@
     dateFormatter = [[NSDateFormatter alloc] init];
 //    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
     
-    [dateFormatter setDateFormat:@"yyyy MM dd hh mm a"];
+    [dateFormatter setDateFormat:@"yyyy MM dd hh mm ss a"];
 
 }
 

@@ -10,10 +10,14 @@
 
 @interface TikcetCategoryViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancleBarBtn;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation TikcetCategoryViewController
+{
+    NSInteger selectedRow;
+}
 
 - (void)viewDidLoad
 {
@@ -21,6 +25,41 @@
     // Do any additional setup after loading the view.
     
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self selectTableViewCell];
+    
+    if ([self.orderItemDiffer isEqualToString:@"orderList"])
+    {
+        self.title = @"Items";
+    }else
+    {
+        self.title = @"Services";
+    }
+}
+
+- (void)selectTableViewCell
+{
+    if (self.selectedCategory == nil)
+    {
+        return;
+    }
+    
+    for (int i = 0; i < [self.categoryArray count]; i++)
+    {
+        CategoryModel *model = self.categoryArray[i];
+        
+        if ([model.categoryCode isEqualToString:self.selectedCategory.categoryCode])
+        {
+            selectedRow = i;
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
 - (IBAction)cancelBtnAction:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -47,6 +86,18 @@
     CategoryModel *category = self.categoryArray[indexPath.row];
 
     label.text = category.categoryName;
+    
+    label.highlightedTextColor = [UIColor whiteColor];
+
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+    [cell setSelectedBackgroundView:bgColorView];
+    
+    if (indexPath.row == selectedRow && self.selectedCategory != nil)
+    {
+        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
+    }
+    
     return cell;
 }
 
