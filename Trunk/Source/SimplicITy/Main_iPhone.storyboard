@@ -2470,7 +2470,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="164" id="3MZ-Ju-eDJ"/>
                                                 </constraints>
-                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -2489,12 +2489,6 @@
                                                     <constraint firstAttribute="width" constant="160" id="z8L-N7-K00"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4k-XS-HdA">
-                                                <rect key="frame" x="102" y="329" width="117" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0B-h6-hPe">
                                                 <rect key="frame" x="87" y="408" width="147" height="30"/>
                                                 <constraints>
@@ -2509,6 +2503,12 @@
                                                     <segue destination="sb4-b7-IHU" kind="push" id="OSI-If-GeO"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4k-XS-HdA">
+                                                <rect key="frame" x="102" y="323" width="117" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2519,10 +2519,10 @@
                                             <constraint firstItem="Qn5-Xj-iQd" firstAttribute="leading" secondItem="u4t-JW-eGf" secondAttribute="leading" constant="20" id="JuS-RX-MAT"/>
                                             <constraint firstItem="Gby-I2-20a" firstAttribute="top" secondItem="xUP-Hz-oD8" secondAttribute="bottom" id="KKD-Iv-6IW"/>
                                             <constraint firstItem="Gby-I2-20a" firstAttribute="leading" secondItem="u4t-JW-eGf" secondAttribute="leading" constant="20" id="L0g-Ko-1t6"/>
-                                            <constraint firstItem="0s9-J9-E19" firstAttribute="top" secondItem="Q4k-XS-HdA" secondAttribute="bottom" constant="8" id="Luy-Kk-erf"/>
+                                            <constraint firstItem="0s9-J9-E19" firstAttribute="top" secondItem="Q4k-XS-HdA" secondAttribute="bottom" constant="14" id="Luy-Kk-erf"/>
                                             <constraint firstItem="Qn5-Xj-iQd" firstAttribute="top" secondItem="u4t-JW-eGf" secondAttribute="top" constant="16" id="N8h-b7-DZ7"/>
                                             <constraint firstItem="xUP-Hz-oD8" firstAttribute="leading" secondItem="u4t-JW-eGf" secondAttribute="leading" constant="26" id="Q5b-p3-nW5"/>
-                                            <constraint firstItem="Q4k-XS-HdA" firstAttribute="top" secondItem="Gby-I2-20a" secondAttribute="bottom" constant="30" id="RWq-ZL-QXK"/>
+                                            <constraint firstItem="Q4k-XS-HdA" firstAttribute="top" secondItem="Gby-I2-20a" secondAttribute="bottom" constant="24" id="RWq-ZL-QXK"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Z0B-h6-hPe" secondAttribute="bottom" constant="19" id="bGx-SL-aFQ"/>
                                             <constraint firstAttribute="trailing" secondItem="uTF-iB-T6o" secondAttribute="trailing" constant="20" id="he9-77-SE7"/>
                                             <constraint firstAttribute="centerX" secondItem="Z0B-h6-hPe" secondAttribute="centerX" id="kOe-U5-p1q"/>
