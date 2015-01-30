@@ -16,7 +16,7 @@
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
-#define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not avillable in iPad"
+#define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not avillable in this device"
 
 
 @interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate>
@@ -259,7 +259,6 @@
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
     locationdataArr = [[NSMutableArray alloc] init];
 
-
     for (NSDictionary *aDict in arr)
     {
         if ([aDict[@"Status"]boolValue])
@@ -398,10 +397,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
 
-    
-    
 }
 
 -(void)viewDidDisappear:(BOOL)animated
