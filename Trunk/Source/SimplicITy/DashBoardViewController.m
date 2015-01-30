@@ -16,6 +16,8 @@
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
+#define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not avillable in iPad"
+
 
 @interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate>
 {
@@ -451,38 +453,47 @@
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
 {
-    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
-    
-    if (![self getDataForCountryCode:countryCode])
-    {
-        if ([AFNetworkReachabilityManager sharedManager].reachable)
+    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone) {
+        NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
+        
+        if (![self getDataForCountryCode:countryCode])
         {
-            [self tryToGetITServicePhoneNum];
+            if ([AFNetworkReachabilityManager sharedManager].reachable)
+            {
+                [self tryToGetITServicePhoneNum];
+            }
+            
+            return;
         }
         
-        return;
+        NSLog(@"country %@",selectedLocation.serviceDeskNumber);
+        
+        if (selectedLocation.serviceDeskNumber.count > 1 )
+        {
+            self.alphaViewOutlet.hidden = NO;
+            self.containerViewOutlet.hidden = NO;
+            
+            [UIView animateWithDuration:.3 animations:^{
+                self.alphaViewOutlet.alpha= .5;
+                self.containerViewOutlet.alpha = 1;
+            } completion:^(BOOL finished)
+             {
+                 
+             }];
+            
+        }else
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
+        }
+
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert !" message:CALL_IT_DESK_FROM_IPAD delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
     
-    NSLog(@"country %@",selectedLocation.serviceDeskNumber);
-    
-    if (selectedLocation.serviceDeskNumber.count > 1 )
-    {
-        self.alphaViewOutlet.hidden = NO;
-        self.containerViewOutlet.hidden = NO;
-        
-        [UIView animateWithDuration:.3 animations:^{
-            self.alphaViewOutlet.alpha= .5;
-            self.containerViewOutlet.alpha = 1;
-        } completion:^(BOOL finished)
-         {
-             
-         }];
-        
-    }else
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
     }
-}
 
 #pragma mark UITableViewDataSource methods
 
@@ -610,7 +621,7 @@
     if ([segue.identifier isEqualToString:@"dashToOrder_segue"])
     {
         RaiseATicketViewController *raiseTicket = segue.destinationViewController;
-        raiseTicket.orderDiffer = @"orderBtnPressed";
+        raiseTicket.orderDiffer = FLOW_FOR_ORDER;
         
     }if ([segue.identifier isEqualToString:@"DashToMyOrdersSegue"])
     {

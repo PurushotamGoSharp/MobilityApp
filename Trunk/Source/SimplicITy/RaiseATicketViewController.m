@@ -28,6 +28,15 @@
 #define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Service is required.\n"
 #define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Details is required."
 
+#define NAV_BAR_TITLE_FOR_RAISE_TICKET @"Raise Ticket"
+#define NAV_BAR_TITLE_FOR_ORDER @"Place Order"
+
+#define PLACEHOLDE_TEXT_FOR_SELECT_ITEM @"Select a item"
+#define PLACEHOLDE_TEXT_FOR_SELECT_SERVICE @"Select a service"
+#define PLACEHOLDE_TEXT_FOR_DETAIL @"Describe your request here"
+
+
+
 
 @interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate, UIAlertViewDelegate>
 {
@@ -76,7 +85,7 @@
     self.selectedCategorylabel.font = [self customFont:16 ofName:MuseoSans_300];
     self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
     
-    self.textView.placeholder = @"Describe your request here";
+    self.textView.placeholder = PLACEHOLDE_TEXT_FOR_DETAIL;
     self.textView.font = [self customFont:16 ofName:MuseoSans_300];
     
     self.navigationItem.leftBarButtonItems = @[];
@@ -98,20 +107,20 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
         [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
-        self.title = @"Place Order";
+        self.title = NAV_BAR_TITLE_FOR_ORDER;
         
         self.CategoryTitleOutlet.text = @"Items";
-        self.selectedCategorylabel.text = @"Select an item";
+        self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_ITEM;
     }
     else
     {
         UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
-        titleLabel.text = @"Raise Ticket";
+        titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
         titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
@@ -140,7 +149,7 @@
         [self getData];
     }
     
-    if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    if (![self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
         self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
         
@@ -196,7 +205,7 @@
     {
         NSString *alertMessage;
         
-        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
         {
             alertMessage = ALERT_FOR_ORDER_SAVED;
         }
@@ -247,13 +256,13 @@
     [self setBlackColorFor:low];
     
     self.textView.text = @"";
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
-        self.selectedCategorylabel.text = @"Select a item";
+        self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_ITEM;
         
     }else
     {
-        self.selectedCategorylabel.text = @"Select a service";
+        self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_SERVICE;
     }
     
     selectedCategory = nil;
@@ -276,7 +285,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 
     
-//    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+//    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
 //    {
 //    }else
 //    {
@@ -311,7 +320,7 @@
     {
         NSString *alertMessage;
         
-        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
         {
             alertMessage = ALERT_FOR_ORDER_SAVED;
         }
@@ -342,7 +351,7 @@
     
     if (selectedCategory == nil)
     {
-        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
         {
             [alertMessages addObject:ALERT_FOR_SELECT_ITEM_VALIDATION];
         }else
@@ -382,7 +391,7 @@
 - (RequestModel *)requestForCurrentValues
 {
     RequestModel *request = [[RequestModel alloc] init];
-    request.requestType = [self.orderDiffer isEqualToString:@"orderBtnPressed"] ? @"ORDER" : @"TICKET";
+    request.requestType = [self.orderDiffer isEqualToString:FLOW_FOR_ORDER] ? @"ORDER" : @"TICKET";
     request.requestImpact = roundf(sliderOutlet.value);
     request.requestServiceCode = selectedCategory.categoryCode;
     request.requestServiceName = selectedCategory.categoryName;
@@ -450,7 +459,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
     //    [self.tabBarController setSelectedIndex:0];
-    //    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    //    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     //    {
     //        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
     //
@@ -532,7 +541,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     }
     
-    if (![self.orderDiffer isEqualToString:@"orderBtnPressed"] && (indexPath.row == 1))
+    if (![self.orderDiffer isEqualToString:FLOW_FOR_ORDER] && (indexPath.row == 1))
     {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -565,7 +574,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 1 && [self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    if (indexPath.row == 1 && [self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
         
@@ -600,7 +609,7 @@
     if ([segue.identifier isEqualToString:@"myTicketList_segue"])
     {
         TicketsListViewController *ticketList = segue.destinationViewController;
-        if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
         {
             ticketList.orderItemDifferForList = @"orderList";
         }
@@ -719,7 +728,7 @@
         {
             [self saveResponse:response forParameter:ORDER_PARAMETER];
             
-            if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+            if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
             {
                 categoriesArr = responseArray;
             }
@@ -727,7 +736,7 @@
         {
             [self saveResponse:response forParameter:TICKET_PARAMETER];
             
-            if (![self.orderDiffer isEqualToString:@"orderBtnPressed"])
+            if (![self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
             {
                 categoriesArr = responseArray;
             }
@@ -798,7 +807,7 @@
     
     NSString *queryString;
     
-    if ([self.orderDiffer isEqualToString:@"orderBtnPressed"])
+    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
         queryString = [NSString stringWithFormat:@"SELECT * FROM categoryTable WHERE API = '%@'", ORDER_PARAMETER];
     }else
