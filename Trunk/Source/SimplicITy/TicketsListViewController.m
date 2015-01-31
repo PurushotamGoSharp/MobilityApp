@@ -161,7 +161,11 @@
 {
     NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
     TicketDetailViewController *ticketDeteilVC = segue.destinationViewController;
-    ticketDeteilVC.requestModel = arrayOfData[indexPath.row];
+//    ticketDeteilVC.requestModel = arrayOfData[indexPath.row];
+    
+    NSUInteger row = [indexPath row];
+    NSUInteger count = [arrayOfData count];
+    ticketDeteilVC.requestModel = arrayOfData[count-row-1];
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
@@ -268,11 +272,16 @@
     if ([tableView isEqual:self.tableViewOutlet])
     {
         TicketsListCell *ticketCell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-        ticketCell.requestModel = arrayOfData[indexPath.row];
+//        ticketCell.requestModel = arrayOfData[indexPath.row];
+        
+        NSUInteger row = [indexPath row];
+        NSUInteger count = [arrayOfData count];
+        ticketCell.requestModel = arrayOfData[count-row-1];
 
         cell = ticketCell;
         
-    }else if ([tableView isEqual:self.filterTableView])
+    }
+    else if ([tableView isEqual:self.filterTableView])
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
         
@@ -281,6 +290,9 @@
         
         UILabel *statusLabel = (UILabel *)[cell viewWithTag:101];
         statusLabel.text = arrayForStatus[indexPath.row];
+        
+
+
         
         statusLabel.font=[self customFont:16 ofName:MuseoSans_700];
         

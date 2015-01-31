@@ -29,6 +29,8 @@
     
     DBManager *dbManager;
     NSInteger currentPageNo;
+    
+    NSString *navBatTitle;
 }
 
 - (void)viewDidLoad
@@ -44,6 +46,10 @@
     self.currentPageNoLabel.font = [self customFont:14 ofName:MuseoSans_300];
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+
+    
+    self.title =self.parentCategory;
 
 }
 
@@ -66,6 +72,9 @@
     {
         [self getData];
     }
+    
+    self.title =self.parentCategory;
+
     
 //    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 //    NSString *cachePath = [cachedirs lastObject];
@@ -184,7 +193,7 @@
         tipsList.parentCategory = self.parentCategory;
         tipsList.delegate = self;
         tipsList.curentpageNum = currentPageNo;
-        NSLog(@"curent page Number %i",currentPageNo);
+//        NSLog(@"curent page Number %i",currentPageNo);
 
     }
 }
@@ -197,6 +206,9 @@
         return;
     }
     self.currentPageNoLabel.text = [NSString stringWithFormat:@"%li of %li", (long)pageNo+1, (long)noOfTotalPages];
+    
+    TipModel *tip = [[TipModel alloc] init];
+    self.title =tip.question;
 }
 
 #pragma mark
@@ -221,7 +233,13 @@
     NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView, aTipModel.answer];
     [webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
     
+//    self.title = aTipModel.question;
+//   navBatTitle =  self.title;
+//    
+//    NSLog(@"tip Sub category %@",navBatTitle);
     
+    self.title =self.parentCategory;
+
     return cell;
 }
 
@@ -244,6 +262,10 @@
         [self setPageNoLabelFor:pageNo];
         currentPageNo = pageNo;
     }
+    
+//    self.title = navBatTitle;
+
+    
 }
 
 #pragma mark
@@ -373,6 +395,8 @@
 {
     [self setPageForIndex:selectedIndex];
     currentPageNo = selectedIndex;
+    
+
 }
 
 @end

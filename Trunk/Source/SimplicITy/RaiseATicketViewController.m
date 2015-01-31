@@ -22,8 +22,8 @@
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
-#define ALERT_FOR_ORDER_SAVED @"Your Order has been saved !"
-#define ALERT_FOR_TICKET_SAVED @"Your Ticket has been saved !"
+#define ALERT_FOR_ORDER_SAVED @"Your Order has been sucessfully placed"
+#define ALERT_FOR_TICKET_SAVED @"Your Ticket has been sucessfully saved"
 #define ALERT_FOR_SELECT_ITEM_VALIDATION @"Item is required.\n"
 #define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Service is required.\n"
 #define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Details is required."
@@ -31,11 +31,9 @@
 #define NAV_BAR_TITLE_FOR_RAISE_TICKET @"Raise Ticket"
 #define NAV_BAR_TITLE_FOR_ORDER @"Place Order"
 
-#define PLACEHOLDE_TEXT_FOR_SELECT_ITEM @"Select a item"
+#define PLACEHOLDE_TEXT_FOR_SELECT_ITEM @"Select an item"
 #define PLACEHOLDE_TEXT_FOR_SELECT_SERVICE @"Select a service"
 #define PLACEHOLDE_TEXT_FOR_DETAIL @"Describe your request here"
-
-
 
 
 @interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate, UIAlertViewDelegate>
@@ -75,6 +73,13 @@
 @end
 
 @implementation RaiseATicketViewController
+{
+    UILabel *low;
+    UILabel *medium;
+    UILabel *high;
+    UILabel *critical;
+    
+}
 
 - (void)viewDidLoad
 {
@@ -106,6 +111,20 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
+    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    
+    low = (UILabel *)[impactCell viewWithTag:10];
+    medium = (UILabel *)[impactCell viewWithTag:20];
+    high = (UILabel *)[impactCell viewWithTag:30];
+    critical = (UILabel *)[impactCell viewWithTag:40];
+    
+    
+    low.font=[self customFont:14 ofName:MuseoSans_300];
+    medium.font=[self customFont:14 ofName:MuseoSans_300];
+    high.font=[self customFont:14 ofName:MuseoSans_300];
+    critical.font=[self customFont:14 ofName:MuseoSans_300];
+
+    
     
     if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
@@ -118,8 +137,8 @@
     else
     {
         UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
-        
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
+        
         titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
         titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
         titleLabel.backgroundColor = [UIColor clearColor];
@@ -160,20 +179,7 @@
     
     initialOffsetOfSCrollView = self.scrollView.contentOffset;
     initialScollViewInset = self.scrollView.contentInset;
-    
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    
-    UILabel *low = (UILabel *)[impactCell viewWithTag:10];
-    UILabel *medium = (UILabel *)[impactCell viewWithTag:20];
-    UILabel *high = (UILabel *)[impactCell viewWithTag:30];
-    UILabel *critical = (UILabel *)[impactCell viewWithTag:40];
-    
-    
-    low.font=[self customFont:14 ofName:MuseoSans_300];
-    medium.font=[self customFont:14 ofName:MuseoSans_300];
-    high.font=[self customFont:14 ofName:MuseoSans_300];
-    critical.font=[self customFont:14 ofName:MuseoSans_300];
-    
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(successfulSync)
@@ -534,6 +540,16 @@
         [sliderOutlet setThumbImage:[UIImage imageNamed:@"grayCircle"] forState:(UIControlStateHighlighted)];
         [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
         
+        low = (UILabel *)[cell viewWithTag:10];
+        medium = (UILabel *)[cell viewWithTag:20];
+        high = (UILabel *)[cell viewWithTag:30];
+        critical = (UILabel *)[cell viewWithTag:40];
+        
+        low.font=[self customFont:14 ofName:MuseoSans_300];
+        medium.font=[self customFont:14 ofName:MuseoSans_300];
+        high.font=[self customFont:14 ofName:MuseoSans_300];
+        critical.font=[self customFont:14 ofName:MuseoSans_300];
+        
         return cell;
     }else
     {
@@ -631,17 +647,7 @@
 
 - (void)sliderValueChanged:(UISlider *)slider
 {
-    UILabel *critical;
-    UILabel *high;
-    UILabel *medium;
-    UILabel *low;
-    
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    
-    low = (UILabel *)[impactCell viewWithTag:10];
-    medium = (UILabel *)[impactCell viewWithTag:20];
-    high = (UILabel *)[impactCell viewWithTag:30];
-    critical = (UILabel *)[impactCell viewWithTag:40];
+
    
     slider.value = roundf(slider.value);
     
@@ -679,12 +685,6 @@
 
 - (void)setBlackColorFor:(UILabel *)blackLabel
 {
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    
-    UILabel *low = (UILabel *)[impactCell viewWithTag:10];
-    UILabel *medium = (UILabel *)[impactCell viewWithTag:20];
-    UILabel *high = (UILabel *)[impactCell viewWithTag:30];
-    UILabel *critical = (UILabel *)[impactCell viewWithTag:40];
     
     low.textColor = [UIColor lightGrayColor];
     medium.textColor = [UIColor lightGrayColor];
