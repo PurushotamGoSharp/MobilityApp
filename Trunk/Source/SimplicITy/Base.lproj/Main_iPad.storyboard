@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -73,7 +73,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="Ubf-JO-YzP">
-                                        <rect key="frame" x="135" y="-4" width="59" height="17"/>
+                                        <rect key="frame" x="135" y="28" width="59" height="17"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -84,7 +84,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="baN-hQ-h4e">
-                                        <rect key="frame" x="135" y="34" width="32" height="17"/>
+                                        <rect key="frame" x="135" y="46" width="32" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -93,10 +93,10 @@
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.65098039220000004" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Ubf-JO-YzP" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="135" id="5zX-ZZ-csy"/>
-                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="top" secondItem="QKC-BV-Ygr" secondAttribute="top" constant="34" id="9Cg-dU-J5E"/>
+                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="top" secondItem="QKC-BV-Ygr" secondAttribute="top" constant="46" id="9Cg-dU-J5E"/>
                                     <constraint firstAttribute="height" constant="107" id="AVr-Kw-IhH"/>
-                                    <constraint firstItem="Ubf-JO-YzP" firstAttribute="top" secondItem="Vto-5X-HAk" secondAttribute="bottom" constant="-4" id="KwK-Lp-GGg"/>
-                                    <constraint firstItem="Vto-5X-HAk" firstAttribute="top" secondItem="baN-hQ-h4e" secondAttribute="bottom" constant="-51" id="R4z-qi-25c"/>
+                                    <constraint firstItem="Ubf-JO-YzP" firstAttribute="top" secondItem="Vto-5X-HAk" secondAttribute="bottom" constant="28" id="KwK-Lp-GGg"/>
+                                    <constraint firstItem="Vto-5X-HAk" firstAttribute="top" secondItem="baN-hQ-h4e" secondAttribute="bottom" constant="-63" id="R4z-qi-25c"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vto-5X-HAk" secondAttribute="trailing" constant="4" id="Xeu-nE-kke"/>
                                     <constraint firstItem="Vto-5X-HAk" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="135" id="eYd-8h-TCG"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ubf-JO-YzP" secondAttribute="trailing" constant="4" id="liY-7f-2Sa"/>
@@ -269,7 +269,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="Kx6-zQ-6fc" kind="push" identifier="dashToOrder_segue" id="POP-Ln-9CF"/>
+                                                            <segue destination="VfE-Rk-aBV" kind="push" id="Lz8-gy-wCe"/>
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="b1I-Dg-2Lz">
@@ -318,7 +318,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="myOrderBtnPresed:" destination="Zd4-gW-Y58" eventType="touchUpInside" id="BbG-3k-E1n"/>
-                                                            <segue destination="hxX-gQ-JPF" kind="push" identifier="DashToMyOrdersSegue" id="l1V-Zw-sLI"/>
+                                                            <segue destination="VfE-Rk-aBV" kind="push" id="aF1-tO-sTQ"/>
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyOrderedDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-tV-DBc">
@@ -469,7 +469,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c49-aC-klh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2507" y="-99"/>
+            <point key="canvasLocation" x="2579" y="-79"/>
         </scene>
         <!--Ticket-->
         <scene sceneID="hoU-Su-30o">
@@ -983,7 +983,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glp-qk-Sv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3362" y="-99"/>
+            <point key="canvasLocation" x="3570" y="-107"/>
         </scene>
         <!--Messages View Controller-->
         <scene sceneID="sDZ-Qg-DkZ">
@@ -1668,7 +1668,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKv-bW-iVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4205" y="-99"/>
+            <point key="canvasLocation" x="4413" y="-107"/>
         </scene>
         <!--Languages-->
         <scene sceneID="hOO-ou-Kec">
@@ -2032,25 +2032,6 @@
             </objects>
             <point key="canvasLocation" x="480" y="-221"/>
         </scene>
-        <!--About-->
-        <scene sceneID="Fjk-fK-QNn">
-            <objects>
-                <viewController id="oxP-m2-PHs" customClass="AboutViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qAf-kB-8F1"/>
-                        <viewControllerLayoutGuide type="bottom" id="DSE-zM-X0E"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vhF-ty-Qux">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="About" id="pVQ-6O-cad"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="99L-w1-VYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1670" y="2237"/>
-        </scene>
         <!--News-->
         <scene sceneID="Dy9-AI-htr">
             <objects>
@@ -2259,13 +2240,38 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="oxP-m2-PHs" kind="relationship" relationship="rootViewController" id="1zt-ai-tj2"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yv5-vA-JMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1684" y="1082"/>
+        </scene>
+        <!--Dummy Order View Controller-->
+        <scene sceneID="sfc-Qw-vDA">
+            <objects>
+                <viewController id="VfE-Rk-aBV" customClass="DummyOrderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BoF-PF-AdD"/>
+                        <viewControllerLayoutGuide type="bottom" id="BwR-KJ-wNm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MNu-W5-m17">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FeatureWillBeComingSoonImage" translatesAutoresizingMaskIntoConstraints="NO" id="BXQ-u5-vxJ">
+                                <rect key="frame" x="297" y="468" width="175" height="89"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="BXQ-u5-vxJ" secondAttribute="centerY" id="EUG-95-w2K"/>
+                            <constraint firstAttribute="centerX" secondItem="BXQ-u5-vxJ" secondAttribute="centerX" id="gkZ-wp-qIX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Uq7-yr-JKG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2qL-fQ-ze7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="507" y="-1507"/>
         </scene>
         <!--Tips-->
         <scene sceneID="cmB-a1-U3w">
@@ -2553,7 +2559,7 @@
             </objects>
             <point key="canvasLocation" x="4430" y="-2620"/>
         </scene>
-        <!--News-->
+        <!--Message Dummy View Controller-->
         <scene sceneID="edD-WX-ci5">
             <objects>
                 <viewController id="fSf-3s-j9e" customClass="MessageDummyViewController" sceneMemberID="viewController">
@@ -2575,7 +2581,7 @@
                             <constraint firstAttribute="centerY" secondItem="Y4t-qs-FVo" secondAttribute="centerY" id="wP3-tb-2Qh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="News" id="46g-yl-Nsv"/>
+                    <navigationItem key="navigationItem" id="46g-yl-Nsv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O95-9u-5av" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2622,8 +2628,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="POP-Ln-9CF"/>
+        <segue reference="RZn-l3-yta"/>
+        <segue reference="aF1-tO-sTQ"/>
         <segue reference="f3u-DB-T6o"/>
-        <segue reference="l1V-Zw-sLI"/>
+        <segue reference="Txe-KG-huV"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -164,15 +164,15 @@
     
     downArrowImageView = [[UIImageView alloc] initWithImage:([UIImage imageNamed:@"DashBoardDropDownBarImage"])];
     downArrowImageView.frame = CGRectMake(0, 0, 36, 3);
-    downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 18);
+    downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 14);
     [titleView addSubview:downArrowImageView];
     
     downArrowImageView.hidden = NO;
     
     self.navigationItem.titleView = titleView;
     
-    self.dashBoardPersonName.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardPersonAddress.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardPersonName.font=[self customFont:16 ofName:MuseoSans_300];
+    self.dashBoardPersonAddress.font=[self customFont:16 ofName:MuseoSans_300];
     self.dashBoardPersonCode.font=[self customFont:14 ofName:MuseoSans_300];
 
     
