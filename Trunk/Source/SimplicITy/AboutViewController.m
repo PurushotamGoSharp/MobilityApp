@@ -10,6 +10,7 @@
 #import "DBManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "RateView.h"
+#import "UserInfo.h"
 
 #define FEEDBACK_API @"http://simplicitytst.ripple-io.in/Rating/Corp123"
 
@@ -31,6 +32,8 @@
     UIEdgeInsets initialScollViewInset;
     BOOL reviewBtnIsSelected;
     
+    NSInteger yourRatingValue;
+    NSInteger totalNoOfUserRated;
     CGFloat averageRating;
     UIFont *describtionFont;
 }
@@ -40,9 +43,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *leftSideImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *rightSideImageView;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (weak, nonatomic) IBOutlet UIButton *rateButton;
-@property (weak, nonatomic) IBOutlet UILabel *aboutUsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *averageLabel;
+//@property (weak, nonatomic) IBOutlet UIButton *rateButton;
+//@property (weak, nonatomic) IBOutlet UILabel *aboutUsLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *averageLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConst;
 
 @property (weak, nonatomic) IBOutlet RateView *yourRatingView;
@@ -64,6 +67,9 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tickMarkBarBtnOutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *writeReviewTextFldHeightConst;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewBottomConst;
+@property (weak, nonatomic) IBOutlet UIView *conatinerAvrRating;
+@property (weak, nonatomic) IBOutlet UIView *conatinerYourRating;
+@property (weak, nonatomic) IBOutlet UIImageView *plusMinusImageView;
 @end
 
 @implementation AboutViewController
@@ -89,6 +95,7 @@
     
     self.rateView.notSelectedImage = [UIImage imageNamed:@"starEmpty.png"];
     self.rateView.fullSelectedImage = [UIImage imageNamed:@"starFull.png"];
+    self.rateView.halfSelectedImage = [UIImage imageNamed:@"starHalf"];
     self.rateView.rating = 0;
     self.rateView.editable = NO;
     self.rateView.maxRating = 5;
@@ -97,15 +104,8 @@
     describtionFont = [self customFont:14 ofName:MuseoSans_300];
     [self.descriptionTextView setFont:describtionFont];
     self.descriptionTextView.editable = NO;
-
-    self.rateButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    self.aboutUsLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    
-    self.rateButton.layer.cornerRadius = 10;
-    
     
     self.yourRatingView.notSelectedImage = [UIImage imageNamed:@"starEmpty.png"];
-    // self.rateView.halfSelectedImage = [UIImage imageNamed:@"kermit_half.png"];
     self.yourRatingView.fullSelectedImage = [UIImage imageNamed:@"starFull.png"];
     self.yourRatingView.rating = 0;
     self.yourRatingView.editable = YES;
@@ -124,9 +124,14 @@
 
 
     self.writeReviewAlphaView.layer.cornerRadius = 15;
+    self.conatinerAvrRating.layer.cornerRadius = 10;
+    self.conatinerYourRating.layer.cornerRadius = 10;
+
     self.writeReviewTxtView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.writeReviewTxtView.layer.borderWidth = 1;
     
+    
+    yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
     URLString = ABOUT_DETAILS_API;
     
     postMan = [[Postman alloc] init];
@@ -134,19 +139,27 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
+        [postMan get:AVERAGE_RATING_API];
+        
+//        [postMan get:[USER_GIVEN_RATING_API stringByAppendingString:@"Corp123"]];
+//        [postMan get:[USER_GIVEN_RATING_API stringByAppendingString:[UserInfo sharedUserInfo].cropID]];
+
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"aboutus"])
         {
             [self tryUpdateAboutDeatils];
             
         }else
         {
-            averageRating = [[NSUserDefaults standardUserDefaults] integerForKey:@"averageRatingKey"];
+            averageRating = [[NSUserDefaults standardUserDefaults] floatForKey:@"averageRatingKey"];
+            totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
+
             [self  getData];
         }
     }
     else
     {
-        averageRating = [[NSUserDefaults standardUserDefaults] integerForKey:@"averageRatingKey"];
+        averageRating = [[NSUserDefaults standardUserDefaults] floatForKey:@"averageRatingKey"];
+        totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
         [self  getData];
     }
 }
@@ -161,13 +174,12 @@
     [self.view endEditing:YES];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
-//    self.writeReviewTxtView.text = @"Nice";
     
+    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
     
-//    NSString *parameter = @"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"2\",\"Feedback\":\"Good\"}}";
+//    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, [UserInfo sharedUserInfo].cropID, self.writeReviewTxtView.text];
     
-  NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
+    self.tickMarkBarBtnOutlet.enabled = NO;
     
     [postMan post:FEEDBACK_API withParameters:parameter];
     
@@ -178,7 +190,7 @@
 - (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
 {
     [self.view endEditing:YES];
-    if (self.writeReviewTxtView.text.length > 0 && self.yourRatingView.rating > 0)
+    if (self.writeReviewTxtView.text.length > 0 || self.yourRatingView.rating > 0)
     {
         self.tickMarkBarBtnOutlet.enabled = YES;
     }else
@@ -196,8 +208,6 @@
     [super viewWillAppear:animated];
     
     [self updateUI];
-    
-    [self.rateButton setBackgroundColor:[self barColorForIndex:[[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE]]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChanged:)
@@ -226,8 +236,6 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
     [postMan post:URLString withParameters:parameter];
-    
-    [postMan get:AVERAGE_RATING_API];
 }
 
 - (IBAction)writeReviewBtnAction:(id)sender
@@ -244,11 +252,13 @@
         } completion:^(BOOL finished)
          {
              reviewBtnIsSelected = YES;
+             self.plusMinusImageView.image = [UIImage imageNamed:@"minusIcon"];
+             [self.scrollView scrollRectToVisible:self.writeReviewTxtView.frame animated:YES];
          }];
     }else
     {
-        [UIView animateWithDuration:.3 animations:^
-         {
+        [UIView animateWithDuration:.3 animations:^{
+            
              self.writeReviewTextFldHeightConst.constant = 0;
              [self.view layoutIfNeeded];
              
@@ -256,7 +266,10 @@
              self.writeReviewTxtView.hidden = YES;
 //             self.writeReviewBtnOutlet.selected = NO;
              
-             reviewBtnIsSelected=NO;
+             self.plusMinusImageView.image = [UIImage imageNamed:@"plusIcon"];
+             [self.scrollView scrollRectToVisible:self.writeReviewTxtView.frame animated:YES];
+
+             reviewBtnIsSelected = NO;
          }];
     }
 }
@@ -270,12 +283,16 @@
 - (void)updateUI
 {
     self.rateView.rating = averageRating;
+
+//    self.yourRatingView.rating = userGivenValue;
+//    self.yourRateLbl.text = [NSString stringWithFormat:@"%li Total", (long)userGivenValue];
     self.avgRatValueLbl.text = [NSString stringWithFormat:@"%.1f",averageRating];
-    
+    self.totalLbl.text = [NSString stringWithFormat:@"%li Total", (long)totalNoOfUserRated];
 //    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
 //    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
 //
-    NSString *testString = aboutDescription;
+//    NSString *testString = aboutDescription;
+    NSString *testString = @"I'm trying to set an attributed string to a UITextView in iOS 6. The problem is, if I attempt to set the font property on the attributed string, the line spacing is ignored. However, if I don't set the font, and the default font is used, then line spacing works.";
     self.descriptionTextView.text = testString;
     
     self.descriptionTextView.selectable = YES;
@@ -285,7 +302,7 @@
                                                    context:nil].size;
     self.descriptionTextView.selectable = NO;
 
-    self.descriptionHeightConst.constant = expectedSize.height + 20;
+    self.descriptionHeightConst.constant = expectedSize.height + 25;
     [self.view layoutIfNeeded];
 }
 
@@ -318,10 +335,20 @@
     }else if ([urlString isEqualToString:FEEDBACK_API])
     {
         [self parseFeedbackData:response];
+        [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating
+                                                   forKey:@"YourRatingKey"];
         
     }else if ([urlString isEqualToString:AVERAGE_RATING_API])
     {
         [self parseAvgRating:response];
+        
+//    }else
+//        if ([urlString isEqualToString:[USER_GIVEN_RATING_API stringByAppendingString:@"Corp123"]])
+//    {
+//    }else if ([urlString isEqualToString:[USER_GIVEN_RATING_API stringByAppendingString:[UserInfo sharedUserInfo].cropID]]])
+//    {
+//        [self parseUserGiveRating:response];
+//        
     }else
     {
         [self createImages:response forUrl:urlString];
@@ -356,10 +383,26 @@
 
     if ([json[@"aaData"][@"Success"] boolValue])
     {
-        averageRating = [json[@"aaData"][@"AverageRating"][@"AverageRating"] integerValue];
-        [[NSUserDefaults standardUserDefaults] setInteger:averageRating forKey:@"averageRatingKey"];
+        averageRating = [json[@"aaData"][@"AverageRating"][@"AverageRating"] floatValue];
+        totalNoOfUserRated = [json[@"aaData"][@"AverageRating"][@"TotalUsersRated"] integerValue];
+        [[NSUserDefaults standardUserDefaults] setFloat:averageRating forKey:@"averageRatingKey"];
+        [[NSUserDefaults standardUserDefaults] setInteger:totalNoOfUserRated forKey:@"totalNoOfUSerKey"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    [self updateUI];
+}
+
+- (void)parseUserGiveRating:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    if ([json[@"aaData"][@"Success"] boolValue])
+    {
+        yourRatingValue = [json[@"aaData"][@"Rating"][@"Rating"] integerValue];
+    }else
+    {
+        yourRatingValue = 0;
+    }
+    
     [self updateUI];
 }
 
@@ -372,10 +415,11 @@
     {
         if ([aDict[@"Status"] boolValue])
         {
+            aboutDescription = aDict[@"Description"];
+
             if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                aboutDescription = aDict[@"Description"];
                 
                 ucbLogoDocCode = aDict[@"UCBLogo_DocumentCode"];
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, ucbLogoDocCode];
@@ -438,6 +482,8 @@
         
         [self tryUpdateAboutDeatils];
     }
+    
+    [self updateUI];
 }
 
 #pragma mark
@@ -542,7 +588,7 @@
     {
         NSString *expectedString = [textView.text stringByReplacingCharactersInRange:range withString:text];
         
-        if (expectedString.length > 0 && self.yourRatingView.rating > 0)
+        if (expectedString.length > 0 || self.yourRatingView.rating > 0)
         {
             self.tickMarkBarBtnOutlet.enabled = YES;
         }else
