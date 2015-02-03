@@ -30,6 +30,9 @@
     CGPoint initialOffsetOfSCrollView;
     UIEdgeInsets initialScollViewInset;
     BOOL reviewBtnIsSelected;
+    
+    CGFloat averageRating;
+    UIFont *describtionFont;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -84,27 +87,6 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    URLString = ABOUT_DETAILS_API;
-    
-    postMan = [[Postman alloc] init];
-    postMan.delegate = self;
-    
-    if ([AFNetworkReachabilityManager sharedManager].isReachable)
-    {
-        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
-        {
-            [self tryUpdateAboutDeatils];
-            
-        }else
-        {
-            [self  getData];
-        }
-    }
-    else
-    {
-        [self  getData];
-    }
-    
     self.rateView.notSelectedImage = [UIImage imageNamed:@"starEmpty.png"];
     self.rateView.fullSelectedImage = [UIImage imageNamed:@"starFull.png"];
     self.rateView.rating = 0;
@@ -112,7 +94,8 @@
     self.rateView.maxRating = 5;
     
     self.descriptionTextView.editable = YES;
-    [self.descriptionTextView setFont:[self customFont:14 ofName:MuseoSans_300]];
+    describtionFont = [self customFont:14 ofName:MuseoSans_300];
+    [self.descriptionTextView setFont:describtionFont];
     self.descriptionTextView.editable = NO;
 
     self.rateButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
@@ -132,8 +115,8 @@
     
     self.avgRateLable.font = [self customFont:16 ofName:MuseoSans_700];
     self.yourRateLbl.font = [self customFont:16 ofName:MuseoSans_700];
-    self.avgRatValueLbl.font = [self customFont:20 ofName:MuseoSans_700];
-    self.yourRateValueLbl.font = [self customFont:20 ofName:MuseoSans_700];
+    self.avgRatValueLbl.font = [self customFont:30 ofName:MuseoSans_700];
+    self.yourRateValueLbl.font = [self customFont:30 ofName:MuseoSans_700];
     self.totalLbl.font = [self customFont:14 ofName:MuseoSans_300];
     self.clickToRateLbl.font = [self customFont:14 ofName:MuseoSans_300];
     
@@ -143,12 +126,34 @@
     self.writeReviewAlphaView.layer.cornerRadius = 15;
     self.writeReviewTxtView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.writeReviewTxtView.layer.borderWidth = 1;
-
+    
+    URLString = ABOUT_DETAILS_API;
+    
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"aboutus"])
+        {
+            [self tryUpdateAboutDeatils];
+            
+        }else
+        {
+            averageRating = [[NSUserDefaults standardUserDefaults] integerForKey:@"averageRatingKey"];
+            [self  getData];
+        }
+    }
+    else
+    {
+        averageRating = [[NSUserDefaults standardUserDefaults] integerForKey:@"averageRatingKey"];
+        [self  getData];
+    }
 }
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
 }
 
 - (IBAction)tickMarkBarBtnAction:(id)sender
@@ -172,6 +177,14 @@
 
 - (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
 {
+    [self.view endEditing:YES];
+    if (self.writeReviewTxtView.text.length > 0 && self.yourRatingView.rating > 0)
+    {
+        self.tickMarkBarBtnOutlet.enabled = YES;
+    }else
+    {
+        self.tickMarkBarBtnOutlet.enabled = NO;
+    }
     
     self.yourRateValueLbl.text = [NSString stringWithFormat:@"%i",(int)rating];
 }
@@ -186,7 +199,10 @@
     
     [self.rateButton setBackgroundColor:[self barColorForIndex:[[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE]]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -208,9 +224,10 @@
 - (void)tryUpdateAboutDeatils
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
+    [postMan post:URLString withParameters:parameter];
     
-    [postMan get:URLString];
-    
+    [postMan get:AVERAGE_RATING_API];
 }
 
 - (IBAction)writeReviewBtnAction:(id)sender
@@ -252,25 +269,25 @@
 
 - (void)updateUI
 {
-    self.rateView.rating = 5;
+    self.rateView.rating = averageRating;
+    self.avgRatValueLbl.text = [NSString stringWithFormat:@"%.1f",averageRating];
     
 //    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
 //    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
 //
-    NSString *testString = @"This mobile app was developed in a partnership between Vmoksha Technologies and the UCB Mobility Team.  If you have an idea for a new app, or questions about app development, please contact the UCB Mobility Team at mobility.apple@ucb.com and we will schedule a meeting to understand your needs.  \nFor more information, see www.vmokshagroup.com.";
+    NSString *testString = aboutDescription;
     self.descriptionTextView.text = testString;
     
-    
+    self.descriptionTextView.selectable = YES;
     CGSize expectedSize = [testString boundingRectWithSize:(CGSizeMake(self.descriptionTextView.frame.size.width, 10000))
-                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                        attributes:@{NSFontAttributeName: self.descriptionTextView.font}
-                                           context:nil].size;
-    
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:@{NSFontAttributeName: describtionFont}
+                                                   context:nil].size;
+    self.descriptionTextView.selectable = NO;
+
     self.descriptionHeightConst.constant = expectedSize.height + 20;
     [self.view layoutIfNeeded];
-    
 }
-
 
 - (void)orientationChanged:(NSNotification *)notification
 {
@@ -282,6 +299,7 @@
     [self hideKeyboard:nil];
     [self updateUI];
 }
+
 #pragma mark
 #pragma mark postmanDelegate
 
@@ -289,30 +307,27 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
-//    if ([urlString isEqualToString:ABOUT_DETAILS_API])
-//    {
-//        [self parseResponsedata:response andgetImages:YES];
-//        
-//        [self saveAboutDetailsData:response forURL:urlString];
-//        
-//        
-//        
-//        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"webclip"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        
-//    }else
-//    {
-//        [self createImages:response forUrl:urlString];
-//        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"document"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//    }
-    
-    if ([urlString isEqualToString:FEEDBACK_API])
+    if ([urlString isEqualToString:ABOUT_DETAILS_API])
+    {
+        [self parseResponsedata:response andgetImages:YES];
+        [self saveAboutDetailsData:response forURL:urlString];
+        
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"aboutus"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }else if ([urlString isEqualToString:FEEDBACK_API])
     {
         [self parseFeedbackData:response];
         
+    }else if ([urlString isEqualToString:AVERAGE_RATING_API])
+    {
+        [self parseAvgRating:response];
+    }else
+    {
+        [self createImages:response forUrl:urlString];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"document"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
-
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
@@ -321,7 +336,7 @@
     [self updateUI];
 }
 
--(void)parseFeedbackData:(NSData *)response
+- (void)parseFeedbackData:(NSData *)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     NSLog(@"FeedBack %@",json);
@@ -333,14 +348,19 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     }
-    
-
 }
 
-- (void)parseAvgRating:(NSData *)data
+- (void)parseAvgRating:(NSData *)response
 {
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    NSLog(@"Average Rating %@",json);
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+
+    if ([json[@"aaData"][@"Success"] boolValue])
+    {
+        averageRating = [json[@"aaData"][@"AverageRating"][@"AverageRating"] integerValue];
+        [[NSUserDefaults standardUserDefaults] setInteger:averageRating forKey:@"averageRatingKey"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    [self updateUI];
 }
 
 - (void)parseResponsedata:(NSData *)response andgetImages:(BOOL)download
@@ -350,17 +370,12 @@
     
     for (NSDictionary *aDict in arr)
     {
-        NSString *language = aDict[@"Language"];
-        if (![language isEqualToString:@"English"])
-        {
-            continue;
-        }
-        
         if ([aDict[@"Status"] boolValue])
         {
             if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                aboutDescription = aDict[@"Description"];
                 
                 ucbLogoDocCode = aDict[@"UCBLogo_DocumentCode"];
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, ucbLogoDocCode];
@@ -370,6 +385,12 @@
                 imageUrl = [NSString stringWithFormat:RENDER_DOC_API, vmokshaLogoDocCode];
                 [postMan get:imageUrl];
             }
+        }
+        
+        NSString *language = aDict[@"Language"];
+        if ([language isEqualToString:@"English"])
+        {
+            break;
         }
     }
     
@@ -419,6 +440,8 @@
     }
 }
 
+#pragma mark
+#pragma mark DBManagerDelegate
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     if (sqlite3_step(statment) == SQLITE_ROW)
@@ -486,6 +509,7 @@
         
         return image;
     }
+    
     return nil;
 }
 
@@ -502,12 +526,32 @@
     }
     
     [self.view layoutIfNeeded];
+    
+    [self.scrollView scrollRectToVisible:textView.frame animated:YES];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     self.scrollViewBottomConst.constant = 0;
     [self.view layoutIfNeeded];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([textView isEqual:self.writeReviewTxtView])
+    {
+        NSString *expectedString = [textView.text stringByReplacingCharactersInRange:range withString:text];
+        
+        if (expectedString.length > 0 && self.yourRatingView.rating > 0)
+        {
+            self.tickMarkBarBtnOutlet.enabled = YES;
+        }else
+        {
+            self.tickMarkBarBtnOutlet.enabled = NO;
+        }
+    }
+
+    return YES;
 }
 
 - (IBAction)hideKeyboard:(UIView *)sender

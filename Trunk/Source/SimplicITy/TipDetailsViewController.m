@@ -97,7 +97,7 @@
     
     CGFloat widthOfCollectionView = self.collectionView.frame.size.width;
     CGFloat xOfContentOffset = widthOfCollectionView * index;
-    [self.collectionView setContentOffset:CGPointMake(xOfContentOffset, 0) animated:YES];
+    [self.collectionView setContentOffset:CGPointMake(xOfContentOffset, 0) animated:NO];
 }
 
 - (void)tryToUpdateCategories
