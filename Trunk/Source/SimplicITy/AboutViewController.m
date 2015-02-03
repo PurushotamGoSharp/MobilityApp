@@ -11,7 +11,12 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "RateView.h"
 
-@interface AboutViewController () <postmanDelegate, DBManagerDelegate>
+#define FEEDBACK_API @"http://simplicitytst.ripple-io.in/Rating/Corp123"
+
+#define ALERT_FOR_RATING @"Thank you for Rating the App"
+
+
+@interface AboutViewController () <postmanDelegate, DBManagerDelegate,RateViewDelegate,UITextViewDelegate>
 {
     UIBarButtonItem *backButton;
     NSString *URLString;
@@ -21,8 +26,13 @@
     NSString *aboutDescription;
     NSString *ucbLogoDocCode;
     NSString *vmokshaLogoDocCode;
+    
+    CGPoint initialOffsetOfSCrollView;
+    UIEdgeInsets initialScollViewInset;
+    BOOL reviewBtnIsSelected;
 }
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet RateView *rateView;
 @property (weak, nonatomic) IBOutlet UIImageView *leftSideImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *rightSideImageView;
@@ -31,6 +41,24 @@
 @property (weak, nonatomic) IBOutlet UILabel *aboutUsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *averageLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *descriptionHeightConst;
+
+@property (weak, nonatomic) IBOutlet RateView *yourRatingView;
+
+@property (weak, nonatomic) IBOutlet UILabel *avgRateLable;
+@property (weak, nonatomic) IBOutlet UILabel *yourRateLbl;
+@property (weak, nonatomic) IBOutlet UILabel *avgRatValueLbl;
+@property (weak, nonatomic) IBOutlet UILabel *yourRateValueLbl;
+@property (weak, nonatomic) IBOutlet UILabel *totalLbl;
+@property (weak, nonatomic) IBOutlet UILabel *clickToRateLbl;
+
+@property (weak, nonatomic) IBOutlet UIView *writeReviewAlphaView;
+
+@property (weak, nonatomic) IBOutlet UITextView *writeReviewTxtView;
+@property (weak, nonatomic) IBOutlet UIButton *writeReviewBtnOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *writeReviewLbl;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *writeReviewTextFldBtmConst;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tickMarkBarBtnOutlet;
 @end
 
 @implementation AboutViewController
@@ -86,14 +114,70 @@
     self.descriptionTextView.editable = NO;
 
     self.rateButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    self.averageLabel.font = [self customFont:16 ofName:MuseoSans_700];
     self.aboutUsLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
     self.rateButton.layer.cornerRadius = 10;
+    
+    
+    self.yourRatingView.notSelectedImage = [UIImage imageNamed:@"starEmpty.png"];
+    // self.rateView.halfSelectedImage = [UIImage imageNamed:@"kermit_half.png"];
+    self.yourRatingView.fullSelectedImage = [UIImage imageNamed:@"starFull.png"];
+    self.yourRatingView.rating = 0;
+    self.yourRatingView.editable = YES;
+    self.yourRatingView.maxRating = 5;
+    self.yourRatingView.delegate = self;
+    
+    
+    self.avgRateLable.font = [self customFont:16 ofName:MuseoSans_700];
+    self.yourRateLbl.font = [self customFont:16 ofName:MuseoSans_700];
+    self.avgRatValueLbl.font = [self customFont:20 ofName:MuseoSans_700];
+    self.yourRateValueLbl.font = [self customFont:20 ofName:MuseoSans_700];
+    self.totalLbl.font = [self customFont:14 ofName:MuseoSans_300];
+    self.clickToRateLbl.font = [self customFont:14 ofName:MuseoSans_300];
+    
+    self.writeReviewLbl.font = [self customFont:16 ofName:MuseoSans_700];
+
+
+    self.writeReviewAlphaView.layer.cornerRadius = 15;
+    self.writeReviewTxtView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.writeReviewTxtView.layer.borderWidth = 1;
+
+}
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+}
+
+- (IBAction)tickMarkBarBtnAction:(id)sender
+{
+    [self.view endEditing:YES];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+//    self.writeReviewTxtView.text = @"Nice";
+    
+    
+//    NSString *parameter = @"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"2\",\"Feedback\":\"Good\"}}";
+    
+  NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
+    
+    [postMan post:FEEDBACK_API withParameters:parameter];
+    
+    self.yourRatingView.rating = 0;
+    self.yourRateValueLbl.text = @"0";
+}
+
+- (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
+{
+    
+    self.yourRateValueLbl.text = [NSString stringWithFormat:@"%i",(int)rating];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    reviewBtnIsSelected = NO;
+    
     [super viewWillAppear:animated];
     
     [self updateUI];
@@ -108,6 +192,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
+    
+    self.yourRatingView.rating = 0;
+    self.yourRateValueLbl.text = @"0";
+
 }
 
 - (void)backBtnAction
@@ -120,7 +208,42 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [postMan get:URLString];
+    
 }
+
+
+
+- (IBAction)writeReviewBtnAction:(id)sender
+{
+    
+    if (!reviewBtnIsSelected)
+    {
+        
+        [UIView animateWithDuration:.3 animations:^{
+            self.writeReviewTxtView.alpha = 1;
+            
+        } completion:^(BOOL finished)
+         {
+             self.writeReviewTxtView.hidden = NO;
+//             self.writeReviewBtnOutlet.selected = YES;
+             reviewBtnIsSelected = YES;
+         }];
+    }else
+    {
+        [UIView animateWithDuration:.3 animations:^
+         {
+             self.writeReviewTxtView.alpha = 0;
+         } completion:^(BOOL finished) {
+             self.writeReviewTxtView.hidden = YES;
+//             self.writeReviewBtnOutlet.selected = NO;
+             
+             reviewBtnIsSelected=NO;
+         }];
+        
+        
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -134,7 +257,7 @@
 //    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
 //    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
 //
-    NSString *testString = @"This mobile app was developed in a partnership between Vmoksha Technologies and the UCB Mobility Team.  If you have an idea for a new app, or questions about app development, please contact the UCB Mobility Team at mobility.apple@ucb.com and we will schedule a meeting to understand your needs.  For more information, see www.vmokshagroup.com.";
+    NSString *testString = @"This mobile app was developed in a partnership between Vmoksha Technologies and the UCB Mobility Team.  If you have an idea for a new app, or questions about app development, please contact the UCB Mobility Team at mobility.apple@ucb.com and we will schedule a meeting to understand your needs.  \nFor more information, see www.vmokshagroup.com.";
     self.descriptionTextView.text = testString;
     
     
@@ -165,27 +288,58 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
-    if ([urlString isEqualToString:ABOUT_DETAILS_API])
+//    if ([urlString isEqualToString:ABOUT_DETAILS_API])
+//    {
+//        [self parseResponsedata:response andgetImages:YES];
+//        
+//        [self saveAboutDetailsData:response forURL:urlString];
+//        
+//        
+//        
+//        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"webclip"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        
+//    }else
+//    {
+//        [self createImages:response forUrl:urlString];
+//        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"document"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
+    
+    if ([urlString isEqualToString:FEEDBACK_API])
     {
-        [self parseResponsedata:response andgetImages:YES];
+        [self parseFeedbackData:response];
         
-        [self saveAboutDetailsData:response forURL:urlString];
-        
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"webclip"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-    }else
-    {
-        [self createImages:response forUrl:urlString];
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"document"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
+
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     [self updateUI];
+}
+
+-(void)parseFeedbackData:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSLog(@"FeedBack %@",json);
+    
+    NSDictionary *suecss = json[@"aaData"];
+    
+    if ([suecss[@"Success"] boolValue])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+
+}
+
+-(void)parseAvgRating:(NSData *)data
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    NSLog(@"Average Rating %@",json);
 }
 
 - (void)parseResponsedata:(NSData *)response andgetImages:(BOOL)download
@@ -332,7 +486,6 @@
         
         return image;
     }
-    
     return nil;
 }
 

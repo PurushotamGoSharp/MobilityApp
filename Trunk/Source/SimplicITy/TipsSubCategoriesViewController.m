@@ -21,6 +21,8 @@
 @implementation TipsSubCategoriesViewController
 {
     BOOL userTappedOnVC; //if user selects a question or cancels, vlaue will be set to yes;
+    
+    NSIndexPath *selectedIndexPath;
 }
 
 - (void)viewDidLoad
@@ -28,6 +30,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = self.parentCategory;
+    
+    NSLog(@"curent page Number %i",self.curentpageNum);
+    
+   selectedIndexPath = [NSIndexPath indexPathForRow:self.curentpageNum inSection:0];
+    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,12 +91,17 @@
     label.font = [self customFont:16 ofName:MuseoSans_700];
     [label sizeToFit];
     
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedIndexPath];
+    [cell setSelectedBackgroundView:bgColorView];
+
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     userTappedOnVC = YES;
     

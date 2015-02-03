@@ -59,6 +59,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *serviceDesksLbl;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *popOverHeightConst;
+
+@property (weak, nonatomic) IBOutlet UIImageView *raiseTicketImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *myticketsImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *newsImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *raiseOrderImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *tipsImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *myOrderImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *phoneImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *serviceImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *settingImageOutlet;
+
 @end
 
 @implementation DashBoardViewController
@@ -80,6 +91,57 @@
     self.navtitleBtnoutlet.selected = NO;
     
     self.profileViewTopConstraint.constant = -107;
+    
+//    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
+//    {
+//        UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
+//        UIImage *phoneImage = [UIImage imageNamed:@"phone.png"];
+//        UIImage *settingImage = [UIImage imageNamed:@"setting.png"];
+//        UIImage *raiseTicketImage = [UIImage imageNamed:@"RaiseTicket.png"];
+//        UIImage *myTicketsImage = [UIImage imageNamed:@"MyTickets.png"];
+//        UIImage *newsImage = [UIImage imageNamed:@"news.png"];
+//        UIImage *tipsImage = [UIImage imageNamed:@"tips.png"];
+//        UIImage *raiseOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
+//        UIImage *myOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
+//        
+//        
+//        UIImage *imageForService = [self imageResizing:serviceImage];
+//        UIImage *imageForPhone =[self imageResizing:phoneImage];
+//        UIImage *imageForSetting = [self imageResizing:settingImage];
+//        UIImage *imageForRaiseTicket = [self imageResizing:raiseTicketImage];
+//        UIImage *imageForMyTickets = [self imageResizing:myTicketsImage];
+//        UIImage *imageForNews = [self imageResizing:newsImage];
+//        UIImage *imageForTips = [self imageResizing:tipsImage];
+//        UIImage *imageForRaiseOrder = [self imageResizing:raiseOrderImage];
+//        UIImage *imageFormyOrder  = [self imageResizing:myOrderImage];
+//        
+//        self.serviceImageOutlet.image= imageForService;
+//        self.phoneImageOutlet.image= imageForPhone;
+//        self.settingImageOutlet.image= imageForSetting;
+//        self.raiseTicketImageOutlet.image= imageForRaiseTicket;
+//        self.myticketsImageOutlet.image= imageForMyTickets;
+//        self.newsImageOutlet.image= imageForNews;
+//        self.tipsImageOutlet.image= imageForTips;
+//        self.raiseOrderImageOutlet.image= imageForRaiseOrder;
+//        self.myOrderImageOutlet.image= imageFormyOrder;
+//
+//    }else
+//    {
+//        self.serviceImageOutlet.image= [UIImage imageNamed:@"service.png"];
+//        self.phoneImageOutlet.image= [UIImage imageNamed:@"phone.png"];
+//        self.settingImageOutlet.image= [UIImage imageNamed:@"setting.png"];
+//        self.raiseTicketImageOutlet.image= [UIImage imageNamed:@"RaiseTicket.png"];
+//        self.myticketsImageOutlet.image= [UIImage imageNamed:@"MyTickets.png"];
+//        self.newsImageOutlet.image= [UIImage imageNamed:@"news.png"];
+//        self.tipsImageOutlet.image= [UIImage imageNamed:@"tips.png"];
+//        self.raiseOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
+//        self.myOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
+//
+//    }
+    
+//    UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
+//    UIImage *imageForService = [self imageResizing:serviceImage];
+//    self.serviceImageOutlet.image= imageForService;
     
     titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
     titleImageView.frame = CGRectMake(0, 5, 32, 32);
@@ -126,9 +188,19 @@
     
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
-    
     [self setupLocation];
 }
+
+//-(UIImage*)imageResizing:(UIImage*)image
+//{
+//    
+//    CGRect cropRect = CGRectMake(0, 0, 128, 128);
+//    UIGraphicsBeginImageContext(cropRect.size);
+//    [image drawInRect:cropRect];
+//    UIImage *newCropedImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    return newCropedImage;
+//}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -321,8 +393,6 @@
         
         [dbManager saveDataToDBForQuery:insertSQL];
     }
-    
-    
 }
 
 - (BOOL)getDataForCountryCode:(NSString *)countryCode

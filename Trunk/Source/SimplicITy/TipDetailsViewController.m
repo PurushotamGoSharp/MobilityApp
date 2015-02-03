@@ -29,6 +29,8 @@
     
     DBManager *dbManager;
     NSInteger currentPageNo;
+    
+    NSString *navBatTitle;
 }
 
 - (void)viewDidLoad
@@ -42,6 +44,15 @@
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     self.currentPageNoLabel.font = [self customFont:14 ofName:MuseoSans_300];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    self.title =self.parentCategory;
+    
+    NSLog(@"nav Bar Title is : %@",self.title);
+    
+//    self.navigationItem.title =self.parentCategory;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,6 +74,9 @@
     {
         [self getData];
     }
+    
+    self.title =self.parentCategory;
+
     
 //    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 //    NSString *cachePath = [cachedirs lastObject];
@@ -154,6 +168,10 @@
 {
     NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
     [webView stringByEvaluatingJavaScriptFromString:javascript];
+    
+    [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
+    [webView.scrollView setShowsVerticalScrollIndicator:NO];
+
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -180,6 +198,9 @@
         tipsList.listOfTips = subCategoriesCollection;
         tipsList.parentCategory = self.parentCategory;
         tipsList.delegate = self;
+        tipsList.curentpageNum = currentPageNo;
+//        NSLog(@"curent page Number %i",currentPageNo);
+
     }
 }
 
@@ -191,6 +212,9 @@
         return;
     }
     self.currentPageNoLabel.text = [NSString stringWithFormat:@"%li of %li", (long)pageNo+1, (long)noOfTotalPages];
+    
+    TipModel *tip = [[TipModel alloc] init];
+    self.title =tip.question;
 }
 
 #pragma mark
@@ -215,7 +239,13 @@
     NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView, aTipModel.answer];
     [webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
     
+//    self.title = aTipModel.question;
+//   navBatTitle =  self.title;
+//    
+//    NSLog(@"tip Sub category %@",navBatTitle);
     
+    self.title =self.parentCategory;
+
     return cell;
 }
 
@@ -238,6 +268,12 @@
         [self setPageNoLabelFor:pageNo];
         currentPageNo = pageNo;
     }
+    
+    self.title =self.parentCategory;
+
+//    self.title = navBatTitle;
+
+    
 }
 
 #pragma mark
@@ -367,6 +403,8 @@
 {
     [self setPageForIndex:selectedIndex];
     currentPageNo = selectedIndex;
+    
+
 }
 
 @end
