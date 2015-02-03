@@ -109,6 +109,11 @@
     [self hideKeyboard:nil];
     [self performSegueWithIdentifier:@"signInToTabVCSegue" sender:nil];
 }
+- (void)dismissKeyboard
+{
+    [self.view endEditing:YES];
+    [self hideKeyboard:nil];
+}
 
 - (IBAction)hideKeyboard:(UIControl *)sender
 {

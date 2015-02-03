@@ -17,6 +17,7 @@
     
     NSDateFormatter *dateFormatter;
 }
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 
 @end
 
@@ -33,7 +34,6 @@
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
     
-
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -230,7 +230,7 @@
                                                     attributes:@{ NSFontAttributeName : [self customFont:16 ofName:MuseoSans_300] }
                                                        context:nil].size;
         
-        CGFloat heigthOFcell = expectedLabelSize.height + 15 + 15;
+        CGFloat heigthOFcell = expectedLabelSize.height + 20 + 20;
         
         heigthOFcell = MAX(44, heigthOFcell);
         

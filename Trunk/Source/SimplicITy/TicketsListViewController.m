@@ -354,15 +354,16 @@
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
-        queryString = @"SELECT * FROM raisedOrders ORDER BY date ASC";
+        queryString = @"SELECT * FROM raisedOrders";
     }else
     {
-        queryString = @"SELECT * FROM raisedTickets ORDER BY date ASC";
+        queryString = @"SELECT * FROM raisedTickets";
     }
     
     [dbManager getDataForQuery:queryString];
     
     [self.tableViewOutlet reloadData];
+    
 }
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
@@ -396,6 +397,7 @@
         }
         [arrayOfData addObject:request];
     }
+
 }
 
 @end

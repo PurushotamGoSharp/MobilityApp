@@ -22,8 +22,13 @@
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
-#define ALERT_FOR_ORDER_SAVED @"Your Order has been sucessfully placed"
-#define ALERT_FOR_TICKET_SAVED @"Your Ticket has been sucessfully saved"
+#define ALERT_FOR_ORDER_SAVED_IN_ONLINE @"Your Order has been sucessfully placed"
+#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been sucessfully raised"
+
+#define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised atomatically when connection is restored"
+#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, Order will be placed atomatically when connection is restored"
+
+
 #define ALERT_FOR_SELECT_ITEM_VALIDATION @"Item is required.\n"
 #define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Service is required.\n"
 #define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Details is required."
@@ -213,11 +218,11 @@
         
         if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
         {
-            alertMessage = ALERT_FOR_ORDER_SAVED;
+            alertMessage = ALERT_FOR_ORDER_SAVED_IN_ONLINE;
         }
         else
         {
-            alertMessage = ALERT_FOR_TICKET_SAVED;
+            alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
         }
         
         UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
@@ -322,17 +327,38 @@
         haveRasiedRequest = YES;
         [[SendRequestsManager sharedManager] authenticateServer];
         [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
+        
+        NSString *alertMessage;
+        
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+        {
+            alertMessage = ALERT_FOR_ORDER_SAVED_IN_ONLINE;
+        }
+        else
+        {
+            alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
+        }
+        
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+                                                                message:alertMessage
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+        
+        saveAlestView.delegate= self;
+        [saveAlestView show];
+
     }else
     {
         NSString *alertMessage;
         
         if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
         {
-            alertMessage = ALERT_FOR_ORDER_SAVED;
+            alertMessage = ALERT_FOR_ORDER_SAVED_IN_OFFLINE;
         }
         else
         {
-            alertMessage = ALERT_FOR_TICKET_SAVED;
+            alertMessage = ALERT_FOR_TICKET_SAVED_IN_OFFLINE;
         }
         
         UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
