@@ -56,9 +56,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *writeReviewTxtView;
 @property (weak, nonatomic) IBOutlet UIButton *writeReviewBtnOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *writeReviewLbl;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *writeReviewTextFldBtmConst;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *writeReviewTextFldBtmConst;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tickMarkBarBtnOutlet;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *writeReviewTextFldHeightConst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewBottomConst;
 @end
 
 @implementation AboutViewController
@@ -145,7 +147,7 @@
 }
 
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
 }
 
@@ -211,36 +213,34 @@
     
 }
 
-
-
 - (IBAction)writeReviewBtnAction:(id)sender
 {
-    
     if (!reviewBtnIsSelected)
     {
+        self.writeReviewTxtView.hidden = NO;
         
         [UIView animateWithDuration:.3 animations:^{
-            self.writeReviewTxtView.alpha = 1;
+            
+            self.writeReviewTextFldHeightConst.constant = 75;
+            [self.view layoutIfNeeded];
             
         } completion:^(BOOL finished)
          {
-             self.writeReviewTxtView.hidden = NO;
-//             self.writeReviewBtnOutlet.selected = YES;
              reviewBtnIsSelected = YES;
          }];
     }else
     {
         [UIView animateWithDuration:.3 animations:^
          {
-             self.writeReviewTxtView.alpha = 0;
+             self.writeReviewTextFldHeightConst.constant = 0;
+             [self.view layoutIfNeeded];
+             
          } completion:^(BOOL finished) {
              self.writeReviewTxtView.hidden = YES;
 //             self.writeReviewBtnOutlet.selected = NO;
              
              reviewBtnIsSelected=NO;
          }];
-        
-        
     }
 }
 
@@ -279,6 +279,7 @@
 
 - (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
 {
+    [self hideKeyboard:nil];
     [self updateUI];
 }
 #pragma mark
@@ -336,7 +337,7 @@
 
 }
 
--(void)parseAvgRating:(NSData *)data
+- (void)parseAvgRating:(NSData *)data
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     NSLog(@"Average Rating %@",json);
@@ -418,7 +419,6 @@
     }
 }
 
-
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     if (sqlite3_step(statment) == SQLITE_ROW)
@@ -487,6 +487,32 @@
         return image;
     }
     return nil;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
+    if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
+    {
+        self.scrollViewBottomConst.constant = 180;
+        
+    }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
+    {
+        self.scrollViewBottomConst.constant = 130;
+    }
+    
+    [self.view layoutIfNeeded];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    self.scrollViewBottomConst.constant = 0;
+    [self.view layoutIfNeeded];
+}
+
+- (IBAction)hideKeyboard:(UIView *)sender
+{
+    [self.view endEditing:YES];
 }
 
 @end
