@@ -92,7 +92,7 @@
     [label sizeToFit];
     
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [self barColorForIndex:selectedIndexPath];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedIndexPath.row];
     [cell setSelectedBackgroundView:bgColorView];
 
     
@@ -105,9 +105,9 @@
     
     userTappedOnVC = YES;
     
+    [self.delegate tipsSub:self selectedIndex:indexPath.row];
     [self dismissViewControllerAnimated:YES completion:^{
         
-        [self.delegate tipsSub:self selectedIndex:indexPath.row];
         
     }];
 }
