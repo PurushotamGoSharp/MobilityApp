@@ -134,17 +134,19 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"aboutus"])
         {
             [self tryUpdateAboutDeatils];
             
         }else
         {
+            averageRating = [[NSUserDefaults standardUserDefaults] integerForKey:@"averageRatingKey"];
             [self  getData];
         }
     }
     else
     {
+        averageRating = [[NSUserDefaults standardUserDefaults] integerForKey:@"averageRatingKey"];
         [self  getData];
     }
 }
@@ -310,7 +312,7 @@
         [self parseResponsedata:response andgetImages:YES];
         [self saveAboutDetailsData:response forURL:urlString];
         
-        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"webclip"];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"aboutus"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
     }else if ([urlString isEqualToString:FEEDBACK_API])
@@ -355,6 +357,8 @@
     if ([json[@"aaData"][@"Success"] boolValue])
     {
         averageRating = [json[@"aaData"][@"AverageRating"][@"AverageRating"] integerValue];
+        [[NSUserDefaults standardUserDefaults] setInteger:averageRating forKey:@"averageRatingKey"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     [self updateUI];
 }
@@ -368,8 +372,7 @@
     {
         if ([aDict[@"Status"] boolValue])
         {
-//            if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
-            if (download)
+            if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 aboutDescription = aDict[@"Description"];
