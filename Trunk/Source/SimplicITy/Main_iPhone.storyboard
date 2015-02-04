@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -48,7 +48,7 @@
         <!--Dash Board View Controller-->
         <scene sceneID="GXG-IC-6T2">
             <objects>
-                <viewController id="Wvs-fA-k09" customClass="DashBoardViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Wvs-fA-k09" customClass="DashBoardViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="22J-zz-Ztw"/>
                         <viewControllerLayoutGuide type="bottom" id="WCN-AC-ePg"/>
@@ -57,253 +57,279 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Al-4h-7aB" userLabel="Dash container">
-                                <rect key="frame" x="0.0" y="101" width="320" height="367"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y3w-Ve-J7d">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWZ-ae-XdY" userLabel="First Row">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPm-6v-WPA">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3K-gf-Q0s" userLabel="Raise A Ticket">
-                                                <rect key="frame" x="7" y="1" width="100" height="118"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Al-4h-7aB" userLabel="Dash container">
+                                                <rect key="frame" x="0.0" y="44" width="320" height="367"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjJ-wS-Vxf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="raiseATicketPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="T5v-gX-3Ta"/>
-                                                            <segue destination="Nvl-He-eXA" kind="push" id="J1A-hZ-SrU"/>
-                                                        </connections>
-                                                    </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="raiseATicketIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bYa-aY-LVi">
-                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
-                                                    </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Raise Ticket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKp-SK-I9D">
-                                                        <rect key="frame" x="2" y="87" width="97" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWZ-ae-XdY" userLabel="First Row">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3K-gf-Q0s" userLabel="Raise A Ticket">
+                                                                <rect key="frame" x="7" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjJ-wS-Vxf">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="raiseATicketPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="T5v-gX-3Ta"/>
+                                                                            <segue destination="Nvl-He-eXA" kind="push" id="J1A-hZ-SrU"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="raiseATicketIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bYa-aY-LVi">
+                                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
+                                                                    </imageView>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Raise Ticket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKp-SK-I9D">
+                                                                        <rect key="frame" x="2" y="87" width="97" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.10980392156862745" green="0.65098039215686276" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygb-Zc-x4Q" userLabel="My Ticket">
+                                                                <rect key="frame" x="110" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bT5-Q7-JBe">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="myTicketsBtnPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="b6H-Xn-Oxs"/>
+                                                                            <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyTicketsASegue" id="5s6-By-sBB"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyTickets" translatesAutoresizingMaskIntoConstraints="NO" id="5Fd-E5-elY">
+                                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
+                                                                    </imageView>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Tickets" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkU-1B-I3g">
+                                                                        <rect key="frame" x="2" y="87" width="97" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.6588235294117647" green="0.41960784313725491" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifc-Dm-qqE" userLabel="News">
+                                                                <rect key="frame" x="213" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-C7-Ep8">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="messageButtonPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="fsY-Ck-95V"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="News" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rh-ss-Chz">
+                                                                        <rect key="frame" x="31" y="87" width="39" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MessageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Gau-MM-6hJ">
+                                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.98039215686274506" green="0.66666666666666663" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93t-qo-lzI" userLabel="Second Row">
+                                                        <rect key="frame" x="0.0" y="121" width="320" height="121"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Tv-MCJ" userLabel="Place Order">
+                                                                <rect key="frame" x="7" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ete-0y-E1v">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <segue destination="Nvl-He-eXA" kind="push" identifier="dashToOrder_segue" id="8h2-qg-Aot"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
+                                                                        <rect key="frame" x="18" y="19" width="64" height="64"/>
+                                                                    </imageView>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
+                                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.94901960784313721" green="0.16470588235294117" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0t-NN-iT8" userLabel="Tips">
+                                                                <rect key="frame" x="213" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlj-GY-Rz3">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="tipsButtonPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="IJ4-Ct-p45"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-sT-i8u">
+                                                                        <rect key="frame" x="36" y="85" width="29" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TipsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="STP-0w-Hah">
+                                                                        <rect key="frame" x="18" y="13" width="64" height="64"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.52156862745098043" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="itm-1L-AFt" userLabel="My Order">
+                                                                <rect key="frame" x="110" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIT-hc-sds">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="myOrderBtnPresed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Rs2-Fl-VTA"/>
+                                                                            <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyOrdersSegue" id="uWR-qu-A3S"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyOrderedDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="3fU-LL-lWG">
+                                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
+                                                                    </imageView>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Orders" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyH-ht-g5P">
+                                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.75294117647058822" green="0.5725490196078431" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-it-nBX" userLabel="Third Row">
+                                                        <rect key="frame" x="0.0" y="242" width="320" height="122"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60G-bx-fgm" userLabel="It Help Desk">
+                                                                <rect key="frame" x="7" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aon-Rm-RSq">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <action selector="initiateCallForITHelpDesk:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Pxa-X4-9if"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Call Service Desk" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piG-eZ-KI4">
+                                                                        <rect key="frame" x="3" y="72" width="96" height="44"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PhoneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="xKx-aV-eZy">
+                                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.33333333333333331" green="0.72549019607843135" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LiG-Bq-B0U" userLabel="Web Clips">
+                                                                <rect key="frame" x="110" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4V-Rr-0Zi">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <segue destination="yDK-B7-She" kind="push" id="Jrv-6w-ASy"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpL-rN-qvM">
+                                                                        <rect key="frame" x="15" y="87" width="70" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="WebClipDash" translatesAutoresizingMaskIntoConstraints="NO" id="rWJ-Np-QfH">
+                                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.40784313725490196" green="0.59999999999999998" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-eJ-48c" userLabel="Settings">
+                                                                <rect key="frame" x="213" y="1" width="100" height="118"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wW-Wc-WS8">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        </state>
+                                                                        <connections>
+                                                                            <segue destination="HZG-J2-msa" kind="push" id="A74-il-1S3"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingsDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EGq-pw-lIV">
+                                                                        <rect key="frame" x="18" y="17" width="64" height="64"/>
+                                                                    </imageView>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-Qv-c9G">
+                                                                        <rect key="frame" x="22" y="85" width="57" height="18"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" red="0.44313725490196076" green="0.42745098039215684" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.10980392156862745" green="0.65098039215686276" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygb-Zc-x4Q" userLabel="My Ticket">
-                                                <rect key="frame" x="110" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bT5-Q7-JBe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="myTicketsBtnPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="b6H-Xn-Oxs"/>
-                                                            <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyTicketsASegue" id="5s6-By-sBB"/>
-                                                        </connections>
-                                                    </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyTickets" translatesAutoresizingMaskIntoConstraints="NO" id="5Fd-E5-elY">
-                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
-                                                    </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Tickets" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkU-1B-I3g">
-                                                        <rect key="frame" x="2" y="87" width="97" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.6588235294117647" green="0.41960784313725491" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifc-Dm-qqE" userLabel="News">
-                                                <rect key="frame" x="213" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QoX-C7-Ep8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="messageButtonPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="fsY-Ck-95V"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="News" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rh-ss-Chz">
-                                                        <rect key="frame" x="31" y="87" width="39" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MessageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Gau-MM-6hJ">
-                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.98039215686274506" green="0.66666666666666663" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="367" id="21m-vt-EoA"/>
+                                                    <constraint firstAttribute="width" constant="320" id="NKr-jj-obD"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93t-qo-lzI" userLabel="Second Row">
-                                        <rect key="frame" x="0.0" y="121" width="320" height="121"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Tv-MCJ" userLabel="Place Order">
-                                                <rect key="frame" x="7" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ete-0y-E1v">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <segue destination="Nvl-He-eXA" kind="push" identifier="dashToOrder_segue" id="8h2-qg-Aot"/>
-                                                        </connections>
-                                                    </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
-                                                        <rect key="frame" x="18" y="19" width="64" height="64"/>
-                                                    </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
-                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.94901960784313721" green="0.16470588235294117" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v0t-NN-iT8" userLabel="Tips">
-                                                <rect key="frame" x="213" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlj-GY-Rz3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="tipsButtonPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="IJ4-Ct-p45"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-sT-i8u">
-                                                        <rect key="frame" x="36" y="85" width="29" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TipsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="STP-0w-Hah">
-                                                        <rect key="frame" x="18" y="13" width="64" height="64"/>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.52156862745098043" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="itm-1L-AFt" userLabel="My Order">
-                                                <rect key="frame" x="110" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIT-hc-sds">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="myOrderBtnPresed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Rs2-Fl-VTA"/>
-                                                            <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyOrdersSegue" id="uWR-qu-A3S"/>
-                                                        </connections>
-                                                    </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyOrderedDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="3fU-LL-lWG">
-                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
-                                                    </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Orders" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyH-ht-g5P">
-                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.75294117647058822" green="0.5725490196078431" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecU-it-nBX" userLabel="Third Row">
-                                        <rect key="frame" x="0.0" y="242" width="320" height="122"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60G-bx-fgm" userLabel="It Help Desk">
-                                                <rect key="frame" x="7" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aon-Rm-RSq">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="initiateCallForITHelpDesk:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Pxa-X4-9if"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Call Service Desk" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piG-eZ-KI4">
-                                                        <rect key="frame" x="3" y="72" width="96" height="44"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PhoneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="xKx-aV-eZy">
-                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.33333333333333331" green="0.72549019607843135" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LiG-Bq-B0U" userLabel="Web Clips">
-                                                <rect key="frame" x="110" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4V-Rr-0Zi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <segue destination="yDK-B7-She" kind="push" id="Jrv-6w-ASy"/>
-                                                        </connections>
-                                                    </button>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Services" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpL-rN-qvM">
-                                                        <rect key="frame" x="15" y="87" width="70" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="WebClipDash" translatesAutoresizingMaskIntoConstraints="NO" id="rWJ-Np-QfH">
-                                                        <rect key="frame" x="18" y="16" width="64" height="64"/>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.40784313725490196" green="0.59999999999999998" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-eJ-48c" userLabel="Settings">
-                                                <rect key="frame" x="213" y="1" width="100" height="118"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wW-Wc-WS8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="120"/>
-                                                        <state key="normal">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <segue destination="HZG-J2-msa" kind="push" id="A74-il-1S3"/>
-                                                        </connections>
-                                                    </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingsDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EGq-pw-lIV">
-                                                        <rect key="frame" x="18" y="17" width="64" height="64"/>
-                                                    </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-Qv-c9G">
-                                                        <rect key="frame" x="22" y="85" width="57" height="18"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.44313725490196076" green="0.42745098039215684" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="6Al-4h-7aB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hPm-6v-WPA" secondAttribute="top" constant="4" id="1SB-Ec-lCG"/>
+                                            <constraint firstAttribute="centerX" secondItem="6Al-4h-7aB" secondAttribute="centerX" id="AsL-Xj-u73"/>
+                                            <constraint firstAttribute="centerY" secondItem="6Al-4h-7aB" secondAttribute="centerY" priority="997" id="cXT-rG-IKK"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6Al-4h-7aB" secondAttribute="bottom" constant="4" id="qtW-Sq-S70"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="LCu-HL-0Fm"/>
-                                    <constraint firstAttribute="height" priority="999" constant="367" id="kGQ-Eb-Fdt"/>
+                                    <constraint firstAttribute="height" secondItem="hPm-6v-WPA" secondAttribute="height" priority="998" id="28t-wP-4Gw"/>
+                                    <constraint firstItem="hPm-6v-WPA" firstAttribute="leading" secondItem="y3w-Ve-J7d" secondAttribute="leading" id="7eh-vY-Sec"/>
+                                    <constraint firstItem="hPm-6v-WPA" firstAttribute="top" secondItem="y3w-Ve-J7d" secondAttribute="top" id="QUn-x0-gN7"/>
+                                    <constraint firstAttribute="width" secondItem="hPm-6v-WPA" secondAttribute="width" id="UMa-w2-LNx"/>
+                                    <constraint firstAttribute="trailing" secondItem="hPm-6v-WPA" secondAttribute="trailing" id="bPO-Ot-5NP"/>
+                                    <constraint firstAttribute="bottom" secondItem="hPm-6v-WPA" secondAttribute="bottom" id="lh8-RL-1fR"/>
                                 </constraints>
-                            </view>
+                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1b-Pk-mKI" userLabel="ProfileView">
                                 <rect key="frame" x="0.0" y="-43" width="320" height="107"/>
                                 <subviews>
@@ -356,15 +382,15 @@
                                     <constraint firstItem="kuE-EK-KAA" firstAttribute="top" secondItem="l1b-Pk-mKI" secondAttribute="top" constant="36" id="vgt-PX-OVB"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.29999999999999966" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-yX-dCJ" userLabel="AlphaView" customClass="UIControl">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <view hidden="YES" alpha="0.29999999999999966" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-yX-dCJ" userLabel="AlphaView" customClass="UIControl">
+                                <rect key="frame" x="1000" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="cancelPopUp:" destination="Wvs-fA-k09" eventType="touchDown" id="U9S-3y-YLf"/>
                                 </connections>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBT-Lz-n5A">
-                                <rect key="frame" x="35" y="215" width="250" height="140"/>
+                            <view alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aBT-Lz-n5A">
+                                <rect key="frame" x="1035" y="215" width="250" height="140"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Desks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="657-ge-pqu">
                                         <rect key="frame" x="69" y="5" width="112" height="21"/>
@@ -421,18 +447,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="qgh-yX-dCJ" secondAttribute="bottom" id="5mH-kj-zRU"/>
-                            <constraint firstAttribute="centerY" secondItem="6Al-4h-7aB" secondAttribute="centerY" priority="990" id="HfK-tW-ubq"/>
+                            <constraint firstItem="y3w-Ve-J7d" firstAttribute="top" secondItem="22J-zz-Ztw" secondAttribute="bottom" priority="999" id="AdS-wD-ucm"/>
+                            <constraint firstItem="y3w-Ve-J7d" firstAttribute="top" secondItem="l1b-Pk-mKI" secondAttribute="bottom" id="EMY-HI-pPa"/>
+                            <constraint firstAttribute="trailing" secondItem="y3w-Ve-J7d" secondAttribute="trailing" id="LL8-WA-tn1"/>
                             <constraint firstItem="qgh-yX-dCJ" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="LTD-y9-12F"/>
                             <constraint firstItem="qgh-yX-dCJ" firstAttribute="top" secondItem="qBd-jD-x98" secondAttribute="top" id="Laa-zy-G7O"/>
                             <constraint firstAttribute="centerY" secondItem="aBT-Lz-n5A" secondAttribute="centerY" constant="-0.5" id="NcU-NS-Hl9"/>
                             <constraint firstItem="l1b-Pk-mKI" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="O41-m6-1Qv"/>
-                            <constraint firstItem="6Al-4h-7aB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="l1b-Pk-mKI" secondAttribute="bottom" constant="4" id="QFF-OE-dQ2"/>
+                            <constraint firstItem="WCN-AC-ePg" firstAttribute="top" secondItem="y3w-Ve-J7d" secondAttribute="bottom" id="don-P8-YOS"/>
                             <constraint firstItem="l1b-Pk-mKI" firstAttribute="top" secondItem="22J-zz-Ztw" secondAttribute="bottom" constant="-107" id="fIi-Kf-0I8"/>
                             <constraint firstAttribute="centerX" secondItem="l1b-Pk-mKI" secondAttribute="centerX" id="hgy-Zp-wG9"/>
-                            <constraint firstAttribute="centerX" secondItem="6Al-4h-7aB" secondAttribute="centerX" id="i0D-Mb-g2l"/>
                             <constraint firstAttribute="trailing" secondItem="l1b-Pk-mKI" secondAttribute="trailing" id="lXa-dV-Pam"/>
                             <constraint firstAttribute="trailing" secondItem="qgh-yX-dCJ" secondAttribute="trailing" id="mSl-U2-R7h"/>
                             <constraint firstAttribute="centerX" secondItem="aBT-Lz-n5A" secondAttribute="centerX" id="xVo-z4-HEQ"/>
+                            <constraint firstItem="y3w-Ve-J7d" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="yaC-c9-fcO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ey8-PG-peK">

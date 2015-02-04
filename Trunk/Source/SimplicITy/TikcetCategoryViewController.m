@@ -36,6 +36,7 @@
     if ([self.orderItemDiffer isEqualToString:@"orderList"])
     {
         self.title = @"Items";
+        
     }else
     {
         self.title = @"Services";
@@ -74,7 +75,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     return [self.categoryArray count];
 }
 

@@ -209,8 +209,6 @@
     
     [postMan post:FEEDBACK_API withParameters:parameter];
     
-    self.yourRatingView.rating = 0;
-    self.yourRateValueLbl.text = @"0";
     self.writeReviewTxtView.text = @"";
     [self hideWriteReviewTextView];
 
@@ -335,8 +333,8 @@
 //    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
 //    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
 //
-//    NSString *testString = aboutDescription;
-    NSString *testString = @"I'm trying to set an attributed string to a UITextView in iOS 6. The problem is, if I attempt to set the font property on the attributed string, the line spacing is ignored. However, if I don't set the font, and the default font is used, then line spacing works.";
+    NSString *testString = aboutDescription;
+//    NSString *testString = @"I'm trying to set an attributed string to a UITextView in iOS 6. The problem is, if I attempt to set the font property on the attributed string, the line spacing is ignored. However, if I don't set the font, and the default font is used, then line spacing works.";
     self.descriptionTextView.text = testString;
     
     self.descriptionTextView.selectable = YES;
