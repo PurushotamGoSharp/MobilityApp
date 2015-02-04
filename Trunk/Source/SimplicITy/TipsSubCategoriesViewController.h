@@ -26,6 +26,6 @@
 @property (strong, nonatomic) NSArray *listOfTips;
 
 
-@property(assign, nonatomic)int curentpageNum;
+@property(assign, nonatomic) NSInteger curentpageNum;
 
 @end

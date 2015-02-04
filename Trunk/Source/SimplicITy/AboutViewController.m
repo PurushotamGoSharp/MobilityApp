@@ -473,13 +473,15 @@
                 imageUrl = [NSString stringWithFormat:RENDER_DOC_API, vmokshaLogoDocCode];
                 [postMan get:imageUrl];
             }
+            
+            NSString *language = aDict[@"Language"];
+            if ([language isEqualToString:@"English"])
+            {
+                break;
+            }
         }
         
-        NSString *language = aDict[@"Language"];
-        if ([language isEqualToString:@"English"])
-        {
-            break;
-        }
+
     }
     
     [self updateUI];
