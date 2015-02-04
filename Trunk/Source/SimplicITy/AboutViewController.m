@@ -100,10 +100,7 @@
     self.rateView.editable = NO;
     self.rateView.maxRating = 5;
     
-    self.descriptionTextView.editable = YES;
-    describtionFont = [self customFont:14 ofName:MuseoSans_300];
-    [self.descriptionTextView setFont:describtionFont];
-    self.descriptionTextView.editable = NO;
+
     
     self.yourRatingView.notSelectedImage = [UIImage imageNamed:@"starEmpty.png"];
     self.yourRatingView.fullSelectedImage = [UIImage imageNamed:@"starFull.png"];
@@ -113,16 +110,41 @@
     self.yourRatingView.delegate = self;
     
     
-    self.avgRateLable.font = [self customFont:16 ofName:MuseoSans_700];
-    self.yourRateLbl.font = [self customFont:16 ofName:MuseoSans_700];
-    self.avgRatValueLbl.font = [self customFont:30 ofName:MuseoSans_700];
-    self.yourRateValueLbl.font = [self customFont:30 ofName:MuseoSans_700];
-    self.totalLbl.font = [self customFont:14 ofName:MuseoSans_300];
-    self.clickToRateLbl.font = [self customFont:14 ofName:MuseoSans_300];
+    if ([[UIDevice currentDevice]userInterfaceIdiom]== UIUserInterfaceIdiomPhone)
+    {
+        self.avgRateLable.font = [self customFont:16 ofName:MuseoSans_700];
+        self.yourRateLbl.font = [self customFont:16 ofName:MuseoSans_700];
+        self.avgRatValueLbl.font = [self customFont:30 ofName:MuseoSans_700];
+        self.yourRateValueLbl.font = [self customFont:30 ofName:MuseoSans_700];
+        self.totalLbl.font = [self customFont:14 ofName:MuseoSans_300];
+        self.clickToRateLbl.font = [self customFont:14 ofName:MuseoSans_300];
+        
+        self.writeReviewLbl.font = [self customFont:16 ofName:MuseoSans_700];
+        
+        describtionFont = [self customFont:14 ofName:MuseoSans_300];
+
+    }
+    else
+    {
+        self.avgRateLable.font = [self customFont:22 ofName:MuseoSans_700];
+        self.yourRateLbl.font = [self customFont:22 ofName:MuseoSans_700];
+        self.avgRatValueLbl.font = [self customFont:40 ofName:MuseoSans_700];
+        self.yourRateValueLbl.font = [self customFont:40 ofName:MuseoSans_700];
+        self.totalLbl.font = [self customFont:18 ofName:MuseoSans_300];
+        self.clickToRateLbl.font = [self customFont:18 ofName:MuseoSans_300];
+        
+        self.writeReviewLbl.font = [self customFont:22 ofName:MuseoSans_700];
+        describtionFont = [self customFont:20 ofName:MuseoSans_300];
+
+    }
     
-    self.writeReviewLbl.font = [self customFont:16 ofName:MuseoSans_700];
 
+    self.descriptionTextView.editable = YES;
+    [self.descriptionTextView setFont:describtionFont];
+    self.descriptionTextView.editable = NO;
 
+    
+    
     self.writeReviewAlphaView.layer.cornerRadius = 15;
     self.conatinerAvrRating.layer.cornerRadius = 10;
     self.conatinerYourRating.layer.cornerRadius = 10;
@@ -187,6 +209,11 @@
     
     [postMan post:FEEDBACK_API withParameters:parameter];
     
+    self.yourRatingView.rating = 0;
+    self.yourRateValueLbl.text = @"0";
+    self.writeReviewTxtView.text = @"";
+    [self hideWriteReviewTextView];
+
 }
 
 - (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
@@ -229,6 +256,8 @@
 - (void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];
+    self.writeReviewTxtView.text = @"";
+    [self hideWriteReviewTextView];
 }
 
 - (void)tryUpdateAboutDeatils
@@ -242,38 +271,48 @@
 {
     if (!reviewBtnIsSelected)
     {
-        self.writeReviewTxtView.hidden = NO;
-        
-        [UIView animateWithDuration:.3 animations:^{
-            
-            self.writeReviewTextFldHeightConst.constant = 75;
-            [self.view layoutIfNeeded];
-            
-        } completion:^(BOOL finished)
-         {
-             reviewBtnIsSelected = YES;
-             self.plusMinusImageView.image = [UIImage imageNamed:@"minusIcon"];
-             [self.scrollView scrollRectToVisible:self.writeReviewTxtView.frame animated:YES];
-         }];
+        [self showWriteReviewTextView];
     }else
     {
-        [UIView animateWithDuration:.3 animations:^{
-            
-             self.writeReviewTextFldHeightConst.constant = 0;
-             [self.view layoutIfNeeded];
-             
-         } completion:^(BOOL finished) {
-             self.writeReviewTxtView.hidden = YES;
-//             self.writeReviewBtnOutlet.selected = NO;
-             
-             self.plusMinusImageView.image = [UIImage imageNamed:@"plusIcon"];
-             [self.scrollView scrollRectToVisible:self.writeReviewTxtView.frame animated:YES];
-
-             reviewBtnIsSelected = NO;
-         }];
+        [self hideWriteReviewTextView];
     }
 }
 
+
+-(void)showWriteReviewTextView
+{
+    self.writeReviewTxtView.hidden = NO;
+    
+    [UIView animateWithDuration:.3 animations:^{
+        
+        self.writeReviewTextFldHeightConst.constant = 100;
+        [self.view layoutIfNeeded];
+        
+    } completion:^(BOOL finished)
+     {
+         reviewBtnIsSelected = YES;
+         self.plusMinusImageView.image = [UIImage imageNamed:@"minusIcon"];
+         [self.scrollView scrollRectToVisible:self.writeReviewTxtView.frame animated:YES];
+     }];
+}
+
+-(void)hideWriteReviewTextView
+{
+    [UIView animateWithDuration:.3 animations:^{
+        
+        self.writeReviewTextFldHeightConst.constant = 0;
+        [self.view layoutIfNeeded];
+        
+    } completion:^(BOOL finished) {
+        self.writeReviewTxtView.hidden = YES;
+        //             self.writeReviewBtnOutlet.selected = NO;
+        
+        self.plusMinusImageView.image = [UIImage imageNamed:@"plusIcon"];
+        [self.scrollView scrollRectToVisible:self.writeReviewTxtView.frame animated:YES];
+        
+        reviewBtnIsSelected = NO;
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
