@@ -172,7 +172,6 @@
 - (IBAction)tickMarkBarBtnAction:(id)sender
 {
     [self.view endEditing:YES];
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
@@ -375,6 +374,8 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
+        
+        self.writeReviewTxtView.text = @"";
     }
 }
 
