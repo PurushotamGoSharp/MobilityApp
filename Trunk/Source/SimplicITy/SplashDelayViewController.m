@@ -36,18 +36,24 @@
     
 //    self.backGroundImageOutlet.image = @"LyncImage";
     
-    if ([UIScreen mainScreen].bounds.size.height == 568)
+    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
-        self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage-568h@2x.png"];
-    }else if ([UIScreen mainScreen].bounds.size.height == 667)
-    {
-        self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage-800-667h@2x.png"];
-
+        if ([UIScreen mainScreen].bounds.size.height == 568)
+        {
+            self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage-568h@2x.png"];
+        }else if ([UIScreen mainScreen].bounds.size.height == 667)
+        {
+            self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage-800-667h@2x.png"];
+            
+        }else
+        {
+            self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage"];
+        }
     }else
     {
-        self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage"];
+        self.backGroundImageOutlet.image = [UIImage imageNamed:@"LanchImage_ipad_Portrate.png"];
+
     }
-    
     URLString = SEED_API;
 }
 
@@ -55,6 +61,15 @@
 {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)orientationChanged:(NSNotification *)notification{
+    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -62,6 +77,45 @@
     [super viewDidAppear:animated];
     
     [self performSelector:@selector(checkRechability) withObject:nil afterDelay:1];
+}
+
+- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
+    
+    switch (orientation)
+    {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+        {
+            //load the portrait view
+        }
+            
+            break;
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight:
+        {
+            //load the landscape view
+            
+            if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+            {
+                
+            }else
+            {
+                self.backGroundImageOutlet.image = [UIImage imageNamed:@"LanchImage_ipad_Landscape.png"];
+
+            }
+            
+        }
+            break;
+        case UIInterfaceOrientationUnknown:break;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
+    
 }
 
 - (void)checkRechability
@@ -74,10 +128,10 @@
     else
     {
         NSLog(@"Not rechable");
-        
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [noNetworkAlert show];
         [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+
+//        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//        [noNetworkAlert show];
     }
 }
 - (void)tryToUpdateSeedData

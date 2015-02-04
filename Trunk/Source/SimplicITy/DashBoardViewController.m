@@ -164,25 +164,44 @@
     
     downArrowImageView = [[UIImageView alloc] initWithImage:([UIImage imageNamed:@"DashBoardDropDownBarImage"])];
     downArrowImageView.frame = CGRectMake(0, 0, 36, 3);
-    downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 18);
+    downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 14);
     [titleView addSubview:downArrowImageView];
     
     downArrowImageView.hidden = NO;
     
     self.navigationItem.titleView = titleView;
     
-    self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardCallHelpDesk.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardOrder.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardSetting.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardTicket.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardTips.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardPersonName.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashBoardPersonAddress.font=[self customFont:14 ofName:MuseoSans_300];
+    self.dashBoardPersonName.font=[self customFont:16 ofName:MuseoSans_300];
+    self.dashBoardPersonAddress.font=[self customFont:16 ofName:MuseoSans_300];
     self.dashBoardPersonCode.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashMyTicketsLabel.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
-    self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
+
+    
+    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone ) {
+        self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashBoardCallHelpDesk.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashBoardOrder.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashBoardSetting.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashBoardTicket.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashBoardTips.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashMyTicketsLabel.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
+    }else
+    {
+        self.dashBoardMessage.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashBoardCallHelpDesk.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashBoardOrder.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashBoardSetting.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashBoardTicket.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashBoardTips.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashMyTicketsLabel.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashMyOrdersLabel.font=[self customFont:20 ofName:MuseoSans_300];
+        self.dashWebClipLabel.font=[self customFont:20 ofName:MuseoSans_300];
+    }
+    
+
+    
+    
     
     self.serviceDesksLbl.font = [self customFont:18 ofName:MuseoSans_700];
     
