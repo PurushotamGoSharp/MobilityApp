@@ -248,14 +248,19 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
+    
+    self.yourRatingView.rating = 0;
+    self.yourRateValueLbl.text = @"0";
+    self.writeReviewTxtView.text = @"";
+    [self hideWriteReviewTextView];
 
 }
 
 - (void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];
-    self.writeReviewTxtView.text = @"";
-    [self hideWriteReviewTextView];
+//    self.writeReviewTxtView.text = @"";
+//    [self hideWriteReviewTextView];
 }
 
 - (void)tryUpdateAboutDeatils
