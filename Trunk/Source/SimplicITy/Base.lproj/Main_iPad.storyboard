@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -78,13 +78,13 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="Vto-5X-HAk">
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="Vto-5X-HAk">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="baN-hQ-h4e">
-                                        <rect key="frame" x="135" y="53" width="32" height="17"/>
+                                        <rect key="frame" x="137" y="53" width="32" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -100,7 +100,7 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vto-5X-HAk" secondAttribute="trailing" constant="4" id="Xeu-nE-kke"/>
                                     <constraint firstItem="Vto-5X-HAk" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="135" id="eYd-8h-TCG"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ubf-JO-YzP" secondAttribute="trailing" constant="4" id="liY-7f-2Sa"/>
-                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="135" id="vfk-k2-QNY"/>
+                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="137" id="vfk-k2-QNY"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="baN-hQ-h4e" secondAttribute="trailing" constant="4" id="xpu-Qc-tfk"/>
                                 </constraints>
                             </view>
@@ -269,7 +269,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="VfE-Rk-aBV" kind="push" id="Lz8-gy-wCe"/>
+                                                            <segue destination="Kx6-zQ-6fc" kind="push" identifier="dashToOrder_segue" id="fB7-hd-ZPB"/>
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="b1I-Dg-2Lz">
@@ -318,7 +318,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="myOrderBtnPresed:" destination="Zd4-gW-Y58" eventType="touchUpInside" id="BbG-3k-E1n"/>
-                                                            <segue destination="VfE-Rk-aBV" kind="push" id="aF1-tO-sTQ"/>
+                                                            <segue destination="hxX-gQ-JPF" kind="push" identifier="DashToMyOrdersSegue" id="cox-vp-SST"/>
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyOrderedDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-tV-DBc">
@@ -1283,7 +1283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fbr-hx-SEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2746" y="1114"/>
+            <point key="canvasLocation" x="2730" y="1142"/>
         </scene>
         <!--Survey View Controller-->
         <scene sceneID="cza-vr-gGw">
@@ -2692,11 +2692,11 @@
                                                 <rect key="frame" x="523" y="340" width="225" height="155"/>
                                                 <subviews>
                                                     <view alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GVy-ln-Ag3">
-                                                        <rect key="frame" x="12" y="0.0" width="208" height="40"/>
+                                                        <rect key="frame" x="-4" y="0.0" width="221" height="40"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="starBlack" translatesAutoresizingMaskIntoConstraints="NO" id="ymM-pO-qHf">
-                                                        <rect key="frame" x="33" y="13" width="13" height="13"/>
+                                                        <rect key="frame" x="31" y="13" width="13" height="13"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HT8-9C-Gty">
                                                         <rect key="frame" x="65" y="9" width="89" height="21"/>
@@ -2753,7 +2753,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starBlack" translatesAutoresizingMaskIntoConstraints="NO" id="4oJ-xc-31H">
-                                                        <rect key="frame" x="29" y="7" width="13" height="13"/>
+                                                        <rect key="frame" x="27" y="8" width="13" height="13"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuD-c7-Xky">
                                                         <rect key="frame" x="108" y="40" width="10" height="21"/>
@@ -2781,11 +2781,11 @@
                                                     <constraint firstItem="Gcq-Pr-fSP" firstAttribute="top" secondItem="BuD-c7-Xky" secondAttribute="bottom" constant="61" id="0Tk-xd-yIM"/>
                                                     <constraint firstItem="nrt-oa-mxV" firstAttribute="top" secondItem="BuD-c7-Xky" secondAttribute="bottom" constant="-3" id="82g-5i-hwD"/>
                                                     <constraint firstAttribute="centerX" secondItem="BuD-c7-Xky" secondAttribute="centerX" id="ONd-vQ-nTq"/>
-                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="leading" secondItem="cKS-ma-hzU" secondAttribute="leading" constant="29" id="ROd-fl-8HE"/>
+                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="leading" secondItem="cKS-ma-hzU" secondAttribute="leading" constant="27" id="ROd-fl-8HE"/>
                                                     <constraint firstItem="rHg-gn-XDI" firstAttribute="top" secondItem="cKS-ma-hzU" secondAttribute="top" constant="4" id="V7T-pX-V9S"/>
-                                                    <constraint firstItem="rHg-gn-XDI" firstAttribute="leading" secondItem="4oJ-xc-31H" secondAttribute="trailing" constant="4" id="WtW-Ra-uH9"/>
+                                                    <constraint firstItem="rHg-gn-XDI" firstAttribute="leading" secondItem="4oJ-xc-31H" secondAttribute="trailing" constant="6" id="WtW-Ra-uH9"/>
                                                     <constraint firstAttribute="centerX" secondItem="nrt-oa-mxV" secondAttribute="centerX" id="XZy-7l-vF4"/>
-                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="top" secondItem="cKS-ma-hzU" secondAttribute="top" constant="7" id="cpd-YZ-p8Z"/>
+                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="top" secondItem="cKS-ma-hzU" secondAttribute="top" constant="8" id="cpd-YZ-p8Z"/>
                                                     <constraint firstItem="BuD-c7-Xky" firstAttribute="top" secondItem="rHg-gn-XDI" secondAttribute="bottom" constant="15" id="jVD-og-JvB"/>
                                                     <constraint firstAttribute="width" constant="225" id="lBi-pH-c1X"/>
                                                     <constraint firstAttribute="height" constant="155" id="paW-sg-kaO"/>
@@ -2881,7 +2881,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Avatar" width="51" height="51"/>
+        <image name="Avatar" width="50" height="50"/>
         <image name="BadgeIcon" width="20" height="20"/>
         <image name="Call_Phone" width="250" height="42"/>
         <image name="Clock" width="16" height="16"/>
@@ -2924,9 +2924,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="RZn-l3-yta"/>
-        <segue reference="aF1-tO-sTQ"/>
         <segue reference="f3u-DB-T6o"/>
-        <segue reference="Txe-KG-huV"/>
+        <segue reference="cox-vp-SST"/>
+        <segue reference="fB7-hd-ZPB"/>
     </inferredMetricsTieBreakers>
 </document>
