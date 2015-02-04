@@ -239,7 +239,10 @@
 
 - (void)failureSync
 {
-    [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
+    if (haveRasiedRequest)
+    {
+        [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
+    }
 }
 
 - (void)tryToUpdateCategories
@@ -263,8 +266,8 @@
     [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
     
     UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    UILabel  *low = (UILabel *)[impactCell viewWithTag:10];
-    [self setBlackColorFor:low];
+    UILabel  *lowest = (UILabel *)[impactCell viewWithTag:10];
+    [self setBlackColorFor:lowest];
     
     self.textView.text = @"";
     if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
@@ -328,25 +331,25 @@
         [[SendRequestsManager sharedManager] authenticateServer];
         [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
         
-        NSString *alertMessage;
-        
-        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
-        {
-            alertMessage = ALERT_FOR_ORDER_SAVED_IN_ONLINE;
-        }
-        else
-        {
-            alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
-        }
-        
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
-                                                                message:alertMessage
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-        
-        saveAlestView.delegate= self;
-        [saveAlestView show];
+//        NSString *alertMessage;
+//        
+//        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+//        {
+//            alertMessage = ALERT_FOR_ORDER_SAVED_IN_ONLINE;
+//        }
+//        else
+//        {
+//            alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
+//        }
+//        
+//        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+//                                                                message:alertMessage
+//                                                               delegate:self
+//                                                      cancelButtonTitle:@"OK"
+//                                                      otherButtonTitles:nil];
+//        
+//        saveAlestView.delegate= self;
+//        [saveAlestView show];
 
     }else
     {

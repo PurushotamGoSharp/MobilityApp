@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) NSString *tipsGroupName;
 @property (strong, nonatomic) NSString *tipsGroupDocCode;
+@property (strong, nonatomic) NSString *tipsGroupCode;
 
 @end

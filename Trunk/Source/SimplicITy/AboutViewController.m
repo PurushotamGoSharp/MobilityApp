@@ -153,7 +153,6 @@
     self.writeReviewTxtView.layer.borderWidth = 1;
     
     
-    yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
     URLString = ABOUT_DETAILS_API;
     
     postMan = [[Postman alloc] init];
@@ -184,17 +183,22 @@
         totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
         [self  getData];
     }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
+    self.yourRatingView.rating = yourRatingValue;
+    self.yourRateValueLbl.text = [NSString stringWithFormat:@"%li", (long)yourRatingValue];
+
 }
 
 - (IBAction)tickMarkBarBtnAction:(id)sender
 {
     [self.view endEditing:YES];
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
@@ -246,9 +250,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
-    
-    self.yourRatingView.rating = 0;
-    self.yourRateValueLbl.text = @"0";
 
 }
 
@@ -373,8 +374,6 @@
     }else if ([urlString isEqualToString:FEEDBACK_API])
     {
         [self parseFeedbackData:response];
-        [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating
-                                                   forKey:@"YourRatingKey"];
         
     }else if ([urlString isEqualToString:AVERAGE_RATING_API])
     {
@@ -412,6 +411,11 @@
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
+        
+        self.writeReviewTxtView.text = @"";
+        
+        [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
