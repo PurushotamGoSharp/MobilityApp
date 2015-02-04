@@ -201,9 +201,9 @@
     [self.view endEditing:YES];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
+//    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
     
-//    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, [UserInfo sharedUserInfo].cropID, self.writeReviewTxtView.text];
+    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, [UserInfo sharedUserInfo].cropID, self.writeReviewTxtView.text];
     
     self.tickMarkBarBtnOutlet.enabled = NO;
     
@@ -321,15 +321,14 @@
 {
     self.rateView.rating = averageRating;
 
-//    self.yourRatingView.rating = userGivenValue;
-//    self.yourRateLbl.text = [NSString stringWithFormat:@"%li Total", (long)userGivenValue];
     self.avgRatValueLbl.text = [NSString stringWithFormat:@"%.1f",averageRating];
     self.totalLbl.text = [NSString stringWithFormat:@"%li Total", (long)totalNoOfUserRated];
-//    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
+    self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
+    
 //    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];
 //
     NSString *testString = aboutDescription;
-//    NSString *testString = @"I'm trying to set an attributed string to a UITextView in iOS 6. The problem is, if I attempt to set the font property on the attributed string, the line spacing is ignored. However, if I don't set the font, and the default font is used, then line spacing works.";
+
     self.descriptionTextView.text = testString;
     
     self.descriptionTextView.selectable = YES;

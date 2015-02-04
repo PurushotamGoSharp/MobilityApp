@@ -2692,14 +2692,14 @@
                                                 <rect key="frame" x="523" y="340" width="225" height="155"/>
                                                 <subviews>
                                                     <view alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GVy-ln-Ag3">
-                                                        <rect key="frame" x="17" y="0.0" width="200" height="40"/>
+                                                        <rect key="frame" x="12" y="0.0" width="208" height="40"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="starBlack" translatesAutoresizingMaskIntoConstraints="NO" id="ymM-pO-qHf">
-                                                        <rect key="frame" x="34" y="13" width="13" height="13"/>
+                                                        <rect key="frame" x="33" y="13" width="13" height="13"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HT8-9C-Gty">
-                                                        <rect key="frame" x="68" y="9" width="89" height="21"/>
+                                                        <rect key="frame" x="65" y="9" width="89" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2735,7 +2735,7 @@
                                                     <constraint firstItem="atU-9P-F0s" firstAttribute="top" secondItem="hRR-xy-me0" secondAttribute="bottom" constant="-3" id="XLS-TE-Feu"/>
                                                     <constraint firstAttribute="height" constant="155" id="a1P-6A-0Rt"/>
                                                     <constraint firstAttribute="width" constant="225" id="brd-GQ-jGu"/>
-                                                    <constraint firstAttribute="centerX" secondItem="HT8-9C-Gty" secondAttribute="centerX" id="hka-5u-8i0"/>
+                                                    <constraint firstAttribute="centerX" secondItem="HT8-9C-Gty" secondAttribute="centerX" constant="3" id="hka-5u-8i0"/>
                                                     <constraint firstAttribute="centerX" secondItem="atU-9P-F0s" secondAttribute="centerX" id="jza-1T-fcj"/>
                                                 </constraints>
                                             </view>
@@ -2743,17 +2743,17 @@
                                                 <rect key="frame" x="20" y="340" width="225" height="155"/>
                                                 <subviews>
                                                     <view alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P2Q-ou-LnT">
-                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="217" height="40"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avg. Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHg-gn-XDI">
-                                                        <rect key="frame" x="23" y="4" width="89" height="21"/>
+                                                        <rect key="frame" x="46" y="4" width="89" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starBlack" translatesAutoresizingMaskIntoConstraints="NO" id="4oJ-xc-31H">
-                                                        <rect key="frame" x="9" y="10" width="13" height="13"/>
+                                                        <rect key="frame" x="29" y="7" width="13" height="13"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuD-c7-Xky">
                                                         <rect key="frame" x="108" y="40" width="10" height="21"/>
@@ -2781,11 +2781,11 @@
                                                     <constraint firstItem="Gcq-Pr-fSP" firstAttribute="top" secondItem="BuD-c7-Xky" secondAttribute="bottom" constant="61" id="0Tk-xd-yIM"/>
                                                     <constraint firstItem="nrt-oa-mxV" firstAttribute="top" secondItem="BuD-c7-Xky" secondAttribute="bottom" constant="-3" id="82g-5i-hwD"/>
                                                     <constraint firstAttribute="centerX" secondItem="BuD-c7-Xky" secondAttribute="centerX" id="ONd-vQ-nTq"/>
-                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="leading" secondItem="cKS-ma-hzU" secondAttribute="leading" constant="9" id="ROd-fl-8HE"/>
+                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="leading" secondItem="cKS-ma-hzU" secondAttribute="leading" constant="29" id="ROd-fl-8HE"/>
                                                     <constraint firstItem="rHg-gn-XDI" firstAttribute="top" secondItem="cKS-ma-hzU" secondAttribute="top" constant="4" id="V7T-pX-V9S"/>
-                                                    <constraint firstItem="rHg-gn-XDI" firstAttribute="leading" secondItem="4oJ-xc-31H" secondAttribute="trailing" constant="1" id="WtW-Ra-uH9"/>
+                                                    <constraint firstItem="rHg-gn-XDI" firstAttribute="leading" secondItem="4oJ-xc-31H" secondAttribute="trailing" constant="4" id="WtW-Ra-uH9"/>
                                                     <constraint firstAttribute="centerX" secondItem="nrt-oa-mxV" secondAttribute="centerX" id="XZy-7l-vF4"/>
-                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="top" secondItem="cKS-ma-hzU" secondAttribute="top" constant="10" id="cpd-YZ-p8Z"/>
+                                                    <constraint firstItem="4oJ-xc-31H" firstAttribute="top" secondItem="cKS-ma-hzU" secondAttribute="top" constant="7" id="cpd-YZ-p8Z"/>
                                                     <constraint firstItem="BuD-c7-Xky" firstAttribute="top" secondItem="rHg-gn-XDI" secondAttribute="bottom" constant="15" id="jVD-og-JvB"/>
                                                     <constraint firstAttribute="width" constant="225" id="lBi-pH-c1X"/>
                                                     <constraint firstAttribute="height" constant="155" id="paW-sg-kaO"/>
@@ -2877,7 +2877,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JPB-4R-RqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1684" y="2289"/>
+            <point key="canvasLocation" x="1676" y="2289"/>
         </scene>
     </scenes>
     <resources>
