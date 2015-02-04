@@ -27,7 +27,7 @@
     UIBarButtonItem *backButton;
     Postman *postMan;
     
-    NSMutableArray *tipscategoryArray;
+    NSMutableArray *tipscategoryArray, *tipsCategoryCodeArray;
     
     NSArray *combinedDicts; //contains dicts with code and tips category.
     
@@ -196,7 +196,7 @@
         TipDetailsViewController *tipDetailVC = (TipDetailsViewController *)segue.destinationViewController;
         TipsGroupModel *selectedTipsGroup = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
         tipDetailVC.parentCategory = selectedTipsGroup.tipsGroupName;
-        tipDetailVC.parentCode = [self codeForTipCategory:tipDetailVC.parentCategory];
+        tipDetailVC.parentCode = selectedTipsGroup.tipsGroupCode;
     }
 }
 
@@ -236,6 +236,7 @@
             TipsGroupModel *tipsGroup = [[TipsGroupModel alloc] init];
             tipsGroup.tipsGroupName = aDict[@"Name"];
             tipsGroup.tipsGroupDocCode = aDict[@"DocumentCode"];
+            tipsGroup.tipsGroupCode = aDict[@"Code"];
             
             if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {

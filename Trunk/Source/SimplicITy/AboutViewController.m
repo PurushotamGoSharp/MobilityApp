@@ -131,7 +131,6 @@
     self.writeReviewTxtView.layer.borderWidth = 1;
     
     
-    yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
     URLString = ABOUT_DETAILS_API;
     
     postMan = [[Postman alloc] init];
@@ -162,11 +161,17 @@
         totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
         [self  getData];
     }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
+    self.yourRatingView.rating = yourRatingValue;
+    self.yourRateValueLbl.text = [NSString stringWithFormat:@"%li", (long)yourRatingValue];
+
 }
 
 - (IBAction)tickMarkBarBtnAction:(id)sender
@@ -182,8 +187,6 @@
     
     [postMan post:FEEDBACK_API withParameters:parameter];
     
-    self.yourRatingView.rating = 0;
-    self.yourRateValueLbl.text = @"0";
 }
 
 - (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
@@ -220,9 +223,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
-    
-    self.yourRatingView.rating = 0;
-    self.yourRateValueLbl.text = @"0";
 
 }
 
@@ -335,8 +335,6 @@
     }else if ([urlString isEqualToString:FEEDBACK_API])
     {
         [self parseFeedbackData:response];
-        [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating
-                                                   forKey:@"YourRatingKey"];
         
     }else if ([urlString isEqualToString:AVERAGE_RATING_API])
     {
@@ -376,6 +374,9 @@
         [alert show];
         
         self.writeReviewTxtView.text = @"";
+        
+        [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 

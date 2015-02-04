@@ -189,8 +189,10 @@
         
         if (blockUI)
         {
-            [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:NO];
+            [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].keyWindow animated:NO];
         }
+        
+        BOOL success = NO;
         
         if (responseObject)
         {
@@ -204,6 +206,7 @@
                 
                 if (incidentNo != nil)
                 {
+                    success = YES;
                     NSLog(@"Incident_Number %@", incidentNo);
                     requestModel.requestIncidentNo = incidentNo;
                     [self updateLocalDBForRequest:requestModel];
@@ -218,6 +221,11 @@
                 NSLog(@"JSON parsing error %@", [[NSString alloc] initWithData:responseObject
                                                                       encoding:NSUTF8StringEncoding]);
             }
+        }
+        
+        if (!success)
+        {
+            [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY object:requestModel];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
