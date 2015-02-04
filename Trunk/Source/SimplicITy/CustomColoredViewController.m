@@ -52,6 +52,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter]removeObserver:self
                                                    name:UIDeviceOrientationDidChangeNotification
                                                  object:nil];
