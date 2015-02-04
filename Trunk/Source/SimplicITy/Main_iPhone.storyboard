@@ -48,7 +48,7 @@
         <!--Dash Board View Controller-->
         <scene sceneID="GXG-IC-6T2">
             <objects>
-                <viewController id="Wvs-fA-k09" customClass="DashBoardViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Wvs-fA-k09" customClass="DashBoardViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="22J-zz-Ztw"/>
                         <viewControllerLayoutGuide type="bottom" id="WCN-AC-ePg"/>
@@ -311,16 +311,18 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="6Al-4h-7aB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hPm-6v-WPA" secondAttribute="top" constant="4" id="1SB-Ec-lCG"/>
                                             <constraint firstAttribute="centerX" secondItem="6Al-4h-7aB" secondAttribute="centerX" id="AsL-Xj-u73"/>
-                                            <constraint firstAttribute="centerY" secondItem="6Al-4h-7aB" secondAttribute="centerY" priority="998" id="cXT-rG-IKK"/>
+                                            <constraint firstAttribute="centerY" secondItem="6Al-4h-7aB" secondAttribute="centerY" priority="997" id="cXT-rG-IKK"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6Al-4h-7aB" secondAttribute="bottom" constant="4" id="qtW-Sq-S70"/>
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" secondItem="hPm-6v-WPA" secondAttribute="height" priority="999" id="28t-wP-4Gw"/>
+                                    <constraint firstAttribute="height" secondItem="hPm-6v-WPA" secondAttribute="height" priority="998" id="28t-wP-4Gw"/>
                                     <constraint firstItem="hPm-6v-WPA" firstAttribute="leading" secondItem="y3w-Ve-J7d" secondAttribute="leading" id="7eh-vY-Sec"/>
                                     <constraint firstItem="hPm-6v-WPA" firstAttribute="top" secondItem="y3w-Ve-J7d" secondAttribute="top" id="QUn-x0-gN7"/>
                                     <constraint firstAttribute="width" secondItem="hPm-6v-WPA" secondAttribute="width" id="UMa-w2-LNx"/>
@@ -444,9 +446,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6Al-4h-7aB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="l1b-Pk-mKI" secondAttribute="bottom" constant="4" id="5MX-JI-8fx"/>
                             <constraint firstAttribute="bottom" secondItem="qgh-yX-dCJ" secondAttribute="bottom" id="5mH-kj-zRU"/>
-                            <constraint firstItem="y3w-Ve-J7d" firstAttribute="top" secondItem="22J-zz-Ztw" secondAttribute="bottom" id="AdS-wD-ucm"/>
+                            <constraint firstItem="y3w-Ve-J7d" firstAttribute="top" secondItem="22J-zz-Ztw" secondAttribute="bottom" priority="999" id="AdS-wD-ucm"/>
+                            <constraint firstItem="y3w-Ve-J7d" firstAttribute="top" secondItem="l1b-Pk-mKI" secondAttribute="bottom" id="EMY-HI-pPa"/>
                             <constraint firstAttribute="trailing" secondItem="y3w-Ve-J7d" secondAttribute="trailing" id="LL8-WA-tn1"/>
                             <constraint firstItem="qgh-yX-dCJ" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="LTD-y9-12F"/>
                             <constraint firstItem="qgh-yX-dCJ" firstAttribute="top" secondItem="qBd-jD-x98" secondAttribute="top" id="Laa-zy-G7O"/>
