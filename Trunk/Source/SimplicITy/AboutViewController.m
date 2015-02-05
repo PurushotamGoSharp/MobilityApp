@@ -201,18 +201,27 @@
 - (IBAction)tickMarkBarBtnAction:(id)sender
 {
     [self.view endEditing:YES];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-//    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
-    
-    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, [UserInfo sharedUserInfo].cropID, self.writeReviewTxtView.text];
-    
-    self.tickMarkBarBtnOutlet.enabled = NO;
-    
-    [postMan post:FEEDBACK_API withParameters:parameter];
-    
-    self.writeReviewTxtView.text = @"";
-    [self hideWriteReviewTextView];
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        //    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
+        
+        NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}",  [UserInfo sharedUserInfo].cropID, self.yourRateValueLbl.text, self.writeReviewTxtView.text];
+        
+        self.tickMarkBarBtnOutlet.enabled = NO;
+        
+        [postMan post:FEEDBACK_API withParameters:parameter];
+        
+        self.writeReviewTxtView.text = @"";
+        [self hideWriteReviewTextView];
+    }else
+    {
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noNetworkAlert show];
+    }
+
 
 }
 
@@ -251,8 +260,8 @@
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
     
-    self.yourRatingView.rating = 0;
-    self.yourRateValueLbl.text = @"0";
+//    self.yourRatingView.rating = 0;
+//    self.yourRateValueLbl.text = @"0";
     self.writeReviewTxtView.text = @"";
     [self hideWriteReviewTextView];
 
@@ -616,8 +625,15 @@
         
     }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
     {
-        self.scrollViewBottomConst.constant = 130;
-    }
+        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+        {
+            self.scrollViewBottomConst.constant = 130;
+        }
+        else
+        {
+            self.scrollViewBottomConst.constant = 350;
+            
+        }    }
     
     [self.view layoutIfNeeded];
     

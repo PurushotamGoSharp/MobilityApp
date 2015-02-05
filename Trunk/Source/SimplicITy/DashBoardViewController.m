@@ -92,6 +92,12 @@
     
     self.profileViewTopConstraint.constant = -107;
     
+    if (![AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [noNetworkAlert show];
+    }
+    
 //    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
 //    {
 //        UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
@@ -164,7 +170,7 @@
     
     downArrowImageView = [[UIImageView alloc] initWithImage:([UIImage imageNamed:@"DashBoardDropDownBarImage"])];
     downArrowImageView.frame = CGRectMake(0, 0, 36, 3);
-    downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 14);
+    downArrowImageView.center = CGPointMake(titleView.center.x + 20, titleView.center.y + 14);
     [titleView addSubview:downArrowImageView];
     
     downArrowImageView.hidden = NO;
