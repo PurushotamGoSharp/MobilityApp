@@ -31,7 +31,7 @@
     // Do any additional setup after loading the view.
     self.title = self.parentCategory;
     
-    NSLog(@"curent page Number %i",self.curentpageNum);
+    NSLog(@"curent page Number %li",(long)self.curentpageNum);
     
    selectedIndexPath = [NSIndexPath indexPathForRow:self.curentpageNum inSection:0];
     [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
