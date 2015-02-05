@@ -25,8 +25,8 @@
 #define ALERT_FOR_ORDER_SAVED_IN_ONLINE @"Your Order has been sucessfully placed"
 #define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been sucessfully raised"
 
-#define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised atomatically when connection is restored"
-#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, Order will be placed atomatically when connection is restored"
+#define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, order will be placed atomatically when connection is restored"
+#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised atomatically when connection is restored"
 
 
 #define ALERT_FOR_SELECT_ITEM_VALIDATION @"Item is required.\n"

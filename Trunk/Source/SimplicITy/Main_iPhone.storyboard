@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -540,8 +540,8 @@
                                                     <segue destination="u8O-Wb-nTd" kind="modal" identifier="SelectAcategorySegue" id="G97-pa-xUX"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a service" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0p-fX-K0m">
-                                                <rect key="frame" x="16" y="155" width="297" height="38"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a service" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0p-fX-K0m">
+                                                <rect key="frame" x="16" y="155" width="274" height="38"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="38" id="bn9-yr-tHz"/>
                                                 </constraints>
@@ -754,7 +754,7 @@
                                             <constraint firstItem="KT6-b5-NJD" firstAttribute="top" secondItem="o66-Px-mZn" secondAttribute="top" id="DQF-ZD-SsR"/>
                                             <constraint firstAttribute="trailing" secondItem="Mz2-sn-qHr" secondAttribute="trailing" constant="1" id="Dfd-md-rGk"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NeB-x9-9b8" secondAttribute="bottom" constant="4" id="Otv-Jp-TDZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="G0p-fX-K0m" secondAttribute="trailing" constant="7" id="Rab-4z-XGf"/>
+                                            <constraint firstAttribute="trailing" secondItem="G0p-fX-K0m" secondAttribute="trailing" constant="30" id="Rab-4z-XGf"/>
                                             <constraint firstAttribute="trailing" secondItem="KT6-b5-NJD" secondAttribute="trailing" constant="1" id="V09-3n-h8W"/>
                                             <constraint firstItem="F3Q-G7-7wm" firstAttribute="leading" secondItem="Mz2-sn-qHr" secondAttribute="trailing" constant="-32" id="V7h-yG-W1A"/>
                                             <constraint firstItem="G0p-fX-K0m" firstAttribute="leading" secondItem="o66-Px-mZn" secondAttribute="leading" constant="16" id="VSE-qC-ZsM"/>
@@ -1930,7 +1930,7 @@
                                                         <constraint firstAttribute="height" constant="20" id="wI3-zl-fwn"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya3-3T-rto">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya3-3T-rto">
                                                     <rect key="frame" x="17" y="13" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -3166,7 +3166,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Avatar" width="51" height="51"/>
+        <image name="Avatar" width="50" height="50"/>
         <image name="Call_Phone" width="250" height="42"/>
         <image name="Clock" width="16" height="16"/>
         <image name="Commercial-01" width="30" height="30"/>
@@ -3212,7 +3212,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="uWR-qu-A3S"/>
         <segue reference="J1A-hZ-SrU"/>
+        <segue reference="CXP-ec-zh5"/>
     </inferredMetricsTieBreakers>
 </document>
