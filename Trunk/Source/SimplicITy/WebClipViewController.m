@@ -175,7 +175,9 @@
     NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     
     NSData *imageDataForFromBase64 = [[NSData alloc] initWithBase64EncodedString:imageAsBlob options:kNilOptions];
+    
     UIImage *image = [UIImage imageWithData:imageDataForFromBase64];
+    
     NSData *imageData = UIImagePNGRepresentation(image);
     NSString *pathToImage;
     
