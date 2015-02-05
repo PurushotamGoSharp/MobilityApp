@@ -17,7 +17,9 @@
 @interface RateView : UIView
 
 @property (strong, nonatomic) UIImage *notSelectedImage;
+@property (strong, nonatomic) UIImage *quarterSelectedImage;
 @property (strong, nonatomic) UIImage *halfSelectedImage;
+@property (strong, nonatomic) UIImage *three4thSelectedImage;
 @property (strong, nonatomic) UIImage *fullSelectedImage;
 @property (assign, nonatomic) float rating;
 @property (assign) BOOL editable;

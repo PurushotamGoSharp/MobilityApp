@@ -24,7 +24,9 @@
 
 - (void)baseInit {
     _notSelectedImage = nil;
+    _quarterSelectedImage = nil;
     _halfSelectedImage = nil;
+    _three4thSelectedImage = nil;
     _fullSelectedImage = nil;
     _rating = 0;
     _editable = NO;    
@@ -43,6 +45,7 @@
         [self baseInit];
     }
     return self;
+    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -57,8 +60,12 @@
         UIImageView *imageView = [self.imageViews objectAtIndex:i];
         if (self.rating >= i+1) {
             imageView.image = self.fullSelectedImage;
-        } else if (self.rating > i) {
+        } else if (self.rating >= i+.75) {
+            imageView.image = self.three4thSelectedImage;
+        } else if (self.rating > i+.5) {
             imageView.image = self.halfSelectedImage;
+        } else if (self.rating >= i+.25) {
+            imageView.image = self.quarterSelectedImage;
         } else {
             imageView.image = self.notSelectedImage;
         }
@@ -112,8 +119,20 @@
     [self refresh];
 }
 
+- (void)setQuarterSelectedImage:(UIImage *)quarterSelectedImage
+{
+    _quarterSelectedImage = quarterSelectedImage;
+    [self refresh];
+}
+
 - (void)setHalfSelectedImage:(UIImage *)image {
     _halfSelectedImage = image;
+    [self refresh];
+}
+
+- (void)setThree4thSelectedImage:(UIImage *)three4thSelectedImage
+{
+    _three4thSelectedImage = three4thSelectedImage;
     [self refresh];
 }
 

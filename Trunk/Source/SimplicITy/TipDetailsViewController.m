@@ -31,6 +31,7 @@
     NSInteger currentPageNo;
     
     NSString *navBatTitle;
+    NSString *cachePath;
 }
 
 - (void)viewDidLoad
@@ -47,12 +48,13 @@
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
-    self.title =self.parentCategory;
     
     NSLog(@"nav Bar Title is : %@",self.title);
     
 //    self.navigationItem.title =self.parentCategory;
 
+    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    cachePath = [cachedirs lastObject];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,6 +79,7 @@
     
     self.title =self.parentCategory;
 
+    [self setPageNoLabelFor:currentPageNo];
     
 //    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 //    NSString *cachePath = [cachedirs lastObject];
@@ -88,17 +91,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
 }
 
-- (void)setPageForIndex:(NSInteger)index
-{
-    if ([subCategoriesCollection count] <= index)
-    {
-        return;
-    }
-    
-    CGFloat widthOfCollectionView = self.collectionView.frame.size.width;
-    CGFloat xOfContentOffset = widthOfCollectionView * index;
-    [self.collectionView setContentOffset:CGPointMake(xOfContentOffset, 0) animated:NO];
-}
+
 
 - (void)tryToUpdateCategories
 {
@@ -200,8 +193,20 @@
         tipsList.delegate = self;
         tipsList.curentpageNum = currentPageNo;
 //        NSLog(@"curent page Number %i",currentPageNo);
-
     }
+}
+
+- (void)setPageForIndex:(NSInteger)index
+{
+    if ([subCategoriesCollection count] <= index)
+    {
+        return;
+    }
+    
+    CGFloat widthOfCollectionView = self.collectionView.frame.size.width;
+    CGFloat xOfContentOffset = widthOfCollectionView * index;
+    [self.collectionView setContentOffset:CGPointMake(xOfContentOffset, 0) animated:NO];
+    [self setPageNoLabelFor:currentPageNo];
 }
 
 - (void)setPageNoLabelFor:(NSInteger)pageNo
@@ -213,8 +218,8 @@
     }
     self.currentPageNoLabel.text = [NSString stringWithFormat:@"%li of %li", (long)pageNo+1, (long)noOfTotalPages];
     
-    TipModel *tip = [[TipModel alloc] init];
-    self.title =tip.question;
+//    TipModel *tip = [[TipModel alloc] init];
+//    self.title =tip.question;
 }
 
 #pragma mark
@@ -222,7 +227,6 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    [self setPageNoLabelFor:currentPageNo];
     return [subCategoriesCollection count];
 }
 
@@ -231,8 +235,6 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCell" forIndexPath:indexPath];
     
     UIWebView *webView = (UIWebView *)[cell viewWithTag:100];
-    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachePath = [cachedirs lastObject];
     
     CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
     TipModel *aTipModel = subCategoriesCollection[indexPath.row];
@@ -244,7 +246,6 @@
 //    
 //    NSLog(@"tip Sub category %@",navBatTitle);
     
-    self.title =self.parentCategory;
 
     return cell;
 }
@@ -266,14 +267,26 @@
         NSInteger pageNo = roundf(xValueOfContentOffset/self.collectionView.frame.size.width);
         
         [self setPageNoLabelFor:pageNo];
-        currentPageNo = pageNo;
+//        currentPageNo = pageNo;
     }
     
-    self.title =self.parentCategory;
+//    self.title =self.parentCategory;
 
 //    self.title = navBatTitle;
 
     
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    if ([scrollView isEqual:self.collectionView])
+    {
+        CGFloat xValueOfContentOffset = self.collectionView.contentOffset.x;
+        NSInteger pageNo = roundf(xValueOfContentOffset/self.collectionView.frame.size.width);
+        
+        [self setPageNoLabelFor:pageNo];
+        currentPageNo = pageNo;
+    }
 }
 
 #pragma mark

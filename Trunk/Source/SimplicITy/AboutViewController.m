@@ -96,6 +96,8 @@
     self.rateView.notSelectedImage = [UIImage imageNamed:@"starEmpty.png"];
     self.rateView.fullSelectedImage = [UIImage imageNamed:@"starFull.png"];
     self.rateView.halfSelectedImage = [UIImage imageNamed:@"starHalf"];
+    self.rateView.quarterSelectedImage = [UIImage imageNamed:@"quarterStar"];
+    self.rateView.three4thSelectedImage = [UIImage imageNamed:@"three4thStar"];
     self.rateView.rating = 0;
     self.rateView.editable = NO;
     self.rateView.maxRating = 5;
