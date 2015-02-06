@@ -16,7 +16,7 @@
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
-#define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not avillable in this device"
+#define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
 
 @interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate>

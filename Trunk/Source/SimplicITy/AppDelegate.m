@@ -12,7 +12,7 @@
 #import "UAPush.h"
 #import "SendRequestsManager.h"
 
-#define ENABLE_PUSH_NOTIFICATION NO
+#define ENABLE_PUSH_NOTIFICATION YES
 
 @implementation AppDelegate
 

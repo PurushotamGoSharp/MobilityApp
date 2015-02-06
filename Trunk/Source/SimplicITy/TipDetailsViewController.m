@@ -57,6 +57,8 @@
 
     NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     cachePath = [cachedirs lastObject];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,7 +92,24 @@
 //    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
 //    [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted:) name:@"AVPlayerItemBecameCurrentNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoFinished:) name:@"UIWindowDidBecomeHiddenNotification" object:nil];
+
+    
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVPlayerItemBecameCurrentNotification" object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIWindowDidBecomeHiddenNotification" object:nil];
+    
+//    [[NSNotificationCenter defaultCenter]removeObserver:self
+//                                                   name:UIDeviceOrientationDidChangeNotification
+//                                                 object:nil];
+
 }
 
 - (void)tryToUpdateCategories
@@ -106,8 +125,27 @@
     return [userDeafultKey lowercaseString];
 }
 
+
+- (void)videoStarted:(NSNotification *)notification
+{
+    videoIsPlaying = YES;
+}
+
+- (void)videoFinished:(NSNotification *)notification
+{
+    videoIsPlaying = NO;
+    
+    [self orientationChanged:nil];
+}
+
+
 - (void)orientationChanged:(NSNotification *)notification
 {
+    if (videoIsPlaying)
+    {
+        return;
+    }
+    
     [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 

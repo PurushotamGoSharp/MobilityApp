@@ -317,10 +317,11 @@
 
         countlabel.font=[self customFont:16 ofName:MuseoSans_700];
         
+    
 
-        UIView *bgColorView = [[UIView alloc] init];
-        bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];
-        [cell setSelectedBackgroundView:bgColorView];
+//        UIView *bgColorView = [[UIView alloc] init];
+//        bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];
+//        [cell setSelectedBackgroundView:bgColorView];
     }
     return cell;
 }
@@ -329,7 +330,15 @@
 {
     if ([tableView isEqual:self.tableViewOutlet])
     {
+        
+      UITableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = [self barColorForIndex:indexPath];
+        [cell setSelectedBackgroundView:bgColorView];
+        
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     }
 }
 /*

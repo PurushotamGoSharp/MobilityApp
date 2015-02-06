@@ -172,7 +172,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="911"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BF4-j9-U3U" userLabel="Dash container">
-                                                <rect key="frame" x="103" y="127" width="561" height="658"/>
+                                                <rect key="frame" x="94" y="127" width="561" height="658"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8n5-dl-Ppm" userLabel="First Row">
                                                         <rect key="frame" x="0.0" y="0.0" width="561" height="215"/>
@@ -432,7 +432,7 @@
                                         <constraints>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BF4-j9-U3U" secondAttribute="bottom" constant="16" id="08k-l9-ubU"/>
                                             <constraint firstItem="BF4-j9-U3U" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Fb6-Uv-Zdc" secondAttribute="top" constant="16" id="6d4-6Z-jsN"/>
-                                            <constraint firstAttribute="centerX" secondItem="BF4-j9-U3U" secondAttribute="centerX" id="N9u-Bv-dUm"/>
+                                            <constraint firstAttribute="centerX" secondItem="BF4-j9-U3U" secondAttribute="centerX" constant="10" id="N9u-Bv-dUm"/>
                                             <constraint firstAttribute="centerY" secondItem="BF4-j9-U3U" secondAttribute="centerY" priority="997" id="ST0-Pr-rX5"/>
                                         </constraints>
                                     </view>
@@ -2705,7 +2705,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="MiT-lc-kVI" secondAttribute="bottom" id="pKa-HC-iaU"/>
                                                 </constraints>
                                             </view>
-                                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-VU-XD2">
+                                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-VU-XD2">
                                                 <color key="backgroundColor" white="1" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="7Uc-mX-cCw"/>

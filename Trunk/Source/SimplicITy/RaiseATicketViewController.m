@@ -22,8 +22,8 @@
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
-#define ALERT_FOR_ORDER_SAVED_IN_ONLINE @"Your Order has been sucessfully placed"
-#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been sucessfully raised"
+#define ALERT_FOR_ORDER_SAVED_IN_ONLINE @"Your Order has been successfully placed"
+#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been successfully raised"
 
 #define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, order will be placed automatically when connection is restored"
 #define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised automatically when connection is restored"

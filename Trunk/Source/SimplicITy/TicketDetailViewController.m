@@ -34,6 +34,15 @@
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
     
+    if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+    {
+        self.title = @"Order Details";
+    }else
+    {
+       self.title = @"Ticket Details"; 
+    }
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

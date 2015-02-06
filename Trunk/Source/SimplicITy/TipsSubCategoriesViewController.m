@@ -135,28 +135,28 @@
 }
 
 
-- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
-    
-    switch (orientation)
-    {
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-        {
-            //load the portrait view
-        }
-            
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-        {
-            //load the landscape view
-        }
-            break;
-        case UIInterfaceOrientationUnknown:break;
-    }
-    
-    [self.tableView reloadData];
-}
+//- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation {
+//    
+//    switch (orientation)
+//    {
+//        case UIInterfaceOrientationPortrait:
+//        case UIInterfaceOrientationPortraitUpsideDown:
+//        {
+//            //load the portrait view
+//        }
+//            
+//            break;
+//        case UIInterfaceOrientationLandscapeLeft:
+//        case UIInterfaceOrientationLandscapeRight:
+//        {
+//            //load the landscape view
+//        }
+//            break;
+//        case UIInterfaceOrientationUnknown:break;
+//    }
+//    
+//    [self.tableView reloadData];
+//}
 
 - (IBAction)cancel:(UIBarButtonItem *)sender
 {
