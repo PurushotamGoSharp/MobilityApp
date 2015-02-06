@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FileLoadViewController : UIViewController
+@interface FileLoadViewController : CustomColoredViewController
 
 @property (strong, nonatomic) NSString *pathOfFile;
 

@@ -2907,6 +2907,64 @@
             </objects>
             <point key="canvasLocation" x="1676" y="2289"/>
         </scene>
+        <!--File Load View Controller-->
+        <scene sceneID="Rfb-Tx-oIe">
+            <objects>
+                <viewController id="SrV-OO-pUP" customClass="FileLoadViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EiY-9o-4Gv"/>
+                        <viewControllerLayoutGuide type="bottom" id="1bB-vf-R6e"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V5X-5b-TNW">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJq-Af-9Nz">
+                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lJq-Af-9Nz" firstAttribute="leading" secondItem="V5X-5b-TNW" secondAttribute="leading" id="B7m-av-1Ym"/>
+                            <constraint firstItem="lJq-Af-9Nz" firstAttribute="top" secondItem="EiY-9o-4Gv" secondAttribute="bottom" id="N9q-t9-G9S"/>
+                            <constraint firstAttribute="trailing" secondItem="lJq-Af-9Nz" secondAttribute="trailing" id="aFk-xW-Lpu"/>
+                            <constraint firstItem="1bB-vf-R6e" firstAttribute="top" secondItem="lJq-Af-9Nz" secondAttribute="bottom" id="z8E-GU-4c4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Fw0-9i-8Nf">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="uZg-xJ-h7B">
+                            <connections>
+                                <action selector="cancelPressed:" destination="SrV-OO-pUP" id="x6i-T1-eRN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="lJq-Af-9Nz" id="dPH-f4-fH1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HTL-xq-jzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4430" y="-3898"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="p1r-rs-bT0">
+            <objects>
+                <navigationController storyboardIdentifier="FileLoadVCStoryboardID" automaticallyAdjustsScrollViewInsets="NO" id="HlW-po-Pqp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vJR-ee-g2c">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SrV-OO-pUP" kind="relationship" relationship="rootViewController" id="WYL-aQ-tXT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vmS-hU-4lj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3570" y="-3898"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Avatar" width="50" height="47"/>

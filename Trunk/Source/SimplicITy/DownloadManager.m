@@ -9,7 +9,9 @@
 #import "DownloadManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "FileLoadViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 #import "AppDelegate.h"
+
 @interface DownloadManager () <UIAlertViewDelegate>
 
 @end
@@ -62,6 +64,10 @@
 
 - (void)downloadFromURLString:(NSString *)URLString
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Downloading";
+    
     NSURL *URL = [NSURL URLWithString:URLString];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     filePath = [self filePathForURLString:URL];
@@ -95,6 +101,8 @@
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        [hud hide:YES];
+
         NSLog(@"Successfully downloaded file to %@", filePath);
         UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@""
                                                                message:@"Downloading is finished"
@@ -108,6 +116,8 @@
                                          
                                          UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
                                          [alert show];
+                                         [hud hide:YES];
+
                                          
                                      }];
     [operation start];
@@ -116,6 +126,8 @@
         
         float progress = ((float)totalBytesRead) / totalBytesExpectedToRead;
         NSLog(@"status %f",progress);
+        hud.progress = progress;
+        
         // self.progressView.progress = progress;
         
     }];
