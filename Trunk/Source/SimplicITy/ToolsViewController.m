@@ -54,6 +54,13 @@
     self.title = @"Tools";
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
+}
+
 - (void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];

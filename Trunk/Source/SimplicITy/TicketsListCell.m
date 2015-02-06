@@ -33,6 +33,11 @@
     self.agentAssignedLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
     self.timeLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
     self.currentStatusLabel.font = [UIFont fontWithName:@"MuseoSans-300" size:12];
+    
+    self.ticketHeadingLabel.highlightedTextColor = [UIColor whiteColor];
+    self.agentAssignedLabel.highlightedTextColor = [UIColor whiteColor];
+    self.timeLabel.highlightedTextColor = [UIColor whiteColor];
+    self.currentStatusLabel.highlightedTextColor = [UIColor whiteColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -59,37 +59,12 @@
     [self setUpViewWithCornerRadius:self.userNameContainer];
     [self setUpViewWithCornerRadius:self.passwordContainer];
     [self setUpViewWithCornerRadius:self.signInButton];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
-    
 }
 
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter]removeObserver:self
-                                                   name:UIDeviceOrientationDidChangeNotification
-                                                 object:nil];
-}
-
-- (void)orientationChanged:(NSNotification *)notification
-{
-    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-}
-
-- (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
-{
-    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
-    {
-        
-    }else if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown)
-    {
-        
-    }
 }
 
 - (void)setUpViewWithCornerRadius:(UIView *)view

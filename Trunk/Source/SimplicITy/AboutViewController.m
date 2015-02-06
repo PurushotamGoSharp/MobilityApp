@@ -162,7 +162,6 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        [postMan get:AVERAGE_RATING_API];
         
 //        [postMan get:[USER_GIVEN_RATING_API stringByAppendingString:@"Corp123"]];
 //        [postMan get:[USER_GIVEN_RATING_API stringByAppendingString:[UserInfo sharedUserInfo].cropID]];
@@ -244,6 +243,11 @@
     [super viewWillAppear:animated];
     
     [self updateUI];
+    
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        [postMan get:AVERAGE_RATING_API];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChanged:)

@@ -297,11 +297,9 @@
         UILabel *statusLabel = (UILabel *)[cell viewWithTag:101];
         statusLabel.text = arrayForStatus[indexPath.row];
         
-
-
-        
         statusLabel.font=[self customFont:16 ofName:MuseoSans_700];
-        
+        statusLabel.highlightedTextColor = [UIColor whiteColor];
+
         UILabel *countlabel = (UILabel *)[cell viewWithTag:102];
 
         if (indexPath.row == 0 &&  [arrayOfData count] > 0)
@@ -322,8 +320,8 @@
         }
 
         countlabel.font=[self customFont:16 ofName:MuseoSans_700];
+        countlabel.highlightedTextColor = [UIColor whiteColor];
         
-
         UIView *bgColorView = [[UIView alloc] init];
         bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];
         [cell setSelectedBackgroundView:bgColorView];
