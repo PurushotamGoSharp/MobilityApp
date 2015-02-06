@@ -117,13 +117,15 @@
     
     UILabel *titleLable = (UILabel *)[cell viewWithTag:200];
     titleLable.text = arrOfTableViewData[indexPath.row];
+    titleLable.highlightedTextColor = [UIColor whiteColor];
+
     
     UILabel *languageLabel = (UILabel *)[cell viewWithTag:201];
     
     titleLable.font=[self customFont:16 ofName:MuseoSans_700];
     languageLabel.font=[self customFont:16 ofName:MuseoSans_700];
     
-   
+
     
     if (indexPath.section == 0)
     {
