@@ -10,4 +10,7 @@
 
 @interface DownloadManager : NSObject
 
++ (instancetype)sharedDownloadManager;
+- (void)downloadFromURLString:(NSString *)URLString;
+
 @end

@@ -1508,10 +1508,10 @@
             </objects>
             <point key="canvasLocation" x="2851" y="-1288"/>
         </scene>
-        <!--Tip Details View Controller-->
+        <!--File Load View Controller-->
         <scene sceneID="YRz-qD-8rC">
             <objects>
-                <viewController id="Spt-pk-vI2" customClass="TipDetailsViewController" sceneMemberID="viewController">
+                <viewController id="Spt-pk-vI2" customClass="FileLoadViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ItK-Uh-Ojz"/>
                         <viewControllerLayoutGuide type="bottom" id="8XB-61-4ph"/>
@@ -1521,26 +1521,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView opaque="NO" contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7my-cG-1sE">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="7my-cG-1sE" secondAttribute="trailing" id="32J-SI-e96"/>
-                            <constraint firstAttribute="bottom" secondItem="7my-cG-1sE" secondAttribute="bottom" id="9Kt-lz-7iF"/>
-                            <constraint firstItem="7my-cG-1sE" firstAttribute="top" secondItem="5jF-yi-SW9" secondAttribute="top" id="FJP-oi-7cf"/>
-                            <constraint firstItem="7my-cG-1sE" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="V8C-8c-dxi"/>
+                            <constraint firstAttribute="trailing" secondItem="7my-cG-1sE" secondAttribute="trailing" id="F1P-gw-i6s"/>
+                            <constraint firstItem="7my-cG-1sE" firstAttribute="leading" secondItem="5jF-yi-SW9" secondAttribute="leading" id="TgT-p9-qh1"/>
+                            <constraint firstItem="8XB-61-4ph" firstAttribute="top" secondItem="7my-cG-1sE" secondAttribute="bottom" id="eSK-kH-jEk"/>
+                            <constraint firstItem="7my-cG-1sE" firstAttribute="top" secondItem="ItK-Uh-Ojz" secondAttribute="bottom" id="gGC-sX-VBy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="5Kh-zi-te7"/>
+                    <navigationItem key="navigationItem" id="5Kh-zi-te7">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="G0h-9l-tYP">
+                            <connections>
+                                <action selector="cancelPressed:" destination="Spt-pk-vI2" id="c8V-AL-YZ6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="webView" destination="7my-cG-1sE" id="myk-oX-aWv"/>
+                        <outlet property="webView" destination="7my-cG-1sE" id="86y-fh-d3Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A5e-fN-mAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3465" y="-1972"/>
+            <point key="canvasLocation" x="4066" y="-2070"/>
         </scene>
         <!--Services-->
         <scene sceneID="28D-vm-Fh7">
@@ -3163,6 +3169,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z0b-4e-eIP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2502" y="-539"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="U6b-5e-HAM">
+            <objects>
+                <navigationController storyboardIdentifier="FileLoadVCStoryboardID" automaticallyAdjustsScrollViewInsets="NO" id="snU-8Y-AZt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GJw-L2-GqN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Spt-pk-vI2" kind="relationship" relationship="rootViewController" id="gFi-GE-VdM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m25-Ee-aMD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3689" y="-2070"/>
         </scene>
     </scenes>
     <resources>

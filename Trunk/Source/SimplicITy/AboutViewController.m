@@ -221,8 +221,6 @@
         UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [noNetworkAlert show];
     }
-
-
 }
 
 - (void)rateView:(RateView *)rateView ratingDidChange:(float)rating
@@ -429,6 +427,8 @@
         
         [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [postMan get:AVERAGE_RATING_API];
     }
 }
 
