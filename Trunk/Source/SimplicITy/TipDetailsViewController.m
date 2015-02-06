@@ -32,6 +32,8 @@
     
     NSString *navBatTitle;
     NSString *cachePath;
+    
+    BOOL videoIsPlaying;
 }
 
 - (void)viewDidLoad
@@ -55,6 +57,10 @@
 
     NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     cachePath = [cachedirs lastObject];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted:) name:@"MPAVControllerPlaybackStateChangedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoFinished:) name:@"UIMoviePlayerControllerDidExitFullscreenNotification" object:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,8 +97,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
 }
 
-
-
 - (void)tryToUpdateCategories
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -106,8 +110,23 @@
     return [userDeafultKey lowercaseString];
 }
 
+- (void)videoStarted:(NSNotification *)notification
+{
+    videoIsPlaying = YES;
+}
+
+- (void)videoFinished:(NSNotification *)notification
+{
+    videoIsPlaying = NO;
+}
+
 - (void)orientationChanged:(NSNotification *)notification
 {
+    if (videoIsPlaying)
+    {
+        return;
+    }
+    
     [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
@@ -238,7 +257,9 @@
     
     CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
     TipModel *aTipModel = subCategoriesCollection[indexPath.row];
-    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView, aTipModel.answer];
+    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> <meta name=\"viewport\" content=\"width=device-width, maximum-scale=1.0\" /> %@ </div>",widthOfWebView, aTipModel.answer];
+    
+    webView.mediaPlaybackRequiresUserAction=NO;
     [webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
     
 //    self.title = aTipModel.question;
@@ -248,6 +269,12 @@
     
 
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIWebView *webView = (UIWebView *)[cell viewWithTag:100];
+    [webView loadHTMLString:@"" baseURL:nil];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -277,7 +304,7 @@
     
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if ([scrollView isEqual:self.collectionView])
     {
@@ -288,7 +315,6 @@
         currentPageNo = pageNo;
     }
 }
-
 #pragma mark
 #pragma mark: postmanDelegate
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
@@ -416,8 +442,6 @@
 {
     [self setPageForIndex:selectedIndex];
     currentPageNo = selectedIndex;
-    
-
 }
 
 @end
