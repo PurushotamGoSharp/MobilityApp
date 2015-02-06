@@ -57,10 +57,6 @@
 
     NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     cachePath = [cachedirs lastObject];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted:) name:@"MPAVControllerPlaybackStateChangedNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoFinished:) name:@"UIMoviePlayerControllerDidExitFullscreenNotification" object:nil];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -83,7 +79,7 @@
         [self getData];
     }
     
-    self.title =self.parentCategory;
+    self.title = self.parentCategory;
 
     [self setPageNoLabelFor:currentPageNo];
     
@@ -110,23 +106,8 @@
     return [userDeafultKey lowercaseString];
 }
 
-- (void)videoStarted:(NSNotification *)notification
-{
-    videoIsPlaying = YES;
-}
-
-- (void)videoFinished:(NSNotification *)notification
-{
-    videoIsPlaying = NO;
-}
-
 - (void)orientationChanged:(NSNotification *)notification
 {
-    if (videoIsPlaying)
-    {
-        return;
-    }
-    
     [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
@@ -188,7 +169,60 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    if(navigationType == UIWebViewNavigationTypeLinkClicked)
+    {
+        NSURL *requestedURL = [request URL];
+        NSString *fileExtension = requestedURL.pathExtension;
+        
+        if ([fileExtension isEqualToString:@"pptx"])
+        {
+            NSString *filename = requestedURL.lastPathComponent;
+            NSLog(@"Filename: %@", filename);
+            NSString *docPath = [self documentsDirectoryPath];
+            // Combine the filename and the path to the documents dir into the full path
+            
+            NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/Downloads", docPath];
+            
+            if (![[NSFileManager defaultManager] fileExistsAtPath:pathToDownloadTo])
+                [[NSFileManager defaultManager] createDirectoryAtPath:pathToDownloadTo withIntermediateDirectories:NO attributes:nil error:nil];
+            // Load the file from the remote server
+            
+            pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", pathToDownloadTo, filename];
+            
+            NSData *tmp = [NSData dataWithContentsOfURL:requestedURL];
+            // Save the loaded data if loaded successfully
+            
+            if (tmp != nil)
+            {
+                NSError *error = nil;
+                // Write the contents of our tmp object into a file
+                [tmp writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
+                if (error != nil)
+                {
+                    NSLog(@"Failed to save the file: %@", [error description]);
+                } else
+                {
+                    // Display an UIAlertView that shows the users we saved the file :)
+                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved.", filename] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [filenameAlert show];
+                }
+                
+            } else
+            {
+                // File could notbe loaded -> handle errors
+            }
+            
+        }
+    }
+    
     return YES;
+}
+
+- (NSString *)documentsDirectoryPath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    return documentsDirectoryPath;
 }
 
 - (BOOL)shouldAutorotate
@@ -257,7 +291,7 @@
     
     CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
     TipModel *aTipModel = subCategoriesCollection[indexPath.row];
-    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> <meta name=\"viewport\" content=\"width=device-width, maximum-scale=1.0\" /> %@ </div>",widthOfWebView, aTipModel.answer];
+    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> <style type='text/css'>img { max-width: %f; width: auto; height: auto; } </style> %@ </div>",widthOfWebView,widthOfWebView, aTipModel.answer];
     
     webView.mediaPlaybackRequiresUserAction=NO;
     [webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
