@@ -13,6 +13,9 @@
     NSArray *arrayOfImages, *arrayOfDatas;
     
     UIBarButtonItem *backButton;
+    
+    NSInteger selectedRow;
+
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraintConstant;
@@ -89,11 +92,18 @@
     UILabel *label = (UILabel *)[cell viewWithTag:100];
     label.text = arrayOfDatas[indexPath.row];
     label.font=[self customFont:16 ofName:MuseoSans_700];
+    label.highlightedTextColor = [UIColor whiteColor];
+
     
     
     
     UIImageView *imageCVIew = (UIImageView *)[cell viewWithTag:101];
     imageCVIew.image = arrayOfImages[indexPath.row];
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+    [cell setSelectedBackgroundView:bgColorView];
+
     
     return cell;
 }
@@ -105,6 +115,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    selectedRow = indexPath.row;
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0)

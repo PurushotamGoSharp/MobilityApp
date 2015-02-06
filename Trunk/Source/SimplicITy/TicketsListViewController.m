@@ -38,6 +38,8 @@
     
     UIControl *hideFilterControl;
     DBManager *dbManager;
+    NSInteger selectedRow;
+
 
 }
 
@@ -277,6 +279,10 @@
         NSUInteger row = [indexPath row];
         NSUInteger count = [arrayOfData count];
         ticketCell.requestModel = arrayOfData[count-row-1];
+        
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+        [ticketCell setSelectedBackgroundView:bgColorView];
 
         cell = ticketCell;
         
@@ -317,12 +323,13 @@
 
         countlabel.font=[self customFont:16 ofName:MuseoSans_700];
         
-    
 
-//        UIView *bgColorView = [[UIView alloc] init];
-//        bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];
-//        [cell setSelectedBackgroundView:bgColorView];
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];
+        [cell setSelectedBackgroundView:bgColorView];
     }
+    
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     return cell;
 }
 
@@ -330,15 +337,9 @@
 {
     if ([tableView isEqual:self.tableViewOutlet])
     {
-        
-      UITableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-        
-        UIView *bgColorView = [[UIView alloc] init];
-        bgColorView.backgroundColor = [self barColorForIndex:indexPath];
-        [cell setSelectedBackgroundView:bgColorView];
-        
+        selectedRow=indexPath.row;
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    
     }
 }
 /*
