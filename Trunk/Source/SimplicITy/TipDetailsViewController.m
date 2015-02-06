@@ -11,6 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "TipModel.h"
 #import "TipsSubCategoriesViewController.h"
+#import "DownloadManager.h"
 
 @interface TipDetailsViewController () <UIWebViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, postmanDelegate, DBManagerDelegate, TipsSubCategoriesViewControllerDelegate>
 
@@ -172,47 +173,50 @@
     if(navigationType == UIWebViewNavigationTypeLinkClicked)
     {
         NSURL *requestedURL = [request URL];
-        NSString *fileExtension = requestedURL.pathExtension;
+        [[DownloadManager sharedDownloadManager] downloadFromURLString:requestedURL.absoluteString];
         
-        if ([fileExtension isEqualToString:@"pptx"])
-        {
-            NSString *filename = requestedURL.lastPathComponent;
-            NSLog(@"Filename: %@", filename);
-            NSString *docPath = [self documentsDirectoryPath];
-            // Combine the filename and the path to the documents dir into the full path
-            
-            NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/Downloads", docPath];
-            
-            if (![[NSFileManager defaultManager] fileExistsAtPath:pathToDownloadTo])
-                [[NSFileManager defaultManager] createDirectoryAtPath:pathToDownloadTo withIntermediateDirectories:NO attributes:nil error:nil];
-            // Load the file from the remote server
-            
-            pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", pathToDownloadTo, filename];
-            
-            NSData *tmp = [NSData dataWithContentsOfURL:requestedURL];
-            // Save the loaded data if loaded successfully
-            
-            if (tmp != nil)
-            {
-                NSError *error = nil;
-                // Write the contents of our tmp object into a file
-                [tmp writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
-                if (error != nil)
-                {
-                    NSLog(@"Failed to save the file: %@", [error description]);
-                } else
-                {
-                    // Display an UIAlertView that shows the users we saved the file :)
-                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved.", filename] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [filenameAlert show];
-                }
-                
-            } else
-            {
-                // File could notbe loaded -> handle errors
-            }
-            
-        }
+        return NO;
+//        NSString *fileExtension = requestedURL.pathExtension;
+//        
+//        if ([fileExtension isEqualToString:@"pptx"])
+//        {
+//            NSString *filename = requestedURL.lastPathComponent;
+//            NSLog(@"Filename: %@", filename);
+//            NSString *docPath = [self documentsDirectoryPath];
+//            // Combine the filename and the path to the documents dir into the full path
+//            
+//            NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/Downloads", docPath];
+//            
+//            if (![[NSFileManager defaultManager] fileExistsAtPath:pathToDownloadTo])
+//                [[NSFileManager defaultManager] createDirectoryAtPath:pathToDownloadTo withIntermediateDirectories:NO attributes:nil error:nil];
+//            // Load the file from the remote server
+//            
+//            pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", pathToDownloadTo, filename];
+//            
+//            NSData *tmp = [NSData dataWithContentsOfURL:requestedURL];
+//            // Save the loaded data if loaded successfully
+//            
+//            if (tmp != nil)
+//            {
+//                NSError *error = nil;
+//                // Write the contents of our tmp object into a file
+//                [tmp writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
+//                if (error != nil)
+//                {
+//                    NSLog(@"Failed to save the file: %@", [error description]);
+//                } else
+//                {
+//                    // Display an UIAlertView that shows the users we saved the file :)
+//                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved.", filename] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//                    [filenameAlert show];
+//                }
+//                
+//            } else
+//            {
+//                // File could notbe loaded -> handle errors
+//            }
+//            
+//        }
     }
     
     return YES;
