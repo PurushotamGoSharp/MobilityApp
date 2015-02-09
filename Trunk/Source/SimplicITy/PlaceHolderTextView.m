@@ -49,6 +49,11 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -57,9 +62,17 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
     {
         [self setPlaceholder:@""];
         [self setPlaceholderColor:[UIColor lightGrayColor]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textChanged:)
+                                                     name:UITextViewTextDidChangeNotification
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)orientationChanged
+{
+    [self setNeedsDisplay];
 }
 
 - (void)textChanged:(NSNotification *)notification
@@ -102,7 +115,7 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
             _placeHolderLabel.tag = 999;
             [self addSubview:_placeHolderLabel];
         }
-        
+        _placeHolderLabel.frame = CGRectMake(8,8,self.bounds.size.width - 16,0);
         _placeHolderLabel.text = self.placeholder;
         [_placeHolderLabel sizeToFit];
         [self sendSubviewToBack:_placeHolderLabel];
