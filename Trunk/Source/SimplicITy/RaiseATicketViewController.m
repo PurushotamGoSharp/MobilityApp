@@ -562,9 +562,30 @@
     }
     
     //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
-    [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
-    self.detailsBottomMaxConst.constant = 220;
-    [self.view layoutIfNeeded];
+//    [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
+//    self.detailsBottomMaxConst.constant = 220;
+//    [self.view layoutIfNeeded];
+    
+    
+    
+    UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
+    if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
+    {
+        self.self.detailsBottomMaxConst.constant = 220;
+        [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
+        [self.view layoutIfNeeded];
+
+        
+    }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
+    {
+       
+        self.self.detailsBottomMaxConst.constant = 280;
+        [self.scrollView setContentOffset:(CGPointMake(0, 220)) animated:YES];
+        [self.view layoutIfNeeded];
+    }
+    
+
+
 }
 
 - (IBAction)imapctValueChanged:(UISlider *)sender
