@@ -12,8 +12,6 @@
 #import "RateView.h"
 #import "UserInfo.h"
 
-#define FEEDBACK_API @"http://simplicitytst.ripple-io.in/Rating/Corp123"
-
 #define ALERT_FOR_RATING @"Thank you for Rating the App"
 
 
@@ -185,16 +183,14 @@
         [self  getData];
     }
     
+    yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
+    self.yourRatingView.rating = yourRatingValue;
+    self.yourRateValueLbl.text = [NSString stringWithFormat:@"%li", (long)yourRatingValue];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
-    self.yourRatingView.rating = yourRatingValue;
-    self.yourRateValueLbl.text = [NSString stringWithFormat:@"%li", (long)yourRatingValue];
-
 }
 
 - (IBAction)tickMarkBarBtnAction:(id)sender
@@ -205,13 +201,14 @@
     {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
-        //    NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
+//        NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
         
         NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}",  [UserInfo sharedUserInfo].cropID, self.yourRateValueLbl.text, self.writeReviewTxtView.text];
         
         self.tickMarkBarBtnOutlet.enabled = NO;
         
-        [postMan post:FEEDBACK_API withParameters:parameter];
+        NSString *feedBackAPI = [NSString stringWithFormat:@"%@%@",FEEDBACK_API, [UserInfo sharedUserInfo].cropID];
+        [postMan post:feedBackAPI withParameters:parameter];
         
         self.writeReviewTxtView.text = @"";
         [self hideWriteReviewTextView];
@@ -378,6 +375,8 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
+    NSString *feedBackAPI = [NSString stringWithFormat:@"%@%@",FEEDBACK_API, [UserInfo sharedUserInfo].cropID];
+    
     if ([urlString isEqualToString:ABOUT_DETAILS_API])
     {
         [self parseResponsedata:response andgetImages:YES];
@@ -386,7 +385,7 @@
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"aboutus"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-    }else if ([urlString isEqualToString:FEEDBACK_API])
+    }else if ([urlString isEqualToString:feedBackAPI])
     {
         [self parseFeedbackData:response];
         
