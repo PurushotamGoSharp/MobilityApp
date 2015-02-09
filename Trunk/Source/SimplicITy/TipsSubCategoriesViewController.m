@@ -84,12 +84,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     UILabel *label = (UILabel *) [cell viewWithTag:100];
+    label.font = [self customFont:16 ofName:MuseoSans_700];
+    label.highlightedTextColor = [UIColor whiteColor];
+    [label sizeToFit];
     
     TipModel *tip = self.listOfTips[indexPath.row];
     label.text = tip.question;
-
-    label.font = [self customFont:16 ofName:MuseoSans_700];
-    [label sizeToFit];
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedIndexPath.row];
