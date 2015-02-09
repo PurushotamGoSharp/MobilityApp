@@ -104,12 +104,13 @@
         [hud hide:YES];
 
         NSLog(@"Successfully downloaded file to %@", filePath);
-        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@""
-                                                               message:@"Downloading is finished"
-                                                              delegate:self
-                                                     cancelButtonTitle:@"OK"
-                                                     otherButtonTitles:nil];
-        [successAlert show];
+//        UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:@""
+//                                                               message:@"Downloading is finished"
+//                                                              delegate:self
+//                                                     cancelButtonTitle:@"OK"
+//                                                     otherButtonTitles:nil];
+//        [successAlert show];
+        [self loadDownloadedFile];
         
     }
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -145,6 +146,11 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    [self loadDownloadedFile];
+}
+
+- (void)loadDownloadedFile
+{
     UIStoryboard *storyboard;
     if ([ UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
     {
@@ -161,10 +167,10 @@
     
     NSLog(@"TOp viewcontroller = %@", NSStringFromClass([rootVC.topViewController class]));
     [rootVC.topViewController presentViewController:navController
-                         animated:YES
-                       completion:^{
-                           
-                       }];
+                                           animated:YES
+                                         completion:^{
+                                             
+                                         }];
 }
 
 @end
