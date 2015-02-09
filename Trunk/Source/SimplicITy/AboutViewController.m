@@ -625,13 +625,13 @@
     UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
     if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
     {
-        self.scrollViewBottomConst.constant = 180;
+        self.scrollViewBottomConst.constant = 195;
         
     }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
     {
         if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
         {
-            self.scrollViewBottomConst.constant = 130;
+            self.scrollViewBottomConst.constant = 145;
         }
         else
         {
