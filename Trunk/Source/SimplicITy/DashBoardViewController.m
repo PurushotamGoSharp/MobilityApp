@@ -24,9 +24,8 @@
     BOOL navBtnIsOn;
     UIButton *titleButton;
     UIImageView *downArrowImageView;
-    //    NSDictionary *serverConfig;
     UIView *titleView;
-    UIImageView *titleImageView;
+//    UIImageView *titleImageView;
     NSMutableArray *locationdataArr ;
     LocationModel *selectedLocation;
     DBManager *dbManager;
@@ -149,28 +148,37 @@
     //    UIImage *imageForService = [self imageResizing:serviceImage];
     //    self.serviceImageOutlet.image= imageForService;
     
-    titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
-    titleImageView.frame = CGRectMake(0, 5, 32, 32);
-    //    titleImageView.center = CGPointMake(20, 20);
+    
+    
+    
+    
+//    titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
+//    titleImageView.frame = CGRectMake(0, 5, 32, 32);
     
     titleButton = [[UIButton alloc] init];
+    
+    [titleButton setImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"] forState:(UIControlStateNormal)];
+
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
-    //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
     [titleButton setTitle:@"Test" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-    titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
+//    titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
+    titleButton.frame = CGRectMake(0, 5, 0, 0);
+
     [titleButton sizeToFit];
     
-    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+//    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+    CGFloat widthOfView = titleButton.frame.size.width ;
+
     titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
     [titleView addSubview:titleButton];
-    [titleView addSubview:titleImageView];
+//    [titleView addSubview:titleImageView];
     
     downArrowImageView = [[UIImageView alloc] initWithImage:([UIImage imageNamed:@"DashBoardDropDownBarImage"])];
     downArrowImageView.frame = CGRectMake(0, 0, 36, 3);
-    downArrowImageView.center = CGPointMake(titleView.center.x + 20, titleView.center.y + 14);
+    downArrowImageView.center = CGPointMake(titleView.center.x, titleView.center.y + 18);
     [titleView addSubview:downArrowImageView];
     
     downArrowImageView.hidden = NO;
@@ -306,9 +314,11 @@
             [titleButton setTitle:firstName forState:(UIControlStateNormal)];
             [titleButton sizeToFit];
             
-            CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+//            CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+            CGFloat widthOfView = titleButton.frame.size.width;
+
             titleView.frame = CGRectMake(0, 0, widthOfView, 40);
-            downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 18);
+            downArrowImageView.center = CGPointMake(titleView.center.x , titleView.center.y + 18);
         }
         
         if (firstName || lastName)

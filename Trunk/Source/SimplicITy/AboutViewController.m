@@ -606,6 +606,7 @@
 {
     NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [pathToDoc stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.png", docCode]];
+    NSLog(@"File path = %@", filePath);
     
     NSData *imageData = [NSData dataWithContentsOfFile:filePath];
     
