@@ -318,7 +318,7 @@
     dict[@"firstName"] = [UserInfo sharedUserInfo].firstName ? : @"Anthony";
     dict[@"lastName"] = [UserInfo sharedUserInfo].lastName ? : @"Yekula";
     dict[@"impact"] = statusArray[request.requestImpact];
-    dict[@"service"] = @"mobility";
+    dict[@"service"] = request.requestServiceName;
     dict[@"description"] = request.requestDetails;
     
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:dict

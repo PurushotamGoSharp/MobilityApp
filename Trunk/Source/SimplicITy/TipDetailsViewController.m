@@ -440,7 +440,7 @@
     }
     
     [self.collectionView reloadData];
-    
+    [self setPageNoLabelFor:0];
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
