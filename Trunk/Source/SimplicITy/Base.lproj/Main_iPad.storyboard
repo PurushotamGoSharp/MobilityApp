@@ -78,7 +78,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="Vto-5X-HAk">
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="153" translatesAutoresizingMaskIntoConstraints="NO" id="Vto-5X-HAk">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -511,8 +511,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vly-RL-oVc">
-                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vly-RL-oVc">
+                                <rect key="frame" x="0.0" y="64" width="768" height="911"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NF6-8M-tKj" customClass="UIControl">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="911"/>
@@ -934,11 +934,11 @@
                                     <outlet property="delegate" destination="hxX-gQ-JPF" id="msH-Up-eDc"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r0F-DY-Ahe">
-                                <rect key="frame" x="768" y="64" width="160" height="960"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r0F-DY-Ahe">
+                                <rect key="frame" x="768" y="64" width="160" height="911"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="40" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="tob-EH-OKC">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="960"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="40" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="tob-EH-OKC">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="911"/>
                                         <color key="backgroundColor" red="0.13507855660000001" green="0.0010809078599999999" blue="0.01101322641" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="separatorColor" red="0.77114556759999997" green="0.1532588087" blue="0.024688299019999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <prototypes>
@@ -1526,8 +1526,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7T-pf-NdS">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="44"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7T-pf-NdS">
+                                                    <rect key="frame" x="8" y="13" width="38" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1535,7 +1535,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="r2S-NC-22b" firstAttribute="top" secondItem="Q23-Uw-qHQ" secondAttribute="top" id="6qW-Af-G4u"/>
+                                                <constraint firstAttribute="centerY" secondItem="m7T-pf-NdS" secondAttribute="centerY" id="NXC-ZM-FSg"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="m7T-pf-NdS" secondAttribute="trailing" constant="8" id="S4R-Vw-z1f"/>
                                                 <constraint firstAttribute="trailing" secondItem="r2S-NC-22b" secondAttribute="trailing" id="qce-dk-xVH"/>
+                                                <constraint firstItem="m7T-pf-NdS" firstAttribute="leading" secondItem="Q23-Uw-qHQ" secondAttribute="leading" constant="8" id="ubN-hu-oIa"/>
                                                 <constraint firstItem="r2S-NC-22b" firstAttribute="leading" secondItem="Q23-Uw-qHQ" secondAttribute="leading" id="yEB-aR-yh4"/>
                                                 <constraint firstAttribute="bottom" secondItem="r2S-NC-22b" secondAttribute="bottom" constant="1" id="ypq-pi-bNx"/>
                                             </constraints>
@@ -1950,8 +1953,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view alpha="0.69999998807907104" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fT5-pI-vKD">
-                                <rect key="frame" x="0.0" y="39" width="768" height="936"/>
+                            <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fT5-pI-vKD">
+                                <rect key="frame" x="0.0" y="39" width="768" height="985"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2P-0t-bmI">
                                         <rect key="frame" x="20" y="63" width="300" height="1"/>
@@ -1992,8 +1995,8 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnd-em-yrs">
-                                        <rect key="frame" x="20" y="138" width="728" height="790"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnd-em-yrs">
+                                        <rect key="frame" x="20" y="138" width="728" height="839"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -2705,7 +2708,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="MiT-lc-kVI" secondAttribute="bottom" id="pKa-HC-iaU"/>
                                                 </constraints>
                                             </view>
-                                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-VU-XD2">
+                                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-VU-XD2">
                                                 <color key="backgroundColor" white="1" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="7Uc-mX-cCw"/>

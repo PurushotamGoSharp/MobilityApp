@@ -24,9 +24,8 @@
     BOOL navBtnIsOn;
     UIButton *titleButton;
     UIImageView *downArrowImageView;
-//    NSDictionary *serverConfig;
     UIView *titleView;
-    UIImageView *titleImageView;
+//    UIImageView *titleImageView;
     NSMutableArray *locationdataArr ;
     LocationModel *selectedLocation;
     DBManager *dbManager;
@@ -98,87 +97,93 @@
         [noNetworkAlert show];
     }
     
-//    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
-//    {
-//        UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
-//        UIImage *phoneImage = [UIImage imageNamed:@"phone.png"];
-//        UIImage *settingImage = [UIImage imageNamed:@"setting.png"];
-//        UIImage *raiseTicketImage = [UIImage imageNamed:@"RaiseTicket.png"];
-//        UIImage *myTicketsImage = [UIImage imageNamed:@"MyTickets.png"];
-//        UIImage *newsImage = [UIImage imageNamed:@"news.png"];
-//        UIImage *tipsImage = [UIImage imageNamed:@"tips.png"];
-//        UIImage *raiseOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
-//        UIImage *myOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
-//        
-//        
-//        UIImage *imageForService = [self imageResizing:serviceImage];
-//        UIImage *imageForPhone =[self imageResizing:phoneImage];
-//        UIImage *imageForSetting = [self imageResizing:settingImage];
-//        UIImage *imageForRaiseTicket = [self imageResizing:raiseTicketImage];
-//        UIImage *imageForMyTickets = [self imageResizing:myTicketsImage];
-//        UIImage *imageForNews = [self imageResizing:newsImage];
-//        UIImage *imageForTips = [self imageResizing:tipsImage];
-//        UIImage *imageForRaiseOrder = [self imageResizing:raiseOrderImage];
-//        UIImage *imageFormyOrder  = [self imageResizing:myOrderImage];
-//        
-//        self.serviceImageOutlet.image= imageForService;
-//        self.phoneImageOutlet.image= imageForPhone;
-//        self.settingImageOutlet.image= imageForSetting;
-//        self.raiseTicketImageOutlet.image= imageForRaiseTicket;
-//        self.myticketsImageOutlet.image= imageForMyTickets;
-//        self.newsImageOutlet.image= imageForNews;
-//        self.tipsImageOutlet.image= imageForTips;
-//        self.raiseOrderImageOutlet.image= imageForRaiseOrder;
-//        self.myOrderImageOutlet.image= imageFormyOrder;
-//
-//    }else
-//    {
-//        self.serviceImageOutlet.image= [UIImage imageNamed:@"service.png"];
-//        self.phoneImageOutlet.image= [UIImage imageNamed:@"phone.png"];
-//        self.settingImageOutlet.image= [UIImage imageNamed:@"setting.png"];
-//        self.raiseTicketImageOutlet.image= [UIImage imageNamed:@"RaiseTicket.png"];
-//        self.myticketsImageOutlet.image= [UIImage imageNamed:@"MyTickets.png"];
-//        self.newsImageOutlet.image= [UIImage imageNamed:@"news.png"];
-//        self.tipsImageOutlet.image= [UIImage imageNamed:@"tips.png"];
-//        self.raiseOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
-//        self.myOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
-//
-//    }
+    //    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
+    //    {
+    //        UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
+    //        UIImage *phoneImage = [UIImage imageNamed:@"phone.png"];
+    //        UIImage *settingImage = [UIImage imageNamed:@"setting.png"];
+    //        UIImage *raiseTicketImage = [UIImage imageNamed:@"RaiseTicket.png"];
+    //        UIImage *myTicketsImage = [UIImage imageNamed:@"MyTickets.png"];
+    //        UIImage *newsImage = [UIImage imageNamed:@"news.png"];
+    //        UIImage *tipsImage = [UIImage imageNamed:@"tips.png"];
+    //        UIImage *raiseOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
+    //        UIImage *myOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
+    //
+    //
+    //        UIImage *imageForService = [self imageResizing:serviceImage];
+    //        UIImage *imageForPhone =[self imageResizing:phoneImage];
+    //        UIImage *imageForSetting = [self imageResizing:settingImage];
+    //        UIImage *imageForRaiseTicket = [self imageResizing:raiseTicketImage];
+    //        UIImage *imageForMyTickets = [self imageResizing:myTicketsImage];
+    //        UIImage *imageForNews = [self imageResizing:newsImage];
+    //        UIImage *imageForTips = [self imageResizing:tipsImage];
+    //        UIImage *imageForRaiseOrder = [self imageResizing:raiseOrderImage];
+    //        UIImage *imageFormyOrder  = [self imageResizing:myOrderImage];
+    //
+    //        self.serviceImageOutlet.image= imageForService;
+    //        self.phoneImageOutlet.image= imageForPhone;
+    //        self.settingImageOutlet.image= imageForSetting;
+    //        self.raiseTicketImageOutlet.image= imageForRaiseTicket;
+    //        self.myticketsImageOutlet.image= imageForMyTickets;
+    //        self.newsImageOutlet.image= imageForNews;
+    //        self.tipsImageOutlet.image= imageForTips;
+    //        self.raiseOrderImageOutlet.image= imageForRaiseOrder;
+    //        self.myOrderImageOutlet.image= imageFormyOrder;
+    //
+    //    }else
+    //    {
+    //        self.serviceImageOutlet.image= [UIImage imageNamed:@"service.png"];
+    //        self.phoneImageOutlet.image= [UIImage imageNamed:@"phone.png"];
+    //        self.settingImageOutlet.image= [UIImage imageNamed:@"setting.png"];
+    //        self.raiseTicketImageOutlet.image= [UIImage imageNamed:@"RaiseTicket.png"];
+    //        self.myticketsImageOutlet.image= [UIImage imageNamed:@"MyTickets.png"];
+    //        self.newsImageOutlet.image= [UIImage imageNamed:@"news.png"];
+    //        self.tipsImageOutlet.image= [UIImage imageNamed:@"tips.png"];
+    //        self.raiseOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
+    //        self.myOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
+    //
+    //    }
     
-//    UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
-//    UIImage *imageForService = [self imageResizing:serviceImage];
-//    self.serviceImageOutlet.image= imageForService;
+    //    UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
+    //    UIImage *imageForService = [self imageResizing:serviceImage];
+    //    self.serviceImageOutlet.image= imageForService;
     
-    titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
-    titleImageView.frame = CGRectMake(0, 5, 32, 32);
-//    titleImageView.center = CGPointMake(20, 20);
+    
+    
+    
+    
+//    titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
+//    titleImageView.frame = CGRectMake(0, 5, 32, 32);
     
     titleButton = [[UIButton alloc] init];
+    
+    [titleButton setImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"] forState:(UIControlStateNormal)];
+
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
-    //    [titleButton setImage:[UIImage imageNamed:@"perso_Small.png"] forState:UIControlStateNormal];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
     [titleButton setTitle:@"Test" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-    titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
+//    titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
+    titleButton.frame = CGRectMake(0, 5, 0, 0);
+
     [titleButton sizeToFit];
     
-    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+//    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+    CGFloat widthOfView = titleButton.frame.size.width ;
+
     titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
     [titleView addSubview:titleButton];
-    [titleView addSubview:titleImageView];
+//    [titleView addSubview:titleImageView];
     
     downArrowImageView = [[UIImageView alloc] initWithImage:([UIImage imageNamed:@"DashBoardDropDownBarImage"])];
     downArrowImageView.frame = CGRectMake(0, 0, 36, 3);
-    downArrowImageView.center = CGPointMake(titleView.center.x + 20, titleView.center.y + 14);
+    downArrowImageView.center = CGPointMake(titleView.center.x, titleView.center.y + 18);
     [titleView addSubview:downArrowImageView];
     
     downArrowImageView.hidden = NO;
     
     self.navigationItem.titleView = titleView;
-    
-
-
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone ) {
         self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
@@ -211,10 +216,6 @@
         self.dashBoardPersonCode.font=[self customFont:18 ofName:MuseoSans_300];
     }
     
-
-    
-    
-    
     self.serviceDesksLbl.font = [self customFont:18 ofName:MuseoSans_700];
     
     userInfo = [UserInfo sharedUserInfo];
@@ -224,7 +225,7 @@
 
 //-(UIImage*)imageResizing:(UIImage*)image
 //{
-//    
+//
 //    CGRect cropRect = CGRectMake(0, 0, 128, 128);
 //    UIGraphicsBeginImageContext(cropRect.size);
 //    [image drawInRect:cropRect];
@@ -242,7 +243,7 @@
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
-
+    
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"country"])
@@ -313,9 +314,11 @@
             [titleButton setTitle:firstName forState:(UIControlStateNormal)];
             [titleButton sizeToFit];
             
-            CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+//            CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
+            CGFloat widthOfView = titleButton.frame.size.width;
+
             titleView.frame = CGRectMake(0, 0, widthOfView, 40);
-            downArrowImageView.center = CGPointMake(titleView.center.x + 18, titleView.center.y + 18);
+            downArrowImageView.center = CGPointMake(titleView.center.x , titleView.center.y + 18);
         }
         
         if (firstName || lastName)
@@ -333,7 +336,7 @@
         }
         
         [self getDataForCountryCode:location];
-
+        
         self.dashBoardPersonAddress.text = selectedLocation.countryName?:location;
         self.emailID.text = emailIDValue;
     }
@@ -372,7 +375,7 @@
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
     locationdataArr = [[NSMutableArray alloc] init];
-
+    
     for (NSDictionary *aDict in arr)
     {
         if ([aDict[@"Status"]boolValue])
@@ -420,7 +423,7 @@
         
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, serviceDeskNoJSON, alocation.countryName, alocation.code];
         
-//                NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, alocation.serviceDeskNumber, alocation.countryName, alocation.code];
+        //                NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, alocation.serviceDeskNumber, alocation.countryName, alocation.code];
         
         [dbManager saveDataToDBForQuery:insertSQL];
     }
@@ -434,10 +437,9 @@
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
-        NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM location WHERE countryCode = '%@'", countryCode];
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM location WHERE countryCode = '%@'", countryCode];
     
-//    NSString *queryString = @"SELECT * FROM location WHERE countryCode = '%@'";
-    
+    //    NSString *queryString = @"SELECT * FROM location WHERE countryCode = '%@'";
     
     if (![dbManager getDataForQuery:queryString])
     {
@@ -467,7 +469,7 @@
         selectedLocation.serviceDeskNumber = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding]
                                                                              options:kNilOptions
                                                                                error:nil];
-//        selectedLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        //        selectedLocation.serviceDeskNumber = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
         
         selectedLocation.countryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
         selectedLocation.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
@@ -477,12 +479,11 @@
     
     [self.tableViewOutlet reloadData];
     [self adjustHeightOfPopOverView];
-
+    
 }
 
 - (void)navTitleBtnPressed:(id)sender
 {
-    
     NSInteger constrainValue;
     if (!navBtnIsOn)
     {
@@ -499,19 +500,18 @@
                      animations:^{
                          self.profileViewTopConstraint.constant = constrainValue;
                          [self.view layoutIfNeeded];
-
+                         
                      } completion:^(BOOL finished) {
                          
                      }];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
 }
 
--(void)viewDidDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     self.profileViewTopConstraint.constant = -107;
@@ -528,10 +528,12 @@
 {
     [self.tabBarController setSelectedIndex:1];
 }
+
 - (IBAction)raiseATicketPressed:(UIButton *)sender
 {
-//    [self.tabBarController setSelectedIndex:1];
+    //    [self.tabBarController setSelectedIndex:1];
 }
+
 - (IBAction)tipsButtonPressed:(UIButton *)sender
 {
     [self.tabBarController setSelectedIndex:2];
@@ -539,8 +541,8 @@
 
 - (IBAction)myTicketsBtnPressed:(id)sender
 {
-//    [self.tabBarController setSelectedIndex:1];
-
+    //    [self.tabBarController setSelectedIndex:1];
+    
 }
 
 - (IBAction)myOrderBtnPresed:(id)sender
@@ -577,20 +579,17 @@
              {
                  
              }];
-            
         }else
         {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
         }
-
     }
     else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert !" message:CALL_IT_DESK_FROM_IPAD delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
-    
-    }
+}
 
 #pragma mark UITableViewDataSource methods
 
@@ -598,23 +597,21 @@
 {
     return 1;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [selectedLocation.serviceDeskNumber count];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     UILabel *name = (UILabel*)[cell viewWithTag:100];
     name.font = [self customFont:14 ofName:MuseoSans_300];
-
-    
     
     //    phoneNum.text = self.serviceDeskDeteils;
     
@@ -622,39 +619,35 @@
     
     name.text = dict[@"Name"];
     
-    
     return cell;
 }
 
 #pragma mark UITableViewDelegate methods
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     [UIView animateWithDuration:.3 animations:^{
         self.alphaViewOutlet.alpha= 0;
         self.containerViewOutlet.alpha = 0;
-
+        
     } completion:^(BOOL finished) {
         self.alphaViewOutlet.hidden = YES;
         self.containerViewOutlet.hidden = YES;
     }];
-
+    
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
     
     NSLog(@"%@", [self phoneNumValidation]);
-
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
 }
 
 - (NSString*)phoneNumValidation
 {
     NSIndexPath *indexpath = [self.tableViewOutlet indexPathForSelectedRow];
     
-     NSDictionary *dict = selectedLocation.serviceDeskNumber[indexpath.row];
+    NSDictionary *dict = selectedLocation.serviceDeskNumber[indexpath.row];
     
     NSString *phoneNoFromDict = dict[@"Number"];
     
@@ -676,7 +669,7 @@
         }
     }
     
-//    NSLog(@"%@", phoneNoToCall); // "123123123"
+    //    NSLog(@"%@", phoneNoToCall); // "123123123"
     phoneNoToCall = [[@"tel://" stringByAppendingString:phoneNoToCall] mutableCopy];
     return phoneNoToCall;
 }
@@ -725,7 +718,6 @@
         TicketsListViewController *orderList = segue.destinationViewController;
         orderList.orderItemDifferForList = @"orderList";
     }
-
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "FileLoadViewController.h"
 
-@interface FileLoadViewController ()
+@interface FileLoadViewController () <UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
@@ -24,9 +24,13 @@
 {
     [super viewWillAppear:animated];
     
-    NSURL *url = [NSURL URLWithString:self.pathOfFile];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSString *encodedString=[self.pathOfFile stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    NSLog(@"Encoded string %@",encodedString);
     
+    NSURL *url = [NSURL URLWithString:encodedString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    self.webView.delegate = self;
     [self.webView loadRequest:request];
 }
 
@@ -42,7 +46,10 @@
                              }];
 }
 
-
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"Error %@", error);
+}
 /*
 #pragma mark - Navigation
 

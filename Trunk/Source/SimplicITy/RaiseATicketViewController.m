@@ -38,7 +38,8 @@
 
 #define PLACEHOLDE_TEXT_FOR_SELECT_ITEM @"Select an item"
 #define PLACEHOLDE_TEXT_FOR_SELECT_SERVICE @"Select a service"
-#define PLACEHOLDE_TEXT_FOR_DETAIL @"Describe your request here"
+#define PLACEHOLDER_TEXT_FOR_DETAIL_TICKET @"Describe your request here"
+#define PLACEHOLDER_TEXT_FOR_DETAIL_ORDER @"Please describe the details of what you are ordering. If this is for hardware then enter the model number.  For software enter the name of the software and the version number. If there are any questions the Mobility team will contact you so we ensure the proper Item is ordered"
 
 
 @interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate, UIAlertViewDelegate>
@@ -95,7 +96,6 @@
     self.selectedCategorylabel.font = [self customFont:16 ofName:MuseoSans_300];
     self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
     
-    self.textView.placeholder = PLACEHOLDE_TEXT_FOR_DETAIL;
     self.textView.font = [self customFont:16 ofName:MuseoSans_300];
     
     self.navigationItem.leftBarButtonItems = @[];
@@ -138,12 +138,16 @@
         
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_ITEM;
+        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_ORDER;
+
     }
     else
     {
         UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
         
+        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+
         titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
         titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
         titleLabel.backgroundColor = [UIColor clearColor];

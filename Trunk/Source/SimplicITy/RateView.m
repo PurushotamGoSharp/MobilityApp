@@ -86,9 +86,7 @@
         UIImageView *imageView = [self.imageViews objectAtIndex:i];
         CGRect imageFrame = CGRectMake(self.leftMargin + i*(self.midMargin+imageWidth), 0, imageWidth, imageHeight);
         imageView.frame = imageFrame;
-        
-    }    
-    
+    }
 }
 
 - (void)setMaxRating:(int)maxRating {
@@ -158,6 +156,7 @@
         }
     }
     
+    newRating = MAX(1, newRating);
     self.rating = newRating;
 }
 

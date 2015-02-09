@@ -475,16 +475,16 @@
         if ([aDict[@"Status"] boolValue])
         {
             aboutDescription = aDict[@"Description"];
+            ucbLogoDocCode = aDict[@"UCBLogo_DocumentCode"];
+            vmokshaLogoDocCode = aDict[@"VmokshaLogo_DocumentCode"];
 
             if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 
-                ucbLogoDocCode = aDict[@"UCBLogo_DocumentCode"];
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, ucbLogoDocCode];
                 [postMan get:imageUrl];
                 
-                vmokshaLogoDocCode = aDict[@"VmokshaLogo_DocumentCode"];
                 imageUrl = [NSString stringWithFormat:RENDER_DOC_API, vmokshaLogoDocCode];
                 [postMan get:imageUrl];
             }
@@ -606,6 +606,7 @@
 {
     NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [pathToDoc stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.png", docCode]];
+    NSLog(@"File path = %@", filePath);
     
     NSData *imageData = [NSData dataWithContentsOfFile:filePath];
     
