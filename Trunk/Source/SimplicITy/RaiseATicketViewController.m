@@ -303,8 +303,17 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    
+    if (self.scrollView.contentOffset.y >= 100)
+    {
+        self.detailsBottomMaxConst.constant = 70;
+        [self.view layoutIfNeeded];
+        
+        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+        
+    }
 }
+
+
 
 - (void)backBtnAction
 {
