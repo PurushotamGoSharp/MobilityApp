@@ -62,7 +62,7 @@
             imageView.image = self.fullSelectedImage;
         } else if (self.rating >= i+.75) {
             imageView.image = self.three4thSelectedImage;
-        } else if (self.rating > i+.5) {
+        } else if (self.rating >= i+.5) {
             imageView.image = self.halfSelectedImage;
         } else if (self.rating >= i+.25) {
             imageView.image = self.quarterSelectedImage;

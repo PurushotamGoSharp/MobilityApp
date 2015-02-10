@@ -57,53 +57,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QKC-BV-Ygr" userLabel="ProfileView">
-                                <rect key="frame" x="0.0" y="-43" width="768" height="107"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="1nd-sF-TAW">
-                                        <rect key="frame" x="23" y="15" width="50" height="50"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperator" translatesAutoresizingMaskIntoConstraints="NO" id="CGu-gF-Uzt">
-                                        <rect key="frame" x="107" y="38" width="1" height="28"/>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UH0001" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4V-h3-HMJ">
-                                        <rect key="frame" x="18" y="71" width="100" height="25"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ubf-JO-YzP">
-                                        <rect key="frame" x="135" y="23" width="59" height="17"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vto-5X-HAk">
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="baN-hQ-h4e">
-                                        <rect key="frame" x="137" y="53" width="32" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.30588235289999999" green="0.65098039220000004" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="Ubf-JO-YzP" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="135" id="5zX-ZZ-csy"/>
-                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="top" secondItem="QKC-BV-Ygr" secondAttribute="top" constant="53" id="9Cg-dU-J5E"/>
-                                    <constraint firstAttribute="height" constant="107" id="AVr-Kw-IhH"/>
-                                    <constraint firstItem="Ubf-JO-YzP" firstAttribute="top" secondItem="Vto-5X-HAk" secondAttribute="bottom" constant="23" id="KwK-Lp-GGg"/>
-                                    <constraint firstItem="Vto-5X-HAk" firstAttribute="top" secondItem="baN-hQ-h4e" secondAttribute="bottom" constant="-70" id="R4z-qi-25c"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vto-5X-HAk" secondAttribute="trailing" constant="4" id="Xeu-nE-kke"/>
-                                    <constraint firstItem="Vto-5X-HAk" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="135" id="eYd-8h-TCG"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ubf-JO-YzP" secondAttribute="trailing" constant="4" id="liY-7f-2Sa"/>
-                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="137" id="vfk-k2-QNY"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="baN-hQ-h4e" secondAttribute="trailing" constant="4" id="xpu-Qc-tfk"/>
-                                </constraints>
-                            </view>
                             <view hidden="YES" alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bC0-eO-3bd" userLabel="AlphaView" customClass="UIControl">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -447,6 +400,49 @@
                                     <constraint firstItem="Fb6-Uv-Zdc" firstAttribute="height" secondItem="cYz-IL-FfM" secondAttribute="height" priority="998" id="bgN-nV-oqB"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QKC-BV-Ygr" userLabel="ProfileView">
+                                <rect key="frame" x="0.0" y="-43" width="768" height="107"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Avatar" translatesAutoresizingMaskIntoConstraints="NO" id="1nd-sF-TAW">
+                                        <rect key="frame" x="23" y="15" width="50" height="50"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="seperator" translatesAutoresizingMaskIntoConstraints="NO" id="CGu-gF-Uzt">
+                                        <rect key="frame" x="107" y="38" width="1" height="28"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UH0001" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4V-h3-HMJ">
+                                        <rect key="frame" x="18" y="71" width="100" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="email" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vto-5X-HAk">
+                                        <rect key="frame" x="204" y="39" width="100" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="India" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="baN-hQ-h4e">
+                                        <rect key="frame" x="137" y="44" width="32" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ubf-JO-YzP">
+                                        <rect key="frame" x="137" y="24" width="59" height="17"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.30588235289999999" green="0.65098039220000004" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="top" secondItem="Ubf-JO-YzP" secondAttribute="bottom" constant="3" id="1Cs-h8-P0O"/>
+                                    <constraint firstItem="baN-hQ-h4e" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="137" id="86G-MK-uNy"/>
+                                    <constraint firstAttribute="height" constant="107" id="AVr-Kw-IhH"/>
+                                    <constraint firstItem="Ubf-JO-YzP" firstAttribute="leading" secondItem="QKC-BV-Ygr" secondAttribute="leading" constant="137" id="H4v-wm-vlo"/>
+                                    <constraint firstItem="Ubf-JO-YzP" firstAttribute="top" secondItem="QKC-BV-Ygr" secondAttribute="top" constant="24" id="g56-he-3t6"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>

@@ -135,10 +135,8 @@
         
         self.writeReviewLbl.font = [self customFont:22 ofName:MuseoSans_700];
         describtionFont = [self customFont:20 ofName:MuseoSans_300];
-
     }
     
-
     self.descriptionTextView.editable = YES;
     [self.descriptionTextView setFont:describtionFont];
     self.descriptionTextView.editable = NO;
@@ -203,7 +201,7 @@
         
 //        NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"Corp123\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
         
-        NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}",  [UserInfo sharedUserInfo].cropID, self.yourRateValueLbl.text, self.writeReviewTxtView.text];
+        NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%@\",\"Feedback\":\"%@\"}}",  [UserInfo sharedUserInfo].cropID?:@"", self.yourRateValueLbl.text, self.writeReviewTxtView.text];
         
         self.tickMarkBarBtnOutlet.enabled = NO;
         
