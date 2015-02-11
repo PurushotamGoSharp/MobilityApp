@@ -62,19 +62,17 @@
     BOOL haveRasiedRequest;
 }
 
-@property (weak, nonatomic) IBOutlet UITextView *textFldOutlet;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet PlaceHolderTextView *textView;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
-@property (weak, nonatomic) IBOutlet UILabel *tipsLableOutlet;
-@property (weak, nonatomic) IBOutlet UIImageView *bulbImgOutlet;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
 @property (weak, nonatomic) IBOutlet UILabel *detailLbl;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *serviceTopToTableViewBottomConst;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailsBottomMaxConst;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailsBottomMaxConst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewBottomConst;
+@property (weak, nonatomic) IBOutlet UIView *textviewContentView;
 
 @end
 
@@ -123,14 +121,11 @@
     high = (UILabel *)[impactCell viewWithTag:30];
     critical = (UILabel *)[impactCell viewWithTag:40];
     
-    
     low.font=[self customFont:14 ofName:MuseoSans_300];
     medium.font=[self customFont:14 ofName:MuseoSans_300];
     high.font=[self customFont:14 ofName:MuseoSans_300];
     critical.font=[self customFont:14 ofName:MuseoSans_300];
 
-    
-    
     if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
         [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
@@ -139,7 +134,6 @@
         self.CategoryTitleOutlet.text = @"Items";
         self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_ITEM;
         self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_ORDER;
-
     }
     else
     {
@@ -156,7 +150,6 @@
         
         self.navigationItem.titleView = titleView;
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -199,6 +192,16 @@
                                              selector:@selector(failureSync)
                                                  name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -211,6 +214,12 @@
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
                                                   object:nil];
 }
 
@@ -303,14 +312,14 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    if (self.scrollView.contentOffset.y >= 100)
-    {
-        self.detailsBottomMaxConst.constant = 70;
-        [self.view layoutIfNeeded];
-        
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-        
-    }
+//    if (self.scrollView.contentOffset.y >= 100)
+//    {
+//        self.detailsBottomMaxConst.constant = 70;
+//        [self.view layoutIfNeeded];
+//        
+//        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+//        
+//    }
 }
 
 
@@ -542,48 +551,74 @@
 - (IBAction)hideKeyboard:(UIControl *)sender
 {
     [self.view endEditing:YES];
+//
+//    if (self.scrollView.contentOffset.y >= 100)
+//    {
+//        self.detailsBottomMaxConst.constant = 70;
+//        [self.view layoutIfNeeded];
+//
+//        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+//
+//    }
+}
 
-    if (self.scrollView.contentOffset.y >= 100)
-    {
-        self.detailsBottomMaxConst.constant = 70;
-        [self.view layoutIfNeeded];
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:.3
+                     animations:^{
+                         
+                         self.scrollViewBottomConst.constant = kbSize.height - 56;
+                         [self.view layoutIfNeeded];
 
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         [self.scrollView scrollRectToVisible:self.textviewContentView.frame animated:YES];
 
-    }
+                     }];
+    
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    self.scrollViewBottomConst.constant = 0;
+    [self.view layoutIfNeeded];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if (self.scrollView.contentOffset.y <= 0)
-    {
-        initialOffsetOfSCrollView = self.scrollView.contentOffset;
-        initialScollViewInset = self.scrollView.contentInset;
-    }
-    
-    //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
-//    [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
-//    self.detailsBottomMaxConst.constant = 220;
-//    [self.view layoutIfNeeded];
-    
-    
-    
-    UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
-    if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
-    {
-        self.self.detailsBottomMaxConst.constant = 220;
-        [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
-        [self.view layoutIfNeeded];
-
-        
-    }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
-    {
-       
-        self.self.detailsBottomMaxConst.constant = 280;
-        [self.scrollView setContentOffset:(CGPointMake(0, 220)) animated:YES];
-        [self.view layoutIfNeeded];
-    }
-    
+//    if (self.scrollView.contentOffset.y <= 0)
+//    {
+//        initialOffsetOfSCrollView = self.scrollView.contentOffset;
+//        initialScollViewInset = self.scrollView.contentInset;
+//    }
+//    
+//    //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
+////    [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
+////    self.detailsBottomMaxConst.constant = 220;
+////    [self.view layoutIfNeeded];
+//    
+//    
+//    
+//    UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
+//    if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
+//    {
+//        self.self.detailsBottomMaxConst.constant = 220;
+//        [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
+//        [self.view layoutIfNeeded];
+//
+//        
+//    }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
+//    {
+//       
+//        self.self.detailsBottomMaxConst.constant = 280;
+//        [self.scrollView setContentOffset:(CGPointMake(0, 220)) animated:YES];
+//        [self.view layoutIfNeeded];
+//    }
+//    
 
 
 }
