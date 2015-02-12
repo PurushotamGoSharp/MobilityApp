@@ -57,7 +57,7 @@
     
 //    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM location WHERE countryCode = '%@'", countryCode];
     
-        NSString *queryString = @"SELECT * FROM location";
+        NSString *queryString = @"SELECT * FROM location ORDER BY countryName ASC";
     
     
     if (![dbManager getDataForQuery:queryString])

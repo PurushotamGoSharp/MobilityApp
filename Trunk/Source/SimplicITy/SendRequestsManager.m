@@ -163,6 +163,17 @@
         return;
     }
     
+    if ([[UserInfo sharedUserInfo] getServerConfig] == nil)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"com.apple.configuration.managed key is not configured for this app. Hence ticket can not be raised"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
     if (blockUI)
     {
         [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:NO];

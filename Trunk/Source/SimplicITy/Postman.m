@@ -44,7 +44,7 @@
 
 - (void)post:(NSString *)URLString withParameters:(NSString *)parameter
 {
-    NSLog(@"parameters = %@", parameter);
+    NSLog(@"URl = %@ : parameters = %@", URLString,parameter);
     NSDictionary *parameterDict = [NSJSONSerialization JSONObjectWithData:[parameter dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
     
     AFHTTPRequestOperation *operation = [manager POST:URLString
@@ -65,6 +65,8 @@
 
 - (void)get:(NSString *)URLString
 {
+    NSLog(@"URl = %@ ", URLString);
+
     AFHTTPRequestOperation *operation = [manager GET:URLString
                                           parameters:Nil
                                              success:^(AFHTTPRequestOperation *operation, id responseObject) {
