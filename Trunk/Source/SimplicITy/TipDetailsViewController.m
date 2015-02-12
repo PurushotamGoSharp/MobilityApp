@@ -35,6 +35,8 @@
     NSString *cachePath;
     
     BOOL videoIsPlaying;
+    
+    UIInterfaceOrientation currentOrientation;
 }
 
 - (void)viewDidLoad
@@ -337,12 +339,6 @@
     
     webView.mediaPlaybackRequiresUserAction=NO;
     [webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
-    
-//    self.title = aTipModel.question;
-//   navBatTitle =  self.title;
-//    
-//    NSLog(@"tip Sub category %@",navBatTitle);
-    
 
     return cell;
 }

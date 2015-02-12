@@ -178,5 +178,9 @@
     }
 }
 
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    
+}
 
 @end
