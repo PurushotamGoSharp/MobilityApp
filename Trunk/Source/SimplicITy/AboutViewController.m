@@ -11,8 +11,11 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "RateView.h"
 #import "UserInfo.h"
+#import <AFNetworking/AFNetworking.h>
+
 
 #define ALERT_FOR_RATING @"Thank you for Rating the App"
+#define FEEDBACK_IN_OFFLINE @"Device is not connected to internet. Your feedback will be posted automatically once device connects to internet"
 
 
 @interface AboutViewController () <postmanDelegate, DBManagerDelegate,RateViewDelegate,UITextViewDelegate>
@@ -212,8 +215,34 @@
         [self hideWriteReviewTextView];
     }else
     {
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [[NSUserDefaults standardUserDefaults] setObject:self.writeReviewTxtView.text forKey:@"Feedback_Data"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Feedback_Sync"];
+        [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:FEEDBACK_IN_OFFLINE delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [noNetworkAlert show];
+    }
+}
+
+- (void)networkStatusChanged:(AFNetworkReachabilityStatus)status
+{
+    if (status == AFNetworkReachabilityStatusReachableViaWiFi || status == AFNetworkReachabilityStatusReachableViaWWAN)
+    {
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"Feedback_Sync"])
+        {
+            NSInteger ratingGive = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
+            NSString *feedbackData = [[NSUserDefaults standardUserDefaults] objectForKey:@"Feedback_Data"];
+            NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%i\",\"Feedback\":\"%@\"}}",  [UserInfo sharedUserInfo].cropID?:@"", ratingGive, feedbackData];
+            
+            self.tickMarkBarBtnOutlet.enabled = NO;
+            
+            NSString *feedBackAPI = [NSString stringWithFormat:@"%@%@",FEEDBACK_API, [UserInfo sharedUserInfo].cropID];
+            [postMan post:feedBackAPI withParameters:parameter];
+            
+            self.writeReviewTxtView.text = @"";
+            [self hideWriteReviewTextView];
+        }
     }
 }
 
@@ -244,24 +273,76 @@
         [postMan get:AVERAGE_RATING_API];
     }
     
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(orientationChanged:)
+//                                                 name:UIDeviceOrientationDidChangeNotification
+//                                               object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status)
+     {
+         
+         [self networkStatusChanged:status];
+         
+     }];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                    name:UIDeviceOrientationDidChangeNotification
+//                                                  object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIDeviceOrientationDidChangeNotification
+                                                    name:UIKeyboardDidShowNotification
                                                   object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+
     
 //    self.yourRatingView.rating = 0;
 //    self.yourRateValueLbl.text = @"0";
     self.writeReviewTxtView.text = @"";
     [self hideWriteReviewTextView];
 
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:.3
+                     animations:^{
+                         
+                         self.scrollViewBottomConst.constant = kbSize.height - 56;
+                         [self.view layoutIfNeeded];
+                         
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         [self.scrollView scrollRectToVisible:self.view.frame animated:YES];
+                         
+                     }];
+    
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    self.scrollViewBottomConst.constant = 0;
+//    [self.view layoutIfNeeded];
 }
 
 - (void)backBtnAction
@@ -421,11 +502,16 @@
     
     if ([suecss[@"Success"] boolValue])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        if (![[NSUserDefaults standardUserDefaults]boolForKey:@"Feedback_Sync"])
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+        }
         
         self.writeReviewTxtView.text = @"";
         
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"Feedback_Sync"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"Feedback_Data"];
         [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
@@ -618,35 +704,35 @@
     return nil;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
-    if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
-    {
-        self.scrollViewBottomConst.constant = 195;
-        
-    }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
-    {
-        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-        {
-            self.scrollViewBottomConst.constant = 145;
-        }
-        else
-        {
-            self.scrollViewBottomConst.constant = 350;
-            
-        }    }
-    
-    [self.view layoutIfNeeded];
-    
-    [self.scrollView scrollRectToVisible:textView.frame animated:YES];
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    self.scrollViewBottomConst.constant = 0;
-    [self.view layoutIfNeeded];
-}
+//- (void)textViewDidBeginEditing:(UITextView *)textView
+//{
+//    UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
+//    if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
+//    {
+//        self.scrollViewBottomConst.constant = 195;
+//        
+//    }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
+//    {
+//        if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+//        {
+//            self.scrollViewBottomConst.constant = 145;
+//        }
+//        else
+//        {
+//            self.scrollViewBottomConst.constant = 350;
+//            
+//        }    }
+//    
+//    [self.view layoutIfNeeded];
+//    
+//    [self.scrollView scrollRectToVisible:textView.frame animated:YES];
+//}
+//
+//- (void)textViewDidEndEditing:(UITextView *)textView
+//{
+//    self.scrollViewBottomConst.constant = 0;
+//    [self.view layoutIfNeeded];
+//}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
