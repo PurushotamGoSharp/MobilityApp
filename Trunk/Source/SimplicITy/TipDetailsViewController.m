@@ -53,15 +53,12 @@
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
-    
     NSLog(@"nav Bar Title is : %@",self.title);
     
 //    self.navigationItem.title =self.parentCategory;
 
     NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     cachePath = [cachedirs lastObject];
-    
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -88,31 +85,25 @@
 
     [self setPageNoLabelFor:currentPageNo];
     
-//    NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-//    NSString *cachePath = [cachedirs lastObject];
-//    
-//    CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 20;
-//    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
-//    [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoStarted:)
+                                                 name:@"AVPlayerItemBecameCurrentNotification"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoFinished:)
+                                                 name:@"UIWindowDidBecomeHiddenNotification" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoStarted:) name:@"AVPlayerItemBecameCurrentNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoFinished:) name:@"UIWindowDidBecomeHiddenNotification" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(orientationChanged:)    name:UIDeviceOrientationDidChangeNotification  object:nil];
+    currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVPlayerItemBecameCurrentNotification" object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIWindowDidBecomeHiddenNotification" object:nil];
-    
-//    [[NSNotificationCenter defaultCenter]removeObserver:self
-//                                                   name:UIDeviceOrientationDidChangeNotification
-//                                                 object:nil];
-
 }
 
 - (void)tryToUpdateCategories
@@ -127,7 +118,6 @@
     NSString *userDeafultKey = [stringArray componentsJoinedByString:@","];
     return [userDeafultKey lowercaseString];
 }
-
 
 - (void)videoStarted:(NSNotification *)notification
 {
@@ -144,12 +134,36 @@
 
 - (void)orientationChanged:(NSNotification *)notification
 {
+    UIInterfaceOrientation toOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
     if (videoIsPlaying)
     {
+        currentOrientation = toOrientation;
         return;
     }
     
-    [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    
+    if (toOrientation == currentOrientation)
+    {
+        currentOrientation = toOrientation;
+        return;
+    }
+//
+//    if (toOrientation == UIInterfaceOrientationMaskPortrait && currentOrientation == UIInterfaceOrientationMaskPortraitUpsideDown)
+//    {
+//        currentOrientation = toOrientation;
+//        return;
+//    }
+//    
+//    if (toOrientation == UIInterfaceOrientationMaskPortraitUpsideDown && currentOrientation == UIInterfaceOrientationMaskPortrait)
+//    {
+//        currentOrientation = toOrientation;
+//        return;
+//    }
+    
+    currentOrientation = toOrientation;
+
+    [self adjustViewsForOrientation:toOrientation];
 }
 
 - (void) adjustViewsForOrientation:(UIInterfaceOrientation) orientation
@@ -157,39 +171,7 @@
     [self.collectionView reloadData];
     
     CGFloat widthOfCollectonView = self.collectionView.frame.size.width;
-    
     [self.collectionView setContentOffset:(CGPointMake(widthOfCollectonView*currentPageNo, 0)) animated:YES];
-    
-//    switch (orientation)
-//    {
-//        case UIInterfaceOrientationPortrait:
-//        case UIInterfaceOrientationPortraitUpsideDown:
-//        {
-//            NSLog(@"UIInterfaceOrientationPortrait");
-//            //load the portrait view
-//            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-//            NSString *cachePath = [cachedirs lastObject];
-//
-//            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
-//            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
-//            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
-//        }
-//            break;
-//        case UIInterfaceOrientationLandscapeLeft:
-//        case UIInterfaceOrientationLandscapeRight:
-//        {
-//            //load the landscape view
-//            NSLog(@"UIInterfaceOrientationLandscapeLeft");
-//            NSArray *cachedirs = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-//            NSString *cachePath = [cachedirs lastObject];
-//            
-//            CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 40;
-//            NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> %@ </div>",widthOfWebView,self.tipModel.answer];
-//            [self.webView loadHTMLString:sring baseURL:[NSURL URLWithString:cachePath]];
-//        }
-//            break;
-//        case UIInterfaceOrientationUnknown:break;
-//    }
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -216,47 +198,6 @@
         [[DownloadManager sharedDownloadManager] downloadFromURLString:requestedURL.absoluteString];
         
         return NO;
-//        NSString *fileExtension = requestedURL.pathExtension;
-//        
-//        if ([fileExtension isEqualToString:@"pptx"])
-//        {
-//            NSString *filename = requestedURL.lastPathComponent;
-//            NSLog(@"Filename: %@", filename);
-//            NSString *docPath = [self documentsDirectoryPath];
-//            // Combine the filename and the path to the documents dir into the full path
-//            
-//            NSString *pathToDownloadTo = [NSString stringWithFormat:@"%@/Downloads", docPath];
-//            
-//            if (![[NSFileManager defaultManager] fileExistsAtPath:pathToDownloadTo])
-//                [[NSFileManager defaultManager] createDirectoryAtPath:pathToDownloadTo withIntermediateDirectories:NO attributes:nil error:nil];
-//            // Load the file from the remote server
-//            
-//            pathToDownloadTo = [NSString stringWithFormat:@"%@/%@", pathToDownloadTo, filename];
-//            
-//            NSData *tmp = [NSData dataWithContentsOfURL:requestedURL];
-//            // Save the loaded data if loaded successfully
-//            
-//            if (tmp != nil)
-//            {
-//                NSError *error = nil;
-//                // Write the contents of our tmp object into a file
-//                [tmp writeToFile:pathToDownloadTo options:NSDataWritingAtomic error:&error];
-//                if (error != nil)
-//                {
-//                    NSLog(@"Failed to save the file: %@", [error description]);
-//                } else
-//                {
-//                    // Display an UIAlertView that shows the users we saved the file :)
-//                    UIAlertView *filenameAlert = [[UIAlertView alloc] initWithTitle:@"File saved" message:[NSString stringWithFormat:@"The file %@ has been saved.", filename] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//                    [filenameAlert show];
-//                }
-//                
-//            } else
-//            {
-//                // File could notbe loaded -> handle errors
-//            }
-//            
-//        }
     }
     
     return YES;
@@ -314,14 +255,10 @@
         return;
     }
     self.currentPageNoLabel.text = [NSString stringWithFormat:@"%li of %li", (long)pageNo+1, (long)noOfTotalPages];
-    
-//    TipModel *tip = [[TipModel alloc] init];
-//    self.title =tip.question;
 }
 
 #pragma mark
 #pragma mark: UICollectionViewDelegate
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [subCategoriesCollection count];
@@ -368,12 +305,6 @@
         [self setPageNoLabelFor:pageNo];
 //        currentPageNo = pageNo;
     }
-    
-//    self.title =self.parentCategory;
-
-//    self.title = navBatTitle;
-
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -387,6 +318,7 @@
         currentPageNo = pageNo;
     }
 }
+
 #pragma mark
 #pragma mark: postmanDelegate
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
@@ -398,11 +330,6 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    
-    //    if (subCategoriesCollection.count <=1)
-    //    {
-    //        [self performSegueWithIdentifier:@"TipsSubToDetailsSegue" sender:self];
-    //    }
 }
 
 - (void)parseResponseData:(NSData *)response
@@ -509,7 +436,6 @@
 
 #pragma mark
 #pragma mark: TipsSubCategoriesViewControllerDelegate
-
 - (void)tipsSub:(TipsSubCategoriesViewController *)tipsSub selectedIndex:(NSInteger)selectedIndex
 {
     [self setPageForIndex:selectedIndex];

@@ -39,8 +39,8 @@
 #define FLOW_FOR_ORDER @"orderBtnPressed"
 
 //#define BASE_URL @"https://vmlabs-win.vmoksha.com:8087/"
-//#define BASE_URL @"http://simplicitystg.ripple-io.in/"
-#define BASE_URL @"https://simplicityapidev.ucb.com/"
+#define BASE_URL @"http://simplicitystg.ripple-io.in/"
+//#define BASE_URL @"https://MobilITyAPIACC.ucb.com/"
 
 #define SEED_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Seed"]
 #define SEARCH_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Category"]
@@ -55,9 +55,9 @@
 #define FEEDBACK_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/"]
 
 // UCB
-#define BASE_URL_UCB @"https://simplicity-dev.ucb.com/"
-#define ITSM_AUTH_API @"https://simplicity-dev.ucb.com/itsm"
-#define RAISE_A_TICKET_API @"https://simplicity-dev.ucb.com/itsm/ticket/"
-#define RAISE_AN_ORDER_API @"https://simplicity-dev.ucb.com/itsm/ticket/"
+#define BASE_URL_UCB @"https://mdmAPIACC.ucb.com/"
+#define ITSM_AUTH_API @"https://mdmAPIACC.ucb.com/itsm"
+#define RAISE_A_TICKET_API @"https://mdmAPIACC.ucb.com/itsm/ticket/"
+#define RAISE_AN_ORDER_API @"https://mdmAPIACC.ucb.com/itsm/ticket/"
 
 #endif
