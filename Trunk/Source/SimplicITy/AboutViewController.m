@@ -504,7 +504,7 @@
     {
         if (![[NSUserDefaults standardUserDefaults]boolForKey:@"Feedback_Sync"])
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SimplicITy Rating" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [alert show];
         }
         

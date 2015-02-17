@@ -39,7 +39,7 @@
 #define FLOW_FOR_ORDER @"orderBtnPressed"
 
 //#define BASE_URL @"https://vmlabs-win.vmoksha.com:8087/"
-#define BASE_URL @"http://simplicitystg.ripple-io.in/"
+#define BASE_URL @"http://simplicitytst.ripple-io.in/"
 //#define BASE_URL @"https://MobilITyAPIACC.ucb.com/"
 
 #define SEED_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Seed"]
@@ -53,6 +53,7 @@
 #define AVERAGE_RATING_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/Average"]
 #define USER_GIVEN_RATING_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/"]
 #define FEEDBACK_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/"]
+#define SURVEY_BASE_API  [NSString stringWithFormat:@"%@%@",BASE_URL, @"Survey"]
 
 // UCB
 #define BASE_URL_UCB @"https://mdmAPIACC.ucb.com/"

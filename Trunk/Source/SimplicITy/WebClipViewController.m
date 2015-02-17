@@ -14,8 +14,6 @@
 
 @interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate>
 {
-    NSArray *tableViewData, *arrayOfImages;
-    
     UIBarButtonItem *backButton;
     Postman *postMan;
     NSMutableArray *webClipArr;
@@ -36,9 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    tableViewData = @[@"Reset Lync Password",@"Reset SAP Password"];
-    arrayOfImages = @[@"LyncWebClipIcon", @"SAPWebClipIcon"];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
