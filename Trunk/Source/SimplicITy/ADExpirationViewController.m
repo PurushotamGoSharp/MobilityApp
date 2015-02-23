@@ -8,7 +8,7 @@
 
 #import "ADExpirationViewController.h"
 
-#define TEST_URL @"https://simplicity-dev.ucb.com/ad/account-status/id/"
+#define TEST_URL @"https://mdmAPIACC.ucb.com/ad/account-status/id/"
 #import <MBProgressHUD/MBProgressHUD.h>
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
 #define IPHONE_6_CROPID  @""

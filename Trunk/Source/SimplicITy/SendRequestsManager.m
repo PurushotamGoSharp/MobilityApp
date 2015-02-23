@@ -12,6 +12,9 @@
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
+#define AIRWATCH_CONFIG_ERROR @"User Details are not configured. Hence ticket can not be raised"
+
+
 @interface SendRequestsManager () <DBManagerDelegate>
 
 @end
@@ -167,7 +170,7 @@
     if ([[UserInfo sharedUserInfo] getServerConfig] == nil)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"com.apple.configuration.managed key is not configured for this app. Hence ticket can not be raised"
+                                                            message:AIRWATCH_CONFIG_ERROR
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
