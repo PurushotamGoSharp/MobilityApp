@@ -245,7 +245,6 @@
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, aDict[@"DocumentCode"]];
                 [postMan get:imageUrl];
             }
-            
             [tipscategoryArray addObject:tipsGroup];
         }
     }

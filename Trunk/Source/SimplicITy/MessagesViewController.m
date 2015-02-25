@@ -10,11 +10,23 @@
 #import "MessageDetailViewController.h"
 #import "messageModle.h"
 #import "DashBoardViewController.h"
+#import <sqlite3.h>
+#import "DBManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "NewsContentModel.h"
 
-@interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate>
 {
     NSArray *arrOfTableData, *arrOfTimeLable, *arrOfSubjects, *arrOfBody, *arrOfimageName, *arrOfcurTime;
-    NSMutableArray *arrOfModleData; UIBarButtonItem *backButton;
+    NSMutableArray *arrOfModleData , *newsDetailsArr;
+    UIBarButtonItem *backButton;
+    
+    Postman *postMan;
+    NSString *URLString;
+    
+    NSString *databasePath;
+    sqlite3 *database;
+    DBManager *dbManager;
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
@@ -48,7 +60,7 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
  
-    self.title = self.navBarTitleName;
+    self.title = self.categoryModel.categoryName;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [self subViewsColours];
@@ -89,12 +101,197 @@
         [arrOfModleData addObject:aMessage];
     }
     
+    
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.refreshControl.backgroundColor = [self subViewsColours];
+    
+    URLString = NEWS_API;
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    
+    newsDetailsArr = [[NSMutableArray alloc] init];
+
+    
+    if (![AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        [self getData];
+    }else
+    {
+        [self tryToUpdate];
+    }
+
+    
+}
+
+-(void)tryToUpdate
+{
+    NSString *categoryCode = self.categoryModel.categoryCode;
+    
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"\"}}",categoryCode];
+    [postMan post:URLString withParameters:parameterStringforNews];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+}
+
+-(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [self parseResponseDataForNews:response];
+    
+    
+}
+
+- (void)parseResponseDataForNews:(NSData*)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    NSArray *arr = json[@"aaData"][@"News"];
+    
+    //    NSLog(@"json data %@",json);
+    
+    
+    for (NSDictionary *adict in arr)
+    {
+        if ([adict[@"Status"] boolValue])
+        {
+            NewsContentModel *newsContent = [[NewsContentModel alloc]init];
+            newsContent.ID = [adict[@"ID"] integerValue];
+            newsContent.newsCode =adict[@"Code"];
+            
+            NSString *JSONString = adict[@"JSON"];
+            NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+            
+            newsContent.subject = dictFromJSON[@"Title"];
+            newsContent.newsDetails =dictFromJSON[@"Content"];
+            
+            newsContent.recivedDate = [NSDate date];
+            newsContent.viewed = NO;
+//            NSLog(@"Content of News %@", newsContent.newsDetails );
+            
+            [newsDetailsArr addObject:newsContent];
+            
+        }
+        
+    }
+    
+//    NSDictionary *aNewDict = [arr firstObject];
+//    NewsCategoryModel *parentCategory = [self categorymodelForCode:aNewDict[@"NewsCategoryCode"]];
+//    parentCategory.newsArr = newsDetailsArr;
+//    
+//    [self saveNewsDetails:parentCategory];
+    [self saveNewsDetails];
+
+    [self.tableViewOutlet reloadData];
+
+}
+
+-(void) postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
+}
+
+-(void)saveNewsDetails
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists %@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, newsCode text, date text, viewedFlag integer)",self.categoryModel.categoryCode];
+    [dbManager createTableForQuery:creatQuery];
+    
+    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+    
+    for (NewsContentModel *amodel in newsDetailsArr)
+    {
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@',%@,'%@','%@',%i)",self.categoryModel.categoryCode, amodel.ID, amodel.subject, amodel.newsDetails,amodel.newsCode,
+                         [converter stringFromDate:amodel.recivedDate], amodel.viewed];
+        [dbManager saveDataToDBForQuery:sql];
+        NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
+        
+        
+        if (amodel.ID > currentSinceID)
+        {
+            [[NSUserDefaults standardUserDefaults] setInteger:amodel.ID forKey:@"SinceID"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+
+
+    }
+    
+}
+
+-(void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM %@",self.categoryModel.categoryCode];
+    
+    
+    if (![dbManager getDataForQuery:queryString])
+    {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+        
+        [self tryToUpdate];
+    }
+}
+
+-(void) DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    [newsDetailsArr removeAllObjects];
+    
+    while (sqlite3_step(statment)== SQLITE_ROW)
+    {
+        
+        NSInteger ID = sqlite3_column_int(statment, 0);
+        NSString *subject = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+
+        NSString *newsDetail = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
+        NSString *newsCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        NSString *date = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
+        NSInteger viewedFlag = sqlite3_column_int(statment, 5);
+        
+        
+        
+//        NewsCategoryModel *categoryModel = [[NewsCategoryModel alloc] init];
+//        categoryModel.categoryName = categoryName;
+//        categoryModel.categoryCode = categoryCode;
+//        categoryModel.categoryDocCode = categoryDocCode;
+        
+        NewsContentModel *model = [[NewsContentModel alloc] init];
+        model.ID = ID;
+        model.subject = subject;
+        model.newsDetails = newsDetail;
+        model.newsCode = newsCode;
+        
+        NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+        [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+        model.recivedDate = [converter dateFromString:date];
+        
+        model.viewed = viewedFlag;
+        
+        [newsDetailsArr addObject:model];
+        
+    }
+    
+    
 }
 
 -(void)backBtnAction
@@ -145,8 +342,12 @@
 
     NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
     MessageDetailViewController *messageDeteilVC = segue.destinationViewController;
-    messageModle *message = arrOfModleData[indexPath.row];
-    messageDeteilVC.mesgModel = message;
+    NewsContentModel *contentModel = newsDetailsArr[indexPath.row];
+    
+    messageDeteilVC.categoryName = self.categoryModel.categoryName;
+    messageDeteilVC.newsContent = contentModel;
+    
+//    messageDeteilVC.newsDetail = contentModel.newsDetails;
 
 }
 
@@ -154,43 +355,63 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [arrOfTableData count];
+    return [newsDetailsArr count];
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
-    titleLable.text = arrOfTableData[indexPath.row];
+    UILabel *titleLable = (UILabel *)[cell viewWithTag:300];
+//    titleLable.text = arrOfTableData[indexPath.row];
+    
+    NewsContentModel *newsContentModel = newsDetailsArr[indexPath.row];
+    titleLable.text = newsContentModel.subject;
+    
     titleLable.font=[self customFont:18 ofName:MuseoSans_700];
     
+    UILabel *bodyTitleLable = (UILabel *)[cell viewWithTag:400];
+    bodyTitleLable.text = newsContentModel.newsDetails;
+    bodyTitleLable.font=[self customFont:14 ofName:MuseoSans_300];
+    
+    NSDate *curentDate = [NSDate date];
+    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+
+    
+    
+    if ([newsContentModel.recivedDate isEqualToDate:curentDate] )
+    {
+        [converter setDateFormat:@"hh mm ss a"];
+        
+    }else
+    {
+        [converter setDateFormat:@"dd MM"];
+
+    }
     
     
     UILabel *timeTitleLable = (UILabel *)[cell viewWithTag:200];
-    timeTitleLable.text = arrOfTimeLable[indexPath.row];
-    
-    UILabel *subjectTitleLable = (UILabel *)[cell viewWithTag:300];
-    subjectTitleLable.text = arrOfSubjects[indexPath.row];
-    subjectTitleLable.font= [self customFont:20 ofName:MuseoSans_300];
-    
-    
-    
-    
-    UILabel *bodyTitleLable = (UILabel *)[cell viewWithTag:400];
-    bodyTitleLable.text = arrOfBody[indexPath.row];
-    bodyTitleLable.font=[self customFont:14 ofName:MuseoSans_300];
-   
-    
-    
-    UIImageView *mailImageView = (UIImageView *)[cell viewWithTag:500];
+    timeTitleLable.text = [converter stringFromDate:newsContentModel.recivedDate];
+//
+//    UILabel *subjectTitleLable = (UILabel *)[cell viewWithTag:300];
+//    subjectTitleLable.text = arrOfSubjects[indexPath.row];
+//    subjectTitleLable.font= [self customFont:20 ofName:MuseoSans_300];
+//    
+//    
+//    
+//    
 
-    if (indexPath.row < self.emailreadNum)
-    {
-        mailImageView.image = [UIImage imageNamed:arrOfimageName[0]];
-    }else
-    {
-        
-    }
+//
+//    
+//    
+//    UIImageView *mailImageView = (UIImageView *)[cell viewWithTag:500];
+//
+//    if (indexPath.row < self.emailreadNum)
+//    {
+//        mailImageView.image = [UIImage imageNamed:arrOfimageName[0]];
+//    }else
+//    {
+//        
+//    }
 
 
     return cell;
@@ -209,6 +430,7 @@
 //    {
 //        [self performSegueWithIdentifier:@"message_segue" sender:nil];
 //    }
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -31,12 +31,17 @@
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
-    [requestSerializer setValue:@"G800189" forHTTPHeaderField:@"x-cropid"];
+    [requestSerializer setValue:@"G800189" forHTTPHeaderField:@"x-corpid"];
     [requestSerializer setValue:@"test.mailadminbraexcap0112@ucb.com" forHTTPHeaderField:@"x-emailid"];
     [requestSerializer setValue:@"test" forHTTPHeaderField:@"x-name"];
     [requestSerializer setValue:@"dnpnl4jjg5mf" forHTTPHeaderField:@"x-deviceserialno"];
     [requestSerializer setValue:@"ind" forHTTPHeaderField:@"x-region"];
-    [requestSerializer setValue:@"iOS" forHTTPHeaderField:@"x-referer"];
+//    [requestSerializer setValue:@"iOS" forHTTPHeaderField:@"x-referer"];
+    
+//    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"];
+//    [requestSerializer setValue:deviceToken forKey:@"x-devicetoken"];
+    
+    
 
     manager.requestSerializer = requestSerializer;
 //    NSLog(@"headers %@", requestSerializer.HTTPRequestHeaders);

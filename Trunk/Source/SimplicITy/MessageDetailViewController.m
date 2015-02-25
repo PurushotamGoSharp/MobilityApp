@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *subjectLable;
 @property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
 @property (weak, nonatomic) IBOutlet UILabel *timeLable;
+@property (weak, nonatomic) IBOutlet UIWebView *body;
 
 @property (weak, nonatomic) IBOutlet UIView *separator1;
 @property (weak, nonatomic) IBOutlet UIView *separator2;
@@ -21,16 +22,44 @@
 @end
 
 @implementation MessageDetailViewController
+{
+    UIBarButtonItem *backButton;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.nameLable.text = self.mesgModel.name;
-    self.subjectLable.text = self.mesgModel.subject;
-    self.bodyTextView.text = self.mesgModel.body;
-    self.timeLable.text = self.mesgModel.time;
+//    self.nameLable.text = self.mesgModel.name;
+//    self.subjectLable.text = self.mesgModel.subject;
+//    self.bodyTextView.text = self.mesgModel.body;
+//    self.timeLable.text = self.mesgModel.time;
     
-    self.bodyTextView.textAlignment = NSTextAlignmentJustified;
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Back" forState:UIControlStateNormal];
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.frame = CGRectMake(0, 0,80, 40);
+    
+    //    back imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, <#CGFloat right#>);
+    
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    self.nameLable.text = self.categoryName;
+    
+    [self.body loadHTMLString:self.newsContent.newsDetails baseURL:nil ];
+    self.subjectLable.text = self.newsContent.subject;
+    
+    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    [converter setDateFormat:@"yyyy/MM/dd  hh: mm: ss a"];
+    self.timeLable.text = [converter stringFromDate:self.newsContent.recivedDate ];
 
     
     self.nameLable.font=[self customFont:18 ofName:MuseoSans_700];
@@ -38,6 +67,13 @@
     self.timeLable.font=[self customFont:14 ofName:MuseoSans_300];
     self.subjectLable.font=[self customFont:20 ofName:MuseoSans_300];
 
+}
+
+-(void)backBtnAction
+{
+    //    [self.tabBarController setSelectedIndex:0];
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 //-(void)viewWillAppear:(BOOL)animated

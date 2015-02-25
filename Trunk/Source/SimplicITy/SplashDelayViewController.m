@@ -209,7 +209,7 @@
         dbManager.delegate=self;
     }
     
-    NSString *createQuery = @"create table if not exists seed (name text PRIMARY KEY, upDateCount integer)";
+    NSString *createQuery = @"create table if not exists seed (name text PRIMARY KEY, upDateCount  )";
     [dbManager createTableForQuery:createQuery];
     
     NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];

@@ -55,6 +55,9 @@
 #define FEEDBACK_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/"]
 #define SURVEY_BASE_API  [NSString stringWithFormat:@"%@%@",BASE_URL, @"Survey"]
 
+#define NEWS_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/NewsCategory"]
+#define NEWS_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/News"]
+
 // UCB
 #define BASE_URL_UCB @"https://mdmAPIACC.ucb.com/"
 #define ITSM_AUTH_API @"https://mdmAPIACC.ucb.com/itsm"
