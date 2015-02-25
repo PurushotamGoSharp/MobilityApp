@@ -8,6 +8,7 @@
 
 #import "NewsCategoryFetcher.h"
 #import "NewsCategoryModel.h"
+#import "NewsContentModel.h"
 #import <sqlite3.h>
 #import "DBManager.h"
 
@@ -25,6 +26,8 @@
     DBManager *dbManager;
     
     NSInteger badgeForCurrentCategory;
+    
+    NSInteger _sinceID;
 }
 
 
@@ -47,6 +50,7 @@
 
 - (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID
 {
+    _sinceID = sinceID;
     [self tryToUpdateNewsCategories:sinceID];
 }
 
@@ -66,6 +70,11 @@
     if ([urlString isEqualToString:NEWS_CATEGORY_API])
     {
         [self parseResponseData:response andGetImages:YES];
+        
+    }else if ([urlString isEqualToString:NEWS_API])
+    {
+        [self parseResponseDataForNews:response];
+
     }else
     {
         [self createImages:response forUrl:urlString];
@@ -95,6 +104,14 @@
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, adict[@"DocumentCode"]];
                 [postMan get:imageUrl];
             }
+            
+            if (newsCategory.badgeCount > 0)
+            {
+                NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%i\"}}",newsCategory.categoryCode, _sinceID];
+                [postMan post:NEWS_API withParameters:parameterStringforNews];
+
+            }
+            
             [newsCategoryArr addObject:newsCategory];
         }
     }
@@ -196,6 +213,79 @@
     
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewCategoryGotSuccess" object:nil];
+}
+
+- (void)parseResponseDataForNews:(NSData*)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSArray *arr = json[@"aaData"][@"News"];
+    
+    NSString *parentCategory;
+    NSMutableArray *newsArray = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *adict in arr)
+    {
+        if ([adict[@"Status"] boolValue])
+        {
+            NewsContentModel *newsContent = [[NewsContentModel alloc]init];
+            newsContent.ID = [adict[@"ID"] integerValue];
+            newsContent.newsCode =adict[@"Code"];
+            parentCategory = adict[@"NewsCategoryCode"];;
+
+            NSString *JSONString = adict[@"JSON"];
+            NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+            
+            newsContent.subject = dictFromJSON[@"Title"];
+            newsContent.newsDetails =dictFromJSON[@"Content"];
+            
+            newsContent.recivedDate = [NSDate date];
+            newsContent.viewed = NO;
+            newsContent.parentCategory = dictFromJSON[@"NewsCategoryCode"];
+            [newsArray addObject:newsContent];
+        }
+    }
+    
+    [self saveNewsDetails:newsArray forParent:parentCategory];
+}
+
+- (void)saveNewsDetails:(NSArray *)newsArray forParent:(NSString *)parentCategoryCode
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists %@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, newsCode text, date text, viewedFlag integer)",parentCategoryCode];
+    [dbManager createTableForQuery:creatQuery];
+    
+    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+    
+    for (NewsContentModel *amodel in newsArray)
+    {
+        NSMutableString *newsDetailsString = [amodel.newsDetails mutableCopy];
+        NSRange rangeofString;
+        rangeofString.location = 0;
+        rangeofString.length = newsDetailsString.length;
+        [newsDetailsString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
+        NSMutableString *newsSubjectString = [amodel.subject mutableCopy];
+        rangeofString.location = 0;
+        rangeofString.length = newsSubjectString.length;
+        [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@','%@','%@','%@',%i)",parentCategoryCode, amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
+                         [converter stringFromDate:amodel.recivedDate], amodel.viewed];
+        [dbManager saveDataToDBForQuery:sql];
+        NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
+        
+        if (amodel.ID > currentSinceID)
+        {
+            [[NSUserDefaults standardUserDefaults] setInteger:amodel.ID forKey:@"SinceID"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
