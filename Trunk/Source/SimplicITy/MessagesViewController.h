@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewsCategoryModel.h"
 
 @interface MessagesViewController : CustomColoredViewController
 {
     
 }
+
+@property (nonatomic,strong)NewsCategoryModel *categoryModel;
 @property(nonatomic,strong)NSString  *navBarTitleName;
 @property(nonatomic,assign) NSInteger emailreadNum;
 

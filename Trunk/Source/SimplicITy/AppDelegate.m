@@ -106,7 +106,13 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     UA_LTRACE(@"Application registered for remote notifications with device token: %@", deviceToken);
+    
+    
     [[UAPush shared] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
+    NSString *deviceTokenString = [UAPush shared].deviceToken;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:deviceTokenString forKey:@"DeviceToken"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

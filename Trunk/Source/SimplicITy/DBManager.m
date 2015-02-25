@@ -53,6 +53,7 @@
         
         if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK)
         {
+            
             NSLog(@"Failed to create table");
         }
         sqlite3_close(database);
