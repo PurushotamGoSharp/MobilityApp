@@ -142,7 +142,9 @@
 {
     NSString *categoryCode = self.categoryModel.categoryCode;
     
-    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"\"}}",categoryCode];
+    NSInteger sincID =[[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
+    
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%i\"}}",categoryCode,sincID];
     [postMan post:URLString withParameters:parameterStringforNews];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
@@ -402,9 +404,12 @@
 //    [titleOfWebView loadHTMLString:newsContentModel.newsDetails baseURL:nil];
     
     
-    NSString *htmlString =
-    [NSString stringWithFormat:@"<font face='GothamRounded-Bold' size='30'>%@", newsContentModel.newsDetails];
-    [titleOfWebView loadHTMLString:htmlString baseURL:nil];
+//    NSString *htmlString =
+//    [NSString stringWithFormat:@"<font face='MuseoSans-300' size='12' color='#808080'>%@", newsContentModel.newsDetails];
+//    [titleOfWebView loadHTMLString:htmlString baseURL:nil];
+    
+    [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo'  style='font-size:14px; font-family:MuseoSans-300; color:#808080';>%@<div>",newsContentModel.newsDetails] baseURL:nil];
+
     
 //       [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div font-size:13px;font-family:MuseoSans-700;%@<div>",newsContentModel.newsDetails] baseURL:nil];
 
