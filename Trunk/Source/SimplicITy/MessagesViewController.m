@@ -118,14 +118,23 @@
     newsDetailsArr = [[NSMutableArray alloc] init];
 
     
-    if (![AFNetworkReachabilityManager sharedManager].reachable)
+//    if (![AFNetworkReachabilityManager sharedManager].reachable)
+//    {
+//        [self getData];
+//    }else
+//    {
+//        [self tryToUpdate];
+//    }
+
+    
+    if (![AFNetworkReachabilityManager sharedManager].reachable || self.categoryModel.badgeCount == 0)
     {
         [self getData];
-    }else
+    }
+    else
     {
         [self tryToUpdate];
     }
-
     
 }
 
@@ -213,7 +222,23 @@
     
     for (NewsContentModel *amodel in newsDetailsArr)
     {
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@',%@,'%@','%@',%i)",self.categoryModel.categoryCode, amodel.ID, amodel.subject, amodel.newsDetails,amodel.newsCode,
+        NSMutableString *newsDetailsString = [amodel.newsDetails mutableCopy];
+        NSRange rangeofString;
+        rangeofString.location = 0;
+        rangeofString.length = newsDetailsString.length;
+        [newsDetailsString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
+        NSMutableString *newsSubjectString = [amodel.subject mutableCopy];
+        rangeofString.location = 0;
+        rangeofString.length = newsSubjectString.length;
+        [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
+//        NSMutableString *newsDateString = [amodel.newsDetails mutableCopy];
+//        rangeofString.location = 0;
+//        rangeofString.length = newsDateString.length;
+//        [newsDateString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@','%@','%@','%@',%i)",self.categoryModel.categoryCode, amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
@@ -369,22 +394,36 @@
     
     titleLable.font=[self customFont:18 ofName:MuseoSans_700];
     
-    UILabel *bodyTitleLable = (UILabel *)[cell viewWithTag:400];
-    bodyTitleLable.text = newsContentModel.newsDetails;
-    bodyTitleLable.font=[self customFont:14 ofName:MuseoSans_300];
+//    UILabel *bodyTitleLable = (UILabel *)[cell viewWithTag:400];
+//    bodyTitleLable.text = newsContentModel.newsDetails;
+//    bodyTitleLable.font=[self customFont:14 ofName:MuseoSans_300];
     
-    NSDate *curentDate = [NSDate date];
-    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    UIWebView *titleOfWebView = (UIWebView *)[cell viewWithTag:400];
+//    [titleOfWebView loadHTMLString:newsContentModel.newsDetails baseURL:nil];
+    
+    
+    NSString *htmlString =
+    [NSString stringWithFormat:@"<font face='GothamRounded-Bold' size='30'>%@", newsContentModel.newsDetails];
+    [titleOfWebView loadHTMLString:htmlString baseURL:nil];
+    
+//       [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div font-size:13px;font-family:MuseoSans-700;%@<div>",newsContentModel.newsDetails] baseURL:nil];
 
     
+    NSDate *curentDate = [NSDate date];
     
-    if ([newsContentModel.recivedDate isEqualToDate:curentDate] )
+    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    [converter setDateFormat:@"dd"];
+    
+    NSComparisonResult result = [newsContentModel.recivedDate compare:curentDate];
+    
+    
+    if (result == NSOrderedAscending)
     {
-        [converter setDateFormat:@"hh mm ss a"];
+        [converter setDateFormat:@"hh:mm a"];
         
     }else
     {
-        [converter setDateFormat:@"dd MM"];
+        [converter setDateFormat:@"dd/MM/yyyy"];
 
     }
     

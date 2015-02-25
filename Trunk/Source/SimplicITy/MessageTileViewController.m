@@ -36,6 +36,7 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewoutlet;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeightConst;
 
 @end
 
@@ -412,7 +413,7 @@
     {
         lableForBadege.text = [NSString stringWithFormat:@"%li", (long)newsCategory.badgeCount] ;
     }
-          
+    
     return cell;
 }
 

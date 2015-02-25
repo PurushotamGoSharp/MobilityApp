@@ -9,7 +9,7 @@
 #import "MessageDetailViewController.h"
 
 
-@interface MessageDetailViewController ()
+@interface MessageDetailViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLable;
 @property (weak, nonatomic) IBOutlet UILabel *subjectLable;
 @property (weak, nonatomic) IBOutlet UITextView *bodyTextView;
@@ -67,6 +67,20 @@
     self.timeLable.font=[self customFont:14 ofName:MuseoSans_300];
     self.subjectLable.font=[self customFont:20 ofName:MuseoSans_300];
 
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    CGRect frame = webView.frame;
+    frame.size.height = 1;
+    webView.frame = frame;
+    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    frame.size = fittingSize;
+    webView.frame = frame;
+    
+    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+    
+//    yourScrollView.contentSize = webView.bounds.size;
 }
 
 -(void)backBtnAction
