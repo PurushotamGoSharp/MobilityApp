@@ -41,18 +41,10 @@
 
 @implementation MessageTileViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    arrOfImages = @[@"Mobility",@"Service_Desk",@"Human_Resources",@"Local_Site_Services",@"Other"];
-
-    
-    arrOfData= @[@" Mobility",@"Service Desk",@"Human Resources",@"Local Site Services",@"Other"];
-    arrayOfBadgeNUm = @[@"0",@"4",@"0",@"2",@"1"];
-    
-    
-//    [self.tableViewoutlet setContentInset:UIEdgeInsetsMake(-40, 0, 0, 0)];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -64,24 +56,21 @@
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.frame = CGRectMake(0, 0,80, 30);
     
-    //    back imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, CGFloat right);
-    
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(suce) name:@"sucess" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"NewCategoryGotSuccess" object:nil];
 }
 
-- (void)suce
+- (void)updateData
 {
     [self getData];
     [self.tableViewoutlet reloadData];
 }
 
--(void)backBtnAction
+- (void)backBtnAction
 {
     [self.tabBarController setSelectedIndex:0];
 }
@@ -92,21 +81,23 @@
     
     newsCategoryArr =   [[NSMutableArray alloc] init];
     
-    if (![AFNetworkReachabilityManager sharedManager].reachable)
-    {
-        [self getData];
-    }else
-    {
-//        [self tryToUpdateNewsCategories];
-        
-        fetcher = [[NewsCategoryFetcher alloc] init];
-        
-        NSInteger sincID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
-        sincID = 4;
-        [fetcher initiateNewsCategoryAPIFor:sincID];
-        
-    }
+//    if (![AFNetworkReachabilityManager sharedManager].reachable)
+//    {
+//        [self getData];
+//    }else
+//    {
+////        [self tryToUpdateNewsCategories];
+//        
+//        fetcher = [[NewsCategoryFetcher alloc] init];
+//        
+//        NSInteger sincID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
+//        sincID = 4;
+//        [fetcher initiateNewsCategoryAPIFor:sincID];
+//        
+//    }
     
+    [self getData];
+    [self.tableViewoutlet reloadData];
 }
 
 - (void)tryToUpdateNewsCategories
@@ -142,8 +133,6 @@
     
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
     
-
-    
     for (NSDictionary *adict in arr)
     {
         if ([adict[@"Status"] boolValue])
@@ -152,9 +141,6 @@
             newsCategory.categoryCode = adict[@"Code"];
             newsCategory.categoryName = adict[@"Name"];
             newsCategory.categoryDocCode = adict[@"DocumentCode"];
-            
-            
-//            [self saveData:adict[@"Name"]];
             
             if (download)
             {
@@ -172,8 +158,6 @@
     
     [self.tableViewoutlet reloadData];
 }
-
-
 
 - (void)parseResponseDataForNews:(NSData*)response
 {
@@ -280,7 +264,6 @@
     return nil;
 }
 
-
 -(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -322,7 +305,7 @@
     
     for (NewsContentModel *aNews in categoryModel.newsArr)
     {
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, newsDetails, newsCode) values (%i,'%@','%@')",categoryModel.categoryCode ,aNews.ID,aNews.newsDetails,aNews.newsCode];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, newsDetails, newsCode) values (%li,'%@','%@')",categoryModel.categoryCode ,(long)aNews.ID,aNews.newsDetails,aNews.newsCode];
         
         [dbManager saveDataToDBForQuery:insertSQL];
         
@@ -337,8 +320,7 @@
     
 }
 
-
--(void)getData
+- (void)getData
 {
     if (dbManager == nil)
     {
@@ -346,7 +328,6 @@
         dbManager.delegate=self;
     }
 
-    
     NSString *queryString = @"SELECT * FROM categories";
     
     if (![dbManager getDataForQuery:queryString])
@@ -356,8 +337,6 @@
             UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
         }
-        
-        [self tryToUpdateNewsCategories];
     }
 }
 
@@ -371,8 +350,6 @@
         NSString *categoryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
         NSString *categoryDocCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
         NSString *badge = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
-
-
         
         NewsCategoryModel *categoryModel = [[NewsCategoryModel alloc] init];
         categoryModel.categoryName = categoryName;
@@ -381,9 +358,7 @@
         categoryModel.badgeCount = [badge integerValue];
         
         [newsCategoryArr addObject:categoryModel];
-
     }
-    
 }
 
 
@@ -395,16 +370,16 @@
 
 #pragma mark UITableViewDataSource
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [newsCategoryArr count];
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 78;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -435,54 +410,33 @@
     }
     else
     {
-        lableForBadege.text = [NSString stringWithFormat:@"%i", newsCategory.badgeCount] ;
+        lableForBadege.text = [NSString stringWithFormat:@"%li", (long)newsCategory.badgeCount] ;
     }
           
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.backgroundColor = [UIColor redColor];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
-//    MessagesViewController *messagesVC = (MessagesViewController *) segue.destinationViewController;
-//    messagesVC.navBarTitleName = arrOfData[[self.tableViewoutlet indexPathForSelectedRow].row];
-//    
-//    messagesVC.emailreadNum = [arrayOfBadgeNUm[[self.tableViewoutlet indexPathForSelectedRow].row] integerValue];
-    
-    
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     MessagesViewController *messagesVC = (MessagesViewController *) segue.destinationViewController;
     messagesVC.categoryModel = newsCategoryArr[[self.tableViewoutlet indexPathForSelectedRow].row];
-//    NewsCategoryModel *catModel = newsCategoryArr[[self.tableViewoutlet indexPathForSelectedRow].row];;
-//    
-//    messagesVC.categoryName =catModel.categoryName;
-    
-//    messagesVC.navBarTitleName = newsCategoryArr[[self.tableViewoutlet indexPathForSelectedRow].row];
     messagesVC.emailreadNum = [arrayOfBadgeNUm[[self.tableViewoutlet indexPathForSelectedRow].row] integerValue];
-    
-    
-    
 }
-
-
-
 
 @end

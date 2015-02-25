@@ -20,7 +20,6 @@
 {
     Postman *postMan;
     NSString *URLString;
-    NSMutableArray *newsCategoryArr;
     NSString *databasePath;
     sqlite3 *database;
     DBManager *dbManager;
@@ -44,35 +43,18 @@
     URLString = TIPS_CATEGORY_API;
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
-    
-    newsCategoryArr =   [[NSMutableArray alloc] init];
-    
 }
 
 - (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID
 {
-//    if (sinceID == 0)
-//    {
-//        return;
-//    }
-    
-    [newsCategoryArr removeAllObjects];
-    
     [self tryToUpdateNewsCategories:sinceID];
 }
 
 - (void)tryToUpdateNewsCategories:(NSInteger)sinceID
 {
     URLString = NEWS_CATEGORY_API;
-//    NSString *parameterString;
-//    
-//    parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
-//    
-//    parameterString = @"{\"request\":{\"Name\":\"\",\"Since_Id\":\"4\"}}";
     
-    NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"Name\":\"\",\"Since_Id\":\"%i\"}}",sinceID];
-    
-    //    parameterString = @"{\"request\":{\"LanguageCode\":\"en\"}}";
+    NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"Name\":\"\",\"Since_Id\":\"%li\"}}",(long)sinceID];
     [postMan post:URLString withParameters:parameter];
 }
 
@@ -81,17 +63,13 @@
 
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    
     if ([urlString isEqualToString:NEWS_CATEGORY_API])
     {
         [self parseResponseData:response andGetImages:YES];
-        
     }else
     {
         [self createImages:response forUrl:urlString];
     }
-    
-    
 }
 
 - (void)parseResponseData:(NSData*)response andGetImages:(BOOL)download
@@ -100,8 +78,8 @@
     
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
     
-    
-    
+    NSMutableArray *newsCategoryArr = [[NSMutableArray alloc] init];
+
     for (NSDictionary *adict in arr)
     {
         if ([adict[@"Status"] boolValue])
@@ -112,12 +90,8 @@
             newsCategory.categoryDocCode = adict[@"DocumentCode"];
             newsCategory.badgeCount = [adict[@"NewsCount"] integerValue];
             
-            
-            //            [self saveData:adict[@"Name"]];
-            
             if (download)
             {
-                
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, adict[@"DocumentCode"]];
                 [postMan get:imageUrl];
             }
@@ -127,7 +101,7 @@
     
     [self saveCategoies:newsCategoryArr];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sucess" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewCategoryGotSuccess" object:nil];
 }
 
 - (void)saveCategoies:(NSArray *)categories
@@ -135,6 +109,13 @@
     if (dbManager == nil)
     {
         dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+        dbManager.delegate = self;
+    }
+    
+    for (NewsCategoryModel *aModel in categories)
+    {
+        NSInteger badgeCount = aModel.badgeCount  + [self badgeCountFor:aModel.categoryCode];
+        aModel.badgeCount = badgeCount;
     }
     
     [dbManager dropTable:@"categories"];
@@ -143,17 +124,13 @@
     
     for (NewsCategoryModel *aModel in categories)
     {
-        NSInteger badgeCount = aModel.badgeCount  + [self badgeCountFor:aModel.categoryCode];
-        
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%i')",aModel.categoryName, aModel.categoryCode,aModel.categoryDocCode,badgeCount];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%li')",aModel.categoryName, aModel.categoryCode,aModel.categoryDocCode,(long)aModel.badgeCount];
         [dbManager saveDataToDBForQuery:insertSQL];
     }
 }
 
-
 - (NSInteger)badgeCountFor:(NSString*)categoryCode
 {
-    
     if (dbManager == nil)
     {
         dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
@@ -162,21 +139,21 @@
     
     badgeForCurrentCategory = 0;
 
-    NSString  *sql = [NSString stringWithFormat:@"SELECT badgeCount FROM categories WHERE code = '%@'",categoryCode];
+    NSString  *sql = [NSString stringWithFormat:@"SELECT badgeCount FROM categories WHERE code == '%@'",categoryCode];
     [dbManager getDataForQuery:sql];
     
     return badgeForCurrentCategory;
 }
 
-
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     if (sqlite3_step(statment)== SQLITE_ROW)
     {
-        NSString *badgeCountFromDB = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        NSString *badgeCountFromDB = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
         badgeForCurrentCategory = [badgeCountFromDB integerValue];
     }
 }
+
 - (void)createImages:(NSData *)response forUrl:(NSString *)url
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
@@ -218,10 +195,10 @@
     [imageData writeToFile:pathToImage atomically:YES];
     
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sucess" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewCategoryGotSuccess" object:nil];
 }
 
--(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     NSLog(@"error %@",error);
 }
