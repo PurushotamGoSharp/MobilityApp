@@ -10,7 +10,7 @@
 
 @interface NewsCategoryFetcher : NSObject
 
-- (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID;
+- (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
 
 @end

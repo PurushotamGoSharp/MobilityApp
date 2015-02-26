@@ -48,7 +48,7 @@
     postMan.delegate = self;
 }
 
-- (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID
+- (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     _sinceID = sinceID;
     [self tryToUpdateNewsCategories:sinceID];
