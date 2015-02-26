@@ -15,7 +15,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "NewsContentModel.h"
 
-@interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate>
+@interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate,UIWebViewDelegate>
 {
     NSArray *arrOfTableData, *arrOfTimeLable, *arrOfSubjects, *arrOfBody, *arrOfimageName, *arrOfcurTime;
     NSMutableArray *arrOfModleData , *newsDetailsArr;
@@ -198,6 +198,7 @@
 //    [self saveNewsDetails:parentCategory];
     [self saveNewsDetails];
 
+    [self getData];
     [self.tableViewOutlet reloadData];
 
 }
@@ -265,7 +266,7 @@
         dbManager.delegate=self;
     }
     
-    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM %@",self.categoryModel.categoryCode];
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY date DESC",self.categoryModel.categoryCode];
     
     
     if (![dbManager getDataForQuery:queryString])
@@ -460,6 +461,17 @@
 
     return cell;
 }
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
+    [webView stringByEvaluatingJavaScriptFromString:javascript];
+    
+    [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
+    [webView.scrollView setShowsVerticalScrollIndicator:NO];
+    
+}
+
 
 #pragma mark UITableViewDelegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
