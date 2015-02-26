@@ -411,29 +411,26 @@
     
     [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo'  style='font-size:14px; font-family:MuseoSans-300; color:#808080';>%@<div>",newsContentModel.newsDetails] baseURL:nil];
 
-    
 //       [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div font-size:13px;font-family:MuseoSans-700;%@<div>",newsContentModel.newsDetails] baseURL:nil];
 
     
-    NSDate *curentDate = [NSDate date];
-    
-    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-    [converter setDateFormat:@"dd"];
-    
-    NSComparisonResult result = [newsContentModel.recivedDate compare:curentDate];
+    NSDateComponents *componentsFoCurrentDate = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+    NSInteger currentDay = [componentsFoCurrentDate day];
     
     
-    if (result == NSOrderedAscending)
+     NSDateComponents *componentsofDate = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:newsContentModel.recivedDate];
+    NSInteger revivedDay = [componentsofDate day];
+
+     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    if (currentDay == revivedDay)
     {
-        [converter setDateFormat:@"hh:mm a"];
-        
-    }else
+         [converter setDateFormat:@"h:mm a"];
+    }
+    else
     {
         [converter setDateFormat:@"dd/MM/yyyy"];
-
     }
-    
-    
+
     UILabel *timeTitleLable = (UILabel *)[cell viewWithTag:200];
     timeTitleLable.text = [converter stringFromDate:newsContentModel.recivedDate];
 //

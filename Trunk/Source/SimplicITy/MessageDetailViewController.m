@@ -58,7 +58,7 @@
     self.subjectLable.text = self.newsContent.subject;
     
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-    [converter setDateFormat:@"yyyy/MM/dd  hh: mm: ss a"];
+    [converter setDateFormat:@"yyyy/MM/dd, hh:mm: ss a"];
     self.timeLable.text = [converter stringFromDate:self.newsContent.recivedDate ];
 
     
