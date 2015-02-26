@@ -149,7 +149,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     UA_LINFO(@"Received remote notification (in appDelegate): %@", userInfo);
     
-    [self gotNotificatonWithUserInfo:userInfo];
+    [self gotNotificatonWithUserInfo:userInfo fetchCompletionHandler:completionHandler];
     
     if (application.applicationState != UIApplicationStateBackground) {
         [[UAPush shared] resetBadge];
@@ -158,7 +158,7 @@
     completionHandler(UIBackgroundFetchResultNoData);
 }
 
-- (void)gotNotificatonWithUserInfo:(NSDictionary *)userInfo
+- (void)gotNotificatonWithUserInfo:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     if ([userInfo[@"func"] isEqualToString:@"News"])
     {
@@ -169,18 +169,18 @@
             currentSinceID = [userInfo[@"id"] integerValue] - 1;
         }
 
-        [self getNewsCategoryFor:currentSinceID];
+        [self getNewsCategoryFor:currentSinceID fetchCompletionHandler:completionHandler];
     }
 }
 
-- (void)getNewsCategoryFor:(NSInteger)sinceID
+- (void)getNewsCategoryFor:(NSInteger)sinceID fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     if (!fetcher)
     {
         fetcher = [[NewsCategoryFetcher alloc] init];
     }
     
-    [fetcher initiateNewsCategoryAPIFor:sinceID];
+    [fetcher initiateNewsCategoryAPIFor:sinceID fetchCompletionHandler:completionHandler];
 }
 
 @end
