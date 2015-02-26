@@ -15,7 +15,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "NewsContentModel.h"
 
-@interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate>
+@interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate,UIWebViewDelegate>
 {
     NSArray *arrOfTableData, *arrOfTimeLable, *arrOfSubjects, *arrOfBody, *arrOfimageName, *arrOfcurTime;
     NSMutableArray *arrOfModleData , *newsDetailsArr;
@@ -198,6 +198,7 @@
 //    [self saveNewsDetails:parentCategory];
     [self saveNewsDetails];
 
+    [self getData];
     [self.tableViewOutlet reloadData];
 
 }
@@ -265,7 +266,7 @@
         dbManager.delegate=self;
     }
     
-    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM %@",self.categoryModel.categoryCode];
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY date DESC",self.categoryModel.categoryCode];
     
     
     if (![dbManager getDataForQuery:queryString])
@@ -410,29 +411,26 @@
     
     [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo'  style='font-size:14px; font-family:MuseoSans-300; color:#808080';>%@<div>",newsContentModel.newsDetails] baseURL:nil];
 
-    
 //       [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div font-size:13px;font-family:MuseoSans-700;%@<div>",newsContentModel.newsDetails] baseURL:nil];
 
     
-    NSDate *curentDate = [NSDate date];
-    
-    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-    [converter setDateFormat:@"dd"];
-    
-    NSComparisonResult result = [newsContentModel.recivedDate compare:curentDate];
+    NSDateComponents *componentsFoCurrentDate = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+    NSInteger currentDay = [componentsFoCurrentDate day];
     
     
-    if (result == NSOrderedAscending)
+     NSDateComponents *componentsofDate = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:newsContentModel.recivedDate];
+    NSInteger revivedDay = [componentsofDate day];
+
+     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+    if (currentDay == revivedDay)
     {
-        [converter setDateFormat:@"hh:mm a"];
-        
-    }else
+         [converter setDateFormat:@"h:mm a"];
+    }
+    else
     {
         [converter setDateFormat:@"dd/MM/yyyy"];
-
     }
-    
-    
+
     UILabel *timeTitleLable = (UILabel *)[cell viewWithTag:200];
     timeTitleLable.text = [converter stringFromDate:newsContentModel.recivedDate];
 //
@@ -460,6 +458,17 @@
 
     return cell;
 }
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
+    [webView stringByEvaluatingJavaScriptFromString:javascript];
+    
+    [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
+    [webView.scrollView setShowsVerticalScrollIndicator:NO];
+    
+}
+
 
 #pragma mark UITableViewDelegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
