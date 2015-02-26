@@ -16,4 +16,6 @@
 @property (nonatomic,strong) NSDate *recivedDate;
 @property (nonatomic,assign)BOOL viewed;
 @property (nonatomic,strong)NSString *subject;
+@property (nonatomic,strong)NSString *parentCategory;
+
 @end

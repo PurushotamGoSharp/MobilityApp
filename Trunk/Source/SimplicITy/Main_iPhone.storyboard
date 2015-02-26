@@ -1211,7 +1211,6 @@
                     <connections>
                         <outlet property="tableView" destination="10d-Ie-kvS" id="uee-xc-Mks"/>
                         <segue destination="iD3-0r-TBX" kind="push" identifier="ToolToLyncTestSegue" id="3Qn-gt-75Z"/>
-                        <segue destination="wY9-pY-6tC" kind="push" identifier="toolsToSurveySegue" id="h8W-Tr-4pd"/>
                         <segue destination="W95-uH-vGV" kind="push" identifier="ToolsADExpSegue" id="Y5j-Wb-rTu"/>
                     </connections>
                 </viewController>
@@ -1219,7 +1218,7 @@
             </objects>
             <point key="canvasLocation" x="1376" y="1515"/>
         </scene>
-        <!--Lync Connection Checker-->
+        <!--Lync Connection Checker View Controller-->
         <scene sceneID="Wb6-uU-KGA">
             <objects>
                 <viewController id="iD3-0r-TBX" customClass="LyncConnectionCheckerViewController" sceneMemberID="viewController">
@@ -1241,7 +1240,7 @@
                             <constraint firstAttribute="centerY" secondItem="Gc8-eU-Bqi" secondAttribute="centerY" id="nYG-2j-fOB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Lync Connection Checker" id="lF7-gX-Cng"/>
+                    <navigationItem key="navigationItem" id="lF7-gX-Cng"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcg-pl-RFd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

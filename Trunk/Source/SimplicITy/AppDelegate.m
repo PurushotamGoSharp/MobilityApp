@@ -11,35 +11,40 @@
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "SendRequestsManager.h"
+#import "NewsCategoryFetcher.h"
 
-#define ENABLE_PUSH_NOTIFICATION NO
+#define ENABLE_PUSH_NOTIFICATION YES
+
+@interface AppDelegate () <UAPushNotificationDelegate>
+
+@end
 
 @implementation AppDelegate
+{
+    NewsCategoryFetcher *fetcher;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     [self.window makeKeyAndVisible];
     [SendRequestsManager sharedManager];
     
     [UAirship setLogLevel:UALogLevelTrace];
-    
-    // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com
-    // or set runtime properties here.
     UAConfig *config = [UAConfig defaultConfig];
     [UAirship takeOff:config];
-    
-    // Print out the application configuration for debugging (optional)
     UA_LDEBUG(@"Config:\n%@", [config description]);
     
     // Set the icon badge to zero on startup (optional)
     [[UAPush shared] resetBadge];
-    
     [UAPush shared].userNotificationTypes = (UIUserNotificationTypeAlert |
                                              UIUserNotificationTypeBadge |
                                              UIUserNotificationTypeSound);
     
-     [UAPush shared].userPushNotificationsEnabled = ENABLE_PUSH_NOTIFICATION;
+    [UAPush shared].userPushNotificationsEnabled = ENABLE_PUSH_NOTIFICATION;
+    [UAPush shared].pushNotificationDelegate = self;
+
+    [UAPush shared].tags = @[@"All_Devices", @"iPad 4"];
+    [[UAPush shared] updateRegistration];
     
     [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
 
@@ -62,12 +67,6 @@
         case 0:
             [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
             [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
-            
-            
-//            [[UITabBar appearance] setSelectedImageTintColor:[UIColor greenColor]];
-            
-            [UITabBar appearance];
-
             break;
             
         case 1:
@@ -107,7 +106,6 @@
 {
     UA_LTRACE(@"Application registered for remote notifications with device token: %@", deviceToken);
     
-    
     [[UAPush shared] appRegisteredForRemoteNotificationsWithDeviceToken:deviceToken];
     NSString *deviceTokenString = [UAPush shared].deviceToken;
     
@@ -142,24 +140,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
     UA_LINFO(@"Received remote notification (in appDelegate): %@", userInfo);
-    
-    // Optionally provide a delegate that will be used to handle notifications received while the app is running
-    // [UAPush shared].pushNotificationDelegate = your custom push delegate class conforming to the UAPushNotificationDelegate protocol
-    
-    // Reset the badge after a push received (optional)
     [[UAPush shared] resetBadge];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     UA_LINFO(@"Received remote notification (in appDelegate): %@", userInfo);
     
-    // Optionally provide a delegate that will be used to handle notifications received while the app is running
-    // [UAPush shared].pushNotificationDelegate = your custom push delegate class conforming to the UAPushNotificationDelegate protocol
+    [self gotNotificatonWithUserInfo:userInfo];
     
-    // Reset the badge after a push is received in a active or inactive state
     if (application.applicationState != UIApplicationStateBackground) {
         [[UAPush shared] resetBadge];
     }
@@ -167,26 +158,29 @@
     completionHandler(UIBackgroundFetchResultNoData);
 }
 
-- (void)failIfSimulator {
-    if ([[[UIDevice currentDevice] model] rangeOfString:@"Simulator"].location != NSNotFound) {
-        UIAlertView *someError = [[UIAlertView alloc] initWithTitle:@"Notice"
-                                                            message:@"You will not be able to receive push notifications in the simulator."
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
+- (void)gotNotificatonWithUserInfo:(NSDictionary *)userInfo
+{
+    if ([userInfo[@"func"] isEqualToString:@"News"])
+    {
+        NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
         
-        // Let the UI finish launching first so it doesn't complain about the lack of a root view controller
-        // Delay execution of the block for 1/2 second.
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [someError show];
-        });
-        
+        if (currentSinceID == 0)
+        {
+            currentSinceID = [userInfo[@"id"] integerValue] - 1;
+        }
+
+        [self getNewsCategoryFor:currentSinceID];
     }
 }
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)getNewsCategoryFor:(NSInteger)sinceID
 {
+    if (!fetcher)
+    {
+        fetcher = [[NewsCategoryFetcher alloc] init];
+    }
     
+    [fetcher initiateNewsCategoryAPIFor:sinceID];
 }
 
 @end
