@@ -17,8 +17,7 @@
 
 @interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate,UIWebViewDelegate>
 {
-    NSArray *arrOfTableData, *arrOfTimeLable, *arrOfSubjects, *arrOfBody, *arrOfimageName, *arrOfcurTime;
-    NSMutableArray *arrOfModleData , *newsDetailsArr;
+    NSMutableArray  *newsDetailsArr;
     UIBarButtonItem *backButton;
     
     Postman *postMan;
@@ -52,8 +51,6 @@
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.frame = CGRectMake(0, 0,80, 40);
-    
-    //    back imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, <#CGFloat right#>);
 
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -69,41 +66,11 @@
                             action:@selector(pull)
                   forControlEvents:UIControlEventValueChanged];
     [self.tableViewOutlet  addSubview:self.refreshControl];
-
     
-    
-    
-    
-    arrOfTableData = @[@"Infra",@"Payroll",@"Helpdesk",@"HR policy: ",@"HR: Holiday Celebration: ",@"IS: Maintenance Activity"];
-    
-    arrOfSubjects = @[@"This mail is being sent to all employees on behalf of ISMS Team",@"Greetings from UCB Payroll Help Desk",@"SVN Credentials",@"Employee Awareness: “Official Dress Code”",@"Merry Christmas & A Happy New Year 2015!!!",@"IS Maintenance Activity on 26.07.2014"];
-    
-    arrOfcurTime = @[@"Thu, Dec 11, 2014",@"Mon Dec 8, 2014",@"Thu Nov 27, 2014",@"Mon Nov 17, 2014",@"Fri Dec 12, 2014",@"Fri Jul 25, 2014"];
-
-    
-    arrOfBody = @[@"Dear all, \nThis email is the second part of an Employee Awareness Program about Information Security in preparation for our ISO 27001 External Audit. Please read carefully some important Employee responsibilities and organization policies. The Ucb Security Policy, Confidentiality, Access and Physical security policies have been sent in yesterday’s email.",@"We are happy to inform you that UCB Payroll Help Desk is available online and here is useful information on how to access and utilize the facility",@"Hi,\n Please find your SVN Credentials below",@"Dear All,\nThis is to inform all the employees that the policy on “Official Dress Code” under Dress Code is being revised effective on Mon December 01, 2014.Dress code for external customer meetings will be Business Formals (to create the winning impression!!!). Business Formals will include - salwar suits and sarees, western formal skirts / trousers for ladies. Full/ half sleeved light-coloured shirts with tie and (jacket / coat optional) formal trousers for gentlemen. Footwear must be formal leather-shoes for men.Monday and Tuesday are considered as Business days and dress code will be Business formals. Business formals will include salwar suits and western skirts / trousers for ladies. Full/ half sleeved shirts tucked in and trousers for gentlemen. For men footwear must be formal shoes.",@"Dear All,\nMay this Christmas and New Year sparkle and shine. May all your wishes and dreams come true and may you feel this happiness all year round.So let’s get into Christmassy mood!!!Events:Cubical decoration – theme Christmas!Fun filled gamesSecret Santa Lucky Draw Venue: VM Cafeteria 4th floor Date & Time: 23rd Dec, 2014 @ 3PM Dress Code: Red & White\n\nThanks.\nHuman Resource",@"Dear All,\nThis is to inform you that there will be a fluctuation in the network connectivity due to maintenance activity on 26.07.2014 from 10:30 AM to 04:00 PM Services affected: Network, Network Shared Folders, Internet and VOIP services you to schedule your activities accordingly. Please contact helpdesk for any queries.\n\nThanks\n IS Team"];
-    
-    
-    
-    arrOfTimeLable = @[@"12 h",@"3 d",@"14 d",@"17 d",@"20 d",@"21 d",@"20 d"];
-    
-    arrOfimageName = @[@"MessageClosed"];
-    
-    arrOfModleData = [[NSMutableArray alloc] init];
-    
-    for (int i =0; i< arrOfTableData.count; i++)
-    {
-        messageModle *aMessage = [[messageModle alloc] init];
-        aMessage.name = arrOfTableData[i];
-        aMessage.subject = arrOfSubjects[i];
-        aMessage.body = arrOfBody[i];
-        aMessage.time = arrOfcurTime[i];
-        [arrOfModleData addObject:aMessage];
-    }
-    
-    
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNewsList)
+                                                 name:@"DownloadedNewsSuccesfully"
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -116,29 +83,25 @@
     postMan.delegate = self;
     
     newsDetailsArr = [[NSMutableArray alloc] init];
-
     
-//    if (![AFNetworkReachabilityManager sharedManager].reachable)
+//    if (![AFNetworkReachabilityManager sharedManager].reachable || self.categoryModel.badgeCount == 0)
 //    {
 //        [self getData];
-//    }else
+//    }
+//    else
 //    {
 //        [self tryToUpdate];
 //    }
-
-    
-    if (![AFNetworkReachabilityManager sharedManager].reachable || self.categoryModel.badgeCount == 0)
-    {
-        [self getData];
-    }
-    else
-    {
-        [self tryToUpdate];
-    }
-    
+    [self getData];
 }
 
--(void)tryToUpdate
+- (void)updateNewsList
+{
+    [self getData];
+    [self.tableViewOutlet reloadData];
+}
+
+- (void)tryToUpdate
 {
     NSString *categoryCode = self.categoryModel.categoryCode;
     
@@ -154,8 +117,6 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     [self parseResponseDataForNews:response];
-    
-    
 }
 
 - (void)parseResponseDataForNews:(NSData*)response
@@ -186,30 +147,21 @@
 //            NSLog(@"Content of News %@", newsContent.newsDetails );
             
             [newsDetailsArr addObject:newsContent];
-            
         }
-        
     }
-    
-//    NSDictionary *aNewDict = [arr firstObject];
-//    NewsCategoryModel *parentCategory = [self categorymodelForCode:aNewDict[@"NewsCategoryCode"]];
-//    parentCategory.newsArr = newsDetailsArr;
-//    
-//    [self saveNewsDetails:parentCategory];
     [self saveNewsDetails];
 
     [self getData];
     [self.tableViewOutlet reloadData];
-
 }
 
--(void) postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+- (void) postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
 }
 
--(void)saveNewsDetails
+- (void)saveNewsDetails
 {
     if (dbManager == nil)
     {
@@ -236,29 +188,20 @@
         rangeofString.length = newsSubjectString.length;
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
-//        NSMutableString *newsDateString = [amodel.newsDetails mutableCopy];
-//        rangeofString.location = 0;
-//        rangeofString.length = newsDateString.length;
-//        [newsDateString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-        
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@','%@','%@','%@',%i)",self.categoryModel.categoryCode, amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
-        
         
         if (amodel.ID > currentSinceID)
         {
             [[NSUserDefaults standardUserDefaults] setInteger:amodel.ID forKey:@"SinceID"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
-
-
     }
-    
 }
 
--(void)getData
+- (void)getData
 {
     if (dbManager == nil)
     {
@@ -266,7 +209,7 @@
         dbManager.delegate=self;
     }
     
-    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM %@ ORDER BY date DESC",self.categoryModel.categoryCode];
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM n_%@ ORDER BY date DESC",self.categoryModel.categoryCode];
     
     
     if (![dbManager getDataForQuery:queryString])
@@ -275,13 +218,14 @@
         {
             UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
+        }else
+        {
+//            [self tryToUpdate];
         }
-        
-        [self tryToUpdate];
     }
 }
 
--(void) DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     [newsDetailsArr removeAllObjects];
     
@@ -295,14 +239,7 @@
         NSString *newsCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
         NSString *date = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
         NSInteger viewedFlag = sqlite3_column_int(statment, 5);
-        
-        
-        
-//        NewsCategoryModel *categoryModel = [[NewsCategoryModel alloc] init];
-//        categoryModel.categoryName = categoryName;
-//        categoryModel.categoryCode = categoryCode;
-//        categoryModel.categoryDocCode = categoryDocCode;
-        
+
         NewsContentModel *model = [[NewsContentModel alloc] init];
         model.ID = ID;
         model.subject = subject;
@@ -314,34 +251,27 @@
         model.recivedDate = [converter dateFromString:date];
         
         model.viewed = viewedFlag;
-        
+        model.parentCategory = self.categoryModel.categoryCode;
         [newsDetailsArr addObject:model];
-        
     }
-    
-    
 }
 
--(void)backBtnAction
+- (void)backBtnAction
 {
 //    [self.tabBarController setSelectedIndex:0];
     [self.navigationController popViewControllerAnimated:YES];
-
 }
 
--(void)pull
+- (void)pull
 {
-
     [NSThread sleepForTimeInterval:1];
     [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    
 }
 
 - (void)reloadData
 {
     // Reload table data
     [self.tableViewOutlet reloadData];
-    
 
     // End the refreshing
     if (self.refreshControl) {
@@ -360,14 +290,6 @@
 
  -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-//    if ([segue.identifier isEqualToString:@"message_segue"])
-//    {
-//        NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
-//        MessageDetailViewController *messageDeteilVC = segue.destinationViewController;
-//        messageModle *message = arrOfModleData[indexPath.row];
-//        messageDeteilVC.mesgModel = message;
-//    }
-
     NSIndexPath *indexPath = [self.tableViewOutlet indexPathForSelectedRow];
     MessageDetailViewController *messageDeteilVC = segue.destinationViewController;
     NewsContentModel *contentModel = newsDetailsArr[indexPath.row];
@@ -375,8 +297,6 @@
     messageDeteilVC.categoryName = self.categoryModel.categoryName;
     messageDeteilVC.newsContent = contentModel;
     
-//    messageDeteilVC.newsDetail = contentModel.newsDetails;
-
 }
 
 #pragma mark UITableViewDataSource
@@ -390,29 +310,15 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     UILabel *titleLable = (UILabel *)[cell viewWithTag:300];
-//    titleLable.text = arrOfTableData[indexPath.row];
     
     NewsContentModel *newsContentModel = newsDetailsArr[indexPath.row];
     titleLable.text = newsContentModel.subject;
     
     titleLable.font=[self customFont:18 ofName:MuseoSans_700];
-    
-//    UILabel *bodyTitleLable = (UILabel *)[cell viewWithTag:400];
-//    bodyTitleLable.text = newsContentModel.newsDetails;
-//    bodyTitleLable.font=[self customFont:14 ofName:MuseoSans_300];
-    
+
     UIWebView *titleOfWebView = (UIWebView *)[cell viewWithTag:400];
-//    [titleOfWebView loadHTMLString:newsContentModel.newsDetails baseURL:nil];
-    
-    
-//    NSString *htmlString =
-//    [NSString stringWithFormat:@"<font face='MuseoSans-300' size='12' color='#808080'>%@", newsContentModel.newsDetails];
-//    [titleOfWebView loadHTMLString:htmlString baseURL:nil];
     
     [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo'  style='font-size:14px; font-family:MuseoSans-300; color:#808080';>%@<div>",newsContentModel.newsDetails] baseURL:nil];
-
-//       [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div font-size:13px;font-family:MuseoSans-700;%@<div>",newsContentModel.newsDetails] baseURL:nil];
-
     
     NSDateComponents *componentsFoCurrentDate = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
     NSInteger currentDay = [componentsFoCurrentDate day];
@@ -433,28 +339,6 @@
 
     UILabel *timeTitleLable = (UILabel *)[cell viewWithTag:200];
     timeTitleLable.text = [converter stringFromDate:newsContentModel.recivedDate];
-//
-//    UILabel *subjectTitleLable = (UILabel *)[cell viewWithTag:300];
-//    subjectTitleLable.text = arrOfSubjects[indexPath.row];
-//    subjectTitleLable.font= [self customFont:20 ofName:MuseoSans_300];
-//    
-//    
-//    
-//    
-
-//
-//    
-//    
-//    UIImageView *mailImageView = (UIImageView *)[cell viewWithTag:500];
-//
-//    if (indexPath.row < self.emailreadNum)
-//    {
-//        mailImageView.image = [UIImage imageNamed:arrOfimageName[0]];
-//    }else
-//    {
-//        
-//    }
-
 
     return cell;
 }
@@ -466,39 +350,18 @@
     
     [webView.scrollView setContentSize: CGSizeMake(webView.frame.size.width, webView.scrollView.contentSize.height)];
     [webView.scrollView setShowsVerticalScrollIndicator:NO];
-    
 }
 
 
 #pragma mark UITableViewDelegate methods
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-//    if ([segue.identifier isEqualToString:@"message_segue"])
-
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-//    if (indexPath.row == 0)
-//    {
-//        [self performSegueWithIdentifier:@"message_segue" sender:nil];
-//    }
-
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

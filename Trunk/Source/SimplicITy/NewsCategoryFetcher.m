@@ -81,6 +81,7 @@
     }else if ([urlString isEqualToString:NEWS_API])
     {
         [self parseResponseDataForNews:response];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsSuccesfully" object:nil];
         
         if (noOfCallsMade == 0)
         {
@@ -131,10 +132,8 @@
             
             if (newsCategory.badgeCount > 0)
             {
-                NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\"}}",newsCategory.categoryCode, (long)_sinceID];
                 noOfCallsMade++;
-                [postMan post:NEWS_API withParameters:parameterStringforNews];
-
+                [self getNewsForCategoryCode:newsCategory.categoryCode withSince:_sinceID];
             }
             
             [newsCategoryArr addObject:newsCategory];
@@ -314,6 +313,12 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }
+}
+
+- (void)getNewsForCategoryCode:(NSString *)categoryCode withSince:(NSInteger)sinceID
+{
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\"}}",categoryCode, (long)sinceID];
+    [postMan post:NEWS_API withParameters:parameterStringforNews];
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
