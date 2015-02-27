@@ -41,10 +41,14 @@
 //    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"];
 //    [requestSerializer setValue:deviceToken forKey:@"x-devicetoken"];
     
-    
-
     manager.requestSerializer = requestSerializer;
 //    NSLog(@"headers %@", requestSerializer.HTTPRequestHeaders);
+}
+
+- (void)setTimeOutIntervel:(NSTimeInterval)timeOutIntervel
+{
+    _timeOutIntervel = timeOutIntervel;
+    [manager.requestSerializer setTimeoutInterval:timeOutIntervel];
 }
 
 - (void)post:(NSString *)URLString withParameters:(NSString *)parameter

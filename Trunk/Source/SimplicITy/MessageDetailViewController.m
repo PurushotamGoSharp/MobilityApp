@@ -7,7 +7,8 @@
 //
 
 #import "MessageDetailViewController.h"
-
+#import "BadgeNoManager.h"
+#import "DBManager.h"
 
 @interface MessageDetailViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLable;
@@ -24,6 +25,7 @@
 @implementation MessageDetailViewController
 {
     UIBarButtonItem *backButton;
+    DBManager *dbManager;
 }
 
 - (void)viewDidLoad {
@@ -66,6 +68,28 @@
     self.bodyTextView.font=[self customFont:14 ofName:MuseoSans_300];
     self.timeLable.font=[self customFont:14 ofName:MuseoSans_300];
     self.subjectLable.font=[self customFont:20 ofName:MuseoSans_300];
+
+    dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (!self.newsContent.viewed)
+    {
+        BadgeNoManager *badgemanager = [[BadgeNoManager alloc] init];
+        [badgemanager decrementBadgeNoFor:self.newsContent.parentCategory];
+        [self setViewFlagOnDB];
+    }
+}
+
+- (void)setViewFlagOnDB
+{
+    NSString *query =  [NSString stringWithFormat:@"UPDATE n_%@ set viewedFlag = 1 WHERE newsCode = '%@'", self.newsContent.parentCategory, self.newsContent.newsCode];
+    self.newsContent.viewed = YES;
+    
+    [dbManager saveDataToDBForQuery:query];
 
 }
 

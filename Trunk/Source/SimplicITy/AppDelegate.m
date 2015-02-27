@@ -11,7 +11,6 @@
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "SendRequestsManager.h"
-#import "NewsCategoryFetcher.h"
 
 #define ENABLE_PUSH_NOTIFICATION YES
 
@@ -21,7 +20,6 @@
 
 @implementation AppDelegate
 {
-    NewsCategoryFetcher *fetcher;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -154,8 +152,6 @@
     if (application.applicationState != UIApplicationStateBackground) {
         [[UAPush shared] resetBadge];
     }
-    
-    completionHandler(UIBackgroundFetchResultNoData);
 }
 
 - (void)gotNotificatonWithUserInfo:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -168,19 +164,19 @@
         {
             currentSinceID = [userInfo[@"id"] integerValue] - 1;
         }
-
+        
         [self getNewsCategoryFor:currentSinceID fetchCompletionHandler:completionHandler];
     }
 }
 
 - (void)getNewsCategoryFor:(NSInteger)sinceID fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    if (!fetcher)
+    if (!self.fetcher)
     {
-        fetcher = [[NewsCategoryFetcher alloc] init];
+        self.fetcher = [[NewsCategoryFetcher alloc] init];
     }
     
-    [fetcher initiateNewsCategoryAPIFor:sinceID fetchCompletionHandler:completionHandler];
+    [self.fetcher initiateNewsCategoryAPIFor:sinceID fetchCompletionHandler:completionHandler andDownloadImages:YES];
 }
 
 @end

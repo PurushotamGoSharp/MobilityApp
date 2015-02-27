@@ -233,7 +233,7 @@
         {
             NSInteger ratingGive = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
             NSString *feedbackData = [[NSUserDefaults standardUserDefaults] objectForKey:@"Feedback_Data"];
-            NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%i\",\"Feedback\":\"%@\"}}",  [UserInfo sharedUserInfo].cropID?:@"", ratingGive, feedbackData];
+            NSString  *parameter = [NSString stringWithFormat:@"{\"request\":{\"CorpId\":\"%@\",\"Rating\":\"%li\",\"Feedback\":\"%@\"}}",  [UserInfo sharedUserInfo].cropID?:@"", (long)ratingGive, feedbackData];
             
             self.tickMarkBarBtnOutlet.enabled = NO;
             

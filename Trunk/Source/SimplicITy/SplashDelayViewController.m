@@ -11,16 +11,18 @@
 #import "SeedModel.h"
 #import <sqlite3.h>
 #import "DBManager.h"
+#import "SeedSync.h"
+#import "NewsCategoryFetcher.h"
 
-@interface SplashDelayViewController ()<postmanDelegate,DBManagerDelegate>
+@interface SplashDelayViewController ()<SeedSyncDelegate>
 {
     NSMutableArray *seedDataArrAPI, *seedDataArrDB;
     NSMutableDictionary *seedDataDictFromAPI, *seeddataDictFromDB;
     
     NSString *URLString;
-    NSString *databasePath;
-    sqlite3 *database;
-    DBManager *dbManager;
+//    DBManager *dbManager;
+    SeedSync *seedSyncer;
+    NewsCategoryFetcher *categoryFetcher;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImageOutlet;
@@ -82,7 +84,8 @@
                                                object:nil];
 }
 
-- (void)orientationChanged:(NSNotification *)notification{
+- (void)orientationChanged:(NSNotification *)notification
+{
     [self adjustViewsForOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
@@ -115,9 +118,7 @@
             }else
             {
                 self.backGroundImageOutlet.image = [UIImage imageNamed:@"LanchImage_ipad_Landscape.png"];
-
             }
-            
         }
             break;
         case UIInterfaceOrientationUnknown:break;
@@ -129,151 +130,51 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
-    
 }
 
 - (void)checkRechability
 {
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        [self tryToUpdateSeedData];
+        if (seedSyncer == nil)
+        {
+            seedSyncer = [[SeedSync alloc] init];
+            seedSyncer.delegate = self;
+        }
+        
+        [seedSyncer initiateSeedAPI];
         NSLog(@"Rechable");
     }
     else
     {
         NSLog(@"Not rechable");
         [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-
-//        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//        [noNetworkAlert show];
     }
-}
-- (void)tryToUpdateSeedData
-{
-    URLString = SEED_API;
-    
-    Postman *postMan = [[Postman alloc] init];
-    postMan.delegate = self;
-    [postMan get:URLString];
 }
 
 #pragma mark
-#pragma mark postmanDelegate
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+#pragma mark SeedSyncDelegate
+- (void)seedSyncFinishedSuccessful:(SeedSync *)seedSync
 {
-    [self parseSeedata:response];
-    [self saveSeeddata:response forUrl:urlString];
-    
-    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-
-}
-
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-}
-
-- (void)parseSeedata:(NSData *)response
-{
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
-    NSArray *arr= json[@"aaData"][@"seedmaster"];
-    
-    seedDataArrAPI = [[NSMutableArray alloc] init];
-    seedDataDictFromAPI = [[NSMutableDictionary alloc] init];
-    for (NSDictionary *aDict in arr)
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"news"])
     {
-        SeedModel *seed = [[SeedModel alloc] init];
-        seed.name = aDict[@"Name"];
-        seed.type = aDict[@"Type"];
-        seed.upDateCount = [aDict[@"Value"] intValue];
-        [seedDataArrAPI addObject:seed];
+        NSInteger sinceID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
         
-        NSNumber *value = [NSNumber numberWithInteger:seed.upDateCount];
-        
-        
-        [seedDataDictFromAPI setObject:value  forKey:seed.name];
-        
-    }
-    
-    NSLog( @"Seed data from API's are %@ ",seedDataDictFromAPI);
-    
-    [self getData];
-}
-
-- (void)saveSeeddata:(NSData *)response forUrl:(NSString *)APILink
-{
-    if (dbManager == nil)
-    {
-        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
-        dbManager.delegate=self;
-    }
-    
-    NSString *createQuery = @"create table if not exists seed (name text PRIMARY KEY, upDateCount  )";
-    [dbManager createTableForQuery:createQuery];
-    
-    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-    NSRange rangeofString;
-    rangeofString.location = 0;
-    rangeofString.length = stringFromData.length;
-    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-    
-    for (SeedModel *aSeed in seedDataArrAPI) {
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  seed (name,upDateCount) values ('%@', '%i')", aSeed.name,aSeed.upDateCount];
-        
-        [dbManager saveDataToDBForQuery:insertSQL];
-    }
-}
-
-- (void)getData
-{
-    if (dbManager == nil)
-    {
-        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
-        dbManager.delegate=self;
-    }
-    
-//    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM seed WHERE API = '%@'", URLString];
-    
-    NSString *queryString = @"SELECT * FROM seed";
-    
-    if (![dbManager getDataForQuery:queryString])
-    {
-        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        if (sinceID > 0)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [noNetworkAlert show];
+            categoryFetcher = [[NewsCategoryFetcher alloc] init];
+            [categoryFetcher initiateNewsCategoryAPIFor:sinceID
+                                 fetchCompletionHandler:nil
+                                      andDownloadImages:YES];
         }
     }
-    NSArray *arrkeys = [seedDataDictFromAPI allKeys];
     
-    for (NSString *newkey in arrkeys)
-    {
-        if ([seedDataDictFromAPI[newkey] integerValue] > [seeddataDictFromDB[newkey] integerValue])
-        {
-            NSLog(@"Set Flags for %@" , newkey);
-            
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:newkey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    }
+    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
-- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+- (void)seedSyncFinishedWithFailure:(SeedSync *)seedSync
 {
-    seedDataArrDB = [[NSMutableArray alloc] init ];
-    seeddataDictFromDB = [[NSMutableDictionary alloc] init];
-    
-    while (sqlite3_step(statment) == SQLITE_ROW)
-    {
-        SeedModel *anSeed = [[SeedModel alloc] init];
-        anSeed.name = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
-        anSeed.upDateCount = sqlite3_column_int(statment, 1);
-        [seedDataArrDB addObject:anSeed];
-        
-        NSNumber *value = [NSNumber numberWithInt:anSeed.upDateCount];
-        [seeddataDictFromDB setObject:value forKey:anSeed.name];
-    }
+    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -282,9 +183,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 #pragma mark - Navigation
-
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -305,8 +204,6 @@
     NSString *imageName2 = [NSString stringWithFormat:@"TipsIcon-0%li.png", (long)imageIndex];
     NSString *imageName3 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
     NSString *imageName4 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
-    
-    
     
     UITabBarItem *tabBarItem = tabBar.items[0];
     tabBarItem.image = [[UIImage imageNamed:imageName0] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

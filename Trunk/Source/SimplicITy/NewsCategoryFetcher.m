@@ -28,8 +28,10 @@
     NSInteger badgeForCurrentCategory;
     
     NSInteger _sinceID;
+    void (^_completionHandler)(UIBackgroundFetchResult) ;
+    
+    NSInteger noOfCallsMade;
 }
-
 
 - (instancetype)init
 {
@@ -48,9 +50,11 @@
     postMan.delegate = self;
 }
 
-- (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+- (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler andDownloadImages:(BOOL)downloadImages
 {
+    noOfCallsMade = 0;
     _sinceID = sinceID;
+    _completionHandler = completionHandler;
     [self tryToUpdateNewsCategories:sinceID];
 }
 
@@ -59,6 +63,7 @@
     URLString = NEWS_CATEGORY_API;
     
     NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"Name\":\"\",\"Since_Id\":\"%li\"}}",(long)sinceID];
+    noOfCallsMade++;
     [postMan post:URLString withParameters:parameter];
 }
 
@@ -67,6 +72,8 @@
 
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
+    noOfCallsMade--;
+
     if ([urlString isEqualToString:NEWS_CATEGORY_API])
     {
         [self parseResponseData:response andGetImages:YES];
@@ -74,10 +81,27 @@
     }else if ([urlString isEqualToString:NEWS_API])
     {
         [self parseResponseDataForNews:response];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsSuccesfully" object:nil];
+        
+        if (noOfCallsMade == 0)
+        {
+            if (_completionHandler != nil)
+            {
+                _completionHandler(UIBackgroundFetchResultNoData);
+            }
+        }
 
     }else
     {
         [self createImages:response forUrl:urlString];
+        
+        if (noOfCallsMade == 0)
+        {
+            if (_completionHandler != nil)
+            {
+                _completionHandler(UIBackgroundFetchResultNoData);
+            }
+        }
     }
 }
 
@@ -102,14 +126,14 @@
             if (download)
             {
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, adict[@"DocumentCode"]];
+                noOfCallsMade++;
                 [postMan get:imageUrl];
             }
             
             if (newsCategory.badgeCount > 0)
             {
-                NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%i\"}}",newsCategory.categoryCode, _sinceID];
-                [postMan post:NEWS_API withParameters:parameterStringforNews];
-
+                noOfCallsMade++;
+                [self getNewsForCategoryCode:newsCategory.categoryCode withSince:_sinceID];
             }
             
             [newsCategoryArr addObject:newsCategory];
@@ -166,8 +190,8 @@
 {
     if (sqlite3_step(statment)== SQLITE_ROW)
     {
-        NSString *badgeCountFromDB = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
-        badgeForCurrentCategory = [badgeCountFromDB integerValue];
+            NSString *badgeCountFromDB = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
+            badgeForCurrentCategory = [badgeCountFromDB integerValue];
     }
 }
 
@@ -256,7 +280,9 @@
         dbManager.delegate = self;
     }
     
-    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists %@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, newsCode text, date text, viewedFlag integer)",parentCategoryCode];
+//Table names cannot begin with a number.Hence we are adding n_
+    
+    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists n_%@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, newsCode text, date text, viewedFlag integer)",parentCategoryCode];
     [dbManager createTableForQuery:creatQuery];
     
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
@@ -275,7 +301,8 @@
         rangeofString.length = newsSubjectString.length;
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@','%@','%@','%@',%i)",parentCategoryCode, amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
+//Table names cannot begin with a number.Hence we are adding n_
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO n_%@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",parentCategoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
@@ -288,8 +315,24 @@
     }
 }
 
+- (void)getNewsForCategoryCode:(NSString *)categoryCode withSince:(NSInteger)sinceID
+{
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\"}}",categoryCode, (long)sinceID];
+    [postMan post:NEWS_API withParameters:parameterStringforNews];
+}
+
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
+    noOfCallsMade--;
+    
+    if (noOfCallsMade == 0)
+    {
+        if (_completionHandler != nil)
+        {
+            _completionHandler(UIBackgroundFetchResultNoData);
+        }
+    }
+    
     NSLog(@"error %@",error);
 }
 
