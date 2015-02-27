@@ -2377,22 +2377,15 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view tag="400" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYo-9Y-Hjw">
-                                                    <rect key="frame" x="258" y="11" width="20" height="20"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="500" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Haa-Pw-RVm">
-                                                            <rect key="frame" x="3" y="2" width="15" height="15"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="35U-nc-MFQ"/>
-                                                        <constraint firstAttribute="height" constant="20" id="bjE-Gp-Fdx"/>
-                                                    </constraints>
-                                                </view>
+                                                <imageView userInteractionEnabled="NO" tag="400" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BadgeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="I9d-vE-u6d">
+                                                    <rect key="frame" x="251" y="14" width="20" height="20"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="500" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Haa-Pw-RVm">
+                                                    <rect key="frame" x="258" y="17" width="7" height="15"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -2402,8 +2395,12 @@
                                                 <constraint firstItem="Vd0-9d-v1X" firstAttribute="leading" secondItem="RfN-jh-Sxo" secondAttribute="trailing" constant="11" id="Cm5-dI-MB2"/>
                                                 <constraint firstAttribute="centerY" secondItem="Vd0-9d-v1X" secondAttribute="centerY" id="HZW-oE-kTb"/>
                                                 <constraint firstAttribute="trailing" secondItem="Mgl-Rs-y9W" secondAttribute="trailing" id="K2i-a5-cOQ"/>
-                                                <constraint firstItem="kYo-9Y-Hjw" firstAttribute="leading" secondItem="EfK-ZL-u9i" secondAttribute="trailing" constant="-35" id="Xv1-zb-hkh"/>
-                                                <constraint firstItem="EfK-ZL-u9i" firstAttribute="top" secondItem="kYo-9Y-Hjw" secondAttribute="top" constant="-10" id="ziH-LH-cNd"/>
+                                                <constraint firstItem="EfK-ZL-u9i" firstAttribute="trailing" secondItem="Haa-Pw-RVm" secondAttribute="trailing" constant="28" id="KJX-hb-vk6"/>
+                                                <constraint firstItem="I9d-vE-u6d" firstAttribute="centerX" secondItem="Haa-Pw-RVm" secondAttribute="centerX" constant="-0.5" id="ScS-Tx-aiA"/>
+                                                <constraint firstItem="EfK-ZL-u9i" firstAttribute="top" secondItem="Haa-Pw-RVm" secondAttribute="top" constant="-16" id="TiI-nf-GgI"/>
+                                                <constraint firstItem="I9d-vE-u6d" firstAttribute="leading" secondItem="Haa-Pw-RVm" secondAttribute="leading" constant="-7" id="gOt-RH-l5N"/>
+                                                <constraint firstItem="I9d-vE-u6d" firstAttribute="centerY" secondItem="Haa-Pw-RVm" secondAttribute="centerY" constant="-0.5" id="qAf-3H-JXM"/>
+                                                <constraint firstItem="I9d-vE-u6d" firstAttribute="trailing" secondItem="Haa-Pw-RVm" secondAttribute="trailing" constant="6" id="wAL-ej-jVT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3260,6 +3257,7 @@
     </scenes>
     <resources>
         <image name="Avatar" width="50" height="47"/>
+        <image name="BadgeIcon" width="20" height="20"/>
         <image name="Call_Phone" width="250" height="42"/>
         <image name="Clock" width="16" height="16"/>
         <image name="Commercial-01" width="30" height="30"/>
