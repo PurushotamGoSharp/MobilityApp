@@ -191,7 +191,7 @@
         rangeofString.length = newsSubjectString.length;
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@','%@','%@','%@',%i)",self.categoryModel.categoryCode, amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",self.categoryModel.categoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
