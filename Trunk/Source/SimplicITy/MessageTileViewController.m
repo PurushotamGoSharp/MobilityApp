@@ -17,7 +17,7 @@
 #import "NewsCategoryFetcher.h"
 
 
-@interface MessageTileViewController ()<UITabBarControllerDelegate,UITableViewDataSource,postmanDelegate,DBManagerDelegate>
+@interface MessageTileViewController ()<UITabBarControllerDelegate,UITableViewDataSource, UITableViewDelegate,postmanDelegate,DBManagerDelegate>
 {
     NSArray *arrOfData, *arrOfImages,*arrayOfBadgeNUm;
      UIBarButtonItem *backButton;
@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableViewoutlet;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeightConst;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end
 
@@ -69,6 +70,7 @@
 {
     [self getData];
     [self.tableViewoutlet reloadData];
+    [self adjustTableViewHeigth];
 }
 
 - (void)backBtnAction
@@ -99,6 +101,8 @@
     
     [self getData];
     [self.tableViewoutlet reloadData];
+    [self adjustTableViewHeigth];
+
 }
 
 - (void)tryToUpdateNewsCategories
@@ -158,6 +162,8 @@
     [self saveCategoies:newsCategoryArr];
     
     [self.tableViewoutlet reloadData];
+    [self adjustTableViewHeigth];
+
 }
 
 - (void)parseResponseDataForNews:(NSData*)response
@@ -244,7 +250,7 @@
     [imageData writeToFile:pathToImage atomically:YES];
     
     [self.tableViewoutlet reloadData];
-//    [self adjustTableViewHeigth];
+    [self adjustTableViewHeigth];
 }
 
 - (UIImage *)getimageForDocCode:(NSString *)docCode
@@ -381,9 +387,12 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
+    UIView *containerView = (UIView *)[cell viewWithTag:111];
+    containerView.layer.cornerRadius = 15;
+    containerView.layer.masksToBounds = YES;
     UILabel *titleLable = (UILabel *)[cell viewWithTag:100];
-    titleLable.layer.cornerRadius= 5;
-    titleLable.layer.masksToBounds = YES;
+//    titleLable.layer.cornerRadius= 5;
+//    titleLable.layer.masksToBounds = YES;
 //    titleLable.text = newsCategoryNameArr[indexPath.row];
     titleLable.font=[self customFont:15 ofName:MuseoSans_700];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -435,6 +444,19 @@
     MessagesViewController *messagesVC = (MessagesViewController *) segue.destinationViewController;
     messagesVC.categoryModel = newsCategoryArr[[self.tableViewoutlet indexPathForSelectedRow].row];
     messagesVC.emailreadNum = [arrayOfBadgeNUm[[self.tableViewoutlet indexPathForSelectedRow].row] integerValue];
+}
+
+- (void)adjustTableViewHeigth
+{
+    NSInteger noOfCells = [newsCategoryArr count];
+    CGFloat cellHeigth = [self.tableViewoutlet rowHeight];
+    
+    CGFloat heigthOfTableView = cellHeigth*noOfCells;
+    
+    heigthOfTableView = MIN(heigthOfTableView, self.containerView.frame.size.height);
+    
+    self.tableHeightConst.constant = heigthOfTableView;
+    [self.containerView layoutIfNeeded];
 }
 
 @end
