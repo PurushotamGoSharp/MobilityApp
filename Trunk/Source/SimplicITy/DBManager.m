@@ -63,6 +63,9 @@
     }
 }
 
+
+
+
 - (void)dropTable:(NSString *)tableName
 {
     const char *dbPath = [databasePath UTF8String];
@@ -91,6 +94,29 @@
         sqlite3_close(database);
     }
 }
+
+
+- (void)deleteRowForQuery:(NSString *)query
+{
+    const char *dbPath = [databasePath UTF8String];
+    if (sqlite3_open(dbPath, &database) == SQLITE_OK)
+    {
+        const char *sqlStmt = [query UTF8String];
+        sqlite3_stmt *statement;
+        
+        sqlite3_prepare_v2(database, sqlStmt, -1, & statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE)
+        {
+            NSLog(@"Deleted Sucessfully");
+        } else
+        {
+            NSLog(@"Not Deleted");
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(database);
+    }
+}
+
 
 - (void)saveDataToDBForQuery:(NSString *)query
 {

@@ -167,6 +167,8 @@
     {
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%li')",aModel.categoryName, aModel.categoryCode,aModel.categoryDocCode,(long)aModel.badgeCount];
         [dbManager saveDataToDBForQuery:insertSQL];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
     }
 }
 

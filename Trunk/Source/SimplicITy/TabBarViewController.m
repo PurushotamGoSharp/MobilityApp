@@ -8,6 +8,8 @@
 
 #import "TabBarViewController.h"
 #import "CEPanAnimationController.h"
+#import "BadgeNoManager.h"
+
 
 @interface TabBarViewController () <UITabBarControllerDelegate>
 
@@ -15,10 +17,12 @@
 
 @implementation TabBarViewController {
     CEPanAnimationController *_animationController;
+    BadgeNoManager *badge;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
+        
         self.delegate = self;
         
         // create the interaction / animation controllers
@@ -30,10 +34,41 @@
                forKeyPath:@"selectedViewController"
                   options:NSKeyValueObservingOptionNew
                   context:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(upDateBadgeCount)
+                                                     name:@"NewsBadgeCount"
+                                                   object:nil];
     }
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self upDateBadgeCount];
+}
+
+- (void)upDateBadgeCount
+{
+    if (badge == nil)
+    {
+        badge = [[BadgeNoManager alloc] init];
+    }
+    
+    NSInteger badgeNum = [badge totalNoBadges];
+    
+    UITabBarItem *tabBarItem = self.tabBar.items[1];
+
+    if (badgeNum == 0)
+    {
+        tabBarItem.badgeValue = nil;
+    }else
+    {
+        tabBarItem.badgeValue = [NSString stringWithFormat:@"%li",(long)badgeNum];
+    }
+    
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context

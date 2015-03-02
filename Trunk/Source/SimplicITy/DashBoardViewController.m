@@ -15,6 +15,7 @@
 #import "DBManager.h"
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "BadgeNoManager.h"
 
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
@@ -33,6 +34,7 @@
     UserInfo *userInfo;
     
     Postman *postMan;
+    BadgeNoManager *badge;
 }
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -68,6 +70,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *phoneImageOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *serviceImageOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *settingImageOutlet;
+@property (weak, nonatomic) IBOutlet UIImageView *badgeIcon;
+@property (weak, nonatomic) IBOutlet UILabel *badgeLable;
 
 @end
 
@@ -96,6 +100,10 @@
         UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [noNetworkAlert show];
     }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateBadgeCount) name:@"NewsBadgeCount" object:nil];
+    
     
     //    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
     //    {
@@ -221,6 +229,7 @@
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
     [self setupLocation];
+    self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
 }
 
 //-(UIImage*)imageResizing:(UIImage*)image
@@ -233,6 +242,26 @@
 //    UIGraphicsEndImageContext();
 //    return newCropedImage;
 //}
+
+-(void)upDateBadgeCount
+{
+    if (badge == nil)
+    {
+        badge = [[BadgeNoManager alloc] init];
+    }
+    
+    NSInteger badgeNum = [badge totalNoBadges];
+    if (badgeNum == 0)
+    {
+        self.badgeLable.hidden = YES;
+        self.badgeIcon.hidden = YES;
+    }else
+    {
+        self.badgeLable.hidden = NO;
+        self.badgeIcon.hidden = NO;
+        self.badgeLable.text = [NSString stringWithFormat:@"%li",(long)badgeNum];
+    }
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {

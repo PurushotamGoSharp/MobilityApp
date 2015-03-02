@@ -14,6 +14,7 @@
 #import "DBManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "NewsContentModel.h"
+#import "BadgeNoManager.h"
 
 @interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate,UIWebViewDelegate>
 {
@@ -92,7 +93,9 @@
 //    {
 //        [self tryToUpdate];
 //    }
+    
     [self getData];
+    [self.tableViewOutlet reloadData];
 }
 
 - (void)updateNewsList
@@ -318,6 +321,16 @@
 
     UIWebView *titleOfWebView = (UIWebView *)[cell viewWithTag:400];
     
+    UIImageView *messageimage = (UIImageView *)[cell viewWithTag:500];
+    if (newsContentModel.viewed)
+    {
+        messageimage.image = [UIImage imageNamed:@"MessageOpen"];
+    }else
+    {
+        messageimage.image = [UIImage imageNamed:@"MessageClosed"];
+
+    }
+    
     [titleOfWebView  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo'  style='font-size:14px; font-family:MuseoSans-300; color:#808080';>%@<div>",newsContentModel.newsDetails] baseURL:nil];
     
     NSDateComponents *componentsFoCurrentDate = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
@@ -341,6 +354,33 @@
     timeTitleLable.text = [converter stringFromDate:newsContentModel.recivedDate];
 
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        
+//        if (dbManager == nil)
+//        {
+//            dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+//            dbManager.delegate=self;
+//        }
+        NewsContentModel *newsModel = newsDetailsArr[indexPath.row];
+        
+        NSString *queryFordelete = [NSString stringWithFormat:@"DELETE FROM n_%@ WHERE IDOfNews = %li",self.categoryModel.categoryCode,(long)newsModel.ID];
+        
+        [dbManager deleteRowForQuery:queryFordelete];
+        
+        BadgeNoManager *badgemanager = [[BadgeNoManager alloc] init];
+        [badgemanager decrementBadgeNoFor:newsModel.parentCategory];
+        
+        [newsDetailsArr removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    [tableView endUpdates];
+    [tableView reloadData];
+
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

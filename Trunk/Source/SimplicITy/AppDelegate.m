@@ -164,7 +164,6 @@
         {
             currentSinceID = [userInfo[@"id"] integerValue] - 1;
         }
-        
         [self getNewsCategoryFor:currentSinceID fetchCompletionHandler:completionHandler];
     }
 }

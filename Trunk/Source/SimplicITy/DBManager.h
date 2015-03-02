@@ -30,4 +30,7 @@
 - (void)saveDataToDBForQuery:(NSString *)query;
 - (BOOL)getDataForQuery:(NSString *)query;
 
+- (void)deleteRowForQuery:(NSString *)query;
+
+
 @end

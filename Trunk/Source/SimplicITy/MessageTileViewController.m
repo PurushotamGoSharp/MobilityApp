@@ -286,7 +286,6 @@
     
     for (NewsCategoryModel *aModel in categories)
     {
-        
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode) values ('%@','%@','%@')",aModel.categoryName, aModel.categoryCode,aModel.categoryDocCode];
         [dbManager saveDataToDBForQuery:insertSQL];
     }
@@ -316,9 +315,7 @@
         {
             [[NSUserDefaults standardUserDefaults] setInteger:aNews.ID forKey:@"SinceID"];
         }
-
     }
-    
 }
 
 - (void)getData
@@ -381,7 +378,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
@@ -398,9 +394,8 @@
     UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
     imageView.image = [self getimageForDocCode:newsCategory.categoryDocCode];
     
-    UIView *badgeView = (UIView*)[cell viewWithTag:400];
-    badgeView.layer.cornerRadius = 10;
-    badgeView.backgroundColor = [UIColor redColor];
+    UIImageView *badgeView = (UIImageView *)[cell viewWithTag:400];
+    badgeView.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
     
     UILabel *lableForBadege = (UILabel*)[cell viewWithTag:500];
     
@@ -411,6 +406,8 @@
     }
     else
     {
+        badgeView.hidden = NO;
+        lableForBadege.hidden = NO;
         lableForBadege.text = [NSString stringWithFormat:@"%li", (long)newsCategory.badgeCount] ;
     }
     
