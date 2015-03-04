@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *separator1;
 @property (weak, nonatomic) IBOutlet UIView *separator2;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -26,6 +27,7 @@
 {
     UIBarButtonItem *backButton;
     DBManager *dbManager;
+    CGFloat heightOfWebViewCell;
 }
 
 - (void)viewDidLoad {
@@ -54,20 +56,20 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    self.nameLable.text = self.categoryName;
-    
-    [self.body loadHTMLString:self.newsContent.newsDetails baseURL:nil ];
-    self.subjectLable.text = self.newsContent.subject;
-    
-    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-    [converter setDateFormat:@"yyyy/MM/dd, hh:mm: ss a"];
-    self.timeLable.text = [converter stringFromDate:self.newsContent.recivedDate ];
-
-    
-    self.nameLable.font=[self customFont:18 ofName:MuseoSans_700];
-    self.bodyTextView.font=[self customFont:14 ofName:MuseoSans_300];
-    self.timeLable.font=[self customFont:14 ofName:MuseoSans_300];
-    self.subjectLable.font=[self customFont:20 ofName:MuseoSans_300];
+//    self.nameLable.text = self.categoryName;
+//    
+//    [self.body loadHTMLString:self.newsContent.newsDetails baseURL:nil ];
+//    self.subjectLable.text = self.newsContent.subject;
+//    
+//    NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+//    [converter setDateFormat:@"yyyy/MM/dd, hh:mm: ss a"];
+//    self.timeLable.text = [converter stringFromDate:self.newsContent.recivedDate ];
+//
+//    
+//    self.nameLable.font=[self customFont:18 ofName:MuseoSans_700];
+//    self.bodyTextView.font=[self customFont:14 ofName:MuseoSans_300];
+//    self.timeLable.font=[self customFont:14 ofName:MuseoSans_300];
+//    self.subjectLable.font=[self customFont:20 ofName:MuseoSans_300];
 
     dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
 }
@@ -108,6 +110,13 @@
     
     NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
     
+    
+    [self.tableView beginUpdates];
+    
+    CGFloat webViewHeight = webView.scrollView.contentSize.height;
+    heightOfWebViewCell = webViewHeight + 10;
+    webView.scrollView.scrollEnabled = NO;
+    [self.tableView endUpdates];
 //    yourScrollView.contentSize = webView.bounds.size;
 }
 
@@ -126,36 +135,63 @@
 
 
 //#pragma mark UITableViewDataSource methods
-//
-//-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return 3;
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//    if (indexPath.row == 0)
-//    {
-//        return 44;
-//    }else if (indexPath.row == 1)
-//    {
-//        return 44;
-//    }
-//    else
-//    {
-//        return 44;
-//    }
-//        
-//}
-//
-//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-//    
-//    
-//    return cell;
-//}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.row == 0)
+    {
+        return 70;
+    }else if (indexPath.row == 1)
+    {
+        return 70;
+    }
+    else
+    {
+        return heightOfWebViewCell;
+    }
+        
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = nil;
+    
+    if (indexPath.row == 0)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
+        UILabel *category = (UILabel *)[cell viewWithTag:100];
+        category.text = self.categoryName;
+        category.font = [self customFont:18 ofName:MuseoSans_700];
+
+    }else if (indexPath.row == 1)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+        UILabel *sub = (UILabel *)[cell viewWithTag:200];
+        sub.text = self.newsContent.subject;
+        sub.font = [self customFont:20 ofName:MuseoSans_700];
+        
+        UILabel *time = (UILabel *)[cell viewWithTag:300];
+        
+        NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+        [converter setDateFormat:@"yyyy/MM/dd, hh:mm: ss a"];
+        time.text = [converter stringFromDate:self.newsContent.recivedDate ];
+        time.font = [self customFont:14 ofName:MuseoSans_100];;
+
+    }else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell3" forIndexPath:indexPath];
+        
+        UIWebView *webViewBody = (UIWebView *)[cell viewWithTag:400];
+        [webViewBody loadHTMLString:self.newsContent.newsDetails baseURL:nil];
+    }
+    return cell;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

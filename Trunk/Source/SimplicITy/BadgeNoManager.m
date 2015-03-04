@@ -86,6 +86,41 @@
     [self decreaseBadgeNoFor:categoryCode withNo:1];
 }
 
+- (void)incrementBadgeNoFor:(NSString *)categoryCode withNo:(NSInteger)noToIncrease
+{
+    [self getDataFromDB];
+    
+    NSInteger currentBadgeNo = [self noBadgesFor:categoryCode afterUpdating:NO];
+    
+    currentBadgeNo += noToIncrease;
+    currentBadgeNo = MAX(0, currentBadgeNo);
+    
+    NSString *query =  [NSString stringWithFormat:@"UPDATE categories set badgeCount='%li' WHERE code = '%@'", (long)currentBadgeNo, categoryCode];
+    
+    [dbManager saveDataToDBForQuery:query];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
+    
+}
+
+- (void)updateBadgeNoFor:(NSString *)categoryCode withNo:(NSInteger)badgeNo
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSInteger currentBadgeNo;
+    
+    currentBadgeNo = badgeNo;
+    currentBadgeNo = MAX(0, currentBadgeNo);
+    
+    NSString *query =  [NSString stringWithFormat:@"UPDATE categories set badgeCount='%li' WHERE code = '%@'", (long)currentBadgeNo, categoryCode];
+    
+    [dbManager saveDataToDBForQuery:query];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
+}
+
 - (NSInteger)totalNoBadges
 {
     [self getDataFromDB];
