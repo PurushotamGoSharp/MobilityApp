@@ -15,6 +15,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "NewsContentModel.h"
 #import "BadgeNoManager.h"
+#import "NewsCategoryFetcher.h"
 
 @interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate,UIWebViewDelegate>
 {
@@ -26,8 +27,11 @@
     
     NSString *databasePath;
     sqlite3 *database;
-    DBManager *dbManager;
+    DBManager *dbManager, *dbManagerForGetUnViewed;
     
+    NewsCategoryFetcher *categoryFetcher;
+    
+    NSInteger countForUnviewedNews;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (strong ,nonatomic)UIRefreshControl *refreshControl;
@@ -72,6 +76,11 @@
                                              selector:@selector(updateNewsList)
                                                  name:@"DownloadedNewsSuccesfully"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNewsListForfailure)
+                                                 name:@"DownloadedNewsUnSuccesfully"
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -102,6 +111,23 @@
 {
     [self getData];
     [self.tableViewOutlet reloadData];
+    [self.refreshControl endRefreshing];
+    
+    
+    if (dbManagerForGetUnViewed == nil)
+    {
+        dbManagerForGetUnViewed = [[DBManager alloc] initWithFileName:@"News.db"];
+        dbManagerForGetUnViewed.delegate = self;
+    }
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM n_%@ WHERE viewedFlag = 0",self.categoryModel.categoryCode];
+    [dbManagerForGetUnViewed getDataForQuery:query];
+
+}
+
+- (void)updateNewsListForfailure
+{
+    [self.refreshControl endRefreshing];
 }
 
 - (void)tryToUpdate
@@ -110,7 +136,7 @@
     
     NSInteger sincID =[[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
     
-    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%i\"}}",categoryCode,sincID];
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\"}}",categoryCode,(long)sincID];
     [postMan post:URLString withParameters:parameterStringforNews];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
@@ -191,7 +217,7 @@
         rangeofString.length = newsSubjectString.length;
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%i,'%@','%@','%@','%@',%i)",self.categoryModel.categoryCode, amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",self.categoryModel.categoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
@@ -230,32 +256,47 @@
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
-    [newsDetailsArr removeAllObjects];
     
-    while (sqlite3_step(statment)== SQLITE_ROW)
+    if (manager == dbManager)
     {
+        [newsDetailsArr removeAllObjects];
+        while (sqlite3_step(statment)== SQLITE_ROW)
+        {
+            NSInteger ID = sqlite3_column_int(statment, 0);
+            NSString *subject = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+            NSString *newsDetail = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
+            NSString *newsCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+            NSString *date = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
+            NSInteger viewedFlag = sqlite3_column_int(statment, 5);
+            
+            NewsContentModel *model = [[NewsContentModel alloc] init];
+            model.ID = ID;
+            model.subject = subject;
+            model.newsDetails = newsDetail;
+            model.newsCode = newsCode;
+            
+            NSDateFormatter *converter = [[NSDateFormatter alloc] init];
+            [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+            model.recivedDate = [converter dateFromString:date];
+            
+            model.viewed = viewedFlag;
+            model.parentCategory = self.categoryModel.categoryCode;
+            [newsDetailsArr addObject:model];
+        }
+    }
+    else if (manager == dbManagerForGetUnViewed)
+    {
+        countForUnviewedNews = 0;
+        while (sqlite3_step(statment) == SQLITE_ROW)
+        {
+            countForUnviewedNews++;
+        }
         
-        NSInteger ID = sqlite3_column_int(statment, 0);
-        NSString *subject = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
-
-        NSString *newsDetail = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
-        NSString *newsCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
-        NSString *date = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
-        NSInteger viewedFlag = sqlite3_column_int(statment, 5);
-
-        NewsContentModel *model = [[NewsContentModel alloc] init];
-        model.ID = ID;
-        model.subject = subject;
-        model.newsDetails = newsDetail;
-        model.newsCode = newsCode;
+        NSLog(@"UnViewCount %i",countForUnviewedNews );
+//To update the paernt badge no by geting unread messages in news table
         
-        NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-        [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
-        model.recivedDate = [converter dateFromString:date];
-        
-        model.viewed = viewedFlag;
-        model.parentCategory = self.categoryModel.categoryCode;
-        [newsDetailsArr addObject:model];
+        BadgeNoManager *badge = [[BadgeNoManager alloc] init];
+        [badge updateBadgeNoFor:self.categoryModel.categoryCode withNo:countForUnviewedNews];
     }
 }
 
@@ -267,18 +308,17 @@
 
 - (void)pull
 {
-    [NSThread sleepForTimeInterval:1];
     [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 - (void)reloadData
 {
     // Reload table data
-    [self.tableViewOutlet reloadData];
+//    [self.tableViewOutlet reloadData];
 
     // End the refreshing
-    if (self.refreshControl) {
-
+    if (self.refreshControl)
+    {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"MMM d, h:mm a"];
         NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
@@ -286,7 +326,18 @@
                                                                     forKey:NSForegroundColorAttributeName];
         NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
         self.refreshControl.attributedTitle = attributedTitle;
-        [self.refreshControl endRefreshing];
+        
+         NSInteger sincID =[[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
+        
+        if (categoryFetcher == nil)
+        {
+            categoryFetcher = [[NewsCategoryFetcher alloc] init];
+        }
+        
+        [categoryFetcher getNewsForCategoryCode:self.categoryModel.categoryCode withSince:sincID];
+        
+        
+
     }
 }
 
@@ -317,7 +368,7 @@
     NewsContentModel *newsContentModel = newsDetailsArr[indexPath.row];
     titleLable.text = newsContentModel.subject;
     
-    titleLable.font=[self customFont:18 ofName:MuseoSans_700];
+    
 
     UIWebView *titleOfWebView = (UIWebView *)[cell viewWithTag:400];
     
@@ -325,9 +376,11 @@
     if (newsContentModel.viewed)
     {
         messageimage.image = [UIImage imageNamed:@"MessageOpen"];
+        titleLable.font=[self customFont:18 ofName:MuseoSans_100];
     }else
     {
         messageimage.image = [UIImage imageNamed:@"MessageClosed"];
+        titleLable.font=[self customFont:18 ofName:MuseoSans_700];
 
     }
     
@@ -352,6 +405,8 @@
 
     UILabel *timeTitleLable = (UILabel *)[cell viewWithTag:200];
     timeTitleLable.text = [converter stringFromDate:newsContentModel.recivedDate];
+    timeTitleLable.font=[self customFont:14 ofName:MuseoSans_100];
+
 
     return cell;
 }
@@ -379,7 +434,7 @@
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
     }
     [tableView endUpdates];
-    [tableView reloadData];
+//    [tableView reloadData];
 
 }
 

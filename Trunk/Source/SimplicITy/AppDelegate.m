@@ -92,9 +92,23 @@
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
+    NSDictionary *userInfo = [launchOptions valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
+    if (userInfo != nil)
+    {
+        [self getNotification:userInfo];
+    }
     return YES;
 }
 
+
+- (void)getNotification:(NSDictionary *)appInfo
+{
+    NSString *alert = appInfo[@"aps"][@"alert"];
+    
+     UIAlertView *alertForNotification =  [[UIAlertView alloc] initWithTitle:@"Notification" message:alert delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertForNotification show];
+
+}
 - (void)setTabsWithColorIndex:(NSInteger)colorIndex
 {
     
@@ -159,12 +173,14 @@
     if ([userInfo[@"func"] isEqualToString:@"News"])
     {
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
-        
         if (currentSinceID == 0)
         {
             currentSinceID = [userInfo[@"id"] integerValue] - 1;
         }
         [self getNewsCategoryFor:currentSinceID fetchCompletionHandler:completionHandler];
+    }else
+    {
+        [self getNotification:userInfo];
     }
 }
 

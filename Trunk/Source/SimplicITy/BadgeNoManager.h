@@ -18,4 +18,8 @@
 - (void)decrementBadgeNoFor:(NSString *)categoryCode;
 - (void)decreaseBadgeNoFor:(NSString *)categoryCode withNo:(NSInteger)noToReduce;
 
+- (void)incrementBadgeNoFor:(NSString *)categoryCode withNo:(NSInteger)noToIncrease;
+
+- (void)updateBadgeNoFor:(NSString *)categoryCode withNo:(NSInteger)badgeNo;
+
 @end

@@ -25,11 +25,13 @@
     Postman *postMan;
     NSString *URLString;
     
+    NSInteger countForNoOfCategories;
+    
     NSMutableArray *newsCategoryArr;
     
     NSString *databasePath;
     sqlite3 *database;
-    DBManager *dbManager;
+    DBManager *dbManager, *dbManagerForNOOfCategories;
     NewsCategoryFetcher *fetcher;
 //    NSMutableArray *newsCategoryNameArr, *newsCategoryCodeArr, *newsIDArr, *newsCodeArr, *newsDetailsArr;
 
@@ -308,7 +310,6 @@
     NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists %@ (IDOfNews integer PRIMARY KEY, newsDetails text, newsCode text)",categoryModel.categoryCode];
     [dbManager createTableForQuery:creatQuery];
     
-    
     for (NewsContentModel *aNews in categoryModel.newsArr)
     {
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, newsDetails, newsCode) values (%li,'%@','%@')",categoryModel.categoryCode ,(long)aNews.ID,aNews.newsDetails,aNews.newsCode];
@@ -346,25 +347,48 @@
 
 - (void) DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
-    [newsCategoryArr removeAllObjects];
-    
-    while (sqlite3_step(statment)== SQLITE_ROW)
+    if ([manager isEqual:dbManager])
     {
-        NSString *categoryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
-        NSString *categoryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
-        NSString *categoryDocCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
-        NSString *badge = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+        [newsCategoryArr removeAllObjects];
         
-        NewsCategoryModel *categoryModel = [[NewsCategoryModel alloc] init];
-        categoryModel.categoryName = categoryName;
-        categoryModel.categoryCode = categoryCode;
-        categoryModel.categoryDocCode = categoryDocCode;
-        categoryModel.badgeCount = [badge integerValue];
-        
-        [newsCategoryArr addObject:categoryModel];
-    }
-}
+        while (sqlite3_step(statment)== SQLITE_ROW)
+        {
+            NSString *categoryName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
+            NSString *categoryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+            NSString *categoryDocCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
+            NSString *badge = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+            
+            NewsCategoryModel *categoryModel = [[NewsCategoryModel alloc] init];
+            categoryModel.categoryName = categoryName;
+            categoryModel.categoryCode = categoryCode;
+            categoryModel.categoryDocCode = categoryDocCode;
+            categoryModel.badgeCount = [badge integerValue];
+            
+            if (dbManagerForNOOfCategories == nil)
+            {
+                dbManagerForNOOfCategories = [[DBManager alloc] initWithFileName:@"News.db"];;
+                dbManagerForNOOfCategories.delegate=self;
+            }
+            NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM n_%@ ORDER BY date DESC",categoryCode];
+            countForNoOfCategories = 0;
+            [dbManagerForNOOfCategories getDataForQuery:queryString];
+            
+            if (countForNoOfCategories != 0)
+            {
+                [newsCategoryArr addObject:categoryModel];
+            }
+        }
 
+    }else if ([manager isEqual:dbManagerForNOOfCategories])
+    {
+        countForNoOfCategories = 0;
+        while (sqlite3_step(statment)== SQLITE_ROW)
+        {
+            countForNoOfCategories++;
+        }
+    }
+    
+}
 
 //- (IBAction)btnAction:(id)sender
 //{

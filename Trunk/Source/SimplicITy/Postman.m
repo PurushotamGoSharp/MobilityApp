@@ -68,9 +68,7 @@
                                                   [self.delegate postman:self gotFailure:error forURL:URLString];
                                                   NSLog(@"ERROR %@",[operation responseString]);
                                                   NSLog(@"Error %@", error);
-                                                  
                                               }];
-    
     [self setAuthenticationBlockForOperation:operation];
 }
 

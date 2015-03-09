@@ -11,7 +11,7 @@
 #import "NewsContentModel.h"
 #import <sqlite3.h>
 #import "DBManager.h"
-
+#import "BadgeNoManager.h"
 
 @interface NewsCategoryFetcher () <postmanDelegate,DBManagerDelegate>
 
@@ -23,9 +23,9 @@
     NSString *URLString;
     NSString *databasePath;
     sqlite3 *database;
-    DBManager *dbManager;
+    DBManager *dbManager, *dbManagerForBadgeCount;
     
-    NSInteger badgeForCurrentCategory;
+    NSInteger badgeForCurrentCategory, countForUnviewedNews;
     
     NSInteger _sinceID;
     void (^_completionHandler)(UIBackgroundFetchResult) ;
@@ -190,10 +190,22 @@
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
-    if (sqlite3_step(statment)== SQLITE_ROW)
+    if ([dbManager isEqual:manager])
     {
+        if (sqlite3_step(statment)== SQLITE_ROW)
+        {
             NSString *badgeCountFromDB = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
             badgeForCurrentCategory = [badgeCountFromDB integerValue];
+        }
+    }else if ([dbManagerForBadgeCount isEqual:manager])
+    {
+        countForUnviewedNews = 0;
+        while (sqlite3_step(statment) == SQLITE_ROW)
+        {
+            countForUnviewedNews++;
+        }
+        
+        NSLog(@"UnViewCount %li",(long)countForUnviewedNews );
     }
 }
 
@@ -249,6 +261,11 @@
     NSString *parentCategory;
     NSMutableArray *newsArray = [[NSMutableArray alloc] init];
     
+    if (arr.count == 0)
+    {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsUnSuccesfully" object:nil];
+    }
+    
     for (NSDictionary *adict in arr)
     {
         if ([adict[@"Status"] boolValue])
@@ -272,6 +289,21 @@
     }
     
     [self saveNewsDetails:newsArray forParent:parentCategory];
+    
+    if (dbManagerForBadgeCount == nil)
+    {
+        dbManagerForBadgeCount = [[DBManager alloc] initWithFileName:@"News.db"];
+        dbManagerForBadgeCount.delegate=self;
+    }
+    
+//To update the paernt badge no by geting unread messages in news table    
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT * FROM n_%@ WHERE viewedFlag = 0",parentCategory];
+    [dbManagerForBadgeCount getDataForQuery:query];
+
+    BadgeNoManager *badge = [[BadgeNoManager alloc] init];
+    [badge updateBadgeNoFor:parentCategory withNo:countForUnviewedNews];
+    countForUnviewedNews = 0;
 }
 
 - (void)saveNewsDetails:(NSArray *)newsArray forParent:(NSString *)parentCategoryCode
@@ -304,6 +336,7 @@
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
 //Table names cannot begin with a number.Hence we are adding n_
+        
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO n_%@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",parentCategoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
@@ -326,6 +359,9 @@
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     noOfCallsMade--;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsUnSuccesfully" object:nil];
+
     
     if (noOfCallsMade == 0)
     {

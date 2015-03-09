@@ -108,7 +108,6 @@
     [self.delegate tipsSub:self selectedIndex:indexPath.row];
     [self dismissViewControllerAnimated:YES completion:^{
         
-        
     }];
 }
 
