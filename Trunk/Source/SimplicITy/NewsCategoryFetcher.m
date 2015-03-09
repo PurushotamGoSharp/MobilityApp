@@ -270,21 +270,24 @@
     {
         if ([adict[@"Status"] boolValue])
         {
-            NewsContentModel *newsContent = [[NewsContentModel alloc]init];
-            newsContent.ID = [adict[@"ID"] integerValue];
-            newsContent.newsCode =adict[@"Code"];
-            parentCategory = adict[@"NewsCategoryCode"];;
-
             NSString *JSONString = adict[@"JSON"];
             NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
             
-            newsContent.subject = dictFromJSON[@"Title"];
-            newsContent.newsDetails =dictFromJSON[@"Content"];
-            
-            newsContent.recivedDate = [NSDate date];
-            newsContent.viewed = NO;
-            newsContent.parentCategory = dictFromJSON[@"NewsCategoryCode"];
-            [newsArray addObject:newsContent];
+            if ([dictFromJSON[@"Status"] isEqualToString:@"Pushed"])
+            {
+                NewsContentModel *newsContent = [[NewsContentModel alloc]init];
+                newsContent.ID = [adict[@"ID"] integerValue];
+                newsContent.newsCode =adict[@"Code"];
+                parentCategory = adict[@"NewsCategoryCode"];;
+                
+                newsContent.subject = dictFromJSON[@"Title"];
+                newsContent.newsDetails =dictFromJSON[@"Content"];
+                
+                newsContent.recivedDate = [NSDate date];
+                newsContent.viewed = NO;
+                newsContent.parentCategory = adict[@"NewsCategoryCode"];
+                [newsArray addObject:newsContent];
+            }
         }
     }
     
@@ -352,7 +355,7 @@
 
 - (void)getNewsForCategoryCode:(NSString *)categoryCode withSince:(NSInteger)sinceID
 {
-    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\"}}",categoryCode, (long)sinceID];
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\",\"Status\":\"Pushed\"}}",categoryCode, (long)sinceID];
     [postMan post:NEWS_API withParameters:parameterStringforNews];
 }
 
