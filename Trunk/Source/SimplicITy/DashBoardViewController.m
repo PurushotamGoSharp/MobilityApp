@@ -298,7 +298,9 @@
         default:
             break;
     }
+    [self upDateBadgeCount];
 }
+
 
 - (void)setupLocation
 {

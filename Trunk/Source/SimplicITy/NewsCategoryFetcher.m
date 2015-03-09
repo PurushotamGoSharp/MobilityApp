@@ -205,7 +205,7 @@
             countForUnviewedNews++;
         }
         
-        NSLog(@"UnViewCount %i",countForUnviewedNews );
+        NSLog(@"UnViewCount %li",(long)countForUnviewedNews );
     }
 }
 
@@ -336,6 +336,7 @@
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
 //Table names cannot begin with a number.Hence we are adding n_
+        
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO n_%@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",parentCategoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];

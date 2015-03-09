@@ -141,7 +141,7 @@
     return 3;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     if (indexPath.row == 0)
@@ -149,13 +149,33 @@
         return 70;
     }else if (indexPath.row == 1)
     {
-        return 70;
+        return [self heightOfSubjectCell];
+        
     }
     else
     {
         return heightOfWebViewCell;
     }
         
+}
+
+- (CGFloat)heightOfSubjectCell
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [self customFont:18 ofName:MuseoSans_300]};
+    
+    CGFloat maxWidthAllowed = self.view.frame.size.width - 8 - 10;
+    
+    //    if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait)
+    //    {
+    //        maxWidthAllowed = self.view.frame.size.height - 16 - 33;
+    //    }
+    
+    CGRect expectedSizeOfLabel = [self.newsContent.subject boundingRectWithSize:(CGSizeMake(maxWidthAllowed, 10000))
+                                                            options:(NSStringDrawingUsesLineFragmentOrigin)
+                                                         attributes:attributes
+                                                            context:nil];
+    CGFloat expectedHeightOfCell = expectedSizeOfLabel.size.height + 20 + 8 + 11 + 15; // timelabel height = 20
+    return expectedHeightOfCell;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -174,7 +194,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
         UILabel *sub = (UILabel *)[cell viewWithTag:200];
         sub.text = self.newsContent.subject;
-        sub.font = [self customFont:20 ofName:MuseoSans_700];
+        sub.font = [self customFont:18 ofName:MuseoSans_300];
         
         UILabel *time = (UILabel *)[cell viewWithTag:300];
         
