@@ -57,10 +57,8 @@
 - (void)initialize
 {
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status)
-    {
-        
+    {        
         [self networkStatusChanged:status];
-        
     }];
     
     statusArray = @[@"low", @"medium", @"high", @"critical"];
@@ -277,7 +275,8 @@
         withPassphrase:@"test"];
         
         NSURLCredential *credential = [NSURLCredential credentialWithIdentity:identity
-                                                                 certificates:@[(__bridge id)certificate] persistence:NSURLCredentialPersistencePermanent];
+                                                                 certificates:@[(__bridge id)certificate]
+                                                                  persistence:NSURLCredentialPersistencePermanent];
         if (credential)
         {
             [challenge.sender useCredential:credential forAuthenticationChallenge:challenge];
