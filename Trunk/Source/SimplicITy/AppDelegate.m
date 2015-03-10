@@ -40,9 +40,6 @@
     
     [UAPush shared].userPushNotificationsEnabled = ENABLE_PUSH_NOTIFICATION;
     [UAPush shared].pushNotificationDelegate = self;
-
-    [UAPush shared].tags = @[@"All_Devices", @"iPad 4"];
-    [[UAPush shared] updateRegistration];
     
     [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
 

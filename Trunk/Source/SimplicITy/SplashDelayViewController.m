@@ -7,12 +7,10 @@
 //
 
 #import "SplashDelayViewController.h"
-#import "Postman.h"
-#import "SeedModel.h"
-#import <sqlite3.h>
-#import "DBManager.h"
 #import "SeedSync.h"
 #import "NewsCategoryFetcher.h"
+#import "UAPush.h"
+#import "UserInfo.h"
 
 @interface SplashDelayViewController ()<SeedSyncDelegate>
 {
@@ -57,6 +55,13 @@
 
     }
     URLString = SEED_API;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDefaultChanged)
+                                                 name:NSUserDefaultsDidChangeNotification
+                                               object:nil];
+
+    [self updateTagsAndAlias];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -248,6 +253,27 @@
     return nil;
 }
 
+- (void)userDefaultChanged
+{
+    [self performSelector:@selector(updateTagsAndAlias) withObject:nil afterDelay:1];
+}
 
+- (void)updateTagsAndAlias
+{
+//When ever we update tags and alias nsuerdefault was also updating. so it was forming 
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSUserDefaultsDidChangeNotification
+                                                  object:nil];
+
+    NSArray *ar = [UserInfo sharedUserInfo].tags;
+    [UAPush shared].tags = [UserInfo sharedUserInfo].tags?:@[@"All_Devices", @"iPhone 6"];
+    [UAPush shared].alias = [UserInfo sharedUserInfo].alias;
+    [[UAPush shared] updateRegistration];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDefaultChanged)
+                                                 name:NSUserDefaultsDidChangeNotification
+                                               object:nil];
+}
 
 @end

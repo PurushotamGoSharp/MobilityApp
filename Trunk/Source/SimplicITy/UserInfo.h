@@ -18,6 +18,10 @@
 @property (strong, nonatomic) NSString *location;
 @property (strong, nonatomic) NSString *emailIDValue;
 
+@property (strong, nonatomic) NSString *serialNo;
+
+@property (strong, nonatomic) NSArray *tags;
+@property (strong, nonatomic) NSString *alias;
 
 + (instancetype)sharedUserInfo;
 - (NSDictionary *)getServerConfig;

@@ -36,6 +36,12 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
     {
         serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
         
+        if (serverConfig == nil)
+        {
+            NSString *pathOfPlist = [[NSBundle mainBundle] pathForResource:@"DemoUserInfo" ofType:@"plist"];
+            serverConfig = [NSDictionary dictionaryWithContentsOfFile:pathOfPlist];
+        }
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(userDefaultdValueChanged)
                                                      name:NSUserDefaultsDidChangeNotification
@@ -50,6 +56,13 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
     if (!serverConfig)
     {
         serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+        
+        if (serverConfig == nil)
+        {
+            NSString *pathOfPlist = [[NSBundle mainBundle] pathForResource:@"DemoUserInfo" ofType:@"plist"];
+            serverConfig = [NSDictionary dictionaryWithContentsOfFile:pathOfPlist];
+        }
+        
     }
     
     return serverConfig;
@@ -80,6 +93,11 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
     return [self getServerConfig][@"mail"];
 }
 
+- (NSString *)serialNo
+{
+    return [self getServerConfig][@"serialNumber"];
+}
+
 - (NSString *)fullName
 {
     NSString *nameOfPerson;
@@ -99,9 +117,25 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
     return nameOfPerson;
 }
 
+- (NSString *)alias
+{
+    return [self getServerConfig][@"alias"];
+}
+
+- (NSArray *)tags
+{
+    return [self getServerConfig][@"tags"];
+}
+
 - (void)userDefaultdValueChanged
 {
     serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+    
+    if (serverConfig == nil)
+    {
+        NSString *pathOfPlist = [[NSBundle mainBundle] pathForResource:@"DemoUserInfo" ofType:@"plist"];
+        serverConfig = [NSDictionary dictionaryWithContentsOfFile:pathOfPlist];
+    }
 }
 
 - (void)dealloc

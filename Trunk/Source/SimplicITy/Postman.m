@@ -7,6 +7,7 @@
 //
 
 #import "Postman.h"
+#import "UserInfo.h"
 
 @implementation Postman
 {
@@ -28,14 +29,16 @@
     manager = [AFHTTPRequestOperationManager manager];
     AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
     
+    UserInfo *info = [UserInfo sharedUserInfo];
+    
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
-    [requestSerializer setValue:@"G800189" forHTTPHeaderField:@"x-corpid"];
-    [requestSerializer setValue:@"test.mailadminbraexcap0112@ucb.com" forHTTPHeaderField:@"x-emailid"];
-    [requestSerializer setValue:@"test" forHTTPHeaderField:@"x-name"];
-    [requestSerializer setValue:@"dnpnl4jjg5mf" forHTTPHeaderField:@"x-deviceserialno"];
-    [requestSerializer setValue:@"ind" forHTTPHeaderField:@"x-region"];
+    [requestSerializer setValue:info.cropID forHTTPHeaderField:@"x-corpid"];
+    [requestSerializer setValue:info.emailIDValue forHTTPHeaderField:@"x-emailid"];
+    [requestSerializer setValue:info.firstName forHTTPHeaderField:@"x-name"];
+    [requestSerializer setValue:info.serialNo forHTTPHeaderField:@"x-deviceserialno"];
+    [requestSerializer setValue:info.location forHTTPHeaderField:@"x-region"];
 //    [requestSerializer setValue:@"iOS" forHTTPHeaderField:@"x-referer"];
     
 //    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"];
