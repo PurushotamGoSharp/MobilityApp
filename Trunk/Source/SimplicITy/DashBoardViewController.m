@@ -389,10 +389,10 @@
     [self saveLocationdata:response forUrl:urlString];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
-    {
+//    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
+//    {
         [self setupLocation];
-    }
+//    }
     [self updateProfileView];
 }
 
@@ -462,6 +462,7 @@
 
 - (BOOL)getDataForCountryCode:(NSString *)countryCode
 {
+    countryCode = [countryCode uppercaseString];
     
     if (dbManager == nil)
     {

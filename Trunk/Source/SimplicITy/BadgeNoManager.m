@@ -47,7 +47,7 @@
 
 - (NSInteger)noBadgesFor:(NSString *)categroyCode afterUpdating:(BOOL)update
 {
-    if (update)
+    if (update || [newsCategoryArr count] == 0)
     {
         [self getDataFromDB];
     }

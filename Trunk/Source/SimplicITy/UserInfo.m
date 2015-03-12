@@ -70,32 +70,38 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 
 - (NSString *)firstName
 {
-    return [self getServerConfig][@"firstName"];
+    _firstName =[self getServerConfig][@"firstName"];
+    return _firstName;
 }
 
 - (NSString *)lastName
 {
-    return [self getServerConfig][@"lastName"];
+    _lastName = [self getServerConfig][@"lastName"];
+    return _lastName;
 }
 
 - (NSString *)cropID
 {
-    return [self getServerConfig][@"corpID"];
+    _cropID = [self getServerConfig][@"corpID"];
+    return _cropID;
 }
 
 - (NSString *)location
 {
-    return [self getServerConfig][@"location"];
+    _location = [self getServerConfig][@"location"];
+    return _location;
 }
 
 - (NSString *)emailIDValue
 {
-    return [self getServerConfig][@"mail"];
+    _emailIDValue = [self getServerConfig][@"mail"];
+    return _emailIDValue;
 }
 
 - (NSString *)serialNo
 {
-    return [self getServerConfig][@"serialNumber"];
+    _serialNo = [self getServerConfig][@"serialNumber"];
+    return _serialNo;
 }
 
 - (NSString *)fullName
@@ -114,17 +120,21 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
         nameOfPerson = self.lastName;
     }
     
-    return nameOfPerson;
+    _fullName = nameOfPerson;
+    
+    return _fullName;
 }
 
 - (NSString *)alias
 {
-    return [self getServerConfig][@"alias"];
+    _alias = [self getServerConfig][@"alias"];
+    return _alias;
 }
 
 - (NSArray *)tags
 {
-    return [self getServerConfig][@"tags"];
+    _tags = [self getServerConfig][@"tags"];
+    return _tags;
 }
 
 - (void)userDefaultdValueChanged

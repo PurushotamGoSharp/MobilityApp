@@ -12,7 +12,7 @@
 #import <sqlite3.h>
 #import "DBManager.h"
 #import "BadgeNoManager.h"
-
+#import "UserInfo.h"
 @interface NewsCategoryFetcher () <postmanDelegate,DBManagerDelegate>
 
 @end
@@ -105,6 +105,25 @@
     }
 }
 
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    noOfCallsMade--;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsUnSuccesfully" object:nil];
+    
+    
+    if (noOfCallsMade == 0)
+    {
+        if (_completionHandler != nil)
+        {
+            _completionHandler(UIBackgroundFetchResultNoData);
+        }
+    }
+    
+    NSLog(@"error %@",error);
+}
+
+
 - (void)parseResponseData:(NSData*)response andGetImages:(BOOL)download
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
@@ -115,8 +134,11 @@
 
     for (NSDictionary *adict in arr)
     {
-        if ([adict[@"Status"] boolValue])
-        {
+        
+        //We should not check staus because client requirement is that, visibility of 'news' should not be managed by server admin. If we chwck status and admin changes status of category, news under that category will become hidden
+        
+//        if ([adict[@"Status"] boolValue])
+//        {
             NewsCategoryModel *newsCategory = [[NewsCategoryModel alloc] init];
             newsCategory.categoryCode = adict[@"Code"];
             newsCategory.categoryName = adict[@"Name"];
@@ -137,7 +159,7 @@
             }
             
             [newsCategoryArr addObject:newsCategory];
-        }
+//        }
     }
     
     [self saveCategoies:newsCategoryArr];
@@ -153,13 +175,17 @@
         dbManager.delegate = self;
     }
     
+// We will be updating badge only after we download news, so badgeCount on newsCaregory API is not reqiured
+    
     for (NewsCategoryModel *aModel in categories)
     {
-        NSInteger badgeCount = aModel.badgeCount  + [self badgeCountFor:aModel.categoryCode];
+//        NSInteger badgeCount = aModel.badgeCount  + [self badgeCountFor:aModel.categoryCode];
+        NSInteger badgeCount = [self badgeCountFor:aModel.categoryCode];
         aModel.badgeCount = badgeCount;
     }
     
-    [dbManager dropTable:@"categories"];
+//    [dbManager dropTable:@"categories"];
+    
     NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists categories (name text, code text PRIMARY KEY, docCode text, badgeCount text)"];
     [dbManager createTableForQuery:creatQuery];
     
@@ -168,7 +194,7 @@
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%li')",aModel.categoryName, aModel.categoryCode,aModel.categoryDocCode,(long)aModel.badgeCount];
         [dbManager saveDataToDBForQuery:insertSQL];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
     }
 }
 
@@ -253,6 +279,14 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewCategoryGotSuccess" object:nil];
 }
 
+
+
+- (void)getNewsForCategoryCode:(NSString *)categoryCode withSince:(NSInteger)sinceID
+{
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\",\"Status\":\"Pushed\"}}",categoryCode, (long)sinceID];
+    [postMan post:NEWS_API withParameters:parameterStringforNews];
+}
+
 - (void)parseResponseDataForNews:(NSData*)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
@@ -263,7 +297,7 @@
     
     if (arr.count == 0)
     {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsUnSuccesfully" object:nil];
+        //        [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsUnSuccesfully" object:nil];
     }
     
     for (NSDictionary *adict in arr)
@@ -273,7 +307,7 @@
             NSString *JSONString = adict[@"JSON"];
             NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
             
-            if ([dictFromJSON[@"Status"] isEqualToString:@"Pushed"])
+            if ([dictFromJSON[@"Status"] isEqualToString:@"Pushed"] && [self checkWhetherTagsExist:dictFromJSON[@"Tags"]])
             {
                 NewsContentModel *newsContent = [[NewsContentModel alloc]init];
                 newsContent.ID = [adict[@"ID"] integerValue];
@@ -299,11 +333,11 @@
         dbManagerForBadgeCount.delegate=self;
     }
     
-//To update the paernt badge no by geting unread messages in news table    
+    //To update the parent badge no by geting unread messages in news table
     
     NSString *query = [NSString stringWithFormat:@"SELECT * FROM n_%@ WHERE viewedFlag = 0",parentCategory];
     [dbManagerForBadgeCount getDataForQuery:query];
-
+    
     BadgeNoManager *badge = [[BadgeNoManager alloc] init];
     [badge updateBadgeNoFor:parentCategory withNo:countForUnviewedNews];
     countForUnviewedNews = 0;
@@ -317,7 +351,7 @@
         dbManager.delegate = self;
     }
     
-//Table names cannot begin with a number.Hence we are adding n_
+    //Table names cannot begin with a number.Hence we are adding n_
     
     NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists n_%@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, newsCode text, date text, viewedFlag integer)",parentCategoryCode];
     [dbManager createTableForQuery:creatQuery];
@@ -338,7 +372,7 @@
         rangeofString.length = newsSubjectString.length;
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
-//Table names cannot begin with a number.Hence we are adding n_
+        //Table names cannot begin with a number.Hence we are adding n_
         
         NSString *sql = [NSString stringWithFormat:@"INSERT INTO n_%@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",parentCategoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
@@ -353,28 +387,30 @@
     }
 }
 
-- (void)getNewsForCategoryCode:(NSString *)categoryCode withSince:(NSInteger)sinceID
+- (BOOL)checkWhetherTagsExist:(id)tags
 {
-    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\",\"Status\":\"Pushed\"}}",categoryCode, (long)sinceID];
-    [postMan post:NEWS_API withParameters:parameterStringforNews];
-}
+    NSArray *deviceTags = [UserInfo sharedUserInfo].tags;
 
-- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    noOfCallsMade--;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DownloadedNewsUnSuccesfully" object:nil];
-
-    
-    if (noOfCallsMade == 0)
+    if (tags == nil) //If admin didnt selected any tags, response is giving nil
     {
-        if (_completionHandler != nil)
+        return YES;
+        
+    }else if ([tags isKindOfClass:[NSArray class]])
+    {
+        for (NSString *aTag in tags)
         {
-            _completionHandler(UIBackgroundFetchResultNoData);
+            if ([deviceTags containsObject:aTag]) return YES;
+            
+            NSLog(@"Tag %@ not existing",aTag);
         }
+        
+    }else if ([tags isKindOfClass:[NSString class]])
+    {
+        NSString *aTag = (NSString *) tags;
+        return [deviceTags containsObject:aTag];
     }
     
-    NSLog(@"error %@",error);
+    return NO;
 }
 
 @end

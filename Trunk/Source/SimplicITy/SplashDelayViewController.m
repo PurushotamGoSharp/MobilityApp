@@ -116,7 +116,7 @@
         case UIInterfaceOrientationLandscapeRight:
         {
             //load the landscape view
-            
+
             if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
             {
                 
@@ -164,7 +164,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"news"])
     {
         NSInteger sinceID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
-        
+//        sinceID = 1;
         if (sinceID > 0)
         {
             categoryFetcher = [[NewsCategoryFetcher alloc] init];
@@ -265,8 +265,7 @@
                                                     name:NSUserDefaultsDidChangeNotification
                                                   object:nil];
 
-    NSArray *ar = [UserInfo sharedUserInfo].tags;
-    [UAPush shared].tags = [UserInfo sharedUserInfo].tags?:@[@"All_Devices", @"iPhone 6"];
+    [UAPush shared].tags = [UserInfo sharedUserInfo].tags;
     [UAPush shared].alias = [UserInfo sharedUserInfo].alias;
     [[UAPush shared] updateRegistration];
     

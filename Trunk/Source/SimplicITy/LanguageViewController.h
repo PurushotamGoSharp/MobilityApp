@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class LanguageModel;
 @protocol languagesSettingdelegate <NSObject>
 
--(void)selectedLanguageis:(NSString *)language;
+-(void)selectedLanguageis:(LanguageModel *)language;
 
 @end
 

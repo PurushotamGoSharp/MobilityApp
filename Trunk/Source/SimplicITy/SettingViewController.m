@@ -10,7 +10,7 @@
 #import "LanguageViewController.h"
 #import "LocationViewController.h"
 #import "ThemesViewController.h"
-
+#import "LanguageModel.h"
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate,ThemeSettingDelegate >
 {
    NSArray  *arrOfTableViewData, *arrOfImages ;
@@ -18,7 +18,7 @@
     UIBarButtonItem *backButton;
     
     NSArray *arrOfLocationData, *arrOfLanguageData;
-    NSInteger selectedLanaguage;
+    NSString *selectedLanaguage;
     
     NSString *selectedLocationName;
 }
@@ -39,7 +39,7 @@
     arrOfImages = @[@"language.png",@"lacation.png"];
     
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
-     arrOfLanguageData = @[@"English",@"German",@"French",@"Chinese",@"Spanish",@"Japanese"];
+    arrOfLanguageData = @[@"English",@"German",@"French",@"Chinese",@"Spanish",@"Japanese"];
 
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
@@ -65,9 +65,14 @@
 {
     [super viewWillAppear:animated];
     
-    
     selectedLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationName"];
-    selectedLanaguage = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLanguage"];
+    selectedLanaguage = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguage"];
+    
+    if (selectedLanaguage == nil)
+    {
+        NSString *langID = [[NSLocale preferredLanguages] objectAtIndex:0];
+        selectedLanaguage = [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:langID];
+    }
     
     [self.tableView reloadData];
     self.navigationController.navigationBarHidden = NO;
@@ -89,7 +94,6 @@
         ThemesViewController *themesVC = navController.viewControllers[0];
         themesVC.delegate = self;
     }
-    
 }
 
 
@@ -100,7 +104,7 @@
     return 2;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section ==0) {
         return [arrOfTableViewData count];
@@ -130,7 +134,7 @@
     if (indexPath.section == 0)
     {
         if (indexPath.row == 0) {
-            languageLabel.text = arrOfLanguageData[selectedLanaguage];
+            languageLabel.text = selectedLanaguage;
             
         }else
         {
@@ -187,22 +191,22 @@
 
 #pragma mark SettingDelegates
 
--(void)selectedLanguageis:(NSString *)language
+- (void)selectedLanguageis:(LanguageModel *)language
 {
     UITableViewCell *languageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
-    languageLabel.text = language;
+    languageLabel.text = language.name;
 }
 
--(void)selectedLocationIs:(NSString *)location
+- (void)selectedLocationIs:(NSString *)location
 {
     UITableViewCell *languageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
     languageLabel.text = location;
 }
 
--(void)selectedThemeIs:(NSString *)theme
+- (void)selectedThemeIs:(NSString *)theme
 {
     UITableViewCell *themesCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     UILabel *themeLable = (UILabel *)[themesCell viewWithTag:201];

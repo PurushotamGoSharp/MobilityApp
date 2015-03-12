@@ -71,7 +71,7 @@
 
 
 
--(void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseResponseData:response];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -79,7 +79,7 @@
 
 }
 
-- (void) parseResponseData:(NSData*)response
+- (void)parseResponseData:(NSData*)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
@@ -124,7 +124,7 @@
 }
 
 
--(void)getData
+- (void)getData
 {
     if (dbManager == nil)
     {
@@ -139,7 +139,7 @@
     }
 }
 
--(void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
     if (sqlite3_step(statment) == SQLITE_ROW)
     {
@@ -156,9 +156,9 @@
 - (IBAction)doneBtnPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    NSString *selectedlanguage = arrOfLanguageData[[self.tableView indexPathForSelectedRow].row];
+    LanguageModel *selectedlanguage = languagesArrOfData[[self.tableView indexPathForSelectedRow].row];
     
-    [[NSUserDefaults standardUserDefaults] setInteger:[self.tableView indexPathForSelectedRow].row forKey:@"SelectedLanguage"];
+    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguage"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.delegate selectedLanguageis:selectedlanguage];
 }
@@ -201,26 +201,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectedRow = indexPath.row;
-
-//    UIView *bgColorView = [[UIView alloc] init];
-//    bgColorView.backgroundColor = [UIColor redColor];
-//    [cell setSelectedBackgroundView:bgColorView];
-    
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    
-//    UITableViewCell* newCell = [tableView cellForRowAtIndexPath:indexPath];
-//    int newRow = [indexPath row];
-//    
-//    int oldRow = (lastIndexPath != nil) ? [lastIndexPath row] : -1;
-//    
-//    if(newRow != oldRow)
-//    {
-//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-//        UITableViewCell* oldCell = [tableView cellForRowAtIndexPath:lastIndexPath];
-//        oldCell.accessoryType = UITableViewCellAccessoryNone;
-//        lastIndexPath = indexPath;
-//    }
     
 }
 
