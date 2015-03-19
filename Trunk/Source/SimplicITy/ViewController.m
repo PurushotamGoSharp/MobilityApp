@@ -34,7 +34,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    
 //        for (NSString *family in [UIFont familyNames])
 //        {
 //            for (NSString *names in [UIFont fontNamesForFamilyName:family])

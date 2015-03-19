@@ -66,6 +66,8 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"NewCategoryGotSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"NewsBadgeCount" object:nil];
+
 }
 
 - (void)updateData

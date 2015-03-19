@@ -61,7 +61,6 @@
 - (void)tryToUpdateNewsCategories:(NSInteger)sinceID
 {
     URLString = NEWS_CATEGORY_API;
-    
     NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"Name\":\"\",\"Since_Id\":\"%li\"}}",(long)sinceID];
     noOfCallsMade++;
     [postMan post:URLString withParameters:parameter];

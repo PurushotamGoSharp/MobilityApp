@@ -122,7 +122,7 @@
 - (void)getNonSyncedOrdersFromLocal
 {
     isRaisingTicket = NO;
-    NSString *queryString =  @"SELECT * FROM raisedOrders where syncFlag = 1";
+    NSString *queryString =  @"SELECT * FROM raisedOrders where syncFlag = 0";
     [dbManager getDataForQuery:queryString];
 }
 

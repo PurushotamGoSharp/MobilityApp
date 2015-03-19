@@ -173,11 +173,18 @@
         if (currentSinceID == 0)
         {
             currentSinceID = [userInfo[@"id"] integerValue] - 1;
+            
+            //For the very first time (server itself is fresh) 'id' in the push notification will be '1'. So 'sinceId' created will be ZERO. For sinceID = ZERO, server wont give in response. So we have to check for that condition and we need to Call API with 'sinceID= ""'.
+            if (currentSinceID == 0)
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"RecivedVeryFirstNews"];
+            }
         }
         [self getNewsCategoryFor:currentSinceID fetchCompletionHandler:completionHandler];
     }else
     {
         [self getNotification:userInfo];
+        completionHandler(UIBackgroundFetchResultNoData);
     }
 }
 

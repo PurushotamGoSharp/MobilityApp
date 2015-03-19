@@ -320,7 +320,7 @@
         }
 
         countlabel.font=[self customFont:16 ofName:MuseoSans_700];
-        countlabel.highlightedTextColor = [UIColor whiteColor];
+//        countlabel.highlightedTextColor = [UIColor whiteColor];
         
         UIView *bgColorView = [[UIView alloc] init];
         bgColorView.backgroundColor = [self barColorForIndex:kNilOptions];

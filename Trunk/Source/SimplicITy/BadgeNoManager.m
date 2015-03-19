@@ -16,8 +16,8 @@
 
 @implementation BadgeNoManager
 {
-    DBManager *dbManager;
-    NSMutableArray *newsCategoryArr;
+    DBManager *dbManager, *subCategoryDBManager;
+    NSMutableArray *newsCategoryArr, *dummyStringArray;
 }
 
 - (instancetype)init
@@ -32,6 +32,7 @@
 - (void)initialize
 {
     newsCategoryArr = [[NSMutableArray alloc] init];
+    dummyStringArray = [[NSMutableArray alloc] init];
 }
 
 - (void)getDataFromDB
@@ -41,30 +42,44 @@
         dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
         dbManager.delegate=self;
     }
+    
     NSString *queryString = @"SELECT * FROM categories";
     [dbManager getDataForQuery:queryString];
 }
 
 - (NSInteger)noBadgesFor:(NSString *)categroyCode afterUpdating:(BOOL)update
 {
-    if (update || [newsCategoryArr count] == 0)
+//    if (update || [newsCategoryArr count] == 0)
+//    {
+//        [self getDataFromDB];
+//    }
+    
+#warning Check this section to impliment 'WHERE viewedFlag = 0'
+    if (subCategoryDBManager == nil)
     {
-        [self getDataFromDB];
+        subCategoryDBManager = [[DBManager alloc] initWithFileName:@"News.db"];
+        subCategoryDBManager.delegate=self;
     }
-    for (NewsCategoryModel *category in newsCategoryArr)
-    {
-        if ([category.categoryCode isEqualToString:categroyCode])
-        {
-            return category.badgeCount;
-        }
-    }
-    return 0;
+    
+    [dummyStringArray removeAllObjects];
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM n_%@ WHERE viewedFlag = 0",categroyCode];
+    [subCategoryDBManager getDataForQuery:queryString];
+    
+//    for (NewsCategoryModel *category in newsCategoryArr)
+//    {
+//        if ([category.categoryCode isEqualToString:categroyCode])
+//        {
+//            return category.badgeCount;
+//        }
+//    }
+//    return 0;
+    return dummyStringArray.count;
 }
 
 - (void)decreaseBadgeNoFor:(NSString *)categoryCode withNo:(NSInteger)noToReduce
 {
     [self getDataFromDB];
-    NSInteger currentBadgeNo = [self noBadgesFor:categoryCode afterUpdating:NO];
+    NSInteger currentBadgeNo = [self noBadgesFor:categoryCode afterUpdating:YES];
     currentBadgeNo -= noToReduce;
     currentBadgeNo = MAX(0, currentBadgeNo);
     NSString *query =  [NSString stringWithFormat:@"UPDATE categories set badgeCount='%li' WHERE code = '%@'", (long)currentBadgeNo, categoryCode];
@@ -81,7 +96,7 @@
 - (void)incrementBadgeNoFor:(NSString *)categoryCode withNo:(NSInteger)noToIncrease
 {
     [self getDataFromDB];
-    NSInteger currentBadgeNo = [self noBadgesFor:categoryCode afterUpdating:NO];
+    NSInteger currentBadgeNo = [self noBadgesFor:categoryCode afterUpdating:YES];
     currentBadgeNo += noToIncrease;
     currentBadgeNo = MAX(0, currentBadgeNo);
     NSString *query =  [NSString stringWithFormat:@"UPDATE categories set badgeCount='%li' WHERE code = '%@'", (long)currentBadgeNo, categoryCode];
@@ -112,26 +127,41 @@
     NSInteger totalNobadges = 0;
     for (NewsCategoryModel *category in newsCategoryArr)
     {
-        totalNobadges += category.badgeCount;
+        totalNobadges += [self noBadgesFor:category.categoryCode afterUpdating:NO];
     }
     return totalNobadges;
 }
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
-    [newsCategoryArr removeAllObjects];
-    
-    while (sqlite3_step(statment)== SQLITE_ROW)
+    if ([manager isEqual:dbManager])
     {
-        NSString *categoryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
-        NSString *badge = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
-        
-        NewsCategoryModel *categoryModel = [[NewsCategoryModel alloc] init];
-        categoryModel.categoryCode = categoryCode;
-        categoryModel.badgeCount = [badge integerValue];
-        
-        [newsCategoryArr addObject:categoryModel];
+        [newsCategoryArr removeAllObjects];
+
+        while (sqlite3_step(statment)== SQLITE_ROW)
+        {
+            NSString *categoryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+            NSString *badge = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+            
+            NewsCategoryModel *categoryModel = [[NewsCategoryModel alloc] init];
+            categoryModel.categoryCode = categoryCode;
+            categoryModel.badgeCount = [badge integerValue];
+            
+            [newsCategoryArr addObject:categoryModel];
+        }
+    }else if ([manager isEqual:subCategoryDBManager])
+    {
+        [dummyStringArray removeAllObjects];
+
+        while (sqlite3_step(statment)== SQLITE_ROW)
+        {
+            NSString *dummyString = @"";
+            [dummyStringArray addObject:dummyString];
+
+        }
     }
+    
+
 }
 
 @end

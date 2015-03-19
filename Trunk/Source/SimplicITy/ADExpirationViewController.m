@@ -8,7 +8,6 @@
 
 #import "ADExpirationViewController.h"
 
-#define TEST_URL @"https://mdmAPIACC.ucb.com/ad/account-status/id/"
 #import <MBProgressHUD/MBProgressHUD.h>
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
 #define IPHONE_6_CROPID  @""
@@ -39,10 +38,10 @@
         if (serverConfig != nil)
         {
             cropID = (NSString *)serverConfig[@"corpID"];
-           urlString = [TEST_URL stringByAppendingString:cropID];
+           urlString = [LDAP_URL stringByAppendingString:cropID];
         }else
         {
-            urlString = [TEST_URL stringByAppendingString:IPHONE_6_CROPID];
+            urlString = [LDAP_URL stringByAppendingString:IPHONE_6_CROPID];
         }
         
         NSURL *url = [NSURL URLWithString:urlString];

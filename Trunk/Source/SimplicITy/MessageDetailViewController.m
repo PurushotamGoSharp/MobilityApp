@@ -81,8 +81,8 @@
     if (!self.newsContent.viewed)
     {
         BadgeNoManager *badgemanager = [[BadgeNoManager alloc] init];
-        [badgemanager decrementBadgeNoFor:self.newsContent.parentCategory];
         [self setViewFlagOnDB];
+        [badgemanager decrementBadgeNoFor:self.newsContent.parentCategory];
     }
 }
 
