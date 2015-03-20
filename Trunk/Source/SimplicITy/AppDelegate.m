@@ -42,8 +42,8 @@
     [UAPush shared].pushNotificationDelegate = self;
     
     [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
-
-
+    
+    
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     
     [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}
@@ -53,7 +53,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],
                                                            NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-700" size:20]}];
     
-        [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],
                                                            NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-700" size:16]}
                                                 forState:(UIControlStateNormal)];
     

@@ -40,11 +40,6 @@
         default:
             break;
     }
-    
-
-    
-
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated

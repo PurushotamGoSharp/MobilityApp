@@ -126,33 +126,32 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    
-//    if (indexPath.row == 0)
-//    {
-//        [self performSegueWithIdentifier:@"ToolToLyncTestSegue" sender:nil];
-//    }
-////    else if (indexPath.row == 1)
-////    {
-////        [self performSegueWithIdentifier:@"toolsToWebClipVCSegue" sender:nil];
-////    }
-//    else if (indexPath.row == 1)
-//    {
-//        [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
-//    }
-//   else if (indexPath.row == 2)
-//    {
-//        [self performSegueWithIdentifier:@"toolsToSurveySegue" sender:nil];
-//    }
-
-    
-    if (indexPath.row == 1)
-    {
-        [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
-    }else
-        
+    if (indexPath.row == 0)
     {
         [self performSegueWithIdentifier:@"ToolToLyncTestSegue" sender:nil];
-
     }
+//    else if (indexPath.row == 1)
+//    {
+//        [self performSegueWithIdentifier:@"toolsToWebClipVCSegue" sender:nil];
+//    }
+    else if (indexPath.row == 1)
+    {
+        [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
+    }
+   else if (indexPath.row == 2)
+    {
+        [self performSegueWithIdentifier:@"toolsToSurveySegue" sender:nil];
+    }
+
+    
+//    if (indexPath.row == 1)
+//    {
+//        [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
+//    }else
+//    {
+//        [self performSegueWithIdentifier:@"ToolToLyncTestSegue" sender:nil];
+//
+//    }
 
 }
 
