@@ -19,6 +19,8 @@
 #import "UserInfo.h"
 #import "SendRequestsManager.h"
 
+#import "RoomRecognizer.h"
+
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
@@ -150,6 +152,7 @@
         
         self.navigationItem.titleView = titleView;
     }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -11,6 +11,7 @@
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "SendRequestsManager.h"
+#import <Gimbal/Gimbal.h>
 
 #define ENABLE_PUSH_NOTIFICATION YES
 
@@ -32,8 +33,10 @@
     [UAirship takeOff:config];
     UA_LDEBUG(@"Config:\n%@", [config description]);
     
+    [Gimbal setAPIKey:@"47be3299-7a5c-41df-8320-a97519a45ede" options:nil];
+    [GMBLPlaceManager startMonitoring];
+    
     // Set the icon badge to zero on startup (optional)
-    [[UAPush shared] resetBadge];
     [UAPush shared].userNotificationTypes = (UIUserNotificationTypeAlert |
                                              UIUserNotificationTypeBadge |
                                              UIUserNotificationTypeSound);

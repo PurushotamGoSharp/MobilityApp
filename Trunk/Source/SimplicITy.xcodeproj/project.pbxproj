@@ -137,6 +137,21 @@
 		86B5A9701A4D4713009018AD /* MuseoSans-700.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96D1A4D45F9009018AD /* MuseoSans-700.otf */; };
 		86B6A7F61A849CA300E55B5E /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6A7F51A849CA300E55B5E /* DownloadManager.m */; };
 		86B6A7F91A84CBB700E55B5E /* FileLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6A7F81A84CBB700E55B5E /* FileLoadViewController.m */; };
+		86C077891AC27A9F00938F65 /* Gimbal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C077881AC27A9F00938F65 /* Gimbal.framework */; };
+		86C0778C1AC283B400938F65 /* RoomRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778B1AC283B400938F65 /* RoomRecognizer.m */; };
+		86C077901AC2863F00938F65 /* RoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778F1AC2863F00938F65 /* RoomModel.m */; };
+		86C077931AC29A3C00938F65 /* RoomManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077921AC29A3C00938F65 /* RoomManager.m */; };
+		86C077A51AC29BD300938F65 /* ExchangeWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077961AC29BD300938F65 /* ExchangeWebService.m */; };
+		86C077A61AC29BD300938F65 /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077981AC29BD300938F65 /* NSDate+ISO8601Parsing.m */; };
+		86C077A71AC29BD300938F65 /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0779A1AC29BD300938F65 /* NSDate+ISO8601Unparsing.m */; };
+		86C077A81AC29BD300938F65 /* t.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0779C1AC29BD300938F65 /* t.m */; };
+		86C077A91AC29BD300938F65 /* USAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0779E1AC29BD300938F65 /* USAdditions.m */; };
+		86C077AA1AC29BD300938F65 /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077A01AC29BD300938F65 /* USGlobals.m */; };
+		86C077AB1AC29BD300938F65 /* xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077A21AC29BD300938F65 /* xml.m */; };
+		86C077AC1AC29BD300938F65 /* xsd.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077A41AC29BD300938F65 /* xsd.m */; };
+		86C077B01AC29D1900938F65 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C077AF1AC29D1900938F65 /* libxml2.dylib */; };
+		86C077B31AC29ED100938F65 /* ESWPropertyCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077B21AC29ED100938F65 /* ESWPropertyCreater.m */; };
+		86C077B61AC2A6B000938F65 /* ESWRoomManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077B51AC2A6B000938F65 /* ESWRoomManager.m */; };
 		86C705FD1A9F2D5000CAAAD6 /* SeedSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C705FB1A9F2D5000CAAAD6 /* SeedSync.m */; };
 		86C706001A9F47B900CAAAD6 /* BadgeNoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C705FF1A9F47B900CAAAD6 /* BadgeNoManager.m */; };
 		86CB65351A386F58005FFFE8 /* messageModle.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CB65341A386F58005FFFE8 /* messageModle.m */; };
@@ -471,6 +486,34 @@
 		86B6A7F51A849CA300E55B5E /* DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
 		86B6A7F71A84CBB700E55B5E /* FileLoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLoadViewController.h; sourceTree = "<group>"; };
 		86B6A7F81A84CBB700E55B5E /* FileLoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLoadViewController.m; sourceTree = "<group>"; };
+		86C077881AC27A9F00938F65 /* Gimbal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Gimbal.framework; sourceTree = "<group>"; };
+		86C0778A1AC283B400938F65 /* RoomRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomRecognizer.h; sourceTree = "<group>"; };
+		86C0778B1AC283B400938F65 /* RoomRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomRecognizer.m; sourceTree = "<group>"; };
+		86C0778E1AC2863F00938F65 /* RoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomModel.h; sourceTree = "<group>"; };
+		86C0778F1AC2863F00938F65 /* RoomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomModel.m; sourceTree = "<group>"; };
+		86C077911AC29A3C00938F65 /* RoomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomManager.h; sourceTree = "<group>"; };
+		86C077921AC29A3C00938F65 /* RoomManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomManager.m; sourceTree = "<group>"; };
+		86C077951AC29BD300938F65 /* ExchangeWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeWebService.h; sourceTree = "<group>"; };
+		86C077961AC29BD300938F65 /* ExchangeWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeWebService.m; sourceTree = "<group>"; };
+		86C077971AC29BD300938F65 /* NSDate+ISO8601Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Parsing.h"; sourceTree = "<group>"; };
+		86C077981AC29BD300938F65 /* NSDate+ISO8601Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Parsing.m"; sourceTree = "<group>"; };
+		86C077991AC29BD300938F65 /* NSDate+ISO8601Unparsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Unparsing.h"; sourceTree = "<group>"; };
+		86C0779A1AC29BD300938F65 /* NSDate+ISO8601Unparsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ISO8601Unparsing.m"; sourceTree = "<group>"; };
+		86C0779B1AC29BD300938F65 /* t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = t.h; sourceTree = "<group>"; };
+		86C0779C1AC29BD300938F65 /* t.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = t.m; sourceTree = "<group>"; };
+		86C0779D1AC29BD300938F65 /* USAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USAdditions.h; sourceTree = "<group>"; };
+		86C0779E1AC29BD300938F65 /* USAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USAdditions.m; sourceTree = "<group>"; };
+		86C0779F1AC29BD300938F65 /* USGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGlobals.h; sourceTree = "<group>"; };
+		86C077A01AC29BD300938F65 /* USGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USGlobals.m; sourceTree = "<group>"; };
+		86C077A11AC29BD300938F65 /* xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xml.h; sourceTree = "<group>"; };
+		86C077A21AC29BD300938F65 /* xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xml.m; sourceTree = "<group>"; };
+		86C077A31AC29BD300938F65 /* xsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xsd.h; sourceTree = "<group>"; };
+		86C077A41AC29BD300938F65 /* xsd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xsd.m; sourceTree = "<group>"; };
+		86C077AF1AC29D1900938F65 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		86C077B11AC29ED100938F65 /* ESWPropertyCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESWPropertyCreater.h; sourceTree = "<group>"; };
+		86C077B21AC29ED100938F65 /* ESWPropertyCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESWPropertyCreater.m; sourceTree = "<group>"; };
+		86C077B41AC2A6B000938F65 /* ESWRoomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ESWRoomManager.h; path = SimplicITy/ESWRoomManager.h; sourceTree = SOURCE_ROOT; };
+		86C077B51AC2A6B000938F65 /* ESWRoomManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ESWRoomManager.m; path = SimplicITy/ESWRoomManager.m; sourceTree = SOURCE_ROOT; };
 		86C705FB1A9F2D5000CAAAD6 /* SeedSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeedSync.m; sourceTree = "<group>"; };
 		86C705FC1A9F2D5000CAAAD6 /* SeedSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeedSync.h; sourceTree = "<group>"; };
 		86C705FE1A9F47B900CAAAD6 /* BadgeNoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BadgeNoManager.h; sourceTree = "<group>"; };
@@ -522,6 +565,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86C077B01AC29D1900938F65 /* libxml2.dylib in Frameworks */,
+				86C077891AC27A9F00938F65 /* Gimbal.framework in Frameworks */,
 				864532DE1A5A674500A656A3 /* MapKit.framework in Frameworks */,
 				864532DC1A5A673E00A656A3 /* AudioToolbox.framework in Frameworks */,
 				864532DA1A5A673600A656A3 /* MessageUI.framework in Frameworks */,
@@ -654,6 +699,8 @@
 		86287D161A2EE1A500B12893 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86C077AF1AC29D1900938F65 /* libxml2.dylib */,
+				86C077881AC27A9F00938F65 /* Gimbal.framework */,
 				864532DD1A5A674500A656A3 /* MapKit.framework */,
 				864532DB1A5A673E00A656A3 /* AudioToolbox.framework */,
 				864532D91A5A673600A656A3 /* MessageUI.framework */,
@@ -719,6 +766,7 @@
 				86848E0B1A56719E0063E433 /* TabBar Animation */,
 				86186D861A399C5400BFD000 /* Setting */,
 				867DDFEB1A7210BA00812845 /* DBManager */,
+				86C0778D1AC283BF00938F65 /* Room Booking */,
 				86CB65331A386F58005FFFE8 /* messageModle.h */,
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
@@ -1181,6 +1229,63 @@
 			name = About;
 			sourceTree = "<group>";
 		};
+		86C0778D1AC283BF00938F65 /* Room Booking */ = {
+			isa = PBXGroup;
+			children = (
+				86C077941AC29BD300938F65 /* ExchangeWebServices */,
+				86C077911AC29A3C00938F65 /* RoomManager.h */,
+				86C077921AC29A3C00938F65 /* RoomManager.m */,
+				86C0778A1AC283B400938F65 /* RoomRecognizer.h */,
+				86C0778B1AC283B400938F65 /* RoomRecognizer.m */,
+				86C0778E1AC2863F00938F65 /* RoomModel.h */,
+				86C0778F1AC2863F00938F65 /* RoomModel.m */,
+			);
+			name = "Room Booking";
+			sourceTree = "<group>";
+		};
+		86C077941AC29BD300938F65 /* ExchangeWebServices */ = {
+			isa = PBXGroup;
+			children = (
+				86C077AD1AC29BFA00938F65 /* Cutsom */,
+				86C077AE1AC29C0600938F65 /* EWS */,
+			);
+			path = ExchangeWebServices;
+			sourceTree = "<group>";
+		};
+		86C077AD1AC29BFA00938F65 /* Cutsom */ = {
+			isa = PBXGroup;
+			children = (
+				86C077B11AC29ED100938F65 /* ESWPropertyCreater.h */,
+				86C077B21AC29ED100938F65 /* ESWPropertyCreater.m */,
+				86C077B41AC2A6B000938F65 /* ESWRoomManager.h */,
+				86C077B51AC2A6B000938F65 /* ESWRoomManager.m */,
+			);
+			name = Cutsom;
+			sourceTree = "<group>";
+		};
+		86C077AE1AC29C0600938F65 /* EWS */ = {
+			isa = PBXGroup;
+			children = (
+				86C077951AC29BD300938F65 /* ExchangeWebService.h */,
+				86C077961AC29BD300938F65 /* ExchangeWebService.m */,
+				86C077971AC29BD300938F65 /* NSDate+ISO8601Parsing.h */,
+				86C077981AC29BD300938F65 /* NSDate+ISO8601Parsing.m */,
+				86C077991AC29BD300938F65 /* NSDate+ISO8601Unparsing.h */,
+				86C0779A1AC29BD300938F65 /* NSDate+ISO8601Unparsing.m */,
+				86C0779B1AC29BD300938F65 /* t.h */,
+				86C0779C1AC29BD300938F65 /* t.m */,
+				86C0779D1AC29BD300938F65 /* USAdditions.h */,
+				86C0779E1AC29BD300938F65 /* USAdditions.m */,
+				86C0779F1AC29BD300938F65 /* USGlobals.h */,
+				86C077A01AC29BD300938F65 /* USGlobals.m */,
+				86C077A11AC29BD300938F65 /* xml.h */,
+				86C077A21AC29BD300938F65 /* xml.m */,
+				86C077A31AC29BD300938F65 /* xsd.h */,
+				86C077A41AC29BD300938F65 /* xsd.m */,
+			);
+			name = EWS;
+			sourceTree = "<group>";
+		};
 		86D604391A3ABB5C00E9E9D7 /* Request VC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1418,6 +1523,7 @@
 				863E3DDE1A6642FB009D1FB0 /* LocationModel.m in Sources */,
 				8645329B1A5A661D00A656A3 /* NSString+UALocalization.m in Sources */,
 				8645329C1A5A661D00A656A3 /* NSString+UASizeWithFontCompatibility.m in Sources */,
+				86C0778C1AC283B400938F65 /* RoomRecognizer.m in Sources */,
 				86B121921A7B5DBC006C2701 /* RateView.m in Sources */,
 				864039871A6542FF000D705E /* RequestModel.m in Sources */,
 				864532B61A5A661D00A656A3 /* UAPushSettingsViewController.m in Sources */,
@@ -1425,24 +1531,30 @@
 				86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */,
 				86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */,
 				864532B41A5A661D00A656A3 /* UAPushSettingsTokenViewController.m in Sources */,
+				86C077B61AC2A6B000938F65 /* ESWRoomManager.m in Sources */,
 				864532B51A5A661D00A656A3 /* UAPushSettingsUserInfoViewController.m in Sources */,
 				86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */,
 				86DCEB921A4E8C0F0014FEC7 /* SurveyViewController.m in Sources */,
 				86287D311A2EE1A500B12893 /* ViewController.m in Sources */,
 				866A5FA21A7A62A8007E29D5 /* MessageDummyViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
+				86C077A81AC29BD300938F65 /* t.m in Sources */,
 				867584121A3815EE0049EC10 /* SettingViewController.m in Sources */,
+				86C077A71AC29BD300938F65 /* NSDate+ISO8601Unparsing.m in Sources */,
 				864532B11A5A661D00A656A3 /* UAPushSettingsChannelInfoViewController.m in Sources */,
 				864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */,
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
 				864532AD1A5A661D00A656A3 /* UAPushMoreSettingsViewController.m in Sources */,
+				86C077A61AC29BD300938F65 /* NSDate+ISO8601Parsing.m in Sources */,
+				86C077901AC2863F00938F65 /* RoomModel.m in Sources */,
 				867101B01A386FD900AE2ED6 /* TipModel.m in Sources */,
 				864532A11A5A661D00A656A3 /* UAInboxMessageListCell.m in Sources */,
 				86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */,
 				864532AF1A5A661D00A656A3 /* UAPushSettingsAddTagViewController.m in Sources */,
 				8623D5BB1A5417800022A370 /* Postman.m in Sources */,
 				86491A761A30817100711740 /* ToolsViewController.m in Sources */,
+				86C077B31AC29ED100938F65 /* ESWPropertyCreater.m in Sources */,
 				86CB65351A386F58005FFFE8 /* messageModle.m in Sources */,
 				86C706001A9F47B900CAAAD6 /* BadgeNoManager.m in Sources */,
 				866A5F9F1A7A1B65007E29D5 /* TipsGroupModel.m in Sources */,
@@ -1459,11 +1571,15 @@
 				86ED7D6F1A541F1A00400360 /* NavigationController.m in Sources */,
 				864532AA1A5A661D00A656A3 /* UALocationDemoAnnotation.m in Sources */,
 				86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */,
+				86C077AA1AC29BD300938F65 /* USGlobals.m in Sources */,
 				86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */,
+				86C077931AC29A3C00938F65 /* RoomManager.m in Sources */,
 				86173AC71A600A8500902088 /* MessageTileViewController.m in Sources */,
 				86A9A3EE1A5E58DB006D8A46 /* SeedModel.m in Sources */,
+				86C077AC1AC29BD300938F65 /* xsd.m in Sources */,
 				8669DABD1A77A37900BE63A6 /* AboutViewController.m in Sources */,
 				863190FC1AA97CC8002E2BDD /* LanguageModel.m in Sources */,
+				86C077AB1AC29BD300938F65 /* xml.m in Sources */,
 				864532AE1A5A661D00A656A3 /* UAPushNotificationHandler.m in Sources */,
 				864532B31A5A661D00A656A3 /* UAPushSettingsTagsViewController.m in Sources */,
 				86287D241A2EE1A500B12893 /* main.m in Sources */,
@@ -1472,6 +1588,7 @@
 				86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */,
 				86A3552E1A5406980065B457 /* CategoryModel.m in Sources */,
 				86D5196A1A95C93800052B60 /* NewsCategoryModel.m in Sources */,
+				86C077A91AC29BD300938F65 /* USAdditions.m in Sources */,
 				86A74B8B1A91BEDB00A2AD78 /* SurveyModel.m in Sources */,
 				863B669A1A6D274400CC8033 /* UserInfo.m in Sources */,
 				86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */,
@@ -1482,6 +1599,7 @@
 				86AD6B6B1A70C880006A127B /* SendRequestsManager.m in Sources */,
 				86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */,
 				864532B21A5A661D00A656A3 /* UAPushSettingsSoundsViewController.m in Sources */,
+				86C077A51AC29BD300938F65 /* ExchangeWebService.m in Sources */,
 				86309CAC1A3EB9B900D19804 /* TikcetCategoryViewController.m in Sources */,
 				86B6A7F61A849CA300E55B5E /* DownloadManager.m in Sources */,
 				86C705FD1A9F2D5000CAAAD6 /* SeedSync.m in Sources */,
@@ -1655,9 +1773,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
+					"$(PROJECT_DIR)",
+					"$(SDKROOT)/usr/include/libxml2",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1682,9 +1808,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
+					"$(PROJECT_DIR)",
+					"$(SDKROOT)/usr/include/libxml2",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
