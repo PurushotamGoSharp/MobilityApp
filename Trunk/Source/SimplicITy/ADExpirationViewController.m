@@ -7,7 +7,7 @@
 //
 
 #import "ADExpirationViewController.h"
-
+#import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
 #define IPHONE_6_CROPID  @""
@@ -31,8 +31,7 @@
     {
         NSDictionary *serverConfig;
         
-        static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
-        serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+        serverConfig = [[UserInfo sharedUserInfo] getServerConfig];
         NSString *cropID;
         NSString *urlString;
         if (serverConfig != nil)

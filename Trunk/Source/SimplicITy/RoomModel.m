@@ -10,4 +10,15 @@
 
 @implementation RoomModel
 
+- (instancetype)init
+{
+    if (self = [super init])
+    {
+        //RSSI value is negative. So instead of zero value, we have to give NSIntegerMin
+        self.RSSIValue = NSIntegerMin;
+    }
+    
+    return self;
+}
+
 @end

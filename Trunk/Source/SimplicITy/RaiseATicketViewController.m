@@ -19,7 +19,7 @@
 #import "UserInfo.h"
 #import "SendRequestsManager.h"
 
-#import "RoomRecognizer.h"
+#import "RoomManager.h"
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
@@ -62,6 +62,8 @@
     NSDateFormatter *dateFormatter;
     RequestModel *currentRequest;
     BOOL haveRasiedRequest;
+    
+    RoomManager *roomManager;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -152,6 +154,9 @@
         
         self.navigationItem.titleView = titleView;
     }
+    
+    roomManager = [[RoomManager alloc] init];
+    [roomManager reloadList];
     
 }
 

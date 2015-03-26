@@ -67,6 +67,7 @@
 
 - (void)placeManager:(GMBLPlaceManager *)manager didBeginVisit:(GMBLVisit *)visit
 {
+    
     RoomModel *detectedRoom = [[RoomModel alloc] init];
     detectedRoom.gimbalID = visit.place.identifier;
     detectedRoom.nameOfRoom = [visit.place.attributes stringForKey:@"nameOfRoom"];
@@ -75,12 +76,19 @@
 
     [roomsArray addObject:detectedRoom];
     NSLog(@"Detected room = %@, and count of array = %li", detectedRoom.nameOfRoom, (unsigned long)roomsArray.count);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST object:nil];
 }
 
 - (void)placeManager:(GMBLPlaceManager *)manager didEndVisit:(GMBLVisit *)visit
 {
     RoomModel *roomThatLostVisibility = [self roomForGimbalID:visit.place.identifier];
+    
+    //RSSI value is negative. So instead of zero value, we have to give NSIntegerMin
+    roomThatLostVisibility.RSSIValue = NSIntegerMin;
     [roomsArray removeObject:roomThatLostVisibility];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST object:nil];
 }
 
 - (void)beaconManager:(GMBLBeaconManager *)manager didReceiveBeaconSighting:(GMBLBeaconSighting *)sighting

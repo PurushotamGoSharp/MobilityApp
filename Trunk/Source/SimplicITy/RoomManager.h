@@ -10,7 +10,7 @@
 
 @interface RoomManager : NSObject
 
-- (void)reloadList;
-- (NSArray *)getCompleteRoomsList;
+- (void)reloadList; // this will call required APIs and update the list
+- (NSArray *)getCompleteRoomsList; //call reload before this method is called
 
 @end

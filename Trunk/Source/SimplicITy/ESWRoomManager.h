@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ESWPropertyCreater.h"
+
 @class ESWRoomManager;
 
 @protocol ESWRoomManagerDelegate <NSObject>
 
+- (void)ESWRoomManager:(ESWRoomManager *)manager foundListsOfRooms:(NSArray *)rooms;
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms;
 
 @end
@@ -20,5 +23,7 @@
 @property (weak, nonatomic) id<ESWRoomManagerDelegate> delegate;
 
 - (void)getRoomsList;
+- (void)getRoomsForRoomsLists:(NSArray *)roomListsList;
+- (void)getRoomsForRoomList:(t_EmailAddressType *)emailID;
 
 @end

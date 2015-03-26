@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#define GIMBAL_RSSI_VALUE_CHANGE @"gimbalRSSIValueChangeKey"
+#define GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST @"gimbalChangeInRecognizedListKey"
 
 @interface RoomRecognizer : NSObject
 
 + (instancetype)sharedRecognizer;
-
 - (NSArray *)recognizedRooms;
 
 @end

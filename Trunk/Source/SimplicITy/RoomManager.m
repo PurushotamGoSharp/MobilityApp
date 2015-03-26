@@ -8,6 +8,8 @@
 
 #import "RoomManager.h"
 #import "ESWRoomManager.h"
+#import "RoomModel.h"
+#import "RoomRecognizer.h"
 
 @interface RoomManager ()<ESWRoomManagerDelegate>
 
@@ -16,7 +18,9 @@
 @implementation RoomManager
 {
     ESWRoomManager *ewsManager;
-    NSMutableArray *completeRoomsList;
+    NSMutableArray *listOfRooms, *listOfLists;
+    
+    RoomRecognizer *recognizer;
 }
 
 - (instancetype)init
@@ -31,10 +35,14 @@
 
 - (void)initialize
 {
-    completeRoomsList = [[NSMutableArray alloc] init];
+    listOfRooms = [[NSMutableArray alloc] init];
+    
+//    recognizer = [RoomRecognizer sharedRecognizer];
     
     ewsManager =[[ESWRoomManager alloc] init];
     ewsManager.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateModelsWithBeaconValue) name:GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST object:nil];
 }
 
 - (void)reloadList
@@ -44,14 +52,50 @@
 
 - (NSArray *)getCompleteRoomsList
 {
-    return completeRoomsList;
+    return listOfRooms;
 }
 
+
+
+- (void)updateModelsWithBeaconValue
+{
+    NSArray *recognizedRooms = [recognizer recognizedRooms];
+    [self replaceObjectOfCompleteListWithObjectOf:recognizedRooms];
+}
+
+- (void)replaceObjectOfCompleteListWithObjectOf:(NSArray *)replaceArray
+{
+    if (replaceArray.count > 0)
+    {
+        for (RoomModel *recognizedRoom in replaceArray)
+        {
+            //We need to replace objects of completeRoomsList with objects in recognizedRooms so that we can sort according to RSSI value of room.  For that first we will find the array of rooms with same email id as that of recognized room. Then we will replace that object on completeRoomList with the recognizedRoom object.
+            if (![listOfRooms containsObject:recognizedRoom])
+            {
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"emailIDOfRoom == %@", recognizedRoom.emailIDOfRoom];
+                NSArray *filteredArray = [listOfRooms filteredArrayUsingPredicate:predicate];
+                if (filteredArray.count > 0)
+                {
+                    NSInteger indexOfObj = [listOfRooms indexOfObject:[filteredArray firstObject]];
+                    [listOfRooms replaceObjectAtIndex:indexOfObj withObject:recognizedRoom];
+                }
+            }
+        }
+    }
+}
+
+#pragma mark
+#pragma mark ESWRoomManagerDelegate
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms
 {
-    [completeRoomsList removeAllObjects];
+    [listOfRooms removeAllObjects];
+    [listOfRooms addObjectsFromArray:rooms];
     
-    [completeRoomsList addObjectsFromArray:rooms];
+    [self updateModelsWithBeaconValue];
+}
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager foundListsOfRooms:(NSArray *)rooms
+{
     
 }
 

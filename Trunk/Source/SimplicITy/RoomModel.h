@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ExchangeWebService.h"
 
 @interface RoomModel : NSObject
 
-@property (strong, nonatomic) NSString *gimbalID;
 @property (strong, nonatomic) NSString *nameOfRoom;
 @property (strong, nonatomic) NSString *emailIDOfRoom;
-@property (assign, nonatomic) NSInteger RSSIValue;
+@property (strong, nonatomic) t_EmailAddressType *emailIDEWS;
+
+@property (strong, nonatomic) NSString *gimbalID;
+@property (assign, nonatomic) NSInteger RSSIValue; //RSSI value is negative. So instead of zero value, we have to give NSIntegerMin
 @property (strong, nonatomic) NSString *beaconID;
 
 @end

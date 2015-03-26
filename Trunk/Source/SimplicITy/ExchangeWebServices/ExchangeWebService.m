@@ -6595,7 +6595,7 @@ static NSString *ExchangeWebService_ResponseCodeType_enumValues[] = {
 }
 
 + (ExchangeWebService_ExchangeServiceBinding *)ExchangeServiceBinding {
-    return [[ExchangeWebService_ExchangeServiceBinding alloc] initWithAddress:@"https://10.10.3.162/EWS/exchange.asmx"];
+    return [[ExchangeWebService_ExchangeServiceBinding alloc] initWithAddress:EWS_REQUSET_URL];
 }
 
 @end
