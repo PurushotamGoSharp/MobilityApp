@@ -1839,16 +1839,16 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9aD-gd-EzJ">
-                                                    <rect key="frame" x="8" y="9" width="30" height="30"/>
+                                                <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="themes" translatesAutoresizingMaskIntoConstraints="NO" id="9aD-gd-EzJ">
+                                                    <rect key="frame" x="8" y="7" width="30" height="30"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ve-8D-vDf">
-                                                    <rect key="frame" x="49" y="11" width="121" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ve-8D-vDf">
+                                                    <rect key="frame" x="49" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USK-tW-jRx">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USK-tW-jRx">
                                                     <rect key="frame" x="243" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1858,10 +1858,15 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="USK-tW-jRx" secondAttribute="trailing" constant="2" id="6ly-hc-aIS"/>
                                                 <constraint firstAttribute="trailing" secondItem="yQU-UI-aGF" secondAttribute="trailing" constant="-33" id="88Q-0k-ngI"/>
+                                                <constraint firstItem="USK-tW-jRx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6ve-8D-vDf" secondAttribute="trailing" constant="10" id="Ejg-z7-gya"/>
                                                 <constraint firstAttribute="centerY" secondItem="USK-tW-jRx" secondAttribute="centerY" id="Pip-MY-Vcj"/>
+                                                <constraint firstAttribute="centerY" secondItem="6ve-8D-vDf" secondAttribute="centerY" id="S4y-3U-ec2"/>
                                                 <constraint firstAttribute="bottom" secondItem="yQU-UI-aGF" secondAttribute="bottom" constant="1" id="XKD-XE-o3n"/>
                                                 <constraint firstItem="yQU-UI-aGF" firstAttribute="leading" secondItem="HmS-5V-IOl" secondAttribute="leading" id="gWU-ND-kzd"/>
+                                                <constraint firstItem="9aD-gd-EzJ" firstAttribute="leading" secondItem="HmS-5V-IOl" secondAttribute="leadingMargin" id="mNZ-vQ-fyO"/>
                                                 <constraint firstItem="yQU-UI-aGF" firstAttribute="top" secondItem="HmS-5V-IOl" secondAttribute="top" id="ohU-la-J6P"/>
+                                                <constraint firstAttribute="centerY" secondItem="9aD-gd-EzJ" secondAttribute="centerY" id="tCJ-fF-HBA"/>
+                                                <constraint firstItem="6ve-8D-vDf" firstAttribute="leading" secondItem="9aD-gd-EzJ" secondAttribute="trailing" constant="11" id="taP-Kh-zzO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2613,10 +2618,10 @@
             </objects>
             <point key="canvasLocation" x="3422" y="1509"/>
         </scene>
-        <!--View Controller-->
+        <!--Exchange Server Setting View Controller-->
         <scene sceneID="1Un-wl-xc9">
             <objects>
-                <viewController id="K5S-pC-Gh4" sceneMemberID="viewController">
+                <viewController id="K5S-pC-Gh4" customClass="ExchangeServerSettingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QP3-Eu-Obo"/>
                         <viewControllerLayoutGuide type="bottom" id="E2A-82-f4E"/>
@@ -3359,6 +3364,7 @@
         <image name="seperator" width="1" height="1"/>
         <image name="starBlack" width="13" height="13"/>
         <image name="starEmpty.png" width="50" height="50"/>
+        <image name="themes" width="30" height="30"/>
         <image name="tick-mark" width="22" height="22"/>
         <image name="ticketBlue" width="30" height="30"/>
         <image name="toolBlue" width="30" height="30"/>
