@@ -35,8 +35,8 @@
     
     self.title = @"Settings";
     
-    arrOfTableViewData = @[@"Language",@"Location"];
-    arrOfImages = @[@"language.png",@"lacation.png"];
+    arrOfTableViewData = @[@"Language",@"Location",@"Theme",@"Exchange server setup"];
+    arrOfImages = @[@"language.png",@"lacation.png",@"themes",@"ExchangeServer_Setting"];
     
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
     arrOfLanguageData = @[@"English",@"German",@"French",@"Chinese",@"Spanish",@"Japanese"];
@@ -81,6 +81,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
       UINavigationController *navController = segue.destinationViewController;
+    
     if ([segue.identifier isEqualToString:@"language_segue"])
     {
         LanguageViewController *lang = navController.viewControllers[0];
@@ -89,7 +90,7 @@
     {
         LocationViewController *locationVC = navController.viewControllers[0];
         locationVC.delegate = self;
-    }else
+    } else if ([segue.identifier isEqualToString:@"themes_segue"])
     {
         ThemesViewController *themesVC = navController.viewControllers[0];
         themesVC.delegate = self;
@@ -101,15 +102,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section ==0) {
+ 
         return [arrOfTableViewData count];
-    }
-    return 1;
+   
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -129,24 +129,24 @@
     titleLable.font=[self customFont:16 ofName:MuseoSans_700];
     languageLabel.font=[self customFont:16 ofName:MuseoSans_700];
     
-
-    
-    if (indexPath.section == 0)
-    {
-        if (indexPath.row == 0) {
+  
+        if (indexPath.row == 0)
+        {
             languageLabel.text = selectedLanaguage;
             
-        }else
+        }else if (indexPath.row == 1)
         {
             languageLabel.text = selectedLocationName;
             
+        }else if (indexPath .row == 2)
+        {
+            languageLabel.text = [self stingForColorTheme];
+
+        }else
+        {
+            languageLabel.hidden= YES;
         }
-    }else
-    {
-        titleLable.text = @"Theme";
-        imageView.image = [UIImage imageNamed:@"themes"];
-        languageLabel.text = [self stingForColorTheme];
-    }
+    
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
@@ -170,21 +170,21 @@
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0)
-    {
+   
         if (indexPath.row == 0)
         {
             [self performSegueWithIdentifier:@"language_segue" sender:self];
         }
-        else
+        else if (indexPath.row == 1)
         {
             [self performSegueWithIdentifier:@"location_segue" sender:self];
+        }else if (indexPath.row == 2)
+        {
+            [self performSegueWithIdentifier:@"themes_segue" sender:self];
+        }else
+        {
+             [self performSegueWithIdentifier:@"ExchangeServerSetting_Segue" sender:self];
         }
-    }
-    else
-    {
-        [self performSegueWithIdentifier:@"themes_segue" sender:self];
-    }
  
 }
 
@@ -208,7 +208,7 @@
 
 - (void)selectedThemeIs:(NSString *)theme
 {
-    UITableViewCell *themesCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    UITableViewCell *themesCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     UILabel *themeLable = (UILabel *)[themesCell viewWithTag:201];
     themeLable.text = theme;
     

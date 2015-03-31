@@ -2,11 +2,11 @@
 //  ExchangeServerSettingViewController.h
 //  SimplicITy
 //
-//  Created by Vmoksha on 26/03/15.
+//  Created by Vmoksha on 27/03/15.
 //  Copyright (c) 2015 Vmoksha. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CustomColoredViewController.h"
 
 @interface ExchangeServerSettingViewController : CustomColoredViewController
 

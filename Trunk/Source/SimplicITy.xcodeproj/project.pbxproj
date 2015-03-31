@@ -22,6 +22,7 @@
 		86201D031A7CA66D0016CBEF /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86201CFB1A7CA66D0016CBEF /* setting@2x.png */; };
 		86201D041A7CA66D0016CBEF /* tips@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86201CFC1A7CA66D0016CBEF /* tips@2x.png */; };
 		8623D5BB1A5417800022A370 /* Postman.m in Sources */ = {isa = PBXBuildFile; fileRef = 8623D5BA1A5417800022A370 /* Postman.m */; };
+		8624BB0D1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */; };
 		86287D181A2EE1A500B12893 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D171A2EE1A500B12893 /* Foundation.framework */; };
 		86287D1A1A2EE1A500B12893 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D191A2EE1A500B12893 /* CoreGraphics.framework */; };
 		86287D1C1A2EE1A500B12893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D1B1A2EE1A500B12893 /* UIKit.framework */; };
@@ -127,7 +128,6 @@
 		86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A355291A5406900065B457 /* RaiseATicketViewController.m */; };
 		86A3552E1A5406980065B457 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A3552D1A5406980065B457 /* CategoryModel.m */; };
 		86A74B8B1A91BEDB00A2AD78 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A74B8A1A91BEDB00A2AD78 /* SurveyModel.m */; };
-		86A99DC11AC41FB3005E2354 /* ExchangeServerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A99DC01AC41FB3005E2354 /* ExchangeServerSettingViewController.m */; };
 		86A9A3EE1A5E58DB006D8A46 /* SeedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */; };
 		86A9A3F11A5E601F006D8A46 /* SplashDelayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */; };
 		86AD6B6B1A70C880006A127B /* SendRequestsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86AD6B6A1A70C880006A127B /* SendRequestsManager.m */; };
@@ -220,6 +220,8 @@
 		86201CFC1A7CA66D0016CBEF /* tips@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tips@2x.png"; sourceTree = "<group>"; };
 		8623D5BA1A5417800022A370 /* Postman.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Postman.m; sourceTree = "<group>"; };
 		8623D5BC1A5417840022A370 /* Postman.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Postman.h; sourceTree = "<group>"; };
+		8624BB0B1AC524C0001E2DB8 /* ExchangeServerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeServerSettingViewController.h; sourceTree = "<group>"; };
+		8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeServerSettingViewController.m; sourceTree = "<group>"; };
 		86287D141A2EE1A500B12893 /* SimplicITy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplicITy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86287D171A2EE1A500B12893 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86287D191A2EE1A500B12893 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -478,8 +480,6 @@
 		86A3552D1A5406980065B457 /* CategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryModel.m; sourceTree = "<group>"; };
 		86A74B891A91BEDB00A2AD78 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyModel.h; sourceTree = "<group>"; };
 		86A74B8A1A91BEDB00A2AD78 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyModel.m; sourceTree = "<group>"; };
-		86A99DBF1AC41FB3005E2354 /* ExchangeServerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeServerSettingViewController.h; sourceTree = "<group>"; };
-		86A99DC01AC41FB3005E2354 /* ExchangeServerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeServerSettingViewController.m; sourceTree = "<group>"; };
 		86A9A3EC1A5E58DB006D8A46 /* SeedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeedModel.h; sourceTree = "<group>"; };
 		86A9A3ED1A5E58DB006D8A46 /* SeedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeedModel.m; sourceTree = "<group>"; };
 		86A9A3EF1A5E601F006D8A46 /* SplashDelayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashDelayViewController.h; sourceTree = "<group>"; };
@@ -674,8 +674,8 @@
 				86186D8B1A399C9700BFD000 /* LocationViewController.m */,
 				863A16EC1A4185F000146B72 /* ThemesViewController.h */,
 				863A16ED1A4185F000146B72 /* ThemesViewController.m */,
-				86A99DBF1AC41FB3005E2354 /* ExchangeServerSettingViewController.h */,
-				86A99DC01AC41FB3005E2354 /* ExchangeServerSettingViewController.m */,
+				8624BB0B1AC524C0001E2DB8 /* ExchangeServerSettingViewController.h */,
+				8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -1609,7 +1609,7 @@
 				864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */,
 				86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */,
 				86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */,
-				86A99DC11AC41FB3005E2354 /* ExchangeServerSettingViewController.m in Sources */,
+				8624BB0D1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m in Sources */,
 				864532AD1A5A661D00A656A3 /* UAPushMoreSettingsViewController.m in Sources */,
 				86C077A61AC29BD300938F65 /* NSDate+ISO8601Parsing.m in Sources */,
 				86C077901AC2863F00938F65 /* RoomModel.m in Sources */,
