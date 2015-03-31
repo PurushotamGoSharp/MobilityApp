@@ -154,10 +154,6 @@
         
         self.navigationItem.titleView = titleView;
     }
-    
-    roomManager = [[RoomManager alloc] init];
-    [roomManager reloadList];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

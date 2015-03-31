@@ -84,6 +84,17 @@
     }
 }
 
+- (void)findAvailabityOfRooms:(NSArray *)rooms forDate:(NSDate *)requestedDate
+{
+    
+}
+
+- (void)availablityOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate
+{
+    [ewsManager availablityOfRooms:rooms forStart:startDate toEnd:endDate];
+}
+
+
 #pragma mark
 #pragma mark ESWRoomManagerDelegate
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms
@@ -97,6 +108,16 @@
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundListsOfRooms:(NSArray *)rooms
 {
     
+}
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSArray *)availbleSlots For:(NSString *)room
+{
+    
+}
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
+{
+    [self.delegate roomManager:self foundAvailableRooms:availableRooms];
 }
 
 @end

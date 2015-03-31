@@ -46,10 +46,10 @@
     
 //    arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"Days left for password expiry", @"Survey"];
     
-    arrayOfDatas = @[ @"Lync Connection Checker", @"Days left for password expiry", @"Survey"];
+    arrayOfDatas = @[ @"Lync Connection Checker", @"Days left for password expiry", @"Survey", @"Room Checker"];
 
 //    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
-    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
+    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"], [UIImage imageNamed:@"SurveyToolIcon"]];
 
     self.title = @"Tools";
 }
@@ -141,6 +141,10 @@
    else if (indexPath.row == 2)
     {
         [self performSegueWithIdentifier:@"toolsToSurveySegue" sender:nil];
+        
+    } else if (indexPath.row == 3)
+    {
+        [self performSegueWithIdentifier:@"toolsToRoomCheckerSegue" sender:nil];
     }
 
     

@@ -94,7 +94,7 @@
     timeWindow.StartTime = startDate;
     timeWindow.EndTime = endDate;
     freeBusy.TimeWindow = timeWindow;
-    freeBusy.MergedFreeBusyIntervalInMinutes = [NSNumber numberWithInteger:60];
+    freeBusy.MergedFreeBusyIntervalInMinutes = [NSNumber numberWithInteger:15];
     freeBusy.RequestedView = @"FreeBusyMerged";
     
     return freeBusy;
@@ -106,7 +106,7 @@
 
 - (NSNumber *)minsOffsetFromUTC
 {
-    return [NSNumber numberWithInteger:defaulTimeZone.secondsFromGMT/60];
+    return [NSNumber numberWithInteger:-defaulTimeZone.secondsFromGMT/60];
 }
 
 - (t_SerializableTimeZoneTime *)timeZoneTimeForDate:(NSDate *)date
