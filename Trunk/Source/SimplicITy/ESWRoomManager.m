@@ -21,6 +21,10 @@
     ESWPropertyCreater *propertyCreater;
     
     NSDateFormatter *dateFormatter;
+    
+    NSString *EWSUserName, *EWSPassword;
+    
+    NSInteger noOfFailedAuth;
 }
 
 - (instancetype)init
@@ -45,10 +49,14 @@
     binding.sslManager = self;
     
     dateFormatter = [[NSDateFormatter alloc] init];
+    
+    noOfFailedAuth = 0;
 }
 
 - (void)getRoomsList
 {
+    noOfFailedAuth = 0;
+    
     ExchangeWebService_GetRoomListsType *request = [[ExchangeWebService_GetRoomListsType alloc] init];
 
     [binding GetRoomLists:request
@@ -61,6 +69,21 @@
                       NSLog(@"Get Room List Error: %@", error);
                       
                   }];
+}
+
+- (BOOL)getUserNameAndPasswordForEWS
+{
+    NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USER_NAME];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD];
+    
+    if (userName == nil | password == nil)
+    {
+        return NO;
+    }
+    
+    EWSUserName = userName;
+    EWSPassword = password;
+    return YES;
 }
 
 - (void)createRoomListForResponse:(NSArray *)bodyParts
@@ -99,9 +122,12 @@
 
 - (void)getRoomsForRoomList:(t_EmailAddressType *)emailID
 {
+    noOfFailedAuth = 0;
+
     ExchangeWebService_GetRoomsType *requestRooms = [[ExchangeWebService_GetRoomsType alloc] init];
     requestRooms.RoomList = emailID;
     
+    roomsListsArray = [[ NSMutableArray alloc] init];
     [binding GetRooms:requestRooms
               success:^(NSArray *headers, NSArray *bodyParts) {
                   
@@ -117,6 +143,8 @@
                               roomModel.nameOfRoom = aRoom.Id.Name;
                               roomModel.emailIDOfRoom = aRoom.Id.EmailAddress;
                               roomModel.emailIDEWS = aRoom.Id;
+                              
+                              [roomsListsArray addObject:roomModel];
                           }
                           
                           [self.delegate ESWRoomManager:self FoundRooms:roomsListsArray];
@@ -134,6 +162,9 @@
     {
         propertyCreater = [[ESWPropertyCreater alloc] init];
     }
+    
+    noOfFailedAuth = 0;
+
     ExchangeWebService_GetUserAvailabilityRequestType *request = [[ExchangeWebService_GetUserAvailabilityRequestType alloc] init];
     request.TimeZone = [propertyCreater timeZone];
     request.MailboxDataArray = [propertyCreater mailBoxArrayWithEmailIDS:@[room]];
@@ -177,6 +208,7 @@
         return;
     }
     
+    noOfFailedAuth = 0;
 
     if (propertyCreater == nil)
     {
@@ -235,6 +267,8 @@
         NSLog(@"Available Rooms %@", availableRooms);
         
     } error:^(NSError *error) {
+        
+        [self.delegate ESWRoomManager:self failedWithError:error];
         NSLog(@"%@", error);
     }];
 
@@ -247,13 +281,40 @@
 
 - (BOOL)authenticateForChallenge:(NSURLAuthenticationChallenge *)challenge
 {
+    if (![self getUserNameAndPasswordForEWS])
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"Please enter User name and Password in settings page"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+        
+        return NO;
+    }
+
+//This method will be called TWO times for proper Credentials. BUT it will be called COUNTINOUSLY (INFINTE TIMES) is credentials are WRONG.
+    if (noOfFailedAuth > 1)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"Please check User name and Password given in settings page"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+        return NO;
+    }
+    
+    NSLog(@"Auth called");
+    
     NSURLCredential *newCredential = [NSURLCredential
-                                      credentialWithUser:@"sundar@vmex.com"
-                                      password:@"Power@1234"
+                                      credentialWithUser:EWSUserName
+                                      password:EWSPassword
                                       persistence:NSURLCredentialPersistenceForSession];
     
     [[challenge sender] useCredential:newCredential forAuthenticationChallenge:challenge];
     
+    noOfFailedAuth++;
     return YES;
 }
 

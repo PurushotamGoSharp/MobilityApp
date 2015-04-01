@@ -104,65 +104,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateBadgeCount) name:@"NewsBadgeCount" object:nil];
     
-    
-    //    if([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
-    //    {
-    //        UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
-    //        UIImage *phoneImage = [UIImage imageNamed:@"phone.png"];
-    //        UIImage *settingImage = [UIImage imageNamed:@"setting.png"];
-    //        UIImage *raiseTicketImage = [UIImage imageNamed:@"RaiseTicket.png"];
-    //        UIImage *myTicketsImage = [UIImage imageNamed:@"MyTickets.png"];
-    //        UIImage *newsImage = [UIImage imageNamed:@"news.png"];
-    //        UIImage *tipsImage = [UIImage imageNamed:@"tips.png"];
-    //        UIImage *raiseOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
-    //        UIImage *myOrderImage = [UIImage imageNamed:@"raiseOrder.png"];
-    //
-    //
-    //        UIImage *imageForService = [self imageResizing:serviceImage];
-    //        UIImage *imageForPhone =[self imageResizing:phoneImage];
-    //        UIImage *imageForSetting = [self imageResizing:settingImage];
-    //        UIImage *imageForRaiseTicket = [self imageResizing:raiseTicketImage];
-    //        UIImage *imageForMyTickets = [self imageResizing:myTicketsImage];
-    //        UIImage *imageForNews = [self imageResizing:newsImage];
-    //        UIImage *imageForTips = [self imageResizing:tipsImage];
-    //        UIImage *imageForRaiseOrder = [self imageResizing:raiseOrderImage];
-    //        UIImage *imageFormyOrder  = [self imageResizing:myOrderImage];
-    //
-    //        self.serviceImageOutlet.image= imageForService;
-    //        self.phoneImageOutlet.image= imageForPhone;
-    //        self.settingImageOutlet.image= imageForSetting;
-    //        self.raiseTicketImageOutlet.image= imageForRaiseTicket;
-    //        self.myticketsImageOutlet.image= imageForMyTickets;
-    //        self.newsImageOutlet.image= imageForNews;
-    //        self.tipsImageOutlet.image= imageForTips;
-    //        self.raiseOrderImageOutlet.image= imageForRaiseOrder;
-    //        self.myOrderImageOutlet.image= imageFormyOrder;
-    //
-    //    }else
-    //    {
-    //        self.serviceImageOutlet.image= [UIImage imageNamed:@"service.png"];
-    //        self.phoneImageOutlet.image= [UIImage imageNamed:@"phone.png"];
-    //        self.settingImageOutlet.image= [UIImage imageNamed:@"setting.png"];
-    //        self.raiseTicketImageOutlet.image= [UIImage imageNamed:@"RaiseTicket.png"];
-    //        self.myticketsImageOutlet.image= [UIImage imageNamed:@"MyTickets.png"];
-    //        self.newsImageOutlet.image= [UIImage imageNamed:@"news.png"];
-    //        self.tipsImageOutlet.image= [UIImage imageNamed:@"tips.png"];
-    //        self.raiseOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
-    //        self.myOrderImageOutlet.image= [UIImage imageNamed:@"raiseOrder.png"];
-    //
-    //    }
-    
-    //    UIImage *serviceImage = [UIImage imageNamed:@"service.png"];
-    //    UIImage *imageForService = [self imageResizing:serviceImage];
-    //    self.serviceImageOutlet.image= imageForService;
-    
-    
-    
-    
-    
-//    titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"]];
-//    titleImageView.frame = CGRectMake(0, 5, 32, 32);
-    
+
     titleButton = [[UIButton alloc] init];
     
     [titleButton setImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"] forState:(UIControlStateNormal)];
@@ -279,6 +221,14 @@
         {
             [self tryToGetITServicePhoneNum];
         }
+        
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"office"])
+        {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
+            NSString *parameter =  @"{\"request\":{\"Name\":\"\"}}";
+            [postMan post:SEARCH_OFFICE_API withParameters:parameter];
+        }
     }
     
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
@@ -307,7 +257,6 @@
     if ([userInfo getServerConfig] != nil)
     {
         [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION_CODE];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self getDataForCountryCode:userInfo.location];
         
@@ -370,6 +319,11 @@
         
         self.dashBoardPersonAddress.text = selectedLocation.countryName?:location;
         self.emailID.text = emailIDValue;
+        
+//        if (selectedLocation.countryName)
+//        {
+//            [self setupLocation];
+//        }
     }
 }
 
@@ -385,15 +339,26 @@
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self parseResponseData:response];
-    [self saveLocationdata:response forUrl:urlString];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
-    
-//    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
-//    {
+
+    if ([urlString isEqualToString:[NSString stringWithFormat:@"%@%@",BASE_URL,@"Countries"]])
+    {
+        [self parseResponseData:response];
+        [self saveLocationdata:response forUrl:urlString];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"country"];
+        
+        //    if ([[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME]  == nil)
+        //    {
         [self setupLocation];
-//    }
-    [self updateProfileView];
+        //    }
+        [self updateProfileView];
+        
+    }else if ([urlString isEqualToString:SEARCH_OFFICE_API])
+    {
+        [self saveOfficeAddress:response forUrl:SEARCH_OFFICE_API];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"office"];
+
+    }
+
 }
 
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
@@ -458,6 +423,28 @@
         
         [dbManager saveDataToDBForQuery:insertSQL];
     }
+}
+
+- (void)saveOfficeAddress:(NSData *)response  forUrl:(NSString *)APILink
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *createQuery = @"create table if not exists officeLocations (API text PRIMARY KEY, data text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  officeLocations (API,data) values ('%@', '%@')", APILink,stringFromData];
+    
+    [dbManager saveDataToDBForQuery:insertSQL];
 }
 
 - (BOOL)getDataForCountryCode:(NSString *)countryCode

@@ -122,6 +122,8 @@
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
 		8690B71B1AAD842E0039DE7D /* DemoUserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8690B71A1AAD842E0039DE7D /* DemoUserInfo.plist */; };
 		8691A4301A7B630F006D3663 /* starFull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8691A42E1A7B630F006D3663 /* starFull@2x.png */; };
+		869999401ACBEE7D005811AC /* OfficeLocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8699993F1ACBEE7D005811AC /* OfficeLocationsViewController.m */; };
+		869999431ACBF99B005811AC /* OfficeLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 869999421ACBF99B005811AC /* OfficeLocation.m */; };
 		869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */; };
 		86A21D481A5D052D0090F5E5 /* webClipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D471A5D052D0090F5E5 /* webClipModel.m */; };
 		86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D4A1A5D0CD70090F5E5 /* DBManager.m */; };
@@ -469,6 +471,10 @@
 		867B19BA1A40126700462CA4 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
 		8690B71A1AAD842E0039DE7D /* DemoUserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DemoUserInfo.plist; sourceTree = "<group>"; };
 		8691A42E1A7B630F006D3663 /* starFull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starFull@2x.png"; sourceTree = "<group>"; };
+		8699993E1ACBEE7D005811AC /* OfficeLocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeLocationsViewController.h; sourceTree = "<group>"; };
+		8699993F1ACBEE7D005811AC /* OfficeLocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeLocationsViewController.m; sourceTree = "<group>"; };
+		869999411ACBF99B005811AC /* OfficeLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeLocation.h; sourceTree = "<group>"; };
+		869999421ACBF99B005811AC /* OfficeLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeLocation.m; sourceTree = "<group>"; };
 		869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86A21D461A5D052D0090F5E5 /* webClipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webClipModel.h; sourceTree = "<group>"; };
 		86A21D471A5D052D0090F5E5 /* webClipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = webClipModel.m; sourceTree = "<group>"; };
@@ -676,6 +682,10 @@
 				863A16ED1A4185F000146B72 /* ThemesViewController.m */,
 				8624BB0B1AC524C0001E2DB8 /* ExchangeServerSettingViewController.h */,
 				8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */,
+				8699993E1ACBEE7D005811AC /* OfficeLocationsViewController.h */,
+				8699993F1ACBEE7D005811AC /* OfficeLocationsViewController.m */,
+				869999411ACBF99B005811AC /* OfficeLocation.h */,
+				869999421ACBF99B005811AC /* OfficeLocation.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -795,7 +805,7 @@
 				86848E0B1A56719E0063E433 /* TabBar Animation */,
 				86186D861A399C5400BFD000 /* Setting */,
 				867DDFEB1A7210BA00812845 /* DBManager */,
-				86C0778D1AC283BF00938F65 /* Room Booking */,
+				86C0778D1AC283BF00938F65 /* Room Booking APIs */,
 				86CB65331A386F58005FFFE8 /* messageModle.h */,
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
@@ -1261,7 +1271,7 @@
 			name = About;
 			sourceTree = "<group>";
 		};
-		86C0778D1AC283BF00938F65 /* Room Booking */ = {
+		86C0778D1AC283BF00938F65 /* Room Booking APIs */ = {
 			isa = PBXGroup;
 			children = (
 				86C077941AC29BD300938F65 /* ExchangeWebServices */,
@@ -1272,7 +1282,7 @@
 				86C0778E1AC2863F00938F65 /* RoomModel.h */,
 				86C0778F1AC2863F00938F65 /* RoomModel.m */,
 			);
-			name = "Room Booking";
+			name = "Room Booking APIs";
 			sourceTree = "<group>";
 		};
 		86C077941AC29BD300938F65 /* ExchangeWebServices */ = {
@@ -1593,6 +1603,7 @@
 				8645329F1A5A661D00A656A3 /* UADateUtils.m in Sources */,
 				86E1B8B21AC91DF200C3B8EB /* DayTitleLabel.m in Sources */,
 				86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */,
+				869999401ACBEE7D005811AC /* OfficeLocationsViewController.m in Sources */,
 				86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */,
 				864532B41A5A661D00A656A3 /* UAPushSettingsTokenViewController.m in Sources */,
 				86C077B61AC2A6B000938F65 /* ESWRoomManager.m in Sources */,
@@ -1620,6 +1631,7 @@
 				864532AF1A5A661D00A656A3 /* UAPushSettingsAddTagViewController.m in Sources */,
 				8623D5BB1A5417800022A370 /* Postman.m in Sources */,
 				86491A761A30817100711740 /* ToolsViewController.m in Sources */,
+				869999431ACBF99B005811AC /* OfficeLocation.m in Sources */,
 				86C077B31AC29ED100938F65 /* ESWPropertyCreater.m in Sources */,
 				86CB65351A386F58005FFFE8 /* messageModle.m in Sources */,
 				86C706001A9F47B900CAAAD6 /* BadgeNoManager.m in Sources */,

@@ -9,9 +9,11 @@
 #import "RoomFinderViewController.h"
 #import "RoomManager.h"
 #import "CLWeeklyCalendarViewSourceCode/CLWeeklyCalendarView.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
+
 @interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
 @property (weak, nonatomic) IBOutlet UIButton *endTimeButton;
@@ -20,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *availableRoomsView;
 @property (weak, nonatomic) IBOutlet UIView *containerForCalendar;
+@property (weak, nonatomic) IBOutlet UILabel *selectedDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *placeHolderLabel;
+@property (weak, nonatomic) IBOutlet UIButton *serachRoomsButton;
 
 @property (nonatomic, strong) CLWeeklyCalendarView *calendarView;
 
@@ -33,6 +38,7 @@
     NSArray *roomsAvailable;
     NSArray *roomsToCheck;
     NSDate *startDate, *endDate;
+    
 }
 
 - (void)viewDidLoad
@@ -53,6 +59,10 @@
 //    
 //    [self.endTimeButton setBackgroundImage:[[UIImage imageNamed:@"endTime"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 0, 0, 40))] forState:(UIControlStateNormal)];
 //    [self.endTimeButton setBackgroundImage:[[UIImage imageNamed:@"endTime Selected"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 0, 0, 40))] forState:(UIControlStateSelected | UIControlStateHighlighted)];
+    
+    [roomManager getRoomsForRoomList:@"Building1ConferenceRooms@vmex.com"];
+    
+    self.serachRoomsButton.layer.cornerRadius = 5;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,20 +94,45 @@
     return _calendarView;
 }
 
+- (void)showSearchButton
+{
+    if (startDate == nil | endDate == nil)
+    {
+        return;
+    }
+    
+    self.serachRoomsButton.hidden = NO;
+}
+
 - (IBAction)setStartTime:(UIButton *)sender
 {
     [self setSelectedAsStart];
     self.availableRoomsView.hidden = YES;
 
-    [self.startDatePicker setDate:startDate?:[NSDate date] animated:YES];
+    startDate = startDate?:[NSDate date];
+    [self.startDatePicker setDate:startDate animated:YES];
+    
+//    dateFormatter.dateFormat = @"hh.mm a";
+//    NSString *dateInString = [dateFormatter stringFromDate:startDate];
+//    [self.startTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
+
 }
 
 - (IBAction)setEndTime:(UIButton *)sender
 {
     [self setSelectedAsEnd];
     self.availableRoomsView.hidden = YES;
+    NSDate *minDate = [startDate?:[NSDate date] dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
+//    [self.endDatePicker setMinimumDate:minDate];
+    
+//if START_DATE is nil, we will set END_DATE as currentDate+Min_TIME+SLOT
+    endDate = endDate?:minDate;
+    [self.endDatePicker setDate:endDate animated:YES];
+    
+//    dateFormatter.dateFormat = @"hh.mm a";
+//    NSString *dateInString = [dateFormatter stringFromDate:endDate];
+//    [self.endTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
 
-    [self.endDatePicker setDate:endDate?:[NSDate date] animated:YES];
 }
 
 - (void)setSelectedAsStart
@@ -106,6 +141,8 @@
     self.startDatePicker.hidden = NO;
     self.endDatePicker.hidden = YES;
     self.endTimeButton.selected = NO;
+    
+    self.placeHolderLabel.hidden = YES;
 }
 
 - (void)setSelectedAsEnd
@@ -114,6 +151,8 @@
     self.startDatePicker.hidden = YES;
     self.endDatePicker.hidden = NO;
     self.endTimeButton.selected = YES;
+    
+    self.placeHolderLabel.hidden = YES;
 }
 
 - (BOOL)timeWindowIsValid
@@ -128,16 +167,22 @@
     return NO;
 }
 
-- (IBAction)findAvailableRooms:(UIBarButtonItem *)sender
+
+- (IBAction)findAvailableRooms:(id)sender
 {
     if (![self timeWindowIsValid])
     {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a time slot minimum of 15 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
         NSLog(@"Time window is less than MIN Value");
         return;
     }
     
+    self.placeHolderLabel.hidden = YES;
+
     [self resetView];
     [roomManager availablityOfRooms:roomsToCheck forStart:startDate toEnd:endDate];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
 - (IBAction)datePickerValueChanged:(UIDatePicker *)sender
@@ -157,8 +202,11 @@
         NSLog(@"End date = %@", endDate);
     }
     
+    dateFormatter.dateFormat = @"hh.mm a";
     NSString *dateInString = [dateFormatter stringFromDate:sender.date];
     [selectedButton setTitle:dateInString forState:(UIControlStateNormal)];
+    
+    [self showSearchButton];
 }
 
 - (void)resetView
@@ -199,8 +247,28 @@
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
 {
     roomsAvailable = availableRooms;
+    
+    if (roomsAvailable.count == 0)
+    {
+        self.placeHolderLabel.hidden = NO;
+        self.placeHolderLabel.text = @"No rooms are available for the selected time slot.";
+    }
+    
     [self.tableView reloadData];
     self.availableRoomsView.hidden = NO;
+    self.serachRoomsButton.hidden = YES;
+    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+- (void)roomManager:(RoomManager *)manager FoundRooms:(NSArray *)rooms
+{
+    
+}
+
+- (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 #pragma mark - CLWeeklyCalendarViewDelegate
@@ -216,18 +284,25 @@
 
 - (void)dailyCalendarViewDidSelect:(NSDate *)date
 {
-    startDate = startDate?:[NSDate date];
-    endDate = endDate?:[[NSDate date] dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
+//    startDate = startDate?:[NSDate date];
+//    endDate = endDate?:[startDate dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
 
     startDate = [self dateByGettingTimefrom:startDate withDateFrom:date];
     NSLog(@"Start date = %@", startDate);
     
     endDate = [self dateByGettingTimefrom:endDate withDateFrom:date];
     NSLog(@"End date = %@", endDate);
+    
+    dateFormatter.dateFormat = @"dd MMMM yyyy";
+    self.selectedDateLabel.text = [dateFormatter stringFromDate:date];
 }
 
 - (NSDate *)dateByGettingTimefrom:(NSDate *)dateForTime withDateFrom:(NSDate *)dateFromDdate
 {
+    if (dateForTime == nil | dateFromDdate == nil)
+    {
+        return nil;
+    }
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:dateFromDdate];
     NSDate *dateFromCalendar = [[NSCalendar currentCalendar] dateFromComponents:components];

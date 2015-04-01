@@ -16,6 +16,8 @@
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundListsOfRooms:(NSArray *)rooms;
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms;
 
+- (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error;
+
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSArray *)availbleSlots For:(NSString *)room;
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms;
 

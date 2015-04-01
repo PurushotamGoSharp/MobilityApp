@@ -89,6 +89,14 @@
     
 }
 
+- (void)getRoomsForRoomList:(NSString *)emailID
+{
+    t_EmailAddressType *emailIDType = [[t_EmailAddressType alloc] init];
+    emailIDType.EmailAddress = emailID;
+    
+    [ewsManager getRoomsForRoomList:emailIDType];
+}
+
 - (void)availablityOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate
 {
     [ewsManager availablityOfRooms:rooms forStart:startDate toEnd:endDate];
@@ -99,10 +107,16 @@
 #pragma mark ESWRoomManagerDelegate
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms
 {
-    [listOfRooms removeAllObjects];
-    [listOfRooms addObjectsFromArray:rooms];
-    
-    [self updateModelsWithBeaconValue];
+//    [listOfRooms removeAllObjects];
+//    [listOfRooms addObjectsFromArray:rooms];
+//    
+//    [self updateModelsWithBeaconValue];
+    [self.delegate roomManager:self FoundRooms:rooms];
+}
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error
+{
+    [self.delegate roomManager:self failedWithError:error];
 }
 
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundListsOfRooms:(NSArray *)rooms

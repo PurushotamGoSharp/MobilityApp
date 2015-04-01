@@ -7,34 +7,129 @@
 //
 
 #import "ExchangeServerSettingViewController.h"
-#import "LocationViewController.h"
+#import "OfficeLocationsViewController.h"
+#import "DBManager.h"
+#import "OfficeLocation.h"
 
-@interface ExchangeServerSettingViewController ()<UITableViewDataSource,UITableViewDelegate,LocationSettingdelegate>
+@interface ExchangeServerSettingViewController ()<UITableViewDataSource,UITableViewDelegate,OfficeLocationDelegate, DBManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutLet;
 
 @end
 
 @implementation ExchangeServerSettingViewController
+{
+    DBManager *dbManager;
+    NSString *selectedCountryName, *selectedOfficeLocationName;
+    
+    NSArray *officesOfSelectedCountry;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Exchange server setup";
+    self.title = @"Exchange Server Setup";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    selectedCountryName = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME];
+    selectedOfficeLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_NAME];
+    
+    [self getData];
+    
+    [self.tableViewOutLet reloadData];
+}
+
+- (IBAction)ewsSettingssChanged:(UIBarButtonItem *)sender
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    UITableViewCell *userNameCell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    UITextField *textFld = (UITextField*)[userNameCell viewWithTag:100];
+
+    [userDefaults setObject:textFld.text forKey:EWS_USER_NAME];
+    
+    UITableViewCell *passwordCell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+    textFld = (UITextField*)[passwordCell viewWithTag:100];
+    
+    [userDefaults setObject:textFld.text forKey:EWS_USERS_PASSWORD];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successfully updated" message:@"User name and password is updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+}
+
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM officeLocations WHERE API = '%@'", SEARCH_OFFICE_API];
+    [dbManager getDataForQuery:queryString];
+}
+
+
+
+- (NSArray *)parseResponse:(NSData *)response
+{
+    NSMutableArray *arrayOfFilteredLocation = [[NSMutableArray alloc] init];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSArray *arr = json[@"aaData"][@"office"];
+    
+    for (NSDictionary *anOffice in arr)
+    {
+        if ([anOffice[@"Status"] boolValue])
+        {
+            if ([anOffice[@"Country"] isEqualToString:selectedCountryName])
+            {
+                NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[anOffice[@"JSON"] dataUsingEncoding:NSUTF8StringEncoding]
+                                                                             options:kNilOptions
+                                                                               error:nil];
+                
+                OfficeLocation *office = [[OfficeLocation alloc] init];
+                office.nameOfOffice = dictFromJSON[@"Distribution"][@"Name"];
+                office.emailIDOfOffice = dictFromJSON[@"Distribution"][@"EmailID"];
+                office.officeCode = anOffice[@"Code"];
+                
+                [arrayOfFilteredLocation addObject:office];
+
+            }
+        }
+    }
+    
+    return arrayOfFilteredLocation;
+}
+
+
+#pragma mark DBManagerDelegate
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        
+        officesOfSelectedCountry = [self parseResponse:data];
+    }
 }
 
 #pragma  mark UITableViewDataSource
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
 }
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 2;
 }
 
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
 
@@ -54,12 +149,12 @@
         if (indexPath.row == 0)
         {
             rightLable.text = @"Location";
-            leftLable.text = @"Select Location";
+            leftLable.text = selectedOfficeLocationName?: @"Select Location";
             
         }else
         {
-            rightLable.text = @"Url";
-            leftLable.text = @"http://www.ucb.com/";
+            rightLable.text = @"URL";
+            leftLable.text = EWS_REQUSET_URL;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
@@ -74,23 +169,26 @@
         if (indexPath.row == 0)
         {
             textFld.placeholder = @"Username";
+            textFld.text = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USER_NAME]?: @"";
+            textFld.secureTextEntry = NO;
 
         }else
         {
-            textFld.placeholder = @"password";
+            textFld.placeholder = @"Password";
+            textFld.text = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD]?: @"";
             textFld.secureTextEntry = YES;
         }
     }
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
     {
         if (indexPath.row == 0)
         {
-            [self performSegueWithIdentifier:@"exchangeTolocation_segue" sender:self];
+            [self performSegueWithIdentifier:@"exchageToOfficeLocationSegue" sender:self];
         }
     }
 }
@@ -99,14 +197,6 @@
     return 44;
 }
 
-#pragma mark SettingDelegates
-
-- (void)selectedLocationIs:(NSString *)location
-{
-    UITableViewCell *cell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    UILabel *leftLable = (UILabel*)[cell viewWithTag:200];
-    leftLable.text = location;
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -119,9 +209,17 @@
     // Pass the selected object to the new view controller.
     
     UINavigationController *navigation = segue.destinationViewController;
-    LocationViewController *locationVC = navigation.viewControllers[0];
-    locationVC.delegate = self;
+    OfficeLocationsViewController *officeVC = navigation.viewControllers[0];
+    officeVC.officesArray = officesOfSelectedCountry;
+    officeVC.delegate = self;
 }
 
+
+- (void)selectedOfficeIs:(NSString *)location
+{
+    UITableViewCell *cell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UILabel *leftLable = (UILabel*)[cell viewWithTag:200];
+    leftLable.text = location;
+}
 
 @end

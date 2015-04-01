@@ -33,15 +33,22 @@
 #define SELECTED_LOCATION_CODE @"SelectedLocationCode"
 #define SELECTED_LOCATION_NAME @"SelectedLocationName"
 
+#define SELECTED_OFFICE_MAILID @"SelectedOfficeMailID"
+#define SELECTED_OFFICE_NAME @"SelectedOfficeName"
+
 #define INTERNET_IS_REQUIRED_TO_SYNC_DATA @"The device is not connected to internet. Please connect the device to sync data"
 #define WARNING_TEXT @"Warning !"
 
 #define FLOW_FOR_ORDER @"orderBtnPressed"
 
+#define EWS_USER_NAME @"ewsUserName"
+#define EWS_USERS_PASSWORD @"ewsUsersPassword"
+#define EWS_USERS_LOCATION @"ewsUsersLocation"
+
 //#define BASE_URL @"https://vmlabs-win.vmoksha.com:8087/"
 
-//#define BASE_URL @"http://simplicitytst.ripple-io.in/"
-#define BASE_URL @"http://simplicitystg.ripple-io.in/"
+#define BASE_URL @"http://simplicitytst.ripple-io.in/"
+//#define BASE_URL @"http://simplicitystg.ripple-io.in/"
 
 //#define BASE_URL @"http://simplicity-demo.vmokshagroup.com:8093/"
 
@@ -66,6 +73,8 @@
 #define NEWS_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/News"]
 
 #define SEARCH_LANGUAGE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Language"]
+#define SEARCH_COUNTRY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Office"]
+#define SEARCH_OFFICE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Office"]
 
 // UCB
 
