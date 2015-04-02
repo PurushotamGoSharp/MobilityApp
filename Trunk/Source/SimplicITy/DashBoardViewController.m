@@ -217,18 +217,20 @@
     
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"office"])
+        {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            
+            NSString *parameter =  @"{\"request\":{\"Name\":\"\"}}";
+            [postMan post:SEARCH_OFFICE_API withParameters:parameter];
+        }
+        
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"country"])
         {
             [self tryToGetITServicePhoneNum];
         }
         
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"office"])
-        {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-            NSString *parameter =  @"{\"request\":{\"Name\":\"\"}}";
-            [postMan post:SEARCH_OFFICE_API withParameters:parameter];
-        }
     }
     
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
@@ -338,7 +340,7 @@
 
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
     if ([urlString isEqualToString:[NSString stringWithFormat:@"%@%@",BASE_URL,@"Countries"]])
     {

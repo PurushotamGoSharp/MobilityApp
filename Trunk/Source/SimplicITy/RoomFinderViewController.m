@@ -10,6 +10,7 @@
 #import "RoomManager.h"
 #import "CLWeeklyCalendarViewSourceCode/CLWeeklyCalendarView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "RoomModel.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
@@ -36,9 +37,10 @@
     RoomManager *roomManager;
     
     NSArray *roomsAvailable;
-    NSArray *roomsToCheck;
+    NSArray *roomsToCheck, *roomsToCheckModelArray;
     NSDate *startDate, *endDate;
     
+    NSString *selectedLocationEmailID;
 }
 
 - (void)viewDidLoad
@@ -51,23 +53,30 @@
     
     roomManager = [[RoomManager alloc] init];
     roomManager.delegate = self;
-    roomsToCheck = @[@"boardroom@vmex.com", @"trainingroom@vmex.com", @"discussionroom@vmex.com", @"room1@vmex.com"];
+//    roomsToCheck = @[@"boardroom@vmex.com", @"trainingroom@vmex.com", @"discussionroom@vmex.com", @"room1@vmex.com"];
     
     self.containerForCalendar.layer.masksToBounds = YES;
-//    [self.startTimeButton setBackgroundImage:[[UIImage imageNamed:@"startTimeNormal"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 0, 0, 40))] forState:(UIControlStateNormal)];
-//    [self.startTimeButton setBackgroundImage:[[UIImage imageNamed:@"startTimeSelected"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 0, 0, 40))] forState:(UIControlStateSelected | UIControlStateHighlighted)];
-//    
-//    [self.endTimeButton setBackgroundImage:[[UIImage imageNamed:@"endTime"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 0, 0, 40))] forState:(UIControlStateNormal)];
-//    [self.endTimeButton setBackgroundImage:[[UIImage imageNamed:@"endTime Selected"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 0, 0, 40))] forState:(UIControlStateSelected | UIControlStateHighlighted)];
-    
-    [roomManager getRoomsForRoomList:@"Building1ConferenceRooms@vmex.com"];
-    
     self.serachRoomsButton.layer.cornerRadius = 5;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
+    
+    if (selectedLocationEmailID)
+    {
+        [roomManager getRoomsForRoomList:selectedLocationEmailID];
+    }else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"Please got to settings and configure Exchange server settings"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 - (void)viewDidLayoutSubviews
@@ -263,7 +272,13 @@
 
 - (void)roomManager:(RoomManager *)manager FoundRooms:(NSArray *)rooms
 {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (RoomModel *aRoom in rooms)
+    {
+        [array addObject:aRoom.emailIDOfRoom];
+    }
     
+    roomsToCheck = array;
 }
 
 - (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error

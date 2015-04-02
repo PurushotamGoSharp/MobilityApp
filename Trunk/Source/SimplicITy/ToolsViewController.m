@@ -43,13 +43,12 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
 
-    
-//    arrayOfDatas = @[ @"Lync Connection Checker", @"Web Clips", @"Days left for password expiry", @"Survey"];
-    
-    arrayOfDatas = @[ @"Lync Connection Checker", @"Days left for password expiry", @"Survey", @"Room Checker"];
+//    arrayOfDatas = @[ @"Lync Connection Checker", @"Days left for password expiry", @"Survey", @"Room Checker"];
+    arrayOfDatas = @[ @"Lync Connection Checker", @"Survey"];
 
-//    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"WebClipToolImage"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"]];
-    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"], [UIImage imageNamed:@"SurveyToolIcon"]];
+//    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"], [UIImage imageNamed:@"SurveyToolIcon"]];
+    
+    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"SurveyToolIcon"]];
 
     self.title = @"Tools";
 }
@@ -130,33 +129,12 @@
     {
         [self performSegueWithIdentifier:@"ToolToLyncTestSegue" sender:nil];
     }
-//    else if (indexPath.row == 1)
-//    {
-//        [self performSegueWithIdentifier:@"toolsToWebClipVCSegue" sender:nil];
-//    }
-    else if (indexPath.row == 1)
-    {
-        [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
-    }
-   else if (indexPath.row == 2)
+
+   else if (indexPath.row == 1)
     {
         [self performSegueWithIdentifier:@"toolsToSurveySegue" sender:nil];
         
-    } else if (indexPath.row == 3)
-    {
-        [self performSegueWithIdentifier:@"toolsToRoomCheckerSegue" sender:nil];
     }
-
-    
-//    if (indexPath.row == 1)
-//    {
-//        [self performSegueWithIdentifier:@"ToolsADExpSegue" sender:nil];
-//    }else
-//    {
-//        [self performSegueWithIdentifier:@"ToolToLyncTestSegue" sender:nil];
-//
-//    }
-
 }
 
 @end

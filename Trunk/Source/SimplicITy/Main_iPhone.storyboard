@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -70,7 +70,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bWZ-ae-XdY" userLabel="First Row">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="122"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3K-gf-Q0s" userLabel="Raise A Ticket">
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G3K-gf-Q0s" userLabel="ITSOS">
                                                                 <rect key="frame" x="7" y="1" width="100" height="118"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjJ-wS-Vxf">
@@ -83,10 +83,10 @@
                                                                             <segue destination="Nvl-He-eXA" kind="push" id="J1A-hZ-SrU"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="raiseATicketIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bYa-aY-LVi">
-                                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ITSOSDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bYa-aY-LVi">
+                                                                        <rect key="frame" x="18" y="18" width="64" height="64"/>
                                                                     </imageView>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Raise Ticket" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKp-SK-I9D">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ITSOS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKp-SK-I9D">
                                                                         <rect key="frame" x="2" y="87" width="97" height="18"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -175,7 +175,7 @@
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93t-qo-lzI" userLabel="Second Row">
                                                         <rect key="frame" x="0.0" y="121" width="320" height="121"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Tv-MCJ" userLabel="Place Order">
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ0-Tv-MCJ" userLabel="Book A Room">
                                                                 <rect key="frame" x="7" y="1" width="100" height="118"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ete-0y-E1v">
@@ -184,13 +184,13 @@
                                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <segue destination="Nvl-He-eXA" kind="push" identifier="dashToOrder_segue" id="8h2-qg-Aot"/>
+                                                                            <segue destination="Xzp-Gx-bqB" kind="push" identifier="dashToRoomFinderSegue" id="L0P-q7-62u"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="OrderDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BookARoomDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
                                                                         <rect key="frame" x="18" y="19" width="64" height="64"/>
                                                                     </imageView>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Place Order" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Book A Room" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
                                                                         <rect key="frame" x="-2" y="87" width="103" height="18"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -223,7 +223,7 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="0.52156862745098043" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </view>
-                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="itm-1L-AFt" userLabel="My Order">
+                                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="itm-1L-AFt" userLabel="Password Expiry Days">
                                                                 <rect key="frame" x="110" y="1" width="100" height="118"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIT-hc-sds">
@@ -233,14 +233,14 @@
                                                                         </state>
                                                                         <connections>
                                                                             <action selector="myOrderBtnPresed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="Rs2-Fl-VTA"/>
-                                                                            <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyOrdersSegue" id="uWR-qu-A3S"/>
+                                                                            <segue destination="W95-uH-vGV" kind="push" identifier="dashToPasswordExpSegue" id="b9D-A6-Ihb"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MyOrderedDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="3fU-LL-lWG">
-                                                                        <rect key="frame" x="18" y="21" width="64" height="64"/>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="PasswordToolDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="3fU-LL-lWG">
+                                                                        <rect key="frame" x="25" y="22" width="50" height="50"/>
                                                                     </imageView>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Orders" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyH-ht-g5P">
-                                                                        <rect key="frame" x="-2" y="87" width="103" height="18"/>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password Expiry Days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyH-ht-g5P">
+                                                                        <rect key="frame" x="2" y="74" width="97" height="38"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
@@ -1162,7 +1162,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUY-ih-xyb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3014" y="1509"/>
+            <point key="canvasLocation" x="2249" y="1525"/>
         </scene>
         <!--Tools View Controller-->
         <scene sceneID="aKc-PG-Hvn">
@@ -1233,9 +1233,7 @@
                     <connections>
                         <outlet property="tableView" destination="10d-Ie-kvS" id="uee-xc-Mks"/>
                         <segue destination="iD3-0r-TBX" kind="push" identifier="ToolToLyncTestSegue" id="3Qn-gt-75Z"/>
-                        <segue destination="W95-uH-vGV" kind="push" identifier="ToolsADExpSegue" id="Y5j-Wb-rTu"/>
                         <segue destination="wY9-pY-6tC" kind="push" identifier="toolsToSurveySegue" id="58w-CD-8Dt"/>
-                        <segue destination="Xzp-Gx-bqB" kind="push" identifier="toolsToRoomCheckerSegue" id="Zba-v6-KPV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ll2-29-eWr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1892,7 +1890,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8VI-BV-MYJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1376" y="2242"/>
+            <point key="canvasLocation" x="2992" y="795"/>
         </scene>
         <!--Survey View Controller-->
         <scene sceneID="lmq-Ej-XtV">
@@ -2048,7 +2046,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OM2-6K-FME" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1866" y="1515"/>
+            <point key="canvasLocation" x="2502" y="782"/>
         </scene>
         <!--Settings-->
         <scene sceneID="8qs-G3-Wlj">
@@ -2702,7 +2700,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11U-wF-NJa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2556" y="1509"/>
+            <point key="canvasLocation" x="1791" y="1525"/>
         </scene>
         <!--Message Detail View Controller-->
         <scene sceneID="gOl-Ck-cvF">
@@ -2854,7 +2852,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4O-yu-E77" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3422" y="1509"/>
+            <point key="canvasLocation" x="2657" y="1525"/>
         </scene>
         <!--Exchange Server Setting View Controller-->
         <scene sceneID="1Un-wl-xc9">
@@ -3144,7 +3142,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UNF-Th-6NY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2079" y="795"/>
+            <point key="canvasLocation" x="1791" y="811"/>
         </scene>
         <!--Home-->
         <scene sceneID="v57-fl-0II">
@@ -3764,21 +3762,22 @@
     <resources>
         <image name="Avatar" width="50" height="47"/>
         <image name="BadgeIcon" width="20" height="20"/>
+        <image name="BookARoomDashIcon" width="64" height="64"/>
         <image name="Call_Phone" width="250" height="42"/>
         <image name="Clock" width="16" height="16"/>
         <image name="Commercial-01" width="30" height="30"/>
         <image name="FeatureWillBeComingSoonImage" width="175" height="89"/>
         <image name="FilterBarButtonImage" width="32" height="32"/>
         <image name="HeadPhoneSmallimage" width="20" height="20"/>
+        <image name="ITSOSDashIcon" width="64" height="64"/>
         <image name="LyncToolsIcon" width="30" height="30"/>
         <image name="Message-01" width="30" height="30"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
         <image name="Mobility" width="50" height="51"/>
-        <image name="MyOrderedDashIcon" width="64" height="64"/>
         <image name="MyTickets" width="64" height="64"/>
-        <image name="OrderDashIcon" width="64" height="64"/>
         <image name="PasswordManagement" width="58" height="54"/>
+        <image name="PasswordToolDashIcon" width="64" height="64"/>
         <image name="PhoneIcon" width="64" height="64"/>
         <image name="SelectTimeHighlight" width="357" height="41"/>
         <image name="SettingsDashIcon" width="64" height="64"/>
@@ -3797,7 +3796,6 @@
         <image name="homeBlue" width="30" height="26"/>
         <image name="newsCategoryIcon" width="64" height="64"/>
         <image name="plusIcon" width="70" height="70"/>
-        <image name="raiseATicketIcon" width="64" height="64"/>
         <image name="seperator" width="1" height="1"/>
         <image name="starBlack" width="13" height="13"/>
         <image name="starEmpty.png" width="50" height="50"/>
@@ -3815,7 +3813,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="5s6-By-sBB"/>
         <segue reference="J1A-hZ-SrU"/>
-        <segue reference="CXP-ec-zh5"/>
     </inferredMetricsTieBreakers>
 </document>
