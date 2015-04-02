@@ -15,12 +15,13 @@
 
 #define ENABLE_PUSH_NOTIFICATION YES
 
-@interface AppDelegate () <UAPushNotificationDelegate>
+@interface AppDelegate () <UAPushNotificationDelegate, postmanDelegate>
 
 @end
 
 @implementation AppDelegate
 {
+    Postman *postMan;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -92,6 +93,8 @@
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
+    [self getEWSRequestURL];
+    
     NSDictionary *userInfo = [launchOptions valueForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"];
     if (userInfo != nil)
     {
@@ -100,6 +103,32 @@
     return YES;
 }
 
+- (void)getEWSRequestURL
+{
+    if (postMan == nil)
+    {
+        postMan = [[Postman alloc] init];
+        postMan.delegate = self;
+    }
+    
+    [postMan get:EWS_REQUSET_URL_API];
+}
+
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSString *ewsURL = json[@"aaData"][@"ExchangeServerUrl"];
+    
+    if (ewsURL)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:ewsURL forKey:EWS_REQUSET_URL_KEY];
+    }
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    
+}
 
 - (void)getNotification:(NSDictionary *)appInfo
 {

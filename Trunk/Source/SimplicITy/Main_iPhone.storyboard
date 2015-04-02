@@ -1664,7 +1664,7 @@
                         <viewControllerLayoutGuide type="top" id="unA-NB-pOl"/>
                         <viewControllerLayoutGuide type="bottom" id="3j3-KY-iC4"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0mN-id-JkK">
+                    <view key="view" contentMode="scaleToFill" id="0mN-id-JkK" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1873,6 +1873,9 @@
                             <constraint firstItem="0Rw-gX-1cS" firstAttribute="top" secondItem="L5j-fQ-6xX" secondAttribute="bottom" constant="8" id="u4Y-bH-3mg"/>
                             <constraint firstItem="L5j-fQ-6xX" firstAttribute="leading" secondItem="0mN-id-JkK" secondAttribute="leading" constant="8" id="zu2-Db-Sqi"/>
                         </constraints>
+                        <connections>
+                            <action selector="hidePickers:" destination="Xzp-Gx-bqB" eventType="touchDown" id="zfv-rJ-scq"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="rQc-wU-F4U"/>
                     <connections>

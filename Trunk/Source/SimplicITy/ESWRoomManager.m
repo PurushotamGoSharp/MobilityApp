@@ -9,6 +9,7 @@
 #import "ESWRoomManager.h"
 #import "ExchangeWebService.h"
 #import "RoomModel.h"
+#import "UserInfo.h"
 
 @interface ESWRoomManager() <SSLCredentialsManaging>
 
@@ -39,7 +40,8 @@
 
 - (void)initialize
 {
-    binding  = [[ExchangeWebService ExchangeServiceBinding] initWithAddress:EWS_REQUSET_URL];
+    NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
+    binding  = [[ExchangeWebService ExchangeServiceBinding] initWithAddress:ewsRequestURL];
     
     binding.logXMLInOut = YES;
     
@@ -73,7 +75,8 @@
 
 - (BOOL)getUserNameAndPasswordForEWS
 {
-    NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USER_NAME];
+//    NSString *userName = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USER_NAME];
+    NSString *userName = [UserInfo sharedUserInfo].cropID;
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD];
     
     if (userName == nil | password == nil)
@@ -152,6 +155,8 @@
                   }
               } error:^(NSError *error) {
                   
+                  [self.delegate ESWRoomManager:self failedWithError:error];
+
               }];
     
 }
@@ -204,6 +209,7 @@
 
     if (rooms.count == 0 | rooms == nil)
     {
+        
         NSLog(@"There should be atleast one room in the list");
         return;
     }
@@ -284,12 +290,14 @@
     if (![self getUserNameAndPasswordForEWS])
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please enter User name and Password in settings page"
+                                                            message:@"Please enter Password in settings page"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
         [alertView show];
         
+        [self.delegate ESWRoomManager:self failedWithError:nil];
+
         return NO;
     }
 
@@ -297,11 +305,14 @@
     if (noOfFailedAuth > 1)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please check User name and Password given in settings page"
+                                                            message:@"Please check Password given in settings page"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
         [alertView show];
+        
+        [self.delegate ESWRoomManager:self failedWithError:nil];
+
         return NO;
     }
     

@@ -35,7 +35,7 @@
 #define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Service is required.\n"
 #define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Details is required."
 
-#define NAV_BAR_TITLE_FOR_RAISE_TICKET @"Raise Ticket"
+#define NAV_BAR_TITLE_FOR_RAISE_TICKET @"ITSOS"
 #define NAV_BAR_TITLE_FOR_ORDER @"Place Order"
 
 #define PLACEHOLDE_TEXT_FOR_SELECT_ITEM @"Select an item"

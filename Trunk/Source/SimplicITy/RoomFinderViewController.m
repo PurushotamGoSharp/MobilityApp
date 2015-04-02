@@ -57,6 +57,8 @@
     
     self.containerForCalendar.layer.masksToBounds = YES;
     self.serachRoomsButton.layer.cornerRadius = 5;
+    
+    self.title = @"Book a Room";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,7 +73,7 @@
     }else
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please got to settings and configure Exchange server settings"
+                                                            message:@"Please got to settings and configure Book a Room settings"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -118,12 +120,12 @@
     [self setSelectedAsStart];
     self.availableRoomsView.hidden = YES;
 
-    startDate = startDate?:[NSDate date];
+    startDate = startDate?:[self dateByGettingTimefrom:[NSDate date] withDateFrom:self.calendarView.selectedDate];
     [self.startDatePicker setDate:startDate animated:YES];
     
-//    dateFormatter.dateFormat = @"hh.mm a";
-//    NSString *dateInString = [dateFormatter stringFromDate:startDate];
-//    [self.startTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
+    dateFormatter.dateFormat = @"hh.mm a";
+    NSString *dateInString = [dateFormatter stringFromDate:startDate];
+    [self.startTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
 
 }
 
@@ -132,16 +134,17 @@
     [self setSelectedAsEnd];
     self.availableRoomsView.hidden = YES;
     NSDate *minDate = [startDate?:[NSDate date] dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
-//    [self.endDatePicker setMinimumDate:minDate];
+    [self.endDatePicker setMinimumDate:minDate];
     
 //if START_DATE is nil, we will set END_DATE as currentDate+Min_TIME+SLOT
-    endDate = endDate?:minDate;
+    endDate = endDate?:[self dateByGettingTimefrom:minDate withDateFrom:self.calendarView.selectedDate];
     [self.endDatePicker setDate:endDate animated:YES];
     
-//    dateFormatter.dateFormat = @"hh.mm a";
-//    NSString *dateInString = [dateFormatter stringFromDate:endDate];
-//    [self.endTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
-
+    dateFormatter.dateFormat = @"hh.mm a";
+    NSString *dateInString = [dateFormatter stringFromDate:endDate];
+    [self.endTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
+    
+    [self showSearchButton];
 }
 
 - (void)setSelectedAsStart
@@ -151,6 +154,10 @@
     self.endDatePicker.hidden = YES;
     self.endTimeButton.selected = NO;
     
+    [self.endTimeButton setTitle:@"End Date" forState:(UIControlStateNormal)];
+    endDate = nil;
+    self.serachRoomsButton.hidden = YES;
+
     self.placeHolderLabel.hidden = YES;
 }
 
@@ -184,6 +191,18 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a time slot minimum of 15 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
         NSLog(@"Time window is less than MIN Value");
+        return;
+    }
+    
+    if (roomsToCheck.count == 0 | roomsToCheck == nil)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"Please check Password given in settings page"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+        
         return;
     }
     
@@ -228,6 +247,13 @@
     self.availableRoomsView.hidden = YES;
 }
 
+- (IBAction)hidePickers:(UIView *)sender
+{
+    self.startDatePicker.hidden = YES;
+    self.endDatePicker.hidden = YES;
+    self.startTimeButton.selected = NO;
+    self.endTimeButton.selected = NO;
+}
 
 #pragma mark - UITableViewDelegate
 
@@ -249,6 +275,7 @@
 {
     return 44;
 }
+
 
 
 
@@ -324,9 +351,24 @@
     
     unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit ;
     components = [[NSCalendar currentCalendar] components:unitFlags fromDate:dateForTime];
+    components.minute = (components.minute / 5) * 5;
     NSDate *date = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:dateFromCalendar options:0];
     
     return date;
+}
+
+
+
+
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

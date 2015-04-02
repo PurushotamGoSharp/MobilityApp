@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Exchange Server Setup";
+    self.title = @"Book a room";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -45,17 +45,17 @@
 - (IBAction)ewsSettingssChanged:(UIBarButtonItem *)sender
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    UITableViewCell *userNameCell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-    UITextField *textFld = (UITextField*)[userNameCell viewWithTag:100];
-
-    [userDefaults setObject:textFld.text forKey:EWS_USER_NAME];
+//    UITableViewCell *userNameCell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//    UITextField *textFld = (UITextField*)[userNameCell viewWithTag:100];
+//
+//    [userDefaults setObject:textFld.text forKey:EWS_USER_NAME];
     
-    UITableViewCell *passwordCell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
-    textFld = (UITextField*)[passwordCell viewWithTag:100];
+    UITableViewCell *passwordCell = [self.tableViewOutLet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    UITextField *textFld = (UITextField*)[passwordCell viewWithTag:100];
     
     [userDefaults setObject:textFld.text forKey:EWS_USERS_PASSWORD];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successfully updated" message:@"User name and password is updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successfully updated" message:@"Password is updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
 }
 
@@ -125,7 +125,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 1;
 }
 
 
@@ -151,12 +151,13 @@
             rightLable.text = @"Location";
             leftLable.text = selectedOfficeLocationName?: @"Select Location";
             
-        }else
-        {
-            rightLable.text = @"URL";
-            leftLable.text = EWS_REQUSET_URL;
-            cell.accessoryType = UITableViewCellAccessoryNone;
         }
+//        else
+//        {
+//            rightLable.text = @"URL";
+//            leftLable.text = EWS_REQUSET_URL;
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//        }
         
     }else
     {
@@ -168,12 +169,12 @@
         
         if (indexPath.row == 0)
         {
-            textFld.placeholder = @"Username";
-            textFld.text = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USER_NAME]?: @"";
-            textFld.secureTextEntry = NO;
-
-        }else
-        {
+//            textFld.placeholder = @"Username";
+//            textFld.text = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USER_NAME]?: @"";
+//            textFld.secureTextEntry = NO;
+//
+//        }else
+//        {
             textFld.placeholder = @"Password";
             textFld.text = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD]?: @"";
             textFld.secureTextEntry = YES;
@@ -195,6 +196,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 1)
+    {
+        return @"Password";
+    }
+    return nil;
 }
 
 - (void)didReceiveMemoryWarning {

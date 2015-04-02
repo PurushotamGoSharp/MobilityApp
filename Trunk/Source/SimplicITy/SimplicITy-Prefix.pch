@@ -74,6 +74,7 @@
 
 #define SEARCH_LANGUAGE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Language"]
 #define SEARCH_OFFICE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Office"]
+#define EWS_REQUSET_URL_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"ExchangeServerUrl"]
 
 // UCB
 
@@ -85,7 +86,8 @@
 
 
 //EWS
-#define EWS_REQUSET_URL @"https://10.10.3.162/EWS/exchange.asmx"
+#define EWS_REQUSET_URL_KEY @"ewsRequestURLKey"
+
 //#define EWS_REQUSET_URL @"https://mail.ucb.com/ews/exchange.asmx" //Change user name and Passowrd
 
 #endif

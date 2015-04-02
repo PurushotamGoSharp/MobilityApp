@@ -6595,7 +6595,8 @@ static NSString *ExchangeWebService_ResponseCodeType_enumValues[] = {
 }
 
 + (ExchangeWebService_ExchangeServiceBinding *)ExchangeServiceBinding {
-    return [[ExchangeWebService_ExchangeServiceBinding alloc] initWithAddress:EWS_REQUSET_URL];
+    NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
+    return [[ExchangeWebService_ExchangeServiceBinding alloc] initWithAddress:ewsRequestURL];
 }
 
 @end

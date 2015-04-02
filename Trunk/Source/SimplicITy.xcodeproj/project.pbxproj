@@ -180,6 +180,7 @@
 		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
 		86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1E1A3992270045904C /* CustomColoredViewController.m */; };
 		86EE2A961A8394CF00E32F11 /* vmCert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86EE2A951A8394CF00E32F11 /* vmCert.p12 */; };
+		86F10CFB1ACD404200EE6433 /* UINavigationController+CustomOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F10CFA1ACD404200EE6433 /* UINavigationController+CustomOrientation.m */; };
 		86F6DE251AC421260060E336 /* RoomFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F6DE241AC421260060E336 /* RoomFinderViewController.m */; };
 		86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F943C81A9C60ED0094204E /* NewsCategoryFetcher.m */; };
 		86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FA17421A80FA4600846378 /* DummyOrderViewController.m */; };
@@ -578,6 +579,8 @@
 		86EDBE1D1A3992270045904C /* CustomColoredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColoredViewController.h; sourceTree = "<group>"; };
 		86EDBE1E1A3992270045904C /* CustomColoredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomColoredViewController.m; sourceTree = "<group>"; };
 		86EE2A951A8394CF00E32F11 /* vmCert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = vmCert.p12; sourceTree = "<group>"; };
+		86F10CF91ACD404200EE6433 /* UINavigationController+CustomOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+CustomOrientation.h"; sourceTree = "<group>"; };
+		86F10CFA1ACD404200EE6433 /* UINavigationController+CustomOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+CustomOrientation.m"; sourceTree = "<group>"; };
 		86F6DE231AC421260060E336 /* RoomFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomFinderViewController.h; sourceTree = "<group>"; };
 		86F6DE241AC421260060E336 /* RoomFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomFinderViewController.m; sourceTree = "<group>"; };
 		86F943C71A9C60ED0094204E /* NewsCategoryFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCategoryFetcher.h; sourceTree = "<group>"; };
@@ -802,7 +805,7 @@
 				86A21D461A5D052D0090F5E5 /* webClipModel.h */,
 				86A21D471A5D052D0090F5E5 /* webClipModel.m */,
 				86848E0C1A5671AF0063E433 /* Network API Handlers */,
-				86848E0B1A56719E0063E433 /* TabBar Animation */,
+				86848E0B1A56719E0063E433 /* Custom TabBar and Navigation */,
 				86186D861A399C5400BFD000 /* Setting */,
 				867DDFEB1A7210BA00812845 /* DBManager */,
 				86C0778D1AC283BF00938F65 /* Room Booking APIs */,
@@ -1202,7 +1205,7 @@
 			name = DBManager;
 			sourceTree = "<group>";
 		};
-		86848E0B1A56719E0063E433 /* TabBar Animation */ = {
+		86848E0B1A56719E0063E433 /* Custom TabBar and Navigation */ = {
 			isa = PBXGroup;
 			children = (
 				86ED7D651A541F1A00400360 /* CEPanAnimationController.h */,
@@ -1213,8 +1216,10 @@
 				86ED7D6A1A541F1A00400360 /* NavigationController.m */,
 				86ED7D6B1A541F1A00400360 /* TabBarViewController.h */,
 				86ED7D6C1A541F1A00400360 /* TabBarViewController.m */,
+				86F10CF91ACD404200EE6433 /* UINavigationController+CustomOrientation.h */,
+				86F10CFA1ACD404200EE6433 /* UINavigationController+CustomOrientation.m */,
 			);
-			name = "TabBar Animation";
+			name = "Custom TabBar and Navigation";
 			sourceTree = "<group>";
 		};
 		86848E0C1A5671AF0063E433 /* Network API Handlers */ = {
@@ -1599,6 +1604,7 @@
 				86B121921A7B5DBC006C2701 /* RateView.m in Sources */,
 				86E1B8B61AC91DF200C3B8EB /* UIImage+CL.m in Sources */,
 				864039871A6542FF000D705E /* RequestModel.m in Sources */,
+				86F10CFB1ACD404200EE6433 /* UINavigationController+CustomOrientation.m in Sources */,
 				864532B61A5A661D00A656A3 /* UAPushSettingsViewController.m in Sources */,
 				8645329F1A5A661D00A656A3 /* UADateUtils.m in Sources */,
 				86E1B8B21AC91DF200C3B8EB /* DayTitleLabel.m in Sources */,

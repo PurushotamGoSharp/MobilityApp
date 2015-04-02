@@ -35,7 +35,7 @@
     
     self.title = @"Settings";
     
-    arrOfTableViewData = @[@"Language",@"Location",@"Theme",@"Exchange server setup"];
+    arrOfTableViewData = @[@"Language",@"Location",@"Theme",@"Book a room"];
     arrOfImages = @[@"language.png",@"lacation.png",@"themes",@"ExchangeServer_Setting"];
     
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
