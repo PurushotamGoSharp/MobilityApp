@@ -7,7 +7,14 @@
 //
 
 #import "CustomColoredViewController.h"
+#import "RoomModel.h"
 
 @interface InviteAttendeesViewController : CustomColoredViewController
+
+@property (strong, nonatomic) NSDate *startDate;
+@property (strong, nonatomic) NSDate *endDate;
+
+@property (strong, nonatomic) RoomModel *selectedRoom;
+
 
 @end
