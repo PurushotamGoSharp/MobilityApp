@@ -26,7 +26,8 @@
     NSString *venue;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -45,7 +46,8 @@
     venue = self.selectedRoom.nameOfRoom;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -56,9 +58,9 @@
 {
     return 3;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     if (section == 0)
     {
         return [dataOfFirstSection count];
@@ -69,7 +71,6 @@
     {
         return [dataOfThirdSection count];
     }
-    
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
