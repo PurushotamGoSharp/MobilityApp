@@ -40,6 +40,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeightConst;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UILabel *noMessageLabel;
 
 @end
 
@@ -75,6 +76,11 @@
     [self getData];
     [self.tableViewoutlet reloadData];
     [self adjustTableViewHeigth];
+    
+    if (newsCategoryArr.count > 0)
+    {
+        self.noMessageLabel.hidden = YES;
+    }
 }
 
 - (void)backBtnAction
@@ -106,7 +112,11 @@
     [self getData];
     [self.tableViewoutlet reloadData];
     [self adjustTableViewHeigth];
-
+    
+    if (newsCategoryArr.count > 0)
+    {
+        self.noMessageLabel.hidden = YES;
+    }
 }
 
 - (void)tryToUpdateNewsCategories

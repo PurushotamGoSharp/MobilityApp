@@ -198,13 +198,38 @@
     return 44;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    if (section == 1)
+//    {
+//        return @"Password";
+//    }
+//    return nil;
+//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 1)
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
+    
+    headerLabel.font = [UIFont boldSystemFontOfSize:14];
+    
+    if (section == 0)
     {
-        return @"Password";
+        headerLabel.text = @"Location";
+    }else if (section == 1)
+    {
+        headerLabel.text = @"Password";
     }
-    return nil;
+    
+    [headerView addSubview:headerLabel];
+    
+    return headerView;
 }
 
 - (void)didReceiveMemoryWarning {

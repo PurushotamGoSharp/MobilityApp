@@ -41,6 +41,7 @@
 - (void)initialize
 {
     NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
+    
     binding  = [[ExchangeWebService ExchangeServiceBinding] initWithAddress:ewsRequestURL];
     
     binding.logXMLInOut = YES;

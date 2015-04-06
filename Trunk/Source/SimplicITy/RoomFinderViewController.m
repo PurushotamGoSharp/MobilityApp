@@ -11,6 +11,8 @@
 #import "CLWeeklyCalendarViewSourceCode/CLWeeklyCalendarView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "RoomModel.h"
+#import "AppDelegate.h"
+#import "UINavigationController+CustomOrientation.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
@@ -65,11 +67,14 @@
 {
     [super viewWillAppear:animated];
     
+    
     selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
     
     if (selectedLocationEmailID)
     {
         [roomManager getRoomsForRoomList:selectedLocationEmailID];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
     }else
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
@@ -186,6 +191,17 @@
 
 - (IBAction)findAvailableRooms:(id)sender
 {
+    NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
+    
+    if (ewsRequestURL == nil)
+    {
+        AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+        [appDel getEWSRequestURL];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Faced some issue. Please try again after some time" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+    }
+    
     if (![self timeWindowIsValid])
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a time slot minimum of 15 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -300,12 +316,15 @@
 - (void)roomManager:(RoomManager *)manager FoundRooms:(NSArray *)rooms
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
+    
     for (RoomModel *aRoom in rooms)
     {
         [array addObject:aRoom.emailIDOfRoom];
     }
     
     roomsToCheck = array;
+    roomsToCheckModelArray = rooms;
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error
@@ -363,12 +382,17 @@
 
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    return YES;
 }
 
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
