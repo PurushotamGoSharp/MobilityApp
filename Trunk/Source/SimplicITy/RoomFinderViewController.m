@@ -38,8 +38,8 @@
     NSDateFormatter *dateFormatter;
     RoomManager *roomManager;
     
-    NSArray *roomsAvailable;
-    NSArray *roomsToCheck, *roomsToCheckModelArray;
+    NSMutableArray *roomsAvailable;
+    NSArray *emailIDsOfRoomsToCheck, *roomsToCheckModelArray;
     NSDate *startDate, *endDate;
     
     NSString *selectedLocationEmailID;
@@ -210,7 +210,7 @@
         return;
     }
     
-    if (roomsToCheck.count == 0 | roomsToCheck == nil)
+    if (emailIDsOfRoomsToCheck.count == 0 | emailIDsOfRoomsToCheck == nil)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
                                                             message:@"Please check Password given in settings page"
@@ -225,7 +225,7 @@
     self.placeHolderLabel.hidden = YES;
 
     [self resetView];
-    [roomManager availablityOfRooms:roomsToCheck forStart:startDate toEnd:endDate];
+    [roomManager availablityOfRooms:emailIDsOfRoomsToCheck forStart:startDate toEnd:endDate];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
@@ -271,6 +271,19 @@
     self.endTimeButton.selected = NO;
 }
 
+- (RoomModel *)roomForEmailID:(NSString *)emailID
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"emailIDOfRoom = %@", emailID];
+    NSArray *filterdArray = [roomsToCheckModelArray filteredArrayUsingPredicate:predicate];
+    
+    if (filterdArray.count > 0)
+    {
+        return [filterdArray firstObject];
+    }
+    
+    return nil;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -282,7 +295,8 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     UILabel *label = (UILabel *)[cell viewWithTag:100];
-    label.text = roomsAvailable[indexPath.row];
+    RoomModel *model = roomsAvailable[indexPath.row];
+    label.text = model.nameOfRoom;
     
     return cell;
 }
@@ -298,7 +312,22 @@
 #pragma mark - RoomManagerDelegate
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
 {
-    roomsAvailable = availableRooms;
+    if (roomsAvailable == nil)
+    {
+        roomsAvailable = [[NSMutableArray alloc] init];
+    }else
+    {
+        [roomsAvailable removeAllObjects];
+    }
+    
+    for (NSString *anEmailID in availableRooms)
+    {
+        RoomModel *model = [self roomForEmailID:anEmailID];
+        if (model)
+        {
+            [roomsAvailable addObject:model];
+        }
+    }
     
     if (roomsAvailable.count == 0)
     {
@@ -322,7 +351,7 @@
         [array addObject:aRoom.emailIDOfRoom];
     }
     
-    roomsToCheck = array;
+    emailIDsOfRoomsToCheck = array;
     roomsToCheckModelArray = rooms;
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }

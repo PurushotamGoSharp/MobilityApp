@@ -144,7 +144,7 @@
                           for (t_RoomType *aRoom in roomsListObj.Rooms)
                           {
                               RoomModel *roomModel = [[RoomModel alloc] init];
-                              roomModel.nameOfRoom = aRoom.Id.Name;
+                              roomModel.nameOfRoom = [self nameOfRoomAfterRemovingCountryCode:aRoom.Id.Name];
                               roomModel.emailIDOfRoom = aRoom.Id.EmailAddress;
                               roomModel.emailIDEWS = aRoom.Id;
                               
@@ -160,6 +160,22 @@
 
               }];
     
+}
+
+- (NSString *)nameOfRoomAfterRemovingCountryCode:(NSString *)initialRoomName
+{
+//For UCB first 8 letter will represent location eg)"* BLR - KRISHNA - Board Room" . We are removing this to get actual name of rooms
+    NSRange firstOccurance = [initialRoomName rangeOfString:@" - "];
+    NSRange rangeToBeRemove;
+    rangeToBeRemove.location = 0;
+    rangeToBeRemove.length = firstOccurance.location + firstOccurance.length;
+    
+    if (rangeToBeRemove.location == NSNotFound)
+    {
+        return initialRoomName;
+    }
+    
+    return [[initialRoomName mutableCopy] stringByReplacingCharactersInRange:rangeToBeRemove withString:@""];
 }
 
 - (void)findEventForRoom:(NSString *)room forDate:(NSDate *)requestedDate
