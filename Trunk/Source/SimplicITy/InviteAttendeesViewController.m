@@ -91,6 +91,35 @@
     return cell;
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
+    
+    headerLabel.font = [UIFont boldSystemFontOfSize:14];
+    
+    if (section == 0)
+    {
+        headerLabel.text = @"Meeting Details";
+    }else if (section == 1)
+    {
+        headerLabel.text = @"Subject";
+    }else if (section == 2)
+    {
+        headerLabel.text = @"Add attendees";
+    }
+    
+    [headerView addSubview:headerLabel];
+    
+    return headerView;
+}
+
 /*
 #pragma mark - Navigation
 
