@@ -72,6 +72,8 @@
 //    self.subjectLable.font=[self customFont:20 ofName:MuseoSans_300];
 
     dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
+    
+    self.title = @"News Details";
 }
 
 - (void)viewWillAppear:(BOOL)animated
