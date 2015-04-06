@@ -64,6 +64,8 @@
     BOOL haveRasiedRequest;
     
     RoomManager *roomManager;
+    
+    
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;

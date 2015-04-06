@@ -43,6 +43,8 @@
     NSDate *startDate, *endDate;
     
     NSString *selectedLocationEmailID;
+    UIBarButtonItem *backButton;
+
 }
 
 - (void)viewDidLoad
@@ -61,6 +63,26 @@
     self.serachRoomsButton.layer.cornerRadius = 5;
     
     self.title = @"Book a Room";
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Home" forState:UIControlStateNormal];
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.frame = CGRectMake(0, 0,80, 30);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+}
+
+- (void)backBtnAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    //    self.writeReviewTxtView.text = @"";
+    //    [self hideWriteReviewTextView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -404,8 +426,6 @@
     
     return date;
 }
-
-
 
 
 

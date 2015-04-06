@@ -19,6 +19,10 @@
 @end
 
 @implementation ADExpirationViewController
+{
+    UIBarButtonItem *backButton;
+    
+}
 
 - (void)viewDidLoad
 {
@@ -56,14 +60,39 @@
         
 //        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. For checking \"Days Left  for Password Expiry\" Internet connection is required" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 //        [noNetworkAlert show];
+        
+
 
     }
 
     
-  
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Home" forState:UIControlStateNormal];
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.frame = CGRectMake(0, 0,80, 30);
+    
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
     
 }
 
+
+- (void)backBtnAction
+{
+//    [self.tabBarController setSelectedIndex:0];
+    //    self.writeReviewTxtView.text = @"";
+    //    [self hideWriteReviewTextView];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 - (void)identity:(SecIdentityRef *)identity andCertificate:(SecCertificateRef *)certificate forPKC12Data:(NSData *)certData withPassphrase:(NSString *)passphrase
 {
     // bridge the import data to foundation objects
