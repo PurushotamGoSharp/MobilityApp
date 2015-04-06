@@ -431,7 +431,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@""])
+    if ([segue.identifier isEqualToString:@"romeFinderToInvite_segue"])
     {
         InviteAttendeesViewController *inviteVC = (InviteAttendeesViewController *)segue.destinationViewController;
         inviteVC.startDate = startDate;

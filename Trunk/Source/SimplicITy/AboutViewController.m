@@ -20,10 +20,11 @@
 
 @interface AboutViewController () <postmanDelegate, DBManagerDelegate,RateViewDelegate,UITextViewDelegate>
 {
-    UIBarButtonItem *backButton;
     NSString *URLString;
     Postman *postMan;
     DBManager *dbManager;
+    UIBarButtonItem *backButton;
+
     
     NSString *aboutDescription;
     NSString *ucbLogoDocCode;
