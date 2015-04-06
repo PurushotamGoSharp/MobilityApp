@@ -15,6 +15,7 @@
 
 @implementation InviteAttendeesViewController
 {
+    __weak IBOutlet UIButton *sendInviteButton;
     NSArray *dataOfFirstSection;
     NSArray *dataOfThirdSection;
     
@@ -30,8 +31,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"Invite Attendees";
+
+    
     dataOfFirstSection = @[@"Date",@"Start",@"End",@"Organizer",@"Venue"];
-    dataOfThirdSection = @[@"",@"Mark",@"Bin",@"Antont",@"Sundar"];
+    dataOfThirdSection = @[@"",@"Marc",@"Bin",@"Antony",@"Sundar"];
 
     dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = @"EEEE dd MMMM yyyy";
@@ -43,6 +47,12 @@
     
     userName = [UserInfo sharedUserInfo].fullName;
     venue = self.selectedRoom.nameOfRoom;
+    
+    sendInviteButton.layer.cornerRadius = 5;
+    sendInviteButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,18 +85,38 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
 
     
     if (indexPath.section == 0)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-        UILabel *rightLable = (UILabel*)[cell viewWithTag:100];
-        UILabel *leftLable = (UILabel*)[cell viewWithTag:200];
-        
-        rightLable.font = [self customFont:16 ofName:MuseoSans_700];
+        UILabel *leftLable = (UILabel*)[cell viewWithTag:100];
+        UILabel *rightLable = (UILabel*)[cell viewWithTag:200];
+        leftLable.text = dataOfFirstSection[indexPath.row];
+        switch (indexPath.row)
+        {
+            case 0:
+                rightLable.text = dateForBooking;
+                break;
+            case 1:
+                rightLable.text = startDateString;
+                break;
+            case 2:
+                rightLable.text = endDateString;
+                break;
+            case 3:
+                rightLable.text = userName;
+                break;
+            case 4:
+                rightLable.text = venue;
+                break;
+            default:
+                break;
+        }
         leftLable.font = [self customFont:16 ofName:MuseoSans_700];
+        rightLable.font = [self customFont:16 ofName:MuseoSans_700];
     }else if (indexPath.section == 1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
@@ -102,7 +132,7 @@
             UITextField *txtField = (UITextField*)[cell viewWithTag:100];
             txtField.placeholder = @"Enter Email";
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
-            btn.hidden = YES;
+            btn.hidden = NO;
             
         }else
         {
@@ -110,9 +140,16 @@
             UILabel *rightLable = (UILabel*)[cell viewWithTag:100];
             rightLable.text = dataOfThirdSection[indexPath.row];
             rightLable.font = [self customFont:16 ofName:MuseoSans_700];
+            
+            UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
+            
+            if (indexPath.row == 1)
+            {
+                imageView.image = [UIImage imageNamed:@"Sel1"];
+            }
         }
     }
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
