@@ -69,8 +69,37 @@
         
         rightLable.font = [self customFont:16 ofName:MuseoSans_700];
         leftLable.font = [self customFont:16 ofName:MuseoSans_700];
+    }else if (indexPath.section == 1)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
+
+        UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+        UIButton *btn = (UIButton *)[cell viewWithTag:200];
+        btn.hidden = YES;
+    }else
+    {
+        if (indexPath.row == 0)
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
+            UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+            txtField.placeholder = @"Enter Email";
+            UIButton *btn = (UIButton *)[cell viewWithTag:200];
+            btn.hidden = YES;
+            
+        }else
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
+            UILabel *rightLable = (UILabel*)[cell viewWithTag:100];
+            rightLable.text = dataOfThirdSection[indexPath.row];
+            rightLable.font = [self customFont:16 ofName:MuseoSans_700];
+        }
     }
+    
     return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
 }
 
 /*
