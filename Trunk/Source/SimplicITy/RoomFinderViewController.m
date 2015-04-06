@@ -13,6 +13,7 @@
 #import "RoomModel.h"
 #import "AppDelegate.h"
 #import "UINavigationController+CustomOrientation.h"
+#import "InviteAttendeesViewController.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
@@ -427,6 +428,18 @@
     return date;
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@""])
+    {
+        InviteAttendeesViewController *inviteVC = (InviteAttendeesViewController *)segue.destinationViewController;
+        inviteVC.startDate = startDate;
+        inviteVC.endDate = endDate;
+        
+        inviteVC.selectedRoom = roomsAvailable[[self.tableView indexPathForSelectedRow].row];
+    }
+}
 
 
 - (BOOL)shouldAutorotate

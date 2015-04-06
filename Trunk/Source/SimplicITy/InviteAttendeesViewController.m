@@ -7,6 +7,7 @@
 //
 
 #import "InviteAttendeesViewController.h"
+#import "UserInfo.h"
 
 @interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -16,15 +17,32 @@
 {
     NSArray *dataOfFirstSection;
     NSArray *dataOfThirdSection;
+    
+    NSString *dateForBooking;
+    NSString *startDateString, *endDateString;
+    NSDateFormatter *dateFormatter;
+    
+    NSString *userName;
+    NSString *venue;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    dataOfFirstSection = @[@"Start",@"End",@"Organizer",@"Venue"];
-    dataOfFirstSection = @[@"",@"Mark",@"Bin",@"Antont",@"Sundar"];
+    dataOfFirstSection = @[@"Date",@"Start",@"End",@"Organizer",@"Venue"];
+    dataOfThirdSection = @[@"",@"Mark",@"Bin",@"Antont",@"Sundar"];
 
+    dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"EEEE dd MMMM yyyy";
+    dateForBooking = [dateFormatter stringFromDate:self.startDate];
+    
+    dateFormatter.dateFormat = @"hh.mm a";
+    startDateString = [dateFormatter stringFromDate:self.startDate];
+    endDateString = [dateFormatter stringFromDate:self.endDate];
+    
+    userName = [UserInfo sharedUserInfo].fullName;
+    venue = self.selectedRoom.nameOfRoom;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,6 +118,35 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
+    
+    headerLabel.font = [UIFont boldSystemFontOfSize:14];
+    
+    if (section == 0)
+    {
+        headerLabel.text = @"Meeting Details";
+    }else if (section == 1)
+    {
+        headerLabel.text = @"Subject";
+    }else if (section == 2)
+    {
+        headerLabel.text = @"Add attendees";
+    }
+    
+    [headerView addSubview:headerLabel];
+    
+    return headerView;
 }
 
 /*
