@@ -389,8 +389,12 @@
             {
                 [newsCategoryArr addObject:categoryModel];
             }
+            
         }
 
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"categoryName" ascending:YES];
+        [newsCategoryArr sortUsingDescriptors:@[sortDescriptor]];
+        
     }else if ([manager isEqual:dbManagerForNOOfCategories])
     {
         countForNoOfCategories = 0;

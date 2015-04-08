@@ -8,8 +8,11 @@
 
 #import "InviteAttendeesViewController.h"
 #import "UserInfo.h"
+#import "RoomManager.h"
+#import "CalendarEvent.h"
 
-@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -25,6 +28,13 @@
     
     NSString *userName;
     NSString *venue;
+    
+    RoomManager *roomManager;
+    CalendarEvent *newEvent;
+    
+    UITextField *activeField;
+    
+    NSMutableArray *reqiuredAttentees;
 }
 
 - (void)viewDidLoad
@@ -33,7 +43,6 @@
     // Do any additional setup after loading the view.
     
     self.title = @"Invite Attendees";
-
     
     dataOfFirstSection = @[@"Date",@"Start",@"End",@"Organizer",@"Venue"];
     dataOfThirdSection = @[@"",@"Marc",@"Bin",@"Antony",@"Sundar"];
@@ -52,14 +61,108 @@
     sendInviteButton.layer.cornerRadius = 5;
     sendInviteButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
+    roomManager = [[RoomManager alloc] init];
     
+    newEvent = [[CalendarEvent alloc] init];
     
+    newEvent.startDate = self.startDate;
+    newEvent.endDate = self.endDate;
+    newEvent.location = self.selectedRoom.nameOfRoom;
+    newEvent.resources = @[self.selectedRoom.emailIDOfRoom];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self registerForKeyboardNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                              forKeyPath:UIKeyboardDidShowNotification];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                              forKeyPath:UIKeyboardWillHideNotification];
+}
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, activeField.frame.origin) ) {
+        [self.tableView scrollRectToVisible:activeField.frame animated:YES];
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)addAttentee:(UIButton *)sender
+{
+    if (reqiuredAttentees == nil)
+    {
+        reqiuredAttentees = [[NSMutableArray alloc] init];
+    }
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:2];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
+    UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+    
+    if (txtField.text.length > 0)
+    {
+        [reqiuredAttentees addObject:txtField.text];
+        [self.tableView reloadData];
+        txtField.text = @"";
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    activeField = textField;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    activeField = nil;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.view endEditing:YES];
+    return YES;
 }
 
 #pragma  mark UITableViewDataSource
@@ -79,16 +182,15 @@
         return 1;
     }else
     {
-        return [dataOfThirdSection count];
+        //first cell in this section is text field to enter the emailIDs
+        return ([reqiuredAttentees count] + 1);
     }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
-    
 
-    
     if (indexPath.section == 0)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -123,6 +225,8 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
 
         UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+        txtField.delegate = self;
+        txtField.placeholder = @"Subject";
         UIButton *btn = (UIButton *)[cell viewWithTag:200];
         btn.hidden = YES;
     }else
@@ -131,15 +235,18 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
             UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+            txtField.delegate = self;
             txtField.placeholder = @"Enter Email";
+            txtField.keyboardType = UIKeyboardTypeEmailAddress;
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
             btn.hidden = NO;
+            [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
             
         }else
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
             UILabel *rightLable = (UILabel*)[cell viewWithTag:100];
-            rightLable.text = dataOfThirdSection[indexPath.row];
+            rightLable.text = reqiuredAttentees[indexPath.row - 1];
             rightLable.font = [self customFont:16 ofName:MuseoSans_700];
             
             UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
@@ -185,6 +292,11 @@
     [headerView addSubview:headerLabel];
     
     return headerView;
+}
+
+- (IBAction)sendInvites:(UIButton *)sender
+{
+    
 }
 
 /*

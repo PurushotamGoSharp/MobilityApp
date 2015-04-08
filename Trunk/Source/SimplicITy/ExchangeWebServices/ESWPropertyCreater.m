@@ -152,5 +152,40 @@
     return [t_DayOfWeekType valueFromString:dayString];
 }
 
+- (t_BodyType *)bodyForValue:(NSString *)bodyString
+{
+    if (bodyString == nil)
+    {
+        return nil;
+    }
+    t_BodyType *body = [[t_BodyType alloc] init];
+    body._content = bodyString;
+    body.BodyType = t_BodyTypeType_Text;
+    
+    return body;
+}
+
+- (NSArray *)attendeesForMailIDs:(NSArray *)mailIDs
+{
+    if (mailIDs.count == 0 | mailIDs == nil)
+    {
+        return nil;
+    }
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+
+    for (NSString *aMailID in mailIDs)
+    {
+        t_EmailAddressType *emailID = [[t_EmailAddressType alloc] init];
+        emailID.EmailAddress = aMailID;
+        
+        t_AttendeeType *attendee = [[t_AttendeeType alloc] init];
+        attendee.Mailbox = emailID;
+        
+        [array addObject:attendee];
+    }
+    
+    return array;
+}
 
 @end

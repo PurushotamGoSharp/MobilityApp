@@ -15,5 +15,6 @@
 - (NSArray *)mailBoxArrayWithEmailIDS:(NSArray *)mailIDS;
 - (t_FreeBusyViewOptionsType *)freeBusyViewOptionsWith:(NSDate *)startDate andEndsAt:(NSDate *)endDate;
 
-
+- (t_BodyType *)bodyForValue:(NSString *)bodyString;
+- (NSArray *)attendeesForMailIDs:(NSArray *)mailIDs;
 @end

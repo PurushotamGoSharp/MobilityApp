@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -2980,12 +2980,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4O-yu-E77" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2657" y="1525"/>
+            <point key="canvasLocation" x="2625" y="1525"/>
         </scene>
         <!--Invite Attendees View Controller-->
         <scene sceneID="cca-5B-7Kg">
             <objects>
-                <viewController id="SoM-HN-yt4" customClass="InviteAttendeesViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="SoM-HN-yt4" customClass="InviteAttendeesViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CgF-Bs-byG"/>
                         <viewControllerLayoutGuide type="bottom" id="ahS-jt-J1G"/>
@@ -2995,7 +2995,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="nvC-vS-f1z">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="473"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="406"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="b3h-g2-dk8">
@@ -3088,21 +3088,22 @@
                                                 <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FQX-qd-shJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wy7-5N-NbA">
-                                                            <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sel" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-J0-ELi">
+                                                            <rect key="frame" x="292" y="11" width="20" height="21"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wy7-5N-NbA">
+                                                            <rect key="frame" x="23" y="11" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sel" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-J0-ELi">
-                                                            <rect key="frame" x="292" y="11" width="20" height="21"/>
-                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="wy7-5N-NbA" firstAttribute="leading" secondItem="FQX-qd-shJ" secondAttribute="leading" constant="8" id="GRR-qE-XsH"/>
+                                                        <constraint firstItem="wy7-5N-NbA" firstAttribute="leading" secondItem="FQX-qd-shJ" secondAttribute="leading" constant="23" id="GRR-qE-XsH"/>
                                                         <constraint firstAttribute="centerY" secondItem="wy7-5N-NbA" secondAttribute="centerY" id="PTu-w7-5YW"/>
                                                         <constraint firstAttribute="centerY" secondItem="qc9-J0-ELi" secondAttribute="centerY" id="crn-hb-8Ij"/>
+                                                        <constraint firstItem="qc9-J0-ELi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wy7-5N-NbA" secondAttribute="trailing" constant="4" id="rW0-Ik-Abw"/>
                                                         <constraint firstAttribute="trailing" secondItem="qc9-J0-ELi" secondAttribute="trailing" constant="8" id="x7X-69-zzX"/>
                                                     </constraints>
                                                 </view>
@@ -3134,26 +3135,30 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="sendInvites:" destination="SoM-HN-yt4" eventType="touchUpInside" id="XNu-o4-0UZ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="XVI-TG-ceg" firstAttribute="top" secondItem="nvC-vS-f1z" secondAttribute="bottom" constant="8" id="0S9-tA-oMR"/>
+                            <constraint firstItem="nvC-vS-f1z" firstAttribute="top" secondItem="CgF-Bs-byG" secondAttribute="bottom" id="8JE-NY-qc7"/>
                             <constraint firstItem="ahS-jt-J1G" firstAttribute="top" secondItem="XVI-TG-ceg" secondAttribute="bottom" constant="5" id="Svz-f8-D5R"/>
-                            <constraint firstItem="nvC-vS-f1z" firstAttribute="top" secondItem="a58-VF-5AH" secondAttribute="top" id="h9p-my-8IL"/>
-                            <constraint firstAttribute="trailing" secondItem="nvC-vS-f1z" secondAttribute="trailing" id="hIt-JY-Trc"/>
-                            <constraint firstItem="XVI-TG-ceg" firstAttribute="top" secondItem="nvC-vS-f1z" secondAttribute="bottom" constant="5" id="iPS-eb-jJu"/>
-                            <constraint firstItem="nvC-vS-f1z" firstAttribute="leading" secondItem="a58-VF-5AH" secondAttribute="leading" id="l9W-CM-ZUu"/>
+                            <constraint firstItem="nvC-vS-f1z" firstAttribute="leading" secondItem="a58-VF-5AH" secondAttribute="leading" id="iDB-I5-6kc"/>
                             <constraint firstAttribute="centerX" secondItem="XVI-TG-ceg" secondAttribute="centerX" id="nR1-MP-pYt"/>
+                            <constraint firstAttribute="trailing" secondItem="nvC-vS-f1z" secondAttribute="trailing" id="uiC-Dj-bqV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qAj-39-irC"/>
                     <connections>
                         <outlet property="sendInviteButton" destination="XVI-TG-ceg" id="gra-ae-WxR"/>
+                        <outlet property="tableView" destination="nvC-vS-f1z" id="cC8-tZ-f09"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="srB-2K-dFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3068" y="1464"/>
+            <point key="canvasLocation" x="2992" y="1525"/>
         </scene>
         <!--Exchange Server Setting View Controller-->
         <scene sceneID="1Un-wl-xc9">

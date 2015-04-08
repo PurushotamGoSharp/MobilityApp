@@ -9,21 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "ESWPropertyCreater.h"
 
+@class CalendarEvent;
 @class ESWRoomManager;
+
+typedef void(^SuccessBlock)(NSString *itemId, NSString *changeKey);
+typedef void(^FailureBlock)(NSError *error);
 
 @protocol ESWRoomManagerDelegate <NSObject>
 
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundListsOfRooms:(NSArray *)rooms;
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms;
 
-- (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error;
-
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSArray *)availbleSlots For:(NSString *)room;
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms;
 
+- (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error;
+
 @end
 
-@interface ESWRoomManager : NSObject 
+@interface ESWRoomManager : NSObject
+{
+    
+}
 
 @property (weak, nonatomic) id<ESWRoomManagerDelegate> delegate;
 
@@ -33,5 +40,7 @@
 
 - (void)findEventForRoom:(NSString *)room forDate:(NSDate *)requestedDate;
 - (void)availablityOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate;
+
+- (void)createCalendarEvent:(CalendarEvent *)event;
 
 @end

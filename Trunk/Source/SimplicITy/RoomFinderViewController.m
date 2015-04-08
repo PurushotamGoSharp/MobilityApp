@@ -77,6 +77,23 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
+    
+    if (selectedLocationEmailID)
+    {
+        [roomManager getRoomsForRoomList:selectedLocationEmailID];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+    }else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"Please got to settings and configure Book a Room settings"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 - (void)backBtnAction
@@ -91,22 +108,7 @@
     [super viewWillAppear:animated];
     
     
-    selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
-    
-    if (selectedLocationEmailID)
-    {
-        [roomManager getRoomsForRoomList:selectedLocationEmailID];
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-    }else
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please got to settings and configure Book a Room settings"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-    }
 }
 
 - (void)viewDidLayoutSubviews

@@ -10,6 +10,7 @@
 #import "ExchangeWebService.h"
 #import "RoomModel.h"
 #import "UserInfo.h"
+#import "CalendarEvent.h"
 
 @interface ESWRoomManager() <SSLCredentialsManaging>
 
@@ -42,6 +43,14 @@
 {
     NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
     
+    NSTimeZone *defaultTimeZone = [NSTimeZone defaultTimeZone];
+    NSString *timeZoneFullName = [defaultTimeZone localizedName:NSTimeZoneNameStyleStandard locale:([NSLocale currentLocale])];
+    
+    t_TimeZoneDefinitionType *timeZoneDefinition = [[t_TimeZoneDefinitionType alloc] init];
+    timeZoneDefinition.Id_ = timeZoneFullName;
+    t_TimeZoneContextType *timeZoneContext = [[t_TimeZoneContextType alloc] init];
+    timeZoneContext.TimeZoneDefinition = timeZoneDefinition;
+    
     binding  = [[ExchangeWebService ExchangeServiceBinding] initWithAddress:ewsRequestURL];
     
     binding.logXMLInOut = YES;
@@ -49,6 +58,7 @@
     t_ElementRequestServerVersion *serverVersion = [[t_ElementRequestServerVersion alloc] init];
     serverVersion.Version = t_ExchangeVersionType_Exchange2010_SP2;
     binding.RequestServerVersionHeader = serverVersion;
+    binding.TimeZoneContextHeader = timeZoneContext;
     binding.sslManager = self;
     
     dateFormatter = [[NSDateFormatter alloc] init];
@@ -293,6 +303,35 @@
         
         [self.delegate ESWRoomManager:self failedWithError:error];
         NSLog(@"%@", error);
+    }];
+
+}
+
+- (void)createCalendarEvent:(CalendarEvent *)event
+{
+    t_CalendarItemType *calenderEvent = [[t_CalendarItemType alloc] init];
+    calenderEvent.Subject = event.subject;
+    calenderEvent.Body = [propertyCreater bodyForValue:event.body];
+    calenderEvent.ReminderMinutesBeforeStart = @"60";
+    calenderEvent.LegacyFreeBusyStatus = t_LegacyFreeBusyType_Busy;
+    calenderEvent.Start = event.startDate;
+    calenderEvent.End = event.endDate;
+    calenderEvent.Location = event.location;
+    calenderEvent.Resources = [propertyCreater attendeesForMailIDs:event.resources];
+    calenderEvent.RequiredAttendees = [propertyCreater attendeesForMailIDs:event.requiredAttendees];
+    
+    //    calenderEvent.MeetingTimeZone = meetingTimeZone;
+    
+    ExchangeWebService_CreateItemType *bookARoomRequest = [[ExchangeWebService_CreateItemType alloc] init];
+    bookARoomRequest.SendMeetingInvitations = t_CalendarItemCreateOrDeleteOperationType_SendToAllAndSaveCopy;
+    bookARoomRequest.Items = @[calenderEvent];
+    
+    [binding CreateItem:bookARoomRequest success:^(NSArray *headers, NSArray *bodyParts) {
+        
+        NSLog(@"Success yeahaaaaa");
+        
+    } error:^(NSError *error) {
+        NSLog(@"Ayoo Error; %@", error);
     }];
 
 }

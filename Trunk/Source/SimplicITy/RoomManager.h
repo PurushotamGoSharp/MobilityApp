@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class RoomManager;
+@class CalendarEvent;
 
 @protocol RoomManagerDelegate <NSObject>
 
@@ -27,5 +28,6 @@
 - (void)getRoomsForRoomList:(NSString *)emailID;
 - (void)availablityOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate;
 
+- (void)createCalendarEvent:(CalendarEvent *)event;
 
 @end

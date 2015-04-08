@@ -89,7 +89,8 @@
         
         [arrOfLocationData addObject:anLocation];
     }
-    
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"countryName" ascending:YES];
+    arrOfLocationData = [[arrOfLocationData sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
     
     [self.tableView reloadData];
 }

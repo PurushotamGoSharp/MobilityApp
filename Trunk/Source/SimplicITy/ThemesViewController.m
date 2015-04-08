@@ -28,8 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfThemesData = @[THEME_BLUE_OCEAN,THEME_ORANGE_HUE,THEME_PINK_ROSE,THEME_GREEN_GLOW];
-    
+//    arrOfThemesData = @[THEME_BLUE_OCEAN,THEME_ORANGE_HUE,THEME_PINK_ROSE,THEME_GREEN_GLOW];
+    arrOfThemesData = @[THEME_BLUE_OCEAN,THEME_GREEN_GLOW,THEME_ORANGE_HUE,THEME_PINK_ROSE];
+
     selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedRow inSection:0];
     [self.tableViewOutlet selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];

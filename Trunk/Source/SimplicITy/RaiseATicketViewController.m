@@ -885,6 +885,8 @@
         }
     }
     
+    NSSortDescriptor *srtDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"categoryName" ascending:YES];
+    [tempArray sortUsingDescriptors:@[srtDescriptor]];
     return tempArray;
 }
 

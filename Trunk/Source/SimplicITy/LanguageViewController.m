@@ -95,6 +95,9 @@
             [languagesArrOfData addObject:aLanguage];
         }
     }
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    [languagesArrOfData sortUsingDescriptors:@[sortDescriptor]];
+    
     [self.tableView reloadData];
 }
 -(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString

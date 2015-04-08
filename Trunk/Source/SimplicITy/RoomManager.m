@@ -102,6 +102,10 @@
     [ewsManager availablityOfRooms:rooms forStart:startDate toEnd:endDate];
 }
 
+- (void)createCalendarEvent:(CalendarEvent *)event
+{
+    [ewsManager createCalendarEvent:event] ;
+}
 
 #pragma mark
 #pragma mark ESWRoomManagerDelegate
