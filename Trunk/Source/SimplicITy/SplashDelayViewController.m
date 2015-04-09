@@ -11,6 +11,7 @@
 #import "NewsCategoryFetcher.h"
 #import "UAPush.h"
 #import "UserInfo.h"
+#import "ADExpirationDateFetcher.h"
 
 @interface SplashDelayViewController ()<SeedSyncDelegate>
 {
@@ -62,6 +63,11 @@
                                                object:nil];
 
     [self updateTagsAndAlias];
+    
+    ADExpirationDateFetcher *dateFetcher = [[ADExpirationDateFetcher alloc] init];
+    [dateFetcher getExpirationDateWithSuccess:^(NSInteger noOfDayLeft) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -138,4 +138,9 @@
     [self.delegate roomManager:self foundAvailableRooms:availableRooms];
 }
 
+- (void)ESWRoomManager:(ESWRoomManager *)manager createdRoomWith:(NSString *)eventID
+{
+    [self.delegate roomManager:self createdRoomWith:eventID];
+}
+
 @end

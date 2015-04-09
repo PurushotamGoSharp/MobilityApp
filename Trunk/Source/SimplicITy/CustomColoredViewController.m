@@ -29,14 +29,15 @@
             self.view.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
             break;
         case 1:
-            self.view.backgroundColor = [UIColor colorWithRed:.97 green:.84 blue:.76 alpha:1];
-            break;
-        case 2:
-            self.view.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
-            break;
-        case 3:
             self.view.backgroundColor = [UIColor colorWithRed:.86 green:.91 blue:.79 alpha:1];
             break;
+        case 2:
+            self.view.backgroundColor = [UIColor colorWithRed:.97 green:.84 blue:.76 alpha:1];
+            break;
+        case 3:
+            self.view.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
+            break;
+
         default:
             break;
     }
@@ -56,14 +57,15 @@
             return THEME_BLUE_OCEAN;
             break;
         case 1:
+            return THEME_GREEN_GLOW;
+            break;            
+        case 2:
             return THEME_ORANGE_HUE;
             break;
-        case 2:
+        case 3:
             return THEME_PINK_ROSE;
             break;
-        case 3:
-            return THEME_GREEN_GLOW;
-            break;
+
         default:
             break;
     }
@@ -77,14 +79,15 @@
             return [UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1];
             break;
         case 1:
-            return [UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1];
-            break;
-        case 2:
-            return [UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1];
-            break;
-        case 3:
             return [UIColor colorWithRed:.55 green:.7 blue:.31 alpha:1];
             break;
+        case 2:
+            return [UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1];
+            break;
+        case 3:
+            return [UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1];
+            break;
+
         default:
             break;
     }
@@ -99,14 +102,15 @@
             return [UIColor colorWithRed:.60 green:.78 blue:.84 alpha:1];
             break;
         case 1:
-            return [UIColor colorWithRed:.92 green:.69 blue:.53 alpha:1];
-            break;
-        case 2:
-            return [UIColor colorWithRed:.84 green:.49 blue:.58 alpha:1];
-            break;
-        case 3:
             return [UIColor colorWithRed:.74 green:.82 blue:.57 alpha:1];
             break;
+        case 2:
+            return [UIColor colorWithRed:.92 green:.69 blue:.53 alpha:1];
+            break;
+        case 3:
+            return [UIColor colorWithRed:.84 green:.49 blue:.58 alpha:1];
+            break;
+
         default:
             break;
     }
@@ -121,14 +125,15 @@
             return [UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1];
             break;
         case 1:
-            return [UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1];
-            break;
-        case 2:
-            return [UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1];
-            break;
-        case 3:
             return [UIColor colorWithRed:.55 green:.7 blue:.31 alpha:1];
             break;
+        case 2:
+            return [UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1];
+            break;
+        case 3:
+            return [UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1];
+            break;
+
         default:
             break;
     }

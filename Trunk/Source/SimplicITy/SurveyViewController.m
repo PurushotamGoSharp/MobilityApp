@@ -143,6 +143,9 @@
         }
     }
     
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    surveysArray = [[surveysArray sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
+    
     [self.collectionViewOutlet reloadData];
 }
 

@@ -12,10 +12,13 @@
 
 @protocol RoomManagerDelegate <NSObject>
 
+@optional
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms;
 - (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error;
 
 - (void)roomManager:(RoomManager *)manager FoundRooms:(NSArray *)rooms;
+
+- (void)roomManager:(RoomManager *)manager createdRoomWith:(NSString *)eventID;
 
 @end
 

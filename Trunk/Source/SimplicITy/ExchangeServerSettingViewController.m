@@ -100,6 +100,8 @@
             }
         }
     }
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfOffice" ascending:YES];
+    arrayOfFilteredLocation = [[arrayOfFilteredLocation sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
     
     return arrayOfFilteredLocation;
 }
@@ -221,7 +223,7 @@
     
     if (section == 0)
     {
-        headerLabel.text = @"Location";
+        headerLabel.text = @"Office Location";
     }else if (section == 1)
     {
         headerLabel.text = @"Password";

@@ -10,8 +10,10 @@
 #import "UserInfo.h"
 #import "RoomManager.h"
 #import "CalendarEvent.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "RoomFinderViewController.h"
 
-@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate>
+@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -35,6 +37,8 @@
     UITextField *activeField;
     
     NSMutableArray *reqiuredAttentees;
+    
+    UIAlertView *successfullAlert;
 }
 
 - (void)viewDidLoad
@@ -62,7 +66,7 @@
     sendInviteButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     roomManager = [[RoomManager alloc] init];
-    
+    roomManager.delegate = self;
     newEvent = [[CalendarEvent alloc] init];
     
     newEvent.startDate = self.startDate;
@@ -76,31 +80,44 @@
     [super viewWillAppear:animated];
     
     [self registerForKeyboardNotifications];
+    
+//    if (successfullAlert == nil)
+//    {
+//        successfullAlert = [[UIAlertView alloc] initWithTitle:@"Room is booked"
+//                                                      message:@"Successfully room is booked"
+//                                                     delegate:self
+//                                            cancelButtonTitle:@"OK"
+//                                            otherButtonTitles: nil];
+//    }
+//    
+//    [successfullAlert show];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                              forKeyPath:UIKeyboardDidShowNotification];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                              forKeyPath:UIKeyboardWillHideNotification];
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
 }
 
 - (void)registerForKeyboardNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
-    
 }
 
-- (void)keyboardWasShown:(NSNotification*)aNotification
+- (void)keyboardWillShow:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -249,12 +266,12 @@
             rightLable.text = reqiuredAttentees[indexPath.row - 1];
             rightLable.font = [self customFont:16 ofName:MuseoSans_700];
             
-            UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
-            
-            if (indexPath.row == 1)
-            {
-                imageView.image = [UIImage imageNamed:@"Sel1"];
-            }
+//            UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
+//            
+//            if (indexPath.row == 1)
+//            {
+//                imageView.image = [UIImage imageNamed:@"Sel1"];
+//            }
         }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -296,9 +313,50 @@
 
 - (IBAction)sendInvites:(UIButton *)sender
 {
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
+    UITextField *txtField = (UITextField*)[cell viewWithTag:100];
     
+    newEvent.subject = txtField.text;
+    newEvent.requiredAttendees = reqiuredAttentees;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [roomManager createCalendarEvent:newEvent];
 }
 
+#pragma  mark RoomManagerDelegate
+
+- (void)roomManager:(RoomManager *)manager createdRoomWith:(NSString *)eventID
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+    if (successfullAlert == nil)
+    {
+        successfullAlert = [[UIAlertView alloc] initWithTitle:@"Booked"
+                                                      message:@"Successfully booked the Meeting Room."
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles: nil];
+    }
+    
+    [successfullAlert show];
+}
+
+- (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+#pragma  mark UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([alertView isEqual:successfullAlert])
+    {
+        NSArray *viewControllers = self.navigationController.viewControllers;
+        RoomFinderViewController *roomFinderVC = (RoomFinderViewController *)viewControllers[viewControllers.count-2];
+        [roomFinderVC resetToInitialState];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 /*
 #pragma mark - Navigation
 

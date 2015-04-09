@@ -154,6 +154,9 @@
         }
     }
     
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    webClipArr = [[webClipArr sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
+    
     [self.collectionViewOutlet reloadData];
 }
 

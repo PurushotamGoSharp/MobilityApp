@@ -10,6 +10,5 @@
 
 @interface RoomFinderViewController : CustomColoredViewController
 
-
-
+- (void)resetToInitialState;
 @end

@@ -176,14 +176,16 @@
 {
 //For UCB first 8 letter will represent location eg)"* BLR - KRISHNA - Board Room" . We are removing this to get actual name of rooms
     NSRange firstOccurance = [initialRoomName rangeOfString:@" - "];
+    if (firstOccurance.location == NSNotFound)
+    {
+        return initialRoomName;
+    }
+    
     NSRange rangeToBeRemove;
     rangeToBeRemove.location = 0;
     rangeToBeRemove.length = firstOccurance.location + firstOccurance.length;
     
-    if (rangeToBeRemove.location == NSNotFound)
-    {
-        return initialRoomName;
-    }
+
     
     return [[initialRoomName mutableCopy] stringByReplacingCharactersInRange:rangeToBeRemove withString:@""];
 }
@@ -256,6 +258,11 @@
         
         for (id resp in bodyParts)
         {
+            if ([resp isKindOfClass:[SOAPFault class]])
+            {
+                [self.delegate ESWRoomManager:self failedWithError:nil];
+            }
+                
             if ([resp isKindOfClass:[ExchangeWebService_GetUserAvailabilityResponseType class]])
             {
                 ExchangeWebService_GetUserAvailabilityResponseType *availabilityResp = (ExchangeWebService_GetUserAvailabilityResponseType *)resp;
@@ -309,6 +316,10 @@
 
 - (void)createCalendarEvent:(CalendarEvent *)event
 {
+    if (propertyCreater == nil)
+    {
+        propertyCreater = [[ESWPropertyCreater alloc] init];
+    }
     t_CalendarItemType *calenderEvent = [[t_CalendarItemType alloc] init];
     calenderEvent.Subject = event.subject;
     calenderEvent.Body = [propertyCreater bodyForValue:event.body];
@@ -329,9 +340,13 @@
     [binding CreateItem:bookARoomRequest success:^(NSArray *headers, NSArray *bodyParts) {
         
         NSLog(@"Success yeahaaaaa");
+        [self.delegate ESWRoomManager:self createdRoomWith:@""];
         
     } error:^(NSError *error) {
+        
         NSLog(@"Ayoo Error; %@", error);
+        [self.delegate ESWRoomManager:self failedWithError:error];
+
     }];
 
 }

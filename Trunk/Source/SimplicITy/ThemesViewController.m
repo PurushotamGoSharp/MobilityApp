@@ -63,17 +63,17 @@
             break;
             
         case 1:
-            return [UIColor colorWithRed:.4 green:.11 blue:.2 alpha:1];
-            break;
-            
-        case 2:
-            return [UIColor colorWithRed:.15 green:.18 blue:.09 alpha:1];
-            break;
-            
-        case 3:
             return [UIColor colorWithRed:.35 green:.2 blue:.13 alpha:1];
             break;
             
+        case 2:
+            return [UIColor colorWithRed:.4 green:.11 blue:.2 alpha:1];
+            break;
+            
+        case 3:
+            return [UIColor colorWithRed:.15 green:.18 blue:.09 alpha:1];
+            break;
+        
         default:
             break;
     }
@@ -82,19 +82,19 @@
 }
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
 
 #pragma mark UITableViewDataSource methods
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [arrOfThemesData count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     

@@ -14,11 +14,12 @@
 #import "AppDelegate.h"
 #import "UINavigationController+CustomOrientation.h"
 #import "InviteAttendeesViewController.h"
+#import "PasswordManager.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
-#define MIN_TIME_SLOT_FOR_SEARCH 15*60
+#define MIN_TIME_SLOT_FOR_SEARCH 5*60
 
-@interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate>
+@interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate, UIAlertViewDelegate, PasswordManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
 @property (weak, nonatomic) IBOutlet UIButton *endTimeButton;
 @property (weak, nonatomic) IBOutlet UIDatePicker *startDatePicker;
@@ -45,7 +46,12 @@
     
     NSString *selectedLocationEmailID;
     UIBarButtonItem *backButton;
-
+    
+    PasswordManager *passwordManager;
+    
+    NSString *currentlyExcutingMethod;
+    
+    NSInteger selectedindex;
 }
 
 - (void)viewDidLoad
@@ -78,22 +84,9 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
+    passwordManager = [[PasswordManager alloc] init];
     
-    if (selectedLocationEmailID)
-    {
-        [roomManager getRoomsForRoomList:selectedLocationEmailID];
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        
-    }else
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please got to settings and configure Book a Room settings"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-    }
+    [self getAllRoomsOfCurrentLocation];
 }
 
 - (void)backBtnAction
@@ -106,9 +99,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    
-
 }
 
 - (void)viewDidLayoutSubviews
@@ -120,6 +110,31 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getAllRoomsOfCurrentLocation
+{
+    selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
+    
+    if (selectedLocationEmailID)
+    {
+//        currentlyExcutingMethod = @"getAllRoomsOfCurrentLocation";
+//        
+//        if ([passwordManager passwordForUser])
+//        {
+            [roomManager getRoomsForRoomList:selectedLocationEmailID];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        }
+        
+    }else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"Please go to settings and configure Book a Room settings"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 - (CLWeeklyCalendarView *)calendarView
@@ -184,7 +199,7 @@
     self.endDatePicker.hidden = YES;
     self.endTimeButton.selected = NO;
     
-    [self.endTimeButton setTitle:@"End Date" forState:(UIControlStateNormal)];
+    [self.endTimeButton setTitle:@"End Time" forState:(UIControlStateNormal)];
     endDate = nil;
     self.serachRoomsButton.hidden = YES;
 
@@ -250,6 +265,9 @@
     self.placeHolderLabel.hidden = YES;
 
     [self resetView];
+    
+    //When you are booking a room for ttwo consicutive time slots, eg)
+//    startDate = [startDate dateByAddingTimeInterval:1];
     [roomManager availablityOfRooms:emailIDsOfRoomsToCheck forStart:startDate toEnd:endDate];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
@@ -288,6 +306,20 @@
     self.availableRoomsView.hidden = YES;
 }
 
+- (void)resetToInitialState
+{
+    [self resetView];
+    
+    [self.endTimeButton setTitle:@"End Time" forState:(UIControlStateNormal)];
+    endDate = nil;
+    
+    [self.startTimeButton setTitle:@"Start Time" forState:(UIControlStateNormal)];
+    endDate = nil;
+    
+    self.calendarView.selectedDate = [NSDate date];
+    [self.calendarView redrawToDate:[NSDate date]];
+}
+
 - (IBAction)hidePickers:(UIView *)sender
 {
     self.startDatePicker.hidden = YES;
@@ -307,6 +339,11 @@
     }
     
     return nil;
+}
+
+- (BOOL)checkForPrivteRoom:(RoomModel *)room
+{
+    return ([room.nameOfRoom rangeOfString:@" Priv "].location == NSNotFound);
 }
 
 #pragma mark - UITableViewDelegate
@@ -331,12 +368,31 @@
     return 44;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    selectedindex = indexPath.row;
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([self checkForPrivteRoom:roomsAvailable[indexPath.row]])
+    {
+        [self performSegueWithIdentifier:@"romeFinderToInvite_segue" sender:nil];
+    }else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                        message:@"If you are not authorized, this room will not be booked. Do you want to continue?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"NO"
+                                              otherButtonTitles:@"YES", nil];
+        [alert show];
+    }
+}
 
 
 #pragma mark - RoomManagerDelegate
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
 {
+    selectedindex = -1;//Negative value wont be INDEX of cell
+    
     if (roomsAvailable == nil)
     {
         roomsAvailable = [[NSMutableArray alloc] init];
@@ -360,6 +416,9 @@
         self.placeHolderLabel.text = @"No rooms are available for the selected time slot.";
     }
     
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
+    roomsAvailable = [[roomsAvailable sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
+    
     [self.tableView reloadData];
     self.availableRoomsView.hidden = NO;
     self.serachRoomsButton.hidden = YES;
@@ -369,8 +428,10 @@
 
 - (void)roomManager:(RoomManager *)manager FoundRooms:(NSArray *)rooms
 {
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
+//    rooms = [rooms sortedArrayUsingDescriptors:@[sortDescriptor]] ;
+
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    
     for (RoomModel *aRoom in rooms)
     {
         [array addObject:aRoom.emailIDOfRoom];
@@ -439,8 +500,28 @@
         inviteVC.startDate = startDate;
         inviteVC.endDate = endDate;
         
-        inviteVC.selectedRoom = roomsAvailable[[self.tableView indexPathForSelectedRow].row];
+        inviteVC.selectedRoom = roomsAvailable[selectedindex];
     }
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        [self performSegueWithIdentifier:@"romeFinderToInvite_segue" sender:nil];
+    }
+}
+
+#pragma mark - PasswordManagerDelegate
+- (void)passwordManagerGotPassword:(PasswordManager *)manager
+{
+
+}
+
+- (void)passwordManagerFailedToGetPassoword:(PasswordManager *)manager
+{
+    
 }
 
 

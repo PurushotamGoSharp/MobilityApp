@@ -23,6 +23,8 @@ typedef void(^FailureBlock)(NSError *error);
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSArray *)availbleSlots For:(NSString *)room;
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms;
 
+- (void)ESWRoomManager:(ESWRoomManager *)manager createdRoomWith:(NSString *)eventID;
+
 - (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error;
 
 @end

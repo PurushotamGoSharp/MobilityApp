@@ -36,6 +36,7 @@
     Postman *postMan;
     BadgeNoManager *badge;
 }
+
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
@@ -239,14 +240,15 @@
             self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.7 green:.92 blue:.96 alpha:1];
             break;
         case 1:
-            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.97 green:.84 blue:.76 alpha:1];
-            break;
-        case 2:
-            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
-            break;
-        case 3:
             self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.86 green:.91 blue:.79 alpha:1];
             break;
+        case 2:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.97 green:.84 blue:.76 alpha:1];
+            break;
+        case 3:
+            self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
+            break;
+
         default:
             break;
     }

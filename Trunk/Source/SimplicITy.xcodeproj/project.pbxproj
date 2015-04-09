@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860081FA1AD54CC5009C885B /* PasswordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 860081F91AD54CC5009C885B /* PasswordManager.m */; };
 		86173AC31A5FF56E00902088 /* LaunchImage-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86173AC11A5FF56E00902088 /* LaunchImage-568h@2x.png */; };
 		86173AC41A5FF56E00902088 /* LaunchImage-800-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86173AC21A5FF56E00902088 /* LaunchImage-800-667h@2x.png */; };
 		86173AC71A600A8500902088 /* MessageTileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86173AC61A600A8500902088 /* MessageTileViewController.m */; };
@@ -121,6 +122,7 @@
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
+		868EC25D1AD64FBA0035C57F /* ADExpirationDateFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 868EC25C1AD64FBA0035C57F /* ADExpirationDateFetcher.m */; };
 		8690B71B1AAD842E0039DE7D /* DemoUserInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8690B71A1AAD842E0039DE7D /* DemoUserInfo.plist */; };
 		8691A4301A7B630F006D3663 /* starFull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8691A42E1A7B630F006D3663 /* starFull@2x.png */; };
 		869999401ACBEE7D005811AC /* OfficeLocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8699993F1ACBEE7D005811AC /* OfficeLocationsViewController.m */; };
@@ -206,6 +208,8 @@
 
 /* Begin PBXFileReference section */
 		075A1155144476E942168182 /* libPods-SimplicITy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimplicITy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		860081F81AD54CC5009C885B /* PasswordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordManager.h; sourceTree = "<group>"; };
+		860081F91AD54CC5009C885B /* PasswordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordManager.m; sourceTree = "<group>"; };
 		86173AC11A5FF56E00902088 /* LaunchImage-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-568h@2x.png"; sourceTree = "<group>"; };
 		86173AC21A5FF56E00902088 /* LaunchImage-800-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-800-667h@2x.png"; sourceTree = "<group>"; };
 		86173AC51A600A8400902088 /* MessageTileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTileViewController.h; sourceTree = "<group>"; };
@@ -475,6 +479,8 @@
 		867584111A3815EE0049EC10 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		867B19B91A40126700462CA4 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
 		867B19BA1A40126700462CA4 /* TicketDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketDetailViewController.m; sourceTree = "<group>"; };
+		868EC25B1AD64FBA0035C57F /* ADExpirationDateFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADExpirationDateFetcher.h; sourceTree = "<group>"; };
+		868EC25C1AD64FBA0035C57F /* ADExpirationDateFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADExpirationDateFetcher.m; sourceTree = "<group>"; };
 		8690B71A1AAD842E0039DE7D /* DemoUserInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DemoUserInfo.plist; sourceTree = "<group>"; };
 		8691A42E1A7B630F006D3663 /* starFull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starFull@2x.png"; sourceTree = "<group>"; };
 		8699993E1ACBEE7D005811AC /* OfficeLocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeLocationsViewController.h; sourceTree = "<group>"; };
@@ -793,6 +799,8 @@
 				86EDBE1E1A3992270045904C /* CustomColoredViewController.m */,
 				86A9A3EF1A5E601F006D8A46 /* SplashDelayViewController.h */,
 				86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */,
+				868EC25B1AD64FBA0035C57F /* ADExpirationDateFetcher.h */,
+				868EC25C1AD64FBA0035C57F /* ADExpirationDateFetcher.m */,
 				86173AC11A5FF56E00902088 /* LaunchImage-568h@2x.png */,
 				86173AC21A5FF56E00902088 /* LaunchImage-800-667h@2x.png */,
 				86FA17441A810C2A00846378 /* LanchImage_ipad_Portrate@2x.png */,
@@ -814,12 +822,11 @@
 				86491A771A30836C00711740 /* WebClipViewController.h */,
 				86491A781A30836C00711740 /* WebClipViewController.m */,
 				86A21D461A5D052D0090F5E5 /* webClipModel.h */,
-				86A21D471A5D052D0090F5E5 /* webClipModel.m */,
 				86848E0C1A5671AF0063E433 /* Network API Handlers */,
 				86848E0B1A56719E0063E433 /* Custom TabBar and Navigation */,
 				86186D861A399C5400BFD000 /* Setting */,
 				867DDFEB1A7210BA00812845 /* DBManager */,
-				86C0778D1AC283BF00938F65 /* Room Booking APIs */,
+				86C0778D1AC283BF00938F65 /* Room Booking */,
 				86CB65331A386F58005FFFE8 /* messageModle.h */,
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
@@ -1238,6 +1245,7 @@
 		86848E0C1A5671AF0063E433 /* Network API Handlers */ = {
 			isa = PBXGroup;
 			children = (
+				86A21D471A5D052D0090F5E5 /* webClipModel.m */,
 				86EF85A61AD403E100D6AE75 /* cert.p12 */,
 				86EE2A951A8394CF00E32F11 /* vmCert.p12 */,
 				8623D5BC1A5417840022A370 /* Postman.h */,
@@ -1268,10 +1276,6 @@
 				86DCEB911A4E8C0F0014FEC7 /* SurveyViewController.m */,
 				86A74B891A91BEDB00A2AD78 /* SurveyModel.h */,
 				86A74B8A1A91BEDB00A2AD78 /* SurveyModel.m */,
-				86F6DE231AC421260060E336 /* RoomFinderViewController.h */,
-				86F6DE241AC421260060E336 /* RoomFinderViewController.m */,
-				86ECFDE11AD2A55B0005B8CE /* InviteAttendeesViewController.h */,
-				86ECFDE21AD2A55B0005B8CE /* InviteAttendeesViewController.m */,
 			);
 			name = "Tools VCs";
 			sourceTree = "<group>";
@@ -1291,9 +1295,13 @@
 			name = About;
 			sourceTree = "<group>";
 		};
-		86C0778D1AC283BF00938F65 /* Room Booking APIs */ = {
+		86C0778D1AC283BF00938F65 /* Room Booking */ = {
 			isa = PBXGroup;
 			children = (
+				86F6DE231AC421260060E336 /* RoomFinderViewController.h */,
+				86F6DE241AC421260060E336 /* RoomFinderViewController.m */,
+				86ECFDE11AD2A55B0005B8CE /* InviteAttendeesViewController.h */,
+				86ECFDE21AD2A55B0005B8CE /* InviteAttendeesViewController.m */,
 				86C077941AC29BD300938F65 /* ExchangeWebServices */,
 				86C077911AC29A3C00938F65 /* RoomManager.h */,
 				86C077921AC29A3C00938F65 /* RoomManager.m */,
@@ -1301,8 +1309,10 @@
 				86C0778B1AC283B400938F65 /* RoomRecognizer.m */,
 				86C0778E1AC2863F00938F65 /* RoomModel.h */,
 				86C0778F1AC2863F00938F65 /* RoomModel.m */,
+				860081F81AD54CC5009C885B /* PasswordManager.h */,
+				860081F91AD54CC5009C885B /* PasswordManager.m */,
 			);
-			name = "Room Booking APIs";
+			name = "Room Booking";
 			sourceTree = "<group>";
 		};
 		86C077941AC29BD300938F65 /* ExchangeWebServices */ = {
@@ -1627,6 +1637,7 @@
 				869999401ACBEE7D005811AC /* OfficeLocationsViewController.m in Sources */,
 				86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */,
 				864532B41A5A661D00A656A3 /* UAPushSettingsTokenViewController.m in Sources */,
+				868EC25D1AD64FBA0035C57F /* ADExpirationDateFetcher.m in Sources */,
 				86C077B61AC2A6B000938F65 /* ESWRoomManager.m in Sources */,
 				864532B51A5A661D00A656A3 /* UAPushSettingsUserInfoViewController.m in Sources */,
 				86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */,
@@ -1692,6 +1703,7 @@
 				86D5196A1A95C93800052B60 /* NewsCategoryModel.m in Sources */,
 				86C077A91AC29BD300938F65 /* USAdditions.m in Sources */,
 				86A74B8B1A91BEDB00A2AD78 /* SurveyModel.m in Sources */,
+				860081FA1AD54CC5009C885B /* PasswordManager.m in Sources */,
 				863B669A1A6D274400CC8033 /* UserInfo.m in Sources */,
 				86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */,
 				86A21D481A5D052D0090F5E5 /* webClipModel.m in Sources */,

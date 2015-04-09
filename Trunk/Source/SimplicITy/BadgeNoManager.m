@@ -85,7 +85,6 @@
     NSString *query =  [NSString stringWithFormat:@"UPDATE categories set badgeCount='%li' WHERE code = '%@'", (long)currentBadgeNo, categoryCode];
     [dbManager saveDataToDBForQuery:query];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
-
 }
 
 - (void)decrementBadgeNoFor:(NSString *)categoryCode
@@ -157,11 +156,8 @@
         {
             NSString *dummyString = @"";
             [dummyStringArray addObject:dummyString];
-
         }
     }
-    
-
 }
 
 @end

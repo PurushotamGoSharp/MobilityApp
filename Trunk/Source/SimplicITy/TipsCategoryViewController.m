@@ -249,6 +249,9 @@
         }
     }
     
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"tipsGroupName" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    tipscategoryArray = [[tipscategoryArray sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
+
     [self.tableView reloadData];
     [self adjustTableViewHeigth];
 }

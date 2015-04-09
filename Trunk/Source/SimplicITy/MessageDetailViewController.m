@@ -84,7 +84,9 @@
     {
         BadgeNoManager *badgemanager = [[BadgeNoManager alloc] init];
         [self setViewFlagOnDB];
-        [badgemanager decrementBadgeNoFor:self.newsContent.parentCategory];
+        
+        [badgemanager updateBadgeNoFor:self.newsContent.parentCategory
+                                withNo:[badgemanager noBadgesFor:self.newsContent.parentCategory afterUpdating:NO]];
     }
 }
 
