@@ -11,4 +11,6 @@
 @interface RoomFinderViewController : CustomColoredViewController
 
 - (void)resetToInitialState;
+- (void)refershAvailableRooms;
+
 @end

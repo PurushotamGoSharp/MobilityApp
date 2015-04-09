@@ -741,7 +741,7 @@
     {
         NSString *expectedString = [textView.text stringByReplacingCharactersInRange:range withString:text];
         
-        if (expectedString.length > 0 || self.yourRatingView.rating > 0)
+        if (expectedString.length > 0 & self.yourRatingView.rating > 0)
         {
             self.tickMarkBarBtnOutlet.enabled = YES;
         }else

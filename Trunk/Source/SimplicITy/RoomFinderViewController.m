@@ -17,7 +17,7 @@
 #import "PasswordManager.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
-#define MIN_TIME_SLOT_FOR_SEARCH 5*60
+#define MIN_TIME_SLOT_FOR_SEARCH 10*60
 
 @interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate, UIAlertViewDelegate, PasswordManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
@@ -119,8 +119,8 @@
     if (selectedLocationEmailID)
     {
 //        currentlyExcutingMethod = @"getAllRoomsOfCurrentLocation";
-//        
-//        if ([passwordManager passwordForUser])
+//
+//        if ([passwordManager passwordForUser].length > 0)
 //        {
             [roomManager getRoomsForRoomList:selectedLocationEmailID];
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -266,7 +266,7 @@
 
     [self resetView];
     
-    //When you are booking a room for ttwo consicutive time slots, eg)
+    //When you are booking a room for two consicutive time slots, [eg)12:00 to 12:30 and second Time slots is 12:30 to 1:00.] second time slot will not be valid as at 12:30 room is already booked. So to avoid this, what we can do is START TIME will always have AN ADDITIONAL SECOND ADDED. [eg) 12:00:01 to 12:30:00 and second time will be 12:30:01 to 1:00:00],
 //    startDate = [startDate dateByAddingTimeInterval:1];
     [roomManager availablityOfRooms:emailIDsOfRoomsToCheck forStart:startDate toEnd:endDate];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -339,6 +339,11 @@
     }
     
     return nil;
+}
+
+- (void)refershAvailableRooms
+{
+    [self findAvailableRooms:nil];
 }
 
 - (BOOL)checkForPrivteRoom:(RoomModel *)room
@@ -471,6 +476,7 @@
     
     dateFormatter.dateFormat = @"dd MMMM yyyy";
     self.selectedDateLabel.text = [dateFormatter stringFromDate:date];
+    [self resetView];
 }
 
 - (NSDate *)dateByGettingTimefrom:(NSDate *)dateForTime withDateFrom:(NSDate *)dateFromDdate
@@ -516,7 +522,17 @@
 #pragma mark - PasswordManagerDelegate
 - (void)passwordManagerGotPassword:(PasswordManager *)manager
 {
-
+    if (currentlyExcutingMethod != nil)
+    {
+        SEL selector = NSSelectorFromString(currentlyExcutingMethod);
+        
+        if ([self respondsToSelector:selector])
+        {
+//            IMP imp = [self methodForSelector:selector];
+//            void (*func)
+//            [self performSelector:selector];
+        }
+    }
 }
 
 - (void)passwordManagerFailedToGetPassoword:(PasswordManager *)manager

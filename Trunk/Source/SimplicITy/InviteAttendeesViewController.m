@@ -39,6 +39,8 @@
     NSMutableArray *reqiuredAttentees;
     
     UIAlertView *successfullAlert;
+    
+    UIBarButtonItem *backButton;
 }
 
 - (void)viewDidLoad
@@ -73,6 +75,23 @@
     newEvent.endDate = self.endDate;
     newEvent.location = self.selectedRoom.nameOfRoom;
     newEvent.resources = @[self.selectedRoom.emailIDOfRoom];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.tableView addGestureRecognizer:tapGesture];
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Back" forState:UIControlStateNormal];
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.frame = CGRectMake(0, 0,80, 30);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,6 +123,20 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
+}
+
+
+- (void)backBtnAction
+{
+    NSArray *viewControllers = self.navigationController.viewControllers;
+    RoomFinderViewController *roomFinderVC = (RoomFinderViewController *)viewControllers[viewControllers.count-2];
+    [roomFinderVC refershAvailableRooms];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)hideKeyboard
+{
+    [self.view endEditing:YES];
 }
 
 - (void)registerForKeyboardNotifications
@@ -320,10 +353,31 @@
     newEvent.subject = txtField.text;
     newEvent.requiredAttendees = reqiuredAttentees;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [roomManager createCalendarEvent:newEvent];
+    
+//First we will check whether the room is booked by some one else while the user enters values;
+    [roomManager availablityOfRooms:newEvent.resources forStart:newEvent.startDate toEnd:newEvent.endDate];
 }
 
 #pragma  mark RoomManagerDelegate
+
+- (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
+{
+    if (availableRooms.count > 0)
+    {
+        [roomManager createCalendarEvent:newEvent];
+        
+    }else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Booked"
+                                                            message:@"Sorry! Meeting Room already booked by someone else recently."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    }
+
+}
 
 - (void)roomManager:(RoomManager *)manager createdRoomWith:(NSString *)eventID
 {
