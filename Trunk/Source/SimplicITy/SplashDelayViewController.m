@@ -65,6 +65,7 @@
     [self updateTagsAndAlias];
     
     ADExpirationDateFetcher *dateFetcher = [[ADExpirationDateFetcher alloc] init];
+    
     [dateFetcher getExpirationDateWithSuccess:^(NSInteger noOfDayLeft) {
         
     }];

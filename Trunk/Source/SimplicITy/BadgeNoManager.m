@@ -54,7 +54,6 @@
 //        [self getDataFromDB];
 //    }
     
-#warning Check this section to impliment 'WHERE viewedFlag = 0'
     if (subCategoryDBManager == nil)
     {
         subCategoryDBManager = [[DBManager alloc] initWithFileName:@"News.db"];

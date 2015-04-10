@@ -4823,7 +4823,6 @@ static NSString *ExchangeWebService_ResponseCodeType_enumValues[] = {
 }
 @end
 @implementation ExchangeWebService_GetUserAvailabilityRequestType
-#warning made Changes
 + (void)serializeToChildOf:(xmlNodePtr)node withName:(const char *)childName value:(ExchangeWebService_GetUserAvailabilityRequestType *)value {
     xmlNodePtr child = xmlNewChild(node, NULL, (const xmlChar *)childName, NULL);
     

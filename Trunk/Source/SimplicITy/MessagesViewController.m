@@ -292,7 +292,7 @@
             countForUnviewedNews++;
         }
         
-        NSLog(@"UnViewCount %i",countForUnviewedNews );
+        NSLog(@"UnViewCount %li",(long)countForUnviewedNews );
 //To update the paernt badge no by geting unread messages in news table
         
         BadgeNoManager *badge = [[BadgeNoManager alloc] init];

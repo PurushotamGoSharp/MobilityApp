@@ -676,7 +676,6 @@ static Class classForElement(xmlNodePtr cur) {
 
 + (void)serializeToChildOf:(xmlNodePtr)node withName:(const char *)childName value:(NSDate *)value {
     if (value)
-#warning Made changes
         xmlNewChild(node, NULL, (const xmlChar *)childName, [[NSDate formatDateForTimeType:value] xmlString]);
 }
 

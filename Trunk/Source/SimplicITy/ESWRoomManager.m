@@ -218,9 +218,9 @@
         {
             if ([resp isKindOfClass:[ExchangeWebService_GetUserAvailabilityResponseType class]])
             {
-                ExchangeWebService_GetUserAvailabilityResponseType *availabilityResp = (ExchangeWebService_GetUserAvailabilityResponseType *)resp;
-                
-                NSArray *freeBusyArray = availabilityResp.FreeBusyResponseArray;
+//                ExchangeWebService_GetUserAvailabilityResponseType *availabilityResp = (ExchangeWebService_GetUserAvailabilityResponseType *)resp;
+//                
+//                NSArray *freeBusyArray = availabilityResp.FreeBusyResponseArray;
 //#warning Not using loop.
 //                ExchangeWebService_FreeBusyResponseType *freeBusyResponse = [freeBusyArray firstObject];
 //                NSArray *calenderEvents = freeBusyResponse.FreeBusyView.CalendarEventArray;

@@ -581,7 +581,6 @@ static BOOL is_leap_year(NSInteger year) {
     return [self dateWithISO8601String:str strictly:NO timeSeparator:ISO8601ParserDefaultTimeSeparatorCharacter getRange:outRange];
 }
 
-#warning Edited Here
 + (NSString *)formatDateForTimeType:(NSDate *)date
 {
     NSDateFormatter *formatterObj = [[NSDateFormatter alloc] init];

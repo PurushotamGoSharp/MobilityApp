@@ -17,7 +17,7 @@
 #import "PasswordManager.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
-#define MIN_TIME_SLOT_FOR_SEARCH 10*60
+#define MIN_TIME_SLOT_FOR_SEARCH 15*60
 
 @interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate, UIAlertViewDelegate, PasswordManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
@@ -176,6 +176,10 @@
 
 - (IBAction)setEndTime:(UIButton *)sender
 {
+    if (startDate == nil)
+    {
+        return;
+    }
     [self setSelectedAsEnd];
     self.availableRoomsView.hidden = YES;
     NSDate *minDate = [startDate?:[NSDate date] dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
@@ -267,7 +271,7 @@
     [self resetView];
     
     //When you are booking a room for two consicutive time slots, [eg)12:00 to 12:30 and second Time slots is 12:30 to 1:00.] second time slot will not be valid as at 12:30 room is already booked. So to avoid this, what we can do is START TIME will always have AN ADDITIONAL SECOND ADDED. [eg) 12:00:01 to 12:30:00 and second time will be 12:30:01 to 1:00:00],
-//    startDate = [startDate dateByAddingTimeInterval:1];
+    startDate = [startDate dateByAddingTimeInterval:1];
     [roomManager availablityOfRooms:emailIDsOfRoomsToCheck forStart:startDate toEnd:endDate];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
