@@ -414,7 +414,8 @@
                             
                             if (aResolvedContact.Contact != nil)
                             {
-                                aContact.nameOfContact = aResolvedContact.Contact.DisplayName;
+                                aContact.displayName = aResolvedContact.Contact.DisplayName;
+                                aContact.nameOfContact = [NSString stringWithFormat:@"%@ %@", aResolvedContact.Contact.GivenName, aResolvedContact.Contact.Surname];
                             }
                             
                             [foundContactsArray addObject:aContact];

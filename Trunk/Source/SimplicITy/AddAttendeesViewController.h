@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CustomColoredViewController.h"
 
+@protocol  AddAttendeesDelegate <NSObject>
+
+- (void)addAntendees:(NSArray *)attendees;
+
+@end
+
 @interface AddAttendeesViewController : CustomColoredViewController
+
+@property (weak, nonatomic) id <AddAttendeesDelegate> delegate;
 
 @end

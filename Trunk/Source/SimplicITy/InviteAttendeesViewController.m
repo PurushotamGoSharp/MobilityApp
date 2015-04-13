@@ -12,8 +12,10 @@
 #import "CalendarEvent.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "RoomFinderViewController.h"
+#import "AddAttendeesViewController.h"
+#import "ContactDetails.h"
 
-@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate>
+@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -200,6 +202,20 @@
     }
 }
 
+- (IBAction)sendInvites:(UIButton *)sender
+{
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
+    UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+    
+    newEvent.subject = txtField.text;
+    newEvent.requiredAttendees = [reqiuredAttentees valueForKeyPath:@"@distinctUnionOfObjects.emailIDOfContact"];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    //First we will check whether the room is booked by some one else while the user enters values;
+    [roomManager availablityOfRooms:newEvent.resources forStart:newEvent.startDate toEnd:newEvent.endDate];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -372,7 +388,8 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
             UILabel *rightLable = (UILabel*)[cell viewWithTag:100];
-            rightLable.text = reqiuredAttentees[indexPath.row - 1];
+            ContactDetails *aContact = reqiuredAttentees[indexPath.row - 1];
+            rightLable.text = aContact.displayName;
             rightLable.font = [self customFont:16 ofName:MuseoSans_700];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -438,19 +455,7 @@
     
 }
 
-- (IBAction)sendInvites:(UIButton *)sender
-{
-    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
-    UITextField *txtField = (UITextField*)[cell viewWithTag:100];
-    
-    newEvent.subject = txtField.text;
-    newEvent.requiredAttendees = reqiuredAttentees;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-//First we will check whether the room is booked by some one else while the user enters values;
-    [roomManager availablityOfRooms:newEvent.resources forStart:newEvent.startDate toEnd:newEvent.endDate];
-}
+
 
 #pragma  mark RoomManagerDelegate
 
@@ -505,6 +510,26 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+
+
+#pragma  mark AddAttendeesDelegate
+- (void)addAntendees:(NSArray *)attendees
+{
+    for (ContactDetails *aContact in attendees)
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"emailIDOfContact == %@", aContact.emailIDOfContact];
+        NSArray *filtered = [reqiuredAttentees filteredArrayUsingPredicate:predicate];
+        
+        if (filtered.count == 0)
+        {
+            [reqiuredAttentees addObject:aContact];
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
 /*
 #pragma mark - Navigation
 

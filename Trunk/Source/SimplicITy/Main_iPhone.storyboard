@@ -3221,8 +3221,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qE-aU-cAs">
                                 <rect key="frame" x="0.0" y="65" width="320" height="40"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type Name or Email ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WTu-lf-N4h">
-                                        <rect key="frame" x="8" y="5" width="304" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type Name or Email ID" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WTu-lf-N4h">
+                                        <rect key="frame" x="8" y="5" width="274" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -3230,14 +3230,30 @@
                                             <outlet property="delegate" destination="RGe-EE-gso" id="K9S-He-nXh"/>
                                         </connections>
                                     </textField>
+                                    <button opaque="NO" tag="200" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxj-8m-htj">
+                                        <rect key="frame" x="284" y="5" width="30" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="jpg-G0-2fn"/>
+                                            <constraint firstAttribute="height" constant="30" id="lzA-FX-8Pw"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="plusIcon">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addEmailIDDirectly:" destination="RGe-EE-gso" eventType="touchUpInside" id="Hal-DS-NdV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="WTu-lf-N4h" firstAttribute="leading" secondItem="1qE-aU-cAs" secondAttribute="leading" constant="8" id="Bqi-oc-Vfl"/>
                                     <constraint firstAttribute="height" constant="40" id="Qlp-6q-qnq"/>
-                                    <constraint firstAttribute="trailing" secondItem="WTu-lf-N4h" secondAttribute="trailing" constant="8" id="g0C-js-OYJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="fxj-8m-htj" secondAttribute="trailing" constant="6" id="fXy-ER-9KP"/>
                                     <constraint firstAttribute="bottom" secondItem="WTu-lf-N4h" secondAttribute="bottom" constant="5" id="gEO-wT-NC1"/>
+                                    <constraint firstAttribute="centerY" secondItem="fxj-8m-htj" secondAttribute="centerY" id="hnG-0g-scS"/>
                                     <constraint firstItem="WTu-lf-N4h" firstAttribute="top" secondItem="1qE-aU-cAs" secondAttribute="top" constant="5" id="mna-y3-aL5"/>
+                                    <constraint firstItem="fxj-8m-htj" firstAttribute="leading" secondItem="WTu-lf-N4h" secondAttribute="trailing" constant="2" id="yrl-xc-alX"/>
                                 </constraints>
                             </view>
                         </subviews>

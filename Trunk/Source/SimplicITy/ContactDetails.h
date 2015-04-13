@@ -13,4 +13,5 @@
 @property (strong, nonatomic) NSString *nameOfContact;
 @property (strong, nonatomic) NSString *emailIDOfContact;
 
+@property (strong, nonatomic) NSString *displayName;
 @end
