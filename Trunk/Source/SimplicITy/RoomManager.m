@@ -107,6 +107,11 @@
     [ewsManager createCalendarEvent:event] ;
 }
 
+- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success
+{
+    [ewsManager getContactsForEntry:entry withSuccess:success];
+}
+
 #pragma mark
 #pragma mark ESWRoomManagerDelegate
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms

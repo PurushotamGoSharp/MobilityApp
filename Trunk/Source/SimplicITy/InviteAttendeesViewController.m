@@ -23,7 +23,8 @@
     __weak IBOutlet UIButton *sendInviteButton;
     NSArray *dataOfFirstSection;
     NSArray *dataOfThirdSection;
-    
+    NSMutableArray *reqiuredAttentees;
+
     NSString *dateForBooking;
     NSString *startDateString, *endDateString;
     NSDateFormatter *dateFormatter;
@@ -35,12 +36,12 @@
     CalendarEvent *newEvent;
     
     UITextField *activeField;
-    
-    NSMutableArray *reqiuredAttentees;
-    
+    UITextField *enterUserNameTextField;
     UIAlertView *successfullAlert;
     
     UIBarButtonItem *backButton;
+    
+    BOOL searchFieldIsSelected;
 }
 
 - (void)viewDidLoad
@@ -77,6 +78,7 @@
     newEvent.resources = @[self.selectedRoom.emailIDOfRoom];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    tapGesture.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:tapGesture];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -155,6 +157,11 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
+//    if ([activeField isEqual:enterUserNameTextField])
+//    {
+//        kbSize.height = self.tableView.frame.size.height - 80;
+//    }
+//        
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     self.tableView.contentInset = contentInsets;
     self.tableView.scrollIndicatorInsets = contentInsets;
@@ -199,9 +206,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)callAutoCompleteForString:(NSString *)subString
+{
+    [roomManager getContactsForEntry:subString
+                         withSuccess:^(BOOL foundContacts, NSArray *contactsFound) {
+                             NSLog(@"Found array count %li", contactsFound.count);
+                         }];
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     activeField = textField;
+    
+    if ([textField isEqual:enterUserNameTextField])
+    {
+        if (!searchFieldIsSelected)
+        {
+            searchFieldIsSelected = YES;
+            [self.tableView reloadData];
+        }
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -215,15 +239,40 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField isEqual:enterUserNameTextField])
+    {
+        NSMutableString *expectedString = [textField.text mutableCopy];
+        [expectedString replaceCharactersInRange:range withString:string];
+        
+        if (expectedString.length >= 3)
+        {
+            [self callAutoCompleteForString:expectedString];
+        }
+    }
+    
+    return YES;
+}
+
 #pragma  mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (searchFieldIsSelected)
+    {
+        return 1;
+    }
     return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (searchFieldIsSelected)
+    {
+        return 1;
+    }
+    
     if (section == 0)
     {
         return [dataOfFirstSection count];
@@ -241,6 +290,22 @@
 {
     UITableViewCell *cell;
 
+//    if (searchFieldIsSelected)
+//    {
+//        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
+//        UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+//        txtField.delegate = self;
+//        txtField.placeholder = @"Enter Email";
+//        txtField.keyboardType = UIKeyboardTypeEmailAddress;
+//        enterUserNameTextField = txtField;
+//        UIButton *btn = (UIButton *)[cell viewWithTag:200];
+//        btn.hidden = NO;
+//        [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
+//        [txtField becomeFirstResponder];
+//        
+//        return cell;
+//    }
+    
     if (indexPath.section == 0)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -270,6 +335,9 @@
         }
         leftLable.font = [self customFont:16 ofName:MuseoSans_700];
         rightLable.font = [self customFont:16 ofName:MuseoSans_700];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     }else if (indexPath.section == 1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
@@ -279,6 +347,10 @@
         txtField.placeholder = @"Subject";
         UIButton *btn = (UIButton *)[cell viewWithTag:200];
         btn.hidden = YES;
+        txtField.userInteractionEnabled = YES;
+
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     }else
     {
         if (indexPath.row == 0)
@@ -286,12 +358,16 @@
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
             UITextField *txtField = (UITextField*)[cell viewWithTag:100];
             txtField.delegate = self;
-            txtField.placeholder = @"Enter Email";
+            txtField.placeholder = @"Select Anttendees";
             txtField.keyboardType = UIKeyboardTypeEmailAddress;
+            txtField.userInteractionEnabled = NO;
+            enterUserNameTextField = txtField;
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
             btn.hidden = NO;
             [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
             
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
         }else
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
@@ -299,6 +375,8 @@
             rightLable.text = reqiuredAttentees[indexPath.row - 1];
             rightLable.font = [self customFont:16 ofName:MuseoSans_700];
             
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
 //            UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
 //            
 //            if (indexPath.row == 1)
@@ -307,7 +385,6 @@
 //            }
         }
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -328,20 +405,37 @@
     
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
     
-    if (section == 0)
-    {
-        headerLabel.text = @"Meeting Details";
-    }else if (section == 1)
-    {
-        headerLabel.text = @"Subject";
-    }else if (section == 2)
+    if (searchFieldIsSelected)
     {
         headerLabel.text = @"Add attendees";
+    }else
+    {
+        if (section == 0)
+        {
+            headerLabel.text = @"Meeting Details";
+        }else if (section == 1)
+        {
+            headerLabel.text = @"Subject";
+        }else if (section == 2)
+        {
+            headerLabel.text = @"Add attendees";
+        }
     }
     
     [headerView addSubview:headerLabel];
     
     return headerView;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2 && indexPath.row == 0)
+    {
+        [self performSegueWithIdentifier:@"InviteAtntToSelectAntendeesSegue" sender:nil];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 - (IBAction)sendInvites:(UIButton *)sender

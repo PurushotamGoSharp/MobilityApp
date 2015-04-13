@@ -11,6 +11,7 @@
 #import "RoomModel.h"
 #import "UserInfo.h"
 #import "CalendarEvent.h"
+#import "ContactDetails.h"
 
 @interface ESWRoomManager() <SSLCredentialsManaging>
 
@@ -350,6 +351,89 @@
     }];
 
 }
+
+- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL, NSArray *))success
+{
+    if (entry == nil | entry.length == 0)
+    {
+        [self.delegate ESWRoomManager:self failedWithError:nil];
+        return;
+    }
+    ExchangeWebService_ResolveNamesType *request = [[ExchangeWebService_ResolveNamesType alloc] init];
+    request.UnresolvedEntry = entry;
+    request.ReturnFullContactData = @YES;
+    
+    [binding ResolveNames:request
+                  success:^(NSArray *headers, NSArray *bodyParts) {
+                      
+                      NSArray *foundContacts = [self parseResolutionResponse:bodyParts];
+                      NSLog(@"Yeahaaaaa ");
+                      
+                      BOOL isValidName = foundContacts.count > 0;
+                      
+                      success(isValidName, foundContacts);
+                      
+                  } error:^(NSError *error) {
+                      NSLog(@"%@", error);
+                  }];
+}
+
+- (NSArray *)parseResolutionResponse:(NSArray *)bodyParts
+{
+    NSMutableArray *foundContactsArray;
+
+    if (bodyParts.count > 0)
+    {
+        id body = [bodyParts firstObject];
+        
+        if ([body isKindOfClass:[ExchangeWebService_ResolveNamesResponseType class]])
+        {
+            ExchangeWebService_ResolveNamesResponseType *responseType = (ExchangeWebService_ResolveNamesResponseType *)body;
+            
+            if (responseType.ResponseMessages.count > 0)
+            {
+                id value = [responseType.ResponseMessages firstObject];
+                
+                if ([value isKindOfClass:[ExchangeWebService_ResolveNamesResponseMessageType class]])
+                {
+                    ExchangeWebService_ResolveNamesResponseMessageType *insideResponse = (ExchangeWebService_ResolveNamesResponseMessageType *)value;
+                    NSArray *contactsFound = insideResponse.ResolutionSet.Resolution;
+                    
+                    if (contactsFound.count > 0)
+                    {
+                        foundContactsArray = [[NSMutableArray alloc] init];
+                        
+                        for (t_ResolutionType *aResolvedContact in contactsFound)
+                        {
+                            ContactDetails *aContact =[[ContactDetails alloc] init];
+                            
+                            if (aResolvedContact.Mailbox != nil)
+                            {
+                                aContact.emailIDOfContact = aResolvedContact.Mailbox.EmailAddress;
+                            }
+                            
+                            if (aResolvedContact.Contact != nil)
+                            {
+                                aContact.nameOfContact = aResolvedContact.Contact.DisplayName;
+                            }
+                            
+                            [foundContactsArray addObject:aContact];
+                        }
+                        
+                        NSLog(@"Found %li contacts", contactsFound.count);
+                    }else
+                    {
+                        return nil;
+                        NSLog(@"No contacts found");
+                    }
+                }
+            }
+        }
+    }
+    
+    return foundContactsArray;
+}
+
 
 - (BOOL)canAuthenticateForAuthenticationMethod:(NSString *)authMethod
 {

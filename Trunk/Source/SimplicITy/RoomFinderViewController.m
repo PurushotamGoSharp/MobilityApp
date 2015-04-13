@@ -167,6 +167,7 @@
 
     startDate = startDate?:[self dateByGettingTimefrom:[NSDate date] withDateFrom:self.calendarView.selectedDate];
     [self.startDatePicker setDate:startDate animated:YES];
+    self.startDatePicker.minimumDate = startDate;
     
     dateFormatter.dateFormat = @"hh.mm a";
     NSString *dateInString = [dateFormatter stringFromDate:startDate];

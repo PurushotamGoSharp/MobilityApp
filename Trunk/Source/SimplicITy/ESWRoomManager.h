@@ -45,4 +45,6 @@ typedef void(^FailureBlock)(NSError *error);
 
 - (void)createCalendarEvent:(CalendarEvent *)event;
 
+- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success;
+
 @end
