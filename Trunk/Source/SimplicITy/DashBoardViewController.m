@@ -549,7 +549,6 @@
 
 - (IBAction)messageButtonPressed:(UIButton *)sender
 {
-    [self.tabBarController setSelectedIndex:1];
 }
 
 - (IBAction)raiseATicketPressed:(UIButton *)sender

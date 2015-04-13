@@ -39,7 +39,7 @@
 
 -(void)backBtnAction
 {
-    [self.tabBarController setSelectedIndex:0];
+  
     
 }
 

@@ -120,6 +120,8 @@
 		866D71321AD7B7A1005234FE /* ContactDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 866D71311AD7B7A1005234FE /* ContactDetails.m */; };
 		867101AD1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */; };
 		867101B01A386FD900AE2ED6 /* TipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AF1A386FD900AE2ED6 /* TipModel.m */; };
+		8673D6F61ADBADFF009AED9D /* ok2updateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673D6F51ADBADFF009AED9D /* ok2updateViewController.m */; };
+		8673D6F81ADBB2F1009AED9D /* Parameters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8673D6F71ADBB2F1009AED9D /* Parameters.plist */; };
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
@@ -479,6 +481,9 @@
 		867101AC1A386DB600AE2ED6 /* TipsSubCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsSubCategoriesViewController.m; sourceTree = "<group>"; };
 		867101AE1A386FD900AE2ED6 /* TipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipModel.h; sourceTree = "<group>"; };
 		867101AF1A386FD900AE2ED6 /* TipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipModel.m; sourceTree = "<group>"; };
+		8673D6F41ADBADFF009AED9D /* ok2updateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ok2updateViewController.h; sourceTree = "<group>"; };
+		8673D6F51ADBADFF009AED9D /* ok2updateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ok2updateViewController.m; sourceTree = "<group>"; };
+		8673D6F71ADBB2F1009AED9D /* Parameters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Parameters.plist; sourceTree = "<group>"; };
 		867584101A3815EE0049EC10 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		867584111A3815EE0049EC10 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		867B19B91A40126700462CA4 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
@@ -807,6 +812,8 @@
 				86A9A3F01A5E601F006D8A46 /* SplashDelayViewController.m */,
 				868EC25B1AD64FBA0035C57F /* ADExpirationDateFetcher.h */,
 				868EC25C1AD64FBA0035C57F /* ADExpirationDateFetcher.m */,
+				8673D6F41ADBADFF009AED9D /* ok2updateViewController.h */,
+				8673D6F51ADBADFF009AED9D /* ok2updateViewController.m */,
 				86173AC11A5FF56E00902088 /* LaunchImage-568h@2x.png */,
 				86173AC21A5FF56E00902088 /* LaunchImage-800-667h@2x.png */,
 				86FA17441A810C2A00846378 /* LanchImage_ipad_Portrate@2x.png */,
@@ -847,6 +854,7 @@
 			isa = PBXGroup;
 			children = (
 				86287D1F1A2EE1A500B12893 /* SimplicITy-Info.plist */,
+				8673D6F71ADBB2F1009AED9D /* Parameters.plist */,
 				8690B71A1AAD842E0039DE7D /* DemoUserInfo.plist */,
 				864531D41A5A659000A656A3 /* AirshipConfig.plist */,
 				86287D201A2EE1A500B12893 /* InfoPlist.strings */,
@@ -1546,6 +1554,7 @@
 				86201CFD1A7CA66D0016CBEF /* MyTickets@2x.png in Resources */,
 				864532B81A5A661D00A656A3 /* bottom-detail.png in Resources */,
 				86201D001A7CA66D0016CBEF /* raiseOrder@2x.png in Resources */,
+				8673D6F81ADBB2F1009AED9D /* Parameters.plist in Resources */,
 				86EF85A71AD403E100D6AE75 /* cert.p12 in Resources */,
 				864532A91A5A661D00A656A3 /* UAInboxMessageViewController.xib in Resources */,
 				8645329E1A5A661D00A656A3 /* Settings.bundle in Resources */,
@@ -1656,6 +1665,7 @@
 				866A5FA21A7A62A8007E29D5 /* MessageDummyViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
 				86C077A81AC29BD300938F65 /* t.m in Sources */,
+				8673D6F61ADBADFF009AED9D /* ok2updateViewController.m in Sources */,
 				867584121A3815EE0049EC10 /* SettingViewController.m in Sources */,
 				86C077A71AC29BD300938F65 /* NSDate+ISO8601Unparsing.m in Sources */,
 				864532B11A5A661D00A656A3 /* UAPushSettingsChannelInfoViewController.m in Sources */,
