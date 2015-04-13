@@ -83,6 +83,10 @@
                                                object:nil];
 }
 
+//- (BOOL)hidesBottomBarWhenPushed {
+//    return YES;
+//}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
