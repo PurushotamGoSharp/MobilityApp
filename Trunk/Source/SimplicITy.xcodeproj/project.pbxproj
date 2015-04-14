@@ -122,6 +122,7 @@
 		867101B01A386FD900AE2ED6 /* TipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 867101AF1A386FD900AE2ED6 /* TipModel.m */; };
 		8673D6F61ADBADFF009AED9D /* ok2updateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673D6F51ADBADFF009AED9D /* ok2updateViewController.m */; };
 		8673D6F81ADBB2F1009AED9D /* Parameters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8673D6F71ADBB2F1009AED9D /* Parameters.plist */; };
+		8673D6FD1ADBE045009AED9D /* InboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8673D6FC1ADBE045009AED9D /* InboxViewController.m */; };
 		867584121A3815EE0049EC10 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867584111A3815EE0049EC10 /* SettingViewController.m */; };
 		8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */; };
 		867B19BB1A40126700462CA4 /* TicketDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 867B19BA1A40126700462CA4 /* TicketDetailViewController.m */; };
@@ -485,6 +486,8 @@
 		8673D6F41ADBADFF009AED9D /* ok2updateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ok2updateViewController.h; sourceTree = "<group>"; };
 		8673D6F51ADBADFF009AED9D /* ok2updateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ok2updateViewController.m; sourceTree = "<group>"; };
 		8673D6F71ADBB2F1009AED9D /* Parameters.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Parameters.plist; sourceTree = "<group>"; };
+		8673D6FB1ADBE045009AED9D /* InboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboxViewController.h; sourceTree = "<group>"; };
+		8673D6FC1ADBE045009AED9D /* InboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxViewController.m; sourceTree = "<group>"; };
 		867584101A3815EE0049EC10 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		867584111A3815EE0049EC10 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		867B19B91A40126700462CA4 /* TicketDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketDetailViewController.h; sourceTree = "<group>"; };
@@ -683,6 +686,7 @@
 				866A5FA11A7A62A8007E29D5 /* MessageDummyViewController.m */,
 				86173AC51A600A8400902088 /* MessageTileViewController.h */,
 				86173AC61A600A8500902088 /* MessageTileViewController.m */,
+				8673D6FA1ADBE012009AED9D /* ok2update */,
 				86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */,
 				86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */,
 				86679F011A2EFD4300612BBA /* MessageDetailViewController.h */,
@@ -1231,6 +1235,15 @@
 			name = TIps;
 			sourceTree = "<group>";
 		};
+		8673D6FA1ADBE012009AED9D /* ok2update */ = {
+			isa = PBXGroup;
+			children = (
+				8673D6FB1ADBE045009AED9D /* InboxViewController.h */,
+				8673D6FC1ADBE045009AED9D /* InboxViewController.m */,
+			);
+			name = ok2update;
+			sourceTree = "<group>";
+		};
 		867DDFEB1A7210BA00812845 /* DBManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1670,6 +1683,7 @@
 				866A5FA21A7A62A8007E29D5 /* MessageDummyViewController.m in Sources */,
 				86287D281A2EE1A500B12893 /* AppDelegate.m in Sources */,
 				86C077A81AC29BD300938F65 /* t.m in Sources */,
+				8673D6FD1ADBE045009AED9D /* InboxViewController.m in Sources */,
 				8673D6F61ADBADFF009AED9D /* ok2updateViewController.m in Sources */,
 				867584121A3815EE0049EC10 /* SettingViewController.m in Sources */,
 				86C077A71AC29BD300938F65 /* NSDate+ISO8601Unparsing.m in Sources */,
