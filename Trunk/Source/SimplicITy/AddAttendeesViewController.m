@@ -10,7 +10,7 @@
 #import "RoomManager.h"
 #import "ContactDetails.h"
 
-@interface AddAttendeesViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate>
+@interface AddAttendeesViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchUserNameTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -23,7 +23,7 @@
     BOOL isCallingAutoComplete;
     BOOL canStopCallingAPI;
     __block NSArray *referenceArray;
-    NSArray *contactsFoundArray;
+    __block NSArray *contactsFoundArray;
     NSMutableArray *selectedAttentdees;
     
     NSString *lastSubStringThatIsSearched;
@@ -41,6 +41,15 @@
     roomManager.delegate = self;
     
     selectedAttentdees = [[NSMutableArray alloc] init];
+    
+    self.title = @"Add Attendees";
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.searchUserNameTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,38 +66,40 @@
 {
     isCallingAutoComplete = YES;
     lastSubStringThatIsSearched = subString;
-    [roomManager getContactsForEntry:subString
-                         withSuccess:^(BOOL foundContacts, NSArray *contactsFound) {
-                             
-                             isCallingAutoComplete = NO;
-//                             NSLog(@"Found array count %li", contactsFound.count);
-//  //From API call maximum  of 100 contacts will be returned. So what we can do is if number of contacts reutruned is less than 100 we can STOP CALLING API. Because there will not be more than 100 for that sub-string. And when user presses back button we have to start calling API.
-//                             if (contactsFound.count < 100)
+//    [roomManager getContactsForEntry:subString
+//                         withSuccess:^(BOOL foundContacts, NSArray *contactsFound) {
+//                             
+//                             isCallingAutoComplete = NO;
+////                             NSLog(@"Found array count %li", contactsFound.count);
+////  //From API call maximum  of 100 contacts will be returned. So what we can do is if number of contacts reutruned is less than 100 we can STOP CALLING API. Because there will not be more than 100 for that sub-string. And when user presses back button we have to start calling API.
+////                             if (contactsFound.count < 100)
+////                             {
+////                                 canStopCallingAPI = YES;
+////                             }else
+////                             {
+////                                 canStopCallingAPI = NO;
+////                                 if (!isCallingAutoComplete)
+////                                 {
+////  //If substring that is searched is having more than 100 results, then API will be called again with same SUBSTRING. So it will form a loop. So break that loop, we will not make the call if last substring is equal to Current substring
+////                                     if (![lastSubStringThatIsSearched isEqualToString:self.searchUserNameTextField.text])
+////                                     {
+////                                         [self callAutoCompleteForString:self.searchUserNameTextField.text];
+////                                     }
+////                                 }
+////                             }
+//                             
+//                             referenceArray = [contactsFound copy];
+////                             contactsFoundArray = [self filterContacts:contactsFound forString:self.searchUserNameTextField.text];
+//                             contactsFoundArray = [contactsFound copy];
+//                             [self.tableView reloadData];
+//                             
+//                             if (![lastSubStringThatIsSearched isEqualToString:self.searchUserNameTextField.text])
 //                             {
-//                                 canStopCallingAPI = YES;
-//                             }else
-//                             {
-//                                 canStopCallingAPI = NO;
-//                                 if (!isCallingAutoComplete)
-//                                 {
-//  //If substring that is searched is having more than 100 results, then API will be called again with same SUBSTRING. So it will form a loop. So break that loop, we will not make the call if last substring is equal to Current substring
-//                                     if (![lastSubStringThatIsSearched isEqualToString:self.searchUserNameTextField.text])
-//                                     {
-//                                         [self callAutoCompleteForString:self.searchUserNameTextField.text];
-//                                     }
-//                                 }
+//                                 [self callAutoCompleteForString:self.searchUserNameTextField.text];
 //                             }
-                             
-                             
-                             if (![lastSubStringThatIsSearched isEqualToString:self.searchUserNameTextField.text])
-                             {
-                                 [self callAutoCompleteForString:self.searchUserNameTextField.text];
-                             }
-                             
-                             referenceArray = contactsFound;
-                             contactsFoundArray = [self filterContacts:contactsFound forString:self.searchUserNameTextField.text];
-                             [self.tableView reloadData];
-                         }];
+//                         }];
+    
+    [roomManager getContactsForEntry:subString];
 }
 
 - (NSArray *)filterContacts:(NSArray *)arrayOfContacts forString:(NSString *)searchString
@@ -129,6 +140,25 @@
     }
 }
 
+- (IBAction)doneButtonPressed:(UIBarButtonItem *)sender
+{
+    if (selectedAttentdees.count > 0)
+    {
+        [self.delegate addAntendees:selectedAttentdees];
+    }
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                                 
+                             }];
+}
+
+- (IBAction)cancelButtonPressed:(UIBarButtonItem *)sender
+{
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+                                 
+                             }];
+}
 
 - (BOOL)validateEmail:(NSString *) candidate
 {
@@ -164,14 +194,28 @@
         
         if (expectedString.length >= 3 && !isCallingAutoComplete)
         {
-            isCallingAutoComplete = YES;
             [self callAutoCompleteForString:expectedString];
+            [self.tableView reloadData];
+        }
+        
+        if (expectedString.length < 3)
+        {
+            contactsFoundArray = nil;
+            [self.tableView reloadData];
         }
     }
     
     return YES;
 }
 
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    contactsFoundArray = nil;
+    [self.tableView reloadData];
+   
+    return YES;
+}
 #pragma  mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -181,12 +225,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 1)
     {
         return selectedAttentdees.count;
         
-    }else if (section == 1)
+    }else if (section == 0)
     {
+        if (isCallingAutoComplete)
+        {
+            return 1;
+        }
+
         return 0;
     }
     
@@ -195,13 +244,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell;
     
+    if (isCallingAutoComplete & (indexPath.row == 0) & (indexPath.section == 0))
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"indicatorCell" forIndexPath:indexPath];
+        UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)[cell viewWithTag:300];
+        [indicator startAnimating];
+        return cell;
+    }else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    }
+
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
     UILabel *emailIDLabel = (UILabel *)[cell viewWithTag:101];
     
     ContactDetails *aContact;
-    if (indexPath.section == 0)
+    if (indexPath.section == 1)
     {
         aContact = selectedAttentdees[indexPath.row];
         
@@ -219,20 +279,20 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
-    headerView.backgroundColor = [self subViewsColours];
+    headerView.backgroundColor = self.view.backgroundColor;
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
     
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
     
     {
-        if (section == 0)
+        if (section == 1)
         {
             if (selectedAttentdees.count == 0)
             {
                 return nil;
             }
-            headerLabel.text = @"Selected Antendees";
-        }else if (section == 1)
+            headerLabel.text = @"Selected Attendees";
+        }else if (section == 0)
         {
             return nil;
         }else if (section == 2)
@@ -248,7 +308,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 1)
     {
         if (selectedAttentdees.count == 0)
         {
@@ -271,23 +331,85 @@
         if (![selectedAttentdees containsObject:contactsFoundArray[indexPath.row]])
         {
             [self.tableView beginUpdates];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
             [selectedAttentdees addObject:contactsFoundArray[indexPath.row]];
             [self.tableView endUpdates];
-            
+            self.searchUserNameTextField.text = @"";
+            contactsFoundArray = nil;
+            [self.tableView reloadData];
         }
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (isCallingAutoComplete & (indexPath.row == 0) & (indexPath.section == 0))
+    {
+        return 30;
+    }
+    return 47;
+}
+
 #pragma  mark RoomManagerDelegate
 
 - (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error
 {
+    NSLog(@"Error from manager");
     isCallingAutoComplete = NO;
+    [self.tableView reloadData];
 }
 
+- (void)roomManager:(RoomManager *)manager successfullYGotContacts:(NSArray *)foundContacts
+{
+    isCallingAutoComplete = NO;
+    //                             NSLog(@"Found array count %li", contactsFound.count);
+    //  //From API call maximum  of 100 contacts will be returned. So what we can do is if number of contacts reutruned is less than 100 we can STOP CALLING API. Because there will not be more than 100 for that sub-string. And when user presses back button we have to start calling API.
+    //                             if (contactsFound.count < 100)
+    //                             {
+    //                                 canStopCallingAPI = YES;
+    //                             }else
+    //                             {
+    //                                 canStopCallingAPI = NO;
+    //                                 if (!isCallingAutoComplete)
+    //                                 {
+    //  //If substring that is searched is having more than 100 results, then API will be called again with same SUBSTRING. So it will form a loop. So break that loop, we will not make the call if last substring is equal to Current substring
+    //                                     if (![lastSubStringThatIsSearched isEqualToString:self.searchUserNameTextField.text])
+    //                                     {
+    //                                         [self callAutoCompleteForString:self.searchUserNameTextField.text];
+    //                                     }
+    //                                 }
+    //                             }
+    
+    referenceArray = foundContacts;
+    //                             contactsFoundArray = [self filterContacts:contactsFound forString:self.searchUserNameTextField.text];
+    contactsFoundArray = foundContacts;
+    [self.tableView reloadData];
+    
+    NSString *subStringToSearch = self.searchUserNameTextField.text;
+    
+    if (![lastSubStringThatIsSearched isEqualToString:subStringToSearch])
+    {
+        if (subStringToSearch.length >= 3)
+        {
+            [self callAutoCompleteForString:subStringToSearch];
+        }else
+        {
+            contactsFoundArray = nil;
+        }
+        
+        [self.tableView reloadData];
+    }
+
+}
+
+#pragma  mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
+}
 
 /*
 #pragma mark - Navigation

@@ -160,14 +160,38 @@
     self.serachRoomsButton.hidden = NO;
 }
 
+- (BOOL)isDateToday:(NSDate *)dateToTest
+{
+    NSCalendar *calender = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calender components:(NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:[NSDate date]];
+    NSDate *todayDate = [calender dateFromComponents:components];
+    
+    components = [calender components:(NSEraCalendarUnit|NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit) fromDate:dateToTest];
+    NSDate *date = [calender dateFromComponents:components];
+    
+    if ([todayDate isEqualToDate:date])
+    {
+        return YES;
+    }
+    
+    return NO;
+}
+
 - (IBAction)setStartTime:(UIButton *)sender
 {
     [self setSelectedAsStart];
     self.availableRoomsView.hidden = YES;
 
+    NSTimeInterval differenceFromCurrentDate = [startDate timeIntervalSinceDate:[NSDate date]];
+    
+    if (differenceFromCurrentDate < 0)
+    {
+        startDate = [self dateByGettingTimefrom:[NSDate date] withDateFrom:self.calendarView.selectedDate];
+    }
+    
     startDate = startDate?:[self dateByGettingTimefrom:[NSDate date] withDateFrom:self.calendarView.selectedDate];
     [self.startDatePicker setDate:startDate animated:YES];
-    self.startDatePicker.minimumDate = startDate;
+    self.startDatePicker.minimumDate = [self isDateToday:startDate]?startDate:nil;
     
     dateFormatter.dateFormat = @"hh.mm a";
     NSString *dateInString = [dateFormatter stringFromDate:startDate];
@@ -226,7 +250,7 @@
     NSTimeInterval timeIntervel = [startDate timeIntervalSinceDate:endDate];
     
 //If START_DATE is EARLIER than END_DATE, return value will be NEGATIVE
-    if (timeIntervel <= -MIN_TIME_SLOT_FOR_SEARCH)
+    if (timeIntervel <= -MIN_TIME_SLOT_FOR_SEARCH+1)
     {
         return YES;
     }
@@ -319,7 +343,7 @@
     endDate = nil;
     
     [self.startTimeButton setTitle:@"Start Time" forState:(UIControlStateNormal)];
-    endDate = nil;
+    startDate = nil;
     
     self.calendarView.selectedDate = [NSDate date];
     [self.calendarView redrawToDate:[NSDate date]];
@@ -481,6 +505,7 @@
     
     dateFormatter.dateFormat = @"dd MMMM yyyy";
     self.selectedDateLabel.text = [dateFormatter stringFromDate:date];
+    
     [self resetView];
 }
 

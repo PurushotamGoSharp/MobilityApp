@@ -107,9 +107,9 @@
     [ewsManager createCalendarEvent:event] ;
 }
 
-- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success
+- (void)getContactsForEntry:(NSString *)entry
 {
-    [ewsManager getContactsForEntry:entry withSuccess:success];
+    [ewsManager getContactsForEntry:entry];
 }
 
 #pragma mark
@@ -133,9 +133,9 @@
     
 }
 
-- (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSArray *)availbleSlots For:(NSString *)room
+- (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSDictionary *)dictOfAllRooms
 {
-    
+    [self.delegate roomManager:self foundSlotsAvailable:dictOfAllRooms];
 }
 
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
@@ -146,6 +146,11 @@
 - (void)ESWRoomManager:(ESWRoomManager *)manager createdRoomWith:(NSString *)eventID
 {
     [self.delegate roomManager:self createdRoomWith:eventID];
+}
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager successfullYGotContacts:(NSArray *)foundContacts
+{
+    [self.delegate roomManager:self successfullYGotContacts:foundContacts];
 }
 
 @end

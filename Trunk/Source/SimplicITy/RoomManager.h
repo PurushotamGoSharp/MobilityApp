@@ -14,11 +14,15 @@
 
 @optional
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms;
-- (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error;
+- (void)roomManager:(RoomManager *)manager foundSlotsAvailable:(NSDictionary *)dictOfAllRooms;
 
 - (void)roomManager:(RoomManager *)manager FoundRooms:(NSArray *)rooms;
 
 - (void)roomManager:(RoomManager *)manager createdRoomWith:(NSString *)eventID;
+
+- (void)roomManager:(RoomManager *)manager successfullYGotContacts:(NSArray *)foundContacts;
+
+- (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error;
 
 @end
 
@@ -33,6 +37,7 @@
 
 - (void)createCalendarEvent:(CalendarEvent *)event;
 
-- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success;
+//- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success;
+- (void)getContactsForEntry:(NSString *)entry;
 
 @end

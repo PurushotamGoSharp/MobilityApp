@@ -20,12 +20,14 @@ typedef void(^FailureBlock)(NSError *error);
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundListsOfRooms:(NSArray *)rooms;
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms;
 
-- (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSArray *)availbleSlots For:(NSString *)room;
+- (void)ESWRoomManager:(ESWRoomManager *)manager foundSlotsAvailable:(NSDictionary *)dictOfAllRooms;
 - (void)ESWRoomManager:(ESWRoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms;
 
 - (void)ESWRoomManager:(ESWRoomManager *)manager createdRoomWith:(NSString *)eventID;
 
 - (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error;
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager successfullYGotContacts:(NSArray *)foundContacts;
 
 @end
 
@@ -45,6 +47,7 @@ typedef void(^FailureBlock)(NSError *error);
 
 - (void)createCalendarEvent:(CalendarEvent *)event;
 
-- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success;
+//- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success;
+- (void)getContactsForEntry:(NSString *)entry;
 
 @end

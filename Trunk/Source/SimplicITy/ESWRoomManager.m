@@ -12,6 +12,7 @@
 #import "UserInfo.h"
 #import "CalendarEvent.h"
 #import "ContactDetails.h"
+#import "TimeWindow.h"
 
 @interface ESWRoomManager() <SSLCredentialsManaging>
 
@@ -193,50 +194,161 @@
 
 - (void)findEventForRoom:(NSString *)room forDate:(NSDate *)requestedDate
 {
-    if (propertyCreater == nil)
+    
+}
+
+- (void)findFreeSlotsOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate
+{
+    [self callAvailabilityAPIForRooms:rooms
+                             forStart:startDate
+                                toEnd:endDate
+                      andGetFreeSlots:YES];
+
+}
+
+- (void)findFreeSlotsForResponse:(NSArray *)bodyParts OfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate
+{
+    for (id resp in bodyParts)
     {
-        propertyCreater = [[ESWPropertyCreater alloc] init];
+        if ([resp isKindOfClass:[ExchangeWebService_GetUserAvailabilityResponseType class]])
+        {
+            ExchangeWebService_GetUserAvailabilityResponseType *availabilityResp = (ExchangeWebService_GetUserAvailabilityResponseType *)resp;
+            
+            NSArray *freeBusyArray = availabilityResp.FreeBusyResponseArray;
+            
+            NSMutableDictionary *dictOfAllRooms = [[NSMutableDictionary alloc] init];
+            
+            for (int i = 0; i < freeBusyArray.count; i++)
+            {
+                ExchangeWebService_FreeBusyResponseType *freeBusyResponse = freeBusyArray[i];
+                NSArray *calenderEvents = freeBusyResponse.FreeBusyView.CalendarEventArray;
+                
+                NSArray *freeSlots = [self findAvailableTimeFromEvents:calenderEvents forDate:startDate and:endDate];
+                NSString *emailIDOfRoom = rooms[i];
+                dictOfAllRooms[emailIDOfRoom] = freeSlots;
+            }
+            
+            [self.delegate ESWRoomManager:self foundSlotsAvailable:dictOfAllRooms];
+        }
     }
     
-    noOfFailedAuth = 0;
+}
 
-    ExchangeWebService_GetUserAvailabilityRequestType *request = [[ExchangeWebService_GetUserAvailabilityRequestType alloc] init];
-    request.TimeZone = [propertyCreater timeZone];
-    request.MailboxDataArray = [propertyCreater mailBoxArrayWithEmailIDS:@[room]];
-    //Converting in to ONE day window. First create START DATE and add one day to it to create END DATE
+- (NSArray *)findAvailableTimeFromEvents:(NSArray *)events forDate:(NSDate *)durationStart and:(NSDate *)durationEnd
+{
+    NSMutableArray *avaliableTimeSlots = [[NSMutableArray alloc] init];
     
-    [dateFormatter setDateFormat:@"yyyy MM dd"];//removes time and only get date;
-    NSString *dateInString = [dateFormatter stringFromDate:requestedDate];
-    NSDate *startDate = [dateFormatter dateFromString:dateInString];
-    NSDate *endDate = [NSDate dateWithTimeInterval:60*60*24 sinceDate:startDate];
+    if (events == nil || events.count == 0)
+    {
+        [avaliableTimeSlots addObject:[self timeDurationForStart:durationStart andEnd:durationEnd]];
+        return avaliableTimeSlots;
+    }
     
-    request.FreeBusyViewOptions = [propertyCreater freeBusyViewOptionsWith:startDate andEndsAt:endDate];
+    //first slot will be duratoin start time to startTime of FIRST EVENT
+    t_CalendarEvent *previousEvent = [events firstObject];
+    TimeWindow *timeWindow = [self timeDurationForStart:durationStart andEnd:previousEvent.StartTime];
+    if (timeWindow)
+    {
+        [avaliableTimeSlots addObject:timeWindow];
+    }
     
-    
-    [binding GetUserAvailabilityUsingGetUserAvailabilityRequest:request success:^(NSArray *headers, NSArray *bodyParts) {
+    //Now onwards, a rest slot will be Duration starts at END_TIME of PREVIOUS_EVENT and ends at START_TIME of NEXT_EVENT
+    for (int i = 1; i < events.count; i++)
+    {
+        t_CalendarEvent *nextEvent = events[i];
         
-        for (id resp in bodyParts)
+        timeWindow = [self timeDurationForStart:previousEvent.EndTime andEnd:nextEvent.StartTime];
+        if (timeWindow)
         {
-            if ([resp isKindOfClass:[ExchangeWebService_GetUserAvailabilityResponseType class]])
-            {
-//                ExchangeWebService_GetUserAvailabilityResponseType *availabilityResp = (ExchangeWebService_GetUserAvailabilityResponseType *)resp;
-//                
-//                NSArray *freeBusyArray = availabilityResp.FreeBusyResponseArray;
-//#warning Not using loop.
-//                ExchangeWebService_FreeBusyResponseType *freeBusyResponse = [freeBusyArray firstObject];
-//                NSArray *calenderEvents = freeBusyResponse.FreeBusyView.CalendarEventArray;
-            }
+            [avaliableTimeSlots addObject:timeWindow];
         }
         
-    } error:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
+        previousEvent = nextEvent;
+    }
+    
+    timeWindow = [self timeDurationForStart:previousEvent.EndTime andEnd:durationEnd];
+    if (timeWindow)
+    {
+        [avaliableTimeSlots addObject:timeWindow];
+    }
+    
+    return avaliableTimeSlots;
+}
+
+- (TimeWindow *)timeDurationForStart:(NSDate *)durationStart andEnd:(NSDate *)durationEnd
+{
+    TimeWindow *duration = [[TimeWindow alloc] init];
+    duration.startDate = durationStart;
+    duration.endDate = durationEnd;
+    
+    return duration;
 }
 
 - (void)availablityOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate
 {
-    __block NSMutableArray *availableRooms;
+    [self callAvailabilityAPIForRooms:rooms
+                             forStart:startDate
+                                toEnd:endDate
+                      andGetFreeSlots:NO];
+}
 
+- (void)findAvailabilityForResponse:(NSArray *)bodyParts OfRooms:(NSArray *)rooms
+{
+    NSMutableArray *availableRooms;
+
+    for (id resp in bodyParts)
+    {
+        if ([resp isKindOfClass:[SOAPFault class]])
+        {
+            [self.delegate ESWRoomManager:self failedWithError:nil];
+        }
+        
+        if ([resp isKindOfClass:[ExchangeWebService_GetUserAvailabilityResponseType class]])
+        {
+            ExchangeWebService_GetUserAvailabilityResponseType *availabilityResp = (ExchangeWebService_GetUserAvailabilityResponseType *)resp;
+            
+            NSArray *freeBusyArray = availabilityResp.FreeBusyResponseArray;
+            availableRooms = [[NSMutableArray alloc] init];
+            
+            for (int i = 0; i < freeBusyArray.count; i++)
+            {
+                ExchangeWebService_FreeBusyResponseType *freeBusyResponse = freeBusyArray[i];
+                NSArray *calenderEvents = freeBusyResponse.FreeBusyView.CalendarEventArray;
+                
+                //If there is no calender events in the response, then that room is available for that time.
+                if (calenderEvents == nil | calenderEvents.count == 0)
+                {
+                    [availableRooms addObject:rooms[i]];
+                }else
+                {
+                    //Even canceled events will be returned in EVENTS_ARRAY with status as FREE. And if all events are FREE, that room is free for appoinment.
+                    BOOL allAreCanceledEvents = YES;
+                    for (t_CalendarEvent *anEvent in calenderEvents)
+                    {
+                        if (anEvent.BusyType != t_LegacyFreeBusyType_Free)
+                        {
+                            allAreCanceledEvents = NO;
+                            break;
+                        }
+                    }
+                    
+                    if (allAreCanceledEvents)
+                    {
+                        [availableRooms addObject:rooms[i]];
+                    }
+                }
+                
+            }
+            
+            [self.delegate ESWRoomManager:self foundAvailableRooms:availableRooms];
+        }
+    }
+    
+    NSLog(@"Available Rooms %@", availableRooms);
+}
+
+- (void)callAvailabilityAPIForRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate andGetFreeSlots:(BOOL)freeslotsRequired
+{
     if (rooms.count == 0 | rooms == nil)
     {
         
@@ -245,7 +357,7 @@
     }
     
     noOfFailedAuth = 0;
-
+    
     if (propertyCreater == nil)
     {
         propertyCreater = [[ESWPropertyCreater alloc] init];
@@ -255,64 +367,24 @@
     request.MailboxDataArray = [propertyCreater mailBoxArrayWithEmailIDS:rooms];
     request.FreeBusyViewOptions = [propertyCreater freeBusyViewOptionsWith:startDate andEndsAt:endDate];
     
-    [binding GetUserAvailabilityUsingGetUserAvailabilityRequest:request success:^(NSArray *headers, NSArray *bodyParts) {
-        
-        for (id resp in bodyParts)
-        {
-            if ([resp isKindOfClass:[SOAPFault class]])
-            {
-                [self.delegate ESWRoomManager:self failedWithError:nil];
-            }
-                
-            if ([resp isKindOfClass:[ExchangeWebService_GetUserAvailabilityResponseType class]])
-            {
-                ExchangeWebService_GetUserAvailabilityResponseType *availabilityResp = (ExchangeWebService_GetUserAvailabilityResponseType *)resp;
-                
-                NSArray *freeBusyArray = availabilityResp.FreeBusyResponseArray;
-                availableRooms = [[NSMutableArray alloc] init];
-                
-                for (int i = 0; i < freeBusyArray.count; i++)
-                {
-                    ExchangeWebService_FreeBusyResponseType *freeBusyResponse = freeBusyArray[i];
-                    NSArray *calenderEvents = freeBusyResponse.FreeBusyView.CalendarEventArray;
-                    
-                    //If there is no calender events in the response, then that room is available for that time.
-                    if (calenderEvents == nil | calenderEvents.count == 0)
-                    {
-                        [availableRooms addObject:rooms[i]];
-                    }else
-                    {
-                        //Even canceled events will be returned in EVENTS_ARRAY with status as FREE. And if all events are FREE, that room is free for appoinment.
-                        BOOL allAreCanceledEvents = YES;
-                        for (t_CalendarEvent *anEvent in calenderEvents)
-                        {
-                            if (anEvent.BusyType != t_LegacyFreeBusyType_Free)
-                            {
-                                allAreCanceledEvents = NO;
-                                break;
-                            }
-                        }
-                        
-                        if (allAreCanceledEvents)
-                        {
-                            [availableRooms addObject:rooms[i]];
-                        }
-                    }
-                    
-                }
-                
-                [self.delegate ESWRoomManager:self foundAvailableRooms:availableRooms];
-            }
-        }
-        
-        NSLog(@"Available Rooms %@", availableRooms);
-        
-    } error:^(NSError *error) {
-        
-        [self.delegate ESWRoomManager:self failedWithError:error];
-        NSLog(@"%@", error);
-    }];
-
+    [binding GetUserAvailabilityUsingGetUserAvailabilityRequest:request
+                                                        success:^(NSArray *headers, NSArray *bodyParts) {
+                                                            
+                                                            if (!freeslotsRequired)
+                                                            {
+                                                                [self findAvailabilityForResponse:bodyParts OfRooms:rooms];
+                                                            }else
+                                                            {
+                                                                [self findFreeSlotsForResponse:bodyParts
+                                                                                       OfRooms:rooms
+                                                                                      forStart:startDate
+                                                                                         toEnd:endDate];
+                                                            }
+                                                            
+                                                        }
+                                                          error:^(NSError *error) {
+                                                              
+                                                          }];
 }
 
 - (void)createCalendarEvent:(CalendarEvent *)event
@@ -352,7 +424,7 @@
 
 }
 
-- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL, NSArray *))success
+- (void)getContactsForEntry:(NSString *)entry
 {
     if (entry == nil | entry.length == 0)
     {
@@ -369,12 +441,14 @@
                       NSArray *foundContacts = [self parseResolutionResponse:bodyParts];
                       NSLog(@"Yeahaaaaa ");
                       
-                      BOOL isValidName = foundContacts.count > 0;
+//                      BOOL isValidName = foundContacts.count > 0;
                       
-                      success(isValidName, foundContacts);
-                      
+//                      success(isValidName, foundContacts);
+                      [self.delegate ESWRoomManager:self successfullYGotContacts:foundContacts];
+
                   } error:^(NSError *error) {
                       NSLog(@"%@", error);
+                      [self.delegate ESWRoomManager:self failedWithError:error];
                   }];
 }
 

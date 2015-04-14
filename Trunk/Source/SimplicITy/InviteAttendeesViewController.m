@@ -186,20 +186,23 @@
 
 - (void)addAttentee:(UIButton *)sender
 {
-    if (reqiuredAttentees == nil)
-    {
-        reqiuredAttentees = [[NSMutableArray alloc] init];
-    }
-    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:2];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
-    UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+//    if (reqiuredAttentees == nil)
+//    {
+//        reqiuredAttentees = [[NSMutableArray alloc] init];
+//    }
+//    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:2];
+//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
+//    UITextField *txtField = (UITextField*)[cell viewWithTag:100];
+//    
+//    if (txtField.text.length > 0)
+//    {
+//        [reqiuredAttentees addObject:txtField.text];
+//        [self.tableView reloadData];
+//        txtField.text = @"";
+//    }
     
-    if (txtField.text.length > 0)
-    {
-        [reqiuredAttentees addObject:txtField.text];
-        [self.tableView reloadData];
-        txtField.text = @"";
-    }
+    [self performSegueWithIdentifier:@"InviteAtntToSelectAntendeesSegue" sender:nil];
+
 }
 
 - (IBAction)sendInvites:(UIButton *)sender
@@ -224,10 +227,10 @@
 
 - (void)callAutoCompleteForString:(NSString *)subString
 {
-    [roomManager getContactsForEntry:subString
-                         withSuccess:^(BOOL foundContacts, NSArray *contactsFound) {
-                             NSLog(@"Found array count %li", contactsFound.count);
-                         }];
+//    [roomManager getContactsForEntry:subString
+//                         withSuccess:^(BOOL foundContacts, NSArray *contactsFound) {
+//                             NSLog(@"Found array count %li", contactsFound.count);
+//                         }];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -306,22 +309,6 @@
 {
     UITableViewCell *cell;
 
-//    if (searchFieldIsSelected)
-//    {
-//        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
-//        UITextField *txtField = (UITextField*)[cell viewWithTag:100];
-//        txtField.delegate = self;
-//        txtField.placeholder = @"Enter Email";
-//        txtField.keyboardType = UIKeyboardTypeEmailAddress;
-//        enterUserNameTextField = txtField;
-//        UIButton *btn = (UIButton *)[cell viewWithTag:200];
-//        btn.hidden = NO;
-//        [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
-//        [txtField becomeFirstResponder];
-//        
-//        return cell;
-//    }
-    
     if (indexPath.section == 0)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -371,13 +358,9 @@
     {
         if (indexPath.row == 0)
         {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
-            UITextField *txtField = (UITextField*)[cell viewWithTag:100];
-            txtField.delegate = self;
-            txtField.placeholder = @"Select Anttendees";
-            txtField.keyboardType = UIKeyboardTypeEmailAddress;
-            txtField.userInteractionEnabled = NO;
-            enterUserNameTextField = txtField;
+            cell = [tableView dequeueReusableCellWithIdentifier:@"AddAttendeesCell" forIndexPath:indexPath];
+            UILabel *label = (UILabel *)[cell viewWithTag:100];
+            label.text = @"Add Attendees";
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
             btn.hidden = NO;
             [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -406,12 +389,20 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 2 & indexPath.row == 0)
+    {
+        return 30;
+    }
     return 44;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section == 2)
+    {
+        return 0;
+    }
     return 30;
 }
 
@@ -419,26 +410,18 @@
 {
     UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
-    
+    headerView.backgroundColor = self.view.backgroundColor;
+
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
     
-    if (searchFieldIsSelected)
+    if (section == 0)
     {
-        headerLabel.text = @"Add attendees";
-    }else
+        headerLabel.text = @"Meeting Details";
+    }else if (section == 1)
     {
-        if (section == 0)
-        {
-            headerLabel.text = @"Meeting Details";
-        }else if (section == 1)
-        {
-            headerLabel.text = @"Subject";
-        }else if (section == 2)
-        {
-            headerLabel.text = @"Add attendees";
-        }
+        headerLabel.text = @"Subject";
     }
-    
+
     [headerView addSubview:headerLabel];
     
     return headerView;
@@ -455,7 +438,24 @@
     
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2 && indexPath.row > 0)
+    {
+        return YES;
+    }
+    
+    return NO;
+}
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        [reqiuredAttentees removeObjectAtIndex:indexPath.row-1];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationLeft)];
+    }
+}
 
 #pragma  mark RoomManagerDelegate
 
@@ -523,21 +523,34 @@
         
         if (filtered.count == 0)
         {
-            [reqiuredAttentees addObject:aContact];
+            if (reqiuredAttentees == nil)
+            {
+                reqiuredAttentees = [[NSMutableArray alloc] init];
+            }
+            
+//            [reqiuredAttentees addObject:aContact];
+            [reqiuredAttentees insertObject:aContact atIndex:0];
         }
     }
     
     [self.tableView reloadData];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"InviteAtntToSelectAntendeesSegue"])
+    {
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        AddAttendeesViewController *addAttendeesVC = [navController.viewControllers firstObject];
+        addAttendeesVC.delegate = self;
+    }
 }
-*/
+
 
 @end

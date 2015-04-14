@@ -12,7 +12,6 @@
 #import "UAPush.h"
 #import "SendRequestsManager.h"
 #import <Gimbal/Gimbal.h>
-
 #define ENABLE_PUSH_NOTIFICATION YES
 
 @interface AppDelegate () <UAPushNotificationDelegate, postmanDelegate>
