@@ -14,6 +14,7 @@
 #import "RoomManager.h"
 #import "RoomModel.h"
 #import "TimeWindow.h"
+#import "InviteAttendeesViewController.h"
 
 @interface FreeSlotsViewController () <CLWeeklyCalendarViewDelegate, RoomManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -31,6 +32,7 @@
     NSString *selectedLocationEmailID;
     
     NSIndexPath *selectedIndexPath;
+    NSInteger selectedTimeSlotIndex;
     
     NSDate *startDate, *endDate;
     NSDate *selectedDate;
@@ -62,6 +64,19 @@
     }else
     {
         
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    NSInteger previousSection = selectedIndexPath.section;
+    if (selectedIndexPath != nil)
+    {
+        freeSlotsArray = nil;
+        selectedIndexPath = nil;
+        [self updateTableViewSection:previousSection];
     }
 }
 
@@ -273,7 +288,8 @@
         }
     }else if (indexPath.section == selectedIndexPath.section)
     {
-        
+        selectedTimeSlotIndex = indexPath.row;
+        [self performSegueWithIdentifier:@"BookbyRoomToInviteAttendeeSegue" sender:nil];
     }
 }
 
@@ -301,6 +317,14 @@
         selectedIndexPath = nil;
         [self updateTableViewSection:previousSection];
     }
+    
+    if (dateFormatter == nil)
+    {
+        dateFormatter = [[NSDateFormatter alloc] init];
+    }
+    
+    dateFormatter.dateFormat = @"dd MMMM yyyy";
+    self.selectedDateLabel.text = [dateFormatter stringFromDate:date];
 
 }
 
@@ -330,5 +354,21 @@
 
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
+
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"BookbyRoomToInviteAttendeeSegue"])
+    {
+        InviteAttendeesViewController *inviteVC = (InviteAttendeesViewController *)segue.destinationViewController;
+        TimeWindow *timeWindow = freeSlotsArray[selectedTimeSlotIndex-1];
+        inviteVC.startDate = timeWindow.startDate;
+        inviteVC.endDate = timeWindow.endDate;
+        
+        inviteVC.selectedRoom = self.rooms[selectedIndexPath.section];
+        inviteVC.fromSelectRoomVC = YES;
+    }
+}
+
 
 @end

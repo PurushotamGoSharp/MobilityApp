@@ -124,7 +124,7 @@
         aContact.displayName = self.searchUserNameTextField.text;
         
         [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
         [selectedAttentdees addObject:aContact];
         [self.tableView endUpdates];
         

@@ -256,7 +256,7 @@
     NSTimeInterval timeIntervel = [startDate timeIntervalSinceDate:endDate];
     
 //If START_DATE is EARLIER than END_DATE, return value will be NEGATIVE
-    if (timeIntervel <= -MIN_TIME_SLOT_FOR_SEARCH+1)
+    if (timeIntervel <= -MIN_TIME_SLOT_FOR_SEARCH)
     {
         return YES;
     }
@@ -311,6 +311,9 @@
     startDate = [startDate dateByAddingTimeInterval:1];
     [roomManager availablityOfRooms:emailIDsOfRoomsToCheck forStart:startDate toEnd:endDate];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    startDate = [startDate dateByAddingTimeInterval:-1];
+
 }
 
 - (IBAction)datePickerValueChanged:(UIDatePicker *)sender
