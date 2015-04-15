@@ -34,6 +34,7 @@
 - (NSArray *)getCompleteRoomsList; //call reload before this method is called
 - (void)getRoomsForRoomList:(NSString *)emailID;
 - (void)availablityOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate;
+- (void)findFreeSlotsOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate;
 
 - (void)createCalendarEvent:(CalendarEvent *)event;
 

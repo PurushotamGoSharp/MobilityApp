@@ -42,6 +42,8 @@ typedef void(^FailureBlock)(NSError *error);
 - (void)getRoomsForRoomsLists:(NSArray *)roomListsList;
 - (void)getRoomsForRoomList:(t_EmailAddressType *)emailID;
 
+- (void)findFreeSlotsOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate;
+
 - (void)findEventForRoom:(NSString *)room forDate:(NSDate *)requestedDate;
 - (void)availablityOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate;
 

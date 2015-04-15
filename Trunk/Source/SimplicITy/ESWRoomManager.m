@@ -14,6 +14,8 @@
 #import "ContactDetails.h"
 #import "TimeWindow.h"
 
+#define MIN_TIME_SLOT_FOR_SEARCH 5*60
+
 @interface ESWRoomManager() <SSLCredentialsManaging>
 
 @end
@@ -277,6 +279,11 @@
 
 - (TimeWindow *)timeDurationForStart:(NSDate *)durationStart andEnd:(NSDate *)durationEnd
 {
+    NSTimeInterval intervel = [durationEnd timeIntervalSinceDate:durationStart];
+    if (intervel <  MIN_TIME_SLOT_FOR_SEARCH)
+    {
+        return nil;
+    }
     TimeWindow *duration = [[TimeWindow alloc] init];
     duration.startDate = durationStart;
     duration.endDate = durationEnd;

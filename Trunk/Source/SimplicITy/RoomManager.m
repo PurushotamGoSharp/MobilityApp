@@ -112,6 +112,11 @@
     [ewsManager getContactsForEntry:entry];
 }
 
+- (void)findFreeSlotsOfRooms:(NSArray *)rooms forStart:(NSDate *)startDate toEnd:(NSDate *)endDate
+{
+    [ewsManager findFreeSlotsOfRooms:rooms forStart:startDate toEnd:endDate];
+}
+
 #pragma mark
 #pragma mark ESWRoomManagerDelegate
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms

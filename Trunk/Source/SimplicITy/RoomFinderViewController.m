@@ -15,6 +15,7 @@
 #import "UINavigationController+CustomOrientation.h"
 #import "InviteAttendeesViewController.h"
 #import "PasswordManager.h"
+#import "FreeSlotsViewController.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
@@ -85,8 +86,11 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     passwordManager = [[PasswordManager alloc] init];
-    
     [self getAllRoomsOfCurrentLocation];
+    
+    [self setbuttonForSwitchMode];
+    self.serachRoomsButton.hidden = NO;
+    
 }
 
 - (void)backBtnAction
@@ -99,6 +103,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    
 }
 
 - (void)viewDidLayoutSubviews
@@ -156,7 +162,7 @@
     {
         return;
     }
-    
+    [self setButtonForSearchingFreeRoom];
     self.serachRoomsButton.hidden = NO;
 }
 
@@ -260,6 +266,12 @@
 
 - (IBAction)findAvailableRooms:(id)sender
 {
+    if ([sender tag] == 100)
+    {
+        [self performSegueWithIdentifier:@"RoomFinderToFreeSlotsSegue" sender:nil];
+        return;
+    }
+    
     NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
     
     if (ewsRequestURL == nil)
@@ -347,6 +359,9 @@
     
     self.calendarView.selectedDate = [NSDate date];
     [self.calendarView redrawToDate:[NSDate date]];
+    
+    [self setbuttonForSwitchMode];
+    self.serachRoomsButton.hidden = NO;
 }
 
 - (IBAction)hidePickers:(UIView *)sender
@@ -378,6 +393,18 @@
 - (BOOL)checkForPrivteRoom:(RoomModel *)room
 {
     return ([room.nameOfRoom rangeOfString:@" Priv "].location == NSNotFound);
+}
+
+- (void)setbuttonForSwitchMode
+{
+    self.serachRoomsButton.tag = 100;
+    [self.serachRoomsButton setTitle:@"Search by Meeting Rooms" forState:(UIControlStateNormal)];
+}
+
+- (void)setButtonForSearchingFreeRoom
+{
+    self.serachRoomsButton.tag = 111;
+    [self.serachRoomsButton setTitle:@"Search Meeting Rooms" forState:(UIControlStateNormal)];
 }
 
 #pragma mark - UITableViewDelegate
@@ -455,6 +482,7 @@
     
     [self.tableView reloadData];
     self.availableRoomsView.hidden = NO;
+    [self setButtonForSearchingFreeRoom];
     self.serachRoomsButton.hidden = YES;
     
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -527,7 +555,7 @@
     return date;
 }
 
-
+#pragma mark - NavigatoinDelegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"romeFinderToInvite_segue"])
@@ -537,6 +565,10 @@
         inviteVC.endDate = endDate;
         
         inviteVC.selectedRoom = roomsAvailable[selectedindex];
+    }else if ([segue.identifier isEqualToString:@"RoomFinderToFreeSlotsSegue"])
+    {
+        FreeSlotsViewController *freeSlotsVC = (FreeSlotsViewController *)segue.destinationViewController;
+        freeSlotsVC.rooms = roomsToCheckModelArray;
     }
 }
 
