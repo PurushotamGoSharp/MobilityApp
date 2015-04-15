@@ -132,9 +132,12 @@
 
 - (void)backBtnAction
 {
-    NSArray *viewControllers = self.navigationController.viewControllers;
-    RoomFinderViewController *roomFinderVC = (RoomFinderViewController *)viewControllers[viewControllers.count-2];
-    [roomFinderVC refershAvailableRooms];
+    if (!self.fromSelectRoomVC)
+    {
+        NSArray *viewControllers = self.navigationController.viewControllers;
+        RoomFinderViewController *roomFinderVC = (RoomFinderViewController *)viewControllers[viewControllers.count-2];
+        [roomFinderVC refershAvailableRooms];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -311,7 +314,15 @@
 
     if (indexPath.section == 0)
     {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        if (self.fromSelectRoomVC & (indexPath.row == 1 | indexPath.row == 2))
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"TimeSelectCell" forIndexPath:indexPath];
+            cell.layer.masksToBounds = YES;
+
+        }else
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        }
 
         UILabel *leftLable = (UILabel*)[cell viewWithTag:100];
         UILabel *rightLable = (UILabel*)[cell viewWithTag:200];
@@ -323,6 +334,7 @@
                 break;
             case 1:
                 rightLable.text = startDateString;
+
                 break;
             case 2:
                 rightLable.text = endDateString;
@@ -457,6 +469,7 @@
     }
 }
 
+
 #pragma  mark RoomManagerDelegate
 
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
@@ -504,9 +517,12 @@
 {
     if ([alertView isEqual:successfullAlert])
     {
-        NSArray *viewControllers = self.navigationController.viewControllers;
-        RoomFinderViewController *roomFinderVC = (RoomFinderViewController *)viewControllers[viewControllers.count-2];
-        [roomFinderVC resetToInitialState];
+        if (!self.fromSelectRoomVC)
+        {
+            NSArray *viewControllers = self.navigationController.viewControllers;
+            RoomFinderViewController *roomFinderVC = (RoomFinderViewController *)viewControllers[viewControllers.count-2];
+            [roomFinderVC resetToInitialState];
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

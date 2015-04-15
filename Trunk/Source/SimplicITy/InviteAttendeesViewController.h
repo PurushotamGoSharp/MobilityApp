@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic) RoomModel *selectedRoom;
 
+@property (assign, nonatomic) BOOL fromSelectRoomVC;
+
 @end
