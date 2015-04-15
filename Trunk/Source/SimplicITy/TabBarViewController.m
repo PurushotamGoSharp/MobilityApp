@@ -35,10 +35,10 @@
                   options:NSKeyValueObservingOptionNew
                   context:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(upDateBadgeCount)
-                                                     name:@"NewsBadgeCount"
-                                                   object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(upDateBadgeCount)
+//                                                     name:@"NewsBadgeCount"
+//                                                   object:nil];
     }
     return self;
 }
@@ -46,7 +46,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self upDateBadgeCount];
+//    [self upDateBadgeCount];
 }
 
 - (void)upDateBadgeCount
