@@ -123,6 +123,8 @@
         aContact.emailIDOfContact = self.searchUserNameTextField.text;
         aContact.displayName = self.searchUserNameTextField.text;
         
+        isCallingAutoComplete = NO;
+
         [self.tableView beginUpdates];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
         [selectedAttentdees addObject:aContact];

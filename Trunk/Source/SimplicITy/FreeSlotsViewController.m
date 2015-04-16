@@ -15,6 +15,7 @@
 #import "RoomModel.h"
 #import "TimeWindow.h"
 #import "InviteAttendeesViewController.h"
+#import "NSDate+CL.h"
 
 @interface FreeSlotsViewController () <CLWeeklyCalendarViewDelegate, RoomManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -293,7 +294,15 @@
     }
 }
 
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0)
+    {
+        return 40;
+    }
+    
+    return 44;
+}
 
 #pragma mark - CLWeeklyCalendarViewDelegate
 
@@ -308,6 +317,11 @@
 
 - (void)dailyCalendarViewDidSelect:(NSDate *)date
 {
+    if ([date isPastDate] && ![date isDateToday])
+    {
+        [self.calendarView redrawToDate:[NSDate date]];
+        return;
+    }
     selectedDate = date;
     
     NSInteger previousSection = selectedIndexPath.section;
@@ -362,13 +376,27 @@
     {
         InviteAttendeesViewController *inviteVC = (InviteAttendeesViewController *)segue.destinationViewController;
         TimeWindow *timeWindow = freeSlotsArray[selectedTimeSlotIndex-1];
-        inviteVC.startDate = timeWindow.startDate;
-        inviteVC.endDate = timeWindow.endDate;
+        inviteVC.startDate = [timeWindow.startDate copy];
+        inviteVC.endDate = [timeWindow.endDate copy];
         
         inviteVC.selectedRoom = self.rooms[selectedIndexPath.section];
         inviteVC.fromSelectRoomVC = YES;
     }
 }
 
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
 
 @end

@@ -16,6 +16,7 @@
 #import "InviteAttendeesViewController.h"
 #import "PasswordManager.h"
 #import "FreeSlotsViewController.h"
+#import "NSDate+CL.h"
 
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
@@ -197,7 +198,8 @@
     
     startDate = startDate?:[self dateByGettingTimefrom:[NSDate date] withDateFrom:self.calendarView.selectedDate];
     [self.startDatePicker setDate:startDate animated:YES];
-    self.startDatePicker.minimumDate = [self isDateToday:startDate]?startDate:nil;
+    
+    self.startDatePicker.minimumDate = [self isDateToday:startDate]?[self dateByGettingTimefrom:[NSDate date] withDateFrom:self.calendarView.selectedDate]:nil;
     
     dateFormatter.dateFormat = @"hh.mm a";
     NSString *dateInString = [dateFormatter stringFromDate:startDate];
@@ -528,6 +530,12 @@
 //    startDate = startDate?:[NSDate date];
 //    endDate = endDate?:[startDate dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
 
+    if ([date isPastDate] && ![date isDateToday])
+    {
+        [self.calendarView redrawToDate:[NSDate date]];
+        return;
+    }
+    
     startDate = [self dateByGettingTimefrom:startDate withDateFrom:date];
     NSLog(@"Start date = %@", startDate);
     
@@ -564,8 +572,8 @@
     if ([segue.identifier isEqualToString:@"romeFinderToInvite_segue"])
     {
         InviteAttendeesViewController *inviteVC = (InviteAttendeesViewController *)segue.destinationViewController;
-        inviteVC.startDate = startDate;
-        inviteVC.endDate = endDate;
+        inviteVC.startDate = [startDate copy];
+        inviteVC.endDate = [endDate copy];
         
         inviteVC.selectedRoom = roomsAvailable[selectedindex];
     }else if ([segue.identifier isEqualToString:@"RoomFinderToFreeSlotsSegue"])

@@ -3433,15 +3433,31 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeSelectCell" rowHeight="185" id="waA-UU-Qpz">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TimeSelectCell" rowHeight="185" id="waA-UU-Qpz" customClass="SelectDateTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="waA-UU-Qpz" id="zn4-Ou-Vc5">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIM-Jd-chq">
+                                                <view alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIM-Jd-chq">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <datePicker tag="222" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="TsQ-hu-xei">
+                                                    <rect key="frame" x="0.0" y="57" width="320" height="162"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="450790255.10349298">
+                                                        <!--2015-04-15 11:30:55 +0000-->
+                                                    </date>
+                                                    <connections>
+                                                        <action selector="daetPickerValueChanged:" destination="waA-UU-Qpz" eventType="valueChanged" id="krK-fd-4gt"/>
+                                                    </connections>
+                                                </datePicker>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wj0-8b-WD0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="43" id="ZNk-Tq-Qb3"/>
+                                                    </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zYS-sm-pXG">
                                                     <rect key="frame" x="16" y="12" width="42" height="21"/>
@@ -3458,32 +3474,32 @@
                                                 <imageView userInteractionEnabled="NO" tag="111" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="writeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="5Vp-n2-aND">
                                                     <rect key="frame" x="292" y="12" width="20" height="20"/>
                                                 </imageView>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="TsQ-hu-xei">
-                                                    <rect key="frame" x="0.0" y="28" width="320" height="162"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="450790255.10349298">
-                                                        <!--2015-04-15 11:30:55 +0000-->
-                                                    </date>
-                                                </datePicker>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="OIM-Jd-chq" secondAttribute="trailing" id="3nN-T9-tKT"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="TsQ-hu-xei" secondAttribute="trailing" constant="-8" id="BMl-fT-E5X"/>
                                                 <constraint firstItem="zYS-sm-pXG" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="topMargin" constant="4" id="IA0-7x-ahi"/>
                                                 <constraint firstItem="Gw6-gE-dgN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zYS-sm-pXG" secondAttribute="trailing" constant="10" id="IQN-yd-Sgx"/>
                                                 <constraint firstItem="OIM-Jd-chq" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="top" id="Ioz-oF-RXh"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="TsQ-hu-xei" secondAttribute="bottom" constant="-13" id="KV9-F5-5xG"/>
                                                 <constraint firstItem="OIM-Jd-chq" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" id="KVQ-ZU-K2X"/>
                                                 <constraint firstAttribute="trailing" secondItem="5Vp-n2-aND" secondAttribute="trailing" constant="8" id="QVH-5k-vfB"/>
+                                                <constraint firstAttribute="bottom" secondItem="TsQ-hu-xei" secondAttribute="bottom" constant="-34" id="Tvg-xl-0fs"/>
                                                 <constraint firstItem="5Vp-n2-aND" firstAttribute="leading" secondItem="Gw6-gE-dgN" secondAttribute="trailing" constant="4" id="WB9-I1-GYj"/>
+                                                <constraint firstAttribute="trailing" secondItem="TsQ-hu-xei" secondAttribute="trailing" id="XaK-AF-ZSc"/>
                                                 <constraint firstItem="zYS-sm-pXG" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" constant="16" id="cda-uo-cic"/>
                                                 <constraint firstItem="5Vp-n2-aND" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="topMargin" constant="4" id="etP-Ca-LoA"/>
-                                                <constraint firstItem="TsQ-hu-xei" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leadingMargin" constant="-8" id="iWj-LV-vit"/>
+                                                <constraint firstItem="Wj0-8b-WD0" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" id="lkl-4x-Jlv"/>
+                                                <constraint firstItem="Wj0-8b-WD0" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="top" id="mM4-oZ-Aqz"/>
+                                                <constraint firstAttribute="trailing" secondItem="Wj0-8b-WD0" secondAttribute="trailing" id="o3b-C4-6Nz"/>
+                                                <constraint firstItem="TsQ-hu-xei" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" id="ulL-9Y-MfA"/>
                                                 <constraint firstAttribute="bottom" secondItem="OIM-Jd-chq" secondAttribute="bottom" constant="1" id="w1p-7p-rKR"/>
                                                 <constraint firstItem="Gw6-gE-dgN" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="topMargin" constant="4" id="zPw-aa-gul"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="datePicker" destination="TsQ-hu-xei" id="tyy-KX-sdE"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

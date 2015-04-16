@@ -94,7 +94,7 @@
     timeWindow.StartTime = startDate;
     timeWindow.EndTime = endDate;
     freeBusy.TimeWindow = timeWindow;
-    freeBusy.MergedFreeBusyIntervalInMinutes = [NSNumber numberWithInteger:10];
+    freeBusy.MergedFreeBusyIntervalInMinutes = [NSNumber numberWithInteger:5];
     freeBusy.RequestedView = @"FreeBusyMerged";
     
     return freeBusy;

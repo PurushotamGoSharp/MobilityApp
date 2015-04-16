@@ -14,6 +14,7 @@
 #import "RoomFinderViewController.h"
 #import "AddAttendeesViewController.h"
 #import "ContactDetails.h"
+#define MIN_TIME_SLOT_FOR_SEARCH 10*60
 
 @interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,6 +45,9 @@
     UIBarButtonItem *backButton;
     
     BOOL searchFieldIsSelected;
+    
+    NSIndexPath *selectedTimeIndex;
+    NSDate *initialStartDate, *initialEndDate;
 }
 
 - (void)viewDidLoad
@@ -79,9 +83,12 @@
     newEvent.location = self.selectedRoom.nameOfRoom;
     newEvent.resources = @[self.selectedRoom.emailIDOfRoom];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    initialStartDate = [self.startDate copy];
+    initialEndDate = [self.endDate copy];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
     tapGesture.cancelsTouchesInView = NO;
-    [self.tableView addGestureRecognizer:tapGesture];
+    [self.view addGestureRecognizer:tapGesture];
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
@@ -141,9 +148,30 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)hideKeyboard
+- (void)hideKeyboard:(UITapGestureRecognizer *)tap
 {
     [self.view endEditing:YES];
+    
+    if (selectedTimeIndex)
+    {
+        CGPoint point = [tap locationInView:self.tableView];
+        NSIndexPath *tappedIndexPath = [self.tableView indexPathForRowAtPoint:point];
+        
+        if (![tappedIndexPath isEqual:selectedTimeIndex])
+        {
+            NSIndexPath *indexPath = selectedTimeIndex;
+            if ((tappedIndexPath.row != 1) & (tappedIndexPath.row != 2))
+            {
+                selectedTimeIndex = nil;
+            }
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:(UITableViewRowAnimationFade)];
+            //        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+            //                      withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView endUpdates];
+        }
+    }
 }
 
 - (void)registerForKeyboardNotifications
@@ -187,6 +215,11 @@
     self.tableView.scrollIndicatorInsets = contentInsets;
 }
 
+- (void)setStartDateForDatePicker:(UIDatePicker *)datePicker
+{
+    
+}
+
 - (void)addAttentee:(UIButton *)sender
 {
 //    if (reqiuredAttentees == nil)
@@ -208,6 +241,24 @@
 
 }
 
+- (NSDate *)dateByGettingTimefrom:(NSDate *)dateForTime withDateFrom:(NSDate *)dateFromDdate
+{
+    if (dateForTime == nil | dateFromDdate == nil)
+    {
+        return nil;
+    }
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:unitFlags fromDate:dateFromDdate];
+    NSDate *dateFromCalendar = [[NSCalendar currentCalendar] dateFromComponents:components];
+    
+    unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit ;
+    components = [[NSCalendar currentCalendar] components:unitFlags fromDate:dateForTime];
+    components.minute = (components.minute / 5) * 5;
+    NSDate *date = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:dateFromCalendar options:0];
+    
+    return date;
+}
+
 - (IBAction)sendInvites:(UIButton *)sender
 {
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
@@ -218,6 +269,7 @@
     newEvent.requiredAttendees = [reqiuredAttentees valueForKeyPath:@"@distinctUnionOfObjects.emailIDOfContact"];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
+    newEvent.startDate = [newEvent.startDate dateByAddingTimeInterval:1];
     //First we will check whether the room is booked by some one else while the user enters values;
     [roomManager availablityOfRooms:newEvent.resources forStart:newEvent.startDate toEnd:newEvent.endDate];
 }
@@ -234,6 +286,36 @@
 //                         withSuccess:^(BOOL foundContacts, NSArray *contactsFound) {
 //                             NSLog(@"Found array count %li", contactsFound.count);
 //                         }];
+}
+
+- (void)startTimeDatePickerValueChange:(UIDatePicker *)picker
+{
+    self.startDate = [self dateByGettingTimefrom:picker.date withDateFrom:self.startDate];
+    dateFormatter.dateFormat = @"hh.mm a";
+    startDateString = [dateFormatter stringFromDate:self.startDate];
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    UILabel *rightLable = (UILabel*)[cell viewWithTag:200];
+    rightLable.text = startDateString;
+    
+    newEvent.startDate = self.startDate;
+    NSLog(@"Start Working");
+}
+
+- (void)endTimeDatePickerValueChange:(UIDatePicker *)picker
+{
+    self.endDate = [self dateByGettingTimefrom:picker.date withDateFrom:self.endDate];
+    
+    dateFormatter.dateFormat = @"hh.mm a";
+    endDateString = [dateFormatter stringFromDate:self.endDate];
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    UILabel *rightLable = (UILabel*)[cell viewWithTag:200];
+    rightLable.text = endDateString;
+
+    newEvent.endDate = self.endDate;
+
+    NSLog(@"End Working");
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -318,7 +400,27 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"TimeSelectCell" forIndexPath:indexPath];
             cell.layer.masksToBounds = YES;
+            
+            UIDatePicker *datePikcer = (UIDatePicker *)[cell viewWithTag:222];
+            
+            if (indexPath.row == 1)
+            {
+                [datePikcer addTarget:self
+                               action:@selector(startTimeDatePickerValueChange:)
+                     forControlEvents:(UIControlEventValueChanged)];
+                datePikcer.minimumDate = initialStartDate;
+                datePikcer.maximumDate = [initialEndDate dateByAddingTimeInterval:-MIN_TIME_SLOT_FOR_SEARCH];
+                datePikcer.date = self.startDate;
 
+            }else if (indexPath.row == 2)
+            {
+                [datePikcer addTarget:self
+                               action:@selector(endTimeDatePickerValueChange:)
+                     forControlEvents:(UIControlEventValueChanged)];
+                datePikcer.minimumDate = [self.startDate dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
+                datePikcer.maximumDate = initialEndDate;
+                datePikcer.date = self.endDate;
+            }
         }else
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -327,6 +429,7 @@
         UILabel *leftLable = (UILabel*)[cell viewWithTag:100];
         UILabel *rightLable = (UILabel*)[cell viewWithTag:200];
         leftLable.text = dataOfFirstSection[indexPath.row];
+        
         switch (indexPath.row)
         {
             case 0:
@@ -348,6 +451,7 @@
             default:
                 break;
         }
+        
         leftLable.font = [self customFont:16 ofName:MuseoSans_700];
         rightLable.font = [self customFont:16 ofName:MuseoSans_700];
         
@@ -405,6 +509,12 @@
     {
         return 30;
     }
+    
+    
+    if ([indexPath isEqual:selectedTimeIndex])
+    {
+        return 185;
+    }
     return 44;
 }
 
@@ -415,6 +525,7 @@
     {
         return 0;
     }
+    
     return 30;
 }
 
@@ -448,6 +559,52 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (self.fromSelectRoomVC & (indexPath.row == 1 | indexPath.row == 2))
+    {
+        if (selectedTimeIndex == indexPath)
+        {
+            selectedTimeIndex = nil;
+        }else
+        {
+            selectedTimeIndex = indexPath;
+            
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            UIDatePicker *datePikcer = (UIDatePicker *)[cell viewWithTag:222];
+            
+            if (indexPath.row == 1)
+            {
+                [datePikcer addTarget:self
+                               action:@selector(startTimeDatePickerValueChange:)
+                     forControlEvents:(UIControlEventValueChanged)];
+                
+                [datePikcer removeTarget:self
+                                  action:@selector(endTimeDatePickerValueChange:)
+                        forControlEvents:(UIControlEventValueChanged)];
+                
+                datePikcer.date = self.startDate;
+                [self startTimeDatePickerValueChange:datePikcer];
+                
+            }else if (indexPath.row == 2)
+            {
+                [datePikcer addTarget:self
+                               action:@selector(endTimeDatePickerValueChange:)
+                     forControlEvents:(UIControlEventValueChanged)];
+                
+                [datePikcer removeTarget:self
+                                  action:@selector(startTimeDatePickerValueChange:)
+                        forControlEvents:(UIControlEventValueChanged)];
+                
+                datePikcer.date = self.endDate;
+                [self endTimeDatePickerValueChange:datePikcer];
+            }
+        }
+        [tableView beginUpdates];
+        [tableView reloadRowsAtIndexPaths:@[indexPath]
+                         withRowAnimation:(UITableViewRowAnimationFade)];
+//        [tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+//                 withRowAnimation:(UITableViewRowAnimationFade)];
+        [tableView endUpdates];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
