@@ -14,9 +14,11 @@
 #import "RoomFinderViewController.h"
 #import "AddAttendeesViewController.h"
 #import "ContactDetails.h"
+#import "SelectDateTableViewCell.h"
+
 #define MIN_TIME_SLOT_FOR_SEARCH 10*60
 
-@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate>
+@interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate, SelectDateCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -261,6 +263,14 @@
 
 - (IBAction)sendInvites:(UIButton *)sender
 {
+    NSTimeInterval timeIntervel = [newEvent.endDate timeIntervalSinceDate:newEvent.startDate];
+    if (timeIntervel < MIN_TIME_SLOT_FOR_SEARCH)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a time slot minimum of 10 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        
+        return;
+    }
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
     UITextField *txtField = (UITextField*)[cell viewWithTag:100];
@@ -398,25 +408,22 @@
     {
         if (self.fromSelectRoomVC & (indexPath.row == 1 | indexPath.row == 2))
         {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"TimeSelectCell" forIndexPath:indexPath];
+            SelectDateTableViewCell *selectedCell = [tableView dequeueReusableCellWithIdentifier:@"TimeSelectCell" forIndexPath:indexPath];
+            selectedCell.delegate = self;
+            UIDatePicker *datePikcer = selectedCell.datePicker;
+
+            cell = selectedCell;
             cell.layer.masksToBounds = YES;
-            
-            UIDatePicker *datePikcer = (UIDatePicker *)[cell viewWithTag:222];
             
             if (indexPath.row == 1)
             {
-                [datePikcer addTarget:self
-                               action:@selector(startTimeDatePickerValueChange:)
-                     forControlEvents:(UIControlEventValueChanged)];
                 datePikcer.minimumDate = initialStartDate;
-                datePikcer.maximumDate = [initialEndDate dateByAddingTimeInterval:-MIN_TIME_SLOT_FOR_SEARCH];
+                NSDate *minDate = self.endDate?:initialEndDate;
+                datePikcer.maximumDate = [minDate dateByAddingTimeInterval:-MIN_TIME_SLOT_FOR_SEARCH];
                 datePikcer.date = self.startDate;
 
             }else if (indexPath.row == 2)
             {
-                [datePikcer addTarget:self
-                               action:@selector(endTimeDatePickerValueChange:)
-                     forControlEvents:(UIControlEventValueChanged)];
                 datePikcer.minimumDate = [self.startDate dateByAddingTimeInterval:MIN_TIME_SLOT_FOR_SEARCH];
                 datePikcer.maximumDate = initialEndDate;
                 datePikcer.date = self.endDate;
@@ -568,32 +575,16 @@
         {
             selectedTimeIndex = indexPath;
             
-            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            UIDatePicker *datePikcer = (UIDatePicker *)[cell viewWithTag:222];
+            SelectDateTableViewCell *cell = (SelectDateTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+            UIDatePicker *datePikcer = cell.datePicker;
             
             if (indexPath.row == 1)
             {
-                [datePikcer addTarget:self
-                               action:@selector(startTimeDatePickerValueChange:)
-                     forControlEvents:(UIControlEventValueChanged)];
-                
-                [datePikcer removeTarget:self
-                                  action:@selector(endTimeDatePickerValueChange:)
-                        forControlEvents:(UIControlEventValueChanged)];
-                
                 datePikcer.date = self.startDate;
                 [self startTimeDatePickerValueChange:datePikcer];
                 
             }else if (indexPath.row == 2)
             {
-                [datePikcer addTarget:self
-                               action:@selector(endTimeDatePickerValueChange:)
-                     forControlEvents:(UIControlEventValueChanged)];
-                
-                [datePikcer removeTarget:self
-                                  action:@selector(startTimeDatePickerValueChange:)
-                        forControlEvents:(UIControlEventValueChanged)];
-                
                 datePikcer.date = self.endDate;
                 [self endTimeDatePickerValueChange:datePikcer];
             }
@@ -707,6 +698,20 @@
     }
     
     [self.tableView reloadData];
+}
+
+#pragma mark - SelectDateCellDelegate
+- (void)selectedCell:(SelectDateTableViewCell *)cell timeChanged:(UIDatePicker *)datePicker
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    if (indexPath.row == 1)
+    {
+        [self startTimeDatePickerValueChange:datePicker];
+    }else if (indexPath.row == 2)
+    {
+        [self endTimeDatePickerValueChange:datePicker];
+    }
 }
 
 
