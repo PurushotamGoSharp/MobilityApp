@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "RequestModel.h"
+#import "TicketListModel.h"
 @interface TicketsListCell : UITableViewCell
 
 @property (nonatomic, strong) RequestModel *requestModel;
+
+@property (nonatomic ,strong) TicketListModel *ticketListModel;
 
 @end

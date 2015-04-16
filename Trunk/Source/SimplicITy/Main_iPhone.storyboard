@@ -231,6 +231,7 @@
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="tipsButtonPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="IJ4-Ct-p45"/>
+                                                                    <segue destination="5LW-hh-LLF" kind="push" id="ZB3-PB-k0o"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-sT-i8u">
@@ -1510,7 +1511,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5q8-PF-f9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2454" y="-1288"/>
+            <point key="canvasLocation" x="3298" y="-664"/>
         </scene>
         <!--Tips Sub Categories View Controller-->
         <scene sceneID="Ccj-3H-02J">
@@ -1585,7 +1586,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2jE-QP-EN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3667" y="-1288"/>
+            <point key="canvasLocation" x="4511" y="-664"/>
         </scene>
         <!--Tip Details View Controller-->
         <scene sceneID="RG5-2Q-x8N">
@@ -1680,7 +1681,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FlY-aL-FW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2851" y="-1288"/>
+            <point key="canvasLocation" x="3695" y="-664"/>
         </scene>
         <!--File Load View Controller-->
         <scene sceneID="YRz-qD-8rC">
@@ -3805,7 +3806,6 @@
                     <connections>
                         <segue destination="Dvq-yM-BKC" kind="relationship" relationship="viewControllers" id="H0A-db-jiR"/>
                         <segue destination="H0N-D3-8qt" kind="relationship" relationship="viewControllers" id="BFT-Kb-pn4"/>
-                        <segue destination="0Fh-6N-Xoz" kind="relationship" relationship="viewControllers" id="r6Y-V4-9eb"/>
                         <segue destination="KAK-dg-8Ul" kind="relationship" relationship="viewControllers" id="e04-4W-YVq"/>
                         <segue destination="u6c-LW-jJe" kind="relationship" relationship="viewControllers" id="QIj-gW-Spv"/>
                     </connections>
@@ -3870,25 +3870,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wei-WT-61i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1376" y="804"/>
-        </scene>
-        <!--Tips-->
-        <scene sceneID="RYf-kz-Mnq">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0Fh-6N-Xoz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tips" image="TipsIcon-01" id="9kj-BO-ABb"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZUp-xl-OIX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="5LW-hh-LLF" kind="relationship" relationship="rootViewController" id="oyf-JR-hIO"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OcR-Vn-uPw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2051" y="-1288"/>
         </scene>
         <!--Ticket-->
         <scene sceneID="zKb-Kb-eSa">
@@ -4124,7 +4105,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FCA-FN-J5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3250" y="-1288"/>
+            <point key="canvasLocation" x="4094" y="-664"/>
         </scene>
         <!--About Us-->
         <scene sceneID="GeG-mq-piI">
@@ -4493,7 +4474,6 @@
         <image name="SettingsTabIcon" width="30" height="30"/>
         <image name="TicketsListtBarIcon" width="21" height="22"/>
         <image name="TipsIcon" width="64" height="64"/>
-        <image name="TipsIcon-01" width="30" height="30"/>
         <image name="TipsListIcon" width="22" height="18"/>
         <image name="UCB-Mobility-Logo" width="40" height="40"/>
         <image name="WebClipDash" width="64" height="64"/>

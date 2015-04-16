@@ -32,6 +32,7 @@
 
 }
 
+
 - (void)getExpirationDateWithSuccess:(void (^)(NSInteger))success
 {
     NSString *cropID = [UserInfo sharedUserInfo].cropID;
@@ -56,7 +57,6 @@
     
     [self setAuthenticationBlockForOperation:operation];
     [operationQueue addOperation:operation];
-
 }
 
 - (void)setAuthenticationBlockForOperation:(AFHTTPRequestOperation *)operation

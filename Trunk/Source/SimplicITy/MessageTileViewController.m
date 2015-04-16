@@ -354,6 +354,8 @@
             UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
         }
+        
+        
     }
 }
 
@@ -388,8 +390,12 @@
             if (countForNoOfCategories != 0)
             {
                 [newsCategoryArr addObject:categoryModel];
+            }else
+            {
+                if ([categoryModel.categoryCode isEqualToString:@"OK2UPDATE"]) {
+                    [newsCategoryArr addObject:categoryModel];
+                }
             }
-            
         }
 
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"categoryName" ascending:YES];
