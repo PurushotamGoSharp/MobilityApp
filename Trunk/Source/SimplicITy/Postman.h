@@ -22,6 +22,7 @@
 @property (weak, nonatomic)id <postmanDelegate> delegate;
 
 - (void)post:(NSString *)URLString withParameters:(NSString *)parameter;
+
 - (void)get:(NSString *)URLString ;
 
 @end

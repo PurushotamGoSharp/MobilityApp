@@ -60,6 +60,23 @@
     self.currentStatusLabel.text = staus;
 }
 
+-(void)setTicketListModel:(TicketListModel *)ticketListModel
+{
+    _ticketListModel = ticketListModel;
+    
+//    self.colorCodeView.backgroundColor = [self colorForImpact:ticketListModel.requestImpact];
+//    self.colorCodeView.backgroundColor = [self colorForImpact:<#(NSInteger)#>];
+    self.ticketHeadingLabel.text = ticketListModel.serviceName;
+    
+//    self.timeLabel.text = [dateFormatter stringFromDate:requestModel.requestDate];
+    
+//    NSString *staus = [ticketListModel.requestIncidentNo stringByAppendingString:@", New"];
+    
+    self.agentAssignedLabel.text = ticketListModel.agentname;
+    self.currentStatusLabel.text = ticketListModel.status;
+    
+}
+
 - (UIColor *)colorForImpact:(NSInteger)imapact
 {
     switch (imapact)

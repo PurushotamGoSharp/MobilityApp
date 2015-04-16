@@ -13,8 +13,15 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 #import "RequestModel.h"
+#import "Postman.h"
 
-@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate, DBManagerDelegate>
+#import "SendRequestsManager.h"
+#import "TicketListModel.h"
+
+
+#define URL_TO_GET_LISTOF_TICKETS = @"https://simplicity-dev.ucb.com/itsm/tickets/id/created-by-user/firstName/marc/lastName/van%20cutsem"
+
+@interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate, DBManagerDelegate, TicketListsDelegate>
 {
     UIBarButtonItem *backButton;
 }
@@ -28,17 +35,19 @@
 
 @property (strong ,nonatomic)UIRefreshControl *refreshControl;
 
+
 @end
 
 @implementation TicketsListViewController
 {
-    NSMutableArray *arrayOfData;
+    NSMutableArray *arrayOfData, *arrOfTicketLists;
     BOOL filterIsShown;
     NSArray *arrayForStatus, *arrayOfNo;
     
     UIControl *hideFilterControl;
     DBManager *dbManager;
     NSInteger selectedRow;
+    Postman  *postMan;
 
 
 }
@@ -102,6 +111,46 @@
                   forControlEvents:UIControlEventValueChanged];
     
     [self.tableViewOutlet  addSubview:self.refreshControl];
+    
+    [self tryToLoadListOfTickets];
+}
+
+
+-(void)tryToLoadListOfTickets
+{
+    SendRequestsManager *requestManager = [[SendRequestsManager alloc] init];
+    requestManager.delegate = self;
+    [requestManager getListOfTickets:@"https://simplicity-dev.ucb.com/itsm/tickets/id/created-by-user/firstName/marc/lastName/van%20cutsem"];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+-(void)ticketLists:(SendRequestsManager *)ticketList gotSucess:(NSData *)response
+{
+    [self parseTicketListResponse:response];
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+-(void)parseTicketListResponse:(NSData*)responseData
+{
+    NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseData
+                                                            options:kNilOptions
+                                                              error:nil];
+    NSArray *arr = JSONDict[@"tickets"];
+    
+    arrOfTicketLists = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *aDict in arr)
+    {
+        TicketListModel *aModel = [TicketListModel alloc];
+        aModel.serviceName = aDict[@"ServiceCI"];
+        aModel.agentname = aDict[@"Assignee"];
+        aModel.incedentNumber = aDict[@"Incident_Number"];
+        aModel.status = aDict[@"Status"];
+        
+        [arrOfTicketLists addObject:aModel];
+    }
+    [self.tableViewOutlet reloadData];
+    
 }
 
 - (void)backBtnAction
@@ -262,7 +311,7 @@
 {
     if ([tableView isEqual:self.tableViewOutlet])
     {
-        return [arrayOfData count];
+        return [arrOfTicketLists count];
     }
     
     return [arrayForStatus count];
@@ -276,9 +325,11 @@
         TicketsListCell *ticketCell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 //        ticketCell.requestModel = arrayOfData[indexPath.row];
         
-        NSUInteger row = [indexPath row];
-        NSUInteger count = [arrayOfData count];
-        ticketCell.requestModel = arrayOfData[count-row-1];
+//        NSUInteger row = [indexPath row];
+//        NSUInteger count = [arrayOfData count];
+//        ticketCell.requestModel = arrayOfData[count-row-1];
+        
+        ticketCell.ticketListModel = arrOfTicketLists[indexPath.row];
         
         UIView *bgColorView = [[UIView alloc] init];
         bgColorView.backgroundColor = [self barColorForIndex:selectedRow];

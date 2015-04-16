@@ -558,7 +558,6 @@
 
 - (IBAction)tipsButtonPressed:(UIButton *)sender
 {
-    [self.tabBarController setSelectedIndex:2];
 }
 
 - (IBAction)myTicketsBtnPressed:(id)sender

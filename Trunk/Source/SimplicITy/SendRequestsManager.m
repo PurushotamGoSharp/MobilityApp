@@ -259,6 +259,28 @@
     [operationQueue addOperation:operation];
 }
 
+-(void)getListOfTickets:(NSString *)URL // getting the list of all tickets 
+{
+    NSURL *url = [NSURL URLWithString:URL];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSData *responseData = [operation responseData];
+        [self.delegate ticketLists:self gotSucess:responseData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+    [self setAuthenticationBlockForOperation:operation];
+    [operationQueue addOperation:operation];
+
+}
+
+
 - (void)setAuthenticationBlockForOperation:(AFHTTPRequestOperation *)operation
 {
     [operation setWillSendRequestForAuthenticationChallengeBlock:^(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge) {

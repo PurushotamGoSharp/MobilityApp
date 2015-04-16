@@ -8,9 +8,10 @@
 
 #import "ok2updateViewController.h"
 #import "AppDelegate.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 
-@interface ok2updateViewController ()
+@interface ok2updateViewController ()<UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webViewOutlet;
 @end
@@ -32,16 +33,7 @@
     [center addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
     
     
-//    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//    appDelegate.inboxSampleViewController = self;
-//    
-//    self.version.text = [NSString stringWithFormat:@"UAInbox Version: %@", [UAirshipVersion get]];
-//    
-//    self.navigationItem.rightBarButtonItem
-//    = [[UIBarButtonItem alloc] initWithTitle:@"Inbox" style:UIBarButtonItemStylePlain target:self action:@selector(mail:)];
-//    
-//    // For UINavigationController UI
-//    [UAInboxNavUI shared].popoverButton = self.navigationItem.rightBarButtonItem;
+    self.webViewOutlet.delegate = self;
     
     NSString *plistFilePath = [NSString stringWithString:[[NSBundle mainBundle] pathForResource:@"Parameters" ofType:@"plist"]];
     paramDict = [[NSDictionary alloc] initWithContentsOfFile:plistFilePath];
@@ -60,6 +52,7 @@
     
     targetURL = [[NSString alloc] initWithFormat:@"%@?l=%@&i=%@&m=%@", [paramDict objectForKey:@"ios_check_url"], loc, currIosVersion,model];
     NSLog(@"%@",targetURL);
+    [self refreshBrowser];
 }
 
 - (void)defaultsChanged {
@@ -81,6 +74,13 @@
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     
     [self.webViewOutlet loadRequest:requestObj];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
