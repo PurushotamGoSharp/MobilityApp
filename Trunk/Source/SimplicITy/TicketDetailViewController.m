@@ -149,7 +149,7 @@
     
     if (indexPath.section == 1)
     {
-        titleLable.text = self.requestModel.requestServiceName;
+        titleLable.text = self.tickrtListModel.serviceName;
         rightTable.text = @"";
         titleLable.font=[self customFont:16 ofName:MuseoSans_300];
         titleLable.textColor = [UIColor lightGrayColor];
@@ -157,7 +157,7 @@
     else if (indexPath.section == 2)
     {
         UILabel *titleTextView = (UILabel *)[cell viewWithTag:100];
-        titleTextView.text = self.requestModel.requestDetails;
+        titleTextView.text = self.tickrtListModel.details;
         titleTextView.textAlignment = NSTextAlignmentJustified;
         rightTable.hidden = YES;
         titleTextView.textColor = [UIColor lightGrayColor];
@@ -179,7 +179,7 @@
                     titleLable.text = @"Ticket Number";
                 }
                 
-                rightTable.text = self.requestModel.requestIncidentNo;
+                rightTable.text = self.tickrtListModel.incedentNumber;
                 break;
                 
             case 1:
@@ -189,9 +189,9 @@
                 
             case 2:
                 titleLable.text = @"Impact";
-                rightTable.text = [self giveImpactForCOlor:self.requestModel.requestImpact];
-                linColour.backgroundColor = [self colorForImpact:self.requestModel.requestImpact];
-                circelColour.backgroundColor = [self colorForImpact:self.requestModel.requestImpact];
+//                rightTable.text = [self giveImpactForCOlor:self.tickrtListModel.requestImpact];
+//                linColour.backgroundColor = [self colorForImpact:self.tickrtListModel.requestImpact];
+//                circelColour.backgroundColor = [self colorForImpact:self.tickrtListModel.requestImpact];
                 break;
                 
             case 3:
@@ -209,7 +209,7 @@
             case 5:
                 titleLable.text = @"Date";
                 //                rightTable.text = self.tickModel.date;
-                rightTable.text = [dateFormatter stringFromDate:self.requestModel.requestDate];
+//                rightTable.text = [dateFormatter stringFromDate:self.tickrtListModel.requestDate];
                 break;
                 
             default:
@@ -233,7 +233,7 @@
         CGSize maximumLabelSize = CGSizeMake(widthLabel, FLT_MAX);
         
         
-        CGSize expectedLabelSize = [self.requestModel.requestDetails boundingRectWithSize:maximumLabelSize
+        CGSize expectedLabelSize = [self.tickrtListModel.details boundingRectWithSize:maximumLabelSize
                                                        options:NSStringDrawingUsesLineFragmentOrigin
                                                     attributes:@{ NSFontAttributeName : [self customFont:16 ofName:MuseoSans_300] }
                                                        context:nil].size;

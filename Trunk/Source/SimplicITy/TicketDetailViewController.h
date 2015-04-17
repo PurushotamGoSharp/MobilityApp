@@ -8,6 +8,8 @@
 
 #import "CustomColoredViewController.h"
 #import "RequestModel.h"
+#import "TicketListModel.h"
+
 @interface TicketDetailViewController : CustomColoredViewController
 {
     
@@ -15,6 +17,10 @@
 
 //@property (nonatomic,strong)TicketModel *tickModel;
 @property (nonatomic,strong)RequestModel *requestModel;
+
+@property (nonatomic,strong)TicketListModel *tickrtListModel;
+
+
 
 @property (strong, nonatomic)NSString *orderItemDifferForList;
 

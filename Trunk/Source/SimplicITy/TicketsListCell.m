@@ -65,15 +65,20 @@
     _ticketListModel = ticketListModel;
     
 //    self.colorCodeView.backgroundColor = [self colorForImpact:ticketListModel.requestImpact];
-//    self.colorCodeView.backgroundColor = [self colorForImpact:<#(NSInteger)#>];
+    
+    self.colorCodeView.backgroundColor = [self colourForImpactFromAPI:ticketListModel.impact];
     self.ticketHeadingLabel.text = ticketListModel.serviceName;
     
 //    self.timeLabel.text = [dateFormatter stringFromDate:requestModel.requestDate];
     
 //    NSString *staus = [ticketListModel.requestIncidentNo stringByAppendingString:@", New"];
     
+    NSString *str = [NSString stringWithFormat:@", %@",ticketListModel.status];
+    
+    NSString *status = [ticketListModel.incedentNumber stringByAppendingString:str];
+    
     self.agentAssignedLabel.text = ticketListModel.agentname;
-    self.currentStatusLabel.text = ticketListModel.status;
+    self.currentStatusLabel.text = status;
     
 }
 
@@ -102,6 +107,23 @@
     }
     
     return nil;
+}
+
+-(UIColor *)colourForImpactFromAPI:(NSString *)impactname
+{
+    if ([impactname isEqualToString:@"Low"])
+    {
+        return [UIColor greenColor];
+    }else if ([impactname isEqualToString:@"Medium"])
+    {
+        return [UIColor yellowColor];
+    }else if ([impactname isEqualToString:@"High"])
+    {
+        return [UIColor orangeColor];
+    }else
+    {
+        return [UIColor redColor];
+    }
 }
 
 @end

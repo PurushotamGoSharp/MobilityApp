@@ -244,6 +244,7 @@
             alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
         }
         
+        
         UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
                                                                 message:alertMessage
                                                                delegate:self
@@ -582,7 +583,17 @@
                      }
                      completion:^(BOOL finished) {
                          
-                         [self.scrollView scrollRectToVisible:self.textviewContentView.frame animated:YES];
+                         
+                         
+//                         [self.scrollView scrollRectToVisible:self.textviewContentView.frame animated:YES];
+                         
+//                         NSLog(@"%",self.scrollView.contentOffset);
+                         
+                         
+//                         NSLog(@"======== %@",NSStringFromCGPoint(self.textviewContentView.frame.size));
+                         
+                         NSLog(@"======== %@",NSStringFromCGSize(self.textView.frame.size));
+
 
                      }];
     
@@ -624,7 +635,7 @@
 //        [self.scrollView setContentOffset:(CGPointMake(0, 220)) animated:YES];
 //        [self.view layoutIfNeeded];
 //    }
-//    
+    
 
 
 }

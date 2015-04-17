@@ -17,9 +17,10 @@
 
 #import "SendRequestsManager.h"
 #import "TicketListModel.h"
+#import "UserInfo.h"
 
 
-#define URL_TO_GET_LISTOF_TICKETS = @"https://simplicity-dev.ucb.com/itsm/tickets/id/created-by-user/firstName/marc/lastName/van%20cutsem"
+
 
 @interface TicketsListViewController () <UITableViewDataSource, UITableViewDelegate, DBManagerDelegate, TicketListsDelegate>
 {
@@ -120,7 +121,15 @@
 {
     SendRequestsManager *requestManager = [[SendRequestsManager alloc] init];
     requestManager.delegate = self;
-    [requestManager getListOfTickets:@"https://simplicity-dev.ucb.com/itsm/tickets/id/created-by-user/firstName/marc/lastName/van%20cutsem"];
+    
+    NSDictionary *userInfoDict = [[UserInfo sharedUserInfo] getServerConfig];
+    NSString *firstName = userInfoDict [@"firstName"];
+    NSString *lastName = userInfoDict [@"lastName"];
+    
+    
+    NSString *UrL = [NSString stringWithFormat:@"%@firstName/%@/lastName/%@",URL_TO_GET_LISTOF_TICKETS,firstName,lastName];
+    
+    [requestManager getListOfTickets:UrL];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
 
@@ -144,8 +153,10 @@
         TicketListModel *aModel = [TicketListModel alloc];
         aModel.serviceName = aDict[@"ServiceCI"];
         aModel.agentname = aDict[@"Assignee"];
+        aModel.impact = aDict[@"Priority"];
         aModel.incedentNumber = aDict[@"Incident_Number"];
         aModel.status = aDict[@"Status"];
+        aModel.details = aDict[@"Notes"];
         
         [arrOfTicketLists addObject:aModel];
     }
@@ -179,7 +190,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:REQUEST_SYNC_NOTIFICATION_KEY
                                                   object:nil];
@@ -214,9 +224,11 @@
     TicketDetailViewController *ticketDeteilVC = segue.destinationViewController;
 //    ticketDeteilVC.requestModel = arrayOfData[indexPath.row];
     
-    NSUInteger row = [indexPath row];
-    NSUInteger count = [arrayOfData count];
-    ticketDeteilVC.requestModel = arrayOfData[count-row-1];
+//    NSUInteger row = [indexPath row];
+//    NSUInteger count = [arrayOfData count];
+//    ticketDeteilVC.requestModel = arrayOfData[count-row-1];
+    
+    ticketDeteilVC.tickrtListModel = arrOfTicketLists[indexPath.row];
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
