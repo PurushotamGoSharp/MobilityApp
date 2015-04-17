@@ -15,6 +15,7 @@
 @property (nonatomic,strong)NSString *impact;
 @property (nonatomic,strong)NSString *incedentNumber;
 @property (nonatomic,strong)NSString *status;
+@property (nonatomic,strong)NSString *details;
 
 
 @end
