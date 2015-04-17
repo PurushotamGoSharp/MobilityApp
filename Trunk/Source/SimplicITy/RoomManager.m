@@ -158,4 +158,14 @@
     [self.delegate roomManager:self successfullYGotContacts:foundContacts];
 }
 
+- (void)ESWRoomManager:(ESWRoomManager *)manager failedToGetPassword:(PasswordManager *)passwordManager
+{
+    [self.delegate roomManager:self gotPassword:passwordManager];
+}
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager gotPassword:(PasswordManager *)passwordManager
+{
+    [self.delegate roomManager:self failedToGetPassword:passwordManager];
+}
+
 @end

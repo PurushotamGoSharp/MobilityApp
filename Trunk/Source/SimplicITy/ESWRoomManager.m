@@ -13,10 +13,11 @@
 #import "CalendarEvent.h"
 #import "ContactDetails.h"
 #import "TimeWindow.h"
+#import "PasswordManager.h"
 
 #define MIN_TIME_SLOT_FOR_SEARCH 5*60
 
-@interface ESWRoomManager() <SSLCredentialsManaging>
+@interface ESWRoomManager() <SSLCredentialsManaging, PasswordManagerDelegate>
 
 @end
 
@@ -31,6 +32,8 @@
     NSString *EWSUserName, *EWSPassword;
     
     NSInteger noOfFailedAuth;
+    
+    PasswordManager *passwordManager;
 }
 
 - (instancetype)init
@@ -68,6 +71,9 @@
     dateFormatter = [[NSDateFormatter alloc] init];
     
     noOfFailedAuth = 0;
+    
+    passwordManager = [[PasswordManager alloc] init];
+    passwordManager.delegate = self;
 }
 
 - (void)getRoomsList
@@ -502,7 +508,7 @@
                             [foundContactsArray addObject:aContact];
                         }
                         
-                        NSLog(@"Found %li contacts", contactsFound.count);
+                        NSLog(@"Found %li contacts", (unsigned long)contactsFound.count);
                     }else
                     {
                         return nil;
@@ -524,30 +530,25 @@
 
 - (BOOL)authenticateForChallenge:(NSURLAuthenticationChallenge *)challenge
 {
-    if (![self getUserNameAndPasswordForEWS])
+    if ([passwordManager passwordForUser].length <= 0)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please enter Password in settings page"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-        [alertView show];
-        
+        [passwordManager showAlertWithDefaultMessage];
         [self.delegate ESWRoomManager:self failedWithError:nil];
 
         return NO;
     }
 
-//This method will be called TWO times for proper Credentials. BUT it will be called COUNTINOUSLY (INFINTE TIMES) is credentials are WRONG.
+//This method will be called TWO times for proper Credentials. BUT it will be called COUNTINOUSLY (INFINTE TIMES) if credentials are WRONG.
     if (noOfFailedAuth > 1)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please check Password given in settings page"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+//                                                            message:@"Please check Password given in settings page"
+//                                                           delegate:self
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles: nil];
+//        [alertView show];
         
+        [passwordManager showAlertForPasswordWithMessage:@"Password given is wrong. Please enter the correct one"];
         [self.delegate ESWRoomManager:self failedWithError:nil];
 
         return NO;
@@ -555,6 +556,9 @@
     
     NSLog(@"Auth called");
     
+    EWSUserName = [UserInfo sharedUserInfo].cropID;
+    EWSPassword= [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD];
+
     NSURLCredential *newCredential = [NSURLCredential
                                       credentialWithUser:EWSUserName
                                       password:EWSPassword
@@ -564,6 +568,16 @@
     
     noOfFailedAuth++;
     return YES;
+}
+
+- (void)passwordManagerFailedToGetPassoword:(PasswordManager *)manager
+{
+    [self.delegate ESWRoomManager:self gotPassword:passwordManager];
+}
+
+- (void)passwordManagerGotPassword:(PasswordManager *)manager
+{
+    [self.delegate ESWRoomManager:self failedToGetPassword:passwordManager];
 }
 
 @end

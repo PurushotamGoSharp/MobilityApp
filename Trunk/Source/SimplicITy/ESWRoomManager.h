@@ -11,6 +11,7 @@
 
 @class CalendarEvent;
 @class ESWRoomManager;
+@class PasswordManager;
 
 typedef void(^SuccessBlock)(NSString *itemId, NSString *changeKey);
 typedef void(^FailureBlock)(NSError *error);
@@ -28,6 +29,9 @@ typedef void(^FailureBlock)(NSError *error);
 - (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error;
 
 - (void)ESWRoomManager:(ESWRoomManager *)manager successfullYGotContacts:(NSArray *)foundContacts;
+
+- (void)ESWRoomManager:(ESWRoomManager *)manager gotPassword:(PasswordManager *)passwordManager;
+- (void)ESWRoomManager:(ESWRoomManager *)manager failedToGetPassword:(PasswordManager *)passwordManager;
 
 @end
 

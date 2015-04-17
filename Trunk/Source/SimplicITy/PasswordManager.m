@@ -31,10 +31,10 @@
 {
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD];
     
-    if (password == nil)
-    {
-        [self showAlertWithDefaultMessage];
-    }
+//    if (password == nil)
+//    {
+//        [self showAlertWithDefaultMessage];
+//    }
     
     return password;
 }
@@ -67,8 +67,12 @@
     if (buttonIndex == 1)
     {
         UITextField *passwordField = [alertView textFieldAtIndex:0];
-        [[NSUserDefaults standardUserDefaults] setObject:passwordField forKey:EWS_USERS_PASSWORD];
-        NSLog(@"%@", passwordField);
+        [[NSUserDefaults standardUserDefaults] setObject:passwordField.text forKey:EWS_USERS_PASSWORD];
+        NSLog(@"%@", passwordField.text);
+        [self.delegate passwordManagerGotPassword:self];
+    }else
+    {
+        [self.delegate passwordManagerFailedToGetPassoword:self];
     }
 }
 

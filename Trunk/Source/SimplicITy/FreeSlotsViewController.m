@@ -16,8 +16,9 @@
 #import "TimeWindow.h"
 #import "InviteAttendeesViewController.h"
 #import "NSDate+CL.h"
+#import "PasswordManager.h"
 
-@interface FreeSlotsViewController () <CLWeeklyCalendarViewDelegate, RoomManagerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface FreeSlotsViewController () <CLWeeklyCalendarViewDelegate, RoomManagerDelegate, UITableViewDataSource, UITableViewDelegate, PasswordManagerDelegate>
 
 @property (nonatomic, strong) CLWeeklyCalendarView *calendarView;
 
@@ -32,6 +33,10 @@
 @implementation FreeSlotsViewController
 {
     RoomManager *roomManager;
+    
+    PasswordManager *passwordManager;
+    NSString *currentlyExcutingMethod;
+
     NSString *selectedLocationEmailID;
     
     NSIndexPath *selectedIndexPath;
@@ -71,6 +76,9 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     self.title = @"Book a Room";
+    
+    passwordManager = [[PasswordManager alloc] init];
+    passwordManager.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,6 +119,31 @@
     NSInteger selectedThemeIndex = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     NSString *selectedDateBannerName = [NSString stringWithFormat:@"selectedDateBanner_%li", selectedThemeIndex];
     self.bannerImageView.image = [UIImage imageNamed:selectedDateBannerName];
+    
+    UIColor *color;
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
+    {
+        case 0:
+            color = [UIColor orangeColor];
+            break;
+            
+        case 1:
+            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
+            break;
+            
+        case 2:
+            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
+            break;
+            
+        case 3:
+            color = [UIColor colorWithRed:.4 green:.41 blue:.79 alpha:1];
+            break;
+            
+        default:
+            break;
+    }
+    self.searchByTimeButton.backgroundColor = color;
 }
 
 - (void)backBtnAction
@@ -144,12 +177,21 @@
     
     if (selectedLocationEmailID)
     {
-        [roomManager getRoomsForRoomList:selectedLocationEmailID];
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        currentlyExcutingMethod = @"getAllRoomsOfCurrentLocation";
+        
+        if ([passwordManager passwordForUser].length > 0)
+        {
+            [roomManager getRoomsForRoomList:selectedLocationEmailID];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        }else
+        {
+            [passwordManager showAlertWithDefaultMessage];
+        }
+        
     }else
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please go to settings and configure Book a Room settings"
+                                                            message:@"Please go to settings and choose an Office Location"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -414,6 +456,15 @@
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
+- (void)roomManager:(RoomManager *)manager gotPassword:(PasswordManager *)passwordManager
+{
+    if ([currentlyExcutingMethod isEqualToString:@"getAllRoomsOfCurrentLocation"])
+    {
+        [self getAllRoomsOfCurrentLocation];
+        
+    }
+}
+
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -427,6 +478,21 @@
         inviteVC.selectedRoom = self.rooms[selectedIndexPath.section];
         inviteVC.fromSelectRoomVC = YES;
     }
+}
+
+#pragma mark - PasswordManagerDelegate
+- (void)passwordManagerGotPassword:(PasswordManager *)manager
+{
+    if ([currentlyExcutingMethod isEqualToString:@"getAllRoomsOfCurrentLocation"])
+    {
+        [self getAllRoomsOfCurrentLocation];
+        
+    }
+}
+
+- (void)passwordManagerFailedToGetPassoword:(PasswordManager *)manager
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (BOOL)shouldAutorotate

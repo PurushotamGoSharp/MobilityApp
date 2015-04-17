@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 @class RoomManager;
 @class CalendarEvent;
+@class PasswordManager;
 
 @protocol RoomManagerDelegate <NSObject>
 
@@ -23,6 +24,9 @@
 - (void)roomManager:(RoomManager *)manager successfullYGotContacts:(NSArray *)foundContacts;
 
 - (void)roomManager:(RoomManager *)manager failedWithError:(NSError *)error;
+
+- (void)roomManager:(RoomManager *)manager gotPassword:(PasswordManager *)passwordManager;
+- (void)roomManager:(RoomManager *)manager failedToGetPassword:(PasswordManager *)passwordManager;
 
 @end
 

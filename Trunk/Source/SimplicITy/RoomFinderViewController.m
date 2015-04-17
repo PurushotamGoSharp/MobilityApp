@@ -55,6 +55,8 @@
     NSString *currentlyExcutingMethod;
     
     NSInteger selectedindex;
+    
+    UIAlertView *officeLocationAlert;
 }
 
 - (void)viewDidLoad
@@ -88,6 +90,7 @@
     self.navigationItem.leftBarButtonItem = backButton;
     
     passwordManager = [[PasswordManager alloc] init];
+    passwordManager.delegate = self;
     [self getAllRoomsOfCurrentLocation];
     
     [self setbuttonForSwitchMode];
@@ -139,6 +142,31 @@
 
     NSString *selectedDateBannerName = [NSString stringWithFormat:@"selectedDateBanner_%li", (long)selectedThemeIndex];
     self.bannerImageView.image = [UIImage imageNamed:selectedDateBannerName];
+    
+    UIColor *color;
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
+    {
+        case 0:
+            color = [UIColor orangeColor];
+            break;
+            
+        case 1:
+            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
+            break;
+            
+        case 2:
+            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
+            break;
+            
+        case 3:
+            color = [UIColor colorWithRed:.4 green:.41 blue:.79 alpha:1];
+            break;
+            
+        default:
+            break;
+    }
+    self.serachRoomsButton.backgroundColor = color;
 }
 
 - (void)getAllRoomsOfCurrentLocation
@@ -147,22 +175,25 @@
     
     if (selectedLocationEmailID)
     {
-//        currentlyExcutingMethod = @"getAllRoomsOfCurrentLocation";
-//
-//        if ([passwordManager passwordForUser].length > 0)
-//        {
+        currentlyExcutingMethod = @"getAllRoomsOfCurrentLocation";
+
+        if ([passwordManager passwordForUser] != nil)
+        {
             [roomManager getRoomsForRoomList:selectedLocationEmailID];
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        }
-        
+        }else
+        {
+            [passwordManager showAlertWithDefaultMessage];
+        }
+    
     }else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please go to settings and configure Book a Room settings"
+        officeLocationAlert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"Please go to settings and choose an Office Location"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
-        [alertView show];
+        [officeLocationAlert show];
     }
 }
 
@@ -290,6 +321,7 @@
 
 - (IBAction)findAvailableRooms:(id)sender
 {
+    currentlyExcutingMethod = @"findAvailableRooms:";
     if ([sender tag] == 100)
     {
         [self performSegueWithIdentifier:@"RoomFinderToFreeSlotsSegue" sender:nil];
@@ -318,7 +350,7 @@
     if (emailIDsOfRoomsToCheck.count == 0 | emailIDsOfRoomsToCheck == nil)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please check Password given in settings page"
+                                                            message:@"Please go to settings and choose an Office Location"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
@@ -536,6 +568,26 @@
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
+- (void)roomManager:(RoomManager *)manager failedToGetPassword:(PasswordManager *)passwordManager
+{
+    if ([currentlyExcutingMethod isEqualToString:@"getAllRoomsOfCurrentLocation"])
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (void)roomManager:(RoomManager *)manager gotPassword:(PasswordManager *)passwordManager
+{
+    if ([currentlyExcutingMethod isEqualToString:@"getAllRoomsOfCurrentLocation"])
+    {
+        [self getAllRoomsOfCurrentLocation];
+        
+    }else if ([currentlyExcutingMethod isEqualToString:@"findAvailableRooms:"])
+    {
+        
+    }
+}
+
 #pragma mark - CLWeeklyCalendarViewDelegate
 
 - (NSDictionary *)CLCalendarBehaviorAttributes
@@ -608,6 +660,11 @@
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if ([alertView isEqual:officeLocationAlert])
+    {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+    }
     if (buttonIndex == 1)
     {
         [self performSegueWithIdentifier:@"romeFinderToInvite_segue" sender:nil];
@@ -617,24 +674,20 @@
 #pragma mark - PasswordManagerDelegate
 - (void)passwordManagerGotPassword:(PasswordManager *)manager
 {
-    if (currentlyExcutingMethod != nil)
+    if ([currentlyExcutingMethod isEqualToString:@"getAllRoomsOfCurrentLocation"])
     {
-        SEL selector = NSSelectorFromString(currentlyExcutingMethod);
+        [self getAllRoomsOfCurrentLocation];
         
-        if ([self respondsToSelector:selector])
-        {
-//            IMP imp = [self methodForSelector:selector];
-//            void (*func)
-//            [self performSelector:selector];
-        }
+    }else if ([currentlyExcutingMethod isEqualToString:@"findAvailableRooms:"])
+    {
+        
     }
 }
 
 - (void)passwordManagerFailedToGetPassoword:(PasswordManager *)manager
 {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 - (BOOL)shouldAutorotate
 {
