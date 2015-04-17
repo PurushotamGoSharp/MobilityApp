@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectedDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *placeHolderLabel;
 @property (weak, nonatomic) IBOutlet UIButton *serachRoomsButton;
+@property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 
 @property (nonatomic, strong) CLWeeklyCalendarView *calendarView;
 
@@ -105,7 +106,7 @@
 {
     [super viewWillAppear:animated];
     
-    
+    [self setTheme];
 }
 
 - (void)viewDidLayoutSubviews
@@ -117,6 +118,27 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setTheme
+{
+    NSInteger selectedThemeIndex = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
+    NSString *endSelectedimageName = [NSString stringWithFormat:@"endtTimeSelected_%li", (long)selectedThemeIndex];
+    NSString *endnotSelectedimageName = [NSString stringWithFormat:@"endTimeNotSelected_%li", (long)selectedThemeIndex];
+
+    [self.endTimeButton setBackgroundImage:[UIImage imageNamed:endSelectedimageName] forState:(UIControlStateHighlighted)];
+    [self.endTimeButton setBackgroundImage:[UIImage imageNamed:endSelectedimageName] forState:(UIControlStateSelected)];
+    [self.endTimeButton setBackgroundImage:[UIImage imageNamed:endnotSelectedimageName] forState:UIControlStateNormal];
+
+    NSString *startSelectedimageName = [NSString stringWithFormat:@"startTimeSelected_%li", (long)selectedThemeIndex];
+    NSString *startnotSelectedimageName = [NSString stringWithFormat:@"startTimeNotSelected_%li", (long)selectedThemeIndex];
+    
+    [self.startTimeButton setBackgroundImage:[UIImage imageNamed:startSelectedimageName] forState:(UIControlStateHighlighted)];
+    [self.startTimeButton setBackgroundImage:[UIImage imageNamed:startSelectedimageName] forState:(UIControlStateSelected)];
+    [self.startTimeButton setBackgroundImage:[UIImage imageNamed:startnotSelectedimageName] forState:UIControlStateNormal];
+
+    NSString *selectedDateBannerName = [NSString stringWithFormat:@"selectedDateBanner_%li", (long)selectedThemeIndex];
+    self.bannerImageView.image = [UIImage imageNamed:selectedDateBannerName];
 }
 
 - (void)getAllRoomsOfCurrentLocation

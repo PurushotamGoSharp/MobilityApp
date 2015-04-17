@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIView *containerForCalendar;
 @property (weak, nonatomic) IBOutlet UILabel *selectedDateLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
+@property (weak, nonatomic) IBOutlet UIButton *searchByTimeButton;
 
 @end
 
@@ -41,6 +43,8 @@
     NSArray *freeSlotsArray;
     
     NSDateFormatter *dateFormatter;
+    
+    UIBarButtonItem *backButton;
 }
 
 - (void)viewDidLoad
@@ -52,13 +56,27 @@
     roomManager.delegate = self;
     
     self.containerForCalendar.layer.masksToBounds = YES;
-
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Home" forState:UIControlStateNormal];
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.frame = CGRectMake(0, 0,80, 30);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    self.title = @"Book a Room";
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self setTheme];
     if (self.rooms.count == 0 | self.rooms == nil)
     {
         [self getAllRoomsOfCurrentLocation];
@@ -66,6 +84,8 @@
     {
         
     }
+    
+    self.searchByTimeButton.layer.cornerRadius = 5;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -86,6 +106,20 @@
     [self calendarView];
 }
 
+- (void)setTheme
+{
+    NSInteger selectedThemeIndex = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
+    NSString *selectedDateBannerName = [NSString stringWithFormat:@"selectedDateBanner_%li", selectedThemeIndex];
+    self.bannerImageView.image = [UIImage imageNamed:selectedDateBannerName];
+}
+
+- (void)backBtnAction
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    //    self.writeReviewTxtView.text = @"";
+    //    [self hideWriteReviewTextView];
+}
+
 - (CLWeeklyCalendarView *)calendarView
 {
     if(!_calendarView)
@@ -97,6 +131,11 @@
     }
     
     return _calendarView;
+}
+
+- (IBAction)searchByTime:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)getAllRoomsOfCurrentLocation
@@ -268,25 +307,31 @@
             freeSlotsArray = nil;
             selectedIndexPath = nil;
             [self updateTableViewSection:previousSection];
+            self.searchByTimeButton.hidden = YES;
         }else
         {
             previousSection = -1;//Negative vlues are not possible for sectoin value.
         }
-        
         if (indexPath.section != previousSection)
         {
             selectedDate = selectedDate?:[NSDate date];
             [self updateStartAndEndDateFor:selectedDate];
-            
             selectedIndexPath = indexPath;
             
             RoomModel *model = self.rooms[indexPath.section];
-            
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [roomManager findFreeSlotsOfRooms:@[model.emailIDOfRoom]
                                      forStart:startDate
                                         toEnd:endDate];
         }
+        
+//        if (selectedIndexPath)
+//        {
+//            self.searchByTimeButton.hidden = YES;
+//        }else
+//        {
+//            self.searchByTimeButton.hidden = NO;
+//        }
     }else if (indexPath.section == selectedIndexPath.section)
     {
         selectedTimeSlotIndex = indexPath.row;

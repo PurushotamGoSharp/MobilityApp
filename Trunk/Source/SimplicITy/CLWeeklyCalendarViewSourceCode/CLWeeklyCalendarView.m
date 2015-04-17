@@ -198,7 +198,31 @@ static float const CLCalendarSelectedDatePrintFontSizeDefault = 13.f;
         [recognizerLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
         [_backgroundImageView addGestureRecognizer:recognizerLeft];
     }
-    _backgroundImageView.backgroundColor = self.backgroundImageColor? self.backgroundImageColor : [UIColor colorWithPatternImage:[UIImage calendarBackgroundImage:self.bounds.size.height color:[UIColor colorWithRed:0.44 green:0.81 blue:0.96 alpha:1]]];;
+    
+    UIColor *color;
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
+    {
+        case 0:
+            color = [UIColor colorWithRed:.42 green:.8 blue:.99 alpha:1];
+            break;
+            
+        case 1:
+            color = [UIColor colorWithRed:.73 green:.79 blue:.67 alpha:1];
+            break;
+            
+        case 2:
+            color = [UIColor colorWithRed:.91 green:.73 blue:.68 alpha:1];
+            break;
+            
+        case 3:
+            color = [UIColor colorWithRed:.85 green:.67 blue:.73 alpha:1];
+            break;
+            
+        default:
+            break;
+    }
+    _backgroundImageView.backgroundColor = self.backgroundImageColor? self.backgroundImageColor : [UIColor colorWithPatternImage:[UIImage calendarBackgroundImage:self.bounds.size.height color:color]];;
     return _backgroundImageView;
 }
 -(void)initDailyViews

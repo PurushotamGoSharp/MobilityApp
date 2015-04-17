@@ -27,6 +27,7 @@
     NSMutableArray *selectedAttentdees;
     
     NSString *lastSubStringThatIsSearched;
+    NSString *noResultsLastSubString;
 }
 
 - (void)viewDidLoad {
@@ -194,17 +195,24 @@
 //            canStopCallingAPI = NO;
 //        }
         
-        if (expectedString.length >= 3 && !isCallingAutoComplete)
-        {
-            [self callAutoCompleteForString:expectedString];
-            [self.tableView reloadData];
-        }
         
-        if (expectedString.length < 3)
+        //if a string is not having no results, antoher string that has the first string as PREFIX will also not have any results. [eg) First string = VARGH and it does not have any results, then VARGHESE also will not have any results]
+        noResultsLastSubString = noResultsLastSubString?:@"";
+
+        if (![expectedString hasPrefix:noResultsLastSubString])
         {
-            contactsFoundArray = nil;
-            [self.tableView reloadData];
+            if (expectedString.length >= 3 && !isCallingAutoComplete)
+            {
+                [self callAutoCompleteForString:expectedString];
+            }
+            
+            if (expectedString.length < 3)
+            {
+                contactsFoundArray = nil;
+            }
+
         }
+        [self.tableView reloadData];
     }
     
     return YES;
@@ -387,23 +395,35 @@
     referenceArray = foundContacts;
     //                             contactsFoundArray = [self filterContacts:contactsFound forString:self.searchUserNameTextField.text];
     contactsFoundArray = foundContacts;
-    [self.tableView reloadData];
+    
+    noResultsLastSubString = @"";
+
+    if (foundContacts.count == 0)
+    {
+        noResultsLastSubString = lastSubStringThatIsSearched;
+    }else
+    {
+        noResultsLastSubString = @"";
+    }
     
     NSString *subStringToSearch = self.searchUserNameTextField.text;
     
-    if (![lastSubStringThatIsSearched isEqualToString:subStringToSearch])
+ //if a string is not having no results, antoher string that has the first string as PREFIX will also not have any results. [eg) First string = VARGH and it does not have any results, then VARGHESE also will not have any results]
+    if (![subStringToSearch hasPrefix:noResultsLastSubString])
     {
-        if (subStringToSearch.length >= 3)
+        if (![lastSubStringThatIsSearched isEqualToString:subStringToSearch])
         {
-            [self callAutoCompleteForString:subStringToSearch];
-        }else
-        {
-            contactsFoundArray = nil;
+            if (subStringToSearch.length >= 3)
+            {
+                [self callAutoCompleteForString:subStringToSearch];
+            }else
+            {
+                contactsFoundArray = nil;
+            }
         }
-        
-        [self.tableView reloadData];
     }
 
+    [self.tableView reloadData];
 }
 
 #pragma  mark UIScrollViewDelegate

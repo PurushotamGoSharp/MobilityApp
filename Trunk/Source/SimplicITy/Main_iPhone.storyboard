@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -2029,6 +2029,7 @@
                     <navigationItem key="navigationItem" id="rQc-wU-F4U"/>
                     <connections>
                         <outlet property="availableRoomsView" destination="SUU-sx-rpE" id="sg1-GP-gar"/>
+                        <outlet property="bannerImageView" destination="L5j-fQ-6xX" id="5pA-II-N0n"/>
                         <outlet property="containerForCalendar" destination="vK1-yx-ga0" id="ArU-aZ-BxV"/>
                         <outlet property="endDatePicker" destination="44Y-F2-4zZ" id="Qy5-lf-ed1"/>
                         <outlet property="endTimeButton" destination="iVB-I4-x5y" id="MXa-Ze-TNA"/>
@@ -3141,6 +3142,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tav-gF-9ME">
+                                <rect key="frame" x="50" y="466" width="220" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="7GQ-ID-jRY"/>
+                                    <constraint firstAttribute="height" constant="40" id="iqE-4r-4zc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Search by Date/Time">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchByTime:" destination="rlO-pP-yAC" eventType="touchUpInside" id="gpG-tL-QMF"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hNx-Z7-bmh" userLabel="ContainerForCalender">
                                 <rect key="frame" x="0.0" y="51" width="320" height="79"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -3162,7 +3178,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0wz-kT-Mag">
-                                <rect key="frame" x="0.0" y="181" width="320" height="338"/>
+                                <rect key="frame" x="0.0" y="181" width="320" height="277"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell1" rowHeight="40" id="c74-Bt-7xi">
@@ -3239,8 +3255,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0wz-kT-Mag" firstAttribute="top" secondItem="nDL-9W-XXU" secondAttribute="bottom" constant="8" id="3h3-Aj-fTC"/>
-                            <constraint firstItem="qyb-hp-Mdm" firstAttribute="top" secondItem="0wz-kT-Mag" secondAttribute="bottom" id="4df-Xp-QVj"/>
+                            <constraint firstItem="qyb-hp-Mdm" firstAttribute="top" secondItem="0wz-kT-Mag" secondAttribute="bottom" priority="999" id="4df-Xp-QVj"/>
+                            <constraint firstItem="Tav-gF-9ME" firstAttribute="top" secondItem="0wz-kT-Mag" secondAttribute="bottom" constant="8" id="C1O-PX-ckR"/>
+                            <constraint firstItem="qyb-hp-Mdm" firstAttribute="top" secondItem="Tav-gF-9ME" secondAttribute="bottom" constant="13" id="SvA-Fy-8JJ"/>
                             <constraint firstAttribute="trailing" secondItem="0wz-kT-Mag" secondAttribute="trailing" id="TeJ-qO-XhJ"/>
+                            <constraint firstAttribute="centerX" secondItem="Tav-gF-9ME" secondAttribute="centerX" id="UxT-ZI-qRK"/>
                             <constraint firstItem="nDL-9W-XXU" firstAttribute="centerX" secondItem="4qf-o5-1od" secondAttribute="centerX" id="V9K-EO-yxf"/>
                             <constraint firstItem="nDL-9W-XXU" firstAttribute="width" secondItem="nDL-9W-XXU" secondAttribute="height" multiplier="304:35" id="WfY-ct-age"/>
                             <constraint firstItem="hNx-Z7-bmh" firstAttribute="leading" secondItem="Lh4-pH-itI" secondAttribute="leading" id="eKk-XJ-OwE"/>
@@ -3255,7 +3274,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="tRg-1F-YJK"/>
                     <connections>
+                        <outlet property="bannerImageView" destination="nDL-9W-XXU" id="Sap-Qw-9HL"/>
                         <outlet property="containerForCalendar" destination="hNx-Z7-bmh" id="AeL-CH-0EE"/>
+                        <outlet property="searchByTimeButton" destination="Tav-gF-9ME" id="ghh-fj-unx"/>
                         <outlet property="selectedDateLabel" destination="4qf-o5-1od" id="baf-kL-Q7o"/>
                         <outlet property="tableView" destination="0wz-kT-Mag" id="IAy-Bo-LnN"/>
                         <segue destination="SoM-HN-yt4" kind="push" identifier="BookbyRoomToInviteAttendeeSegue" id="c60-44-5Yq"/>
