@@ -299,10 +299,10 @@
             [titleButton sizeToFit];
             
 //            CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
-            CGFloat widthOfView = titleButton.frame.size.width;
-
-            titleView.frame = CGRectMake(0, 0, widthOfView, 40);
-            downArrowImageView.center = CGPointMake(titleView.center.x , titleView.center.y + 18);
+//            CGFloat widthOfView = titleButton.frame.size.width;
+//
+//            titleView.frame = CGRectMake(0, 0, widthOfView, 40);
+//            downArrowImageView.center = CGPointMake(titleView.center.x , titleView.center.y + 18);
         }
         
         if (firstName || lastName)

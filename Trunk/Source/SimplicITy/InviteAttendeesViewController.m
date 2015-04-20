@@ -169,8 +169,6 @@
             [self.tableView beginUpdates];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath]
                                   withRowAnimation:(UITableViewRowAnimationFade)];
-            //        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-            //                      withRowAnimation:UITableViewRowAnimationFade];
             [self.tableView endUpdates];
         }
     }
@@ -340,6 +338,16 @@
             [self.tableView reloadData];
         }
     }
+    
+    if (selectedTimeIndex)
+    {
+        NSIndexPath *previousIndex = selectedTimeIndex;
+        selectedTimeIndex = nil;
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[previousIndex]
+                              withRowAnimation:(UITableViewRowAnimationFade)];
+        [self.tableView endUpdates];
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -355,6 +363,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    
     if ([textField isEqual:enterUserNameTextField])
     {
         NSMutableString *expectedString = [textField.text mutableCopy];
