@@ -1309,7 +1309,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUY-ih-xyb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5873" y="-459"/>
+            <point key="canvasLocation" x="5721" y="-43"/>
         </scene>
         <!--Tools View Controller-->
         <scene sceneID="aKc-PG-Hvn">
@@ -1816,10 +1816,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button hidden="YES" opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEK-Lq-14U">
-                                <rect key="frame" x="50" y="466" width="220" height="40"/>
+                                <rect key="frame" x="40" y="466" width="240" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="K2G-CL-PGb"/>
+                                    <constraint firstAttribute="width" constant="240" id="avH-dS-7kg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Search Meeting Rooms">
@@ -2002,7 +2003,6 @@
                             <constraint firstAttribute="trailing" secondItem="44Y-F2-4zZ" secondAttribute="trailing" constant="3" id="Hrb-Wn-fRp"/>
                             <constraint firstItem="SUU-sx-rpE" firstAttribute="centerY" secondItem="5iL-JW-sgw" secondAttribute="centerY" id="Ikx-74-clP"/>
                             <constraint firstItem="3j3-KY-iC4" firstAttribute="top" secondItem="GEK-Lq-14U" secondAttribute="bottom" constant="13" id="JMw-5e-UMv"/>
-                            <constraint firstItem="GEK-Lq-14U" firstAttribute="leading" secondItem="0mN-id-JkK" secondAttribute="leading" constant="50" id="P3y-OK-t6K"/>
                             <constraint firstItem="MtQ-yN-19B" firstAttribute="top" secondItem="0Rw-gX-1cS" secondAttribute="bottom" constant="-2" id="Pmy-rV-Vm2"/>
                             <constraint firstItem="MtQ-yN-19B" firstAttribute="leading" secondItem="0mN-id-JkK" secondAttribute="leading" constant="4" id="UMy-0D-Kg2"/>
                             <constraint firstItem="L5j-fQ-6xX" firstAttribute="top" secondItem="vK1-yx-ga0" secondAttribute="bottom" constant="8" id="ZBL-Gv-CaR"/>
@@ -2015,7 +2015,6 @@
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="5iL-JW-sgw" secondAttribute="trailing" id="jO8-iY-kG9"/>
                             <constraint firstItem="vK1-yx-ga0" firstAttribute="leading" secondItem="0mN-id-JkK" secondAttribute="leading" id="l1n-3L-WVE"/>
                             <constraint firstAttribute="trailing" secondItem="SUU-sx-rpE" secondAttribute="trailing" id="l2b-lJ-PoI"/>
-                            <constraint firstAttribute="trailing" secondItem="GEK-Lq-14U" secondAttribute="trailing" constant="50" id="nbT-bO-vZN"/>
                             <constraint firstItem="SUU-sx-rpE" firstAttribute="top" secondItem="iVB-I4-x5y" secondAttribute="bottom" constant="8" id="psc-gm-pVe"/>
                             <constraint firstAttribute="trailing" secondItem="vK1-yx-ga0" secondAttribute="trailing" id="q4k-xa-3iW"/>
                             <constraint firstItem="iVB-I4-x5y" firstAttribute="top" secondItem="L5j-fQ-6xX" secondAttribute="bottom" constant="8" id="tkA-Rb-IvZ"/>
@@ -2474,7 +2473,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f19-9t-Doh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6405" y="265"/>
+            <point key="canvasLocation" x="6605" y="461"/>
         </scene>
         <!--Ticket Detail View Controller-->
         <scene sceneID="2dp-pb-XMn">
@@ -3128,7 +3127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4O-yu-E77" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6249" y="-459"/>
+            <point key="canvasLocation" x="6097" y="-43"/>
         </scene>
         <!--Free Slots View Controller-->
         <scene sceneID="RXd-pw-c4f">
@@ -4542,5 +4541,6 @@
         <segue reference="J1A-hZ-SrU"/>
         <segue reference="c60-44-5Yq"/>
         <segue reference="CXP-ec-zh5"/>
+        <segue reference="Oq5-B6-yOh"/>
     </inferredMetricsTieBreakers>
 </document>

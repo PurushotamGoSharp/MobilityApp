@@ -152,11 +152,11 @@
             break;
             
         case 1:
-            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
+            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
             break;
             
         case 2:
-            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
+            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
             break;
             
         case 3:
@@ -335,7 +335,7 @@
         AppDelegate *appDel = [UIApplication sharedApplication].delegate;
         [appDel getEWSRequestURL];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Faced some issue. Please try again after some time" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Faced some issue. Please try again after some time" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alertView show];
     }
     
@@ -349,8 +349,8 @@
     
     if (emailIDsOfRoomsToCheck.count == 0 | emailIDsOfRoomsToCheck == nil)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please go to settings and choose an Office Location"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"Some error occured. Please try again later"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];

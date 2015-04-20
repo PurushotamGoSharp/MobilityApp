@@ -129,11 +129,11 @@
             break;
             
         case 1:
-            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
+            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
             break;
             
         case 2:
-            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
+            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
             break;
             
         case 3:

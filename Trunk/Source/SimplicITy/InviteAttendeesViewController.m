@@ -15,6 +15,7 @@
 #import "AddAttendeesViewController.h"
 #import "ContactDetails.h"
 #import "SelectDateTableViewCell.h"
+#import "AppDelegate.h"
 
 #define MIN_TIME_SLOT_FOR_SEARCH 10*60
 
@@ -104,7 +105,6 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

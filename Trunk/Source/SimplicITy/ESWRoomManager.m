@@ -396,7 +396,7 @@
                                                             
                                                         }
                                                           error:^(NSError *error) {
-                                                              
+                                                              [self.delegate ESWRoomManager:self failedWithError:error];
                                                           }];
 }
 
