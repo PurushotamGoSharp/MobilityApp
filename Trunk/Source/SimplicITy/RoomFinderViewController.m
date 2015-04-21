@@ -328,6 +328,15 @@
         return;
     }
     
+//Start time can be 5 mins less than current time. Because we are round time to multiple of 5 mins (less than current time). So intervel can be till 300 seconds to be valid.
+    NSTimeInterval intervel = [[NSDate date] timeIntervalSinceDate:startDate];
+    if (intervel > 300)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please select a time window that is not past" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+        return;
+    }
+    
     NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
     
     if (ewsRequestURL == nil)

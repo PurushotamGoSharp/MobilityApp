@@ -18,7 +18,6 @@
     NSInteger selectedRow;
     DBManager *dbManager;
 
-
     __weak IBOutlet UIBarButtonItem *locationCancleButton;
 
     __weak IBOutlet UIBarButtonItem *locationDoneButton;
@@ -44,6 +43,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    selectedRow = -1;
 }
 
 - (void)getAllLocationData
@@ -104,15 +105,16 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    LocationModel *location = arrOfLocationData[[self.tableView indexPathForSelectedRow].row ];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:location.countryCode forKey:SELECTED_LOCATION_CODE];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:location.countryName forKey:SELECTED_LOCATION_NAME];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self.delegate selectedLocationIs:location.countryName];
+    if (selectedRow >= 0)
+    {
+        LocationModel *location = arrOfLocationData[[self.tableView indexPathForSelectedRow].row ];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:location.countryCode forKey:SELECTED_LOCATION_CODE];
+        [[NSUserDefaults standardUserDefaults] setObject:location.countryName forKey:SELECTED_LOCATION_NAME];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self.delegate selectedLocationIs:location.countryName];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -122,7 +124,7 @@
 
 #pragma mark UITableViewDataSource methods
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [arrOfLocationData count];
     

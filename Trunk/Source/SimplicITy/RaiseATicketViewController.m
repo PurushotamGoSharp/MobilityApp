@@ -18,7 +18,7 @@
 #import "RequestModel.h"
 #import "UserInfo.h"
 #import "SendRequestsManager.h"
-
+#import "SliderTableViewCell.h"
 #import "RoomManager.h"
 
 #define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
@@ -65,7 +65,8 @@
     
     RoomManager *roomManager;
     
-    
+    UITextView *activeField;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -95,13 +96,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.CategoryTitleOutlet.font = [self customFont:16 ofName:MuseoSans_700];
-    self.selectedCategorylabel.font = [self customFont:16 ofName:MuseoSans_300];
-    self.detailLbl.font = [self customFont:16 ofName:MuseoSans_700];
-    
-    self.textView.font = [self customFont:16 ofName:MuseoSans_300];
-    
     self.navigationItem.leftBarButtonItems = @[];
     
     postMan = [[Postman alloc] init];
@@ -119,43 +113,24 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-    
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    
-    low = (UILabel *)[impactCell viewWithTag:10];
-    medium = (UILabel *)[impactCell viewWithTag:20];
-    high = (UILabel *)[impactCell viewWithTag:30];
-    critical = (UILabel *)[impactCell viewWithTag:40];
-    
-    low.font=[self customFont:14 ofName:MuseoSans_300];
-    medium.font=[self customFont:14 ofName:MuseoSans_300];
-    high.font=[self customFont:14 ofName:MuseoSans_300];
-    critical.font=[self customFont:14 ofName:MuseoSans_300];
 
-    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
-    {
-        [self.listBarBtnOutlet setImage:[UIImage imageNamed:@"OrderListtBarIcon"]];
-        self.title = NAV_BAR_TITLE_FOR_ORDER;
-        
-        self.CategoryTitleOutlet.text = @"Items";
-        self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_ITEM;
-        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_ORDER;
-    }
-    else
-    {
-        UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
-        
-        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+    UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
+    
+    self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+    
+    titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
+    titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = [UIColor whiteColor];
+    [titleView addSubview:titleLabel];
+    
+    self.navigationItem.titleView = titleView;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGesture];
 
-        titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
-        titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-        titleLabel.backgroundColor = [UIColor clearColor];
-        titleLabel.textColor = [UIColor whiteColor];
-        [titleView addSubview:titleLabel];
-        
-        self.navigationItem.titleView = titleView;
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -199,15 +174,7 @@
                                                  name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+    [self registerForKeyboardNotifications];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -222,11 +189,51 @@
                                                     name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardDidShowNotification
+                                                    name:UIKeyboardWillShowNotification
                                                   object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
-                                                  object:nil];
+                                                  object:nil];}
+
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    //    if ([activeField isEqual:enterUserNameTextField])
+    //    {
+    //        kbSize.height = self.tableView.frame.size.height - 80;
+    //    }
+    //
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.tableViewOutlet.contentInset = contentInsets;
+    self.tableViewOutlet.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = [self.tableViewOutlet rectForRowAtIndexPath:([NSIndexPath indexPathForRow:0 inSection:2])];
+    [self.tableViewOutlet scrollRectToVisible:aRect animated:YES];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.tableViewOutlet.contentInset = contentInsets;
+    self.tableViewOutlet.scrollIndicatorInsets = contentInsets;
 }
 
 - (void)successfulSync
@@ -251,7 +258,7 @@
                                                       cancelButtonTitle:@"OK"
                                                       otherButtonTitles:nil];
         
-        saveAlestView.delegate= self;
+        saveAlestView.delegate = self;
         [saveAlestView show];
         haveRasiedRequest = NO;
     }
@@ -292,21 +299,16 @@
 {
     self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
     sliderOutlet.value = 0;
-    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
+//    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
     
-    UITableViewCell *impactCell = [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    SliderTableViewCell *impactCell = (SliderTableViewCell *) [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [impactCell updateSliderForValue:0];
     UILabel  *lowest = (UILabel *)[impactCell viewWithTag:10];
-    [self setBlackColorFor:lowest];
+    [impactCell setBlackColorFor:lowest];
     
     self.textView.text = @"";
-    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
-    {
-        self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_ITEM;
-        
-    }else
-    {
-        self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_SERVICE;
-    }
+    
+    self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_SERVICE;
     
     selectedCategory = nil;
 }
@@ -317,32 +319,10 @@
     [self hideKeyboard:nil];
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-//    if (self.scrollView.contentOffset.y >= 100)
-//    {
-//        self.detailsBottomMaxConst.constant = 70;
-//        [self.view layoutIfNeeded];
-//        
-//        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-//        
-//    }
-}
-
-
-
 - (void)backBtnAction
 {
     [self resetForms];
     [self.navigationController popViewControllerAnimated:YES];
-
-    
-//    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
-//    {
-//    }else
-//    {
-//        [self.tabBarController setSelectedIndex:0];
-//    }
 }
 
 - (void)listBtnAction
@@ -353,6 +333,7 @@
 
 - (IBAction)saveBtnPressed:(id)sender
 {
+    [self hideKeyboard:nil];
     if (![self validateEntriesMade])
     {
         return;
@@ -368,26 +349,6 @@
         haveRasiedRequest = YES;
         [[SendRequestsManager sharedManager] authenticateServer];
         [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
-        
-//        NSString *alertMessage;
-//        
-//        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
-//        {
-//            alertMessage = ALERT_FOR_ORDER_SAVED_IN_ONLINE;
-//        }
-//        else
-//        {
-//            alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
-//        }
-//        
-//        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
-//                                                                message:alertMessage
-//                                                               delegate:self
-//                                                      cancelButtonTitle:@"OK"
-//                                                      otherButtonTitles:nil];
-//        
-//        saveAlestView.delegate= self;
-//        [saveAlestView show];
 
     }else
     {
@@ -503,14 +464,6 @@
     NSString *createQuery;
     NSString *insertSQL;
     
-//    if (!dateFormatter)
-//    {
-//        dateFormatter = [[NSDateFormatter alloc] init];
-//    }
-//    
-//    [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
-//    NSString *dateInString = [dateFormatter stringFromDate:request.requestDate];
-    
     if ([request.requestType isEqualToString:@"TICKET"])
     {
         createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text, syncFlag INTEGER, incidentNumber text)";
@@ -531,19 +484,6 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
-    //    [self.tabBarController setSelectedIndex:0];
-    //    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
-    //    {
-    //        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-    //
-    //
-    //    }else
-    //    {
-    //        [self performSegueWithIdentifier:@"DashToMyTicketsASegue" sender:nil];
-    //
-    //
-    //    }
-    
     [self resetForms];
 
     [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
@@ -558,165 +498,112 @@
 - (IBAction)hideKeyboard:(UIControl *)sender
 {
     [self.view endEditing:YES];
-//
-//    if (self.scrollView.contentOffset.y >= 100)
-//    {
-//        self.detailsBottomMaxConst.constant = 70;
-//        [self.view layoutIfNeeded];
-//
-//        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-//
-//    }
 }
 
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    [UIView animateWithDuration:.3
-                     animations:^{
-                         
-                         self.scrollViewBottomConst.constant = kbSize.height - 56;
-                         [self.view layoutIfNeeded];
+//- (void)keyboardWasShown:(NSNotification*)aNotification
+//{
+//    NSDictionary* info = [aNotification userInfo];
+//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+//    
+//    [UIView animateWithDuration:.3
+//                     animations:^{
+//                         
+//                         self.scrollViewBottomConst.constant = kbSize.height - 56;
+//                         [self.view layoutIfNeeded];
+//
+//                     }
+//                     completion:^(BOOL finished) {
+//                         
+//                         NSLog(@"======== %@",NSStringFromCGSize(self.textView.frame.size));
+//
+//
+//                     }];
+//    
+//}
 
-                     }
-                     completion:^(BOOL finished) {
-                         
-                         
-                         
-//                         [self.scrollView scrollRectToVisible:self.textviewContentView.frame animated:YES];
-                         
-//                         NSLog(@"%",self.scrollView.contentOffset);
-                         
-                         
-//                         NSLog(@"======== %@",NSStringFromCGPoint(self.textviewContentView.frame.size));
-                         
-                         NSLog(@"======== %@",NSStringFromCGSize(self.textView.frame.size));
-
-
-                     }];
-    
-}
-
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    self.scrollViewBottomConst.constant = 0;
-    [self.view layoutIfNeeded];
-}
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-//    if (self.scrollView.contentOffset.y <= 0)
-//    {
-//        initialOffsetOfSCrollView = self.scrollView.contentOffset;
-//        initialScollViewInset = self.scrollView.contentInset;
-//    }
-//    
-//    //    [self.scrollView setContentInset:(UIEdgeInsetsMake(100, 0, 0, 0))];
-////    [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
-////    self.detailsBottomMaxConst.constant = 220;
-////    [self.view layoutIfNeeded];
-//    
-//    
-//    
-//    UIInterfaceOrientation orientaition = [[UIApplication sharedApplication] statusBarOrientation];
-//    if (orientaition == UIInterfaceOrientationPortrait || orientaition == UIDeviceOrientationPortraitUpsideDown)
-//    {
-//        self.self.detailsBottomMaxConst.constant = 220;
-//        [self.scrollView setContentOffset:(CGPointMake(0, 150)) animated:YES];
-//        [self.view layoutIfNeeded];
-//
-//        
-//    }else if (orientaition == UIDeviceOrientationLandscapeRight || orientaition == UIDeviceOrientationLandscapeLeft)
-//    {
-//       
-//        self.self.detailsBottomMaxConst.constant = 280;
-//        [self.scrollView setContentOffset:(CGPointMake(0, 220)) animated:YES];
-//        [self.view layoutIfNeeded];
-//    }
-    
-
-
+    activeField = textView;
 }
 
-- (IBAction)imapctValueChanged:(UISlider *)sender
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    sender.value = roundf(sender.value);
+    activeField = textView;
+    return YES;
+}
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    activeField = nil;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    if (section == 0)
+    {
+        return 2;
+    }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
     
-    if ( indexPath.row == 1)
+    if (indexPath.section == 0)
     {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        sliderOutlet = (UISlider *)[cell viewWithTag:300];
-        [sliderOutlet setThumbImage:[self imageForSLiderThumb:roundf(sliderOutlet.value)] forState:(UIControlStateNormal)];
-        [sliderOutlet setThumbImage:[UIImage imageNamed:@"grayCircle"] forState:(UIControlStateHighlighted)];
-        [sliderOutlet addTarget:self action:@selector(sliderValueChanged:) forControlEvents:(UIControlEventValueChanged)];
-        
-        low = (UILabel *)[cell viewWithTag:10];
-        medium = (UILabel *)[cell viewWithTag:20];
-        high = (UILabel *)[cell viewWithTag:30];
-        critical = (UILabel *)[cell viewWithTag:40];
-        
-        low.font=[self customFont:14 ofName:MuseoSans_300];
-        medium.font=[self customFont:14 ofName:MuseoSans_300];
-        high.font=[self customFont:14 ofName:MuseoSans_300];
-        critical.font=[self customFont:14 ofName:MuseoSans_300];
-        
-        return cell;
+        if (indexPath.row == 1)
+        {
+            SliderTableViewCell *sliderCell = (SliderTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
+            sliderCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [sliderCell updateSliderForValue:roundf(sliderCell.impactSlider.value)];
+            sliderOutlet = sliderCell.impactSlider;
+            return sliderCell;
+        }else
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            
+            UILabel *header = (UILabel *)[cell viewWithTag:100];
+            UILabel *lable = (UILabel *)[cell viewWithTag:101];
+            
+            header.font=[self customFont:16 ofName:MuseoSans_700];
+            lable.font=[self customFont:16 ofName:MuseoSans_300];
+            
+            header.text = @"Requester";
+            lable.text = [UserInfo sharedUserInfo].fullName;
+
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+    }else if (indexPath.section == 1)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SelectServiceCell" forIndexPath:indexPath];
+        UILabel *selectedLabel = (UILabel *)[cell viewWithTag:100];
+        selectedLabel.font = [self customFont:16 ofName:MuseoSans_300];
+        self.selectedCategorylabel = selectedLabel;
     }else
     {
-        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
+        self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
+        self.textView.font = [self customFont:16 ofName:MuseoSans_300];
+        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+        self.textView.delegate = self;
     }
-    
-    if (![self.orderDiffer isEqualToString:FLOW_FOR_ORDER] && (indexPath.row == 1))
-    {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    UILabel *header = (UILabel *)[cell viewWithTag:100];
-    UILabel *lable = (UILabel *)[cell viewWithTag:101];
-    
-    header.font=[self customFont:16 ofName:MuseoSans_700];
-    lable.font=[self customFont:16 ofName:MuseoSans_300];
-    
-    UIView *colourForline = (UIView *)[cell viewWithTag:102];
-    UIView *colourForRect = (UIView *)[cell viewWithTag:103];
-    
-    colourForRect.layer.cornerRadius = 10;
-    
-    if (indexPath.row == 0)
-    {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        header.text = @"Requester";
-        lable.text = [UserInfo sharedUserInfo].fullName?:@"Test User";
-    }else
-    {
-        header.text = @"Impact";
-        lable.text = @"Low";
-        colourForline.backgroundColor = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
-        colourForRect.backgroundColor = [UIColor colorWithRed:.37 green:.72 blue:.38 alpha:1];
-    }
-    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
     if (indexPath.row == 1 && [self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
     {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
         
         return;
     }
@@ -724,11 +611,51 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 1 )
+    if (indexPath.section == 0)
     {
-        return 200;
+        if (indexPath.row == 1 )
+        {
+            return 74;
+        }
+    }
+    
+    if (indexPath.section == 2)
+    {
+        return 150;
     }
     return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return 0;
+    }
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 5, 150, 30))];
+    headerView.backgroundColor = self.view.backgroundColor;
+    
+    headerLabel.font = [self customFont:16 ofName:MuseoSans_700];
+;
+    
+    if (section == 1)
+    {
+        headerLabel.text = @"Service";
+        
+    }else if (section == 2)
+    {
+        headerLabel.text = @"Details";
+    }
+    
+    [headerView addSubview:headerLabel];
+    
+    return headerView;
 }
 
 #pragma mark - Navigation
@@ -749,9 +676,7 @@
         
         ticketCategoryVC.categoryArray = categoriesArr;
         ticketCategoryVC.selectedCategory = selectedCategory;
-    }
-    
-    if ([segue.identifier isEqualToString:@"myTicketList_segue"])
+    }else if ([segue.identifier isEqualToString:@"myTicketList_segue"])
     {
         TicketsListViewController *ticketList = segue.destinationViewController;
         if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
@@ -767,81 +692,6 @@
     selectedCategory = category;
     self.selectedCategorylabel.text = category.categoryName;
     self.selectedCategorylabel.textColor = [UIColor blackColor];
-}
-
-- (void)sliderValueChanged:(UISlider *)slider
-{
-
-   
-    slider.value = roundf(slider.value);
-    
-    [slider setThumbImage:[self imageForSLiderThumb:roundf(slider.value)] forState:(UIControlStateNormal)];
-    
-    if (slider.value == 3 )
-    {
-        [slider setTintColor:([UIColor redColor])];
-        [slider setMinimumTrackTintColor:([UIColor redColor])];
-        
-        [self setBlackColorFor:critical];
-        
-    }else if (slider.value == 2)
-    {
-        [slider setTintColor:([UIColor orangeColor])];
-        [slider setMinimumTrackTintColor:([UIColor orangeColor])];
-        
-        [self setBlackColorFor:high];
-        
-    }else if (slider.value == 1)
-    {
-        [slider setTintColor:([UIColor yellowColor])];
-        [slider setMinimumTrackTintColor:([UIColor yellowColor])];
-        
-        [self setBlackColorFor:medium];
-        
-    } if (slider.value ==0)
-    {
-        [slider setTintColor:([UIColor greenColor])];
-        [slider setMinimumTrackTintColor:([UIColor greenColor])];
-        
-        [self setBlackColorFor:low];
-    }
-}
-
-- (void)setBlackColorFor:(UILabel *)blackLabel
-{
-    
-    low.textColor = [UIColor lightGrayColor];
-    medium.textColor = [UIColor lightGrayColor];
-    high.textColor = [UIColor lightGrayColor];
-    critical.textColor = [UIColor lightGrayColor];
-    
-    blackLabel.textColor = [UIColor blackColor];
-}
-
-- (UIImage *)imageForSLiderThumb:(NSInteger)value
-{
-    switch (value)
-    {
-        case 0:
-            return [UIImage imageNamed:@"greenCirlce"];
-            break;
-            
-        case 1:
-            return [UIImage imageNamed:@"YellowCircle"];
-            break;
-            
-        case 2:
-            return [UIImage imageNamed:@"OrangeCircle"];
-            break;
-            
-        case 3:
-            return [UIImage imageNamed:@"RedCircle"];
-            break;
-            
-        default:
-            break;
-    }
-    return nil;
 }
 
 #pragma mark
