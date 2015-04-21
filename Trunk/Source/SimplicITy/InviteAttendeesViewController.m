@@ -498,7 +498,15 @@
             [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
             
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-
+            UILabel *placeHolderLabel = (UILabel *)[cell viewWithTag:300];
+            
+            if (reqiuredAttentees.count == 0)
+            {
+                placeHolderLabel.hidden = NO;
+            }else
+            {
+                [placeHolderLabel removeFromSuperview];
+            }
         }else
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
@@ -523,7 +531,11 @@
 {
     if (indexPath.section == 2 & indexPath.row == 0)
     {
-        return 30;
+        if (reqiuredAttentees.count != 0)
+        {
+            return 25;
+        }
+        return 35;
     }
     
     
@@ -545,8 +557,29 @@
     return 30;
 }
 
+//- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+//    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+//    
+//    header.textLabel.font = [UIFont boldSystemFontOfSize:14];
+//}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    if (section == 0)
+//    {
+//        return @"Meeting Details";
+//    }else if (section == 1)
+//    {
+//        return @"Subject";
+//    }
+//    
+//    return nil;
+//}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    if (section == 2)
+    {
+        return nil;
+    }
     UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
     headerView.backgroundColor = self.view.backgroundColor;
@@ -626,6 +659,10 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01f;
+}
 
 #pragma  mark RoomManagerDelegate
 

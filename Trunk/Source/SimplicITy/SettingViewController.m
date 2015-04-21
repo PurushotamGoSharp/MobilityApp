@@ -11,16 +11,23 @@
 #import "LocationViewController.h"
 #import "ThemesViewController.h"
 #import "LanguageModel.h"
-@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate,ThemeSettingDelegate >
+#import "OfficeLocationsViewController.h"
+#import "DBManager.h"
+#import "OfficeLocation.h"
+
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate,ThemeSettingDelegate, OfficeLocationDelegate, DBManagerDelegate>
 {
    NSArray  *arrOfTableViewData, *arrOfImages ;
     NSInteger selectedRow;
     UIBarButtonItem *backButton;
     
-    NSArray *arrOfLocationData, *arrOfLanguageData;
+    NSArray *arrOfLocationData, *arrOfLanguageData, *officesOfSelectedCountry;
     NSString *selectedLanaguage;
     
     NSString *selectedLocationName;
+    NSString *selectedCountryName, *selectedOfficeLocationName;
+
+    DBManager *dbManager;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -35,8 +42,8 @@
     
     self.title = @"Settings";
     
-    arrOfTableViewData = @[@"Language", @"Country", @"Theme", @"Office Location"];
-    arrOfImages = @[@"language.png",@"lacation.png",@"themes",@"ExchangeServer_Setting"];
+    arrOfTableViewData = @[@"Language", @"Country", @"Office Location", @"Theme"];
+    arrOfImages = @[@"language.png",@"lacation.png",@"ExchangeServer_Setting",@"themes"];
     
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
     arrOfLanguageData = @[@"English",@"German",@"French",@"Chinese",@"Spanish",@"Japanese"];
@@ -65,7 +72,7 @@
 {
     [super viewWillAppear:animated];
     
-    selectedLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationName"];
+    selectedLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME];
     selectedLanaguage = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguage"];
     
     if (selectedLanaguage == nil)
@@ -73,6 +80,11 @@
         NSString *langID = [[NSLocale preferredLanguages] objectAtIndex:0];
         selectedLanaguage = [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:langID];
     }
+    
+    selectedCountryName = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME];
+    selectedOfficeLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_NAME];
+    
+    [self getData];
     
     [self.tableView reloadData];
     self.navigationController.navigationBarHidden = NO;
@@ -94,9 +106,74 @@
     {
         ThemesViewController *themesVC = navController.viewControllers[0];
         themesVC.delegate = self;
+    }else if ([segue.identifier isEqualToString:@"exchageToOfficeLocationSegue"])
+    {
+        UINavigationController *navigation = segue.destinationViewController;
+        OfficeLocationsViewController *officeVC = navigation.viewControllers[0];
+        officeVC.officesArray = officesOfSelectedCountry;
+        officeVC.delegate = self;
     }
 }
 
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM officeLocations WHERE API = '%@'", SEARCH_OFFICE_API];
+    [dbManager getDataForQuery:queryString];
+}
+
+
+
+- (NSArray *)parseResponse:(NSData *)response
+{
+    NSMutableArray *arrayOfFilteredLocation = [[NSMutableArray alloc] init];
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSArray *arr = json[@"aaData"][@"office"];
+    
+    for (NSDictionary *anOffice in arr)
+    {
+        if ([anOffice[@"Status"] boolValue])
+        {
+            if ([anOffice[@"Country"] isEqualToString:selectedCountryName])
+            {
+                NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[anOffice[@"JSON"] dataUsingEncoding:NSUTF8StringEncoding]
+                                                                             options:kNilOptions
+                                                                               error:nil];
+                
+                OfficeLocation *office = [[OfficeLocation alloc] init];
+                office.nameOfOffice = dictFromJSON[@"Distribution"][@"Name"];
+                office.emailIDOfOffice = dictFromJSON[@"Distribution"][@"EmailID"];
+                office.officeCode = anOffice[@"Code"];
+                
+                [arrayOfFilteredLocation addObject:office];
+                
+            }
+        }
+    }
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfOffice" ascending:YES];
+    arrayOfFilteredLocation = [[arrayOfFilteredLocation sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
+    
+    return arrayOfFilteredLocation;
+}
+
+
+#pragma mark DBManagerDelegate
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        
+        officesOfSelectedCountry = [self parseResponse:data];
+    }
+}
 
 #pragma mark UITableViewDataSource methods
 
@@ -107,12 +184,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
- 
-        return [arrOfTableViewData count];
-   
+    return [arrOfTableViewData count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
@@ -129,41 +204,37 @@
     titleLable.font=[self customFont:16 ofName:MuseoSans_700];
     languageLabel.font=[self customFont:16 ofName:MuseoSans_700];
     
-  
-        if (indexPath.row == 0)
-        {
-            languageLabel.text = selectedLanaguage;
-            
-        }else if (indexPath.row == 1)
-        {
-            languageLabel.text = selectedLocationName;
-            
-        }else if (indexPath .row == 2)
-        {
-            languageLabel.text = [self stingForColorTheme];
-
-        }else
-        {
-            languageLabel.hidden= YES;
-        }
-    
+    if (indexPath.row == 0)
+    {
+        languageLabel.text = selectedLanaguage;
+        
+    }else if (indexPath.row == 1)
+    {
+        languageLabel.text = selectedLocationName;
+        
+    }else if (indexPath .row == 2)
+    {
+        languageLabel.text = selectedOfficeLocationName?: @"Select Location";
+    }else
+    {
+        languageLabel.text = [self stingForColorTheme];
+    }
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
     [cell setSelectedBackgroundView:bgColorView];
-
-
+    
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
 
 #pragma mark UITableViewDelegate methods
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     selectedRow = indexPath.row;
@@ -180,12 +251,11 @@
             [self performSegueWithIdentifier:@"location_segue" sender:self];
         }else if (indexPath.row == 2)
         {
-            [self performSegueWithIdentifier:@"themes_segue" sender:self];
+            [self performSegueWithIdentifier:@"exchageToOfficeLocationSegue" sender:self];
         }else
         {
-             [self performSegueWithIdentifier:@"ExchangeServerSetting_Segue" sender:self];
+            [self performSegueWithIdentifier:@"themes_segue" sender:self];
         }
- 
 }
 
 
@@ -201,14 +271,20 @@
 
 - (void)selectedLocationIs:(NSString *)location
 {
-    UITableViewCell *languageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
-    languageLabel.text = location;
+//    UITableViewCell *languageCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+//    UILabel *languageLabel = (UILabel *)[languageCell viewWithTag:201];
+//    languageLabel.text = location;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:SELECTED_OFFICE_NAME];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:SELECTED_OFFICE_MAILID];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    selectedOfficeLocationName = nil;
+//    [self.tableView reloadData];
+
 }
 
 - (void)selectedThemeIs:(NSString *)theme
 {
-    UITableViewCell *themesCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    UITableViewCell *themesCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     UILabel *themeLable = (UILabel *)[themesCell viewWithTag:201];
     themeLable.text = theme;
     
@@ -216,6 +292,13 @@
     NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     [self setTabImageForColorIndex:index onTabBar:tabBar];
     
+}
+
+- (void)selectedOfficeIs:(NSString *)location
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    UILabel *leftLable = (UILabel*)[cell viewWithTag:200];
+    leftLable.text = location;
 }
 
 - (void)setTabImageForColorIndex:(NSInteger)colorIndex onTabBar:(UITabBar *)tabBar;

@@ -285,6 +285,32 @@
     return cell;
 }
 
+//- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+//    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+//    
+//    header.textLabel.font = [UIFont boldSystemFontOfSize:14];
+//}
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    if (section == 1)
+//    {
+//        if (selectedAttentdees.count == 0)
+//        {
+//            return nil;
+//        }
+//        return @"Selected Attendees";
+//    }else if (section == 2)
+//    {
+//        if (contactsFoundArray.count == 0)
+//        {
+//            return nil;
+//        }
+//        return @"Contacts Found";
+//    }
+//    
+//    return nil;
+//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -307,7 +333,11 @@
             return nil;
         }else if (section == 2)
         {
-            headerLabel.text = @"Found Contacts";
+            if (contactsFoundArray.count == 0)
+            {
+                return nil;
+            }
+            headerLabel.text = @"Contacts Found";
         }
     }
     
@@ -325,9 +355,14 @@
             return 0;
         }
         return 30;
-    }
-    if (section == 2)
+        
+    }else if (section == 2)
     {
+        if (contactsFoundArray.count == 0)
+        {
+            return 0;
+        }
+        
         return 30;
     }
     

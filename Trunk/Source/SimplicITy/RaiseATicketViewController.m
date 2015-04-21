@@ -126,6 +126,10 @@
     [titleView addSubview:titleLabel];
     
     self.navigationItem.titleView = titleView;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGesture];
 
 }
 
@@ -221,11 +225,8 @@
     
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your app might not need or want this behavior.
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= kbSize.height;
-    if (!CGRectContainsPoint(aRect, activeField.center) ) {
-        [self.tableViewOutlet scrollRectToVisible:activeField.frame animated:YES];
-    }
+    CGRect aRect = [self.tableViewOutlet rectForRowAtIndexPath:([NSIndexPath indexPathForRow:0 inSection:2])];
+    [self.tableViewOutlet scrollRectToVisible:aRect animated:YES];
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
@@ -499,26 +500,26 @@
     [self.view endEditing:YES];
 }
 
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    [UIView animateWithDuration:.3
-                     animations:^{
-                         
-                         self.scrollViewBottomConst.constant = kbSize.height - 56;
-                         [self.view layoutIfNeeded];
-
-                     }
-                     completion:^(BOOL finished) {
-                         
-                         NSLog(@"======== %@",NSStringFromCGSize(self.textView.frame.size));
-
-
-                     }];
-    
-}
+//- (void)keyboardWasShown:(NSNotification*)aNotification
+//{
+//    NSDictionary* info = [aNotification userInfo];
+//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+//    
+//    [UIView animateWithDuration:.3
+//                     animations:^{
+//                         
+//                         self.scrollViewBottomConst.constant = kbSize.height - 56;
+//                         [self.view layoutIfNeeded];
+//
+//                     }
+//                     completion:^(BOOL finished) {
+//                         
+//                         NSLog(@"======== %@",NSStringFromCGSize(self.textView.frame.size));
+//
+//
+//                     }];
+//    
+//}
 
 
 - (void)textViewDidBeginEditing:(UITextView *)textView

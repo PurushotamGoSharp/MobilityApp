@@ -260,6 +260,15 @@
 {
     if ([userInfo getServerConfig] != nil)
     {
+        NSString *selectedLocationCode = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_CODE];
+        
+        if (![selectedLocationCode isEqualToString:userInfo.location])
+        {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:SELECTED_OFFICE_NAME];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:SELECTED_OFFICE_MAILID];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
         [[NSUserDefaults standardUserDefaults] setObject:userInfo.location forKey:SELECTED_LOCATION_CODE];
         
         [self getDataForCountryCode:userInfo.location];
