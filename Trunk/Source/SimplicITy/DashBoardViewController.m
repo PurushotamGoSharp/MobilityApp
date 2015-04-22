@@ -582,7 +582,8 @@
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
 {
-    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone) {
+    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
+    {
         NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
         
         if (![self getDataForCountryCode:countryCode])
@@ -729,6 +730,14 @@
         self.containerViewOutlet.hidden = YES;
     }];
 }
+
+//-(NSUInteger)supportedInterfaceOrientations{
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+//
+//-(BOOL)shouldAutorotate {
+//    return NO;
+//}
 
 #pragma mark - Navigation
 
