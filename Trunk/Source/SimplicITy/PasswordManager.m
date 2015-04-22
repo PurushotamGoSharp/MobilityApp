@@ -29,13 +29,17 @@
 
 - (NSString *)passwordForUser
 {
-    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD];
+    NSString *base64EncodedString = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD];
+    NSString *password;
     
-//    if (password == nil)
-//    {
-//        [self showAlertWithDefaultMessage];
-//    }
-    
+    if (base64EncodedString)
+    {
+        NSData *passwordData = [[NSData alloc] initWithBase64EncodedString:base64EncodedString
+                                                                   options:0];
+        password = [[NSString alloc] initWithData:passwordData
+                                                   encoding:NSUTF8StringEncoding];
+    }
+
     return password;
 }
 
@@ -67,8 +71,16 @@
     if (buttonIndex == 1)
     {
         UITextField *passwordField = [alertView textFieldAtIndex:0];
-        [[NSUserDefaults standardUserDefaults] setObject:passwordField.text forKey:EWS_USERS_PASSWORD];
-        NSLog(@"%@", passwordField.text);
+        NSString *password = passwordField.text;
+        NSData *passWordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64EncodedString = [passWordData base64EncodedStringWithOptions:0];
+        
+        NSLog(@"Encoded Password %@", base64EncodedString);
+
+        [[NSUserDefaults standardUserDefaults] setObject:base64EncodedString
+                                                  forKey:EWS_USERS_PASSWORD];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         [self.delegate passwordManagerGotPassword:self];
     }else
     {

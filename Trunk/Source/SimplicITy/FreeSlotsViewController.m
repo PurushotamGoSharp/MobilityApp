@@ -18,6 +18,8 @@
 #import "NSDate+CL.h"
 #import "PasswordManager.h"
 
+#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
+
 @interface FreeSlotsViewController () <CLWeeklyCalendarViewDelegate, RoomManagerDelegate, UITableViewDataSource, UITableViewDelegate, PasswordManagerDelegate>
 
 @property (nonatomic, strong) CLWeeklyCalendarView *calendarView;
@@ -191,7 +193,7 @@
     }else
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please go to Settings and choose Office Location"
+                                                            message:ALERT_MSG_SET_OFFICE_LOCATION
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -470,6 +472,14 @@
     {
         [self getAllRoomsOfCurrentLocation];
         
+    }
+}
+
+- (void)roomManager:(RoomManager *)manager failedToGetPassword:(PasswordManager *)passwordManager
+{
+    if ([currentlyExcutingMethod isEqualToString:@"getAllRoomsOfCurrentLocation"])
+    {
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

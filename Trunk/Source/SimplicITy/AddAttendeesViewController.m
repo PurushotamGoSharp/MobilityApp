@@ -10,6 +10,8 @@
 #import "RoomManager.h"
 #import "ContactDetails.h"
 
+#define ALERT_MSG_GIVE_VALID_EMAILID @"Please give a valid Email ID."
+
 @interface AddAttendeesViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchUserNameTextField;
@@ -135,7 +137,7 @@
     }else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                        message:@"Please give a valid Email ID."
+                                                        message:ALERT_MSG_GIVE_VALID_EMAILID
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles: nil];
