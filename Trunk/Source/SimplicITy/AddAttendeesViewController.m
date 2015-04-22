@@ -43,7 +43,7 @@
     
     selectedAttentdees = [[NSMutableArray alloc] init];
     
-    self.title = @"Add Attendees";
+    self.title = @"Add Attendee(s)";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -327,7 +327,7 @@
             {
                 return nil;
             }
-            headerLabel.text = @"Selected Attendees";
+            headerLabel.text = @"Selected Attendee(s)";
         }else if (section == 0)
         {
             return nil;
@@ -337,7 +337,7 @@
             {
                 return nil;
             }
-            headerLabel.text = @"Contacts Found";
+            headerLabel.text = @"Contact(s) Found";
         }
     }
     

@@ -148,19 +148,19 @@
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
-            color = [UIColor orangeColor];
+            color = [UIColor colorWithRed:.22 green:.6 blue:.79 alpha:1];
             break;
             
         case 1:
-            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
+            color = [UIColor colorWithRed:.4 green:.6 blue:.23 alpha:1];
             break;
             
         case 2:
-            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
+            color = [UIColor colorWithRed:.99 green:.4 blue:.24 alpha:1];
             break;
             
         case 3:
-            color = [UIColor colorWithRed:.4 green:.41 blue:.79 alpha:1];
+            color = [UIColor colorWithRed:.79 green:.21 blue:.4 alpha:1];
             break;
             
         default:
@@ -188,8 +188,8 @@
     
     }else
     {
-        officeLocationAlert = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please go to settings and choose an Office Location"
+        officeLocationAlert = [[UIAlertView alloc] initWithTitle:@"Office Location is required."
+                                                            message:@"Please go to Settings and choose Office Location"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -332,8 +332,11 @@
     NSTimeInterval intervel = [[NSDate date] timeIntervalSinceDate:startDate];
     if (intervel > 300)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please select a time window that is not past" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please select a future Time Slot" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alertView show];
+        
+        [self resetView];
+        
         return;
     }
     
@@ -344,13 +347,13 @@
         AppDelegate *appDel = [UIApplication sharedApplication].delegate;
         [appDel getEWSRequestURL];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Faced some issue. Please try again after some time" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error occured. Please try again after some time" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alertView show];
     }
     
     if (![self timeWindowIsValid])
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a time slot minimum of 15 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a Time Slot of minimum 15 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
         NSLog(@"Time window is less than MIN Value");
         return;
@@ -359,7 +362,7 @@
     if (emailIDsOfRoomsToCheck.count == 0 | emailIDsOfRoomsToCheck == nil)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"Some error occured. Please try again later"
+                                                            message:@"Error occured. Please try again after some time"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
@@ -466,13 +469,13 @@
 - (void)setbuttonForSwitchMode
 {
     self.serachRoomsButton.tag = 100;
-    [self.serachRoomsButton setTitle:@"Search by Meeting Rooms" forState:(UIControlStateNormal)];
+    [self.serachRoomsButton setTitle:@"Search by Meeting Room(s)" forState:(UIControlStateNormal)];
 }
 
 - (void)setButtonForSearchingFreeRoom
 {
     self.serachRoomsButton.tag = 111;
-    [self.serachRoomsButton setTitle:@"Search Meeting Rooms" forState:(UIControlStateNormal)];
+    [self.serachRoomsButton setTitle:@"Search Meeting Room(s)" forState:(UIControlStateNormal)];
 }
 
 #pragma mark - UITableViewDelegate
@@ -628,6 +631,11 @@
     dateFormatter.dateFormat = @"dd MMMM yyyy";
     self.selectedDateLabel.text = [dateFormatter stringFromDate:date];
     
+    if (endDate != nil)
+    {
+        self.serachRoomsButton.hidden = NO;
+    }
+    
     [self resetView];
 }
 
@@ -662,7 +670,10 @@
     }else if ([segue.identifier isEqualToString:@"RoomFinderToFreeSlotsSegue"])
     {
         FreeSlotsViewController *freeSlotsVC = (FreeSlotsViewController *)segue.destinationViewController;
-        freeSlotsVC.rooms = roomsToCheckModelArray;
+        
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
+
+        freeSlotsVC.rooms = [roomsToCheckModelArray sortedArrayUsingDescriptors:@[sortDescriptor]];
     }
 }
 
@@ -671,7 +682,8 @@
 {
     if ([alertView isEqual:officeLocationAlert])
     {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.tabBarController setSelectedIndex:1];
         return;
     }
     if (buttonIndex == 1)

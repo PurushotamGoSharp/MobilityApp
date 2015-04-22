@@ -136,7 +136,6 @@
     titleLable.font=[self customFont:16 ofName:MuseoSans_700];
     
     
-    UILabel *linColour = (UILabel *)[cell viewWithTag:101];
     UILabel *circelColour = (UILabel *)[cell viewWithTag:102];
     UILabel *rightTable = (UILabel *)[cell viewWithTag:103];
     rightTable.font=[self customFont:16 ofName:MuseoSans_300];
