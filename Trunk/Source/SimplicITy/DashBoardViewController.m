@@ -731,13 +731,13 @@
     }];
 }
 
--(NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskPortrait;
-}
-
--(BOOL)shouldAutorotate {
-    return NO;
-}
+//-(NSUInteger)supportedInterfaceOrientations{
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+//
+//-(BOOL)shouldAutorotate {
+//    return NO;
+//}
 
 #pragma mark - Navigation
 
