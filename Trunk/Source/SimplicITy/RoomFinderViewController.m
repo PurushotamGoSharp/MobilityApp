@@ -21,6 +21,12 @@
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
 
+#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
+#define ALERT_MSG_SELECT_FUTURE_TIME @"Please select a future Time Slot"
+#define ALERT_MSG_TRY_LATER @"Error occured. Please try again after some time"
+#define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 15 minutes"
+#define ALERT_MSG_AUTHORIZED_BOOKING @"If you are not authorized, this room will not be booked. Do you want to continue?"
+
 @interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate, UIAlertViewDelegate, PasswordManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
 @property (weak, nonatomic) IBOutlet UIButton *endTimeButton;
@@ -189,7 +195,7 @@
     }else
     {
         officeLocationAlert = [[UIAlertView alloc] initWithTitle:@"Office Location is required."
-                                                            message:@"Please go to Settings and choose Office Location"
+                                                            message:ALERT_MSG_SET_OFFICE_LOCATION
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -332,7 +338,11 @@
     NSTimeInterval intervel = [[NSDate date] timeIntervalSinceDate:startDate];
     if (intervel > 300)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please select a future Time Slot" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:ALERT_MSG_SELECT_FUTURE_TIME
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
         [alertView show];
         
         [self resetView];
@@ -347,13 +357,21 @@
         AppDelegate *appDel = [UIApplication sharedApplication].delegate;
         [appDel getEWSRequestURL];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error occured. Please try again after some time" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:ALERT_MSG_TRY_LATER
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
         [alertView show];
     }
     
     if (![self timeWindowIsValid])
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a Time Slot of minimum 15 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:ALERT_MSG_MINIMUM_TIME_SLOT
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
         [alertView show];
         NSLog(@"Time window is less than MIN Value");
         return;
@@ -362,7 +380,7 @@
     if (emailIDsOfRoomsToCheck.count == 0 | emailIDsOfRoomsToCheck == nil)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"Error occured. Please try again after some time"
+                                                            message:ALERT_MSG_TRY_LATER
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
@@ -511,7 +529,7 @@
     }else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                        message:@"If you are not authorized, this room will not be booked. Do you want to continue?"
+                                                        message:ALERT_MSG_AUTHORIZED_BOOKING
                                                        delegate:self
                                               cancelButtonTitle:@"NO"
                                               otherButtonTitles:@"YES", nil];
