@@ -18,6 +18,9 @@
 #import "AppDelegate.h"
 
 #define MIN_TIME_SLOT_FOR_SEARCH 10*60
+#define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 10 minutes"
+#define ALERT_MSG_ALREADY_BOOKED @"Sorry! Meeting Room already booked by someone else recently."
+#define ALERT_MSG_SUCCESSFULL_BOOKING @"Successfully booked the Meeting Room."
 
 @interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate, SelectDateCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -114,17 +117,6 @@
     
     [self registerForKeyboardNotifications];
     [self setTheme];
-    
-//    if (successfullAlert == nil)
-//    {
-//        successfullAlert = [[UIAlertView alloc] initWithTitle:@"Room is booked"
-//                                                      message:@"Successfully room is booked"
-//                                                     delegate:self
-//                                            cancelButtonTitle:@"OK"
-//                                            otherButtonTitles: nil];
-//    }
-//    
-//    [successfullAlert show];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -292,7 +284,11 @@
     NSTimeInterval timeIntervel = [newEvent.endDate timeIntervalSinceDate:newEvent.startDate];
     if (timeIntervel < MIN_TIME_SLOT_FOR_SEARCH)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a Time Slot of minimum 10 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:ALERT_MSG_MINIMUM_TIME_SLOT
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
         [alertView show];
         
         return;
@@ -703,7 +699,7 @@
     }else
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Booked"
-                                                            message:@"Sorry! Meeting Room already booked by someone else recently."
+                                                            message:ALERT_MSG_ALREADY_BOOKED
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
@@ -720,7 +716,7 @@
     if (successfullAlert == nil)
     {
         successfullAlert = [[UIAlertView alloc] initWithTitle:@"Booked"
-                                                      message:@"Successfully booked the Meeting Room."
+                                                      message:ALERT_MSG_SUCCESSFULL_BOOKING
                                                      delegate:self
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles: nil];
