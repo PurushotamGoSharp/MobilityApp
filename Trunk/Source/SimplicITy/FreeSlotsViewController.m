@@ -125,19 +125,19 @@
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
-            color = [UIColor orangeColor];
+            color = [UIColor colorWithRed:.22 green:.6 blue:.79 alpha:1];
             break;
             
         case 1:
-            color = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
+            color = [UIColor colorWithRed:.4 green:.6 blue:.23 alpha:1];
             break;
             
         case 2:
-            color = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
+            color = [UIColor colorWithRed:.99 green:.4 blue:.24 alpha:1];
             break;
             
         case 3:
-            color = [UIColor colorWithRed:.4 green:.41 blue:.79 alpha:1];
+            color = [UIColor colorWithRed:.79 green:.21 blue:.4 alpha:1];
             break;
             
         default:
@@ -191,7 +191,7 @@
     }else
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"Please go to settings and choose an Office Location"
+                                                            message:@"Please go to Settings and choose Office Location"
                                                            delegate:self
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -329,10 +329,10 @@
     
     if ([selectedIndexPath isEqual:indexPath])
     {
-        [cell setSelected:YES animated:YES];
+
     }else
     {
-        [cell setSelected:NO animated:NO];
+
     }
     
     return cell;
@@ -459,6 +459,9 @@
                           atScrollPosition:(UITableViewScrollPositionBottom)
                                   animated:YES];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+//    [self.tableView selectRowAtIndexPath:selectedIndexPath
+//                                animated:YES
+//                          scrollPosition:(UITableViewScrollPositionNone)];
 }
 
 - (void)roomManager:(RoomManager *)manager gotPassword:(PasswordManager *)passwordManager

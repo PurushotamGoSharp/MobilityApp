@@ -83,19 +83,19 @@
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
-            selectedColor = [UIColor orangeColor];
+            selectedColor = [UIColor colorWithRed:.22 green:.6 blue:.79 alpha:1];
             break;
             
         case 1:
-            selectedColor = [UIColor colorWithRed:.1 green:.63 blue:.79 alpha:1];
+            selectedColor = [UIColor colorWithRed:.4 green:.6 blue:.23 alpha:1];
             break;
             
         case 2:
-            selectedColor = [UIColor colorWithRed:.08 green:.42 blue:.98 alpha:1];
+            selectedColor = [UIColor colorWithRed:.99 green:.4 blue:.24 alpha:1];
             break;
             
         case 3:
-            selectedColor = [UIColor colorWithRed:.4 green:.41 blue:.79 alpha:1];
+            selectedColor = [UIColor colorWithRed:.79 green:.21 blue:.4 alpha:1];
             break;
             
         default:
@@ -104,7 +104,7 @@
 
     //    DLog(@"mark date selected %@ -- %d",self.date, blnSelected);
     if([self.date isDateToday]){
-        self.dateLabelContainer.backgroundColor = (blnSelected)?selectedColor: [UIColor colorWithHex:0x0081c1];
+        self.dateLabelContainer.backgroundColor = (blnSelected)?selectedColor: [UIColor clearColor];
         
         self.dateLabel.textColor = (blnSelected)?[UIColor whiteColor]:[UIColor whiteColor];
     }else{
@@ -113,7 +113,7 @@
         self.dateLabel.textColor = (blnSelected)?[UIColor whiteColor]:[self colorByDate];
     }
 }
--(UIColor *)colorByDate
+- (UIColor *)colorByDate
 {
     return [self.date isPastDate]?[UIColor grayColor]:[UIColor whiteColor];
 }

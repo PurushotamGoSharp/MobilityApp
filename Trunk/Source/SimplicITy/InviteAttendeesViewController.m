@@ -48,6 +48,7 @@
     UIBarButtonItem *backButton;
     
     BOOL searchFieldIsSelected;
+    BOOL reduceSizeOfCell;
     
     NSIndexPath *selectedTimeIndex;
     NSDate *initialStartDate, *initialEndDate;
@@ -58,7 +59,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Invite Attendees";
+    self.title = @"Invite Attendee(s)";
     
     dataOfFirstSection = @[@"Date",@"Start",@"End",@"Organizer",@"Venue"];
     dataOfThirdSection = @[@"",@"Marc",@"Bin",@"Antony",@"Sundar"];
@@ -112,6 +113,7 @@
     [super viewWillAppear:animated];
     
     [self registerForKeyboardNotifications];
+    [self setTheme];
     
 //    if (successfullAlert == nil)
 //    {
@@ -138,7 +140,33 @@
                                                   object:nil];
 }
 
-
+- (void)setTheme
+{
+    UIColor *color;
+    
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
+    {
+        case 0:
+            color = [UIColor colorWithRed:.22 green:.6 blue:.79 alpha:1];
+            break;
+            
+        case 1:
+            color = [UIColor colorWithRed:.4 green:.6 blue:.23 alpha:1];
+            break;
+            
+        case 2:
+            color = [UIColor colorWithRed:.99 green:.4 blue:.24 alpha:1];
+            break;
+            
+        case 3:
+            color = [UIColor colorWithRed:.79 green:.21 blue:.4 alpha:1];
+            break;
+            
+        default:
+            break;
+    }
+    sendInviteButton.backgroundColor = color;
+}
 - (void)backBtnAction
 {
     if (!self.fromSelectRoomVC)
@@ -264,7 +292,7 @@
     NSTimeInterval timeIntervel = [newEvent.endDate timeIntervalSinceDate:newEvent.startDate];
     if (timeIntervel < MIN_TIME_SLOT_FOR_SEARCH)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a time slot minimum of 10 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Please select a Time Slot of minimum 10 minutes" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
         
         return;
@@ -492,12 +520,12 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"AddAttendeesCell" forIndexPath:indexPath];
             UILabel *label = (UILabel *)[cell viewWithTag:100];
-            label.text = @"Add Attendees";
+            label.text = @"Add Attendee(s)";
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
             btn.hidden = NO;
             [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
             
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UILabel *placeHolderLabel = (UILabel *)[cell viewWithTag:300];
             
             if (reqiuredAttentees.count == 0)
@@ -535,7 +563,7 @@
         {
             return 25;
         }
-        return 35;
+        return 40;
     }
     
     
@@ -663,7 +691,7 @@
 {
     return 0.01f;
 }
-
+//Tap 'Add Attendee(s)' to add participents
 #pragma  mark RoomManagerDelegate
 
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms

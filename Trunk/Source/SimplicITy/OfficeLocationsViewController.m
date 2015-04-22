@@ -32,6 +32,7 @@
 {
     [super viewWillAppear:animated];
     selectedLocationMailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
+    selectedRow = -1;
     [self.tableView reloadData];
 }
 
@@ -49,14 +50,16 @@
 - (IBAction)doneBtnPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    OfficeLocation *locatoin = self.officesArray[[self.tableView indexPathForSelectedRow].row];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:locatoin.emailIDOfOffice forKey:SELECTED_OFFICE_MAILID];
-    [[NSUserDefaults standardUserDefaults] setObject:locatoin.nameOfOffice forKey:SELECTED_OFFICE_NAME];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [self.delegate selectedOfficeIs:locatoin.nameOfOffice];
+    if (selectedRow >= 0)
+    {
+        OfficeLocation *locatoin = self.officesArray[[self.tableView indexPathForSelectedRow].row];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:locatoin.emailIDOfOffice forKey:SELECTED_OFFICE_MAILID];
+        [[NSUserDefaults standardUserDefaults] setObject:locatoin.nameOfOffice forKey:SELECTED_OFFICE_NAME];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self.delegate selectedOfficeIs:locatoin.nameOfOffice];
+    }
 }
 
 #pragma mark - UITableViewDelegate

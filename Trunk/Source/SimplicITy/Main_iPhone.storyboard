@@ -202,8 +202,8 @@
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookARoomDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n32-Sy-wb9">
                                                                 <rect key="frame" x="18" y="19" width="64" height="64"/>
                                                             </imageView>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book A Room" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
-                                                                <rect key="frame" x="2" y="87" width="96" height="18"/>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book a Room" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCq-jq-RvN">
+                                                                <rect key="frame" x="3" y="87" width="94" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -1766,21 +1766,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button hidden="YES" opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEK-Lq-14U">
-                                <rect key="frame" x="40" y="466" width="240" height="40"/>
+                                <rect key="frame" x="41" y="466" width="240" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="K2G-CL-PGb"/>
                                     <constraint firstAttribute="width" constant="240" id="avH-dS-7kg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                <state key="normal" title="Search Meeting Rooms">
+                                <state key="normal" title="Search Meeting Room(s)">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="findAvailableRooms:" destination="Xzp-Gx-bqB" eventType="touchUpInside" id="L7K-Se-Tmj"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please click on &quot;Start Time&quot; &amp; &quot;End Time&quot; to choose the time slot for your meeting." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iL-JW-sgw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please click on &quot;Start Time&quot; &amp; &quot;End Time&quot; to choose the time slot for your Meeting." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iL-JW-sgw">
                                 <rect key="frame" x="21" y="355" width="279" height="58"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1944,7 +1944,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="SUU-sx-rpE" firstAttribute="leading" secondItem="0mN-id-JkK" secondAttribute="leading" id="2ye-uw-tOc"/>
-                            <constraint firstAttribute="centerX" secondItem="GEK-Lq-14U" secondAttribute="centerX" id="3Px-pP-TK5"/>
+                            <constraint firstAttribute="centerX" secondItem="GEK-Lq-14U" secondAttribute="centerX" constant="-1" id="3Px-pP-TK5"/>
                             <constraint firstItem="iVB-I4-x5y" firstAttribute="width" secondItem="0Rw-gX-1cS" secondAttribute="width" id="3qx-s1-Nfq"/>
                             <constraint firstItem="L5j-fQ-6xX" firstAttribute="centerX" secondItem="z68-mo-8rz" secondAttribute="centerX" id="79j-tx-nyt"/>
                             <constraint firstItem="SUU-sx-rpE" firstAttribute="centerX" secondItem="5iL-JW-sgw" secondAttribute="centerX" id="Any-t7-hVw"/>
@@ -3371,14 +3371,14 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddAttendeesCell" rowHeight="35" id="YJU-XH-1Dz">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddAttendeesCell" rowHeight="40" id="YJU-XH-1Dz">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YJU-XH-1Dz" id="jho-tl-Lnj">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlt-UN-vsY">
-                                                    <rect key="frame" x="16" y="-3" width="37" height="17"/>
+                                                    <rect key="frame" x="16" y="1" width="37" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="ei9-9l-Vdy"/>
                                                     </constraints>
@@ -3386,7 +3386,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="200" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Wb-mZ-gBg">
-                                                    <rect key="frame" x="284" y="-2" width="25" height="25"/>
+                                                    <rect key="frame" x="284" y="-3" width="25" height="25"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="9Az-Kb-Mq9"/>
@@ -3396,8 +3396,8 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to add attendees" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SX-fK-X0Q">
-                                                    <rect key="frame" x="16" y="15" width="137" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap &quot;Add Attendee(s)&quot; to add participant(s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SX-fK-X0Q">
+                                                    <rect key="frame" x="16" y="23" width="277" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="17" id="Z5v-nq-FFi"/>
                                                     </constraints>
@@ -3409,11 +3409,11 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="nlt-UN-vsY" firstAttribute="leading" secondItem="jho-tl-Lnj" secondAttribute="leading" constant="16" id="DrG-Nw-l0L"/>
-                                                <constraint firstItem="9Wb-mZ-gBg" firstAttribute="top" secondItem="jho-tl-Lnj" secondAttribute="top" constant="-2" id="KAI-OW-Z7u"/>
+                                                <constraint firstItem="9Wb-mZ-gBg" firstAttribute="top" secondItem="jho-tl-Lnj" secondAttribute="top" constant="-3" id="KAI-OW-Z7u"/>
                                                 <constraint firstAttribute="trailing" secondItem="9Wb-mZ-gBg" secondAttribute="trailing" constant="11" id="Syc-fN-3Cm"/>
-                                                <constraint firstItem="4SX-fK-X0Q" firstAttribute="top" secondItem="nlt-UN-vsY" secondAttribute="bottom" constant="1" id="TOv-dP-WKR"/>
+                                                <constraint firstItem="4SX-fK-X0Q" firstAttribute="top" secondItem="nlt-UN-vsY" secondAttribute="bottom" constant="5" id="TOv-dP-WKR"/>
                                                 <constraint firstItem="4SX-fK-X0Q" firstAttribute="leading" secondItem="jho-tl-Lnj" secondAttribute="leading" constant="16" id="nvJ-PV-dw4"/>
-                                                <constraint firstAttribute="bottom" secondItem="4SX-fK-X0Q" secondAttribute="bottom" constant="3" id="rT6-wJ-lZE"/>
+                                                <constraint firstAttribute="bottom" secondItem="4SX-fK-X0Q" secondAttribute="bottom" id="rT6-wJ-lZE"/>
                                                 <constraint firstAttribute="centerY" secondItem="nlt-UN-vsY" secondAttribute="centerY" priority="999" id="tdU-ZB-XIz"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -3452,7 +3452,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gw6-gE-dgN">
-                                                    <rect key="frame" x="246" y="12" width="42" height="21"/>
+                                                    <rect key="frame" x="249" y="12" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -3464,22 +3464,21 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="OIM-Jd-chq" secondAttribute="trailing" id="3nN-T9-tKT"/>
+                                                <constraint firstItem="Gw6-gE-dgN" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="topMargin" constant="4" id="54D-q8-YEJ"/>
                                                 <constraint firstItem="zYS-sm-pXG" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="topMargin" constant="4" id="IA0-7x-ahi"/>
-                                                <constraint firstItem="Gw6-gE-dgN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zYS-sm-pXG" secondAttribute="trailing" constant="10" id="IQN-yd-Sgx"/>
                                                 <constraint firstItem="OIM-Jd-chq" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="top" id="Ioz-oF-RXh"/>
                                                 <constraint firstItem="OIM-Jd-chq" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" id="KVQ-ZU-K2X"/>
                                                 <constraint firstAttribute="trailing" secondItem="5Vp-n2-aND" secondAttribute="trailing" constant="8" id="QVH-5k-vfB"/>
                                                 <constraint firstAttribute="bottom" secondItem="TsQ-hu-xei" secondAttribute="bottom" constant="-34" id="Tvg-xl-0fs"/>
-                                                <constraint firstItem="5Vp-n2-aND" firstAttribute="leading" secondItem="Gw6-gE-dgN" secondAttribute="trailing" constant="4" id="WB9-I1-GYj"/>
                                                 <constraint firstAttribute="trailing" secondItem="TsQ-hu-xei" secondAttribute="trailing" id="XaK-AF-ZSc"/>
                                                 <constraint firstItem="zYS-sm-pXG" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" constant="16" id="cda-uo-cic"/>
                                                 <constraint firstItem="5Vp-n2-aND" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="topMargin" constant="4" id="etP-Ca-LoA"/>
+                                                <constraint firstItem="5Vp-n2-aND" firstAttribute="leading" secondItem="Gw6-gE-dgN" secondAttribute="trailing" constant="1" id="kTE-N0-dI8"/>
                                                 <constraint firstItem="Wj0-8b-WD0" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" id="lkl-4x-Jlv"/>
                                                 <constraint firstItem="Wj0-8b-WD0" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="top" id="mM4-oZ-Aqz"/>
                                                 <constraint firstAttribute="trailing" secondItem="Wj0-8b-WD0" secondAttribute="trailing" id="o3b-C4-6Nz"/>
                                                 <constraint firstItem="TsQ-hu-xei" firstAttribute="leading" secondItem="zn4-Ou-Vc5" secondAttribute="leading" id="ulL-9Y-MfA"/>
                                                 <constraint firstAttribute="bottom" secondItem="OIM-Jd-chq" secondAttribute="bottom" constant="1" id="w1p-7p-rKR"/>
-                                                <constraint firstItem="Gw6-gE-dgN" firstAttribute="top" secondItem="zn4-Ou-Vc5" secondAttribute="topMargin" constant="4" id="zPw-aa-gul"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3500,7 +3499,7 @@
                                     <constraint firstAttribute="height" constant="36" id="YSz-qC-QeF"/>
                                     <constraint firstAttribute="width" constant="135" id="gKd-jZ-Cxu"/>
                                 </constraints>
-                                <state key="normal" title="Send Invites">
+                                <state key="normal" title="Send Invite(s)">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -4395,7 +4394,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="J1A-hZ-SrU"/>
-        <segue reference="CXP-ec-zh5"/>
-        <segue reference="c60-44-5Yq"/>
+        <segue reference="5s6-By-sBB"/>
+        <segue reference="Oq5-B6-yOh"/>
     </inferredMetricsTieBreakers>
 </document>
