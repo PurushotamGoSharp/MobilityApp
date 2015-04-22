@@ -114,8 +114,8 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
 
-    UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 115, 40))];
+    UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     
     self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
     
