@@ -15,7 +15,7 @@
 #import "TimeWindow.h"
 #import "PasswordManager.h"
 
-#define MIN_TIME_SLOT_FOR_SEARCH 5*60
+#define MIN_TIME_SLOT_FOR_SEARCH 10*60
 
 @interface ESWRoomManager() <SSLCredentialsManaging, PasswordManagerDelegate>
 

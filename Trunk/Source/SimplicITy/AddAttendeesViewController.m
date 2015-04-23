@@ -147,6 +147,7 @@
 
 - (IBAction)doneButtonPressed:(UIBarButtonItem *)sender
 {
+    [self hideKeyboard];
     if (selectedAttentdees.count > 0)
     {
         [self.delegate addAntendees:selectedAttentdees];
@@ -159,6 +160,7 @@
 
 - (IBAction)cancelButtonPressed:(UIBarButtonItem *)sender
 {
+    [self hideKeyboard];
     [self dismissViewControllerAnimated:YES
                              completion:^{
                                  
