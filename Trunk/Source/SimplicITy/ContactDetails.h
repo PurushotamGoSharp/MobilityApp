@@ -14,4 +14,8 @@
 @property (strong, nonatomic) NSString *emailIDOfContact;
 
 @property (strong, nonatomic) NSString *displayName;
+
+@property (assign, nonatomic) BOOL isChecked;
+@property (assign, nonatomic) BOOL isAvailable;
+
 @end

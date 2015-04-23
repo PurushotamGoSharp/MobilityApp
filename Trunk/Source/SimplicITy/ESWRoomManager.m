@@ -557,7 +557,7 @@
     NSLog(@"Auth called");
     
     EWSUserName = [UserInfo sharedUserInfo].cropID;
-    EWSPassword= [[NSUserDefaults standardUserDefaults] objectForKey:EWS_USERS_PASSWORD];
+    EWSPassword = [passwordManager passwordForUser];
 
     NSURLCredential *newCredential = [NSURLCredential
                                       credentialWithUser:EWSUserName

@@ -268,6 +268,10 @@
     
     return [NSString stringWithFormat:@"%@ to %@", startString, endString];
 }
+- (BOOL)checkForPrivteRoom:(RoomModel *)room
+{
+    return ([room.nameOfRoom rangeOfString:@" Priv "].location == NSNotFound);
+}
 
 - (NSString *)timeGapFor:(TimeWindow *)timeWindow
 {
@@ -279,11 +283,11 @@
     
     if (hours)
     {
-        [timeGapString appendFormat:@"%li hrs", hours];
+        [timeGapString appendFormat:@"%li hrs",(long) hours];
     }
     if (minutes)
     {
-        [timeGapString appendFormat:@" %li mins", minutes];
+        [timeGapString appendFormat:@" %li mins",(long) minutes];
     }
     
     return timeGapString;
@@ -395,6 +399,32 @@
     return 44;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section != 0)
+    {
+        return 0;
+    }
+    
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section != 0)
+    {
+        return nil;
+    }
+    UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
+    headerView.backgroundColor = [UIColor colorWithRed:.38 green:.77 blue:.95 alpha:1];
+    headerLabel.font = [UIFont boldSystemFontOfSize:14];
+    headerLabel.text = @"Meeting Room(s)";
+    headerLabel.textColor = [UIColor whiteColor];
+    [headerView addSubview:headerLabel];
+    
+    return headerView;
+}
 #pragma mark - CLWeeklyCalendarViewDelegate
 
 - (NSDictionary *)CLCalendarBehaviorAttributes

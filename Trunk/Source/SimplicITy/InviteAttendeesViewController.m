@@ -41,7 +41,7 @@
     NSString *userName;
     NSString *venue;
     
-    RoomManager *roomManager;
+    RoomManager *roomManager, *attendeeAvailablityChecker;
     CalendarEvent *newEvent;
     
     UITextField *activeField;
@@ -306,6 +306,26 @@
     [roomManager availablityOfRooms:newEvent.resources forStart:newEvent.startDate toEnd:newEvent.endDate];
 }
 
+//
+- (void)checkAvailablityOfAttendeesEmailID:(NSArray *)attendeesToCheck
+{
+    if (!attendeesToCheck.count)
+    {
+        return;
+    }
+    
+    if (attendeeAvailablityChecker == nil)
+    {
+        attendeeAvailablityChecker = [[RoomManager alloc] init];
+        attendeeAvailablityChecker.delegate = self;
+    }
+    
+    [attendeeAvailablityChecker availablityOfRooms:attendeesToCheck
+                                          forStart:newEvent.startDate
+                                             toEnd:newEvent.endDate];
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -535,12 +555,26 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
             UILabel *rightLable = (UILabel*)[cell viewWithTag:100];
+            UIImageView *statusImage = (UIImageView *)[cell viewWithTag:200];
             ContactDetails *aContact = reqiuredAttentees[indexPath.row - 1];
             rightLable.text = aContact.displayName;
             rightLable.font = [self customFont:16 ofName:MuseoSans_700];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+            
+            if (aContact.isChecked)
+            {
+                if (aContact.isAvailable)
+                {
+                    statusImage.image = [UIImage imageNamed:@"Sel"];
+                }else
+                {
+                    statusImage.image = [UIImage imageNamed:@"Sel1"];
+                }
+            }else
+            {
+                statusImage.image = [UIImage imageNamed:@""];
+            }
 //            UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
 //            
 //            if (indexPath.row == 1)
@@ -687,26 +721,42 @@
 {
     return 0.01f;
 }
-//Tap 'Add Attendee(s)' to add participents
+
 #pragma  mark RoomManagerDelegate
 
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
 {
-    if (availableRooms.count > 0)
+    if ([manager isEqual:roomManager])
     {
-        [roomManager createCalendarEvent:newEvent];
-        
-    }else
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Booked"
-                                                            message:ALERT_MSG_ALREADY_BOOKED
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-        [alertView show];
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    }
+        if (availableRooms.count > 0)
+        {
+            [roomManager createCalendarEvent:newEvent];
+            
+        }else
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Booked"
+                                                                message:ALERT_MSG_ALREADY_BOOKED
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles: nil];
+            [alertView show];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        }
 
+    }else if ([manager isEqual:attendeeAvailablityChecker])
+    {
+        for (ContactDetails *aContact in reqiuredAttentees)
+        {
+            //if the user name is already checked we should not consider that
+            if (!aContact.isChecked)
+            {
+                aContact.isAvailable = [availableRooms containsObject:aContact.emailIDOfContact];
+                aContact.isChecked = YES;
+            }
+        }
+        
+        [self.tableView reloadData];
+    }
 }
 
 - (void)roomManager:(RoomManager *)manager createdRoomWith:(NSString *)eventID
@@ -762,11 +812,10 @@
                 reqiuredAttentees = [[NSMutableArray alloc] init];
             }
             
-//            [reqiuredAttentees addObject:aContact];
             [reqiuredAttentees insertObject:aContact atIndex:0];
         }
     }
-    
+    [self checkAvailablityOfAttendeesEmailID:[attendees valueForKeyPath:@"@distinctUnionOfObjects.emailIDOfContact"]];
     [self.tableView reloadData];
 }
 

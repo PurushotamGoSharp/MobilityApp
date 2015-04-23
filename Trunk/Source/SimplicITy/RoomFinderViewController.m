@@ -25,7 +25,7 @@
 #define ALERT_MSG_SELECT_FUTURE_TIME @"Please select a future Time Slot"
 #define ALERT_MSG_TRY_LATER @"Error occured. Please try again after some time"
 #define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 15 minutes"
-#define ALERT_MSG_AUTHORIZED_BOOKING @"If you are not authorized, this room will not be booked. Do you want to continue?"
+#define ALERT_MSG_AUTHORIZED_BOOKING @"If you are not authorized to book this Private Room your Meeting Request will be declined.  Do you wish to continue?"
 
 @interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate, UIAlertViewDelegate, PasswordManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
