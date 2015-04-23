@@ -73,7 +73,14 @@
                                                   [self.delegate postman:self gotFailure:error forURL:URLString];
                                                   NSLog(@"ERROR %@",[operation responseString]);
                                                   NSLog(@"Error %@", error);
+                                                  
                                               }];
+    
+//    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead)
+//    {
+//        NSLog(@"invokeAsyncronousSTREAMING - Received %lld of %lld bytes==== %i", totalBytesRead, totalBytesExpectedToRead,bytesRead);
+//
+//    }];
     [self setAuthenticationBlockForOperation:operation];
 }
 
