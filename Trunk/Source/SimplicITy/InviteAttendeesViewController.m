@@ -684,42 +684,46 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     if (indexPath.section == 2 && indexPath.row == 0)
     {
         [self performSegueWithIdentifier:@"InviteAtntToSelectAntendeesSegue" sender:nil];
+        return;
     }
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (self.fromSelectRoomVC & (indexPath.row == 1 | indexPath.row == 2))
+    if (indexPath.section == 0)
     {
-        if (selectedTimeIndex == indexPath)
+        if (self.fromSelectRoomVC & (indexPath.row == 1 | indexPath.row == 2))
         {
-            selectedTimeIndex = nil;
-        }else
-        {
-            selectedTimeIndex = indexPath;
-            
-            SelectDateTableViewCell *cell = (SelectDateTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
-            UIDatePicker *datePikcer = cell.datePicker;
-            
-            if (indexPath.row == 1)
+            if (selectedTimeIndex == indexPath)
             {
-                datePikcer.date = self.startDate;
-                [self startTimeDatePickerValueChange:datePikcer];
+                selectedTimeIndex = nil;
+            }else
+            {
+                selectedTimeIndex = indexPath;
                 
-            }else if (indexPath.row == 2)
-            {
-                datePikcer.date = self.endDate;
-                [self endTimeDatePickerValueChange:datePikcer];
+                SelectDateTableViewCell *cell = (SelectDateTableViewCell *) [tableView cellForRowAtIndexPath:indexPath];
+                UIDatePicker *datePikcer = cell.datePicker;
+                
+                if (indexPath.row == 1)
+                {
+                    datePikcer.date = self.startDate;
+                    [self startTimeDatePickerValueChange:datePikcer];
+                    
+                }else if (indexPath.row == 2)
+                {
+                    datePikcer.date = self.endDate;
+                    [self endTimeDatePickerValueChange:datePikcer];
+                }
             }
+            [tableView beginUpdates];
+            [tableView reloadRowsAtIndexPaths:@[indexPath]
+                             withRowAnimation:(UITableViewRowAnimationFade)];
+            //        [tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+            //                 withRowAnimation:(UITableViewRowAnimationFade)];
+            [tableView endUpdates];
         }
-        [tableView beginUpdates];
-        [tableView reloadRowsAtIndexPaths:@[indexPath]
-                         withRowAnimation:(UITableViewRowAnimationFade)];
-//        [tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-//                 withRowAnimation:(UITableViewRowAnimationFade)];
-        [tableView endUpdates];
     }
 }
 

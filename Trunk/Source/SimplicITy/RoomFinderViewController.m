@@ -178,6 +178,11 @@
 
 - (void)getAllRoomsOfCurrentLocation
 {
+//    if (![AFNetworkReachabilityManager sharedManager].isReachable)
+//    {
+//        
+//        return;
+//    }
     selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
     
     if (selectedLocationEmailID)
