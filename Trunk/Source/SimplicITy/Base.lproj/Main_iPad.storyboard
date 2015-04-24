@@ -3750,7 +3750,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pX2-uk-aRh" id="WS6-3E-2O0">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.34999999403953552" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MI0-yD-EFM">
+                                                <view alpha="0.34999999403953552" tag="160" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MI0-yD-EFM">
                                                     <rect key="frame" x="0.0" y="0.0" width="768" height="184"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -3763,7 +3763,7 @@
                                                         <action selector="daetPickerValueChanged:" destination="pX2-uk-aRh" eventType="valueChanged" id="JdG-7Z-7ft"/>
                                                     </connections>
                                                 </datePicker>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhF-6N-KZT">
+                                                <view tag="150" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhF-6N-KZT">
                                                     <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -3794,6 +3794,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="MI0-yD-EFM" secondAttribute="trailing" id="OW9-Tf-mMG"/>
                                                 <constraint firstItem="vhF-6N-KZT" firstAttribute="top" secondItem="WS6-3E-2O0" secondAttribute="top" id="PbR-U1-9sV"/>
                                                 <constraint firstAttribute="trailing" secondItem="VWI-fq-gkP" secondAttribute="trailing" constant="8" id="RKC-ba-CN5"/>
+                                                <constraint firstAttribute="centerX" secondItem="ulx-8I-cS4" secondAttribute="centerX" id="SAQ-2h-xBQ"/>
                                                 <constraint firstItem="wA9-l0-n5a" firstAttribute="top" secondItem="WS6-3E-2O0" secondAttribute="topMargin" constant="4" id="UiH-hk-2Dc"/>
                                                 <constraint firstAttribute="bottom" secondItem="ulx-8I-cS4" secondAttribute="bottom" constant="-34" id="VTq-dG-LDX"/>
                                                 <constraint firstItem="MI0-yD-EFM" firstAttribute="top" secondItem="WS6-3E-2O0" secondAttribute="top" id="WKs-L5-1je"/>
@@ -3818,10 +3819,10 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vb-1f-3vC">
-                                <rect key="frame" x="244" y="934" width="280" height="36"/>
+                                <rect key="frame" x="317" y="934" width="135" height="36"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="7DH-Vo-hl6"/>
+                                    <constraint firstAttribute="width" constant="135" id="7DH-Vo-hl6"/>
                                     <constraint firstAttribute="height" constant="36" id="hro-WN-1OA"/>
                                 </constraints>
                                 <state key="normal" title="Send Invite(s)">
