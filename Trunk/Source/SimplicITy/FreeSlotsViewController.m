@@ -479,19 +479,38 @@
 
 - (void)roomManager:(RoomManager *)manager foundSlotsAvailable:(NSDictionary *)dictOfAllRooms
 {
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+
     if (selectedIndexPath == nil)
     {
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+//                                                            message:@"No slots available"
+//                                                           delegate:self
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//        [alertView show];
+
         return;
     }
     
     RoomModel *model = self.rooms[selectedIndexPath.section];
     freeSlotsArray = dictOfAllRooms[model.emailIDOfRoom];
+    if (freeSlotsArray.count == 0)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                            message:@"No slots available"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
     [self updateTableViewSection:selectedIndexPath.section];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:freeSlotsArray.count inSection:selectedIndexPath.section];
     [self.tableView scrollToRowAtIndexPath:indexPath
                           atScrollPosition:(UITableViewScrollPositionBottom)
                                   animated:YES];
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 //    [self.tableView selectRowAtIndexPath:selectedIndexPath
 //                                animated:YES
 //                          scrollPosition:(UITableViewScrollPositionNone)];
