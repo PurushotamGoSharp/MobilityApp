@@ -467,7 +467,7 @@
 
             cell = selectedCell;
             cell.layer.masksToBounds = YES;
-            
+
             if (indexPath.row == 1)
             {
                 datePikcer.minimumDate = initialStartDate;
@@ -481,6 +481,31 @@
                 datePikcer.maximumDate = initialEndDate;
                 datePikcer.date = self.endDate;
             }
+            if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPad)
+            {
+                [datePikcer removeFromSuperview];
+                [cell.contentView addSubview:datePikcer];
+            }
+            
+
+
+            NSDictionary *viewsDict = NSDictionaryOfVariableBindings(datePikcer);
+            NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[datePikcer]-|"
+                                                                           options:0
+                                                                           metrics:nil
+                                                                             views:viewsDict];
+            [cell.contentView addConstraints:constraints];
+            constraints  = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[datePikcer]"
+                                                                   options:0
+                                                                   metrics:nil
+                                                                     views:viewsDict];
+            
+            [cell.contentView addConstraints:constraints];
+            [cell.contentView sendSubviewToBack:datePikcer];
+            
+            UIView *alphaView = [cell viewWithTag:160];
+            [cell.contentView sendSubviewToBack:alphaView];
+            
         }else
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];

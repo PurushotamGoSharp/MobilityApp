@@ -18,7 +18,7 @@
 
 @interface SelectDateTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) id<SelectDateCellDelegate> delegate;
 
 @end
