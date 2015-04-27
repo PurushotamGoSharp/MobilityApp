@@ -63,6 +63,7 @@
     NSInteger selectedindex;
     
     UIAlertView *officeLocationAlert;
+    UIAlertView *tryAgainAlert;
 }
 
 - (void)viewDidLoad
@@ -177,6 +178,11 @@
 
 - (void)getAllRoomsOfCurrentLocation
 {
+//    if (![AFNetworkReachabilityManager sharedManager].isReachable)
+//    {
+//        
+//        return;
+//    }
     selectedLocationEmailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
     
     if (selectedLocationEmailID)
@@ -357,12 +363,16 @@
         AppDelegate *appDel = [UIApplication sharedApplication].delegate;
         [appDel getEWSRequestURL];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:ALERT_MSG_TRY_LATER
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-        [alertView show];
+        if (!tryAgainAlert)
+        {
+            tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                       message:ALERT_MSG_TRY_LATER
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles: nil];
+
+        }
+        [tryAgainAlert show];
     }
     
     if (![self timeWindowIsValid])
@@ -379,12 +389,16 @@
     
     if (emailIDsOfRoomsToCheck.count == 0 | emailIDsOfRoomsToCheck == nil)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:ALERT_MSG_TRY_LATER
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-        [alertView show];
+        if (!tryAgainAlert)
+        {
+            tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                       message:ALERT_MSG_TRY_LATER
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles: nil];
+            
+        }
+        [tryAgainAlert show];
         
         return;
     }
@@ -704,6 +718,12 @@
         [self.tabBarController setSelectedIndex:1];
         return;
     }
+    if ([alertView isEqual:tryAgainAlert])
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    
     if (buttonIndex == 1)
     {
         [self performSegueWithIdentifier:@"romeFinderToInvite_segue" sender:nil];
