@@ -67,7 +67,6 @@
 
 - (void)placeManager:(GMBLPlaceManager *)manager didBeginVisit:(GMBLVisit *)visit
 {
-    
     RoomModel *detectedRoom = [[RoomModel alloc] init];
     detectedRoom.gimbalID = visit.place.identifier;
     detectedRoom.nameOfRoom = [visit.place.attributes stringForKey:@"nameOfRoom"];
@@ -98,7 +97,6 @@
     
     NSLog(@"RSSI for %@ is %li", RSSIValueChangedForRoom.nameOfRoom, (long)RSSIValueChangedForRoom.RSSIValue);
 }
-
 
 - (RoomModel *)roomForGimbalID:(NSString *)gimbalID
 {
