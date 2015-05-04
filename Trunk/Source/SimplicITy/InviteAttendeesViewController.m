@@ -290,7 +290,6 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
         [alertView show];
-        
         return;
     }
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];

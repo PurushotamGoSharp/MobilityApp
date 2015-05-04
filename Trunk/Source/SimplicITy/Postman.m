@@ -14,6 +14,7 @@
     AFHTTPRequestOperationManager *manager;
 }
 
+
 - (id)init
 {
     if (self = [super init])
@@ -65,8 +66,6 @@
                                                   
                                                   NSData *responseData = [operation responseData];
                                                   [self.delegate postman:self gotSuccess:responseData forURL:URLString];
-                                                  
-                                                  
                                                   
                                               }
                                               failure:^(AFHTTPRequestOperation *operation, NSError *error) {

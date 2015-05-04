@@ -341,6 +341,7 @@
     }
     
 //Start time can be 5 mins less than current time. Because we are round time to multiple of 5 mins (less than current time). So intervel can be till 300 seconds to be valid.
+    
     NSTimeInterval intervel = [[NSDate date] timeIntervalSinceDate:startDate];
     if (intervel > 300)
     {
@@ -446,7 +447,6 @@
     self.endDatePicker.hidden = YES;
     self.startTimeButton.selected = NO;
     self.endTimeButton.selected = NO;
-
     self.availableRoomsView.hidden = YES;
 }
 
