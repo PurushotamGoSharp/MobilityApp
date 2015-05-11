@@ -315,6 +315,7 @@
                 
                 newsContent.subject = dictFromJSON[@"Title"];
                 newsContent.newsDetails =dictFromJSON[@"Content"];
+                newsContent.htmlcontant = dictFromJSON[@"FormattedMessage"];
                 
                 newsContent.recivedDate = [NSDate date];
                 newsContent.viewed = NO;
@@ -352,7 +353,7 @@
     
     //Table names cannot begin with a number.Hence we are adding n_
     
-    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists n_%@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, newsCode text, date text, viewedFlag integer)",parentCategoryCode];
+    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists n_%@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, htmlContent text, newsCode text, date text, viewedFlag integer)",parentCategoryCode];
     [dbManager createTableForQuery:creatQuery];
     
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
@@ -371,9 +372,14 @@
         rangeofString.length = newsSubjectString.length;
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
+        NSMutableString *html = [amodel.htmlcontant mutableCopy];
+        rangeofString.location = 0;
+        rangeofString.length = html.length;
+        [html replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
         //Table names cannot begin with a number.Hence we are adding n_
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO n_%@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",parentCategoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO n_%@ (IDOfNews, subject, newsDetails, htmlContent, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@','%@',%i)",parentCategoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, html, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];

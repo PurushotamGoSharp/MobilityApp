@@ -13,6 +13,7 @@
 @property(nonatomic,assign) NSInteger ID;
 @property (nonatomic,strong) NSString *newsCode;
 @property (nonatomic,strong) NSString *newsDetails;
+@property (nonatomic,strong) NSString *htmlcontant;
 @property (nonatomic,strong) NSDate *recivedDate;
 @property (nonatomic,assign)BOOL viewed;
 @property (nonatomic,strong)NSString *subject;

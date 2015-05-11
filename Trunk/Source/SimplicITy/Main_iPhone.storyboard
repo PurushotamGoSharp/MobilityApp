@@ -1234,7 +1234,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="LaM-ld-pGr" kind="push" id="tA8-fW-f6h"/>
+                                            <segue destination="oIa-db-1sb" kind="push" id="cbI-Kt-CwX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2552,7 +2552,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brW-TQ-yjS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5995" y="1202"/>
+            <point key="canvasLocation" x="6083" y="1235"/>
         </scene>
         <!--Languages-->
         <scene sceneID="gmv-w4-RNm">
@@ -2927,10 +2927,10 @@
             </objects>
             <point key="canvasLocation" x="5279" y="-43"/>
         </scene>
-        <!--Message Detail View Controller-->
+        <!--View Controller-->
         <scene sceneID="gOl-Ck-cvF">
             <objects>
-                <viewController id="LaM-ld-pGr" customClass="MessageDetailViewController" sceneMemberID="viewController">
+                <viewController id="LaM-ld-pGr" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2vD-kO-2wl"/>
                         <viewControllerLayoutGuide type="bottom" id="eI4-6q-MDv"/>
@@ -3077,7 +3077,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4O-yu-E77" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6097" y="-43"/>
+            <point key="canvasLocation" x="6605" y="-485"/>
+        </scene>
+        <!--Message Detail View Controller-->
+        <scene sceneID="juw-Y3-sU4">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="oIa-db-1sb" customClass="MessageDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kpn-AA-Fke"/>
+                        <viewControllerLayoutGuide type="bottom" id="kDB-8V-OEn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="y47-og-sRr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gX0-oJ-hRO">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oIa-db-1sb" id="zF2-pY-ObK"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gX0-oJ-hRO" secondAttribute="trailing" id="0FX-OV-ZTn"/>
+                            <constraint firstItem="gX0-oJ-hRO" firstAttribute="leading" secondItem="y47-og-sRr" secondAttribute="leading" id="3Ra-dj-PhL"/>
+                            <constraint firstItem="gX0-oJ-hRO" firstAttribute="top" secondItem="Kpn-AA-Fke" secondAttribute="bottom" id="fuW-mK-yxt"/>
+                            <constraint firstItem="kDB-8V-OEn" firstAttribute="top" secondItem="gX0-oJ-hRO" secondAttribute="bottom" id="qVT-hF-ZLT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="M4W-Pv-F7C"/>
+                    <connections>
+                        <outlet property="webViewOutlet" destination="gX0-oJ-hRO" id="84L-rJ-W2c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Oo-ax-wVo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6185" y="-4"/>
         </scene>
         <!--Free Slots View Controller-->
         <scene sceneID="RXd-pw-c4f">

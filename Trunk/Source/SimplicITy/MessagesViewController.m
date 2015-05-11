@@ -174,6 +174,7 @@
             
             newsContent.subject = dictFromJSON[@"Title"];
             newsContent.newsDetails =dictFromJSON[@"Content"];
+            newsContent.htmlcontant = dictFromJSON[@"FormattedMessage"];
             
             newsContent.recivedDate = [NSDate date];
             newsContent.viewed = NO;
@@ -202,7 +203,7 @@
         dbManager.delegate = self;
     }
     
-    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists %@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, newsCode text, date text, viewedFlag integer)",self.categoryModel.categoryCode];
+    NSString *creatQuery = [NSString stringWithFormat:@"create table if not exists %@ (IDOfNews integer PRIMARY KEY, subject text, newsDetails text, htmlContent text, newsCode text, date text, viewedFlag integer)",self.categoryModel.categoryCode];
     [dbManager createTableForQuery:creatQuery];
     
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
@@ -221,7 +222,12 @@
         rangeofString.length = newsSubjectString.length;
         [newsSubjectString replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
         
-        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, newsCode,date,viewedFlag) values (%li,'%@','%@','%@','%@',%i)",self.categoryModel.categoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, amodel.newsCode,
+        NSMutableString *html = [amodel.htmlcontant mutableCopy];
+        rangeofString.location = 0;
+        rangeofString.length = html.length;
+        [html replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+        
+        NSString *sql = [NSString stringWithFormat:@"INSERT INTO %@ (IDOfNews, subject, newsDetails, htmlContent, newsCode,date,viewedFlag) values (%li,'%@','%@', '%@','%@','%@',%i)",self.categoryModel.categoryCode, (long)amodel.ID, newsSubjectString, newsDetailsString, html, amodel.newsCode,
                          [converter stringFromDate:amodel.recivedDate], amodel.viewed];
         [dbManager saveDataToDBForQuery:sql];
         NSInteger currentSinceID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
@@ -269,14 +275,17 @@
             NSInteger ID = sqlite3_column_int(statment, 0);
             NSString *subject = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
             NSString *newsDetail = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
-            NSString *newsCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
-            NSString *date = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
-            NSInteger viewedFlag = sqlite3_column_int(statment, 5);
+            NSString *html = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+
+            NSString *newsCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
+            NSString *date = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
+            NSInteger viewedFlag = sqlite3_column_int(statment, 6);
             
             NewsContentModel *model = [[NewsContentModel alloc] init];
             model.ID = ID;
             model.subject = subject;
             model.newsDetails = newsDetail;
+            model.htmlcontant = html;
             model.newsCode = newsCode;
             
             NSDateFormatter *converter = [[NSDateFormatter alloc] init];

@@ -711,7 +711,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glp-qk-Sv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3478" y="-263"/>
+            <point key="canvasLocation" x="3922" y="-255"/>
         </scene>
         <!--Tools View Controller-->
         <scene sceneID="mAz-DX-4pz">
@@ -1336,7 +1336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKv-bW-iVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4321" y="-263"/>
+            <point key="canvasLocation" x="4765" y="-255"/>
         </scene>
         <!--Languages-->
         <scene sceneID="hOO-ou-Kec">
@@ -2552,7 +2552,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="SHo-TW-4zv" kind="push" id="iA8-zQ-UPi"/>
+                                            <segue destination="7Pe-g1-eGc" kind="push" id="GKk-ZN-SFZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2854,7 +2854,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eRv-Xm-3vc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6925" y="830"/>
+            <point key="canvasLocation" x="7305" y="-354"/>
         </scene>
         <!--Ok 2update View Controller-->
         <scene sceneID="UlU-70-ahC">
@@ -3143,7 +3143,11 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Ticket" id="Tcl-lW-l5h">
-                        <barButtonItem key="leftBarButtonItem" image="TicketsListtBarIcon" id="Lyj-Q4-CNr"/>
+                        <barButtonItem key="leftBarButtonItem" image="TicketsListtBarIcon" id="Lyj-Q4-CNr">
+                            <connections>
+                                <segue destination="hxX-gQ-JPF" kind="push" identifier="myTicketList_segue" id="4Rv-zV-YWp"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="tick-mark" id="M6W-Zs-KMN">
                             <connections>
                                 <action selector="saveBtnPressed:" destination="5qQ-GF-PQP" id="srV-vf-BKe"/>
@@ -4136,6 +4140,43 @@
             </objects>
             <point key="canvasLocation" x="5924" y="2490"/>
         </scene>
+        <!--Message Detail View Controller-->
+        <scene sceneID="lCM-tD-TtF">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="7Pe-g1-eGc" customClass="MessageDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LmH-5Y-ECK"/>
+                        <viewControllerLayoutGuide type="bottom" id="y1N-w6-bT0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lxv-5K-qZO">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9m-LD-7xX">
+                                <rect key="frame" x="0.0" y="64" width="768" height="911"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="7Pe-g1-eGc" id="HsI-BX-GpH"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="p9m-LD-7xX" firstAttribute="leading" secondItem="Lxv-5K-qZO" secondAttribute="leading" id="Bsv-PQ-Szf"/>
+                            <constraint firstItem="p9m-LD-7xX" firstAttribute="top" secondItem="LmH-5Y-ECK" secondAttribute="bottom" id="DC4-lD-KGq"/>
+                            <constraint firstItem="y1N-w6-bT0" firstAttribute="top" secondItem="p9m-LD-7xX" secondAttribute="bottom" id="RVx-vn-p3h"/>
+                            <constraint firstAttribute="trailing" secondItem="p9m-LD-7xX" secondAttribute="trailing" id="pXJ-3K-HeB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="xwO-vH-p7i"/>
+                    <connections>
+                        <outlet property="webViewOutlet" destination="p9m-LD-7xX" id="X20-tL-j8z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jNH-Ug-cKv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7045" y="864"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Avatar" width="50" height="47"/>
@@ -4193,5 +4234,6 @@
         <segue reference="f3u-DB-T6o"/>
         <segue reference="Rev-Qf-Q5v"/>
         <segue reference="zaq-sH-oyT"/>
+        <segue reference="4Rv-zV-YWp"/>
     </inferredMetricsTieBreakers>
 </document>

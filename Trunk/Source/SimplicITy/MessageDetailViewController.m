@@ -9,6 +9,8 @@
 #import "MessageDetailViewController.h"
 #import "BadgeNoManager.h"
 #import "DBManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+
 
 @interface MessageDetailViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLable;
@@ -20,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *separator1;
 @property (weak, nonatomic) IBOutlet UIView *separator2;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIWebView *webViewOutlet;
 
 @end
 
@@ -37,6 +40,7 @@
 //    self.subjectLable.text = self.mesgModel.subject;
 //    self.bodyTextView.text = self.mesgModel.body;
 //    self.timeLable.text = self.mesgModel.time;
+
     
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -73,6 +77,9 @@
 
     dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
     
+    [self.webViewOutlet loadHTMLString:self.newsContent.htmlcontant baseURL:nil];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     self.title = @"News Details";
 }
 
@@ -101,26 +108,30 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
-    [webView stringByEvaluatingJavaScriptFromString:javascript];
-
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
-    CGRect frame = webView.frame;
-    frame.size.height = 1;
-    webView.frame = frame;
-    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
-    frame.size = fittingSize;
-    webView.frame = frame;
+//    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
+//    [webView stringByEvaluatingJavaScriptFromString:javascript];
+//
+//    
+//    CGRect frame = webView.frame;
+//    frame.size.height = 1;
+//    webView.frame = frame;
+//    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+//    frame.size = fittingSize;
+//    webView.frame = frame;
+//    
+//    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+//    
+//    
+//    [self.tableView beginUpdates];
+//    
+//    CGFloat webViewHeight = webView.scrollView.contentSize.height;
+//    heightOfWebViewCell = webViewHeight + 10;
+//    webView.scrollView.scrollEnabled = NO;
+//    [self.tableView endUpdates];
     
-    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
     
-    
-    [self.tableView beginUpdates];
-    
-    CGFloat webViewHeight = webView.scrollView.contentSize.height;
-    heightOfWebViewCell = webViewHeight + 10;
-    webView.scrollView.scrollEnabled = NO;
-    [self.tableView endUpdates];
 //    yourScrollView.contentSize = webView.bounds.size;
 }
 
