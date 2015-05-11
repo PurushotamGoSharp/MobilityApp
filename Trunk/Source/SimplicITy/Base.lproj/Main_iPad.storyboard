@@ -528,11 +528,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Siw-Mk-SOY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZT0-Ja-BZE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="odX-b1-xSe">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="67" id="gEm-3g-xbH" customClass="TicketsListCell">
@@ -711,7 +711,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glp-qk-Sv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3478" y="-263"/>
+            <point key="canvasLocation" x="3922" y="-255"/>
         </scene>
         <!--Tools View Controller-->
         <scene sceneID="mAz-DX-4pz">
@@ -1221,11 +1221,11 @@
                         <viewControllerLayoutGuide type="bottom" id="T4I-tD-a1j"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mEX-E3-ssE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jby-jG-VuB">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.69803921570000005" green="0.91764705879999997" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -1336,7 +1336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RKv-bW-iVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4321" y="-263"/>
+            <point key="canvasLocation" x="4765" y="-255"/>
         </scene>
         <!--Languages-->
         <scene sceneID="hOO-ou-Kec">
@@ -2551,6 +2551,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="7Pe-g1-eGc" kind="push" id="GKk-ZN-SFZ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -2570,7 +2573,6 @@
                     <navigationItem key="navigationItem" id="Ymg-bn-CtV"/>
                     <connections>
                         <outlet property="tableViewOutlet" destination="2Vq-51-Z3l" id="Ld7-XR-hiK"/>
-                        <segue destination="7Pe-g1-eGc" kind="push" id="e7o-03-Z2B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="axO-yw-blR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3141,7 +3143,11 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Ticket" id="Tcl-lW-l5h">
-                        <barButtonItem key="leftBarButtonItem" image="TicketsListtBarIcon" id="Lyj-Q4-CNr"/>
+                        <barButtonItem key="leftBarButtonItem" image="TicketsListtBarIcon" id="Lyj-Q4-CNr">
+                            <connections>
+                                <segue destination="hxX-gQ-JPF" kind="push" identifier="myTicketList_segue" id="4Rv-zV-YWp"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="tick-mark" id="M6W-Zs-KMN">
                             <connections>
                                 <action selector="saveBtnPressed:" destination="5qQ-GF-PQP" id="srV-vf-BKe"/>
@@ -4217,5 +4223,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="f3u-DB-T6o"/>
         <segue reference="zaq-sH-oyT"/>
+        <segue reference="4Rv-zV-YWp"/>
     </inferredMetricsTieBreakers>
 </document>

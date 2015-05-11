@@ -189,12 +189,14 @@
     [[UAPush shared] resetBadge];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
     UA_LINFO(@"Received remote notification (in appDelegate): %@", userInfo);
     
     [self gotNotificatonWithUserInfo:userInfo fetchCompletionHandler:completionHandler];
     
-    if (application.applicationState != UIApplicationStateBackground) {
+    if (application.applicationState != UIApplicationStateBackground)
+    {
         [[UAPush shared] resetBadge];
     }
 }
