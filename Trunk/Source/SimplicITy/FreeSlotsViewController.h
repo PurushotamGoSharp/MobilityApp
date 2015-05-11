@@ -7,9 +7,10 @@
 //
 
 #import "CustomColoredViewController.h"
+@class RoomManager;
 
 @interface FreeSlotsViewController : CustomColoredViewController
 
 @property (strong, nonatomic) NSArray *rooms;
-
+@property (strong, nonatomic) RoomManager *roomManager;
 @end

@@ -11,7 +11,9 @@
 #import "UAConfig.h"
 #import "UAPush.h"
 #import "SendRequestsManager.h"
-#import <Gimbal/Gimbal.h>
+//#import <Gimbal/Gimbal.h>
+#import "RoomRecognizer.h"
+
 #define ENABLE_PUSH_NOTIFICATION YES
 
 @interface AppDelegate () <UAPushNotificationDelegate, postmanDelegate>
@@ -21,6 +23,7 @@
 @implementation AppDelegate
 {
     Postman *postMan;
+    RoomRecognizer *recognizer;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -33,8 +36,11 @@
     [UAirship takeOff:config];
     UA_LDEBUG(@"Config:\n%@", [config description]);
     
-    [Gimbal setAPIKey:@"47be3299-7a5c-41df-8320-a97519a45ede" options:nil];
-    [GMBLPlaceManager startMonitoring];
+//    [Gimbal setAPIKey:@"47be3299-7a5c-41df-8320-a97519a45ede" options:nil];
+//    [GMBLPlaceManager startMonitoring];
+    
+    recognizer = [RoomRecognizer sharedRecognizer];
+
     
     // Set the icon badge to zero on startup (optional)
     [UAPush shared].userNotificationTypes = (UIUserNotificationTypeAlert |
@@ -164,6 +170,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }

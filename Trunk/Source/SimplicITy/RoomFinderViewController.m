@@ -12,7 +12,6 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "RoomModel.h"
 #import "AppDelegate.h"
-#import "UINavigationController+CustomOrientation.h"
 #import "InviteAttendeesViewController.h"
 #import "PasswordManager.h"
 #import "FreeSlotsViewController.h"
@@ -75,7 +74,6 @@
     dateFormatter.dateFormat = @"hh.mm a";
     
     roomManager = [[RoomManager alloc] init];
-    roomManager.delegate = self;
 //    roomsToCheck = @[@"boardroom@vmex.com", @"trainingroom@vmex.com", @"discussionroom@vmex.com", @"room1@vmex.com"];
     
     self.containerForCalendar.layer.masksToBounds = YES;
@@ -116,6 +114,8 @@
 {
     [super viewWillAppear:animated];
     
+    roomManager.delegate = self;
+
     [self setTheme];
 }
 
@@ -512,6 +512,11 @@
 
 #pragma mark - UITableViewDelegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [roomsAvailable count];
@@ -523,6 +528,15 @@
     UILabel *label = (UILabel *)[cell viewWithTag:100];
     RoomModel *model = roomsAvailable[indexPath.row];
     label.text = model.nameOfRoom;
+    UIImageView *beaconIndicatorImageView = (UIImageView *)[cell viewWithTag:555];
+    
+    if (model.RSSIValue > NSIntegerMin)
+    {
+        beaconIndicatorImageView.image = [UIImage imageNamed:@"ibeacon-green"];
+    }else
+    {
+        beaconIndicatorImageView.image = [UIImage imageNamed:@""];
+    }
     
     return cell;
 }
@@ -553,6 +567,23 @@
 
 
 #pragma mark - RoomManagerDelegate
+- (void)roomManager:(RoomManager *)manager updatedRSSIValueForRooms:(NSMutableArray *)updatedRooms
+{
+    
+    
+    roomsToCheckModelArray = updatedRooms;
+    
+    if (roomsAvailable.count > 0)
+    {
+        NSSortDescriptor *sortForRSSI = [NSSortDescriptor sortDescriptorWithKey:@"RSSIValue" ascending:NO];
+        NSSortDescriptor *sortForNameOfRoom = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
+        
+        [roomsAvailable sortUsingDescriptors:@[sortForRSSI, sortForNameOfRoom]];
+        
+        [self.tableView reloadData];
+    }
+}
+
 - (void)roomManager:(RoomManager *)manager foundAvailableRooms:(NSArray *)availableRooms
 {
     selectedindex = -1;//Negative value wont be INDEX of cell
@@ -702,9 +733,9 @@
     }else if ([segue.identifier isEqualToString:@"RoomFinderToFreeSlotsSegue"])
     {
         FreeSlotsViewController *freeSlotsVC = (FreeSlotsViewController *)segue.destinationViewController;
+        freeSlotsVC.roomManager = roomManager;
         
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
-
         freeSlotsVC.rooms = [roomsToCheckModelArray sortedArrayUsingDescriptors:@[sortDescriptor]];
     }
 }

@@ -13,6 +13,9 @@
 @interface RoomRecognizer : NSObject
 
 + (instancetype)sharedRecognizer;
+
+- (void)startRecognize;
+- (void)stopRecognize;
 - (NSArray *)recognizedRooms;
 
 @end

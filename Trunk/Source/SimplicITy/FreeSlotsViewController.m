@@ -34,8 +34,6 @@
 
 @implementation FreeSlotsViewController
 {
-    RoomManager *roomManager;
-    
     PasswordManager *passwordManager;
     NSString *currentlyExcutingMethod;
 
@@ -52,6 +50,8 @@
     NSDateFormatter *dateFormatter;
     
     UIBarButtonItem *backButton;
+    
+    BOOL preventReloadingOfTable;//When user taps a Room, free slots will be shown to user. At that time we should not reload the table as BEACON VALUE CAHNGES. So whenever user taps on a Room we will prevent table reload as BEACON VALUE CAHNGES
 }
 
 - (void)viewDidLoad
@@ -59,8 +59,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    roomManager = [[RoomManager alloc] init];
-    roomManager.delegate = self;
+//    roomManager = [[RoomManager alloc] init];
     
     self.containerForCalendar.layer.masksToBounds = YES;
     
@@ -86,7 +85,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.roomManager.delegate = self;
     [self setTheme];
+    
     if (self.rooms.count == 0 | self.rooms == nil)
     {
         [self getAllRoomsOfCurrentLocation];
@@ -119,7 +121,7 @@
 - (void)setTheme
 {
     NSInteger selectedThemeIndex = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
-    NSString *selectedDateBannerName = [NSString stringWithFormat:@"selectedDateBanner_%li", selectedThemeIndex];
+    NSString *selectedDateBannerName = [NSString stringWithFormat:@"selectedDateBanner_%li", (long)selectedThemeIndex];
     self.bannerImageView.image = [UIImage imageNamed:selectedDateBannerName];
     
     UIColor *color;
@@ -183,7 +185,7 @@
         
         if ([passwordManager passwordForUser].length > 0)
         {
-            [roomManager getRoomsForRoomList:selectedLocationEmailID];
+            [self.roomManager getRoomsForRoomList:selectedLocationEmailID];
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }else
         {
@@ -321,7 +323,17 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1" forIndexPath:indexPath];
         RoomModel *model = self.rooms[indexPath.section];
         UILabel *officelabel = (UILabel *)[cell viewWithTag:100];
+        
         officelabel.text = model.nameOfRoom;
+        
+        UIImageView *beaconIndicatorImageView = (UIImageView *)[cell viewWithTag:555];
+        if (model.RSSIValue > NSIntegerMin)
+        {
+            beaconIndicatorImageView.image = [UIImage imageNamed:@"ibeacon-green"];
+        }else
+        {
+            beaconIndicatorImageView.image = [UIImage imageNamed:@""];
+        }
     }else
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2" forIndexPath:indexPath];
@@ -353,6 +365,7 @@
         
         if (selectedIndexPath != nil)
         {
+            preventReloadingOfTable = NO;
             freeSlotsArray = nil;
             selectedIndexPath = nil;
             [self updateTableViewSection:previousSection];
@@ -365,15 +378,19 @@
         }
         if (indexPath.section != previousSection)
         {
+            //When user taps on a new ROOM
             selectedDate = selectedDate?:[NSDate date];
             [self updateStartAndEndDateFor:selectedDate];
             selectedIndexPath = indexPath;
             
+            preventReloadingOfTable = YES;//When user taps a Room, free slots will be shown to user. At that time we should not reload the table as BEACON VALUE CAHNGES. So whenever user taps on a Room we will prevent table reload as BEACON VALUE CAHNGES
+            
             RoomModel *model = self.rooms[indexPath.section];
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [roomManager findFreeSlotsOfRooms:@[model.emailIDOfRoom]
+            [self.roomManager findFreeSlotsOfRooms:@[model.emailIDOfRoom]
                                      forStart:startDate
                                         toEnd:endDate];
+            
         }
         
 //        if (selectedIndexPath)
@@ -465,6 +482,25 @@
 }
 
 #pragma mark - RoomManagerDelegate
+
+- (void)roomManager:(RoomManager *)manager updatedRSSIValueForRooms:(NSMutableArray *)updatedRooms
+{
+    self.rooms = updatedRooms;
+    
+    if (preventReloadingOfTable) return; //When user taps a Room, free slots will be shown to user. At that time we should not reload the table as BEACON VALUE CAHNGES. So whenever user taps on a Room we will prevent table reload as BEACON VALUE CAHNGES
+
+    
+    if (updatedRooms.count > 0)
+    {
+        NSSortDescriptor *sortForRSSI = [NSSortDescriptor sortDescriptorWithKey:@"RSSIValue" ascending:NO];
+        NSSortDescriptor *sortForNameOfRoom = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
+        
+        [updatedRooms sortUsingDescriptors:@[sortForRSSI, sortForNameOfRoom]];
+        
+        self.rooms = updatedRooms;
+        [self.tableView reloadData];
+    }
+}
 - (void)roomManager:(RoomManager *)manager FoundRooms:(NSArray *)rooms
 {    
     self.rooms = rooms;

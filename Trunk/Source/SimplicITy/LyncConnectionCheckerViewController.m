@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Lync Checker";
+    self.title = @"Lync Connection Checker";
 }
 
 -(void)viewWillDisappear:(BOOL)animated

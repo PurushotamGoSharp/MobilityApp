@@ -65,9 +65,6 @@
                                                   
                                                   NSData *responseData = [operation responseData];
                                                   [self.delegate postman:self gotSuccess:responseData forURL:URLString];
-                                                  
-                                                  
-                                                  
                                               }
                                               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                   [self.delegate postman:self gotFailure:error forURL:URLString];
@@ -83,6 +80,31 @@
 //    }];
     [self setAuthenticationBlockForOperation:operation];
 }
+
+- (void)post:(NSString *)URLString withParameters:(NSString *)parameter success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSLog(@"URl = %@ : parameters = %@", URLString,parameter);
+    NSDictionary *parameterDict = [NSJSONSerialization JSONObjectWithData:[parameter dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    
+    AFHTTPRequestOperation *operation = [manager POST:URLString
+                                           parameters:parameterDict
+                                              success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                                  
+                                                  success(operation, responseObject);
+                                              }
+                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                  
+                                                  failure(operation, error);
+                                                  
+                                                  NSLog(@"ERROR %@",[operation responseString]);
+                                                  NSLog(@"Error %@", error);
+                                                  
+                                              }];
+
+    [self setAuthenticationBlockForOperation:operation];
+}
+
+
 
 - (void)get:(NSString *)URLString
 {

@@ -28,6 +28,9 @@
 - (void)roomManager:(RoomManager *)manager gotPassword:(PasswordManager *)passwordManager;
 - (void)roomManager:(RoomManager *)manager failedToGetPassword:(PasswordManager *)passwordManager;
 
+
+- (void)roomManager:(RoomManager *)manager updatedRSSIValueForRooms:(NSMutableArray *)updatedRooms;
+
 @end
 
 @interface RoomManager : NSObject

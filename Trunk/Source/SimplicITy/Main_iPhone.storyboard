@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -371,7 +371,7 @@
                                                             <constraint firstItem="n4V-Rr-0Zi" firstAttribute="top" secondItem="LiG-Bq-B0U" secondAttribute="top" id="yS8-mg-Yym"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-eJ-48c" userLabel="Settings">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-eJ-48c" userLabel="Updates">
                                                         <rect key="frame" x="214" y="244" width="100" height="118"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wW-Wc-WS8">
@@ -386,7 +386,7 @@
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SettingsDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="EGq-pw-lIV">
                                                                 <rect key="frame" x="18" y="17" width="64" height="64"/>
                                                             </imageView>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ok2update" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-Qv-c9G">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Updates" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icl-Qv-c9G" userLabel="Updates">
                                                                 <rect key="frame" x="14" y="87" width="74" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1879,11 +1879,11 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCirlce" translatesAutoresizingMaskIntoConstraints="NO" id="09h-7Y-9qI">
-                                                            <rect key="frame" x="256" y="14" width="15" height="15"/>
+                                                        <imageView userInteractionEnabled="NO" tag="555" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCirlce" translatesAutoresizingMaskIntoConstraints="NO" id="09h-7Y-9qI">
+                                                            <rect key="frame" x="246" y="9" width="25" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="15" id="ryN-7v-KnC"/>
-                                                                <constraint firstAttribute="height" constant="15" id="wll-nK-ZD8"/>
+                                                                <constraint firstAttribute="width" constant="25" id="ryN-7v-KnC"/>
+                                                                <constraint firstAttribute="height" constant="25" id="wll-nK-ZD8"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -3145,6 +3145,13 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="555" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCirlce" translatesAutoresizingMaskIntoConstraints="NO" id="xQ2-cb-sJG">
+                                                    <rect key="frame" x="287" y="7" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="ZdC-0b-x87"/>
+                                                        <constraint firstAttribute="width" constant="25" id="uoD-4v-FTe"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -3152,7 +3159,10 @@
                                                 <constraint firstItem="Bwy-Fs-GI7" firstAttribute="top" secondItem="xLP-L0-0bV" secondAttribute="top" id="F2b-ze-VuA"/>
                                                 <constraint firstItem="Bwy-Fs-GI7" firstAttribute="leading" secondItem="xLP-L0-0bV" secondAttribute="leading" id="Qrk-74-Ssh"/>
                                                 <constraint firstAttribute="trailing" secondItem="Bwy-Fs-GI7" secondAttribute="trailing" id="Sbw-WX-8b0"/>
+                                                <constraint firstItem="xQ2-cb-sJG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hCj-nk-b8B" secondAttribute="trailing" constant="4" id="jco-IK-wzb"/>
                                                 <constraint firstAttribute="centerY" secondItem="hCj-nk-b8B" secondAttribute="centerY" id="lll-Wh-Tk5"/>
+                                                <constraint firstAttribute="centerY" secondItem="xQ2-cb-sJG" secondAttribute="centerY" id="xOL-oT-avu"/>
+                                                <constraint firstAttribute="trailing" secondItem="xQ2-cb-sJG" secondAttribute="trailing" constant="8" id="yCK-MV-sr4"/>
                                                 <constraint firstAttribute="bottom" secondItem="Bwy-Fs-GI7" secondAttribute="bottom" constant="1" id="ytw-px-VGL"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -4394,7 +4404,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="J1A-hZ-SrU"/>
-        <segue reference="CXP-ec-zh5"/>
+        <segue reference="5s6-By-sBB"/>
         <segue reference="c60-44-5Yq"/>
     </inferredMetricsTieBreakers>
 </document>

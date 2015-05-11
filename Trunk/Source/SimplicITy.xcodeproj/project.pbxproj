@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		860081FA1AD54CC5009C885B /* PasswordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 860081F91AD54CC5009C885B /* PasswordManager.m */; };
+		860209141AF7546E005FB8F5 /* libkontakt-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 860209131AF7546E005FB8F5 /* libkontakt-ios-sdk.a */; };
 		861738D31AE91AF500BDA49C /* LaunchImage-800-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 861738CD1AE91AF500BDA49C /* LaunchImage-800-667h@2x.png */; };
 		861738D41AE91AF500BDA49C /* LaunchImage-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 861738CE1AE91AF500BDA49C /* LaunchImage-568h@2x.png */; };
 		861738D51AE91AF500BDA49C /* LanchImage_ipad_Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 861738CF1AE91AF500BDA49C /* LanchImage_ipad_Landscape@2x.png */; };
@@ -117,6 +118,7 @@
 		864E5F791A442DC400C2542A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F781A442DC400C2542A /* Localizable.strings */; };
 		864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */; };
 		865C340B1AD24C0F0082B264 /* LandscapePreventionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C340A1AD24C0F0082B264 /* LandscapePreventionViewController.m */; };
+		865CE2621AFB8280006DB797 /* RoomBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 865CE2611AFB8280006DB797 /* RoomBeacon.m */; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
 		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
 		8669DABD1A77A37900BE63A6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8669DABC1A77A37900BE63A6 /* AboutViewController.m */; };
@@ -157,7 +159,6 @@
 		86B6A7F91A84CBB700E55B5E /* FileLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6A7F81A84CBB700E55B5E /* FileLoadViewController.m */; };
 		86B748E81ADD0D3B004951A5 /* TimeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748E71ADD0D3B004951A5 /* TimeWindow.m */; };
 		86B748EB1ADD3D9B004951A5 /* FreeSlotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748EA1ADD3D9B004951A5 /* FreeSlotsViewController.m */; };
-		86C077891AC27A9F00938F65 /* Gimbal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86C077881AC27A9F00938F65 /* Gimbal.framework */; };
 		86C0778C1AC283B400938F65 /* RoomRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778B1AC283B400938F65 /* RoomRecognizer.m */; };
 		86C077901AC2863F00938F65 /* RoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778F1AC2863F00938F65 /* RoomModel.m */; };
 		86C077931AC29A3C00938F65 /* RoomManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077921AC29A3C00938F65 /* RoomManager.m */; };
@@ -199,7 +200,6 @@
 		86EE2A961A8394CF00E32F11 /* vmCert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86EE2A951A8394CF00E32F11 /* vmCert.p12 */; };
 		86EF85A51AD3D3B100D6AE75 /* CalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */; };
 		86EF85A71AD403E100D6AE75 /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86EF85A61AD403E100D6AE75 /* cert.p12 */; };
-		86F10CFB1ACD404200EE6433 /* UINavigationController+CustomOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F10CFA1ACD404200EE6433 /* UINavigationController+CustomOrientation.m */; };
 		86F6DE251AC421260060E336 /* RoomFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F6DE241AC421260060E336 /* RoomFinderViewController.m */; };
 		86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F943C81A9C60ED0094204E /* NewsCategoryFetcher.m */; };
 		86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FA17421A80FA4600846378 /* DummyOrderViewController.m */; };
@@ -220,6 +220,49 @@
 		075A1155144476E942168182 /* libPods-SimplicITy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimplicITy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		860081F81AD54CC5009C885B /* PasswordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordManager.h; sourceTree = "<group>"; };
 		860081F91AD54CC5009C885B /* PasswordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordManager.m; sourceTree = "<group>"; };
+		860208E91AF7546E005FB8F5 /* KontaktSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KontaktSDK.h; sourceTree = "<group>"; };
+		860208EA1AF7546E005FB8F5 /* KTKAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKAction.h; sourceTree = "<group>"; };
+		860208EB1AF7546E005FB8F5 /* KTKActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKActionManager.h; sourceTree = "<group>"; };
+		860208EC1AF7546E005FB8F5 /* KTKBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKBeacon.h; sourceTree = "<group>"; };
+		860208ED1AF7546E005FB8F5 /* KTKBeaconDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKBeaconDevice.h; sourceTree = "<group>"; };
+		860208EE1AF7546E005FB8F5 /* KTKBeaconDeviceV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKBeaconDeviceV2.h; sourceTree = "<group>"; };
+		860208EF1AF7546E005FB8F5 /* KTKBeaconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKBeaconManager.h; sourceTree = "<group>"; };
+		860208F01AF7546E005FB8F5 /* KTKBeaconProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKBeaconProfile.h; sourceTree = "<group>"; };
+		860208F11AF7546E005FB8F5 /* KTKBluetoothDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKBluetoothDevice.h; sourceTree = "<group>"; };
+		860208F21AF7546E005FB8F5 /* KTKBluetoothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKBluetoothManager.h; sourceTree = "<group>"; };
+		860208F31AF7546E005FB8F5 /* KTKCharacteristicDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKCharacteristicDescriptor.h; sourceTree = "<group>"; };
+		860208F41AF7546E005FB8F5 /* KTKClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKClient.h; sourceTree = "<group>"; };
+		860208F51AF7546E005FB8F5 /* KTKCloudBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKCloudBeacon.h; sourceTree = "<group>"; };
+		860208F61AF7546E005FB8F5 /* KTKCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKCompany.h; sourceTree = "<group>"; };
+		860208F71AF7546E005FB8F5 /* KTKConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKConverter.h; sourceTree = "<group>"; };
+		860208F81AF7546E005FB8F5 /* KTKDataTransferObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKDataTransferObject.h; sourceTree = "<group>"; };
+		860208F91AF7546E005FB8F5 /* KTKDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKDescriptor.h; sourceTree = "<group>"; };
+		860208FA1AF7546E005FB8F5 /* KTKDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKDevice.h; sourceTree = "<group>"; };
+		860208FB1AF7546E005FB8F5 /* KTKError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKError.h; sourceTree = "<group>"; };
+		860208FC1AF7546E005FB8F5 /* KTKFirmware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKFirmware.h; sourceTree = "<group>"; };
+		860208FD1AF7546E005FB8F5 /* KTKHexConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKHexConverter.h; sourceTree = "<group>"; };
+		860208FE1AF7546E005FB8F5 /* KTKLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKLocationManager.h; sourceTree = "<group>"; };
+		860208FF1AF7546E005FB8F5 /* KTKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKManager.h; sourceTree = "<group>"; };
+		860209001AF7546E005FB8F5 /* KTKNumberConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKNumberConverter.h; sourceTree = "<group>"; };
+		860209011AF7546E005FB8F5 /* KTKNumberDiscreteConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKNumberDiscreteConverter.h; sourceTree = "<group>"; };
+		860209021AF7546E005FB8F5 /* KTKNumberLinearConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKNumberLinearConverter.h; sourceTree = "<group>"; };
+		860209031AF7546E005FB8F5 /* KTKPaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPaging.h; sourceTree = "<group>"; };
+		860209041AF7546E005FB8F5 /* KTKPagingBeacons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPagingBeacons.h; sourceTree = "<group>"; };
+		860209051AF7546E005FB8F5 /* KTKPagingConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPagingConfigs.h; sourceTree = "<group>"; };
+		860209061AF7546E005FB8F5 /* KTKPagingDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPagingDevices.h; sourceTree = "<group>"; };
+		860209071AF7546E005FB8F5 /* KTKPagingVenues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPagingVenues.h; sourceTree = "<group>"; };
+		860209081AF7546E005FB8F5 /* KTKPublicAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPublicAction.h; sourceTree = "<group>"; };
+		860209091AF7546E005FB8F5 /* KTKPublicBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPublicBeacon.h; sourceTree = "<group>"; };
+		8602090A1AF7546E005FB8F5 /* KTKPublicVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKPublicVenue.h; sourceTree = "<group>"; };
+		8602090B1AF7546E005FB8F5 /* KTKRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKRegion.h; sourceTree = "<group>"; };
+		8602090C1AF7546E005FB8F5 /* KTKServiceDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKServiceDescriptor.h; sourceTree = "<group>"; };
+		8602090D1AF7546E005FB8F5 /* KTKStringConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKStringConverter.h; sourceTree = "<group>"; };
+		8602090E1AF7546E005FB8F5 /* KTKSubordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKSubordinate.h; sourceTree = "<group>"; };
+		8602090F1AF7546E005FB8F5 /* KTKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKUser.h; sourceTree = "<group>"; };
+		860209101AF7546E005FB8F5 /* KTKUUIDConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKUUIDConverter.h; sourceTree = "<group>"; };
+		860209111AF7546E005FB8F5 /* KTKVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKVenue.h; sourceTree = "<group>"; };
+		860209121AF7546E005FB8F5 /* KTKVenueBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTKVenueBase.h; sourceTree = "<group>"; };
+		860209131AF7546E005FB8F5 /* libkontakt-ios-sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libkontakt-ios-sdk.a"; sourceTree = "<group>"; };
 		861738CD1AE91AF500BDA49C /* LaunchImage-800-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-800-667h@2x.png"; sourceTree = "<group>"; };
 		861738CE1AE91AF500BDA49C /* LaunchImage-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage-568h@2x.png"; sourceTree = "<group>"; };
 		861738CF1AE91AF500BDA49C /* LanchImage_ipad_Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LanchImage_ipad_Landscape@2x.png"; sourceTree = "<group>"; };
@@ -477,6 +520,8 @@
 		864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADExpirationViewController.m; sourceTree = "<group>"; };
 		865C34091AD24C0F0082B264 /* LandscapePreventionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandscapePreventionViewController.h; sourceTree = "<group>"; };
 		865C340A1AD24C0F0082B264 /* LandscapePreventionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandscapePreventionViewController.m; sourceTree = "<group>"; };
+		865CE2601AFB8280006DB797 /* RoomBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomBeacon.h; sourceTree = "<group>"; };
+		865CE2611AFB8280006DB797 /* RoomBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomBeacon.m; sourceTree = "<group>"; };
 		86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
 		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
@@ -548,7 +593,6 @@
 		86B748E71ADD0D3B004951A5 /* TimeWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeWindow.m; sourceTree = "<group>"; };
 		86B748E91ADD3D9B004951A5 /* FreeSlotsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeSlotsViewController.h; sourceTree = "<group>"; };
 		86B748EA1ADD3D9B004951A5 /* FreeSlotsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeSlotsViewController.m; sourceTree = "<group>"; };
-		86C077881AC27A9F00938F65 /* Gimbal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Gimbal.framework; sourceTree = "<group>"; };
 		86C0778A1AC283B400938F65 /* RoomRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomRecognizer.h; sourceTree = "<group>"; };
 		86C0778B1AC283B400938F65 /* RoomRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomRecognizer.m; sourceTree = "<group>"; };
 		86C0778E1AC2863F00938F65 /* RoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomModel.h; sourceTree = "<group>"; };
@@ -627,8 +671,6 @@
 		86EF85A31AD3D3B100D6AE75 /* CalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarEvent.h; sourceTree = "<group>"; };
 		86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarEvent.m; sourceTree = "<group>"; };
 		86EF85A61AD403E100D6AE75 /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
-		86F10CF91ACD404200EE6433 /* UINavigationController+CustomOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+CustomOrientation.h"; sourceTree = "<group>"; };
-		86F10CFA1ACD404200EE6433 /* UINavigationController+CustomOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+CustomOrientation.m"; sourceTree = "<group>"; };
 		86F6DE231AC421260060E336 /* RoomFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomFinderViewController.h; sourceTree = "<group>"; };
 		86F6DE241AC421260060E336 /* RoomFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomFinderViewController.m; sourceTree = "<group>"; };
 		86F943C71A9C60ED0094204E /* NewsCategoryFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCategoryFetcher.h; sourceTree = "<group>"; };
@@ -645,8 +687,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				860209141AF7546E005FB8F5 /* libkontakt-ios-sdk.a in Frameworks */,
 				86C077B01AC29D1900938F65 /* libxml2.dylib in Frameworks */,
-				86C077891AC27A9F00938F65 /* Gimbal.framework in Frameworks */,
 				864532DE1A5A674500A656A3 /* MapKit.framework in Frameworks */,
 				864532DC1A5A673E00A656A3 /* AudioToolbox.framework in Frameworks */,
 				864532DA1A5A673600A656A3 /* MessageUI.framework in Frameworks */,
@@ -689,6 +731,64 @@
 				BD0CCE1B46B31FC994F6F1D5 /* Pods-SimplicITy.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		860208E71AF7546E005FB8F5 /* KontaktSDK */ = {
+			isa = PBXGroup;
+			children = (
+				860208E81AF7546E005FB8F5 /* Headers */,
+				860209131AF7546E005FB8F5 /* libkontakt-ios-sdk.a */,
+			);
+			path = KontaktSDK;
+			sourceTree = "<group>";
+		};
+		860208E81AF7546E005FB8F5 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				860208E91AF7546E005FB8F5 /* KontaktSDK.h */,
+				860208EA1AF7546E005FB8F5 /* KTKAction.h */,
+				860208EB1AF7546E005FB8F5 /* KTKActionManager.h */,
+				860208EC1AF7546E005FB8F5 /* KTKBeacon.h */,
+				860208ED1AF7546E005FB8F5 /* KTKBeaconDevice.h */,
+				860208EE1AF7546E005FB8F5 /* KTKBeaconDeviceV2.h */,
+				860208EF1AF7546E005FB8F5 /* KTKBeaconManager.h */,
+				860208F01AF7546E005FB8F5 /* KTKBeaconProfile.h */,
+				860208F11AF7546E005FB8F5 /* KTKBluetoothDevice.h */,
+				860208F21AF7546E005FB8F5 /* KTKBluetoothManager.h */,
+				860208F31AF7546E005FB8F5 /* KTKCharacteristicDescriptor.h */,
+				860208F41AF7546E005FB8F5 /* KTKClient.h */,
+				860208F51AF7546E005FB8F5 /* KTKCloudBeacon.h */,
+				860208F61AF7546E005FB8F5 /* KTKCompany.h */,
+				860208F71AF7546E005FB8F5 /* KTKConverter.h */,
+				860208F81AF7546E005FB8F5 /* KTKDataTransferObject.h */,
+				860208F91AF7546E005FB8F5 /* KTKDescriptor.h */,
+				860208FA1AF7546E005FB8F5 /* KTKDevice.h */,
+				860208FB1AF7546E005FB8F5 /* KTKError.h */,
+				860208FC1AF7546E005FB8F5 /* KTKFirmware.h */,
+				860208FD1AF7546E005FB8F5 /* KTKHexConverter.h */,
+				860208FE1AF7546E005FB8F5 /* KTKLocationManager.h */,
+				860208FF1AF7546E005FB8F5 /* KTKManager.h */,
+				860209001AF7546E005FB8F5 /* KTKNumberConverter.h */,
+				860209011AF7546E005FB8F5 /* KTKNumberDiscreteConverter.h */,
+				860209021AF7546E005FB8F5 /* KTKNumberLinearConverter.h */,
+				860209031AF7546E005FB8F5 /* KTKPaging.h */,
+				860209041AF7546E005FB8F5 /* KTKPagingBeacons.h */,
+				860209051AF7546E005FB8F5 /* KTKPagingConfigs.h */,
+				860209061AF7546E005FB8F5 /* KTKPagingDevices.h */,
+				860209071AF7546E005FB8F5 /* KTKPagingVenues.h */,
+				860209081AF7546E005FB8F5 /* KTKPublicAction.h */,
+				860209091AF7546E005FB8F5 /* KTKPublicBeacon.h */,
+				8602090A1AF7546E005FB8F5 /* KTKPublicVenue.h */,
+				8602090B1AF7546E005FB8F5 /* KTKRegion.h */,
+				8602090C1AF7546E005FB8F5 /* KTKServiceDescriptor.h */,
+				8602090D1AF7546E005FB8F5 /* KTKStringConverter.h */,
+				8602090E1AF7546E005FB8F5 /* KTKSubordinate.h */,
+				8602090F1AF7546E005FB8F5 /* KTKUser.h */,
+				860209101AF7546E005FB8F5 /* KTKUUIDConverter.h */,
+				860209111AF7546E005FB8F5 /* KTKVenue.h */,
+				860209121AF7546E005FB8F5 /* KTKVenueBase.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		861584221A66931200D2D12A /* News */ = {
@@ -789,7 +889,6 @@
 			isa = PBXGroup;
 			children = (
 				86C077AF1AC29D1900938F65 /* libxml2.dylib */,
-				86C077881AC27A9F00938F65 /* Gimbal.framework */,
 				864532DD1A5A674500A656A3 /* MapKit.framework */,
 				864532DB1A5A673E00A656A3 /* AudioToolbox.framework */,
 				864532D91A5A673600A656A3 /* MessageUI.framework */,
@@ -863,6 +962,7 @@
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
 				864E5F781A442DC400C2542A /* Localizable.strings */,
+				860208E71AF7546E005FB8F5 /* KontaktSDK */,
 				86E1B8A01AC91DF200C3B8EB /* CLWeeklyCalendarViewSourceCode */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
 			);
@@ -1276,8 +1376,6 @@
 				86ED7D6A1A541F1A00400360 /* NavigationController.m */,
 				86ED7D6B1A541F1A00400360 /* TabBarViewController.h */,
 				86ED7D6C1A541F1A00400360 /* TabBarViewController.m */,
-				86F10CF91ACD404200EE6433 /* UINavigationController+CustomOrientation.h */,
-				86F10CFA1ACD404200EE6433 /* UINavigationController+CustomOrientation.m */,
 				865C34091AD24C0F0082B264 /* LandscapePreventionViewController.h */,
 				865C340A1AD24C0F0082B264 /* LandscapePreventionViewController.m */,
 			);
@@ -1355,6 +1453,8 @@
 				86C077921AC29A3C00938F65 /* RoomManager.m */,
 				86C0778A1AC283B400938F65 /* RoomRecognizer.h */,
 				86C0778B1AC283B400938F65 /* RoomRecognizer.m */,
+				865CE2601AFB8280006DB797 /* RoomBeacon.h */,
+				865CE2611AFB8280006DB797 /* RoomBeacon.m */,
 				86C0778E1AC2863F00938F65 /* RoomModel.h */,
 				86C0778F1AC2863F00938F65 /* RoomModel.m */,
 				860081F81AD54CC5009C885B /* PasswordManager.h */,
@@ -1686,7 +1786,6 @@
 				86B121921A7B5DBC006C2701 /* RateView.m in Sources */,
 				86E1B8B61AC91DF200C3B8EB /* UIImage+CL.m in Sources */,
 				864039871A6542FF000D705E /* RequestModel.m in Sources */,
-				86F10CFB1ACD404200EE6433 /* UINavigationController+CustomOrientation.m in Sources */,
 				864532B61A5A661D00A656A3 /* UAPushSettingsViewController.m in Sources */,
 				8645329F1A5A661D00A656A3 /* UADateUtils.m in Sources */,
 				86E1B8B21AC91DF200C3B8EB /* DayTitleLabel.m in Sources */,
@@ -1747,6 +1846,7 @@
 				866D71321AD7B7A1005234FE /* ContactDetails.m in Sources */,
 				864532AA1A5A661D00A656A3 /* UALocationDemoAnnotation.m in Sources */,
 				86E1B8B01AC91DF200C3B8EB /* CLWeeklyCalendarView.m in Sources */,
+				865CE2621AFB8280006DB797 /* RoomBeacon.m in Sources */,
 				8633C5931ADFB41C00476B27 /* TicketListModel.m in Sources */,
 				86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */,
 				86C077AA1AC29BD300938F65 /* USGlobals.m in Sources */,
@@ -1973,6 +2073,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
+					"$(PROJECT_DIR)/SimplicITy/KontaktSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2008,6 +2109,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
+					"$(PROJECT_DIR)/SimplicITy/KontaktSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

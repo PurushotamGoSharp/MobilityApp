@@ -37,9 +37,9 @@
 {
     listOfRooms = [[NSMutableArray alloc] init];
     
-//    recognizer = [RoomRecognizer sharedRecognizer];
-    
-    ewsManager =[[ESWRoomManager alloc] init];
+    recognizer = [RoomRecognizer sharedRecognizer];
+    [recognizer startRecognize];
+    ewsManager = [[ESWRoomManager alloc] init];
     ewsManager.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateModelsWithBeaconValue) name:GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST object:nil];
@@ -61,6 +61,24 @@
 {
     NSArray *recognizedRooms = [recognizer recognizedRooms];
     [self replaceObjectOfCompleteListWithObjectOf:recognizedRooms];
+    
+    for (RoomModel *roomModel in listOfRooms)
+    {
+        if (![recognizedRooms containsObject:roomModel])
+        {
+            roomModel.RSSIValue = NSIntegerMin;
+        }
+    }
+    
+//    NSSortDescriptor *sortForRSSI = [NSSortDescriptor sortDescriptorWithKey:@"RSSIValue" ascending:NO];
+//    NSSortDescriptor *sortForNameOfRoom = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
+//    
+//    [listOfRooms sortUsingDescriptors:@[sortForRSSI, sortForNameOfRoom]];
+    
+    if ([self.delegate respondsToSelector:@selector(roomManager:updatedRSSIValueForRooms:)])
+    {
+        [self.delegate roomManager:self updatedRSSIValueForRooms:listOfRooms];
+    }
 }
 
 - (void)replaceObjectOfCompleteListWithObjectOf:(NSArray *)replaceArray
@@ -72,11 +90,13 @@
             //We need to replace objects of completeRoomsList with objects in recognizedRooms so that we can sort according to RSSI value of room.  For that first we will find the array of rooms with same email id as that of recognized room. Then we will replace that object on completeRoomList with the recognizedRoom object.
             if (![listOfRooms containsObject:recognizedRoom])
             {
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"emailIDOfRoom == %@", recognizedRoom.emailIDOfRoom];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"emailIDOfRoom = %@", recognizedRoom.emailIDOfRoom];
                 NSArray *filteredArray = [listOfRooms filteredArrayUsingPredicate:predicate];
                 if (filteredArray.count > 0)
                 {
-                    NSInteger indexOfObj = [listOfRooms indexOfObject:[filteredArray firstObject]];
+                    RoomModel *roomFromEWS = [filteredArray firstObject];
+                    recognizedRoom.nameOfRoom = roomFromEWS.nameOfRoom;
+                    NSInteger indexOfObj = [listOfRooms indexOfObject:roomFromEWS];
                     [listOfRooms replaceObjectAtIndex:indexOfObj withObject:recognizedRoom];
                 }
             }
@@ -117,15 +137,23 @@
     [ewsManager findFreeSlotsOfRooms:rooms forStart:startDate toEnd:endDate];
 }
 
+- (void)dealloc
+{
+    [recognizer stopRecognize];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST
+                                                  object:nil];
+}
+
 #pragma mark
 #pragma mark ESWRoomManagerDelegate
 - (void)ESWRoomManager:(ESWRoomManager *)manager FoundRooms:(NSArray *)rooms
 {
-//    [listOfRooms removeAllObjects];
-//    [listOfRooms addObjectsFromArray:rooms];
-//    
-//    [self updateModelsWithBeaconValue];
-    [self.delegate roomManager:self FoundRooms:rooms];
+    [listOfRooms removeAllObjects];
+    [listOfRooms addObjectsFromArray:rooms];
+    
+    [self updateModelsWithBeaconValue];
+    [self.delegate roomManager:self FoundRooms:listOfRooms];
 }
 
 - (void)ESWRoomManager:(ESWRoomManager *)manager failedWithError:(NSError *)error

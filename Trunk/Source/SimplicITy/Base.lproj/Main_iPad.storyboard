@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -528,11 +528,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Siw-Mk-SOY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZT0-Ja-BZE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="odX-b1-xSe">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="67" id="gEm-3g-xbH" customClass="TicketsListCell">
@@ -1221,11 +1221,11 @@
                         <viewControllerLayoutGuide type="bottom" id="T4I-tD-a1j"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mEX-E3-ssE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jby-jG-VuB">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.69803921570000005" green="0.91764705879999997" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -1808,7 +1808,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yv5-vA-JMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1675" y="974"/>
+            <point key="canvasLocation" x="1675" y="1053"/>
         </scene>
         <!--Dummy Order View Controller-->
         <scene sceneID="sfc-Qw-vDA">
@@ -3155,6 +3155,7 @@
                         <outlet property="listBarBtnOutlet" destination="Lyj-Q4-CNr" id="GDy-ib-Dpm"/>
                         <outlet property="tableViewOutlet" destination="mVK-FE-rhA" id="NDl-rd-65b"/>
                         <outlet property="tickBtnoutlet" destination="M6W-Zs-KMN" id="MlJ-Ht-J5g"/>
+                        <segue destination="hxX-gQ-JPF" kind="push" identifier="myTicketList_segue" id="Rev-Qf-Q5v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EaM-1M-Ocq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3287,11 +3288,11 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCirlce" translatesAutoresizingMaskIntoConstraints="NO" id="ESS-QY-Bw5">
-                                                            <rect key="frame" x="704" y="14" width="15" height="15"/>
+                                                        <imageView userInteractionEnabled="NO" tag="555" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCirlce" translatesAutoresizingMaskIntoConstraints="NO" id="ESS-QY-Bw5">
+                                                            <rect key="frame" x="694" y="9" width="25" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="15" id="8g8-Y8-BG9"/>
-                                                                <constraint firstAttribute="height" constant="15" id="Ep6-dJ-LdX"/>
+                                                                <constraint firstAttribute="width" constant="25" id="8g8-Y8-BG9"/>
+                                                                <constraint firstAttribute="height" constant="25" id="Ep6-dJ-LdX"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -3470,12 +3471,21 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="555" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCirlce" translatesAutoresizingMaskIntoConstraints="NO" id="z0E-gR-ABG">
+                                                    <rect key="frame" x="723" y="7" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="DpU-K1-cj0"/>
+                                                        <constraint firstAttribute="width" constant="25" id="eQs-Gz-vwD"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="Nsz-0j-6Im" firstAttribute="top" secondItem="gCd-oz-L89" secondAttribute="top" id="1GT-1T-yfn"/>
+                                                <constraint firstAttribute="centerY" secondItem="z0E-gR-ABG" secondAttribute="centerY" id="9eo-io-AVj"/>
                                                 <constraint firstItem="6R7-rj-e5N" firstAttribute="leading" secondItem="gCd-oz-L89" secondAttribute="leading" constant="16" id="A9C-Gv-5a6"/>
                                                 <constraint firstAttribute="centerY" secondItem="6R7-rj-e5N" secondAttribute="centerY" id="JH6-a5-Edn"/>
+                                                <constraint firstAttribute="trailing" secondItem="z0E-gR-ABG" secondAttribute="trailing" constant="20" id="MC1-5g-UPV"/>
                                                 <constraint firstItem="Nsz-0j-6Im" firstAttribute="leading" secondItem="gCd-oz-L89" secondAttribute="leading" id="UYn-7D-66E"/>
                                                 <constraint firstAttribute="trailing" secondItem="Nsz-0j-6Im" secondAttribute="trailing" id="ZLX-YR-ThS"/>
                                                 <constraint firstAttribute="bottom" secondItem="Nsz-0j-6Im" secondAttribute="bottom" constant="1" id="rqG-er-QSS"/>
@@ -4181,6 +4191,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="f3u-DB-T6o"/>
+        <segue reference="Rev-Qf-Q5v"/>
         <segue reference="zaq-sH-oyT"/>
     </inferredMetricsTieBreakers>
 </document>

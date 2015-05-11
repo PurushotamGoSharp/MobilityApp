@@ -18,5 +18,9 @@
 @property (strong, nonatomic) NSString *gimbalID;
 @property (assign, nonatomic) NSInteger RSSIValue; //RSSI value is negative. So instead of zero value, we have to give NSIntegerMin
 @property (strong, nonatomic) NSString *beaconID;
+@property (assign, nonatomic) NSInteger majorID;
+@property (assign, nonatomic) NSInteger minorID;
+
+@property (assign, nonatomic) BOOL updating;
 
 @end
