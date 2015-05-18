@@ -34,6 +34,8 @@
     selectedLocationMailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
     selectedRow = -1;
     [self.tableView reloadData];
+    
+    self.title = @"Office Location";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,7 +99,7 @@
     selectedRow = indexPath.row;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }

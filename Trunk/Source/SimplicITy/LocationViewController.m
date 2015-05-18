@@ -45,6 +45,7 @@
     [super viewWillAppear:animated];
     
     selectedRow = -1;
+    self.title = @"Country";
 }
 
 - (void)getAllLocationData

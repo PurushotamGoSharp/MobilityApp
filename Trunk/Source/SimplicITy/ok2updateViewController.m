@@ -83,6 +83,11 @@
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
