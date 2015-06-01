@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Vmoksha. All rights reserved.
 //
 
-#import "CustomColoredViewController.h"
+#import <UIKit/UIKit.h>
 
 @interface LyncConnectionCheckerViewController : CustomColoredViewController
 
