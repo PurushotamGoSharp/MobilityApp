@@ -22,6 +22,8 @@
 #define ActionContentCategoryText   @"TEXT"
 
 
+
+
 @protocol KTKBeacon;
 
 /**

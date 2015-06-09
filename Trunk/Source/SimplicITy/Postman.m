@@ -105,7 +105,30 @@
     [self setAuthenticationBlockForOperation:operation];
 }
 
-
+- (AFHTTPRequestOperation *)delete:(NSString *)URLString withParameters:(NSString *)parameter success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSLog(@"URl = %@ : parameters = %@", URLString,parameter);
+    NSDictionary *parameterDict = [NSJSONSerialization JSONObjectWithData:[parameter dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+    
+    
+    AFHTTPRequestOperation *operation = [manager DELETE:URLString
+                                             parameters:parameterDict
+                                                success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                                    
+                                                    success(operation, responseObject);
+                                                }
+                                                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                    
+                                                    failure(operation, error);
+                                                    
+                                                    NSLog(@"ERROR %@",[operation responseString]);
+                                                    NSLog(@"Error %@", error);
+                                                    
+                                                }];
+    
+    return operation;
+    
+}
 
 - (void)get:(NSString *)URLString
 {

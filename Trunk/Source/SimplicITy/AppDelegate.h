@@ -14,6 +14,8 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NewsCategoryFetcher *fetcher;
 
+@property (strong, nonatomic)NSMutableDictionary *languageUrlPairs;
+
 - (void)getEWSRequestURL;
 
 @end

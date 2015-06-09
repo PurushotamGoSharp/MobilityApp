@@ -17,6 +17,8 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "BadgeNoManager.h"
 
+#import <MCLocalization/MCLocalization.h>
+
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
 
@@ -73,7 +75,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *settingImageOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *badgeIcon;
 @property (weak, nonatomic) IBOutlet UILabel *badgeLable;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *upgradeLblVertConst;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *upgradeLblConstrain;
 @end
 
 @implementation DashBoardViewController
@@ -92,15 +96,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self localize];
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    
     self.navtitleBtnoutlet.selected = NO;
-    
     self.profileViewTopConstraint.constant = -107;
-    
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
         UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [noNetworkAlert show];
     }
+    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateBadgeCount) name:@"NewsBadgeCount" object:nil];
@@ -136,7 +143,8 @@
     
     self.navigationItem.titleView = titleView;
     
-    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone ) {
+    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+    {
         self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
         self.dashBoardCallHelpDesk.font=[self customFont:14 ofName:MuseoSans_300];
         self.dashBoardOrder.font=[self customFont:14 ofName:MuseoSans_300];
@@ -167,12 +175,32 @@
         self.dashBoardPersonCode.font=[self customFont:18 ofName:MuseoSans_300];
     }
     
+    if ([UIScreen mainScreen].bounds.size.height < 667)
+    {
+        self.upgradeLblVertConst.constant = 25;
+    }
     self.serviceDesksLbl.font = [self customFont:18 ofName:MuseoSans_700];
     
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
     [self setupLocation];
     self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
+}
+
+-(void)localize
+{
+        self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
+        self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book_a_Room"];
+    self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
+
+        self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade_Device"];
+        self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT_SOS"];
+        self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
+        self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My_Tickets"];
+        self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Services"];
+    
+    self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call_Service_Desk"];
+
 }
 
 //-(UIImage*)imageResizing:(UIImage*)image
@@ -579,6 +607,10 @@
 - (IBAction)myOrderBtnPresed:(id)sender
 {
     
+}
+- (IBAction)upgradeBtnPressed:(id)sender
+{
+    [self.tabBarController setSelectedIndex:3];
 }
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender

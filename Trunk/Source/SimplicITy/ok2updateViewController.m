@@ -22,6 +22,8 @@
     
     NSString *targetURLString;
     NSString *targetURL;
+    UIBarButtonItem *backButton;
+
 }
 
 - (void)viewDidLoad
@@ -32,8 +34,23 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
     
-    self.title = @"Updates";
+    self.title = @"Upgrade";
     self.webViewOutlet.delegate = self;
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Home" forState:UIControlStateNormal];
+    
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.frame = CGRectMake(0, 0,80, 30);
+    
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
     
     NSString *plistFilePath = [NSString stringWithString:[[NSBundle mainBundle] pathForResource:@"Parameters" ofType:@"plist"]];
     paramDict = [[NSDictionary alloc] initWithContentsOfFile:plistFilePath];
@@ -55,7 +72,16 @@
     [self refreshBrowser];
 }
 
-- (void)defaultsChanged {
+
+- (void)backBtnAction
+{
+    [self.tabBarController setSelectedIndex:0];
+    
+//    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)defaultsChanged
+{
     [self refreshBrowser];
 }
 
