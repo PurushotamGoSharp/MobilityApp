@@ -84,7 +84,7 @@
 //        self.languageUrlPairs = @{langCode:filePathUrlll}.mutableCopy;
         
          [[NSUserDefaults standardUserDefaults]setObject:@"en" forKey:LANGUAGE_CODE];
-        langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
+        langCode =  @"en";
         
         [self.languageUrlPairs setObject:filePathUrlll forKey:langCode];
 
@@ -162,6 +162,9 @@
     
     [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
     [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+    
+    [MCLocalization sharedInstance].language = langCode;
+
     
     [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
     

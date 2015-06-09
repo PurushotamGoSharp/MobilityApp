@@ -13,6 +13,9 @@
 #import "UserInfo.h"
 #import <AFNetworking/AFNetworking.h>
 
+#import <MCLocalization/MCLocalization.h>
+
+
 
 #define ALERT_FOR_RATING @"Thank you for Rating the App"
 #define FEEDBACK_IN_OFFLINE @"Device is not connected to internet. Your feedback will be posted automatically once device connects to internet"
@@ -356,8 +359,14 @@
 - (void)tryUpdateAboutDeatils
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *curentLanguage = [MCLocalization sharedInstance].language;
+    
+    NSString *param = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",curentLanguage];
+    
     NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
-    [postMan post:URLString withParameters:parameter];
+    
+    [postMan post:URLString withParameters:param];
 }
 
 - (IBAction)writeReviewBtnAction:(id)sender

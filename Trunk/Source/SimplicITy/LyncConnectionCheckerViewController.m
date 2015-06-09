@@ -207,6 +207,7 @@
          NSDate  *endTime = [NSDate date];
          
          NSTimeInterval seconds =   [endTime timeIntervalSinceDate:starteTime];
+         
          //        transfer_speed = bytes_transferred / ( current_time - start_time)
          double speed = totalsizeOfDownloadeswData/seconds;
          

@@ -236,7 +236,7 @@
         }
     }
     
-    [self tryToGetEnglishLanguage];
+//    [self tryToGetEnglishLanguage];
     
     [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
