@@ -101,6 +101,12 @@
     [self setbuttonForSwitchMode];
     self.serachRoomsButton.hidden = NO;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+}
+
+- (void)localize
+{
+    
 }
 
 - (void)backBtnAction

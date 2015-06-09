@@ -18,6 +18,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "Postman.h"
+#import <MCLocalization/MCLocalization.h>
 
 #define Updation_Is_Required @"UpdationIsRequired"
 
@@ -50,9 +51,9 @@
 
 //#define BASE_URL @"https://vmlabs-win.vmoksha.com:8087/"
 
-#define BASE_URL @"http://simplicitytst.ripple-io.in/"
+//#define BASE_URL @"http://simplicitytst.ripple-io.in/"
 
-//#define BASE_URL @"http://simplicitystg.ripple-io.in/"
+#define BASE_URL @"http://simplicitystg.ripple-io.in/"
 
 //#define BASE_URL @"http://simplicity-demo.vmokshagroup.com:8093/"
 
@@ -103,5 +104,9 @@
 #define EWS_REQUSET_URL_KEY @"ewsRequestURLKey"
 
 //#define EWS_REQUSET_URL @"https://mail.ucb.com/ews/exchange.asmx" //Change user name and Passowrd
+
+
+//Localisation
+#define STRING_FOR_LANGUAGE(X) [MCLocalization stringForKey:X] 
 
 #endif
