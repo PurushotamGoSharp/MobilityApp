@@ -12,8 +12,12 @@
 #import "UAPush.h"
 #import "UserInfo.h"
 #import "ADExpirationDateFetcher.h"
+#import "Postman.h"
 
-@interface SplashDelayViewController ()<SeedSyncDelegate>
+#import <MCLocalization/MCLocalization.h>
+
+
+@interface SplashDelayViewController ()<SeedSyncDelegate,postmanDelegate>
 {
     NSMutableArray *seedDataArrAPI, *seedDataArrDB;
     NSMutableDictionary *seedDataDictFromAPI, *seeddataDictFromDB;
@@ -76,6 +80,11 @@
 {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
+    
+//    [self localize:nil];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize:) name:MCLocalizationLanguageDidChangeNotification object:nil];
+
     
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
@@ -165,6 +174,51 @@
     }
 }
 
+-(void)tryToGetEnglishLanguage
+{
+    Postman *postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    
+    NSString *url = [NSString stringWithFormat:@"%@en",LANGUAGE_CHANGE_API];
+    [postMan get:url];
+}
+
+-(void)parseResponse:(NSData*)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    NSArray *arr = json[@"aaData"][@"UILabels"];
+    
+    NSMutableDictionary *aaData = [[NSMutableDictionary alloc] init];
+
+    for (NSDictionary *adict in arr)
+    {
+        NSString *key = adict[@"UserFriendlyCode"];
+        NSString *value = adict[@"Name"];
+        
+        NSMutableDictionary  *adictnory = [NSMutableDictionary dictionaryWithObject:value forKey:key];
+        [aaData addEntriesFromDictionary:adictnory];
+    }
+    
+    NSLog(@"english language %@",aaData);
+    
+    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
+    NSLog(@"file Path = %@",filePath);
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:aaData options:0 error:&error];
+    [jsonData writeToFile:filePath atomically:YES];
+}
+
+
+ - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    [self parseResponse:response];
+}
+
+-(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    
+}
 #pragma mark
 #pragma mark SeedSyncDelegate
 - (void)seedSyncFinishedSuccessful:(SeedSync *)seedSync
@@ -181,6 +235,8 @@
                                       andDownloadImages:YES];
         }
     }
+    
+    [self tryToGetEnglishLanguage];
     
     [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
@@ -205,6 +261,7 @@
     NSInteger index = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     [self setTabImageForColorIndex:index onTabBar:tabBar];
     
+    
     [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [self colorForIndex:index],NSFontAttributeName : [UIFont fontWithName:@"MuseoSans-300" size:12]} forState:(UIControlStateNormal)];
 }
 
@@ -215,7 +272,9 @@
     NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%li.png", (long)imageIndex];
     NSString *imageName1 = [NSString stringWithFormat:@"Message-0%li.png", (long)imageIndex];
     NSString *imageName2 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
-    NSString *imageName3 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
+    NSString *imageName3 = [NSString stringWithFormat:@"upgrade-0%li.png", (long)imageIndex];
+    NSString *imageName4 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
+
     
     UITabBarItem *tabBarItem = tabBar.items[0];
     tabBarItem.image = [[UIImage imageNamed:imageName0] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -229,6 +288,30 @@
     
     tabBarItem = tabBar.items[3];
     tabBarItem.image = [[UIImage imageNamed:imageName3] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    tabBarItem = tabBar.items[4];
+    tabBarItem.image = [[UIImage imageNamed:imageName4] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+}
+
+-(void )localize:(UITabBar*)tabBar
+{
+    
+    UITabBarItem *tabbarItem = tabBar.items[0];
+    tabbarItem.title = [MCLocalization stringForKey:@"Home"];
+    
+    tabbarItem = tabBar.items[1];
+    tabbarItem.title = [MCLocalization stringForKey:@"Settings"];
+    
+    tabbarItem = tabBar.items[2];
+    tabbarItem.title = [MCLocalization stringForKey:@"Tools"];
+    
+    tabbarItem = tabBar.items[3];
+    tabbarItem.title = [MCLocalization stringForKey:@"Upgrade"];
+    
+    tabbarItem = tabBar.items[4];
+    tabbarItem.title = [MCLocalization stringForKey:@"About"];
+
 }
 
 - (UIColor *)colorForIndex:(NSInteger)colorIndex

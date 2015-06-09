@@ -14,6 +14,8 @@
 //#import <Gimbal/Gimbal.h>
 #import "RoomRecognizer.h"
 
+#import <MCLocalization/MCLocalization.h>
+
 #define ENABLE_PUSH_NOTIFICATION YES
 
 @interface AppDelegate () <UAPushNotificationDelegate, postmanDelegate>
@@ -26,6 +28,10 @@
     RoomRecognizer *recognizer;
 }
 
+//-(void)setLanguageUrlPairs:(NSMutableDictionary *)languageUrlPairs
+//{
+//    _languageUrlPairs = languageUrlPairs;
+//}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self.window makeKeyAndVisible];
@@ -49,6 +55,113 @@
     
     [UAPush shared].userPushNotificationsEnabled = ENABLE_PUSH_NOTIFICATION;
     [UAPush shared].pushNotificationDelegate = self;
+    
+   NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
+    
+    NSFileManager *fmngr = [[NSFileManager alloc] init];
+    
+    NSMutableDictionary *langSampleDict = [[NSMutableDictionary alloc] init];
+    
+    self.languageUrlPairs = [[NSMutableDictionary alloc] init];
+    
+    if (langCode == nil)
+    {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"en.json" ofType:nil];
+        NSError *error;
+        if(![fmngr copyItemAtPath:filePath toPath:[NSString stringWithFormat:@"%@/Documents/en.json", NSHomeDirectory()] error:&error])
+        {
+            // handle the error
+            NSLog(@"============: %@", [error description]);
+        }
+        
+        NSString *filePathFromDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
+        ;
+        NSURL *filePathUrlll = [NSURL fileURLWithPath:filePathFromDoc];
+        
+        
+//        self.languageUrlPairs = [langSampleDict copy];
+        
+//        self.languageUrlPairs = @{langCode:filePathUrlll}.mutableCopy;
+        
+         [[NSUserDefaults standardUserDefaults]setObject:@"en" forKey:LANGUAGE_CODE];
+        langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
+        
+        [self.languageUrlPairs setObject:filePathUrlll forKey:langCode];
+
+        
+        NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
+
+//        if (![fmngr fileExistsAtPath:[self getFilePath:langCode]])
+//        {
+////            NSString *filePth = [self getFilePath:langCode];
+//            NSURL *filePathUrl = [NSURL fileURLWithPath:filePathFromDoc];
+//            
+//            langSampleDict = [NSMutableDictionary dictionaryWithObject:filePathUrlll forKey:@"en"];
+//
+//            [self.languageUrlPairs setObject:filePathUrl forKey:langCode];
+//        }
+    }
+    else
+    {
+        // the preferred way to get the apps documents directory
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        // grab all the files in the documents dir
+        NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
+        
+        // filter the array for only json files
+        NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
+        NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
+        
+        NSString *names = nil;
+
+        // use fast enumeration to iterate the array and delete the files
+        for (NSString *aJsonFile in jsonFiles)
+        {
+           NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
+            
+                names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
+            
+            NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
+            
+//            languageUrlPairs = [NSMutableDictionary dictionaryWithObject:filePathUrl forKey:names];
+            
+//            self.languageUrlPairs = @{names:filePathUrl}.mutableCopy;
+            
+            [self.languageUrlPairs setObject:filePathUrl forKey:names];
+        }
+        
+        NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
+
+    }
+    
+    
+    
+//    if (![fmngr fileExistsAtPath:[self getFilePath:langCode]])
+//    {
+//        NSString *filePth = [self getFilePath:langCode];
+//        NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
+//        [languageUrlPairs setObject:filePathUrl forKey:langCode];
+//    }else
+//    {
+//        NSLog(@"File already Exists");
+//    }
+    
+    
+//    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
+    
+//    NSString *filePathhhh = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"de.json"];
+;
+//    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
+    
+//    NSURL *filePathUrlllll = [NSURL fileURLWithPath:filePathhhh];
+
+    
+//    NSDictionary *languageUrlPairs = @{@"en":filePathUrl};
+    
+    [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
+    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
     
     [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
     
@@ -87,7 +200,6 @@
             [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1]];
             [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1]];
             break;
-            
 
         default:
             break;
@@ -108,6 +220,16 @@
         [self getNotification:userInfo];
     }
     return YES;
+}
+
+- (NSString *)getFilePath:(NSString *)langCode
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
+    NSString *documentsDir = [paths objectAtIndex:0];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@.json",langCode];
+    
+    return [documentsDir stringByAppendingPathComponent:fileName];
 }
 
 - (void)getEWSRequestURL

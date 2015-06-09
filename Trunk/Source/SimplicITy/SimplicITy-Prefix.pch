@@ -46,6 +46,8 @@
 #define EWS_USERS_PASSWORD @"ewsUsersPassword"
 #define EWS_USERS_LOCATION @"ewsUsersLocation"
 
+#define LANGUAGE_CODE @"languageCode"
+
 //#define BASE_URL @"https://vmlabs-win.vmoksha.com:8087/"
 
 #define BASE_URL @"http://simplicitytst.ripple-io.in/"
@@ -80,7 +82,9 @@
 #define GET_DETAILS_BEACON_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Beacons"]
 #define UPLOAD_FILE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Document/Upload"] 
 #define DOWNLOAD_FILE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"DownloadDoc/"]
-#define DELETE_FILE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"DeleteDocument"]
+#define DELETE_FILE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"DeleteDocument"] 
+
+#define LANGUAGE_CHANGE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"UILabels/"]
 
 
 

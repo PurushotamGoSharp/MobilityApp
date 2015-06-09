@@ -54,3 +54,9 @@
 #define COCOAPODS_VERSION_MINOR_MBProgressHUD 9
 #define COCOAPODS_VERSION_PATCH_MBProgressHUD 0
 
+// MCLocalization
+#define COCOAPODS_POD_AVAILABLE_MCLocalization
+#define COCOAPODS_VERSION_MAJOR_MCLocalization 1
+#define COCOAPODS_VERSION_MINOR_MCLocalization 1
+#define COCOAPODS_VERSION_PATCH_MCLocalization 0
+

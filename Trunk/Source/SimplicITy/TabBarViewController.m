@@ -10,6 +10,9 @@
 #import "CEPanAnimationController.h"
 #import "BadgeNoManager.h"
 
+#import <MCLocalization/MCLocalization.h>
+
+
 
 @interface TabBarViewController () <UITabBarControllerDelegate>
 
@@ -46,7 +49,29 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize:) name:MCLocalizationLanguageDidChangeNotification object:nil];\
+    
+    [self localize:nil];
 //    [self upDateBadgeCount];
+}
+
+-(void )localize:(UITabBar*)tabBar
+{
+    tabBar = self.tabBar;
+    UITabBarItem *tabbarItem = tabBar.items[0];
+    tabbarItem.title = [MCLocalization stringForKey:@"Home"];
+    
+    tabbarItem = tabBar.items[1];
+    tabbarItem.title = [MCLocalization stringForKey:@"Settings"];
+    
+    tabbarItem = tabBar.items[2];
+    tabbarItem.title = [MCLocalization stringForKey:@"Tools"];
+    
+    tabbarItem = tabBar.items[3];
+    tabbarItem.title = [MCLocalization stringForKey:@"Upgrade"];
+    
+    tabbarItem = tabBar.items[4];
+    tabbarItem.title = [MCLocalization stringForKey:@"About"];
 }
 
 - (void)upDateBadgeCount

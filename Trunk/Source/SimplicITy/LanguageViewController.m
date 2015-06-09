@@ -13,6 +13,11 @@
 #import "DBManager.h"
 #import <sqlite3.h>
 
+#import <MCLocalization/MCLocalization.h>
+
+#import "AppDelegate.h"
+
+
 
 @interface LanguageViewController ()<UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate>
 {
@@ -70,12 +75,161 @@
 }
 
 
-
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
-    [self parseResponseData:response];
-    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    [self saveLanguageData:response];
+    
+    if ([urlString isEqualToString:SEARCH_LANGUAGE_API])
+    {
+        [self parseResponseData:response];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [self saveLanguageData:response];
+    }else
+    {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+      NSString *langCode =  [self parseLangChangeResponseData:response];
+        
+        [MCLocalization sharedInstance].language = langCode;
+    }
+
+
+}
+
+//NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//NSString *documentsDirectory = [paths objectAtIndex:0];
+//
+//NSFileManager *fmngr = [[NSFileManager alloc] init];
+//
+//// grab all the files in the documents dir
+//NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
+//
+//// filter the array for only json files
+//NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
+//NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
+//
+//NSString *names = nil;
+//
+//// use fast enumeration to iterate the array and delete the files
+//NSMutableDictionary *languageUrlPairs = [[NSMutableDictionary alloc] init];
+//
+//for (NSString *aJsonFile in jsonFiles)
+//{
+//    NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
+//    
+//    names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
+//    
+//    NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
+//    
+//    [languageUrlPairs setObject:filePathUrl forKey:names];
+//    
+//    [MCLocalization loadFromLanguageURLPairs:languageUrlPairs defaultLanguage:@"en"];
+//    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+
+-(NSString*)parseLangChangeResponseData:(NSData*)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    
+    NSArray *arr = json[@"aaData"][@"UILabels"];
+    
+    NSMutableDictionary *aaData = [[NSMutableDictionary alloc] init];
+    
+    NSString *languageCode;
+    
+    for (NSDictionary *adict in arr)
+    {
+        NSString *key = adict[@"UserFriendlyCode"];
+        NSString *value = adict[@"Name"];
+        
+        languageCode = adict[@"LanguageCode"];
+        
+        NSMutableDictionary  *adictnory = [NSMutableDictionary dictionaryWithObject:value forKey:key];
+        [aaData addEntriesFromDictionary:adictnory];
+    }
+    
+    NSLog(@"language %@",aaData);
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:aaData options:0 error:&error];
+
+    
+    [[NSUserDefaults standardUserDefaults]setObject:languageCode forKey:LANGUAGE_CODE];
+
+    
+//    [self sample];
+    
+    NSFileManager *fmngr = [[NSFileManager alloc] init];
+
+    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+
+    NSString *filePth = [self getFilePath:languageCode];
+    
+    if (![fmngr fileExistsAtPath:filePth])
+    {
+        [jsonData writeToFile:filePth atomically:YES];
+        
+        NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
+        
+        [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
+        
+        NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
+        
+        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
+        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+
+    }else
+    {
+        NSLog(@"File already Exists");
+    }
+
+    
+//    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
+//    [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
+    
+    
+    return languageCode;
+}
+
+- (NSString *)getFilePath:(NSString *)langCode
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
+    NSString *documentsDir = [paths objectAtIndex:0];
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@.json",langCode];
+    
+    return [documentsDir stringByAppendingPathComponent:fileName];
+}
+
+-(void)sample
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+//    NSFileManager *fmngr = [[NSFileManager alloc] init];
+//    
+//    // grab all the files in the documents dir
+//    NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
+//    
+//    // filter the array for only json files
+//    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
+//    NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
+//    
+//    NSString *names = nil;
+//    
+//    // use fast enumeration to iterate the array and delete the files
+//    
+//    
+//    NSMutableDictionary *languageUrlPairs = [[NSMutableDictionary alloc] init];
+//    
+//    for (NSString *aJsonFile in jsonFiles)
+//    {
+//        NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
+//        
+//        names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
+//        
+//        NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
+//        
+//        [languageUrlPairs setObject:filePathUrl forKey:names];
+//    }
+    
+
 
 }
 
@@ -204,6 +358,21 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectedRow = indexPath.row;
+    
+    LanguageModel *amodel = languagesArrOfData[indexPath.row];
+    
+    [self changeLanguageWithCode:amodel.code];
+}
+
+-(void)changeLanguageWithCode:(NSString*)langCode
+{
+   postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSString *url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+    [postMan get:url];
     
 }
 
