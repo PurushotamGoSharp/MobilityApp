@@ -20,11 +20,11 @@
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
 
-#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
-#define ALERT_MSG_SELECT_FUTURE_TIME @"Please select a future Time Slot"
-#define ALERT_MSG_TRY_LATER @"Error occured. Please try again after some time"
-#define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 15 minutes"
-#define ALERT_MSG_AUTHORIZED_BOOKING @"If you are not authorized to book this Private Room your Meeting Request will be declined.  Do you wish to continue?"
+#define ALERT_MSG_SET_OFFICE_LOCATION STRING_FOR_LANGUAGE(@"Please go to Settings and choose Office Location")
+#define ALERT_MSG_SELECT_FUTURE_TIME STRING_FOR_LANGUAGE(@"Please select a future Time Slot")
+#define ALERT_MSG_TRY_LATER STRING_FOR_LANGUAGE(@"Error occured. Please try again after some time")
+#define ALERT_MSG_MINIMUM_TIME_SLOT STRING_FOR_LANGUAGE(@"Please select a Time Slot of minimum 15 minutes")
+#define ALERT_MSG_AUTHORIZED_BOOKING STRING_FOR_LANGUAGE(@"If you are not authorized to book this Private Room your Meeting Request will be declined.  Do you wish to continue?")
 
 @interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate, UIAlertViewDelegate, PasswordManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
@@ -79,7 +79,7 @@
     self.containerForCalendar.layer.masksToBounds = YES;
     self.serachRoomsButton.layer.cornerRadius = 5;
     
-    self.title = @"Book a Room";
+    self.title = STRING_FOR_LANGUAGE(@"Book a Room");
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
@@ -100,13 +100,7 @@
     
     [self setbuttonForSwitchMode];
     self.serachRoomsButton.hidden = NO;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-}
 
-- (void)localize
-{
-    
 }
 
 - (void)backBtnAction
@@ -206,10 +200,10 @@
     
     }else
     {
-        officeLocationAlert = [[UIAlertView alloc] initWithTitle:@"Office Location is required."
+        officeLocationAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Office Location is required")
                                                             message:ALERT_MSG_SET_OFFICE_LOCATION
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                                   otherButtonTitles:nil];
         [officeLocationAlert show];
     }
@@ -307,7 +301,7 @@
     self.endDatePicker.hidden = YES;
     self.endTimeButton.selected = NO;
     
-    [self.endTimeButton setTitle:@"End Time" forState:(UIControlStateNormal)];
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End Time") forState:(UIControlStateNormal)];
     endDate = nil;
     self.serachRoomsButton.hidden = YES;
 
@@ -354,7 +348,7 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
                                                             message:ALERT_MSG_SELECT_FUTURE_TIME
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                                   otherButtonTitles: nil];
         [alertView show];
         
@@ -375,7 +369,7 @@
             tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                        message:ALERT_MSG_TRY_LATER
                                                       delegate:self
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                              otherButtonTitles: nil];
 
         }
@@ -387,7 +381,7 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
                                                             message:ALERT_MSG_MINIMUM_TIME_SLOT
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                                   otherButtonTitles:nil];
         [alertView show];
         NSLog(@"Time window is less than MIN Value");
@@ -401,7 +395,7 @@
             tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                        message:ALERT_MSG_TRY_LATER
                                                       delegate:self
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                              otherButtonTitles: nil];
             
         }
@@ -460,10 +454,10 @@
 {
     [self resetView];
     
-    [self.endTimeButton setTitle:@"End Time" forState:(UIControlStateNormal)];
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End Time") forState:(UIControlStateNormal)];
     endDate = nil;
     
-    [self.startTimeButton setTitle:@"Start Time" forState:(UIControlStateNormal)];
+    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Start Time") forState:(UIControlStateNormal)];
     startDate = nil;
     
     self.calendarView.selectedDate = [NSDate date];
@@ -507,13 +501,13 @@
 - (void)setbuttonForSwitchMode
 {
     self.serachRoomsButton.tag = 100;
-    [self.serachRoomsButton setTitle:@"Search by Meeting Room(s)" forState:(UIControlStateNormal)];
+    [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Search by Meeting Room(s)") forState:(UIControlStateNormal)];
 }
 
 - (void)setButtonForSearchingFreeRoom
 {
     self.serachRoomsButton.tag = 111;
-    [self.serachRoomsButton setTitle:@"Search Meeting Room(s)" forState:(UIControlStateNormal)];
+    [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Search Meeting Room(s)") forState:(UIControlStateNormal)];
 }
 
 #pragma mark - UITableViewDelegate
@@ -614,7 +608,7 @@
     if (roomsAvailable.count == 0)
     {
         self.placeHolderLabel.hidden = NO;
-        self.placeHolderLabel.text = @"No rooms are available for the selected time slot.";
+        self.placeHolderLabel.text = STRING_FOR_LANGUAGE(@"No rooms are available for the selected time slot.");
     }
     
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];
