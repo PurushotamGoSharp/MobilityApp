@@ -332,7 +332,7 @@
             beaconIndicatorImageView.image = [UIImage imageNamed:@"ibeacon-green"];
         }else
         {
-            beaconIndicatorImageView.image = [UIImage imageNamed:@""];
+            beaconIndicatorImageView.image = nil;
         }
     }else
     {

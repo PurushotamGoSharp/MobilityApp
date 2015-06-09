@@ -484,26 +484,23 @@
             {
                 [datePikcer removeFromSuperview];
                 [cell.contentView addSubview:datePikcer];
+                NSDictionary *viewsDict = NSDictionaryOfVariableBindings(datePikcer);
+                NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[datePikcer]-|"
+                                                                               options:0
+                                                                               metrics:nil
+                                                                                 views:viewsDict];
+                [cell.contentView addConstraints:constraints];
+                constraints  = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[datePikcer]"
+                                                                       options:0
+                                                                       metrics:nil
+                                                                         views:viewsDict];
+                
+                [cell.contentView addConstraints:constraints];
+                [cell.contentView sendSubviewToBack:datePikcer];
+                
+                UIView *alphaView = [cell viewWithTag:160];
+                [cell.contentView sendSubviewToBack:alphaView];
             }
-            
-
-
-            NSDictionary *viewsDict = NSDictionaryOfVariableBindings(datePikcer);
-            NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[datePikcer]-|"
-                                                                           options:0
-                                                                           metrics:nil
-                                                                             views:viewsDict];
-            [cell.contentView addConstraints:constraints];
-            constraints  = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[datePikcer]"
-                                                                   options:0
-                                                                   metrics:nil
-                                                                     views:viewsDict];
-            
-            [cell.contentView addConstraints:constraints];
-            [cell.contentView sendSubviewToBack:datePikcer];
-            
-            UIView *alphaView = [cell viewWithTag:160];
-            [cell.contentView sendSubviewToBack:alphaView];
             
         }else
         {
