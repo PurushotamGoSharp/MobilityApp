@@ -88,7 +88,7 @@
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
       NSString *langCode =  [self parseLangChangeResponseData:response];
         
-        [MCLocalization sharedInstance].language = langCode;
+//        [MCLocalization sharedInstance].language = langCode;
     }
 
 
@@ -151,7 +151,7 @@
 
     
     [[NSUserDefaults standardUserDefaults]setObject:languageCode forKey:LANGUAGE_CODE];
-
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
 //    [self sample];
     
@@ -171,8 +171,8 @@
         
         NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
         
-        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
-        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+//        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
+//        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
 
     }else
     {
