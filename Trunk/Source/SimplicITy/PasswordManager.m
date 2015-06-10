@@ -47,11 +47,11 @@
 {
     if (passwordAlert == nil)
     {
-        passwordAlert = [[UIAlertView alloc] initWithTitle:@"Password is required"
+        passwordAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Password is required")
                                                message:message
                                               delegate:self
-                                     cancelButtonTitle:@"Cancel"
-                                     otherButtonTitles:@"OK", nil];
+                                     cancelButtonTitle:STRING_FOR_LANGUAGE(@"Cancel")
+                                     otherButtonTitles:STRING_FOR_LANGUAGE(@"OK"), nil];
         
         passwordAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
 
@@ -63,7 +63,7 @@
 
 - (void)showAlertWithDefaultMessage
 {
-    [self showAlertForPasswordWithMessage:@"Please enter the 'Password' to continue"];
+    [self showAlertForPasswordWithMessage:STRING_FOR_LANGUAGE(@"Please enter the 'Password' to continue")];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

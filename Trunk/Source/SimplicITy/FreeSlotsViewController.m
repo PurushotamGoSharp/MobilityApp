@@ -18,7 +18,7 @@
 #import "NSDate+CL.h"
 #import "PasswordManager.h"
 
-#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
+#define ALERT_MSG_SET_OFFICE_LOCATION STRING_FOR_LANGUAGE(@"Please go to Settings and choose Office Location")
 
 @interface FreeSlotsViewController () <CLWeeklyCalendarViewDelegate, RoomManagerDelegate, UITableViewDataSource, UITableViewDelegate, PasswordManagerDelegate>
 
@@ -76,7 +76,8 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    self.title = @"Book a Room";
+    self.title = STRING_FOR_LANGUAGE(@"Book a Room");
+    [self.searchByTimeButton setTitle:STRING_FOR_LANGUAGE(@"Search by Date/Time") forState:(UIControlStateNormal)];
     
     passwordManager = [[PasswordManager alloc] init];
     passwordManager.delegate = self;
@@ -194,10 +195,10 @@
         
     }else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning")
                                                             message:ALERT_MSG_SET_OFFICE_LOCATION
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                                   otherButtonTitles:nil];
         [alertView show];
     }
@@ -437,7 +438,7 @@
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
     headerView.backgroundColor = [UIColor colorWithRed:.38 green:.77 blue:.95 alpha:1];
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
-    headerLabel.text = @"Meeting Room(s)";
+    headerLabel.text = STRING_FOR_LANGUAGE(@"Meeting Room(s)");
     headerLabel.textColor = [UIColor whiteColor];
     [headerView addSubview:headerLabel];
     
@@ -533,10 +534,10 @@
     freeSlotsArray = dictOfAllRooms[model.emailIDOfRoom];
     if (freeSlotsArray.count == 0)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"No slots available"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning")
+                                                            message:STRING_FOR_LANGUAGE(@"No Time slots available")
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                                   otherButtonTitles:nil];
         [alertView show];
         return;

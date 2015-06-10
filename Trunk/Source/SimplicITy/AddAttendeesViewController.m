@@ -16,6 +16,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *searchUserNameTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 
 @end
 
@@ -45,7 +47,13 @@
     
     selectedAttentdees = [[NSMutableArray alloc] init];
     
-    self.title = @"Add Attendee(s)";
+    self.title = STRING_FOR_LANGUAGE(@"Add Attendee(s)");
+    
+    
+    self.cancelButton.title = STRING_FOR_LANGUAGE(@"Cancel");
+    self.doneButton.title = STRING_FOR_LANGUAGE(@"Done");
+
+    self.searchUserNameTextField.placeholder = STRING_FOR_LANGUAGE(@"Type Name or Email ID");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -136,10 +144,10 @@
         self.searchUserNameTextField.text = @"";
     }else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning")
                                                         message:ALERT_MSG_GIVE_VALID_EMAILID
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                               otherButtonTitles: nil];
         [alert show];
     }
@@ -331,7 +339,7 @@
             {
                 return nil;
             }
-            headerLabel.text = @"Selected Attendee(s)";
+            headerLabel.text = STRING_FOR_LANGUAGE(@"Selected Attendee(s)");
         }else if (section == 0)
         {
             return nil;
@@ -341,7 +349,7 @@
             {
                 return nil;
             }
-            headerLabel.text = @"Contact(s) Found";
+            headerLabel.text = STRING_FOR_LANGUAGE(@"Contact(s) Found");
         }
     }
     

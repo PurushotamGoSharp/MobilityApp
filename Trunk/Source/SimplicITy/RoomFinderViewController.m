@@ -101,6 +101,7 @@
     [self setbuttonForSwitchMode];
     self.serachRoomsButton.hidden = NO;
 
+    [self localize];
 }
 
 - (void)backBtnAction
@@ -122,6 +123,13 @@
 - (void)viewDidLayoutSubviews
 {
     [self calendarView];
+}
+
+- (void)localize
+{
+    self.placeHolderLabel.text = STRING_FOR_LANGUAGE(@"Please tap on 'Start Time' & 'End Time' to choose the Time Slot for your Meeting.");
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End Time") forState:(UIControlStateNormal)];
+    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Start Time") forState:(UIControlStateNormal)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -345,7 +353,7 @@
     NSTimeInterval intervel = [[NSDate date] timeIntervalSinceDate:startDate];
     if (intervel > 300)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Error")
                                                             message:ALERT_MSG_SELECT_FUTURE_TIME
                                                            delegate:self
                                                   cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
@@ -366,7 +374,7 @@
         
         if (!tryAgainAlert)
         {
-            tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+            tryAgainAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Error")
                                                        message:ALERT_MSG_TRY_LATER
                                                       delegate:self
                                              cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
@@ -378,7 +386,7 @@
     
     if (![self timeWindowIsValid])
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning")
                                                             message:ALERT_MSG_MINIMUM_TIME_SLOT
                                                            delegate:self
                                                   cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
@@ -392,7 +400,7 @@
     {
         if (!tryAgainAlert)
         {
-            tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+            tryAgainAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Error")
                                                        message:ALERT_MSG_TRY_LATER
                                                       delegate:self
                                              cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
@@ -556,7 +564,7 @@
         [self performSegueWithIdentifier:@"romeFinderToInvite_segue" sender:nil];
     }else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning")
                                                         message:ALERT_MSG_AUTHORIZED_BOOKING
                                                        delegate:self
                                               cancelButtonTitle:@"NO"
@@ -608,7 +616,7 @@
     if (roomsAvailable.count == 0)
     {
         self.placeHolderLabel.hidden = NO;
-        self.placeHolderLabel.text = STRING_FOR_LANGUAGE(@"No rooms are available for the selected time slot.");
+        self.placeHolderLabel.text = STRING_FOR_LANGUAGE(@"No Meeting rooms are available for the selected time slot.");
     }
     
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];

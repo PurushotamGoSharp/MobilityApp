@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -4035,6 +4035,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="W2w-RJ-epD" id="bTJ-jr-NQc"/>
+                        <outlet property="doneButton" destination="v9o-h5-rul" id="seZ-84-nr2"/>
                         <outlet property="searchUserNameTextField" destination="J1m-ab-Seh" id="Nkj-JU-Wjz"/>
                         <outlet property="tableView" destination="2Ez-kN-s1S" id="UqO-cr-kms"/>
                     </connections>
@@ -4489,7 +4491,7 @@
         <image name="tick-mark" width="22" height="22"/>
         <image name="ticketBlue" width="30" height="30"/>
         <image name="toolBlue" width="30" height="30"/>
-        <image name="upgrade-01" width="30" height="30"/>
+        <image name="upgrade-01" width="22" height="26"/>
         <image name="upload" width="120" height="120"/>
         <image name="video" width="60" height="70"/>
         <image name="writeIcon" width="20" height="20"/>
