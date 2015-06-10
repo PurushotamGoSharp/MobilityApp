@@ -40,7 +40,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Settings";
+    self.title = [MCLocalization stringForKey:@"Settings"];
     
     arrOfTableViewData = @[@"Language", @"Country", @"Office Location", @"Theme"];
     arrOfImages = @[@"language.png",@"lacation.png",@"ExchangeServer_Setting",@"themes"];

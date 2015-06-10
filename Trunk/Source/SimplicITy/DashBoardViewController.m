@@ -189,6 +189,8 @@
 
 -(void)localize
 {
+    self.title = [MCLocalization stringForKey:@"Home"];
+
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book_a_Room"];
     self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];

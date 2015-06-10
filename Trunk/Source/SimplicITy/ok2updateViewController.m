@@ -31,10 +31,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = [MCLocalization stringForKey:@"Upgrade"];
+
+    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
     
-    self.title = @"Upgrade";
     self.webViewOutlet.delegate = self;
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];

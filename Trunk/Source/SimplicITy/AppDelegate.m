@@ -14,7 +14,6 @@
 //#import <Gimbal/Gimbal.h>
 #import "RoomRecognizer.h"
 
-#import <MCLocalization/MCLocalization.h>
 
 #define ENABLE_PUSH_NOTIFICATION YES
 

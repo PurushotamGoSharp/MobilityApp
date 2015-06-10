@@ -83,6 +83,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.title = [MCLocalization stringForKey:@"About"];
+    
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
