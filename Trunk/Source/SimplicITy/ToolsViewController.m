@@ -28,6 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = [MCLocalization stringForKey:@"Tools"];
+
+    
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
@@ -50,7 +53,6 @@
     
     arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"SurveyToolIcon"]];
 
-    self.title = @"Tools";
 }
 
 - (void)viewWillAppear:(BOOL)animated

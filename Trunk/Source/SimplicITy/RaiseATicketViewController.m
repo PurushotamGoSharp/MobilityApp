@@ -90,20 +90,29 @@
     UILabel *high;
     UILabel *critical;
     
+    UIButton *back;
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.leftBarButtonItems = @[];
     
+    
+    NSString *title = [MCLocalization stringForKey:@"Home"];
+    [back setTitle:title forState:UIControlStateNormal];
+    self.title = [MCLocalization stringForKey:@"IT_SOS"];
+    
+    
+    self.navigationItem.leftBarButtonItems = @[];
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
+
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -132,6 +141,8 @@
     [self.view addGestureRecognizer:tapGesture];
 
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
