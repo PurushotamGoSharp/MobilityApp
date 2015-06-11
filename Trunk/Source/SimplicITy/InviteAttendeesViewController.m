@@ -18,9 +18,9 @@
 #import "AppDelegate.h"
 
 #define MIN_TIME_SLOT_FOR_SEARCH 10*60
-#define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 10 minutes"
-#define ALERT_MSG_ALREADY_BOOKED @"Sorry! Meeting Room already booked by someone else recently."
-#define ALERT_MSG_SUCCESSFULL_BOOKING @"Successfully booked the Meeting Room."
+#define ALERT_MSG_MINIMUM_TIME_SLOT STRING_FOR_LANGUAGE(@"Please select a Time Slot of minimum 10 minutes")
+#define ALERT_MSG_ALREADY_BOOKED STRING_FOR_LANGUAGE(@"Sorry! Meeting Room already booked by someone else recently.")
+#define ALERT_MSG_SUCCESSFULL_BOOKING STRING_FOR_LANGUAGE(@"Successfully booked the Meeting Room.")
 
 @interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate, SelectDateCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -62,9 +62,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Invite Attendee(s)";
+    self.title = STRING_FOR_LANGUAGE(@"Invite Attendee(s)");
     
-    dataOfFirstSection = @[@"Date",@"Start",@"End",@"Organizer",@"Venue"];
+    dataOfFirstSection = @[STRING_FOR_LANGUAGE(@"Date"),STRING_FOR_LANGUAGE(@"Start"),STRING_FOR_LANGUAGE(@"End"),STRING_FOR_LANGUAGE(@"Organizer"),STRING_FOR_LANGUAGE(@"Venue")];
     dataOfThirdSection = @[@"",@"Marc",@"Bin",@"Antony",@"Sundar"];
 
     dateFormatter = [[NSDateFormatter alloc] init];
@@ -80,7 +80,8 @@
     
     sendInviteButton.layer.cornerRadius = 5;
     sendInviteButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-
+    [sendInviteButton setTitle:STRING_FOR_LANGUAGE(@"Send Invite(s)") forState:(UIControlStateNormal)];
+    
     roomManager = [[RoomManager alloc] init];
     roomManager.delegate = self;
     newEvent = [[CalendarEvent alloc] init];
@@ -284,10 +285,10 @@
     NSTimeInterval timeIntervel = [newEvent.endDate timeIntervalSinceDate:newEvent.startDate];
     if (timeIntervel < MIN_TIME_SLOT_FOR_SEARCH)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning")
                                                             message:ALERT_MSG_MINIMUM_TIME_SLOT
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                                   otherButtonTitles:nil];
         [alertView show];
         return;
@@ -484,26 +485,23 @@
             {
                 [datePikcer removeFromSuperview];
                 [cell.contentView addSubview:datePikcer];
+                NSDictionary *viewsDict = NSDictionaryOfVariableBindings(datePikcer);
+                NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[datePikcer]-|"
+                                                                               options:0
+                                                                               metrics:nil
+                                                                                 views:viewsDict];
+                [cell.contentView addConstraints:constraints];
+                constraints  = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[datePikcer]"
+                                                                       options:0
+                                                                       metrics:nil
+                                                                         views:viewsDict];
+                
+                [cell.contentView addConstraints:constraints];
+                [cell.contentView sendSubviewToBack:datePikcer];
+                
+                UIView *alphaView = [cell viewWithTag:160];
+                [cell.contentView sendSubviewToBack:alphaView];
             }
-            
-
-
-            NSDictionary *viewsDict = NSDictionaryOfVariableBindings(datePikcer);
-            NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[datePikcer]-|"
-                                                                           options:0
-                                                                           metrics:nil
-                                                                             views:viewsDict];
-            [cell.contentView addConstraints:constraints];
-            constraints  = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[datePikcer]"
-                                                                   options:0
-                                                                   metrics:nil
-                                                                     views:viewsDict];
-            
-            [cell.contentView addConstraints:constraints];
-            [cell.contentView sendSubviewToBack:datePikcer];
-            
-            UIView *alphaView = [cell viewWithTag:160];
-            [cell.contentView sendSubviewToBack:alphaView];
             
         }else
         {
@@ -547,7 +545,7 @@
 
         UITextField *txtField = (UITextField*)[cell viewWithTag:100];
         txtField.delegate = self;
-        txtField.placeholder = @"Subject";
+        txtField.placeholder = STRING_FOR_LANGUAGE(@"Subject");
         UIButton *btn = (UIButton *)[cell viewWithTag:200];
         btn.hidden = YES;
         txtField.userInteractionEnabled = YES;
@@ -560,7 +558,7 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"AddAttendeesCell" forIndexPath:indexPath];
             UILabel *label = (UILabel *)[cell viewWithTag:100];
-            label.text = @"Add Attendee(s)";
+            label.text = STRING_FOR_LANGUAGE(@"Add Attendee(s)");
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
             btn.hidden = NO;
             [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -570,6 +568,7 @@
             
             if (reqiuredAttentees.count == 0)
             {
+                placeHolderLabel.text = STRING_FOR_LANGUAGE(@"Please tap on 'Start Time' & 'End Time' to choose the Time Slot for your Meeting.");
                 placeHolderLabel.hidden = NO;
             }else
             {
@@ -670,10 +669,10 @@
     
     if (section == 0)
     {
-        headerLabel.text = @"Meeting Details";
+        headerLabel.text = STRING_FOR_LANGUAGE(@"Meeting Details");
     }else if (section == 1)
     {
-        headerLabel.text = @"Subject";
+        headerLabel.text = STRING_FOR_LANGUAGE(@"Subject");
     }
 
     [headerView addSubview:headerLabel];
@@ -762,10 +761,10 @@
             
         }else
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Booked"
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Not Booked")
                                                                 message:ALERT_MSG_ALREADY_BOOKED
                                                                delegate:nil
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                                       otherButtonTitles: nil];
             [alertView show];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -793,10 +792,10 @@
     
     if (successfullAlert == nil)
     {
-        successfullAlert = [[UIAlertView alloc] initWithTitle:@"Booked"
+        successfullAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Booked")
                                                       message:ALERT_MSG_SUCCESSFULL_BOOKING
                                                      delegate:self
-                                            cancelButtonTitle:@"OK"
+                                            cancelButtonTitle:STRING_FOR_LANGUAGE(@"OK")
                                             otherButtonTitles: nil];
     }
     

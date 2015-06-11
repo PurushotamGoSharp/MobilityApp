@@ -18,10 +18,10 @@ typedef NS_ENUM(NSInteger, CustomFontNames)
 @interface CustomColoredViewController : UIViewController
 - (NSString *)stingForColorTheme;
 - (UIColor *)barColorForIndex:(NSInteger)index;
--(UIColor *)subViewsColours;
--(UIColor *)seperatorColours;
+- (UIColor *)subViewsColours;
+- (UIColor *)seperatorColours;
 
--(UIFont *)customFont:(NSInteger)size ofName:(CustomFontNames)fontName;
+- (UIFont *)customFont:(NSInteger)size ofName:(CustomFontNames)fontName;
 
 
 
