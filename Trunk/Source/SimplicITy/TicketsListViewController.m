@@ -153,7 +153,9 @@
         TicketListModel *aModel = [TicketListModel alloc];
         aModel.serviceName = aDict[@"ServiceCI"];
         aModel.agentname = aDict[@"Assignee"];
-        aModel.impact = aDict[@"Priority"];
+        NSString *urgencyString = aDict[@"Urgency"];
+        NSArray *components = [urgencyString componentsSeparatedByString:@"-"];
+        aModel.impact = [components lastObject];
         aModel.incedentNumber = aDict[@"Incident_Number"];
         aModel.status = aDict[@"Status"];
         aModel.details = aDict[@"Notes"];
