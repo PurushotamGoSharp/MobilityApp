@@ -59,7 +59,7 @@
     
     NSFileManager *fmngr = [[NSFileManager alloc] init];
     
-    NSMutableDictionary *langSampleDict = [[NSMutableDictionary alloc] init];
+//    NSMutableDictionary *langSampleDict = [[NSMutableDictionary alloc] init];
     
     self.languageUrlPairs = [[NSMutableDictionary alloc] init];
     

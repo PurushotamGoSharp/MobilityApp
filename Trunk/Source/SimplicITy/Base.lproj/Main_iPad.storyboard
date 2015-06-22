@@ -528,11 +528,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Siw-Mk-SOY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZT0-Ja-BZE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="odX-b1-xSe">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="67" id="gEm-3g-xbH" customClass="TicketsListCell">
@@ -711,7 +711,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glp-qk-Sv9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3922" y="-255"/>
+            <point key="canvasLocation" x="3587" y="-175"/>
         </scene>
         <!--Tools View Controller-->
         <scene sceneID="mAz-DX-4pz">
@@ -1221,11 +1221,11 @@
                         <viewControllerLayoutGuide type="bottom" id="T4I-tD-a1j"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mEX-E3-ssE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jby-jG-VuB">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.69803921570000005" green="0.91764705879999997" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -3164,7 +3164,7 @@
                     <navigationItem key="navigationItem" title="Ticket" id="Tcl-lW-l5h">
                         <barButtonItem key="leftBarButtonItem" image="TicketsListtBarIcon" id="Lyj-Q4-CNr">
                             <connections>
-                                <segue destination="hxX-gQ-JPF" kind="push" identifier="myTicketList_segue" id="4Rv-zV-YWp"/>
+                                <segue destination="hxX-gQ-JPF" kind="push" identifier="BarButtonTicketList_segue" id="4Rv-zV-YWp"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="tick-mark" id="M6W-Zs-KMN">
@@ -4503,7 +4503,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="f3u-DB-T6o"/>
-        <segue reference="Txe-KG-huV"/>
         <segue reference="zaq-sH-oyT"/>
+        <segue reference="4Rv-zV-YWp"/>
     </inferredMetricsTieBreakers>
 </document>

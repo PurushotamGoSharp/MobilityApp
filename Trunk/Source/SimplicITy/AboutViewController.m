@@ -367,7 +367,7 @@
     
     NSString *param = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",curentLanguage];
     
-    NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
+//    NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
     
     [postMan post:URLString withParameters:param];
 }

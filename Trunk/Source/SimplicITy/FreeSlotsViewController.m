@@ -328,7 +328,7 @@
         officelabel.text = model.nameOfRoom;
         
         UIImageView *beaconIndicatorImageView = (UIImageView *)[cell viewWithTag:555];
-        if (model.RSSIValue > NSIntegerMin)
+        if (model.RSSIValue > NSIntegerMin & model.RSSIValue != 0)
         {
             beaconIndicatorImageView.image = [UIImage imageNamed:@"ibeacon-green"];
         }else

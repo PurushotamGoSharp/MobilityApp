@@ -316,6 +316,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    
+}
+
 /*
 #pragma mark - Navigation
 

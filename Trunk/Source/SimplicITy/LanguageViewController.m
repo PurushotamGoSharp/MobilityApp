@@ -86,8 +86,7 @@
     }else
     {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-      NSString *langCode =  [self parseLangChangeResponseData:response];
-        
+//      NSString *langCode =  [self parseLangChangeResponseData:response];
 //        [MCLocalization sharedInstance].language = langCode;
     }
 
@@ -199,9 +198,9 @@
 
 -(void)sample
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    
 //    NSFileManager *fmngr = [[NSFileManager alloc] init];
 //    
 //    // grab all the files in the documents dir

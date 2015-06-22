@@ -50,8 +50,8 @@
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *req = [NSURLRequest requestWithURL:url];
         
-        NSURLConnection *connections = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-        
+        NSURLConnection *connections;
+        connections = [[NSURLConnection alloc] initWithRequest:req delegate:self];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     else
