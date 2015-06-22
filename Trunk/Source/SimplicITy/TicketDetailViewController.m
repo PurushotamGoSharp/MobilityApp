@@ -72,7 +72,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 6;
+        return 5;
 
     }else if (section == 1)
     {
@@ -188,6 +188,8 @@
                 
             case 2:
                 titleLable.text = @"Impact";
+                
+                rightTable.text = self.tickrtListModel.impact;
 //                rightTable.text = [self giveImpactForCOlor:self.tickrtListModel.requestImpact];
 //                linColour.backgroundColor = [self colorForImpact:self.tickrtListModel.requestImpact];
 //                circelColour.backgroundColor = [self colorForImpact:self.tickrtListModel.requestImpact];
@@ -205,11 +207,11 @@
                 rightTable.text = @"";
                 break;
                 
-            case 5:
-                titleLable.text = @"Date";
-                //                rightTable.text = self.tickModel.date;
-//                rightTable.text = [dateFormatter stringFromDate:self.tickrtListModel.requestDate];
-                break;
+//            case 5:
+//                titleLable.text = @"Date";
+//                //                rightTable.text = self.tickModel.date;
+////                rightTable.text = [dateFormatter stringFromDate:self.tickrtListModel.requestDate];
+//                break;
                 
             default:
                 break;

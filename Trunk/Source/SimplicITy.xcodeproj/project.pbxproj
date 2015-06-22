@@ -118,6 +118,7 @@
 		864E5F6D1A43E3C500C2542A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 864E5F6C1A43E3C500C2542A /* MediaPlayer.framework */; };
 		864E5F791A442DC400C2542A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 864E5F781A442DC400C2542A /* Localizable.strings */; };
 		864E5F7C1A4439F200C2542A /* ADExpirationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */; };
+		86582A091B2FF6320098C27D /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86582A081B2FF6320098C27D /* cert.p12 */; };
 		865C340B1AD24C0F0082B264 /* LandscapePreventionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C340A1AD24C0F0082B264 /* LandscapePreventionViewController.m */; };
 		865CE2621AFB8280006DB797 /* RoomBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 865CE2611AFB8280006DB797 /* RoomBeacon.m */; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
@@ -202,9 +203,7 @@
 		86ED7D701A541F1A00400360 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86ED7D6C1A541F1A00400360 /* TabBarViewController.m */; };
 		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
 		86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1E1A3992270045904C /* CustomColoredViewController.m */; };
-		86EE2A961A8394CF00E32F11 /* vmCert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86EE2A951A8394CF00E32F11 /* vmCert.p12 */; };
 		86EF85A51AD3D3B100D6AE75 /* CalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */; };
-		86EF85A71AD403E100D6AE75 /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86EF85A61AD403E100D6AE75 /* cert.p12 */; };
 		86F6DE251AC421260060E336 /* RoomFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F6DE241AC421260060E336 /* RoomFinderViewController.m */; };
 		86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F943C81A9C60ED0094204E /* NewsCategoryFetcher.m */; };
 		86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FA17421A80FA4600846378 /* DummyOrderViewController.m */; };
@@ -524,6 +523,7 @@
 		864E5F781A442DC400C2542A /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		864E5F7A1A4439F200C2542A /* ADExpirationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADExpirationViewController.h; sourceTree = "<group>"; };
 		864E5F7B1A4439F200C2542A /* ADExpirationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADExpirationViewController.m; sourceTree = "<group>"; };
+		86582A081B2FF6320098C27D /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		865C34091AD24C0F0082B264 /* LandscapePreventionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandscapePreventionViewController.h; sourceTree = "<group>"; };
 		865C340A1AD24C0F0082B264 /* LandscapePreventionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandscapePreventionViewController.m; sourceTree = "<group>"; };
 		865CE2601AFB8280006DB797 /* RoomBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomBeacon.h; sourceTree = "<group>"; };
@@ -677,10 +677,8 @@
 		86EDBE1B1A395C940045904C /* TipDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipDetailsViewController.m; sourceTree = "<group>"; };
 		86EDBE1D1A3992270045904C /* CustomColoredViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColoredViewController.h; sourceTree = "<group>"; };
 		86EDBE1E1A3992270045904C /* CustomColoredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomColoredViewController.m; sourceTree = "<group>"; };
-		86EE2A951A8394CF00E32F11 /* vmCert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = vmCert.p12; sourceTree = "<group>"; };
 		86EF85A31AD3D3B100D6AE75 /* CalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarEvent.h; sourceTree = "<group>"; };
 		86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarEvent.m; sourceTree = "<group>"; };
-		86EF85A61AD403E100D6AE75 /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		86F6DE231AC421260060E336 /* RoomFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomFinderViewController.h; sourceTree = "<group>"; };
 		86F6DE241AC421260060E336 /* RoomFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomFinderViewController.m; sourceTree = "<group>"; };
 		86F943C71A9C60ED0094204E /* NewsCategoryFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCategoryFetcher.h; sourceTree = "<group>"; };
@@ -1398,8 +1396,7 @@
 			isa = PBXGroup;
 			children = (
 				86A21D471A5D052D0090F5E5 /* webClipModel.m */,
-				86EF85A61AD403E100D6AE75 /* cert.p12 */,
-				86EE2A951A8394CF00E32F11 /* vmCert.p12 */,
+				86582A081B2FF6320098C27D /* cert.p12 */,
 				8623D5BC1A5417840022A370 /* Postman.h */,
 				8623D5BA1A5417800022A370 /* Postman.m */,
 				86AD6B691A70C880006A127B /* SendRequestsManager.h */,
@@ -1711,11 +1708,11 @@
 				864532B81A5A661D00A656A3 /* bottom-detail.png in Resources */,
 				86201D001A7CA66D0016CBEF /* raiseOrder@2x.png in Resources */,
 				8673D6F81ADBB2F1009AED9D /* Parameters.plist in Resources */,
-				86EF85A71AD403E100D6AE75 /* cert.p12 in Resources */,
 				864532A91A5A661D00A656A3 /* UAInboxMessageViewController.xib in Resources */,
 				8645329E1A5A661D00A656A3 /* Settings.bundle in Resources */,
 				864532C51A5A661D00A656A3 /* UAPushSettingsTagsViewController.xib in Resources */,
 				864532B91A5A661D00A656A3 /* bottom-detail@2x.png in Resources */,
+				86582A091B2FF6320098C27D /* cert.p12 in Resources */,
 				86D8D61E1B25739F00C1AB2A /* en.json in Resources */,
 				864532C41A5A661D00A656A3 /* UAPushSettingsSoundsViewController.xib in Resources */,
 				86D687D01B14A1A500D249A1 /* image2Mb.jpg in Resources */,
@@ -1730,7 +1727,6 @@
 				869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */,
 				864532A61A5A661D00A656A3 /* list-image-placeholder@2x.png in Resources */,
 				86201CFE1A7CA66D0016CBEF /* news@2x.png in Resources */,
-				86EE2A961A8394CF00E32F11 /* vmCert.p12 in Resources */,
 				8645329D1A5A661D00A656A3 /* UAInteractiveNotifications.strings in Resources */,
 				86D687D21B14A2A700D249A1 /* image1Mb.jpg in Resources */,
 				864532BC1A5A661D00A656A3 /* top-detail.png in Resources */,

@@ -37,20 +37,14 @@
         case 3:
             self.view.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
             break;
-
         default:
             break;
     }
-    
-
-
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
 }
 
 - (NSString *)stingForColorTheme
@@ -68,7 +62,6 @@
         case 3:
             return THEME_PINK_ROSE;
             break;
-
         default:
             break;
     }
@@ -117,7 +110,6 @@
         default:
             break;
     }
-    
     return nil;
 }
 

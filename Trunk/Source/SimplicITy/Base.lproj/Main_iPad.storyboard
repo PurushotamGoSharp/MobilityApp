@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -375,6 +375,7 @@
                                                                         </state>
                                                                         <connections>
                                                                             <action selector="upgradeBtnPressed:" destination="Zd4-gW-Y58" eventType="touchUpInside" id="In1-WU-Q8q"/>
+                                                                            <segue destination="33U-wc-Ap4" kind="push" id="VBW-EV-Bnk"/>
                                                                         </connections>
                                                                     </button>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingsDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="efM-Il-k2z">
@@ -1592,7 +1593,6 @@
                         <segue destination="6uF-OJ-Ewb" kind="relationship" relationship="viewControllers" id="lgs-IN-GBD"/>
                         <segue destination="7au-St-7uA" kind="relationship" relationship="viewControllers" id="mA2-Gy-pnM"/>
                         <segue destination="XWn-tF-U8J" kind="relationship" relationship="viewControllers" id="7Zh-1g-6Xw"/>
-                        <segue destination="T3g-mH-GO6" kind="relationship" relationship="viewControllers" id="O7H-Sv-r4o"/>
                         <segue destination="uqB-vj-pBC" kind="relationship" relationship="viewControllers" id="qBn-ad-YJb"/>
                     </connections>
                 </tabBarController>
@@ -1791,24 +1791,6 @@
                 </navigationItem>
             </objects>
             <point key="canvasLocation" x="-1183" y="-227"/>
-        </scene>
-        <!--Upgrade-->
-        <scene sceneID="91D-ct-0av">
-            <objects>
-                <navigationController id="T3g-mH-GO6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Upgrade" image="upgrade-01" id="0kO-dx-5kM"/>
-                    <navigationItem key="navigationItem" id="cre-5w-FJ3"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mkb-mz-2z5">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="33U-wc-Ap4" kind="relationship" relationship="rootViewController" id="rC4-Ca-kzl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6zv-5L-cF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1080" y="1070"/>
         </scene>
         <!--About-->
         <scene sceneID="Qbg-6w-8SX">
@@ -2907,7 +2889,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eg9-41-P80" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1008" y="2582"/>
+            <point key="canvasLocation" x="3504" y="638"/>
         </scene>
         <!--Ticket-->
         <scene sceneID="wAu-mq-PkD">
@@ -4491,7 +4473,6 @@
         <image name="tick-mark" width="22" height="22"/>
         <image name="ticketBlue" width="30" height="30"/>
         <image name="toolBlue" width="30" height="30"/>
-        <image name="upgrade-01" width="22" height="26"/>
         <image name="upload" width="120" height="120"/>
         <image name="video" width="60" height="70"/>
         <image name="writeIcon" width="20" height="20"/>

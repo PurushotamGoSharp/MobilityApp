@@ -156,7 +156,7 @@
     [operation setWillSendRequestForAuthenticationChallengeBlock:^(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge) {
         
         NSLog(@"Authe type = %@", challenge.protectionSpace.authenticationMethod);
-        NSString *certPath = [[NSBundle mainBundle] pathForResource:@"vmCert" ofType:@"p12"];
+        NSString *certPath = [[NSBundle mainBundle] pathForResource:@"cert" ofType:@"p12"];
         NSData *certData = [[NSData alloc] initWithContentsOfFile:certPath];
         
         SecIdentityRef identity = NULL;

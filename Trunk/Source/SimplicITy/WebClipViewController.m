@@ -39,7 +39,7 @@
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-
+    
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.frame = CGRectMake(0, 0,80, 30);
@@ -59,12 +59,11 @@
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
         {
             [self tryUpdatewebClip];
-
+            
         }else
         {
             [self  getData];
         }
-    
     }
     else
     {
@@ -100,7 +99,7 @@
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-
+    
     if ([urlString isEqualToString:WEB_CLIPS_BASE_API])
     {
         [self parseResponsedata:response andgetImages:YES];
@@ -109,7 +108,7 @@
         
         [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"webclip"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-
+        
     }else
     {
         [self createImages:response forUrl:urlString];

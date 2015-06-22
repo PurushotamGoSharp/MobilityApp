@@ -47,7 +47,6 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
                                                      name:NSUserDefaultsDidChangeNotification
                                                    object:nil];
     }
-    
     return self;
 }
 
@@ -62,9 +61,7 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
             NSString *pathOfPlist = [[NSBundle mainBundle] pathForResource:@"DemoUserInfo" ofType:@"plist"];
             serverConfig = [NSDictionary dictionaryWithContentsOfFile:pathOfPlist];
         }
-        
     }
-    
     return serverConfig;
 }
 

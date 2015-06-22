@@ -193,8 +193,7 @@
 
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book_a_Room"];
-    self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
-
+        self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
         self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade_Device"];
         self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT_SOS"];
         self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
@@ -612,7 +611,6 @@
 }
 - (IBAction)upgradeBtnPressed:(id)sender
 {
-    [self.tabBarController setSelectedIndex:3];
 }
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
