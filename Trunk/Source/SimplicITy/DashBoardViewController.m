@@ -155,7 +155,7 @@
         self.dashMyOrdersLabel.font=[self customFont:14 ofName:MuseoSans_300];
         self.dashWebClipLabel.font=[self customFont:14 ofName:MuseoSans_300];
         
-        self.dashBoardPersonName.font=[self customFont:16 ofName:MuseoSans_300];
+        self.nameOfUserLabel.font=[self customFont:16 ofName:MuseoSans_300];
         self.dashBoardPersonAddress.font=[self customFont:16 ofName:MuseoSans_300];
         self.dashBoardPersonCode.font=[self customFont:14 ofName:MuseoSans_300];
     }else
