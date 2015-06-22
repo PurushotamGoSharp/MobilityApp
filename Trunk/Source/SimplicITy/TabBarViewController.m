@@ -67,10 +67,8 @@
     tabbarItem = tabBar.items[2];
     tabbarItem.title = [MCLocalization stringForKey:@"Tools"];
     
-    tabbarItem = tabBar.items[3];
-    tabbarItem.title = [MCLocalization stringForKey:@"Upgrade"];
     
-    tabbarItem = tabBar.items[4];
+    tabbarItem = tabBar.items[3];
     tabbarItem.title = [MCLocalization stringForKey:@"About"];
 }
 

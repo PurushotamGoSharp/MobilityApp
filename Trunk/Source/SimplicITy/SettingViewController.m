@@ -308,8 +308,7 @@
     NSString *imageName0 = [NSString stringWithFormat:@"Dwelling-0%li.png", (long)imageIndex];
     NSString *imageName1 = [NSString stringWithFormat:@"Message-0%li.png", (long)imageIndex];
     NSString *imageName2 = [NSString stringWithFormat:@"Spanner-0%li.png", (long)imageIndex];
-    NSString *imageName3 = [NSString stringWithFormat:@"upgrade-0%li.png", (long)imageIndex];
-    NSString *imageName4 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
+    NSString *imageName3 = [NSString stringWithFormat:@"Commercial-0%li.png", (long)imageIndex];
     
     
     UITabBarItem *tabBarItem = tabBar.items[0];
@@ -324,9 +323,6 @@
     
     tabBarItem = tabBar.items[3];
     tabBarItem.image = [[UIImage imageNamed:imageName3] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    tabBarItem = tabBar.items[4];
-    tabBarItem.image = [[UIImage imageNamed:imageName4] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 - (UIColor *)colorForIndex:(NSInteger)colorIndex

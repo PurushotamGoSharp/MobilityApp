@@ -153,7 +153,15 @@
         TicketListModel *aModel = [TicketListModel alloc];
         aModel.serviceName = aDict[@"ServiceCI"];
         aModel.agentname = aDict[@"Assignee"];
-        aModel.impact = aDict[@"Priority"];
+        
+        NSString *str = aDict[@"Urgency"];
+        NSRange range = [str rangeOfString:@"-"];
+        if (range.location != NSNotFound)
+        {
+            NSString *result = [str substringFromIndex:range.location + range.length];
+            aModel.impact = result;
+        }
+        
         aModel.incedentNumber = aDict[@"Incident_Number"];
         aModel.status = aDict[@"Status"];
         aModel.details = aDict[@"Notes"];

@@ -611,7 +611,6 @@
 }
 - (IBAction)upgradeBtnPressed:(id)sender
 {
-    [self.tabBarController setSelectedIndex:3];
 }
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender
