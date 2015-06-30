@@ -23,7 +23,7 @@
     NSString *targetURLString;
     NSString *targetURL;
     UIBarButtonItem *backButton;
-
+    
 }
 
 - (void)viewDidLoad
@@ -31,8 +31,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = [MCLocalization stringForKey:@"Upgrade"];
-
+    self.title = @"Upgrade";
+    
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
@@ -70,6 +70,7 @@
     loc = [[NSString alloc] initWithFormat:@"%@", [paramDict objectForKey:@"app_region"]];
     
     targetURL = [[NSString alloc] initWithFormat:@"%@?l=%@&i=%@&m=%@", [paramDict objectForKey:@"ios_check_url"], loc, currIosVersion,model];
+    targetURL = [targetURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",targetURL);
     [self refreshBrowser];
 }
@@ -77,6 +78,7 @@
 
 - (void)backBtnAction
 {
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -87,15 +89,15 @@
 
 - (void)refreshBrowser {
     //Verify if targetURL was set by MDM
-    static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
-    NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-    static NSString * const kConfigurationTargetURLKey = @"targetURL";
-    targetURLString = serverConfig[kConfigurationTargetURLKey];
-    NSLog(@"%@",targetURLString);
-    if ([targetURLString length] > 0) {
-        targetURL = [[NSString alloc] initWithFormat:@"%@", targetURLString];
-        NSLog(@"%@",targetURL);
-    }
+    //    static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
+    //    NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
+    //    static NSString * const kConfigurationTargetURLKey = @"targetURL";
+    //    targetURLString = serverConfig[kConfigurationTargetURLKey];
+    //    NSLog(@"%@",targetURLString);
+    //    if ([targetURLString length] > 0) {
+    //        targetURL = [[NSString alloc] initWithFormat:@"%@", targetURLString];
+    //        NSLog(@"%@",targetURL);
+    //    }
     NSURL *url = [NSURL URLWithString:targetURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     
@@ -120,13 +122,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

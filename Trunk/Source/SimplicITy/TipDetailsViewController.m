@@ -12,6 +12,7 @@
 #import "TipModel.h"
 #import "TipsSubCategoriesViewController.h"
 #import "DownloadManager.h"
+#import "UserInfo.h"
 
 @interface TipDetailsViewController () <UIWebViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, postmanDelegate, DBManagerDelegate, TipsSubCategoriesViewControllerDelegate>
 

@@ -16,6 +16,7 @@
 #import "NewsContentModel.h"
 #import "BadgeNoManager.h"
 #import "NewsCategoryFetcher.h"
+#import "UserInfo.h"
 
 @interface MessagesViewController () <UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate,UIWebViewDelegate>
 {

@@ -38,7 +38,7 @@
     listOfRooms = [[NSMutableArray alloc] init];
     
     recognizer = [RoomRecognizer sharedRecognizer];
-    [recognizer startRecognize];
+//    [recognizer startRecognize];
     ewsManager = [[ESWRoomManager alloc] init];
     ewsManager.delegate = self;
     
@@ -137,9 +137,19 @@
     [ewsManager findFreeSlotsOfRooms:rooms forStart:startDate toEnd:endDate];
 }
 
-- (void)dealloc
+- (void)startRecognize
+{
+    [recognizer startRecognize];
+}
+- (void)stopRecognize
 {
     [recognizer stopRecognize];
+}
+
+- (void)dealloc
+{
+    NSLog(@"Room recognizer is dealloced");
+    //    [recognizer stopRecognize];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST
                                                   object:nil];

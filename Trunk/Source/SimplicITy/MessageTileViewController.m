@@ -13,7 +13,7 @@
 #import <sqlite3.h>
 #import "DBManager.h"
 #import "NewsContentModel.h"
-
+#import "UserInfo.h"
 #import "NewsCategoryFetcher.h"
 
 

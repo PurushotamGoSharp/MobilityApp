@@ -12,6 +12,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <CoreLocation/CoreLocation.h>
 #import "RoomBeacon.h"
+#import "UserInfo.h"
 
 #define KONTAKT_DEVICE_API @"https://api.kontakt.io/device"
 #define KONTAKT_PROXIMITY_UUID @"f7826da6-4fa2-4e98-8024-bc5b71e0893e"

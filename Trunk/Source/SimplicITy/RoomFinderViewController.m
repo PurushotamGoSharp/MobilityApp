@@ -74,6 +74,8 @@
     dateFormatter.dateFormat = @"hh.mm a";
     
     roomManager = [[RoomManager alloc] init];
+    [roomManager startRecognize];
+
 //    roomsToCheck = @[@"boardroom@vmex.com", @"trainingroom@vmex.com", @"discussionroom@vmex.com", @"room1@vmex.com"];
     
     self.containerForCalendar.layer.masksToBounds = YES;
@@ -517,6 +519,12 @@
     self.serachRoomsButton.tag = 111;
     [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Search Meeting Room(s)") forState:(UIControlStateNormal)];
 }
+
+- (void)dealloc
+{
+    [roomManager stopRecognize];
+}
+
 
 #pragma mark - UITableViewDelegate
 

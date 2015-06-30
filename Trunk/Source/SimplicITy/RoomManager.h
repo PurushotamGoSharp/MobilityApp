@@ -48,4 +48,7 @@
 //- (void)getContactsForEntry:(NSString *)entry withSuccess:(void (^)(BOOL foundContacts ,NSArray *contactsFound))success;
 - (void)getContactsForEntry:(NSString *)entry;
 
+- (void)startRecognize;
+- (void)stopRecognize;
+
 @end

@@ -13,6 +13,7 @@
 #import "SendRequestsManager.h"
 //#import <Gimbal/Gimbal.h>
 #import "RoomRecognizer.h"
+#import "UserInfo.h"
 
 
 #define ENABLE_PUSH_NOTIFICATION YES

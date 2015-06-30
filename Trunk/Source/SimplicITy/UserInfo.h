@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+//[NSString stringWithFormat:@"%@%@",self.iTSM_LDAP_BaseURL,]
+
 
 @interface UserInfo : NSObject
 
@@ -22,6 +24,11 @@
 
 @property (strong, nonatomic) NSArray *tags;
 @property (strong, nonatomic) NSString *alias;
+
+@property (strong, nonatomic) NSString *oKToUpdate;
+@property (strong, nonatomic) NSString *iTSM_LDAP_BaseURL;
+@property (strong, nonatomic) NSString *applicationBaseURL;
+
 
 + (instancetype)sharedUserInfo;
 - (NSDictionary *)getServerConfig;

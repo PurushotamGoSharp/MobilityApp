@@ -13,6 +13,7 @@
 #import "DBManager.h"
 #import "TipDetailsViewController.h"
 #import "TipsGroupModel.h"
+#import "UserInfo.h"
 
 @interface TipsCategoryViewController () <UITableViewDataSource, UITableViewDelegate, postmanDelegate,DBManagerDelegate>
 

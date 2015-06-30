@@ -134,6 +134,24 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
     return _tags;
 }
 
+- (NSString *)oKToUpdate
+{
+    _oKToUpdate = [self getServerConfig][@"ok2updateURL"];
+    return _oKToUpdate;
+}
+
+- (NSString *)iTSM_LDAP_BaseURL
+{
+    _iTSM_LDAP_BaseURL = [self getServerConfig][@"ucbAPIURL"];
+    return _iTSM_LDAP_BaseURL;
+}
+
+- (NSString *)applicationBaseURL
+{
+    _applicationBaseURL = [self getServerConfig][@"appAPIURL"];
+    return _applicationBaseURL;
+}
+
 - (void)userDefaultdValueChanged
 {
     serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
@@ -148,6 +166,7 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
+    
 }
 
 @end

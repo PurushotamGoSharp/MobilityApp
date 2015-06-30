@@ -10,6 +10,8 @@
 #import "DBManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "SurveyModel.h"
+#import "UserInfo.h"
+
 @interface SurveyViewController () <DBManagerDelegate, postmanDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOutlet;

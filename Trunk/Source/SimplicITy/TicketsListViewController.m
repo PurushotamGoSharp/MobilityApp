@@ -61,7 +61,6 @@
     
     arrayOfData = [[NSMutableArray alloc] init];
     self.filterBtnOutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 8);
-
     
     if ([self.orderItemDifferForList isEqualToString:@"orderList"])
     {
@@ -127,7 +126,7 @@
     NSString *lastName = userInfoDict [@"lastName"];
     
     
-    NSString *UrL = [NSString stringWithFormat:@"%@firstName/%@/lastName/%@",URL_TO_GET_LISTOF_TICKETS,firstName,lastName];
+    NSString *UrL = [NSString stringWithFormat:@"%@firstName/%@/lastName/%@/open/1/",URL_TO_GET_LISTOF_TICKETS,firstName,lastName];
     
     [requestManager getListOfTickets:UrL];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -151,7 +150,7 @@
     for (NSDictionary *aDict in arr)
     {
         TicketListModel *aModel = [TicketListModel alloc];
-        aModel.serviceName = aDict[@"ServiceCI"];
+        aModel.serviceName = aDict[@"Summary"];
         aModel.agentname = aDict[@"Assignee"];
         NSString *urgencyString = aDict[@"Urgency"];
         NSArray *components = [urgencyString componentsSeparatedByString:@"-"];

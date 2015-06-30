@@ -66,23 +66,16 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
         return 5;
-
-    }else if (section == 1)
-    {
-        return 1;
     }
-    else
-    {
-        return 1;
-    }
-
+    
+    return 1;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -101,17 +94,17 @@
 
     }else if (section == 1)
     {
-        if ([self.orderItemDifferForList isEqualToString:@"orderList"])
-        {
-            labelHeader.text = @"Item";
-        }else
-        {
-            labelHeader.text = @"Service";
-        }
-        
-    }
-    else
-    {
+//        if ([self.orderItemDifferForList isEqualToString:@"orderList"])
+//        {
+//            labelHeader.text = @"Item";
+//        }else
+//        {
+//            labelHeader.text = @"Service";
+//        }
+//        
+//    }
+//    else
+//    {
         labelHeader.text = @"Details";
     }
     
@@ -123,7 +116,7 @@
 
     UITableViewCell *cell = nil;
     
-    if (indexPath.section == 2)
+    if (indexPath.section == 1)
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"CellDetails" forIndexPath:indexPath];
     }else
@@ -146,17 +139,19 @@
     circelColour.layer.cornerRadius = 10;
     titleLable.textColor = [UIColor blackColor];
     
+//    if (indexPath.section == 1)
+//    {
+//        titleLable.text = self.tickrtListModel.serviceName;
+//        rightTable.text = @"";
+//        titleLable.font=[self customFont:16 ofName:MuseoSans_300];
+//        titleLable.textColor = [UIColor lightGrayColor];
+//    }
+//    else
     if (indexPath.section == 1)
     {
-        titleLable.text = self.tickrtListModel.serviceName;
-        rightTable.text = @"";
-        titleLable.font=[self customFont:16 ofName:MuseoSans_300];
-        titleLable.textColor = [UIColor lightGrayColor];
-    }
-    else if (indexPath.section == 2)
-    {
         UILabel *titleTextView = (UILabel *)[cell viewWithTag:100];
-        titleTextView.text = self.tickrtListModel.details;
+        NSString *details = self.tickrtListModel.details.length?self.tickrtListModel.details:self.tickrtListModel.serviceName;
+        titleTextView.text = details;
         titleTextView.textAlignment = NSTextAlignmentJustified;
         rightTable.hidden = YES;
         titleTextView.textColor = [UIColor lightGrayColor];
@@ -198,13 +193,13 @@
             case 3:
                 titleLable.text = @"Agent";
                 //                rightTable.text = self.tickModel.agentName;
-                rightTable.text = @"";
+                rightTable.text = self.tickrtListModel.agentname;
                 break;
                 
             case 4:
                 titleLable.text = @"Status";
                 //                rightTable.text = self.tickModel.currentStatus;
-                rightTable.text = @"";
+                rightTable.text = self.tickrtListModel.status;
                 break;
                 
 //            case 5:
@@ -228,7 +223,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 2)
+    if (indexPath.section == 1)
     {
         CGFloat widthLabel = [UIScreen mainScreen].bounds.size.width - 20;
         CGSize maximumLabelSize = CGSizeMake(widthLabel, FLT_MAX);
@@ -251,7 +246,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 35;
+    if (section == 1)
+    {
+        return 35;
+    }
+    return 0;
 }
 
 - (NSString *)giveImpactForCOlor:(NSInteger)colorCode

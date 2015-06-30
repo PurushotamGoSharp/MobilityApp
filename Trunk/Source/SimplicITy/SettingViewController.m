@@ -14,6 +14,7 @@
 #import "OfficeLocationsViewController.h"
 #import "DBManager.h"
 #import "OfficeLocation.h"
+#import "UserInfo.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,languagesSettingdelegate,LocationSettingdelegate,ThemeSettingDelegate, OfficeLocationDelegate, DBManagerDelegate>
 {

@@ -10,6 +10,7 @@
 #import <sqlite3.h>
 #import "DBManager.h"
 #import "SeedModel.h"
+#import "UserInfo.h"
 
 @interface SeedSync () <postmanDelegate, DBManagerDelegate>
 

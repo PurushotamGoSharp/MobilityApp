@@ -12,6 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 #import <sqlite3.h>
+#import "UserInfo.h"
 
 #import <MCLocalization/MCLocalization.h>
 

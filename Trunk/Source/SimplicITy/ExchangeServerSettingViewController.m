@@ -10,6 +10,7 @@
 #import "OfficeLocationsViewController.h"
 #import "DBManager.h"
 #import "OfficeLocation.h"
+#import "UserInfo.h"
 
 @interface ExchangeServerSettingViewController ()<UITableViewDataSource,UITableViewDelegate,OfficeLocationDelegate, DBManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutLet;
