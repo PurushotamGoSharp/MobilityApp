@@ -122,11 +122,24 @@
     requestManager.delegate = self;
     
     NSDictionary *userInfoDict = [[UserInfo sharedUserInfo] getServerConfig];
+    
     NSString *firstName = userInfoDict [@"firstName"];
     NSString *lastName = userInfoDict [@"lastName"];
     
     
-    NSString *UrL = [NSString stringWithFormat:@"%@firstName/%@/lastName/%@/open/1/",URL_TO_GET_LISTOF_TICKETS,firstName,lastName];
+//    NSString *email = userInfoDict [@"mail"];
+    
+    NSString *email = [UserInfo sharedUserInfo].emailIDValue;
+
+
+    
+//    NSString *UrL = [NSString stringWithFormat:@"%@firstName/%@/lastName/%@/open/1/",URL_TO_GET_LISTOF_TICKETS,firstName,lastName];
+    
+//    NSString *UrL = [NSString stringWithFormat:@"%@email/marc.vancutsem@ucb.com/open/1",URL_TO_GET_LISTOF_TICKETS];
+    
+    NSString *UrL = [NSString stringWithFormat:@"%@email/%@/open/1",URL_TO_GET_LISTOF_TICKETS,email];
+
+
     
     [requestManager getListOfTickets:UrL];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];

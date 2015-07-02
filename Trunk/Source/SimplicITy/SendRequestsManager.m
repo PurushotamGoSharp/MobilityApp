@@ -351,8 +351,16 @@
     }
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+//    dict[@"firstName"] = @"Marc";
+//    dict[@"lastName"] = @"Van Cutsem";
+//    dict[@"email"] = @"Marc.VanCutsem@ucb.com";
+    
     dict[@"firstName"] = [UserInfo sharedUserInfo].firstName;
     dict[@"lastName"] = [UserInfo sharedUserInfo].lastName;
+    
+//    dict[@"email"] = [UserInfo sharedUserInfo].emailIDValue;
+
     dict[@"impact"] = statusArray[request.requestImpact];
     dict[@"service"] = request.requestServiceName;
     dict[@"description"] = request.requestDetails;

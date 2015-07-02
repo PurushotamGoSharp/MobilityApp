@@ -59,8 +59,9 @@
 
 //#define BASE_URL @"http://simplicity-demo.vmokshagroup.com:8093/"
 
-
 #define BASE_URL [UserInfo sharedUserInfo].applicationBaseURL
+
+
 
 #define SEED_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Seed"]
 #define SEARCH_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Category"]
@@ -99,7 +100,7 @@
 #define LDAP_URL [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"ad/account-status/id/"]
 #define URL_TO_GET_LISTOF_TICKETS  [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"itsm/tickets/id/created-by-user/"]
 
-//#define BASE_URL_UCB @"https://mdmAPIACC.ucb.com/"
+//#define BASE_URL_UCB @"https://mdmAPIACC.ucb.com/" 
 //#define ITSM_AUTH_API @"https://mdmAPIACC.ucb.com/itsm"
 //#define RAISE_A_TICKET_API @"https://mdmAPIACC.ucb.com/itsm/ticket/"
 //#define RAISE_AN_ORDER_API @"https://mdmAPIACC.ucb.com/itsm/ticket/"

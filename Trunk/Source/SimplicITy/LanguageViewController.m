@@ -87,7 +87,7 @@
     }else
     {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-//      NSString *langCode =  [self parseLangChangeResponseData:response];
+      NSString *langCode =  [self parseLangChangeResponseData:response];
 //        [MCLocalization sharedInstance].language = langCode;
     }
 
