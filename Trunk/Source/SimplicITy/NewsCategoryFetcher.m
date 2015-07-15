@@ -61,7 +61,12 @@
 - (void)tryToUpdateNewsCategories:(NSInteger)sinceID
 {
     URLString = NEWS_CATEGORY_API;
-    NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"Name\":\"\",\"Since_Id\":\"%li\"}}",(long)sinceID];
+    
+    NSString *curentLanguage = [[NSUserDefaults standardUserDefaults] objectForKey:URLString];
+    
+   
+    NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\",\"Since_Id\":\"%li\"}}",curentLanguage,(long)sinceID];
+    
     noOfCallsMade++;
     [postMan post:URLString withParameters:parameter];
 }
@@ -357,7 +362,7 @@
     [dbManager createTableForQuery:creatQuery];
     
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-    [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+    [converter setDateFormat:@"yyyy MM dd HH mm ss"];
     
     for (NewsContentModel *amodel in newsArray)
     {

@@ -31,7 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Upgrade";
+    self.title = STRING_FOR_LANGUAGE(@"Upgrade");
     
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

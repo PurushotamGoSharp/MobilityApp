@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="vFt-Pi-Hqs">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -529,11 +529,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Siw-Mk-SOY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZT0-Ja-BZE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="odX-b1-xSe">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="67" id="gEm-3g-xbH" customClass="TicketsListCell">
@@ -1222,11 +1222,11 @@
                         <viewControllerLayoutGuide type="bottom" id="T4I-tD-a1j"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mEX-E3-ssE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jby-jG-VuB">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.69803921570000005" green="0.91764705879999997" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -2143,17 +2143,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qCH-Uk-nA1" customClass="UIControl">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="911"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fb6-Vu-vn0">
-                                                <rect key="frame" x="20" y="153" width="728" height="164"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="164" id="iLX-zL-hg5"/>
-                                                </constraints>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                            </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yZj-eu-Ic6">
                                                 <rect key="frame" x="20" y="544" width="728" height="40"/>
                                                 <subviews>
@@ -2333,23 +2322,30 @@
                                                     <constraint firstAttribute="width" constant="119" id="WTV-qJ-Ojd"/>
                                                 </constraints>
                                             </imageView>
+                                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nem-Na-fgM">
+                                                <rect key="frame" x="20" y="153" width="728" height="164"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="164" id="kxc-bv-ibO"/>
+                                                </constraints>
+                                            </webView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="fb6-Vu-vn0" secondAttribute="trailing" constant="20" id="3bM-QN-vA6"/>
-                                            <constraint firstItem="cKS-ma-hzU" firstAttribute="top" secondItem="fb6-Vu-vn0" secondAttribute="bottom" constant="23" id="4FY-07-fmw"/>
+                                            <constraint firstItem="HT8-9C-Gty" firstAttribute="top" secondItem="Nem-Na-fgM" secondAttribute="bottom" constant="30" id="0iM-0e-Bz3"/>
                                             <constraint firstAttribute="trailing" secondItem="yZj-eu-Ic6" secondAttribute="trailing" constant="20" id="93h-ut-b0c"/>
-                                            <constraint firstItem="sE3-vG-VbT" firstAttribute="top" secondItem="fb6-Vu-vn0" secondAttribute="bottom" constant="23" id="EP6-zs-owO"/>
                                             <constraint firstAttribute="trailing" secondItem="IWJ-VU-XD2" secondAttribute="trailing" constant="20" id="Jc2-xW-Bzz"/>
                                             <constraint firstItem="yZj-eu-Ic6" firstAttribute="top" secondItem="sE3-vG-VbT" secondAttribute="bottom" constant="49" id="Jjv-EV-Kyx"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IWJ-VU-XD2" secondAttribute="bottom" constant="10" id="SvU-J3-aSi"/>
                                             <constraint firstItem="Pm3-N3-oxE" firstAttribute="top" secondItem="qCH-Uk-nA1" secondAttribute="top" constant="16" id="aUC-Um-8FI"/>
                                             <constraint firstItem="IWJ-VU-XD2" firstAttribute="top" secondItem="yZj-eu-Ic6" secondAttribute="bottom" constant="2" id="b4s-pR-OSq"/>
-                                            <constraint firstItem="fb6-Vu-vn0" firstAttribute="top" secondItem="Pm3-N3-oxE" secondAttribute="bottom" constant="22" id="c4e-Y3-FoK"/>
                                             <constraint firstItem="yZj-eu-Ic6" firstAttribute="leading" secondItem="qCH-Uk-nA1" secondAttribute="leading" constant="20" id="dLL-Bv-o86"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nem-Na-fgM" secondAttribute="trailing" constant="20" id="dek-tu-ElH"/>
+                                            <constraint firstItem="cKS-ma-hzU" firstAttribute="top" secondItem="Nem-Na-fgM" secondAttribute="bottom" constant="23" id="lyP-ds-Xg0"/>
                                             <constraint firstAttribute="trailing" secondItem="sE3-vG-VbT" secondAttribute="trailing" constant="20" id="md1-7y-mRu"/>
-                                            <constraint firstItem="fb6-Vu-vn0" firstAttribute="leading" secondItem="qCH-Uk-nA1" secondAttribute="leading" constant="20" id="s6e-Ij-KLa"/>
+                                            <constraint firstItem="Nem-Na-fgM" firstAttribute="leading" secondItem="qCH-Uk-nA1" secondAttribute="leading" constant="20" id="sBD-DQ-Z2t"/>
                                             <constraint firstAttribute="trailing" secondItem="Pm3-N3-oxE" secondAttribute="trailing" constant="20" id="tYf-NP-utI"/>
+                                            <constraint firstItem="Nem-Na-fgM" firstAttribute="top" secondItem="Pm3-N3-oxE" secondAttribute="bottom" constant="22" id="uG3-0w-Ta1"/>
                                             <constraint firstItem="IWJ-VU-XD2" firstAttribute="leading" secondItem="qCH-Uk-nA1" secondAttribute="leading" constant="20" id="uh0-tH-jkn"/>
                                             <constraint firstItem="cKS-ma-hzU" firstAttribute="leading" secondItem="qCH-Uk-nA1" secondAttribute="leading" constant="20" id="xUb-9Z-oPK"/>
                                         </constraints>
@@ -2390,8 +2386,6 @@
                         <outlet property="clickToRateLbl" destination="hRW-LY-LRN" id="E5b-da-Iq5"/>
                         <outlet property="conatinerAvrRating" destination="P2Q-ou-LnT" id="Svy-2L-RMc"/>
                         <outlet property="conatinerYourRating" destination="GVy-ln-Ag3" id="IGH-c6-u71"/>
-                        <outlet property="descriptionHeightConst" destination="iLX-zL-hg5" id="NoD-XN-OpJ"/>
-                        <outlet property="descriptionTextView" destination="fb6-Vu-vn0" id="ULy-Hh-m5C"/>
                         <outlet property="leftSideImageView" destination="Pm3-N3-oxE" id="DSs-6h-YKW"/>
                         <outlet property="plusMinusImageView" destination="cUE-cM-JTV" id="XlV-03-6Oe"/>
                         <outlet property="rateView" destination="nrt-oa-mxV" id="RMj-Ye-e72"/>
@@ -2399,6 +2393,7 @@
                         <outlet property="scrollViewBottomConst" destination="jP4-ah-oPd" id="kiq-fY-pnV"/>
                         <outlet property="tickMarkBarBtnOutlet" destination="GrM-vX-2eG" id="9jf-Xy-m1b"/>
                         <outlet property="totalLbl" destination="Gcq-Pr-fSP" id="cmU-1B-gJR"/>
+                        <outlet property="webViewOutlet" destination="Nem-Na-fgM" id="RFN-fa-eVK"/>
                         <outlet property="writeReviewAlphaView" destination="Gnr-kU-FgS" id="L1Q-0t-osU"/>
                         <outlet property="writeReviewBtnOutlet" destination="MiT-lc-kVI" id="ofQ-Ao-fF5"/>
                         <outlet property="writeReviewLbl" destination="1ds-xx-Dfd" id="5gb-lc-QQT"/>
@@ -4484,7 +4479,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="f3u-DB-T6o"/>
+        <segue reference="Txe-KG-huV"/>
         <segue reference="zaq-sH-oyT"/>
-        <segue reference="4Rv-zV-YWp"/>
     </inferredMetricsTieBreakers>
 </document>

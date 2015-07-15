@@ -29,11 +29,12 @@
     // Do any additional setup after loading the view.
     
     self.title = [MCLocalization stringForKey:@"Tools"];
+//    self.title = @"Tools";
 
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
@@ -47,7 +48,7 @@
     self.navigationItem.leftBarButtonItem = backButton;
 
 //    arrayOfDatas = @[ @"Lync Connection Checker", @"Days left for password expiry", @"Survey", @"Room Checker"];
-    arrayOfDatas = @[ @"Lync Connection Checker", @"Survey"];
+    arrayOfDatas = @[ STRING_FOR_LANGUAGE(@"Lync_Connection_Checker"), STRING_FOR_LANGUAGE(@"Survey")];
 
 //    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"], [UIImage imageNamed:@"SurveyToolIcon"]];
     

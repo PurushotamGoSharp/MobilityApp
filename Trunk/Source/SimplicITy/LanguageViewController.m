@@ -150,8 +150,7 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:aaData options:0 error:&error];
 
     
-    [[NSUserDefaults standardUserDefaults]setObject:languageCode forKey:LANGUAGE_CODE];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
 //    [self sample];
     
@@ -161,15 +160,17 @@
 
     NSString *filePth = [self getFilePath:languageCode];
     
+    [jsonData writeToFile:filePth atomically:YES];
+    
+    NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
+    
+    [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
+    
+    NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
+
+    
     if (![fmngr fileExistsAtPath:filePth])
     {
-        [jsonData writeToFile:filePth atomically:YES];
-        
-        NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
-        
-        [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
-        
-        NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
         
 //        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
 //        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
@@ -318,6 +319,9 @@
     [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguage"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.delegate selectedLanguageis:selectedlanguage];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:@"Restart your App to reflect the Language changes" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 #pragma mark UITableViewDataSource methods
@@ -362,6 +366,9 @@
     LanguageModel *amodel = languagesArrOfData[indexPath.row];
     
     [self changeLanguageWithCode:amodel.code];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:amodel.code forKey:LANGUAGE_CODE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)changeLanguageWithCode:(NSString*)langCode
@@ -371,7 +378,24 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+    NSString *url = [NSString stringWithFormat:@"%@%@",LANGUAGE_CHANGE_API,langCode];
+
+    
+//    NSString *url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+    
+//    NSString *url;
+//    
+//    if ([langCode isEqualToString:@"en"])
+//    {
+//        url = [NSString stringWithFormat:@"%@en",LANGUAGE_CHANGE_API];
+//        [postMan get:url];
+//    }else
+//    {
+//        url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+//        [postMan get:url];
+//    }
+
+    
     [postMan get:url];
     
 }

@@ -50,9 +50,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    self.title = STRING_FOR_LANGUAGE(@"Tips");
+    
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
@@ -77,22 +80,24 @@
 
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
+    
+    [self tryToUpdateCategories];
 
-    if ([AFNetworkReachabilityManager sharedManager].isReachable && loadData)
-    {
-        
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"tipsgroup"])
-        {
-            [self tryToUpdateCategories];
-        }else
-        {
-            [self getData];
-        }
-    }
-    else
-    {
-        [self getData];
-    }
+//    if ([AFNetworkReachabilityManager sharedManager].isReachable && loadData)
+//    {
+//        
+//        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"tipsgroup"])
+//        {
+//            [self tryToUpdateCategories];
+//        }else
+//        {
+//            [self getData];
+//        }
+//    }
+//    else
+//    {
+//        [self getData];
+//    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -110,7 +115,12 @@
 {
     URLString = TIPS_CATEGORY_API;
     NSString *parameterString;
-    parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
+    
+     NSString *curentLanguage = [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
+    
+    parameterString = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",curentLanguage];
+    
+//    parameterString = @"{\"request\":{\"LanguageCode\":\"en\"}}";
 
     [postMan post:URLString withParameters:parameterString];
 
@@ -307,7 +317,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+               UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

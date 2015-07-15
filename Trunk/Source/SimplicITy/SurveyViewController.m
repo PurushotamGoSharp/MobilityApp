@@ -32,6 +32,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"Survey";
+//    self.title = STRING_FOR_LANGUAGE(@"");
+
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
@@ -52,20 +54,23 @@
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     
-    if ([AFNetworkReachabilityManager sharedManager].isReachable)
-    {
-        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"survey"])
-        {
-            [self tryUpdateSurvey];
-        }else
-        {
-            [self  getData];
-        }
-    }
-    else
-    {
-        [self  getData];
-    }
+    [self tryUpdateSurvey];
+
+    
+//    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+//    {
+//        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"survey"])
+//        {
+//            [self tryUpdateSurvey];
+//        }else
+//        {
+//            [self  getData];
+//        }
+//    }
+//    else
+//    {
+//        [self  getData];
+//    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -229,7 +234,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+               UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

@@ -85,10 +85,10 @@
 
 @implementation RaiseATicketViewController
 {
-    UILabel *low;
-    UILabel *medium;
-    UILabel *high;
-    UILabel *critical;
+//    UILabel *low;
+//    UILabel *medium;
+//    UILabel *high;
+//    UILabel *critical;
     
     UIButton *back;
     
@@ -102,6 +102,7 @@
     
     NSString *title = [MCLocalization stringForKey:@"Home"];
     [back setTitle:title forState:UIControlStateNormal];
+    
     self.title = [MCLocalization stringForKey:@"IT_SOS"];
     
     
@@ -111,7 +112,7 @@
     
     back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
 
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -126,7 +127,7 @@
     UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     
-    self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+    self.textView.placeholder = STRING_FOR_LANGUAGE(@"WATERMARK_DESC_YOUR_REQ");
     
     titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
     titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
@@ -259,14 +260,14 @@
         }
         else
         {
-            alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
+            alertMessage = STRING_FOR_LANGUAGE(@"MSG_TICKET_RAISE_SUCCESS");
         }
         
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"HDR_CONFIRMATION")
                                                                 message:alertMessage
                                                                delegate:self
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK")
                                                       otherButtonTitles:nil];
         
         saveAlestView.delegate = self;
@@ -280,9 +281,9 @@
     if (haveRasiedRequest)
     {
         UIAlertView *errorAlestView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                 message:@"Error occurred while contacting to server"
+                                                                 message:STRING_FOR_LANGUAGE(@"ERR_CONTACT_SERVER")
                                                                 delegate:self
-                                                       cancelButtonTitle:@"OK"
+                                                       cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK")
                                                        otherButtonTitles:nil];
         [errorAlestView show];
         haveRasiedRequest = NO;
@@ -374,10 +375,10 @@
             alertMessage = ALERT_FOR_TICKET_SAVED_IN_OFFLINE;
         }
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"HDR_CONFIRMATION")
                                                                 message:alertMessage
                                                                delegate:self
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK")
                                                       otherButtonTitles:nil];
         
         saveAlestView.delegate= self;
@@ -420,7 +421,7 @@
         UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
                                                                message:alertMessage
                                                               delegate:nil
-                                                     cancelButtonTitle:@"OK"
+                                                     cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK")
                                                      otherButtonTitles:nil];
         [invalidAlert show];
         
@@ -573,9 +574,27 @@
             SliderTableViewCell *sliderCell = (SliderTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
             sliderCell.selectionStyle = UITableViewCellSelectionStyleNone;
             
+            UILabel *impact = (UILabel*)[sliderCell viewWithTag:50];
+            impact.text = [MCLocalization stringForKey:@"LBL_IMPACT"];
+
+            
+            UILabel *low = (UILabel*)[sliderCell viewWithTag:10];
+            low.text = [MCLocalization stringForKey:@"LBL_LOW"];
+            UILabel *medium = (UILabel*)[sliderCell viewWithTag:20];
+            medium.text = [MCLocalization stringForKey:@"LBL_MEDIUM"];
+
+            UILabel *high = (UILabel*)[sliderCell viewWithTag:30];
+            high.text = [MCLocalization stringForKey:@"LBL_HIGH"];
+
+            UILabel *critical = (UILabel*)[sliderCell viewWithTag:40];
+            critical.text = [MCLocalization stringForKey:@"LBL_CRITICAL"];
+
+
+            
             [sliderCell updateSliderForValue:roundf(sliderCell.impactSlider.value)];
             sliderOutlet = sliderCell.impactSlider;
             return sliderCell;
+            
         }else
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
@@ -589,6 +608,9 @@
             
             header.text = @"Requester";
             lable.text = [UserInfo sharedUserInfo].fullName;
+            
+            header.text = [MCLocalization stringForKey:@"LBL_REQUESTER"];
+
 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
@@ -603,7 +625,9 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
         self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
         self.textView.font = [self customFont:16 ofName:MuseoSans_300];
-        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+        self.textView.placeholder = STRING_FOR_LANGUAGE(@"WATERMARK_DESC_YOUR_REQ");
+        
+        
         self.textView.delegate = self;
     }
     return cell;
@@ -659,9 +683,13 @@
     {
         headerLabel.text = @"Service";
         
+        headerLabel.text = [MCLocalization stringForKey:@"LBL_SERVICE"];
+        
     }else if (section == 2)
     {
         headerLabel.text = @"Details";
+        
+        headerLabel.text = [MCLocalization stringForKey:@"LBL_DETAILS"];
     }
     
     [headerView addSubview:headerLabel];
@@ -811,7 +839,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+              UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

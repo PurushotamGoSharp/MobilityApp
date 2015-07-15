@@ -104,7 +104,7 @@
     self.profileViewTopConstraint.constant = -107;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+           UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
         [noNetworkAlert show];
     }
     
@@ -148,7 +148,7 @@
         self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
         self.dashBoardCallHelpDesk.font=[self customFont:14 ofName:MuseoSans_300];
         self.dashBoardOrder.font=[self customFont:14 ofName:MuseoSans_300];
-        self.dashBoardSetting.font=[self customFont:14 ofName:MuseoSans_300];
+        self.dashBoardSetting.font=[self customFont:13 ofName:MuseoSans_300];
         self.dashBoardTicket.font=[self customFont:14 ofName:MuseoSans_300];
         self.dashBoardTips.font=[self customFont:14 ofName:MuseoSans_300];
         self.dashMyTicketsLabel.font=[self customFont:14 ofName:MuseoSans_300];
@@ -186,6 +186,8 @@
     [self setupLocation];
     self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
 }
+
+
 
 -(void)localize
 {
@@ -507,7 +509,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
             [noNetworkAlert show];
             
             return NO;

@@ -39,7 +39,9 @@
         self.title = @"Order Details";
     }else
     {
-       self.title = @"Ticket Details"; 
+       self.title = @"Ticket Details";
+//        self.title = STRING_FOR_LANGUAGE(@"My_Tickets");
+
     }
 
     
@@ -105,7 +107,7 @@
 //    }
 //    else
 //    {
-        labelHeader.text = @"Details";
+        labelHeader.text = STRING_FOR_LANGUAGE(@"LBL_DETAILS");
     }
     
     return headerView;
@@ -170,19 +172,19 @@
                     
                 }else
                 {
-                    titleLable.text = @"Ticket Number";
+                    titleLable.text = STRING_FOR_LANGUAGE(@"LBL_TICKET_NO");
                 }
                 
                 rightTable.text = self.tickrtListModel.incedentNumber;
                 break;
                 
             case 1:
-                titleLable.text = @"Requester";
+                titleLable.text = STRING_FOR_LANGUAGE(@"LBL_REQUESTER");
                 rightTable.text = [UserInfo sharedUserInfo].fullName?:@"Test User";;
                 break;
                 
             case 2:
-                titleLable.text = @"Impact";
+                titleLable.text = STRING_FOR_LANGUAGE(@"LBL_IMPACT");
                 
                 rightTable.text = self.tickrtListModel.impact;
 //                rightTable.text = [self giveImpactForCOlor:self.tickrtListModel.requestImpact];
@@ -191,13 +193,13 @@
                 break;
                 
             case 3:
-                titleLable.text = @"Agent";
+                titleLable.text = STRING_FOR_LANGUAGE(@"LBL_AGENT");
                 //                rightTable.text = self.tickModel.agentName;
                 rightTable.text = self.tickrtListModel.agentname;
                 break;
                 
             case 4:
-                titleLable.text = @"Status";
+                titleLable.text = STRING_FOR_LANGUAGE(@"LBL_STATUS");
                 //                rightTable.text = self.tickModel.currentStatus;
                 rightTable.text = self.tickrtListModel.status;
                 break;

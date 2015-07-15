@@ -36,9 +36,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = STRING_FOR_LANGUAGE(@"Services");
+    
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -50,26 +52,32 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    URLString = WEB_CLIPS_BASE_API;
+    NSString *lanCode = [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
+    
+    
+    URLString = [NSString stringWithFormat:@"%@%@",WEB_CLIPS_BASE_API,lanCode];;
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     
-    if ([AFNetworkReachabilityManager sharedManager].isReachable)
-    {
-        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
-        {
-            [self tryUpdatewebClip];
-            
-        }else
-        {
-            [self  getData];
-        }
-    }
-    else
-    {
-        [self  getData];
-    }
+    [self tryUpdatewebClip];
+
+    
+//    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+//    {
+//        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
+//        {
+//            [self tryUpdatewebClip];
+//            
+//        }else
+//        {
+//            [self  getData];
+//        }
+//    }
+//    else
+//    {
+//        [self  getData];
+//    }
 }
 
 - (void)tryUpdatewebClip
@@ -100,8 +108,8 @@
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    
-    if ([urlString isEqualToString:WEB_CLIPS_BASE_API])
+ 
+    if ([urlString isEqualToString:URLString])
     {
         [self parseResponsedata:response andgetImages:YES];
         
@@ -240,7 +248,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+               UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

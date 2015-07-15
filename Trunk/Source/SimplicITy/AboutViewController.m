@@ -42,6 +42,7 @@
     CGFloat averageRating;
     UIFont *describtionFont;
 }
+@property (weak, nonatomic) IBOutlet UIWebView *webViewOutlet;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet RateView *rateView;
@@ -85,11 +86,12 @@
     // Do any additional setup after loading the view.
     
     self.title = [MCLocalization stringForKey:@"About"];
+//    self.title =@"About Us";
     
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -118,6 +120,15 @@
     self.yourRatingView.editable = YES;
     self.yourRatingView.maxRating = 5;
     self.yourRatingView.delegate = self;
+    
+    self.avgRateLable.text= STRING_FOR_LANGUAGE(@"Avg_Rating");
+    self.yourRateLbl.text= STRING_FOR_LANGUAGE(@"Your_Rating");
+//    self.avgRatValueLbl.text= STRING_FOR_LANGUAGE(@"");
+//    self.yourRateValueLbl.text= STRING_FOR_LANGUAGE(@"");
+    self.totalLbl.text= STRING_FOR_LANGUAGE(@"Total");
+    self.clickToRateLbl.text= STRING_FOR_LANGUAGE(@"Click_To_Rate");
+    
+    self.writeReviewLbl.text= STRING_FOR_LANGUAGE(@"Write_A_Review");
     
     
     if ([[UIDevice currentDevice]userInterfaceIdiom]== UIUserInterfaceIdiomPhone)
@@ -181,14 +192,18 @@
             averageRating = [[NSUserDefaults standardUserDefaults] floatForKey:@"averageRatingKey"];
             totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
 
-            [self  getData];
+//            [self  getData];
+            [self tryUpdateAboutDeatils];
+
         }
     }
     else
     {
         averageRating = [[NSUserDefaults standardUserDefaults] floatForKey:@"averageRatingKey"];
         totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
-        [self  getData];
+//        [self  getData];
+        [self tryUpdateAboutDeatils];
+
     }
     
     yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
@@ -227,7 +242,7 @@
         [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:FEEDBACK_IN_OFFLINE delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"FEEDBACK_IN_OFFLINE") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
         [noNetworkAlert show];
     }
 }
@@ -363,7 +378,7 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *curentLanguage = [MCLocalization sharedInstance].language;
+    NSString *curentLanguage = [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
     
     NSString *param = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",curentLanguage];
     
@@ -436,6 +451,9 @@
 //
     NSString *testString = aboutDescription;
 
+    [self.webViewOutlet loadHTMLString:testString baseURL:nil];
+
+    
     self.descriptionTextView.text = testString;
     
     self.descriptionTextView.selectable = YES;
@@ -633,7 +651,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+               UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

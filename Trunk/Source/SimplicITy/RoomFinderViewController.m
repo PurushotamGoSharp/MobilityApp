@@ -103,7 +103,7 @@
     [self setbuttonForSwitchMode];
     self.serachRoomsButton.hidden = NO;
 
-    [self localize];
+//    [self localize];
 }
 
 - (void)backBtnAction

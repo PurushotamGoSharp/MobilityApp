@@ -58,6 +58,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.title = STRING_FOR_LANGUAGE(@"My_Tickets");
     
     arrayOfData = [[NSMutableArray alloc] init];
     self.filterBtnOutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 8);
@@ -80,10 +81,10 @@
     
     if (self.fromRasieRequsetVC)
     {
-        [back setTitle:@"Back" forState:UIControlStateNormal];
+        [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     }else
     {
-        [back setTitle:@"Home" forState:UIControlStateNormal];
+        [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     }
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -96,7 +97,7 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
 
-    arrayForStatus = @[@"New", @"Assigned", @"In Progress",@"Pending", @"Resolved",@"Closed",@"Cancelled"];
+    arrayForStatus = @[STRING_FOR_LANGUAGE(@"New"), STRING_FOR_LANGUAGE(@"Assigned"), STRING_FOR_LANGUAGE(@"In_Progress"),STRING_FOR_LANGUAGE(@"Pending"), STRING_FOR_LANGUAGE(@"Resolved"),STRING_FOR_LANGUAGE(@"Closed"),STRING_FOR_LANGUAGE(@"Cancelled ")];
     
     self.filterTableView.separatorColor = [UIColor whiteColor];
     
@@ -457,7 +458,7 @@
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
 //    [converter setDateFormat:@"hh:mm a, dd MMM, yyyy"];
     
-    [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+    [converter setDateFormat:@"yyyy MM dd HH mm ss"];
 
     while (sqlite3_step(statment) == SQLITE_ROW)
     {

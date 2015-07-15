@@ -43,7 +43,9 @@
     
     self.title = [MCLocalization stringForKey:@"Settings"];
     
-    arrOfTableViewData = @[@"Language", @"Country", @"Office Location", @"Theme"];
+//    self.title = @"Setting";
+    
+    arrOfTableViewData = @[STRING_FOR_LANGUAGE(@"Lang"), STRING_FOR_LANGUAGE(@"Country"), STRING_FOR_LANGUAGE(@"Office_Location"), STRING_FOR_LANGUAGE(@"Theme")];
     arrOfImages = @[@"language.png",@"lacation.png",@"ExchangeServer_Setting",@"themes"];
     
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
@@ -51,7 +53,7 @@
 
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -353,14 +355,6 @@
     return nil;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

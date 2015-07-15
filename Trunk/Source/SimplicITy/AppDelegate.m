@@ -161,7 +161,14 @@
 //    NSDictionary *languageUrlPairs = @{@"en":filePathUrl};
     
     [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
-    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+    
+    [MCLocalization sharedInstance].noKeyPlaceholder = @"{key} ";
+
+//    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+    
+    
+//    [MCLocalization sharedInstance].noKeyPlaceholder = @"";
+
     
     [MCLocalization sharedInstance].language = langCode;
 

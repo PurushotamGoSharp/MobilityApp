@@ -56,7 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Ping My Lync";
+    self.title = STRING_FOR_LANGUAGE(@"Ping_My_Lync");
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -75,6 +75,20 @@
     fmt = [[NSNumberFormatter alloc] init];
     [fmt setPositiveFormat:@"0.#"];
     
+
+    
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        [self callAPI];
+    }else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:@"Internet connection is required" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+        [alert show];
+    }
+}
+
+-(void)callAPI
+{
     NSString *pathOfPlist = [[NSBundle mainBundle] pathForResource:@"UploadAndDownloadInfo" ofType:@"plist"];
     uploadAndDownloadInfo = [NSDictionary dictionaryWithContentsOfFile:pathOfPlist];
     
@@ -108,10 +122,10 @@
     
     requestCode = [NSString stringWithFormat:@"%@%@",corpId,[[NSUserDefaults standardUserDefaults] objectForKey:@"DeviceToken"]];
     
-//    NSString *request = [NSString stringWithFormat:@"{\"FileName\":\"image1Mb.jpg\",\"DocumentTypeCode\":\"EL3DGO\",\"RequestType\":\"MobileLyncChecker\",\"RequestCode\":\"%@\",\"UserID\":1,\"AuditEventDescription\":\"Document ( image1Mb.jpg )  Uploaded\",\"RequestId\":2,\"EntityDescription\":\"Mobile Lync Checker\",\"UserName\":\"undefined undefined undefined\"}",requestCode];
+    //    NSString *request = [NSString stringWithFormat:@"{\"FileName\":\"image1Mb.jpg\",\"DocumentTypeCode\":\"EL3DGO\",\"RequestType\":\"MobileLyncChecker\",\"RequestCode\":\"%@\",\"UserID\":1,\"AuditEventDescription\":\"Document ( image1Mb.jpg )  Uploaded\",\"RequestId\":2,\"EntityDescription\":\"Mobile Lync Checker\",\"UserName\":\"undefined undefined undefined\"}",requestCode];
     
-
-
+    
+    
     
     NSString *request = [NSString stringWithFormat:@"{\"FileName\":\"%@\",\"DocumentTypeCode\":\"%@\",\"RequestType\":\"%@\",\"RequestCode\":\"%@\",\"UserID\":%i,\"AuditEventDescription\":\"%@\",\"RequestId\":%i,\"EntityDescription\":\"%@\",\"UserName\":\"%@\"}",uploadAndDownloadInfo[@"fileName"],uploadAndDownloadInfo[@"documentTypeCode"],uploadAndDownloadInfo[@"requestType"], requestCode, [uploadAndDownloadInfo[@"userId"] intValue], uploadAndDownloadInfo[@"auditEventDescription"],[uploadAndDownloadInfo[@"requestId"] intValue], uploadAndDownloadInfo[@"entityDescription"], uploadAndDownloadInfo[@"userName"]];
     
@@ -133,7 +147,7 @@
                                          {
                                              
                                              NSDate *enddate = [NSDate date];
-//                                             [MBProgressHUD hideAllHUDsForView:self.uploadImageView animated:YES];
+                                             //                                             [MBProgressHUD hideAllHUDsForView:self.uploadImageView animated:YES];
                                              [hud hide:YES];
                                              
                                              NSTimeInterval seconds =   [enddate timeIntervalSinceDate:startTime];
@@ -163,7 +177,7 @@
                                              NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
                                              
                                              fileId = dictFromJSON[@"Code"];
-                                              docId = [dictFromJSON[@"ID"] intValue];
+                                             docId = [dictFromJSON[@"ID"] intValue];
                                              
                                              [self downloadImageByCode:fileId];
                                              
@@ -179,7 +193,7 @@
      {
          float progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
          //                 NSLog(@"status %f",progress);
-//         NSLog(@"Wrote %lld/%lld", totalBytesWritten, totalBytesExpectedToWrite);
+         //         NSLog(@"Wrote %lld/%lld", totalBytesWritten, totalBytesExpectedToWrite);
          totalsizeOfData = totalBytesExpectedToWrite;
      }];
 }
@@ -266,18 +280,18 @@
     
     if ((uploadSpeed <= 60 && uploadSpeed > 0) || (downloadSpeed <= 10 && (downloadSpeed > 0)) )
     {
-        self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
-        self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
+        self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1]; //Blue
+        self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
+        self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
         
-        self.connectionResultLbl.text = @"Slow- only Audio is recommended";
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Slow_Speed");
         
     }else if ((uploadSpeed <= 130 && uploadSpeed > 60) || (downloadSpeed <= 20 && downloadSpeed > 10))
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        self.connectionResultLbl.text = @"Average- Audio and View Screen are recommended";
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Average_Speed");
         
     }else if (uploadSpeed >= 180 || downloadSpeed >= 28)
     {
@@ -285,7 +299,7 @@
         self.videoView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         
-        self.connectionResultLbl.text = @"Fast- Audio, Video and View Screen are recommended";
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Fast_Speed");
 
     }else
     {
@@ -293,7 +307,7 @@
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         
-        self.connectionResultLbl.text = @"Connection speed";
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection_Speed");
     }
 }
 

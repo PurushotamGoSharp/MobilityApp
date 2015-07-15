@@ -1,0 +1,843 @@
+//
+//  RaiseATicketViewController.m
+//  SimplicITy
+//
+//  Created by Varghese Simon on 12/4/14.
+//  Copyright (c) 2014 Vmoksha. All rights reserved.
+//
+
+#import "RaiseATicketViewController.h"
+#import "PlaceHolderTextView.h"
+#import "TikcetCategoryViewController.h"
+#import "TicketsListViewController.h"
+#import "CategoryModel.h"
+#import "Postman.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <sqlite3.h>
+#import "DBManager.h"
+#import "RequestModel.h"
+#import "UserInfo.h"
+#import "SendRequestsManager.h"
+#import "SliderTableViewCell.h"
+#import "RoomManager.h"
+
+#define ORDER_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"ORDER\"}}"
+#define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
+
+#define ALERT_FOR_ORDER_SAVED_IN_ONLINE @"Your Order has been successfully placed"
+#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been successfully raised"
+
+#define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, order will be placed automatically when connection is restored"
+#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised automatically when connection is restored"
+
+
+#define ALERT_FOR_SELECT_ITEM_VALIDATION @"Item is required.\n"
+#define ALERT_FOR_SELECT_SERVICE_VALIDATION @"Service is required.\n"
+#define ALERT_FOR_SELECT_DETAIL_VALIDATION @"Details is required."
+
+#define NAV_BAR_TITLE_FOR_RAISE_TICKET @"IT SOS"
+#define NAV_BAR_TITLE_FOR_ORDER @"Place Order"
+
+#define PLACEHOLDE_TEXT_FOR_SELECT_ITEM @"Select an item"
+#define PLACEHOLDE_TEXT_FOR_SELECT_SERVICE @"Select a service"
+#define PLACEHOLDER_TEXT_FOR_DETAIL_TICKET @"Describe your request here"
+#define PLACEHOLDER_TEXT_FOR_DETAIL_ORDER @"Please describe the details of what you are ordering. If this is for hardware then enter the model number.  For software enter the name of the software and the version number. If there are any questions the Mobility team will contact you so we ensure the proper Item is ordered"
+
+
+@interface RaiseATicketViewController () <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, TicketCategoryDelegate,postmanDelegate, DBManagerDelegate, UIAlertViewDelegate>
+{
+    CGPoint initialOffsetOfSCrollView;
+    UIEdgeInsets initialScollViewInset;
+    UIBarButtonItem *backButton;
+    Postman *postMan;
+    NSArray *categoriesArr;
+    DBManager *dbManager;
+    CategoryModel *selectedCategory;
+    
+    UISlider *sliderOutlet;
+    
+    BOOL serviceIsSelected;
+    BOOL saveButtonIsPressed;
+    
+    NSDateFormatter *dateFormatter;
+    RequestModel *currentRequest;
+    BOOL haveRasiedRequest;
+    
+    RoomManager *roomManager;
+    
+    UITextView *activeField;
+
+}
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet PlaceHolderTextView *textView;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *selectedCategorylabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *listBarBtnOutlet;
+@property (weak, nonatomic) IBOutlet UILabel *CategoryTitleOutlet;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *tickBtnoutlet;
+@property (weak, nonatomic) IBOutlet UILabel *detailLbl;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailsBottomMaxConst;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewBottomConst;
+@property (weak, nonatomic) IBOutlet UIView *textviewContentView;
+
+@end
+
+@implementation RaiseATicketViewController
+{
+    UILabel *low;
+    UILabel *medium;
+    UILabel *high;
+    UILabel *critical;
+    
+    UIButton *back;
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    
+    NSString *title = [MCLocalization stringForKey:@"Home"];
+    [back setTitle:title forState:UIControlStateNormal];
+    self.title = @"IT SOS";
+    
+    
+    self.navigationItem.leftBarButtonItems = @[];
+    postMan = [[Postman alloc] init];
+    postMan.delegate = self;
+    
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
+    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+    [back setTitle:@"Home" forState:UIControlStateNormal];
+
+    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    back.frame = CGRectMake(0, 0,80, 30);
+    [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    
+    [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    self.navigationItem.leftBarButtonItem = backButton;
+
+    UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
+    
+    self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+    
+    titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
+    titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = [UIColor whiteColor];
+    [titleView addSubview:titleLabel];
+    
+    self.navigationItem.titleView = titleView;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard:)];
+    tapGesture.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGesture];
+
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([AFNetworkReachabilityManager sharedManager].reachable)
+    {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"category"])
+        {
+            [self tryToUpdateCategories];
+        }else
+        {
+            [self getData];
+        }
+    }else
+    {
+        [self getData];
+    }
+    
+    if (![self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+    {
+        self.navigationItem.rightBarButtonItems = @[self.tickBtnoutlet];
+        
+    }else
+    {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+    
+    initialOffsetOfSCrollView = self.scrollView.contentOffset;
+    initialScollViewInset = self.scrollView.contentInset;
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(successfulSync)
+                                                 name:REQUEST_SYNC_NOTIFICATION_KEY
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(failureSync)
+                                                 name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
+                                               object:nil];
+    
+    [self registerForKeyboardNotifications];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    [self hideKeyboard:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:REQUEST_SYNC_NOTIFICATION_KEY
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:REQUEST_SYNC_FAILURE_NOTIFICATION_KEY
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];}
+
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    //    if ([activeField isEqual:enterUserNameTextField])
+    //    {
+    //        kbSize.height = self.tableView.frame.size.height - 80;
+    //    }
+    //
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.tableViewOutlet.contentInset = contentInsets;
+    self.tableViewOutlet.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = [self.tableViewOutlet rectForRowAtIndexPath:([NSIndexPath indexPathForRow:0 inSection:2])];
+    [self.tableViewOutlet scrollRectToVisible:aRect animated:YES];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.tableViewOutlet.contentInset = contentInsets;
+    self.tableViewOutlet.scrollIndicatorInsets = contentInsets;
+}
+
+- (void)successfulSync
+{
+    if (haveRasiedRequest)
+    {
+        NSString *alertMessage;
+        
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+        {
+            alertMessage = ALERT_FOR_ORDER_SAVED_IN_ONLINE;
+        }
+        else
+        {
+            alertMessage = ALERT_FOR_TICKET_SAVED_IN_ONLINE;
+        }
+        
+        
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+                                                                message:alertMessage
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+        
+        saveAlestView.delegate = self;
+        [saveAlestView show];
+        haveRasiedRequest = NO;
+    }
+}
+
+- (void)failureSync
+{
+    if (haveRasiedRequest)
+    {
+        UIAlertView *errorAlestView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                 message:@"Error occurred while contacting to server"
+                                                                delegate:self
+                                                       cancelButtonTitle:@"OK"
+                                                       otherButtonTitles:nil];
+        [errorAlestView show];
+        haveRasiedRequest = NO;
+    }
+    
+
+
+}
+
+- (void)tryToUpdateCategories
+{
+    [self postWithParameter:ORDER_PARAMETER];
+    [self postWithParameter:TICKET_PARAMETER];
+}
+
+- (void)postWithParameter:(NSString *)parameterString
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *URLString = SEARCH_CATEGORY_API;
+    
+    [postMan post:URLString withParameters:parameterString];
+}
+
+- (void)resetForms
+{
+    self.selectedCategorylabel.textColor = [UIColor lightGrayColor];
+    sliderOutlet.value = 0;
+//    [sliderOutlet setThumbImage:[self imageForSLiderThumb:0] forState:(UIControlStateNormal)];
+    
+    SliderTableViewCell *impactCell = (SliderTableViewCell *) [self.tableViewOutlet cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    [impactCell updateSliderForValue:0];
+    UILabel  *lowest = (UILabel *)[impactCell viewWithTag:10];
+    [impactCell setBlackColorFor:lowest];
+    
+    self.textView.text = @"";
+    
+    self.selectedCategorylabel.text = PLACEHOLDE_TEXT_FOR_SELECT_SERVICE;
+    
+    selectedCategory = nil;
+}
+
+- (void)dismissKeyboard
+{
+    [self.view endEditing:YES];
+    [self hideKeyboard:nil];
+}
+
+- (void)backBtnAction
+{
+    [self resetForms];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)listBtnAction
+{
+    //    TicketsListViewController *ticketList = [[TicketsListViewController alloc] init];
+    //    [self.navigationController pushViewController:ticketList animated:YES];
+}
+
+- (IBAction)saveBtnPressed:(id)sender
+{
+    [self hideKeyboard:nil];
+    if (![self validateEntriesMade])
+    {
+        return;
+    }
+    
+    saveButtonIsPressed = YES;
+    
+    currentRequest = [self requestForCurrentValues];
+    [self saveEntriesLocallyForRequest:currentRequest];
+    
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        haveRasiedRequest = YES;
+        [[SendRequestsManager sharedManager] authenticateServer];
+        [[SendRequestsManager sharedManager] sendRequestSyncronouslyForRequest:currentRequest blockUI:YES];
+
+    }else
+    {
+        NSString *alertMessage;
+        
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+        {
+            alertMessage = ALERT_FOR_ORDER_SAVED_IN_OFFLINE;
+        }
+        else
+        {
+            alertMessage = ALERT_FOR_TICKET_SAVED_IN_OFFLINE;
+        }
+        
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+                                                                message:alertMessage
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+        
+        saveAlestView.delegate= self;
+        [saveAlestView show];
+
+    }
+    
+    saveButtonIsPressed = NO;
+}
+
+- (BOOL)validateEntriesMade
+{
+    BOOL valid = YES;
+    
+    NSMutableArray *alertMessages = [[NSMutableArray alloc] init];
+    
+    if (selectedCategory == nil)
+    {
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+        {
+            [alertMessages addObject:ALERT_FOR_SELECT_ITEM_VALIDATION];
+        }else
+        {
+            [alertMessages addObject:ALERT_FOR_SELECT_SERVICE_VALIDATION];
+        }
+        
+        valid = NO;
+    }
+    
+    if (self.textView.text.length == 0)
+    {
+        [alertMessages addObject:ALERT_FOR_SELECT_DETAIL_VALIDATION];
+        valid = NO;
+    }
+    
+    if (!valid)
+    {
+        NSString *alertMessage = [alertMessages componentsJoinedByString:@" "];
+        
+        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
+                                                               message:alertMessage
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+        [invalidAlert show];
+        
+    }else if (self.textView.text.length == 0)
+    {
+        
+    }
+
+    
+    return valid;
+}
+
+- (RequestModel *)requestForCurrentValues
+{
+    RequestModel *request = [[RequestModel alloc] init];
+    request.requestType = [self.orderDiffer isEqualToString:FLOW_FOR_ORDER] ? @"ORDER" : @"TICKET";
+    request.requestImpact = roundf(sliderOutlet.value);
+    request.requestServiceCode = selectedCategory.categoryCode;
+    request.requestServiceName = selectedCategory.categoryName;
+    
+    NSRange rangeOfDetails;
+    rangeOfDetails.length = self.textView.text.length;
+    rangeOfDetails.location = 0;
+    
+    NSMutableString *mutableDetails = [self.textView.text mutableCopy];
+    [mutableDetails replaceOccurrencesOfString:@"'"
+                                    withString:@"''"
+                                       options:NSCaseInsensitiveSearch
+                                         range:rangeOfDetails];
+    
+    request.requestDetails = mutableDetails;
+    request.requestSyncFlag = 0;
+    
+    request.requestDate = [NSDate date];
+    
+    return request;
+}
+
+- (void)saveEntriesLocallyForRequest:(RequestModel *)request
+{
+    if (request == nil)
+    {
+        NSLog(@"failed to save request");
+        return;
+    }
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *createQuery;
+    NSString *insertSQL;
+    
+    if ([request.requestType isEqualToString:@"TICKET"])
+    {
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedTickets (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text, syncFlag INTEGER, incidentNumber text)";
+        
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedTickets (impact, serviceCode, serviceName, details, syncFlag) values (%li, '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode, request.requestServiceName, request.requestDetails, (long)request.requestSyncFlag];
+    }else
+    {
+        createQuery = @"CREATE TABLE IF NOT EXISTS raisedOrders (loaclID INTEGER PRIMARY KEY, impact INTEGER, serviceCode text, serviceName text, details text, date text,syncFlag INTEGER, incidentNumber text)";
+        
+        insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  raisedOrders (impact, serviceCode, serviceName, details, syncFlag) values (%li, '%@', '%@', '%@', %li)",(long)request.requestImpact, request.requestServiceCode,request.requestServiceName,  request.requestDetails, (long)request.requestSyncFlag];
+    }
+    
+    [dbManager createTableForQuery:createQuery];
+    [dbManager saveDataToDBForQuery:insertSQL];
+    
+    return;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    [self resetForms];
+
+    [self performSegueWithIdentifier:@"myTicketList_segue" sender:nil];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)hideKeyboard:(UIControl *)sender
+{
+    [self.view endEditing:YES];
+}
+
+//- (void)keyboardWasShown:(NSNotification*)aNotification
+//{
+//    NSDictionary* info = [aNotification userInfo];
+//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+//    
+//    [UIView animateWithDuration:.3
+//                     animations:^{
+//                         
+//                         self.scrollViewBottomConst.constant = kbSize.height - 56;
+//                         [self.view layoutIfNeeded];
+//
+//                     }
+//                     completion:^(BOOL finished) {
+//                         
+//                         NSLog(@"======== %@",NSStringFromCGSize(self.textView.frame.size));
+//
+//
+//                     }];
+//    
+//}
+
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    activeField = textView;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    activeField = textView;
+    return YES;
+}
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    activeField = nil;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return 2;
+    }
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = nil;
+    
+    if (indexPath.section == 0)
+    {
+        if (indexPath.row == 1)
+        {
+            SliderTableViewCell *sliderCell = (SliderTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
+            sliderCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            [sliderCell updateSliderForValue:roundf(sliderCell.impactSlider.value)];
+            sliderOutlet = sliderCell.impactSlider;
+            return sliderCell;
+        }else
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            
+            UILabel *header = (UILabel *)[cell viewWithTag:100];
+            UILabel *lable = (UILabel *)[cell viewWithTag:101];
+            
+            header.font=[self customFont:16 ofName:MuseoSans_700];
+            lable.font=[self customFont:16 ofName:MuseoSans_300];
+            
+            header.text = @"Requester";
+            lable.text = [UserInfo sharedUserInfo].fullName;
+
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+    }else if (indexPath.section == 1)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"SelectServiceCell" forIndexPath:indexPath];
+        UILabel *selectedLabel = (UILabel *)[cell viewWithTag:100];
+        selectedLabel.font = [self customFont:16 ofName:MuseoSans_300];
+        self.selectedCategorylabel = selectedLabel;
+    }else
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
+        self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
+        self.textView.font = [self customFont:16 ofName:MuseoSans_300];
+        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+        self.textView.delegate = self;
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+    if (indexPath.row == 1 && [self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+    {
+        
+        return;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0)
+    {
+        if (indexPath.row == 1 )
+        {
+            return 74;
+        }
+    }
+    
+    if (indexPath.section == 2)
+    {
+        return 150;
+    }
+    return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return 0;
+    }
+    return 30;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 5, 150, 30))];
+    headerView.backgroundColor = self.view.backgroundColor;
+    
+    headerLabel.font = [self customFont:16 ofName:MuseoSans_700];
+;
+    
+    if (section == 1)
+    {
+        headerLabel.text = @"Service";
+        
+    }else if (section == 2)
+    {
+        headerLabel.text = @"Details";
+    }
+    
+    [headerView addSubview:headerLabel];
+    
+    return headerView;
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SelectAcategorySegue"])
+    {
+        UINavigationController *navController = segue.destinationViewController;
+        TikcetCategoryViewController *ticketCategoryVC = navController.viewControllers[0];
+        ticketCategoryVC.delegate = self;
+        
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+        {
+            ticketCategoryVC.orderItemDiffer = @"orderList";
+        }
+        
+        ticketCategoryVC.categoryArray = categoriesArr;
+        ticketCategoryVC.selectedCategory = selectedCategory;
+    }else if ([segue.identifier isEqualToString:@"myTicketList_segue"])
+    {
+        TicketsListViewController *ticketList = segue.destinationViewController;
+        if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+        {
+            ticketList.orderItemDifferForList = @"orderList";
+        }
+        ticketList.fromRasieRequsetVC = YES;
+    }
+}
+
+- (void)selectedCategory:(CategoryModel *)category
+{
+    selectedCategory = category;
+    self.selectedCategorylabel.text = category.categoryName;
+    self.selectedCategorylabel.textColor = [UIColor blackColor];
+}
+
+#pragma mark
+#pragma mark: postmanDelegate
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+{
+    NSArray *responseArray = [self parseResponseData:response];
+    CategoryModel *category = [responseArray lastObject];
+    
+    if (category)
+    {
+        if ([category.categoryType isEqualToString:@"Order"])
+        {
+            [self saveResponse:response forParameter:ORDER_PARAMETER];
+            
+            if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+            {
+                categoriesArr = responseArray;
+            }
+        }else
+        {
+            [self saveResponse:response forParameter:TICKET_PARAMETER];
+            
+            if (![self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+            {
+                categoriesArr = responseArray;
+            }
+        }
+        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"category"];
+    }
+    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+- (NSArray *)parseResponseData:(NSData *)response
+{
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+    NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    
+    NSLog(@"%@",arr);
+    for (NSDictionary *aDict in arr)
+    {
+        if ([aDict[@"Status"] boolValue])
+        {
+            CategoryModel *category = [[CategoryModel alloc] init];
+            category.categoryName = aDict[@"Name"];
+            category.categoryCode = aDict[@"Code"];
+            category.categoryType = aDict[@"CategoryType"];
+            [tempArray addObject:category];
+        }
+    }
+    
+    NSSortDescriptor *srtDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"categoryName" ascending:YES];
+    [tempArray sortUsingDescriptors:@[srtDescriptor]];
+    return tempArray;
+}
+
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+- (void)saveResponse:(NSData *)response forParameter:(NSString *)parameter
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *createQuery = @"create table if not exists categoryTable (API text PRIMARY KEY, data text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  categoryTable (API,data) values ('%@', '%@')", parameter,stringFromData];
+    
+    [dbManager saveDataToDBForQuery:insertSQL];
+}
+
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *queryString;
+    
+    if ([self.orderDiffer isEqualToString:FLOW_FOR_ORDER])
+    {
+        queryString = [NSString stringWithFormat:@"SELECT * FROM categoryTable WHERE API = '%@'", ORDER_PARAMETER];
+    }else
+    {
+        queryString = [NSString stringWithFormat:@"SELECT * FROM categoryTable WHERE API = '%@'", TICKET_PARAMETER];
+    }
+    
+    if (![dbManager getDataForQuery:queryString])
+    {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+        
+        [self tryToUpdateCategories];
+    }
+}
+
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        
+        categoriesArr = [self parseResponseData:data];
+    }
+}
+
+- (void)DBMAnager:(DBManager *)manager savedSuccessfullyWithID:(NSInteger)lastID
+{
+    if (saveButtonIsPressed)
+    {
+        currentRequest.requestLocalID = lastID;
+    }
+    
+    NSLog(@"Last ID %li",(long)lastID);
+}
+
+@end

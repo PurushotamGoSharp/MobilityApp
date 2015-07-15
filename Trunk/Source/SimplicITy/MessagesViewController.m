@@ -141,7 +141,10 @@
     
     NSInteger sincID =[[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
     
-    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\"}}",categoryCode,(long)sincID];
+    NSString *lanCode = [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
+
+    
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\"}}",lanCode,categoryCode,(long)sincID];
     [postMan post:URLString withParameters:parameterStringforNews];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
@@ -208,7 +211,7 @@
     [dbManager createTableForQuery:creatQuery];
     
     NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-    [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+    [converter setDateFormat:@"yyyy MM dd HH mm ss"];
     
     for (NewsContentModel *amodel in newsDetailsArr)
     {
@@ -256,7 +259,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+              UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Warning") message:STRING_FOR_LANGUAGE(@"INTERNET_IS_REQUIRED_TO_SYNC_DATA") delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"BTN_OK") otherButtonTitles: nil];
             [noNetworkAlert show];
         }else
         {
@@ -290,7 +293,7 @@
             model.newsCode = newsCode;
             
             NSDateFormatter *converter = [[NSDateFormatter alloc] init];
-            [converter setDateFormat:@"yyyy MM dd hh mm ss a"];
+            [converter setDateFormat:@"yyyy MM dd HH mm ss"];
             model.recivedDate = [converter dateFromString:date];
             
             model.viewed = viewedFlag;

@@ -39,7 +39,7 @@
         
     }else
     {
-        self.title = @"Services";
+        self.title = STRING_FOR_LANGUAGE(@"Services");
     }
 }
 
