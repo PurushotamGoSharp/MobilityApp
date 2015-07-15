@@ -275,6 +275,7 @@
         [self.delegate ticketLists:self gotSucess:responseData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         [self.delegate ticketListsFailed:self];
         
         NSLog(@"Error %@", error);
@@ -284,6 +285,7 @@
             [self showNetworkAlert];
 
         }
+        
         
         
     }];
@@ -298,9 +300,9 @@
     if (netwrokErrorAlert == nil)
     {
         netwrokErrorAlert = [[UIAlertView alloc] initWithTitle:@"No network connection"
-                                                       message:@"The Internet connection appears to be offline."
+                                                       message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
                                                       delegate:self
-                                             cancelButtonTitle:@"Ok"
+                                             cancelButtonTitle:@"OK"
                                              otherButtonTitles:nil];
     }
     

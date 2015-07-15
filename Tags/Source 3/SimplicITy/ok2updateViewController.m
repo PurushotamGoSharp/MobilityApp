@@ -117,9 +117,9 @@
     if (!showAlready)
     {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"No network connection"
-                                                      message:@"The Internet connection appears to be offline."
+                                                      message:@"TError to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
                                                      delegate:self
-                                            cancelButtonTitle:@"Ok"
+                                            cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
         
         [alert show];

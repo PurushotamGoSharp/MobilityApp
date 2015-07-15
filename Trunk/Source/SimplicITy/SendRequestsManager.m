@@ -21,6 +21,7 @@
 
 @implementation SendRequestsManager
 {
+     UIAlertView *netwrokErrorAlert;
     DBManager *dbManager;
     NSDateFormatter *dateFormatter;
     NSMutableArray *arrayOfRequestsToBeSend;
@@ -273,6 +274,16 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        [self.delegate ticketListsFailed:self];
+        
+        NSLog(@"Error %@", error);
+        
+        if (error.code == -1009)
+        {
+            [self showNetworkAlert];
+            
+        }
+        
     }];
     
     [self setAuthenticationBlockForOperation:operation];
@@ -280,6 +291,19 @@
 
 }
 
+- (void)showNetworkAlert
+{
+    if (netwrokErrorAlert == nil)
+    {
+        netwrokErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                       message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
+                                                      delegate:self
+                                             cancelButtonTitle:@"OK"
+                                             otherButtonTitles:nil];
+    }
+    
+    [netwrokErrorAlert show];
+}
 
 - (void)setAuthenticationBlockForOperation:(AFHTTPRequestOperation *)operation
 {

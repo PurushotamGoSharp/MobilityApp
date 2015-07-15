@@ -13,6 +13,7 @@
 @protocol TicketListsDelegate <NSObject>
 
 -(void)ticketLists:(SendRequestsManager*)ticketList gotSucess:(NSData*)response;
+-(void)ticketListsFailed:(SendRequestsManager*)ticketList;
 
 @end
 

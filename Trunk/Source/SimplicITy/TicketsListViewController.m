@@ -152,6 +152,12 @@
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 
+- (void)ticketListsFailed:(SendRequestsManager *)ticketList
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+
+
 -(void)parseTicketListResponse:(NSData*)responseData
 {
     NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseData

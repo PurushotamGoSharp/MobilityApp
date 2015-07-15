@@ -18,6 +18,7 @@
 
 @implementation ok2updateViewController
 {
+    BOOL showAlready;
     NSDictionary *paramDict;
     
     NSString *targetURLString;
@@ -113,6 +114,20 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
+    if (!showAlready)
+    {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
+                                                      message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+        
+        [alert show];
+        
+        showAlready = YES;
+    }
+    
+    
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
 

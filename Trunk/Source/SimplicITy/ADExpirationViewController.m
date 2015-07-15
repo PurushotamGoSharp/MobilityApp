@@ -186,7 +186,18 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Error %@", error);
+    
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
+                                                  message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
+                                                 delegate:self
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil];
+    
+    [alert show];
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    
 }
 
 -(void)parseresponseData:(NSData *)data
