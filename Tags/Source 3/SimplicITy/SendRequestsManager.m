@@ -299,7 +299,7 @@
 {
     if (netwrokErrorAlert == nil)
     {
-        netwrokErrorAlert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+        netwrokErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                        message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
                                                       delegate:self
                                              cancelButtonTitle:@"OK"

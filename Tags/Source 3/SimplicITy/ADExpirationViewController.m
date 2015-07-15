@@ -187,7 +187,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"No network connection"
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
                                                   message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
                                                  delegate:self
                                         cancelButtonTitle:@"OK"
