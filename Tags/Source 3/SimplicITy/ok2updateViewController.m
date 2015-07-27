@@ -117,7 +117,7 @@
     if (!showAlready)
     {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
-                                                      message:@"TError to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
+                                                      message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
                                                      delegate:self
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
