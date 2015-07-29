@@ -11,6 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
 #define IPHONE_6_CROPID  @""
+#import "NSDateFormatter+Locale.h"
 
 @interface ADExpirationViewController () <NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *passwordToolLabel;
@@ -209,7 +210,7 @@
     //    NSCalendar *cal = [NSCalendar currentCalendar];
     //    NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
     
-    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] initWithSafeLocale];
     
     [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     

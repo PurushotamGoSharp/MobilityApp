@@ -67,11 +67,11 @@
     dataOfFirstSection = @[STRING_FOR_LANGUAGE(@"Date"),STRING_FOR_LANGUAGE(@"Start"),STRING_FOR_LANGUAGE(@"End"),STRING_FOR_LANGUAGE(@"Organizer"),STRING_FOR_LANGUAGE(@"Venue")];
     dataOfThirdSection = @[@"",@"Marc",@"Bin",@"Antony",@"Sundar"];
 
-    dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
     dateFormatter.dateFormat = @"EEEE dd MMMM yyyy";
     dateForBooking = [dateFormatter stringFromDate:self.startDate];
     
-    dateFormatter.dateFormat = @"hh.mm a";
+    dateFormatter.dateFormat = @"hh:mm a";
     startDateString = [dateFormatter stringFromDate:self.startDate];
     endDateString = [dateFormatter stringFromDate:self.endDate];
     
@@ -343,7 +343,7 @@
 - (void)startTimeDatePickerValueChange:(UIDatePicker *)picker
 {
     self.startDate = [self dateByGettingTimefrom:picker.date withDateFrom:self.startDate];
-    dateFormatter.dateFormat = @"hh.mm a";
+    dateFormatter.dateFormat = @"hh:mm a";
     startDateString = [dateFormatter stringFromDate:self.startDate];
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
@@ -358,7 +358,7 @@
 {
     self.endDate = [self dateByGettingTimefrom:picker.date withDateFrom:self.endDate];
     
-    dateFormatter.dateFormat = @"hh.mm a";
+    dateFormatter.dateFormat = @"hh:mm a";
     endDateString = [dateFormatter stringFromDate:self.endDate];
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];

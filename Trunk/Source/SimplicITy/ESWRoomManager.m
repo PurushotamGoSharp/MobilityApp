@@ -51,7 +51,7 @@
     NSString *ewsRequestURL = [[NSUserDefaults standardUserDefaults] objectForKey:EWS_REQUSET_URL_KEY];
     
     NSTimeZone *defaultTimeZone = [NSTimeZone defaultTimeZone];
-    NSString *timeZoneFullName = [defaultTimeZone localizedName:NSTimeZoneNameStyleStandard locale:([NSLocale currentLocale])];
+    NSString *timeZoneFullName = [defaultTimeZone localizedName:NSTimeZoneNameStyleStandard locale:([[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"])];
     
     t_TimeZoneDefinitionType *timeZoneDefinition = [[t_TimeZoneDefinitionType alloc] init];
     timeZoneDefinition.Id_ = timeZoneFullName;

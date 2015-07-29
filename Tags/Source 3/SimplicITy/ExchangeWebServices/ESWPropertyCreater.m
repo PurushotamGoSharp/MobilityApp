@@ -7,6 +7,7 @@
 //
 
 #import "ESWPropertyCreater.h"
+#import "NSDateFormatter+Locale.h"
 
 @implementation ESWPropertyCreater
 {
@@ -22,8 +23,8 @@
         defaulTimeZone = [NSTimeZone defaultTimeZone];
         gregorianCalender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
+//        dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
         defaulTimeZone = [NSTimeZone defaultTimeZone];
     }
     
@@ -146,7 +147,7 @@
 
 - (t_DayOfWeekTypeEnum)dayOfWeekForDate:(NSDate *)date
 {
-    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+//    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     dateFormatter.dateFormat = @"EEEE";
     NSString * dayString = [[dateFormatter stringFromDate:date] capitalizedString];
     

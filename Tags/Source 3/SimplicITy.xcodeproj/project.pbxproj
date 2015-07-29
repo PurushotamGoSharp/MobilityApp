@@ -160,6 +160,7 @@
 		86B6A7F91A84CBB700E55B5E /* FileLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6A7F81A84CBB700E55B5E /* FileLoadViewController.m */; };
 		86B748E81ADD0D3B004951A5 /* TimeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748E71ADD0D3B004951A5 /* TimeWindow.m */; };
 		86B748EB1ADD3D9B004951A5 /* FreeSlotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748EA1ADD3D9B004951A5 /* FreeSlotsViewController.m */; };
+		86BC40221B66691000904650 /* NSDateFormatter+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BC40211B66691000904650 /* NSDateFormatter+Locale.m */; };
 		86BF79FA1B2EE40000485136 /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86BF79F91B2EE40000485136 /* cert.p12 */; };
 		86C0778C1AC283B400938F65 /* RoomRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778B1AC283B400938F65 /* RoomRecognizer.m */; };
 		86C077901AC2863F00938F65 /* RoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778F1AC2863F00938F65 /* RoomModel.m */; };
@@ -202,6 +203,8 @@
 		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
 		86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1E1A3992270045904C /* CustomColoredViewController.m */; };
 		86EF85A51AD3D3B100D6AE75 /* CalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */; };
+		86F53C3C1B6783FD005AD689 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C3B1B6783FD005AD689 /* NSString+HTML.m */; };
+		86F53C3F1B6784A0005AD689 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C3E1B6784A0005AD689 /* GTMNSString+HTML.m */; };
 		86F6DE251AC421260060E336 /* RoomFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F6DE241AC421260060E336 /* RoomFinderViewController.m */; };
 		86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F943C81A9C60ED0094204E /* NewsCategoryFetcher.m */; };
 		86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FA17421A80FA4600846378 /* DummyOrderViewController.m */; };
@@ -596,6 +599,8 @@
 		86B748E71ADD0D3B004951A5 /* TimeWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeWindow.m; sourceTree = "<group>"; };
 		86B748E91ADD3D9B004951A5 /* FreeSlotsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeSlotsViewController.h; sourceTree = "<group>"; };
 		86B748EA1ADD3D9B004951A5 /* FreeSlotsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeSlotsViewController.m; sourceTree = "<group>"; };
+		86BC40201B66691000904650 /* NSDateFormatter+Locale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Locale.h"; sourceTree = "<group>"; };
+		86BC40211B66691000904650 /* NSDateFormatter+Locale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Locale.m"; sourceTree = "<group>"; };
 		86BF79F91B2EE40000485136 /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		86C0778A1AC283B400938F65 /* RoomRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomRecognizer.h; sourceTree = "<group>"; };
 		86C0778B1AC283B400938F65 /* RoomRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomRecognizer.m; sourceTree = "<group>"; };
@@ -675,6 +680,10 @@
 		86EDBE1E1A3992270045904C /* CustomColoredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomColoredViewController.m; sourceTree = "<group>"; };
 		86EF85A31AD3D3B100D6AE75 /* CalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarEvent.h; sourceTree = "<group>"; };
 		86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarEvent.m; sourceTree = "<group>"; };
+		86F53C3A1B6783FD005AD689 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		86F53C3B1B6783FD005AD689 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		86F53C3D1B6784A0005AD689 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		86F53C3E1B6784A0005AD689 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		86F6DE231AC421260060E336 /* RoomFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomFinderViewController.h; sourceTree = "<group>"; };
 		86F6DE241AC421260060E336 /* RoomFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomFinderViewController.m; sourceTree = "<group>"; };
 		86F943C71A9C60ED0094204E /* NewsCategoryFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCategoryFetcher.h; sourceTree = "<group>"; };
@@ -968,6 +977,12 @@
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
 				864E5F781A442DC400C2542A /* Localizable.strings */,
+				86F53C3A1B6783FD005AD689 /* NSString+HTML.h */,
+				86F53C3B1B6783FD005AD689 /* NSString+HTML.m */,
+				86F53C3D1B6784A0005AD689 /* GTMNSString+HTML.h */,
+				86F53C3E1B6784A0005AD689 /* GTMNSString+HTML.m */,
+				86BC40201B66691000904650 /* NSDateFormatter+Locale.h */,
+				86BC40211B66691000904650 /* NSDateFormatter+Locale.m */,
 				860208E71AF7546E005FB8F5 /* KontaktSDK */,
 				86E1B8A01AC91DF200C3B8EB /* CLWeeklyCalendarViewSourceCode */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
@@ -1793,6 +1808,7 @@
 				86C0778C1AC283B400938F65 /* RoomRecognizer.m in Sources */,
 				86B121921A7B5DBC006C2701 /* RateView.m in Sources */,
 				86E1B8B61AC91DF200C3B8EB /* UIImage+CL.m in Sources */,
+				86F53C3C1B6783FD005AD689 /* NSString+HTML.m in Sources */,
 				864039871A6542FF000D705E /* RequestModel.m in Sources */,
 				864532B61A5A661D00A656A3 /* UAPushSettingsViewController.m in Sources */,
 				8645329F1A5A661D00A656A3 /* UADateUtils.m in Sources */,
@@ -1825,6 +1841,7 @@
 				8624BB0D1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m in Sources */,
 				864532AD1A5A661D00A656A3 /* UAPushMoreSettingsViewController.m in Sources */,
 				86C077A61AC29BD300938F65 /* NSDate+ISO8601Parsing.m in Sources */,
+				86F53C3F1B6784A0005AD689 /* GTMNSString+HTML.m in Sources */,
 				86C077901AC2863F00938F65 /* RoomModel.m in Sources */,
 				86E1B8B31AC91DF200C3B8EB /* NSDate+CL.m in Sources */,
 				867101B01A386FD900AE2ED6 /* TipModel.m in Sources */,
@@ -1835,6 +1852,7 @@
 				86491A761A30817100711740 /* ToolsViewController.m in Sources */,
 				869999431ACBF99B005811AC /* OfficeLocation.m in Sources */,
 				86C077B31AC29ED100938F65 /* ESWPropertyCreater.m in Sources */,
+				86BC40221B66691000904650 /* NSDateFormatter+Locale.m in Sources */,
 				86CB65351A386F58005FFFE8 /* messageModle.m in Sources */,
 				86C706001A9F47B900CAAAD6 /* BadgeNoManager.m in Sources */,
 				866A5F9F1A7A1B65007E29D5 /* TipsGroupModel.m in Sources */,

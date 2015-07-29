@@ -94,7 +94,7 @@
     
     if (formater == nil)
     {
-        formater = [[NSDateFormatter alloc] init];
+        formater = [[NSDateFormatter alloc] initWithSafeLocale];
         [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     }
     

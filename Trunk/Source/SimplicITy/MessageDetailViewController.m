@@ -10,7 +10,7 @@
 #import "BadgeNoManager.h"
 #import "DBManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-
+#import "NSString+HTML.h"
 
 @interface MessageDetailViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLable;
@@ -77,8 +77,8 @@
 
     dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
     
-    [self.webViewOutlet loadHTMLString:self.newsContent.htmlcontant baseURL:nil];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSString *decodedSrting = [self.newsContent.htmlcontant stringByDecodingHTMLEntities];
+    [self.webViewOutlet  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo'  style='font-size:14px; font-family:MuseoSans-300; color:#808080';>%@<div>",decodedSrting] baseURL:nil];    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     self.title = @"News Details";
 }

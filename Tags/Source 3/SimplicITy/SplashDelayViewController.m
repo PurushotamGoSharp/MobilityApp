@@ -216,7 +216,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"news"])
     {
         NSInteger sinceID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
-//        sinceID = 1;
+        sinceID = 1;
         if (sinceID > 0)
         {
             categoryFetcher = [[NewsCategoryFetcher alloc] init];

@@ -70,8 +70,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"hh.mm a";
+    dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
+    dateFormatter.dateFormat = @"hh:mm a";
     
     roomManager = [[RoomManager alloc] init];
     [roomManager startRecognize];
@@ -266,7 +266,7 @@
     
     self.startDatePicker.minimumDate = [self isDateToday:startDate]?[self dateByGettingTimefrom:[NSDate date] withDateFrom:self.calendarView.selectedDate]:nil;
     
-    dateFormatter.dateFormat = @"hh.mm a";
+    dateFormatter.dateFormat = @"hh:mm a";
     NSString *dateInString = [dateFormatter stringFromDate:startDate];
     [self.startTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
 
@@ -287,7 +287,7 @@
     endDate = endDate?:[self dateByGettingTimefrom:minDate withDateFrom:self.calendarView.selectedDate];
     [self.endDatePicker setDate:endDate animated:YES];
     
-    dateFormatter.dateFormat = @"hh.mm a";
+    dateFormatter.dateFormat = @"hh:mm a";
     NSString *dateInString = [dateFormatter stringFromDate:endDate];
     [self.endTimeButton setTitle:dateInString forState:(UIControlStateNormal)];
     
@@ -434,7 +434,7 @@
         NSLog(@"End date = %@", endDate);
     }
     
-    dateFormatter.dateFormat = @"hh.mm a";
+    dateFormatter.dateFormat = @"hh:mm a";
     NSString *dateInString = [dateFormatter stringFromDate:sender.date];
     [selectedButton setTitle:dateInString forState:(UIControlStateNormal)];
     

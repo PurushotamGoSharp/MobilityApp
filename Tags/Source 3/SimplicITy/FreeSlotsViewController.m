@@ -261,7 +261,7 @@
 {
     if (dateFormatter == nil)
     {
-        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
     }
     dateFormatter.dateFormat = @"HH:mm";
     
@@ -473,7 +473,7 @@
     
     if (dateFormatter == nil)
     {
-        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
     }
     
     dateFormatter.dateFormat = @"dd MMMM yyyy";

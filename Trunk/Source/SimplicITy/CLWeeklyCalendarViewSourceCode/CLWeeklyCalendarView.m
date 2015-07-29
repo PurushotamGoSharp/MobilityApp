@@ -297,7 +297,7 @@ static float const CLCalendarSelectedDatePrintFontSizeDefault = 13.f;
         [v markSelected:([v.date isSameDateWith:date])];
     }
     self.selectedDate = date;
-    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
     [dayFormatter setDateFormat:self.selectedDatePrintFormat];
     NSString *strDate = [dayFormatter stringFromDate:date];
     if([date isDateToday]){

@@ -209,7 +209,7 @@
     //    NSCalendar *cal = [NSCalendar currentCalendar];
     //    NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
     
-    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] initWithSafeLocale];
     
     [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     

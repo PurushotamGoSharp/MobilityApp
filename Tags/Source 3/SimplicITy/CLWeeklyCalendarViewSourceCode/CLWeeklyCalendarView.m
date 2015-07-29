@@ -14,6 +14,7 @@
 #import "UIColor+CL.h"
 #import "NSDictionary+CL.h"
 #import "UIImage+CL.h"
+#import "NSDateFormatter+Locale.h"
 
 #define WEEKLY_VIEW_COUNT 7
 #define DAY_TITLE_VIEW_HEIGHT 20.f
@@ -297,7 +298,7 @@ static float const CLCalendarSelectedDatePrintFontSizeDefault = 13.f;
         [v markSelected:([v.date isSameDateWith:date])];
     }
     self.selectedDate = date;
-    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
     [dayFormatter setDateFormat:self.selectedDatePrintFormat];
     NSString *strDate = [dayFormatter stringFromDate:date];
     if([date isDateToday]){

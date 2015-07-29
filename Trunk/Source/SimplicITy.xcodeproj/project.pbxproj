@@ -204,6 +204,9 @@
 		86EDBE1C1A395C940045904C /* TipDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1B1A395C940045904C /* TipDetailsViewController.m */; };
 		86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EDBE1E1A3992270045904C /* CustomColoredViewController.m */; };
 		86EF85A51AD3D3B100D6AE75 /* CalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */; };
+		86F53C461B67864C005AD689 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C411B67864C005AD689 /* GTMNSString+HTML.m */; };
+		86F53C471B67864C005AD689 /* NSDateFormatter+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C431B67864C005AD689 /* NSDateFormatter+Locale.m */; };
+		86F53C481B67864C005AD689 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C451B67864C005AD689 /* NSString+HTML.m */; };
 		86F6DE251AC421260060E336 /* RoomFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F6DE241AC421260060E336 /* RoomFinderViewController.m */; };
 		86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F943C81A9C60ED0094204E /* NewsCategoryFetcher.m */; };
 		86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FA17421A80FA4600846378 /* DummyOrderViewController.m */; };
@@ -679,6 +682,12 @@
 		86EDBE1E1A3992270045904C /* CustomColoredViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomColoredViewController.m; sourceTree = "<group>"; };
 		86EF85A31AD3D3B100D6AE75 /* CalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarEvent.h; sourceTree = "<group>"; };
 		86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarEvent.m; sourceTree = "<group>"; };
+		86F53C401B67864C005AD689 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		86F53C411B67864C005AD689 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		86F53C421B67864C005AD689 /* NSDateFormatter+Locale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Locale.h"; sourceTree = "<group>"; };
+		86F53C431B67864C005AD689 /* NSDateFormatter+Locale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Locale.m"; sourceTree = "<group>"; };
+		86F53C441B67864C005AD689 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		86F53C451B67864C005AD689 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		86F6DE231AC421260060E336 /* RoomFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomFinderViewController.h; sourceTree = "<group>"; };
 		86F6DE241AC421260060E336 /* RoomFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomFinderViewController.m; sourceTree = "<group>"; };
 		86F943C71A9C60ED0094204E /* NewsCategoryFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCategoryFetcher.h; sourceTree = "<group>"; };
@@ -972,6 +981,12 @@
 				86CB65341A386F58005FFFE8 /* messageModle.m */,
 				86287D321A2EE1A500B12893 /* Images.xcassets */,
 				864E5F781A442DC400C2542A /* Localizable.strings */,
+				86F53C401B67864C005AD689 /* GTMNSString+HTML.h */,
+				86F53C411B67864C005AD689 /* GTMNSString+HTML.m */,
+				86F53C421B67864C005AD689 /* NSDateFormatter+Locale.h */,
+				86F53C431B67864C005AD689 /* NSDateFormatter+Locale.m */,
+				86F53C441B67864C005AD689 /* NSString+HTML.h */,
+				86F53C451B67864C005AD689 /* NSString+HTML.m */,
 				860208E71AF7546E005FB8F5 /* KontaktSDK */,
 				86E1B8A01AC91DF200C3B8EB /* CLWeeklyCalendarViewSourceCode */,
 				86287D1E1A2EE1A500B12893 /* Supporting Files */,
@@ -1831,6 +1846,7 @@
 				86A0AB071ADB7ECB008732B8 /* AddAttendeesViewController.m in Sources */,
 				86990F7B1ADFB88A0024AF97 /* SelectDateTableViewCell.m in Sources */,
 				8624BB0D1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m in Sources */,
+				86F53C461B67864C005AD689 /* GTMNSString+HTML.m in Sources */,
 				864532AD1A5A661D00A656A3 /* UAPushMoreSettingsViewController.m in Sources */,
 				86C077A61AC29BD300938F65 /* NSDate+ISO8601Parsing.m in Sources */,
 				86C077901AC2863F00938F65 /* RoomModel.m in Sources */,
@@ -1865,6 +1881,7 @@
 				865CE2621AFB8280006DB797 /* RoomBeacon.m in Sources */,
 				8633C5931ADFB41C00476B27 /* TicketListModel.m in Sources */,
 				86491A731A30773800711740 /* TipsCategoryViewController.m in Sources */,
+				86F53C481B67864C005AD689 /* NSString+HTML.m in Sources */,
 				86C077AA1AC29BD300938F65 /* USGlobals.m in Sources */,
 				86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */,
 				86C077931AC29A3C00938F65 /* RoomManager.m in Sources */,
@@ -1907,6 +1924,7 @@
 				864532AB1A5A661D00A656A3 /* UALocationSettingsViewController.m in Sources */,
 				864532A01A5A661D00A656A3 /* UAInboxAlertHandler.m in Sources */,
 				864532AC1A5A661D00A656A3 /* UAMapPresentationController.m in Sources */,
+				86F53C471B67864C005AD689 /* NSDateFormatter+Locale.m in Sources */,
 				86186D891A399C8700BFD000 /* LanguageViewController.m in Sources */,
 				86186D8C1A399C9700BFD000 /* LocationViewController.m in Sources */,
 			);
