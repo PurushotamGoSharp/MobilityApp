@@ -78,9 +78,9 @@
     dbManager = [[DBManager alloc] initWithFileName:@"News.db"];
     
     NSString *decodedSrting = [self.newsContent.htmlcontant stringByDecodingHTMLEntities];
-    NSMutableString *mutString = [decodedSrting mutableCopy];
-    [mutString replaceOccurrencesOfString:@"div,h1,h2,h3,h4,li,p,span,td" withString:@"div,li,p,td" options:NSCaseInsensitiveSearch range:(NSMakeRange(0, mutString.length-1))];
-    decodedSrting = mutString;
+//    NSMutableString *mutString = [decodedSrting mutableCopy];
+//    [mutString replaceOccurrencesOfString:@"div,h1,h2,h3,h4,li,p,span,td" withString:@"div,li,p,td" options:NSCaseInsensitiveSearch range:(NSMakeRange(0, mutString.length-1))];
+//    decodedSrting = mutString;
     [self.webViewOutlet  loadHTMLString:[NSString stringWithFormat:@"<div id ='foo'  style='font-size:14px; font-family:MuseoSans-300; color:#808080';>%@<div>",decodedSrting] baseURL:nil];
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
