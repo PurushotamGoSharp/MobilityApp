@@ -121,6 +121,13 @@
 		86582A091B2FF6320098C27D /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86582A081B2FF6320098C27D /* cert.p12 */; };
 		865C340B1AD24C0F0082B264 /* LandscapePreventionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865C340A1AD24C0F0082B264 /* LandscapePreventionViewController.m */; };
 		865CE2621AFB8280006DB797 /* RoomBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 865CE2611AFB8280006DB797 /* RoomBeacon.m */; };
+		865E879A1B68AE0D002B64B5 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865E87991B68AE0D002B64B5 /* InterfaceController.m */; };
+		865E879D1B68AE0D002B64B5 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 865E879C1B68AE0D002B64B5 /* NotificationController.m */; };
+		865E879F1B68AE0D002B64B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 865E879E1B68AE0D002B64B5 /* Images.xcassets */; };
+		865E87A31B68AE0D002B64B5 /* SimplicITy WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 865E87A21B68AE0D002B64B5 /* SimplicITy WatchKit App.app */; };
+		865E87AB1B68AE0D002B64B5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 865E87A91B68AE0D002B64B5 /* Interface.storyboard */; };
+		865E87AD1B68AE0D002B64B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 865E87AC1B68AE0D002B64B5 /* Images.xcassets */; };
+		865E87B01B68AE0D002B64B5 /* SimplicITy WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 865E87931B68AE0C002B64B5 /* SimplicITy WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		86679F001A2EF2CC00612BBA /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */; };
 		86679F031A2EFD4400612BBA /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86679F021A2EFD4400612BBA /* MessageDetailViewController.m */; };
 		8669DABD1A77A37900BE63A6 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8669DABC1A77A37900BE63A6 /* AboutViewController.m */; };
@@ -221,7 +228,35 @@
 			remoteGlobalIDString = 86287D131A2EE1A500B12893;
 			remoteInfo = SimplicITy;
 		};
+		865E87A41B68AE0D002B64B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86287D0C1A2EE1A500B12893 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 865E87A11B68AE0D002B64B5;
+			remoteInfo = "SimplicITy WatchKit App";
+		};
+		865E87AE1B68AE0D002B64B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86287D0C1A2EE1A500B12893 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 865E87921B68AE0C002B64B5;
+			remoteInfo = "SimplicITy WatchKit Extension";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		865E87B71B68AE0D002B64B5 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				865E87B01B68AE0D002B64B5 /* SimplicITy WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		075A1155144476E942168182 /* libPods-SimplicITy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimplicITy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -531,6 +566,18 @@
 		865C340A1AD24C0F0082B264 /* LandscapePreventionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandscapePreventionViewController.m; sourceTree = "<group>"; };
 		865CE2601AFB8280006DB797 /* RoomBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomBeacon.h; sourceTree = "<group>"; };
 		865CE2611AFB8280006DB797 /* RoomBeacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomBeacon.m; sourceTree = "<group>"; };
+		865E87931B68AE0C002B64B5 /* SimplicITy WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SimplicITy WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		865E87961B68AE0D002B64B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		865E87971B68AE0D002B64B5 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		865E87981B68AE0D002B64B5 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		865E87991B68AE0D002B64B5 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		865E879B1B68AE0D002B64B5 /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		865E879C1B68AE0D002B64B5 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		865E879E1B68AE0D002B64B5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		865E87A21B68AE0D002B64B5 /* SimplicITy WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimplicITy WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		865E87A81B68AE0D002B64B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		865E87AA1B68AE0D002B64B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		865E87AC1B68AE0D002B64B5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
 		86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
 		86679F011A2EFD4300612BBA /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
@@ -738,6 +785,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		865E87901B68AE0C002B64B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -887,6 +941,8 @@
 			children = (
 				86287D1D1A2EE1A500B12893 /* SimplicITy */,
 				86287D3F1A2EE1A500B12893 /* SimplicITyTests */,
+				865E87941B68AE0D002B64B5 /* SimplicITy WatchKit Extension */,
+				865E87A61B68AE0D002B64B5 /* SimplicITy WatchKit App */,
 				86287D161A2EE1A500B12893 /* Frameworks */,
 				86287D151A2EE1A500B12893 /* Products */,
 				5A490DE086C7744975378BA3 /* Pods */,
@@ -898,6 +954,8 @@
 			children = (
 				86287D141A2EE1A500B12893 /* SimplicITy.app */,
 				86287D381A2EE1A500B12893 /* SimplicITyTests.xctest */,
+				865E87931B68AE0C002B64B5 /* SimplicITy WatchKit Extension.appex */,
+				865E87A21B68AE0D002B64B5 /* SimplicITy WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1373,6 +1431,46 @@
 			name = TIps;
 			sourceTree = "<group>";
 		};
+		865E87941B68AE0D002B64B5 /* SimplicITy WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				865E87981B68AE0D002B64B5 /* InterfaceController.h */,
+				865E87991B68AE0D002B64B5 /* InterfaceController.m */,
+				865E879B1B68AE0D002B64B5 /* NotificationController.h */,
+				865E879C1B68AE0D002B64B5 /* NotificationController.m */,
+				865E879E1B68AE0D002B64B5 /* Images.xcassets */,
+				865E87951B68AE0D002B64B5 /* Supporting Files */,
+			);
+			path = "SimplicITy WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		865E87951B68AE0D002B64B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				865E87961B68AE0D002B64B5 /* Info.plist */,
+				865E87971B68AE0D002B64B5 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		865E87A61B68AE0D002B64B5 /* SimplicITy WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				865E87A91B68AE0D002B64B5 /* Interface.storyboard */,
+				865E87AC1B68AE0D002B64B5 /* Images.xcassets */,
+				865E87A71B68AE0D002B64B5 /* Supporting Files */,
+			);
+			path = "SimplicITy WatchKit App";
+			sourceTree = "<group>";
+		};
+		865E87A71B68AE0D002B64B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				865E87A81B68AE0D002B64B5 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		8673D6FA1ADBE012009AED9D /* ok2update */ = {
 			isa = PBXGroup;
 			children = (
@@ -1616,10 +1714,12 @@
 				86287D111A2EE1A500B12893 /* Frameworks */,
 				86287D121A2EE1A500B12893 /* Resources */,
 				B78249839FEE88515F93DF33 /* Copy Pods Resources */,
+				865E87B71B68AE0D002B64B5 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				865E87AF1B68AE0D002B64B5 /* PBXTargetDependency */,
 			);
 			name = SimplicITy;
 			productName = SimplicITy;
@@ -1644,6 +1744,39 @@
 			productReference = 86287D381A2EE1A500B12893 /* SimplicITyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		865E87921B68AE0C002B64B5 /* SimplicITy WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 865E87B41B68AE0D002B64B5 /* Build configuration list for PBXNativeTarget "SimplicITy WatchKit Extension" */;
+			buildPhases = (
+				865E878F1B68AE0C002B64B5 /* Sources */,
+				865E87901B68AE0C002B64B5 /* Frameworks */,
+				865E87911B68AE0C002B64B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				865E87A51B68AE0D002B64B5 /* PBXTargetDependency */,
+			);
+			name = "SimplicITy WatchKit Extension";
+			productName = "SimplicITy WatchKit Extension";
+			productReference = 865E87931B68AE0C002B64B5 /* SimplicITy WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		865E87A11B68AE0D002B64B5 /* SimplicITy WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 865E87B11B68AE0D002B64B5 /* Build configuration list for PBXNativeTarget "SimplicITy WatchKit App" */;
+			buildPhases = (
+				865E87A01B68AE0D002B64B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SimplicITy WatchKit App";
+			productName = "SimplicITy WatchKit App";
+			productReference = 865E87A21B68AE0D002B64B5 /* SimplicITy WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1663,6 +1796,13 @@
 					};
 					86287D371A2EE1A500B12893 = {
 						TestTargetID = 86287D131A2EE1A500B12893;
+					};
+					865E87921B68AE0C002B64B5 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = QGMN7468R5;
+					};
+					865E87A11B68AE0D002B64B5 = {
+						CreatedOnToolsVersion = 6.4;
 					};
 				};
 			};
@@ -1689,6 +1829,8 @@
 			targets = (
 				86287D131A2EE1A500B12893 /* SimplicITy */,
 				86287D371A2EE1A500B12893 /* SimplicITyTests */,
+				865E87921B68AE0C002B64B5 /* SimplicITy WatchKit Extension */,
+				865E87A11B68AE0D002B64B5 /* SimplicITy WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -1765,6 +1907,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				86287D441A2EE1A500B12893 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		865E87911B68AE0C002B64B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				865E879F1B68AE0D002B64B5 /* Images.xcassets in Resources */,
+				865E87A31B68AE0D002B64B5 /* SimplicITy WatchKit App.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		865E87A01B68AE0D002B64B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				865E87AB1B68AE0D002B64B5 /* Interface.storyboard in Resources */,
+				865E87AD1B68AE0D002B64B5 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1938,6 +2098,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		865E878F1B68AE0C002B64B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				865E879D1B68AE0D002B64B5 /* NotificationController.m in Sources */,
+				865E879A1B68AE0D002B64B5 /* InterfaceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1945,6 +2114,16 @@
 			isa = PBXTargetDependency;
 			target = 86287D131A2EE1A500B12893 /* SimplicITy */;
 			targetProxy = 86287D3D1A2EE1A500B12893 /* PBXContainerItemProxy */;
+		};
+		865E87A51B68AE0D002B64B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 865E87A11B68AE0D002B64B5 /* SimplicITy WatchKit App */;
+			targetProxy = 865E87A41B68AE0D002B64B5 /* PBXContainerItemProxy */;
+		};
+		865E87AF1B68AE0D002B64B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 865E87921B68AE0C002B64B5 /* SimplicITy WatchKit Extension */;
+			targetProxy = 865E87AE1B68AE0D002B64B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2005,6 +2184,14 @@
 			name = UAPushUI.strings;
 			sourceTree = "<group>";
 		};
+		865E87A91B68AE0D002B64B5 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				865E87AA1B68AE0D002B64B5 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -2040,9 +2227,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.4;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2073,8 +2260,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				SDKROOT = iphoneos;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				SDKROOT = iphoneos8.4;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2103,7 +2290,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
@@ -2139,7 +2326,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
@@ -2193,6 +2380,88 @@
 			};
 			name = Release;
 		};
+		865E87B21B68AE0D002B64B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IBSC_MODULE = SimplicITy_WatchKit_Extension;
+				INFOPLIST_FILE = "SimplicITy WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		865E87B31B68AE0D002B64B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = SimplicITy_WatchKit_Extension;
+				INFOPLIST_FILE = "SimplicITy WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		865E87B51B68AE0D002B64B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SimplicITy WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		865E87B61B68AE0D002B64B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "SimplicITy WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2219,6 +2488,24 @@
 			buildConfigurations = (
 				86287D4D1A2EE1A500B12893 /* Debug */,
 				86287D4E1A2EE1A500B12893 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		865E87B11B68AE0D002B64B5 /* Build configuration list for PBXNativeTarget "SimplicITy WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				865E87B21B68AE0D002B64B5 /* Debug */,
+				865E87B31B68AE0D002B64B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		865E87B41B68AE0D002B64B5 /* Build configuration list for PBXNativeTarget "SimplicITy WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				865E87B51B68AE0D002B64B5 /* Debug */,
+				865E87B61B68AE0D002B64B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
