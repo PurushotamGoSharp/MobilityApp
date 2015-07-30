@@ -422,6 +422,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (newsCategoryArr.count > 0)
+    {
+        self.noMessageLabel.hidden = YES;
+    }else
+    {
+        self.noMessageLabel.hidden = NO;
+    }
+    
     return [newsCategoryArr count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
