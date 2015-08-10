@@ -200,7 +200,7 @@
 }
 
 
- - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseResponse:response];
 }

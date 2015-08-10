@@ -22,7 +22,6 @@
 @implementation ADExpirationViewController
 {
     UIBarButtonItem *backButton;
-    
 }
 
 - (void)viewDidLoad
