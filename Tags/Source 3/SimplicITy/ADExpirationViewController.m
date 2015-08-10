@@ -9,6 +9,8 @@
 #import "ADExpirationViewController.h"
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "InterfaceController.h"
+
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
 #define IPHONE_6_CROPID  @""
 #import "NSDateFormatter+Locale.h"
@@ -22,10 +24,15 @@
 @implementation ADExpirationViewController
 {
     UIBarButtonItem *backButton;
+    
+    //
+    InterfaceController *interfaceClassObj;
 }
 
 - (void)viewDidLoad
 {
+   // interfaceClassObj=[[InterfaceController alloc]init];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -232,6 +239,12 @@
     NSLog(@"%li",(long)daysLeft);
     
     self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long)daysLeft];
+   // interfaceClassObj.pDaysLabel.text=self.numOfDaysLeftLbl.text;
+    
+    NSLog(@"days left ids.....%@",self.numOfDaysLeftLbl.text);
+   
+    
+   
     
     [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
     [[NSUserDefaults standardUserDefaults] synchronize];

@@ -11,6 +11,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 
 
+
 @interface ok2updateViewController ()<UIWebViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webViewOutlet;
@@ -18,6 +19,7 @@
 
 @implementation ok2updateViewController
 {
+    
     NSDictionary *paramDict;
     
     NSString *targetURLString;
