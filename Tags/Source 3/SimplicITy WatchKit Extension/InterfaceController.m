@@ -19,7 +19,7 @@
 int currentValue;
 bool shouldStopCountDown;
 
-
+NSInteger  daysleftInt;
 
 
 @interface InterfaceController() <NSURLConnectionDelegate>
@@ -238,7 +238,15 @@ bool shouldStopCountDown;
     
 }
 
-- (void)willActivate {
+
+
+- (void)willActivate
+{
+    
+    
+    
+    
+    
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     
@@ -248,14 +256,48 @@ bool shouldStopCountDown;
     [self performSelector:@selector(animateToProgress) withObject:nil afterDelay:.2];
     
     
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+    
+    NSString *daysleft = [myDefaults objectForKey:@"dayLeft"];
+
+    daysleft = @"68";
+    daysleftInt = [daysleft integerValue];
+    [self.pDaysLabel setText:daysleft ];
+    
+    
+    
+        if (daysleftInt == 0) {
+            [self.pExpireLabel setText:@"Password Expired Today"];
+        }
+    else
+    {
+        [self.pExpireLabel setText:@"Days Until Password Expires"];
+    }
+        
     
     
 }
 
 - (void)animateToProgress
 {
+    CGFloat animationDuration = 1;
+    if (daysleftInt <= 22)
+    {
+        animationDuration = 0.2;
+    }else if (daysleftInt <= 45)
+    {
+        animationDuration = 0.5;
+    }else if (daysleftInt <= 67)
+    {
+        animationDuration = 0.7;
+    }else
+    {
+        animationDuration = 1.0;
+    }
+    
     [self.passwordProgress setBackgroundImageNamed:@"singleArc"];
-    [self.passwordProgress startAnimatingWithImagesInRange:NSMakeRange(0, 45) duration:1 repeatCount:1];
+    [self.passwordProgress startAnimatingWithImagesInRange:NSMakeRange(0, daysleftInt/2) duration:animationDuration repeatCount:1];
     
     
     

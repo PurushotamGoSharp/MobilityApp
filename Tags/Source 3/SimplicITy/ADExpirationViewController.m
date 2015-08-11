@@ -9,7 +9,8 @@
 #import "ADExpirationViewController.h"
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-#import "InterfaceController.h"
+//#import <WatchConnectivity/WatchConnectivity.h>
+
 
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
 #define IPHONE_6_CROPID  @""
@@ -24,14 +25,19 @@
 @implementation ADExpirationViewController
 {
     UIBarButtonItem *backButton;
-    
-    //
-    InterfaceController *interfaceClassObj;
+    NSString *dayString;
+  
 }
 
 - (void)viewDidLoad
 {
    // interfaceClassObj=[[InterfaceController alloc]init];
+    
+    
+    
+    
+    
+    
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -87,6 +93,9 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    
+   
     
 }
 
@@ -242,12 +251,53 @@
    // interfaceClassObj.pDaysLabel.text=self.numOfDaysLeftLbl.text;
     
     NSLog(@"days left ids.....%@",self.numOfDaysLeftLbl.text);
-   
     
    
+    NSString *dayLeft = [self.numOfDaysLeftLbl text];
+   
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+    [myDefaults setObject:dayLeft forKey:@"dayLeft"];
+    
+    [myDefaults synchronize];
+    
+    NSLog(@"Data Saved");
+    
+//    // get paths from root direcory
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
+//    // get documents path
+//    NSString *documentsPath = [paths objectAtIndex:0];
+//    // get the path to our Data/plist file
+//    NSString *plistPath = [documentsPath stringByAppendingString:@"PasswordExpData.plist"];
+//    
+//    // check to see if Data.plist exists in documents
+//    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
+//    {
+//        // if not in documents, get property list from main bundle
+//        plistPath = [[NSBundle mainBundle] pathForResource:@"PasswordExpData" ofType:@"plist"];
+//    }
+//    
+//    // read property list into memory as an NSData object
+//    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+//    NSString *errorDesc = nil;
+//    NSPropertyListFormat format;
+//    // convert static property liost into dictionary object
+//    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
+//    if (!temp)
+//    {
+//        NSLog(@"Error reading plist: %@, format: %lu", errorDesc, (unsigned long)format);
+//    }
+//    
+//    dayString=[temp objectForKey:@"days"];
+//    self.numOfDaysLeftLbl.text=dayString;
+    
 }
 
 
