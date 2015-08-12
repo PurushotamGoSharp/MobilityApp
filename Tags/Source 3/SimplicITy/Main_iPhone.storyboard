@@ -670,7 +670,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9rA-MQ-y8l">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <textView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" id="qjE-fM-sJR">
+                                <textView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" id="qjE-fM-sJR">
                                     <rect key="frame" x="0.0" y="332" width="320" height="180"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -697,7 +697,7 @@ Please provide as much information as possible about your issue(s) in the Detail
                                                 </paragraphStyle>
                                             </attributes>
                                         </fragment>
-                                        <fragment content="· Please indicated how you want to be contacted in the Details (Mobile Phone, Office Phone, Lync, etc)">
+                                        <fragment content="· Indicate how you want to be contacted in the Details (Mobile Phone, Office Phone, Lync, etc)">
                                             <attributes>
                                                 <color key="NSColor" red="1" green="0.62745098039215685" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                                                 <font key="NSFont" size="14" name="HelveticaNeue"/>
