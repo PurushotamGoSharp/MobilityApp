@@ -11,5 +11,5 @@
 @interface ADExpirationDateFetcher : NSObject
 
 - (void)getExpirationDateWithSuccess:(void (^)(NSInteger noOfDayLeft))success;
-
+- (void)getExpirationDateForURL:(NSString *)urlString withSuccess:(void (^)(NSInteger))success;
 @end

@@ -9,6 +9,9 @@
 #import "ADExpirationViewController.h"
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+//#import <WatchConnectivity/WatchConnectivity.h>
+
+
 #define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
 #define IPHONE_6_CROPID  @""
 #import "NSDateFormatter+Locale.h"
@@ -22,10 +25,21 @@
 @implementation ADExpirationViewController
 {
     UIBarButtonItem *backButton;
+    NSString *dayString;
+    NSDictionary *serverConfig;
+  
 }
 
 - (void)viewDidLoad
 {
+   // interfaceClassObj=[[InterfaceController alloc]init];
+    
+    
+    
+    
+    
+    
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -33,7 +47,7 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        NSDictionary *serverConfig;
+        
         
         serverConfig = [[UserInfo sharedUserInfo] getServerConfig];
         NSString *cropID;
@@ -42,7 +56,8 @@
         {
             cropID = (NSString *)serverConfig[@"corpID"];
            urlString = [LDAP_URL stringByAppendingString:cropID];
-        }else
+        }
+        else
         {
             urlString = [LDAP_URL stringByAppendingString:IPHONE_6_CROPID];
         }
@@ -80,6 +95,9 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    
+   
     
 }
 
@@ -202,8 +220,6 @@
 
 -(void)parseresponseData:(NSData *)data
 {
-    
-    
     NSDate *currentDate = [NSDate date];
     
     //    NSCalendar *cal = [NSCalendar currentCalendar];
@@ -232,9 +248,37 @@
     NSLog(@"%li",(long)daysLeft);
     
     self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long)daysLeft];
+   // interfaceClassObj.pDaysLabel.text=self.numOfDaysLeftLbl.text;
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"days left ids.....%@",self.numOfDaysLeftLbl.text);
+    
+//   
+//    NSString *dayLeft = [self.numOfDaysLeftLbl text];
+//   
+//    
+////    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+////    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//    
+//     serverConfig = [[UserInfo sharedUserInfo] getServerConfig];
+//    
+//    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+//                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+//    
+//     serverConfig= [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"corpID"];
+//    
+//   // NSDictionary *retrievedDictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"DicKey"];
+//    [myDefaults setObject:serverConfig forKey:@"dayLeft"];
+//     NSLog (@"myDict has been set");
+//    
+//    [myDefaults synchronize];
+////
+//    NSLog(@"Data Saved");
+////    
+////    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+////    NSDictionary* my_dict = [NSDictionary dictionaryWithObject: @"value" forKey: @"key"];
+////    [defaults setObject: my_dict forKey: @"myDict"];
+////    NSLog (@"myDict has been set");
 }
 
 

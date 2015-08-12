@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VLr-b5-d1D">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
+    </dependencies>
+    <scenes>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+        <!--Password Expiry-->
+        <scene sceneID="Xmq-rt-wom">
+            <objects>
+                <controller title="Password Expiry" id="3P4-qv-lOW" customClass="InterfaceController">
+                    <items>
+                        <group alignment="center" verticalAlignment="center" backgroundImage="singleArc0" contentMode="scaleAspectFit" spacing="31" id="0b2-CM-OGI">
+                            <items>
+                                <label width="100" height="100" alignment="center" verticalAlignment="center" text="0" textAlignment="center" id="ts4-7S-gxy">
+                                    <fontDescription key="font" type="system" pointSize="47"/>
+                                </label>
+                            </items>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </group>
+                        <group alignment="center" verticalAlignment="center" id="jd8-Jh-JfS">
+                            <items>
+                                <label alignment="center" verticalAlignment="center" text="Days until Password Expires" textAlignment="center" numberOfLines="2" id="TyB-68-aQy"/>
+                            </items>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </group>
+                    </items>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="pDaysLabel" destination="ts4-7S-gxy" id="xIt-iW-Sjv"/>
+                        <outlet property="pExpireLabel" destination="TyB-68-aQy" id="IRf-bg-sKS"/>
+                        <outlet property="passwordProgress" destination="0b2-CM-OGI" id="NuA-cX-5vy"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="490" y="366.5"/>
+        </scene>
+        <!--MobilITy-->
+        <scene sceneID="mEX-Vs-OqW">
+            <objects>
+                <controller title="MobilITy" spacing="6" id="VLr-b5-d1D" customClass="FirstInterfaceController">
+                    <items>
+                        <button width="100" height="100" alignment="center" verticalAlignment="center" backgroundImage="Password Expairy Icon" id="atH-gP-jBj">
+                            <connections>
+                                <segue destination="3P4-qv-lOW" kind="push" id="iMM-hR-EaZ"/>
+                            </connections>
+                        </button>
+                        <label alignment="center" verticalAlignment="center" text="Password Expiry" id="vqc-oP-2SD"/>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="296" y="367"/>
+        </scene>
+    </scenes>
+</document>
