@@ -197,9 +197,6 @@
 		86DC31FF1A39C9C4002AF7A5 /* TicketsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC31FC1A39C9C4002AF7A5 /* TicketsListCell.m */; };
 		86DC32001A39C9C4002AF7A5 /* TicketsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DC31FE1A39C9C4002AF7A5 /* TicketsListViewController.m */; };
 		86DCEB921A4E8C0F0014FEC7 /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DCEB911A4E8C0F0014FEC7 /* SurveyViewController.m */; };
-		86DDE93C1B7A0EFC001A6275 /* MuseoSans-100.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86DDE9391B7A0EFC001A6275 /* MuseoSans-100.otf */; };
-		86DDE93D1B7A0EFC001A6275 /* MuseoSans-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86DDE93A1B7A0EFC001A6275 /* MuseoSans-300.otf */; };
-		86DDE93E1B7A0EFC001A6275 /* MuseoSans-700.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86DDE93B1B7A0EFC001A6275 /* MuseoSans-700.otf */; };
 		86DEEB311A2EEE5000EA4C84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DEEB301A2EEE5000EA4C84 /* QuartzCore.framework */; };
 		86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DEEB331A2EF27F00EA4C84 /* DashBoardViewController.m */; };
 		86E1B8B01AC91DF200C3B8EB /* CLWeeklyCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E1B8A21AC91DF200C3B8EB /* CLWeeklyCalendarView.m */; };
@@ -219,6 +216,9 @@
 		86EF85A51AD3D3B100D6AE75 /* CalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */; };
 		86F53C3C1B6783FD005AD689 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C3B1B6783FD005AD689 /* NSString+HTML.m */; };
 		86F53C3F1B6784A0005AD689 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C3E1B6784A0005AD689 /* GTMNSString+HTML.m */; };
+		86F5764E1B7B72A80015809D /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86BF79F91B2EE40000485136 /* cert.p12 */; };
+		86F5764F1B7B72D60015809D /* NSDateFormatter+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BC40211B66691000904650 /* NSDateFormatter+Locale.m */; };
+		86F576521B7B818E0015809D /* FirstInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F576511B7B818E0015809D /* FirstInterfaceController.m */; };
 		86F6DE251AC421260060E336 /* RoomFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F6DE241AC421260060E336 /* RoomFinderViewController.m */; };
 		86F943C91A9C60ED0094204E /* NewsCategoryFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F943C81A9C60ED0094204E /* NewsCategoryFetcher.m */; };
 		86FA17431A80FA4600846378 /* DummyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86FA17421A80FA4600846378 /* DummyOrderViewController.m */; };
@@ -745,6 +745,8 @@
 		86F53C3B1B6783FD005AD689 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		86F53C3D1B6784A0005AD689 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		86F53C3E1B6784A0005AD689 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		86F576501B7B818E0015809D /* FirstInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstInterfaceController.h; sourceTree = "<group>"; };
+		86F576511B7B818E0015809D /* FirstInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstInterfaceController.m; sourceTree = "<group>"; };
 		86F6DE231AC421260060E336 /* RoomFinderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomFinderViewController.h; sourceTree = "<group>"; };
 		86F6DE241AC421260060E336 /* RoomFinderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomFinderViewController.m; sourceTree = "<group>"; };
 		86F943C71A9C60ED0094204E /* NewsCategoryFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCategoryFetcher.h; sourceTree = "<group>"; };
@@ -1641,6 +1643,8 @@
 			isa = PBXGroup;
 			children = (
 				864B5B7D1B79CB970024C600 /* SimplicITy WatchKit Extension.entitlements */,
+				86F576501B7B818E0015809D /* FirstInterfaceController.h */,
+				86F576511B7B818E0015809D /* FirstInterfaceController.m */,
 				86DBCC141B78C79F007994A1 /* InterfaceController.h */,
 				86DBCC151B78C79F007994A1 /* InterfaceController.m */,
 				86DBCC171B78C79F007994A1 /* NotificationController.h */,
@@ -1937,9 +1941,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86DDE93C1B7A0EFC001A6275 /* MuseoSans-100.otf in Resources */,
-				86DDE93D1B7A0EFC001A6275 /* MuseoSans-300.otf in Resources */,
-				86DDE93E1B7A0EFC001A6275 /* MuseoSans-700.otf in Resources */,
+				86F5764E1B7B72A80015809D /* cert.p12 in Resources */,
 				864B5B7A1B79C5170024C600 /* PasswordExpData.plist in Resources */,
 				86DBCC1B1B78C79F007994A1 /* Images.xcassets in Resources */,
 				86DBCC1F1B78C79F007994A1 /* SimplicITy WatchKit App.app in Resources */,
@@ -2130,7 +2132,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86F5764F1B7B72D60015809D /* NSDateFormatter+Locale.m in Sources */,
 				86DBCC191B78C79F007994A1 /* NotificationController.m in Sources */,
+				86F576521B7B818E0015809D /* FirstInterfaceController.m in Sources */,
 				86DBCC161B78C79F007994A1 /* InterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

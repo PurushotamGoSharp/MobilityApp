@@ -26,6 +26,7 @@
 {
     UIBarButtonItem *backButton;
     NSString *dayString;
+    NSDictionary *serverConfig;
   
 }
 
@@ -46,7 +47,7 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        NSDictionary *serverConfig;
+        
         
         serverConfig = [[UserInfo sharedUserInfo] getServerConfig];
         NSString *cropID;
@@ -55,7 +56,8 @@
         {
             cropID = (NSString *)serverConfig[@"corpID"];
            urlString = [LDAP_URL stringByAppendingString:cropID];
-        }else
+        }
+        else
         {
             urlString = [LDAP_URL stringByAppendingString:IPHONE_6_CROPID];
         }
@@ -218,8 +220,6 @@
 
 -(void)parseresponseData:(NSData *)data
 {
-    
-    
     NSDate *currentDate = [NSDate date];
     
     //    NSCalendar *cal = [NSCalendar currentCalendar];
@@ -252,52 +252,33 @@
     
     NSLog(@"days left ids.....%@",self.numOfDaysLeftLbl.text);
     
-   
-    NSString *dayLeft = [self.numOfDaysLeftLbl text];
-   
-    
-//    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
-    
-    
-    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
-                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
-    [myDefaults setObject:dayLeft forKey:@"dayLeft"];
-    
-    [myDefaults synchronize];
-    
-    NSLog(@"Data Saved");
-    
-//    // get paths from root direcory
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES);
-//    // get documents path
-//    NSString *documentsPath = [paths objectAtIndex:0];
-//    // get the path to our Data/plist file
-//    NSString *plistPath = [documentsPath stringByAppendingString:@"PasswordExpData.plist"];
+//   
+//    NSString *dayLeft = [self.numOfDaysLeftLbl text];
+//   
 //    
-//    // check to see if Data.plist exists in documents
-//    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath])
-//    {
-//        // if not in documents, get property list from main bundle
-//        plistPath = [[NSBundle mainBundle] pathForResource:@"PasswordExpData" ofType:@"plist"];
-//    }
+////    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
+////    [[NSUserDefaults standardUserDefaults] synchronize];
 //    
-//    // read property list into memory as an NSData object
-//    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-//    NSString *errorDesc = nil;
-//    NSPropertyListFormat format;
-//    // convert static property liost into dictionary object
-//    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
-//    if (!temp)
-//    {
-//        NSLog(@"Error reading plist: %@, format: %lu", errorDesc, (unsigned long)format);
-//    }
 //    
-//    dayString=[temp objectForKey:@"days"];
-//    self.numOfDaysLeftLbl.text=dayString;
-    
+//     serverConfig = [[UserInfo sharedUserInfo] getServerConfig];
+//    
+//    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+//                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+//    
+//     serverConfig= [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"corpID"];
+//    
+//   // NSDictionary *retrievedDictionary = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"DicKey"];
+//    [myDefaults setObject:serverConfig forKey:@"dayLeft"];
+//     NSLog (@"myDict has been set");
+//    
+//    [myDefaults synchronize];
+////
+//    NSLog(@"Data Saved");
+////    
+////    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+////    NSDictionary* my_dict = [NSDictionary dictionaryWithObject: @"value" forKey: @"key"];
+////    [defaults setObject: my_dict forKey: @"myDict"];
+////    NSLog (@"myDict has been set");
 }
 
 

@@ -54,120 +54,6 @@
     
     [UAPush shared].userPushNotificationsEnabled = ENABLE_PUSH_NOTIFICATION;
     [UAPush shared].pushNotificationDelegate = self;
-    
-//   NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:LANGUAGE_CODE];
-//    
-//    NSFileManager *fmngr = [[NSFileManager alloc] init];
-//    
-//    NSMutableDictionary *langSampleDict = [[NSMutableDictionary alloc] init];
-//    
-//    self.languageUrlPairs = [[NSMutableDictionary alloc] init];
-//    
-//    if (langCode == nil)
-//    {
-//        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"en.json" ofType:nil];
-//        NSError *error;
-//        if(![fmngr copyItemAtPath:filePath toPath:[NSString stringWithFormat:@"%@/Documents/en.json", NSHomeDirectory()] error:&error])
-//        {
-//            // handle the error
-//            NSLog(@"============: %@", [error description]);
-//        }
-//        
-//        NSString *filePathFromDoc = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
-//        ;
-//        NSURL *filePathUrlll = [NSURL fileURLWithPath:filePathFromDoc];
-//        
-//        
-////        self.languageUrlPairs = [langSampleDict copy];
-//        
-////        self.languageUrlPairs = @{langCode:filePathUrlll}.mutableCopy;
-//        
-//         [[NSUserDefaults standardUserDefaults]setObject:@"en" forKey:LANGUAGE_CODE];
-//        langCode =  @"en";
-//        
-//        [self.languageUrlPairs setObject:filePathUrlll forKey:langCode];
-//
-//        
-//        NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
-//
-////        if (![fmngr fileExistsAtPath:[self getFilePath:langCode]])
-////        {
-//////            NSString *filePth = [self getFilePath:langCode];
-////            NSURL *filePathUrl = [NSURL fileURLWithPath:filePathFromDoc];
-////            
-////            langSampleDict = [NSMutableDictionary dictionaryWithObject:filePathUrlll forKey:@"en"];
-////
-////            [self.languageUrlPairs setObject:filePathUrl forKey:langCode];
-////        }
-//    }
-//    else
-//    {
-//        // the preferred way to get the apps documents directory
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *documentsDirectory = [paths objectAtIndex:0];
-//        
-//        // grab all the files in the documents dir
-//        NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
-//        
-//        // filter the array for only json files
-//        NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
-//        NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
-//        
-//        NSString *names = nil;
-//
-//        // use fast enumeration to iterate the array and delete the files
-//        for (NSString *aJsonFile in jsonFiles)
-//        {
-//           NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
-//            
-//                names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
-//            
-//            NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-//            
-////            languageUrlPairs = [NSMutableDictionary dictionaryWithObject:filePathUrl forKey:names];
-//            
-////            self.languageUrlPairs = @{names:filePathUrl}.mutableCopy;
-//            
-//            [self.languageUrlPairs setObject:filePathUrl forKey:names];
-//        }
-//        
-//        NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
-//
-//    }
-//    
-//    
-//    [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
-//    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
-//    
-//    [MCLocalization sharedInstance].language = langCode;
-    
-    
-    
-    
-    
-//    if (![fmngr fileExistsAtPath:[self getFilePath:langCode]])
-//    {
-//        NSString *filePth = [self getFilePath:langCode];
-//        NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
-//        [languageUrlPairs setObject:filePathUrl forKey:langCode];
-//    }else
-//    {
-//        NSLog(@"File already Exists");
-//    }
-    
-    
-//    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
-    
-//    NSString *filePathhhh = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"de.json"];
-;
-//    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
-    
-//    NSURL *filePathUrlllll = [NSURL fileURLWithPath:filePathhhh];
-
-    
-//    NSDictionary *languageUrlPairs = @{@"en":filePathUrl};
-    
-
 
     
     [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
@@ -226,6 +112,11 @@
     {
         [self getNotification:userInfo];
     }
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+    [myDefaults setObject:[[UserInfo sharedUserInfo] getServerConfig] forKey:@"SharedUserInfoDictKey"];
+    [myDefaults synchronize];
+    
     return YES;
 }
 

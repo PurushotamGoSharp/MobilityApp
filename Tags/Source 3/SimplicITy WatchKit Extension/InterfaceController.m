@@ -7,42 +7,66 @@
 //
 
 #import "InterfaceController.h"
-#import "UserInfo.h"
-#import "ADExpirationViewController.h"
-
-
-
-#define DAYS_LEFT_FOR_PASSWORD_EXPIRES @"DaysLeftForPasswordExpairs"
-#define IPHONE_6_CROPID  @""
+#import "NSDateFormatter+Locale.h"
 
 
 int currentValue;
 bool shouldStopCountDown;
 
-NSInteger  daysleftInt;
+//NSInteger  daysleftInt;
 
 
 @interface InterfaceController() <NSURLConnectionDelegate>
-
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *numOfDaysLeftLbl;
-
-
-
 @end
 
 
 @implementation InterfaceController
+{
+    NSURLConnection *connection;
+    NSURLRequest *request;
+}
+
+- (void)awakeWithContext:(id)context {
+    [super awakeWithContext:context];
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+    
+    NSDictionary *userInfo = [myDefaults objectForKey:@"SharedUserInfoDictKey"];
+    NSString *ldapBaseURl = userInfo[@"ucbAPIURL"];
+    NSString *corpID = userInfo[@"corpID"];
+
+    NSString *expirationURLString = [NSString stringWithFormat:@"%@ad/account-status/id/%@",ldapBaseURl, corpID];
+    
+    NSURL *url = [NSURL URLWithString:expirationURLString];
+    request = [NSURLRequest requestWithURL:url];
+    [self.pExpireLabel setAlpha:0];
+    [NSURLConnection connectionWithRequest:request delegate:self];
+}
+
+- (void)willActivate
+{
+    // This method is called when watch view controller is about to be visible to user
+    [super willActivate];
+    NSLog(@"AppleInterface Watch Is Activated/...........");
+    
+//    [self.passwordProgress setBackgroundImageNamed:@"initialBackgroundImage"];
+//    [self.pDaysLabel setText:@"0"];
+//    [self.passwordProgress setHidden:NO];
+//    [self.pDaysLabel setHidden:NO];
 
 
+}
 
 
+- (void)didDeactivate
+{
+    [super didDeactivate];
 
+    NSLog(@"AppleInterface Watch Is DeActivated/...........");
+}
 
-
-
-
-
-
+#pragma mark:
 
 
 - (void)identity:(SecIdentityRef *)identity andCertificate:(SecCertificateRef *)certificate forPKC12Data:(NSData *)certData withPassphrase:(NSString *)passphrase
@@ -126,9 +150,7 @@ NSInteger  daysleftInt;
     NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSLog(@"string %@ ",string);
     
-    
     [self parseresponseData:data];
-    
     
 }
 
@@ -139,156 +161,27 @@ NSInteger  daysleftInt;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    
-    
-    
+    NSLog(@"Errorror %@", error);
 }
 
--(void)parseresponseData:(NSData *)data
+- (void)parseresponseData:(NSData *)data
 {
-    
-    
-    NSDate *currentDate = [NSDate date];
-    
-    //    NSCalendar *cal = [NSCalendar currentCalendar];
-    //    NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
-    
-    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
-    
-    [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    
-    
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
     NSLog(@"%@",json);
-    
-    NSString *dateInString = json[@"password-expires"];
-    
-    NSDate *passwordExpiresDate = [formater dateFromString:dateInString];
-    
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:currentDate toDate:passwordExpiresDate options:0];
-    
-    NSLog(@"Password Expires Date is %@ and current Date is %@",passwordExpiresDate,currentDate);
-    
-    NSLog(@"The difference between from date and to date is %ld days and %ld hours and %ld minute and %ld second",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second);
-    
-    NSInteger daysLeft =  MAX(0, components.day);
-    NSLog(@"%li",(long)daysLeft);
-    
-    self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long)daysLeft];
-    
-    //    [[NSUserDefaults standardUserDefaults] setObject:self.numOfDaysLeftLbl.text forKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
-    //    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSInteger dayLeftToExpire = [json[@"password-expires-days"] integerValue];
+    [self animateIndicatorTo:dayLeftToExpire];
 }
 
-
-//- (IBAction)paswordSelfServiceBtnPressed:(id)sender
-//{
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://mdm2.ucb.com/psynch/docs/en-us/indexf.html"]];
-//}
-
-
-
-
-- (void)awakeWithContext:(id)context {
-    [super awakeWithContext:context];
-    
-    // Configure interface objects here.
-    
-    //    if ([AFNetworkReachabilityManager sharedManager].isReachable)
-    //    {
-    //        NSDictionary *serverConfig;
-    //
-    //        serverConfig = [[UserInfo sharedUserInfo] getServerConfig];
-    //        NSString *cropID;
-    //        NSString *urlString;
-    //        if (serverConfig != nil)
-    //        {
-    //            cropID = (NSString *)serverConfig[@"corpID"];
-    //            urlString = [LDAP_URL stringByAppendingString:cropID];
-    //        }else
-    //        {
-    //            urlString = [LDAP_URL stringByAppendingString:IPHONE_6_CROPID];
-    //        }
-    //
-    //        NSURL *url = [NSURL URLWithString:urlString];
-    //        NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    //
-    //        NSURLConnection *connections = [[NSURLConnection alloc] initWithRequest:req delegate:self];
-    //
-    //
-    //    }
-    //    else
-    //    {
-    //        self.numOfDaysLeftLbl.text = [[NSUserDefaults standardUserDefaults] objectForKey:DAYS_LEFT_FOR_PASSWORD_EXPIRES];
-    //
-    //        //        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:@"Warning !" message:@"The device is not connected to internet. For checking \"Days Left  for Password Expiry\" Internet connection is required" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    //        //        [noNetworkAlert show];
-    //
-    //
-    //
-    //    }
-    
-    
-    
-    //    _passwordProgress.setBackgroundImageNamed("singleArc")
-    //    passwordProgress.startAnimatingWithImagesInRange(NSMakeRange(0, 101), duration: duration, repeatCount: 1)
-    
-    
-    
-}
-
-
-
-- (void)willActivate
-{
-    
-    
-    
-    
-    
-    // This method is called when watch view controller is about to be visible to user
-    [super willActivate];
-    
-    NSLog(@"AppleInterface Watch Is Activated/...........");
-    
-    
-    [self performSelector:@selector(animateToProgress) withObject:nil afterDelay:.2];
-    
-    
-    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
-                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
-    
-    NSString *daysleft = [myDefaults objectForKey:@"dayLeft"];
-
-    daysleft = @"68";
-    daysleftInt = [daysleft integerValue];
-    [self.pDaysLabel setText:daysleft ];
-    
-    
-    
-        if (daysleftInt == 0) {
-            [self.pExpireLabel setText:@"Password Expired Today"];
-        }
-    else
-    {
-        [self.pExpireLabel setText:@"Days Until Password Expires"];
-    }
-        
-    
-    
-}
-
-- (void)animateToProgress
+- (void)animateIndicatorTo:(NSInteger)days
 {
     CGFloat animationDuration = 1;
-    if (daysleftInt <= 22)
+    if (days <= 22)
     {
         animationDuration = 0.2;
-    }else if (daysleftInt <= 45)
+    }else if (days <= 45)
     {
         animationDuration = 0.5;
-    }else if (daysleftInt <= 67)
+    }else if (days <= 67)
     {
         animationDuration = 0.7;
     }else
@@ -296,19 +189,12 @@ NSInteger  daysleftInt;
         animationDuration = 1.0;
     }
     
+    NSLog(@"%li", days/2);
     [self.passwordProgress setBackgroundImageNamed:@"singleArc"];
-    [self.passwordProgress startAnimatingWithImagesInRange:NSMakeRange(0, daysleftInt/2) duration:animationDuration repeatCount:1];
+    [self.passwordProgress startAnimatingWithImagesInRange:NSMakeRange(0, days/2) duration:animationDuration repeatCount:1];
     
-    
-    
-}
-
-- (void)didDeactivate
-{
-    // This method is called when watch view controller is no longer visible
-    [super didDeactivate];
-    
-    NSLog(@"AppleInterface Watch Is DeActivated/...........");
+    [self.pDaysLabel setText:[NSString stringWithFormat:@"%li", days]];
+    [self.pExpireLabel setAlpha:1];
 }
 
 @end

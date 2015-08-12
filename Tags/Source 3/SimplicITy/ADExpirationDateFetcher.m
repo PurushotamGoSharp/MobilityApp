@@ -59,6 +59,28 @@
     [self setAuthenticationBlockForOperation:operation];
     [operationQueue addOperation:operation];
 }
+- (void)getExpirationDateForURL:(NSString *)urlString withSuccess:(void (^)(NSInteger))success
+{
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *JSONDict =[NSJSONSerialization JSONObjectWithData:responseObject
+                                                                options:kNilOptions
+                                                                  error:nil];
+        
+        NSLog(@"%@", JSONDict);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
+    [self setAuthenticationBlockForOperation:operation];
+    [operationQueue addOperation:operation];
+}
 
 - (void)setAuthenticationBlockForOperation:(AFHTTPRequestOperation *)operation
 {
