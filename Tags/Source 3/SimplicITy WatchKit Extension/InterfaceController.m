@@ -161,6 +161,10 @@ bool shouldStopCountDown;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    if (error.code == -1009) {
+        [self.pExpireLabel setText:@"Please check Internet connection."];
+        [self.pExpireLabel setAlpha:1];
+    }
     NSLog(@"Errorror %@", error);
 }
 
