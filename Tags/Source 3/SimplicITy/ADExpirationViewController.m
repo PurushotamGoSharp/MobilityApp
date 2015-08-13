@@ -220,38 +220,38 @@
 
 -(void)parseresponseData:(NSData *)data
 {
-    NSDate *currentDate = [NSDate date];
+//    NSDate *currentDate = [NSDate date];
     
     //    NSCalendar *cal = [NSCalendar currentCalendar];
     //    NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
     
-    NSDateFormatter *formater = [[NSDateFormatter alloc] initWithSafeLocale];
+//    NSDateFormatter *formater = [[NSDateFormatter alloc] initWithSafeLocale];
     
-    [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    [formater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    
-    NSLog(@"%@",json);
+    NSInteger daysLeftToExpire = [json[@"password-expires-days"] integerValue];
 
-    NSString *dateInString = json[@"password-expires"];
-    
-    NSDate *passwordExpiresDate = [formater dateFromString:dateInString];
-    
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:currentDate toDate:passwordExpiresDate options:0];
-    
-    NSLog(@"Password Expires Date is %@ and current Date is %@",passwordExpiresDate,currentDate);
-    
-    NSLog(@"The difference between from date and to date is %ld days and %ld hours and %ld minute and %ld second",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second);
-    
-   NSInteger daysLeft =  MAX(0, components.day);
-    NSLog(@"%li",(long)daysLeft);
-    
-    self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long)daysLeft];
-   // interfaceClassObj.pDaysLabel.text=self.numOfDaysLeftLbl.text;
-    
+    NSLog(@"%@",json);
+    self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long)daysLeftToExpire];
     NSLog(@"days left ids.....%@",self.numOfDaysLeftLbl.text);
     
+//
+//    NSString *dateInString = json[@"password-expires"];
+//    
+//    NSDate *passwordExpiresDate = [formater dateFromString:dateInString];
+//    
+//    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:currentDate toDate:passwordExpiresDate options:0];
+//    
+//    NSLog(@"Password Expires Date is %@ and current Date is %@",passwordExpiresDate,currentDate);
+//    
+//    NSLog(@"The difference between from date and to date is %ld days and %ld hours and %ld minute and %ld second",(long)components.day,(long)components.hour,(long)components.minute,(long)components.second);
+//    
+//   NSInteger daysLeft =  MAX(0, components.day);
+//    NSLog(@"%li",(long)daysLeft);
+    
+
 //   
 //    NSString *dayLeft = [self.numOfDaysLeftLbl text];
 //   
