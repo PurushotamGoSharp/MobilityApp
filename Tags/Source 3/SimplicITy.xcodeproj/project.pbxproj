@@ -1831,6 +1831,7 @@
 					};
 					86DBCC1D1B78C79F007994A1 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = QGMN7468R5;
 					};
 				};
 			};
@@ -2323,7 +2324,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
@@ -2360,7 +2361,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "SimplicITy/SimplicITy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimplicITy/Airship",
@@ -2464,6 +2465,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2476,6 +2479,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -2487,6 +2491,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2496,6 +2502,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
