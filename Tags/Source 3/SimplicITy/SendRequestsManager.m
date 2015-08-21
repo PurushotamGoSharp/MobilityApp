@@ -7,7 +7,7 @@
 //
 
 #import "SendRequestsManager.h"
-#import <AFNetworking/AFNetworking.h>
+//#import <AFNetworking/AFNetworking.h>
 #import "DBManager.h"
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
