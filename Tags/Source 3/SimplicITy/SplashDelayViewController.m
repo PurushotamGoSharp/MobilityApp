@@ -51,6 +51,9 @@
         else if ([UIScreen mainScreen].bounds.size.height == 667)
         {
             self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage-800-667h@2x.png"];
+        }else if ([UIScreen mainScreen].bounds.size.height == 736)
+        {
+            self.backGroundImageOutlet.image = [UIImage imageNamed:@"Splash-Screen-1536.png"];
         }else
         {
             self.backGroundImageOutlet.image = [UIImage imageNamed:@"LaunchImage"];
