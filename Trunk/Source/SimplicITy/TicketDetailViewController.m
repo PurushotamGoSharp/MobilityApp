@@ -29,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arrOfLable = @[@"Requester",@"Impact",@"Services",@"Agent",@"Status"];
+    arrOfLable = @[@"Requester",@"Personal Impact",@"Services",@"Agent",@"Status"];
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a, dd MMM, yyyy"];

@@ -306,7 +306,7 @@
             NSString *JSONString = adict[@"JSON"];
             NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
             
-            if ([dictFromJSON[@"Status"] isEqualToString:@"Pushed"] && [self checkWhetherTagsExist:dictFromJSON[@"Tags"]])
+            if ([dictFromJSON[@"Status"] isEqualToString:@"Pushed"] && ([self checkWhetherTagsExist:dictFromJSON[@"Tags"]] && [self checkWhetherAliasExist:dictFromJSON[@"Alias"]]))
             {
                 NewsContentModel *newsContent = [[NewsContentModel alloc]init];
                 newsContent.ID = [adict[@"ID"] integerValue];
@@ -392,11 +392,11 @@
     }
 }
 
-- (BOOL)checkWhetherTagsExist:(id)tags
+- (BOOL)checkWhetherTagsExist:(NSArray *)tags
 {
     NSArray *deviceTags = [UserInfo sharedUserInfo].tags;
 
-    if (tags == nil) //If admin didnt selected any tags, response is giving nil
+    if (tags == nil || tags.count == 0) //If admin didnt selected any tags, response is giving nil
     {
         return YES;
         
@@ -416,6 +416,18 @@
     }
     
     return NO;
+}
+
+- (BOOL)checkWhetherAliasExist:(NSString *)string {
+    
+    if (string.length == 0) {
+        return YES;
+    }
+    
+    NSArray *arrayOfAliases = [string componentsSeparatedByString:@";"];
+    NSString *aliase = [UserInfo sharedUserInfo].alias;
+    
+    return [arrayOfAliases containsObject:aliase];
 }
 
 @end
