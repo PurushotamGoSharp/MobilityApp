@@ -29,19 +29,25 @@ bool shouldStopCountDown;
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     
-    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
-                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+//    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+//                                  initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
     
-    NSDictionary *userInfo = [myDefaults objectForKey:@"SharedUserInfoDictKey"];
-    NSString *ldapBaseURl = userInfo[@"ucbAPIURL"];
-    NSString *corpID = userInfo[@"corpID"];
-
-    NSString *expirationURLString = [NSString stringWithFormat:@"%@ad/account-status/id/%@",ldapBaseURl, corpID];
-    
-    NSURL *url = [NSURL URLWithString:expirationURLString];
-    request = [NSURLRequest requestWithURL:url];
     [self.pExpireLabel setAlpha:0];
-    [NSURLConnection connectionWithRequest:request delegate:self];
+    __block NSDictionary *userInfo;
+    [WKInterfaceController openParentApplication:@{@"MobilITy":@"Verifiation"} reply:^(NSDictionary *replyInfo, NSError *error) {
+        userInfo = replyInfo;
+        NSString *ldapBaseURl = userInfo[@"ucbAPIURL"];
+        NSString *corpID = userInfo[@"corpID"];
+        
+        NSString *expirationURLString = [NSString stringWithFormat:@"%@ad/account-status/id/%@",ldapBaseURl, corpID];
+        
+        NSURL *url = [NSURL URLWithString:expirationURLString];
+        request = [NSURLRequest requestWithURL:url];
+        [NSURLConnection connectionWithRequest:request delegate:self];
+    }];
+    
+//    NSDictionary *userInfo = [myDefaults objectForKey:@"SharedUserInfoDictKey"];
+
 }
 
 - (void)willActivate
@@ -54,8 +60,6 @@ bool shouldStopCountDown;
 //    [self.pDaysLabel setText:@"0"];
 //    [self.passwordProgress setHidden:NO];
 //    [self.pDaysLabel setHidden:NO];
-
-
 }
 
 

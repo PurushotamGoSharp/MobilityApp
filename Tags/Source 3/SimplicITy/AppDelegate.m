@@ -217,6 +217,15 @@
     [[UAPush shared] resetBadge];
 }
 
+- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply
+{
+    if ([userInfo[@"MobilITy"] isEqualToString:@"Verifiation"])
+    {
+        NSDictionary *userInfoDixt = [[UserInfo sharedUserInfo]getServerConfig];
+        reply(userInfoDixt);
+    }
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     UA_LINFO(@"Received remote notification (in appDelegate): %@", userInfo);
