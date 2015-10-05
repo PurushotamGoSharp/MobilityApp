@@ -21,7 +21,7 @@
 #define FEEDBACK_IN_OFFLINE @"Device is not connected to internet. Your feedback will be posted automatically once device connects to internet"
 
 
-@interface AboutViewController () <postmanDelegate, DBManagerDelegate,RateViewDelegate,UITextViewDelegate>
+@interface AboutViewController () <postmanDelegate, DBManagerDelegate,RateViewDelegate,UITextViewDelegate, UIWebViewDelegate>
 {
     NSString *URLString;
     Postman *postMan;
@@ -47,7 +47,10 @@
 @property (weak, nonatomic) IBOutlet RateView *rateView;
 @property (weak, nonatomic) IBOutlet UIImageView *leftSideImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *rightSideImageView;
-@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webVIewHeightConst;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+//@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+
 //@property (weak, nonatomic) IBOutlet UIButton *rateButton;
 //@property (weak, nonatomic) IBOutlet UILabel *aboutUsLabel;
 //@property (weak, nonatomic) IBOutlet UILabel *averageLabel;
@@ -131,7 +134,6 @@
         self.writeReviewLbl.font = [self customFont:16 ofName:MuseoSans_700];
         
         describtionFont = [self customFont:14 ofName:MuseoSans_300];
-
     }
     else
     {
@@ -146,9 +148,9 @@
         describtionFont = [self customFont:20 ofName:MuseoSans_300];
     }
     
-    self.descriptionTextView.editable = YES;
-    [self.descriptionTextView setFont:describtionFont];
-    self.descriptionTextView.editable = NO;
+//    self.descriptionTextView.editable = YES;
+//    [self.descriptionTextView setFont:describtionFont];
+//    self.descriptionTextView.editable = NO;
     
     self.writeReviewAlphaView.layer.cornerRadius = 15;
     self.conatinerAvrRating.layer.cornerRadius = 10;
@@ -156,7 +158,6 @@
 
     self.writeReviewTxtView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.writeReviewTxtView.layer.borderWidth = 1;
-    
     
     URLString = ABOUT_DETAILS_API;
     
@@ -277,10 +278,10 @@
         [postMan get:AVERAGE_RATING_API];
     }
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(orientationChanged:)
-//                                                 name:UIDeviceOrientationDidChangeNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
@@ -304,9 +305,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                    name:UIDeviceOrientationDidChangeNotification
-//                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardDidShowNotification
@@ -337,7 +338,7 @@
                      }
                      completion:^(BOOL finished) {
                          
-                         [self.scrollView scrollRectToVisible:self.view.frame animated:YES];
+                         [self.scrollView scrollRectToVisible:self.writeReviewTxtView.frame animated:YES];
                          
                      }];
     
@@ -364,7 +365,7 @@
     
     NSString *param = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",curentLanguage];
     
-    NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
+//    NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
     
     [postMan post:URLString withParameters:param];
 }
@@ -433,16 +434,53 @@
 //
     NSString *testString = aboutDescription;
 
-    self.descriptionTextView.text = testString;
+//    self.descriptionTextView.text = testString;
+//    
+//    self.descriptionTextView.selectable = YES;
+//    CGSize expectedSize = [testString boundingRectWithSize:(CGSizeMake(self.descriptionTextView.frame.size.width, 10000))
+//                                                   options:NSStringDrawingUsesLineFragmentOrigin
+//                                                attributes:@{NSFontAttributeName: describtionFont}
+//                                                   context:nil].size;
+//    self.descriptionTextView.selectable = NO;
+//    self.descriptionHeightConst.constant = expectedSize.height + 25;
     
-    self.descriptionTextView.selectable = YES;
-    CGSize expectedSize = [testString boundingRectWithSize:(CGSizeMake(self.descriptionTextView.frame.size.width, 10000))
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                attributes:@{NSFontAttributeName: describtionFont}
-                                                   context:nil].size;
-    self.descriptionTextView.selectable = NO;
-    self.descriptionHeightConst.constant = expectedSize.height + 25;
+    CGFloat widthOfWebView = [UIScreen mainScreen].bounds.size.width - 50;
+    NSString *sring = [NSString stringWithFormat:@"<div style=\"width: %fpx; word-wrap: break-word\"> <style type='text/css'>img { max-width: %f; width: auto; height: auto; } </style> <style type='text/css'>.wysiwyg-color-black {  color: black;}</style><style type='text/css'>.wysiwyg-color-silver {  color: silver;}</style><style type='text/css'>.wysiwyg-color-gray {  color: gray;}</style><style type='text/css'>.wysiwyg-color-white {  color: white;}</style><style type='text/css'>.wysiwyg-color-maroon {  color: maroon;}</style><style type='text/css'>.wysiwyg-color-red {  color: red;}</style><style type='text/css'>.wysiwyg-color-purple {  color: purple;}</style><style type='text/css'>.wysiwyg-color-fuchsia {  color: fuchsia;}</style><style type='text/css'>.wysiwyg-color-green {  color: green;}</style><style type='text/css'>.wysiwyg-color-lime {  color: lime;}</style><style type='text/css'>.wysiwyg-color-olive {  color: olive;}</style><style type='text/css'>.wysiwyg-color-yellow {  color: yellow;}</style><style type='text/css'>.wysiwyg-color-navy {  color: navy;}</style><style type='text/css'>.wysiwyg-color-blue {  color: blue;}</style><style type='text/css'>.wysiwyg-color-teal {  color: teal;}</style><style type='text/css'>.wysiwyg-color-aqua {  color: aqua;}</style><style type='text/css'>.wysiwyg-color-orange {  color: orange;}</style> %@ </div>",widthOfWebView,widthOfWebView, testString];
+    
+    self.webView.mediaPlaybackRequiresUserAction=NO;
+    [self.webView loadHTMLString:sring baseURL:nil];
+
     [self.view layoutIfNeeded];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSString *javascript = @"var style = document.createElement(\"style\"); document.head.appendChild(style); style.innerHTML = \"html{-webkit-text-size-adjust: 100%;} body {-webkit-text-size-adjust:100%;}\";var viewPortTag=document.createElement('meta');viewPortTag.id=\"viewport\";viewPortTag.name = \"viewport\";viewPortTag.content = \"width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\";document.getElementsByTagName('head')[0].appendChild(viewPortTag);";
+    [webView stringByEvaluatingJavaScriptFromString:javascript];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    webView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later
+    
+    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
+    self.webVIewHeightConst.constant = height;
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if(navigationType == UIWebViewNavigationTypeLinkClicked)
+    {
+        [[UIApplication sharedApplication] openURL:[request URL]];
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self performSelector:@selector(updateUI) withObject:nil afterDelay:duration+.1];
 }
 
 - (void)orientationChanged:(NSNotification *)notification
@@ -587,8 +625,6 @@
                 break;
             }
         }
-        
-
     }
     
     [self updateUI];

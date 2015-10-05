@@ -148,18 +148,6 @@
         currentOrientation = toOrientation;
         return;
     }
-//
-//    if (toOrientation == UIInterfaceOrientationMaskPortrait && currentOrientation == UIInterfaceOrientationMaskPortraitUpsideDown)
-//    {
-//        currentOrientation = toOrientation;
-//        return;
-//    }
-//    
-//    if (toOrientation == UIInterfaceOrientationMaskPortraitUpsideDown && currentOrientation == UIInterfaceOrientationMaskPortrait)
-//    {
-//        currentOrientation = toOrientation;
-//        return;
-//    }
     
     currentOrientation = toOrientation;
 
