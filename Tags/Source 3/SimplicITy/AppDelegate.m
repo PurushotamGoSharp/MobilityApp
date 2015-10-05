@@ -113,9 +113,9 @@
         [self getNotification:userInfo];
     }
     
-    NSUserDefaults *myDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
-    [myDefaults setObject:[[UserInfo sharedUserInfo] getServerConfig] forKey:@"SharedUserInfoDictKey"];
-    [myDefaults synchronize];
+//    NSUserDefaults *myDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
+//    [myDefaults setObject:[[UserInfo sharedUserInfo] getServerConfig] forKey:@"SharedUserInfoDictKey"];
+//    [myDefaults synchronize];
     
     return YES;
 }

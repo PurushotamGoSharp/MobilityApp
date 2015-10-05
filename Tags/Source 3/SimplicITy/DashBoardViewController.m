@@ -27,8 +27,8 @@
     BOOL navBtnIsOn;
     UIButton *titleButton;
     UIImageView *downArrowImageView;
-    UIView *titleView;
-//    UIImageView *titleImageView;
+   UIView *titleView;
+    UIImageView *titleImageView;
     NSMutableArray *locationdataArr ;
     LocationModel *selectedLocation;
     DBManager *dbManager;
