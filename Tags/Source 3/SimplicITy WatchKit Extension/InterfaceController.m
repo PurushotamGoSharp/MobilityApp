@@ -197,9 +197,9 @@ bool shouldStopCountDown;
         animationDuration = 1.0;
     }
     
-    NSLog(@"%li", days/2);
+    NSLog(@"%li", days/4);
     [self.passwordProgress setBackgroundImageNamed:@"singleArc"];
-    [self.passwordProgress startAnimatingWithImagesInRange:NSMakeRange(0, days/2) duration:animationDuration repeatCount:1];
+    [self.passwordProgress startAnimatingWithImagesInRange:NSMakeRange(0, days/4) duration:animationDuration repeatCount:1];
     
     [self.pDaysLabel setText:[NSString stringWithFormat:@"%li", (long)days]];
     [self.pExpireLabel setAlpha:1];
