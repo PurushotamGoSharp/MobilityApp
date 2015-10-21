@@ -36,9 +36,8 @@
     
     self.title = @"Upgrade";
 
-    
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
+//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    [center addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
     
     self.webViewOutlet.delegate = self;
     
@@ -90,17 +89,10 @@
     [self refreshBrowser];
 }
 
-- (void)refreshBrowser {
+- (void)refreshBrowser
+{
     //Verify if targetURL was set by MDM
-//    static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
-//    NSDictionary *serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];
-//    static NSString * const kConfigurationTargetURLKey = @"targetURL";
-//    targetURLString = serverConfig[kConfigurationTargetURLKey];
-//    NSLog(@"%@",targetURLString);
-//    if ([targetURLString length] > 0) {
-//        targetURL = [[NSString alloc] initWithFormat:@"%@", targetURLString];
-//        NSLog(@"%@",targetURL);
-//    }
+
     NSURL *url = [NSURL URLWithString:targetURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     
