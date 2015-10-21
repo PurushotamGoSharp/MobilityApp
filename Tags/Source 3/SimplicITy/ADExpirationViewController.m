@@ -234,7 +234,7 @@
     NSInteger daysLeftToExpire = [json[@"password-expires-days"] integerValue];
 
     NSLog(@"%@",json);
-    self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long)daysLeftToExpire];
+    self.numOfDaysLeftLbl.text = [NSString stringWithFormat:@"%li",(long) daysLeftToExpire];
     NSLog(@"days left ids.....%@",self.numOfDaysLeftLbl.text);
     
 //
