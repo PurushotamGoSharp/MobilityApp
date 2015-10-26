@@ -183,6 +183,14 @@
     if(navigationType == UIWebViewNavigationTypeLinkClicked)
     {
         NSURL *requestedURL = [request URL];
+        NSString *extension = [[requestedURL absoluteString] pathExtension];
+        
+        if (extension.length == 0 && extension.length <= 4)
+        {
+            [[UIApplication sharedApplication] openURL:requestedURL];
+            return NO;
+        }
+        
         [[DownloadManager sharedDownloadManager] downloadFromURLString:requestedURL.absoluteString];
         
         return NO;
