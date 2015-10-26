@@ -115,9 +115,9 @@
         
     }
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                         
-                                         UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
-                                         [alert show];
+                                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];                                         
+//                                         UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
+//                                         [alert show];
                                          [hud hide:YES];
 
                                          
