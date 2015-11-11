@@ -183,13 +183,13 @@ bool shouldStopCountDown;
 - (void)animateIndicatorTo:(NSInteger)days
 {
     CGFloat animationDuration = 1;
-    if (days <= 22)
+    if (days <= 44)
     {
         animationDuration = 0.2;
-    }else if (days <= 45)
+    }else if (days <= 90)
     {
         animationDuration = 0.5;
-    }else if (days <= 67)
+    }else if (days <= 134)
     {
         animationDuration = 0.7;
     }else
