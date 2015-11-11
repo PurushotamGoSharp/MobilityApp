@@ -9,7 +9,7 @@
 #import "ok2updateViewController.h"
 #import "AppDelegate.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-
+#import "UserInfo.h"
 
 
 @interface ok2updateViewController ()<UIWebViewDelegate>
@@ -56,8 +56,8 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    NSString *plistFilePath = [NSString stringWithString:[[NSBundle mainBundle] pathForResource:@"Parameters" ofType:@"plist"]];
-    paramDict = [[NSDictionary alloc] initWithContentsOfFile:plistFilePath];
+//    NSString *plistFilePath = [NSString stringWithString:[[NSBundle mainBundle] pathForResource:@"Parameters" ofType:@"plist"]];
+//    paramDict = [[NSDictionary alloc] initWithContentsOfFile:plistFilePath];
     
     //parameters = [NSArray arrayWithArray:[paramDict objectForKey:@"Root"]];
     
@@ -65,13 +65,14 @@
     NSString *currIosVersion = [[NSString alloc] initWithString:[[UIDevice currentDevice] systemVersion]];;
     NSString *model = [[NSString alloc] initWithString:[[UIDevice currentDevice] model]];
     
+    UserInfo *userInfo =[UserInfo sharedUserInfo];
     
-    
-    NSString *loc;
+    NSString *loc = userInfo.location;
+    NSString *baseURL = userInfo.oKToUpdate;
     //the location (region) is set at the app parameter level so iOS updates can be segmented by region or location
-    loc = [[NSString alloc] initWithFormat:@"%@", [paramDict objectForKey:@"app_region"]];
+//    loc = [[NSString alloc] initWithFormat:@"%@", [paramDict objectForKey:@"app_region"]];
     
-    targetURL = [[NSString alloc] initWithFormat:@"%@?l=%@&i=%@&m=%@", [paramDict objectForKey:@"ios_check_url"], loc, currIosVersion,model];
+    targetURL = [[NSString alloc] initWithFormat:@"%@?l=%@&i=%@&m=%@", baseURL, loc, currIosVersion,model];
     targetURL = [targetURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",targetURL);
     [self refreshBrowser];
