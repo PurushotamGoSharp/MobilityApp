@@ -13,11 +13,11 @@
 #import "SendRequestsManager.h"
 //#import <Gimbal/Gimbal.h>
 #import "RoomRecognizer.h"
-
+#import "SeedSync.h"
 
 #define ENABLE_PUSH_NOTIFICATION YES
 
-@interface AppDelegate () <UAPushNotificationDelegate, postmanDelegate>
+@interface AppDelegate () <UAPushNotificationDelegate, postmanDelegate, SeedSyncDelegate>
 
 @end
 
@@ -25,6 +25,10 @@
 {
     Postman *postMan;
     RoomRecognizer *recognizer;
+    SeedSync *seedSyncer;
+    
+    BOOL callSeedAPI;
+    NewsCategoryFetcher *categoryFetcher;
 }
 
 //-(void)setLanguageUrlPairs:(NSMutableDictionary *)languageUrlPairs
@@ -33,6 +37,7 @@
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    callSeedAPI = NO;
     [self.window makeKeyAndVisible];
     [SendRequestsManager sharedManager];
     
@@ -117,6 +122,8 @@
 //    [myDefaults setObject:[[UserInfo sharedUserInfo] getServerConfig] forKey:@"SharedUserInfoDictKey"];
 //    [myDefaults synchronize];
     
+    
+//    NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
     return YES;
 }
 
@@ -204,6 +211,19 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if (callSeedAPI)
+    {
+        if (seedSyncer == nil)
+        {
+            seedSyncer = [[SeedSync alloc] init];
+            seedSyncer.delegate = self;
+        }
+        
+        [seedSyncer initiateSeedAPI];
+    }else
+    {
+        callSeedAPI = YES;
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -271,4 +291,20 @@
     [self.fetcher initiateNewsCategoryAPIFor:sinceID fetchCompletionHandler:completionHandler andDownloadImages:YES];
 }
 
+
+- (void)seedSyncFinishedSuccessful:(SeedSync *)seedSync
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"news"])
+    {
+        NSInteger sinceID = [[NSUserDefaults standardUserDefaults]integerForKey:@"SinceID"];
+        //        sinceID = 1;
+        if (sinceID > 0)
+        {
+            categoryFetcher = [[NewsCategoryFetcher alloc] init];
+            [categoryFetcher initiateNewsCategoryAPIFor:sinceID
+                                 fetchCompletionHandler:nil
+                                      andDownloadImages:YES];
+        }
+    }
+}
 @end

@@ -9,5 +9,21 @@
 #import "SurveyModel.h"
 
 @implementation SurveyModel
+- (instancetype)init
+{
+    self = [super init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(cleanMemory)
+                                                 name:UIApplicationDidReceiveMemoryWarningNotification
+                                               object:nil];
+    return self;
+}
+
+- (void)cleanMemory
+{
+    NSLog(@"Dealloc images");
+    self.image = nil;
+}
 
 @end

@@ -62,6 +62,7 @@
     {
         self.backGroundImageOutlet.image = [UIImage imageNamed:@"LanchImage_ipad_Portrate.png"];
     }
+    
     URLString = SEED_API;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDefaultChanged)
@@ -72,6 +73,28 @@
     [dateFetcher getExpirationDateWithSuccess:^(NSInteger noOfDayLeft)
      {
     }];
+    
+    BOOL updatedSyncID = [[NSUserDefaults standardUserDefaults] boolForKey:@"updatedSyncID"];
+    if (!updatedSyncID)
+    {
+        if (categoryFetcher == nil)
+        {
+            categoryFetcher = [[NewsCategoryFetcher alloc] init];
+        }
+        
+        [categoryFetcher getLatestNewsIDWithCompletionner:^(BOOL success, NSInteger latestID) {
+            if (success)
+            {
+                NSInteger currentID = [[NSUserDefaults standardUserDefaults] integerForKey:@"SinceID"];
+                if (currentID == 0)
+                {
+                    [[NSUserDefaults standardUserDefaults] setInteger:latestID forKey:@"SinceID"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                }
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"updatedSyncID"];
+            }
+        }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

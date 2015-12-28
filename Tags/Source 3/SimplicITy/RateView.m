@@ -29,13 +29,13 @@
     _three4thSelectedImage = nil;
     _fullSelectedImage = nil;
     _rating = 0;
-    _editable = NO;    
+    _editable = NO;
     _imageViews = [[NSMutableArray alloc] init];
     _maxRating = 5;
     _midMargin = 5;
     _leftMargin = 0;
     _minImageSize = CGSizeMake(5, 5);
-    _delegate = nil;    
+    _delegate = nil;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -149,7 +149,7 @@
     
     NSInteger newRating = 0;
     for(NSInteger i = self.imageViews.count - 1; i >= 0; i--) {
-        UIImageView *imageView = [self.imageViews objectAtIndex:i];        
+        UIImageView *imageView = [self.imageViews objectAtIndex:i];
         if (touchLocation.x > imageView.frame.origin.x) {
             newRating = i+1;
             break;

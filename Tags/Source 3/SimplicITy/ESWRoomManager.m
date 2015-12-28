@@ -434,7 +434,6 @@
         [self.delegate ESWRoomManager:self failedWithError:error];
 
     }];
-
 }
 
 - (void)getContactsForEntry:(NSString *)entry

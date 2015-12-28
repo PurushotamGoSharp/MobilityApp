@@ -30,6 +30,11 @@
 		86201D041A7CA66D0016CBEF /* tips@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86201CFC1A7CA66D0016CBEF /* tips@2x.png */; };
 		8623D5BB1A5417800022A370 /* Postman.m in Sources */ = {isa = PBXBuildFile; fileRef = 8623D5BA1A5417800022A370 /* Postman.m */; };
 		8624BB0D1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */; };
+		8626BB231C04978500CD4C30 /* AppPulsemobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB221C04978500CD4C30 /* AppPulsemobile.framework */; settings = {ASSET_TAGS = (); }; };
+		8626BB251C049A8300CD4C30 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB241C049A8300CD4C30 /* libstdc++.tbd */; };
+		8626BB271C049A9000CD4C30 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB261C049A9000CD4C30 /* libz.tbd */; };
+		8626BB2A1C049AAD00CD4C30 /* HPFilter.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8626BB281C049AAD00CD4C30 /* HPFilter.xml */; settings = {ASSET_TAGS = (); }; };
+		8626BB2B1C049AAD00CD4C30 /* hprummonitor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8626BB291C049AAD00CD4C30 /* hprummonitor.plist */; settings = {ASSET_TAGS = (); }; };
 		86287D181A2EE1A500B12893 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D171A2EE1A500B12893 /* Foundation.framework */; };
 		86287D1A1A2EE1A500B12893 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D191A2EE1A500B12893 /* CoreGraphics.framework */; };
 		86287D1C1A2EE1A500B12893 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86287D1B1A2EE1A500B12893 /* UIKit.framework */; };
@@ -338,6 +343,11 @@
 		8623D5BC1A5417840022A370 /* Postman.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Postman.h; sourceTree = "<group>"; };
 		8624BB0B1AC524C0001E2DB8 /* ExchangeServerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeServerSettingViewController.h; sourceTree = "<group>"; };
 		8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeServerSettingViewController.m; sourceTree = "<group>"; };
+		8626BB221C04978500CD4C30 /* AppPulsemobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppPulsemobile.framework; sourceTree = "<group>"; };
+		8626BB241C049A8300CD4C30 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		8626BB261C049A9000CD4C30 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8626BB281C049AAD00CD4C30 /* HPFilter.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HPFilter.xml; sourceTree = "<group>"; };
+		8626BB291C049AAD00CD4C30 /* hprummonitor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = hprummonitor.plist; sourceTree = "<group>"; };
 		86287D141A2EE1A500B12893 /* SimplicITy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimplicITy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86287D171A2EE1A500B12893 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		86287D191A2EE1A500B12893 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -765,6 +775,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8626BB271C049A9000CD4C30 /* libz.tbd in Frameworks */,
+				8626BB251C049A8300CD4C30 /* libstdc++.tbd in Frameworks */,
+				864532D61A5A672100A656A3 /* CoreTelephony.framework in Frameworks */,
+				864532D01A5A66E500A656A3 /* SystemConfiguration.framework in Frameworks */,
 				864B5B771B79BD550024C600 /* WatchKit.framework in Frameworks */,
 				860209141AF7546E005FB8F5 /* libkontakt-ios-sdk.a in Frameworks */,
 				86C077B01AC29D1900938F65 /* libxml2.dylib in Frameworks */,
@@ -772,11 +786,10 @@
 				864532DC1A5A673E00A656A3 /* AudioToolbox.framework in Frameworks */,
 				864532DA1A5A673600A656A3 /* MessageUI.framework in Frameworks */,
 				864532D81A5A672B00A656A3 /* CoreLocation.framework in Frameworks */,
-				864532D61A5A672100A656A3 /* CoreTelephony.framework in Frameworks */,
 				864532D41A5A670F00A656A3 /* libsqlite3.dylib in Frameworks */,
 				864532D21A5A66FF00A656A3 /* libz.dylib in Frameworks */,
-				864532D01A5A66E500A656A3 /* SystemConfiguration.framework in Frameworks */,
 				864532CE1A5A66D800A656A3 /* Security.framework in Frameworks */,
+				8626BB231C04978500CD4C30 /* AppPulsemobile.framework in Frameworks */,
 				864532CC1A5A66C600A656A3 /* MobileCoreServices.framework in Frameworks */,
 				864532CA1A5A665100A656A3 /* CFNetwork.framework in Frameworks */,
 				864E5F6D1A43E3C500C2542A /* MediaPlayer.framework in Frameworks */,
@@ -880,11 +893,11 @@
 		861584221A66931200D2D12A /* News */ = {
 			isa = PBXGroup;
 			children = (
+				8673D6FA1ADBE012009AED9D /* ok2update */,
 				866A5FA01A7A62A8007E29D5 /* MessageDummyViewController.h */,
 				866A5FA11A7A62A8007E29D5 /* MessageDummyViewController.m */,
 				86173AC51A600A8400902088 /* MessageTileViewController.h */,
 				86173AC61A600A8500902088 /* MessageTileViewController.m */,
-				8673D6FA1ADBE012009AED9D /* ok2update */,
 				86679EFE1A2EF2CC00612BBA /* MessagesViewController.h */,
 				86679EFF1A2EF2CC00612BBA /* MessagesViewController.m */,
 				86679F011A2EFD4300612BBA /* MessageDetailViewController.h */,
@@ -982,6 +995,8 @@
 		86287D161A2EE1A500B12893 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8626BB261C049A9000CD4C30 /* libz.tbd */,
+				8626BB241C049A8300CD4C30 /* libstdc++.tbd */,
 				864B5B761B79BD550024C600 /* WatchKit.framework */,
 				86C077AF1AC29D1900938F65 /* libxml2.dylib */,
 				864532DD1A5A674500A656A3 /* MapKit.framework */,
@@ -1011,6 +1026,9 @@
 			isa = PBXGroup;
 			children = (
 				864B5B7C1B79C9EE0024C600 /* SimplicITy.entitlements */,
+				8626BB291C049AAD00CD4C30 /* hprummonitor.plist */,
+				8626BB281C049AAD00CD4C30 /* HPFilter.xml */,
+				8626BB221C04978500CD4C30 /* AppPulsemobile.framework */,
 				864531D61A5A661C00A656A3 /* Airship */,
 				99D9E9141A454CE50026508F /* sketch-me__FREE-version.ttf */,
 				86B5A96B1A4D45F9009018AD /* MuseoSans-100.otf */,
@@ -1889,10 +1907,12 @@
 				864531D51A5A659000A656A3 /* AirshipConfig.plist in Resources */,
 				864532A81A5A661D00A656A3 /* UAInboxMessageListController.xib in Resources */,
 				861738D71AE91AF500BDA49C /* LanchImage_ipad_Portrate@2x.png in Resources */,
+				8626BB2B1C049AAD00CD4C30 /* hprummonitor.plist in Resources */,
 				864532A71A5A661D00A656A3 /* UAInboxMessageListCell.xib in Resources */,
 				861738D31AE91AF500BDA49C /* LaunchImage-800-667h@2x.png in Resources */,
 				8678EE3C1A48596E00F85FF0 /* Main_iPad.storyboard in Resources */,
 				864532A51A5A661D00A656A3 /* list-image-placeholder.png in Resources */,
+				8626BB2A1C049AAD00CD4C30 /* HPFilter.xml in Resources */,
 				869C5F4A1B8EF2D7008A05D6 /* Splash-Screen-1536@3x.png in Resources */,
 				86201CFD1A7CA66D0016CBEF /* MyTickets@2x.png in Resources */,
 				864532B81A5A661D00A656A3 /* bottom-detail.png in Resources */,
@@ -2319,6 +2339,7 @@
 					"$(PROJECT_DIR)/SimplicITy/Airship",
 					"$(PROJECT_DIR)",
 					"$(SDKROOT)/usr/include/libxml2",
+					"$(PROJECT_DIR)/SimplicITy",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";
@@ -2357,6 +2378,7 @@
 					"$(PROJECT_DIR)/SimplicITy/Airship",
 					"$(PROJECT_DIR)",
 					"$(SDKROOT)/usr/include/libxml2",
+					"$(PROJECT_DIR)/SimplicITy",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimplicITy/SimplicITy-Prefix.pch";

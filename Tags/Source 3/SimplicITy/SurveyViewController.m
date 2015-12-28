@@ -287,8 +287,9 @@
     if (imageData)
     {
         UIImage *tempImage = [UIImage imageWithData:imageData];
+        imageData = nil;
         UIImage *icon = [UIImage imageWithCGImage:tempImage.CGImage scale:2 orientation:tempImage.imageOrientation] ;
-        
+        tempImage = nil;
         return icon;
     }
     

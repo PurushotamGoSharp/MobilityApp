@@ -166,27 +166,23 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        
-//        [postMan get:[USER_GIVEN_RATING_API stringByAppendingString:@"Corp123"]];
-//        [postMan get:[USER_GIVEN_RATING_API stringByAppendingString:[UserInfo sharedUserInfo].cropID]];
-
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"aboutus"])
         {
-            [self tryUpdateAboutDeatils];
+//            [self tryUpdateAboutDeatils];
             
         }else
         {
             averageRating = [[NSUserDefaults standardUserDefaults] floatForKey:@"averageRatingKey"];
             totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
 
-            [self  getData];
+//            [self  getData];
         }
     }
     else
     {
         averageRating = [[NSUserDefaults standardUserDefaults] floatForKey:@"averageRatingKey"];
         totalNoOfUserRated = [[NSUserDefaults standardUserDefaults] integerForKey:@"totalNoOfUSerKey"];
-        [self  getData];
+//        [self getData];
     }
     
     yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
@@ -271,13 +267,25 @@
     
     [super viewWillAppear:animated];
     
-    [self updateUI];
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"aboutus"])
+        {
+            [self tryUpdateAboutDeatils];
+            
+        }else
+        {
+            [self  getData];
+        }
         [postMan get:AVERAGE_RATING_API];
+    }else
+    {
+        [self  getData];
     }
     
+    [self updateUI];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChanged:)
                                                  name:UIDeviceOrientationDidChangeNotification
@@ -738,8 +746,9 @@
     if (imageData)
     {
         UIImage *tempImage = [UIImage imageWithData:imageData];
+        imageData = nil;
         UIImage *image = [UIImage imageWithCGImage:tempImage.CGImage scale:2 orientation:tempImage.imageOrientation] ;
-        
+        tempImage = nil;
         return image;
     }
     

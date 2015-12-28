@@ -430,4 +430,27 @@
     return [arrayOfAliases containsObject:aliase];
 }
 
+- (void)getLatestNewsIDWithCompletionner:(void (^)(BOOL success, NSInteger latestID))completionHandler
+{
+    [postMan get:LATEST_NEW_ID_API success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        /*{
+         "aaData": {
+         "Id": 6130,
+         "Success": true
+         }
+         }*/
+        NSDictionary *dict = responseObject[@"aaData"];
+        if ([dict[@"Success"] boolValue])
+        {
+            NSInteger latestID = [dict[@"Id"] integerValue];
+            completionHandler(YES, latestID);
+        }else
+        {
+            completionHandler(NO, 0);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionHandler(NO, 0);
+    }];
+}
+
 @end
