@@ -1,0 +1,124 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+
+#import <Foundation/Foundation.h>
+#import "CustomColoredViewController.h"
+#import <QuartzCore/QuartzCore.h>
+#import <MCLocalization/MCLocalization.h>
+
+
+#import "Postman.h"
+#import <MCLocalization/MCLocalization.h>
+#import "UserInfo.h"
+
+#import "NSDateFormatter+Locale.h"
+
+#define Updation_Is_Required @"UpdationIsRequired"
+
+#define REQUEST_SYNC_NOTIFICATION_KEY  @"requestSyncNotificationKey"
+#define REQUEST_SYNC_FAILURE_NOTIFICATION_KEY  @"requestSyncFailureNotificationKey"
+
+#define THEME_BLUE_OCEAN @"Blue Ocean"
+#define THEME_ORANGE_HUE @"Orange Hue"
+#define THEME_PINK_ROSE @"Pink Rose"
+#define THEME_GREEN_GLOW @"Green Glow"
+
+#define BACKGROUND_THEME_VALUE @"BackgroundTheme"
+
+#define SELECTED_LOCATION_CODE @"SelectedLocationCode"
+#define SELECTED_LOCATION_NAME @"SelectedLocationName"
+
+#define SELECTED_OFFICE_MAILID @"SelectedOfficeMailID"
+#define SELECTED_OFFICE_NAME @"SelectedOfficeName"
+
+#define INTERNET_IS_REQUIRED_TO_SYNC_DATA @"The device is not connected to internet. Please connect the device to sync data"
+#define WARNING_TEXT @"Warning !"
+
+#define FLOW_FOR_ORDER @"orderBtnPressed"
+
+#define EWS_USER_NAME @"ewsUserName"
+#define EWS_USERS_PASSWORD @"ewsUsersPassword"
+#define EWS_USERS_LOCATION @"ewsUsersLocation"
+
+#define LANGUAGE_CODE @"languageCode"
+
+//#define BASE_URL @"https://vmlabs-win.vmoksha.com:8087/"
+
+//#define BASE_URL @"http://simplicitytst.ripple-io.in/"
+
+//#define BASE_URL @"http://simplicitystg.ripple-io.in/"
+
+//#define BASE_URL @"http://simplicity-demo.vmokshagroup.com:8093/"
+
+
+#define BASE_URL [UserInfo sharedUserInfo].applicationBaseURL
+
+#define SEED_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Seed"]
+#define SEARCH_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Category"]
+#define TIPS_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/TipsGroup"]
+#define TIPS_SUBCATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"%@/Tips"]
+#define WEB_CLIPS_BASE_API  [NSString stringWithFormat:@"%@%@",BASE_URL, @"WebClip"]
+#define RENDER_DOC_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"RenderDocument/%@"]
+#define ALL_TIPS_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Tips"]
+#define ABOUT_DETAILS_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/AboutUs"]
+#define AVERAGE_RATING_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/Average"]
+#define USER_GIVEN_RATING_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/"]
+#define FEEDBACK_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Rating/"]
+#define SURVEY_BASE_API  [NSString stringWithFormat:@"%@%@",BASE_URL, @"Survey"]
+
+#define NEWS_CATEGORY_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/NewsCategory"]
+#define NEWS_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/News"]
+
+#define SEARCH_LANGUAGE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Language"]
+#define SEARCH_OFFICE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Office"]
+#define EWS_REQUSET_URL_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"ExchangeServerUrl"]
+
+#define GET_DETAILS_BEACON_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Search/Beacons"]
+#define UPLOAD_FILE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Document/Upload"]
+#define DOWNLOAD_FILE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"DownloadDoc/"]
+#define DELETE_FILE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"DeleteDocument"]
+
+#define LANGUAGE_CHANGE_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"UILabels/"]
+
+#define LATEST_NEW_ID_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"News/SinceId?Last"]
+
+
+// UCB
+#define BASE_URL_UCB self.oKToUpdate
+#define ITSM_AUTH_API [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"itsm"]
+#define RAISE_A_TICKET_API [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"itsm/ticket/"]
+#define RAISE_AN_ORDER_API [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"itsm/ticket/"]
+#define LDAP_URL [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"ad/account-status/id/"]
+#define URL_TO_GET_LISTOF_TICKETS  [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"itsm/tickets/id/created-by-user/"]
+
+//#define BASE_URL_UCB @"https://mdmAPIACC.ucb.com/"
+//#define ITSM_AUTH_API @"https://mdmAPIACC.ucb.com/itsm"
+//#define RAISE_A_TICKET_API @"https://mdmAPIACC.ucb.com/itsm/ticket/"
+//#define RAISE_AN_ORDER_API @"https://mdmAPIACC.ucb.com/itsm/ticket/"
+//#define LDAP_URL @"https://mdmAPIACC.ucb.com/ad/account-status/id/"
+
+//#define URL_TO_GET_LISTOF_TICKETS  @"https://simplicity-dev.ucb.com/itsm/tickets/id/created-by-user/"
+
+
+//EWS
+#define EWS_REQUSET_URL_KEY @"ewsRequestURLKey"
+
+//#define EWS_REQUSET_URL @"https://mail.ucb.com/ews/exchange.asmx" //Change user name and Passowrd
+
+
+//Localisation
+#define STRING_FOR_LANGUAGE(X) [MCLocalization stringForKey:X]
+
+#endif
