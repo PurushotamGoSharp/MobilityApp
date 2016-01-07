@@ -12,6 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 #import <sqlite3.h>
+#import "UserInfo.h"
 
 #import <MCLocalization/MCLocalization.h>
 
@@ -46,7 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     arrOfLanguageData = @[@"English"];
-
+    
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
 }
@@ -86,12 +87,11 @@
     }else
     {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-      NSString *langCode =  [self parseLangChangeResponseData:response];
-        
-//        [MCLocalization sharedInstance].language = langCode;
+        NSString *langCode =  [self parseLangChangeResponseData:response];
+        //        [MCLocalization sharedInstance].language = langCode;
     }
-
-
+    
+    
 }
 
 //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -114,13 +114,13 @@
 //for (NSString *aJsonFile in jsonFiles)
 //{
 //    NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
-//    
+//
 //    names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
-//    
+//
 //    NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-//    
+//
 //    [languageUrlPairs setObject:filePathUrl forKey:names];
-//    
+//
 //    [MCLocalization loadFromLanguageURLPairs:languageUrlPairs defaultLanguage:@"en"];
 //    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
 
@@ -148,40 +148,41 @@
     NSLog(@"language %@",aaData);
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:aaData options:0 error:&error];
-
     
-    [[NSUserDefaults standardUserDefaults]setObject:languageCode forKey:LANGUAGE_CODE];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
-//    [self sample];
+    
+    
+    //    [self sample];
     
     NSFileManager *fmngr = [[NSFileManager alloc] init];
-
+    
     AppDelegate *appDel = [UIApplication sharedApplication].delegate;
-
+    
     NSString *filePth = [self getFilePath:languageCode];
+    
+    [jsonData writeToFile:filePth atomically:YES];
+    
+    NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
+    
+    [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
+    
+    NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
+    
     
     if (![fmngr fileExistsAtPath:filePth])
     {
-        [jsonData writeToFile:filePth atomically:YES];
         
-        NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
+        //        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
+        //        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
         
-        [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
-        
-        NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
-        
-//        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
-//        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
-
     }else
     {
         NSLog(@"File already Exists");
     }
-
     
-//    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
-//    [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
+    
+    //    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
+    //    [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
     
     
     return languageCode;
@@ -199,38 +200,38 @@
 
 -(void)sample
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //    NSString *documentsDirectory = [paths objectAtIndex:0];
+    //
+    //    NSFileManager *fmngr = [[NSFileManager alloc] init];
+    //
+    //    // grab all the files in the documents dir
+    //    NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
+    //
+    //    // filter the array for only json files
+    //    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
+    //    NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
+    //
+    //    NSString *names = nil;
+    //
+    //    // use fast enumeration to iterate the array and delete the files
+    //
+    //
+    //    NSMutableDictionary *languageUrlPairs = [[NSMutableDictionary alloc] init];
+    //
+    //    for (NSString *aJsonFile in jsonFiles)
+    //    {
+    //        NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
+    //
+    //        names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
+    //
+    //        NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
+    //
+    //        [languageUrlPairs setObject:filePathUrl forKey:names];
+    //    }
     
-//    NSFileManager *fmngr = [[NSFileManager alloc] init];
-//    
-//    // grab all the files in the documents dir
-//    NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
-//    
-//    // filter the array for only json files
-//    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
-//    NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
-//    
-//    NSString *names = nil;
-//    
-//    // use fast enumeration to iterate the array and delete the files
-//    
-//    
-//    NSMutableDictionary *languageUrlPairs = [[NSMutableDictionary alloc] init];
-//    
-//    for (NSString *aJsonFile in jsonFiles)
-//    {
-//        NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
-//        
-//        names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
-//        
-//        NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-//        
-//        [languageUrlPairs setObject:filePathUrl forKey:names];
-//    }
     
-
-
+    
 }
 
 - (void)parseResponseData:(NSData*)response
@@ -276,7 +277,7 @@
     rangeofString.length = stringFromData.length;
     [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
     
-     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  languages (API,data) values ('%@', '%@')", SEARCH_LANGUAGE_API,stringFromData];
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  languages (API,data) values ('%@', '%@')", SEARCH_LANGUAGE_API,stringFromData];
     [dbManager saveDataToDBForQuery:insertSQL];
 }
 
@@ -318,6 +319,9 @@
     [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguage"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.delegate selectedLanguageis:selectedlanguage];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:@"Restart your App to reflect the Language changes" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 #pragma mark UITableViewDataSource methods
@@ -336,15 +340,15 @@
     titleLable = (UILabel *)[cell viewWithTag:100];
     titleLable.text = alanguage.name;
     titleLable.highlightedTextColor = [UIColor whiteColor];
-   
+    
     titleLable.font=[self customFont:16 ofName:MuseoSans_700];
     
-//    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    //    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
     UIView *bgColorView = [[UIView alloc] init];
     bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
     [cell setSelectedBackgroundView:bgColorView];
-
+    
     
     return cell;
 }
@@ -361,17 +365,37 @@
     
     LanguageModel *amodel = languagesArrOfData[indexPath.row];
     
-//    [self changeLanguageWithCode:amodel.code];
+    [self changeLanguageWithCode:amodel.code];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:amodel.code forKey:LANGUAGE_CODE];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)changeLanguageWithCode:(NSString*)langCode
 {
-   postMan = [[Postman alloc] init];
+    postMan = [[Postman alloc] init];
     postMan.delegate = self;
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+    NSString *url = [NSString stringWithFormat:@"%@%@",LANGUAGE_CHANGE_API,langCode];
+    
+    
+    //    NSString *url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+    
+    //    NSString *url;
+    //
+    //    if ([langCode isEqualToString:@"en"])
+    //    {
+    //        url = [NSString stringWithFormat:@"%@en",LANGUAGE_CHANGE_API];
+    //        [postMan get:url];
+    //    }else
+    //    {
+    //        url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+    //        [postMan get:url];
+    //    }
+    
+    
     [postMan get:url];
     
 }
@@ -383,13 +407,14 @@
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
