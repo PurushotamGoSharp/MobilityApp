@@ -351,7 +351,7 @@
                                                                     <segue destination="yDK-B7-She" kind="push" id="Jrv-6w-ASy"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Services" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpL-rN-qvM">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apps" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpL-rN-qvM">
                                                                 <rect key="frame" x="21" y="84" width="59" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -360,6 +360,13 @@
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WebClipDash" translatesAutoresizingMaskIntoConstraints="NO" id="rWJ-Np-QfH">
                                                                 <rect key="frame" x="18" y="16" width="64" height="64"/>
                                                             </imageView>
+                                                            <view hidden="YES" alpha="0.29999999999999966" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-yX-dCJ" userLabel="AlphaView" customClass="UIControl">
+                                                                <rect key="frame" x="-110" y="-352" width="320" height="568"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <connections>
+                                                                    <action selector="cancelPopUp:" destination="Wvs-fA-k09" eventType="touchDown" id="U9S-3y-YLf"/>
+                                                                </connections>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.40784313725490196" green="0.59999999999999998" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
@@ -530,13 +537,6 @@
                                     <constraint firstItem="kuE-EK-KAA" firstAttribute="top" secondItem="l1b-Pk-mKI" secondAttribute="top" constant="36" id="vgt-PX-OVB"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.29999999999999966" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-yX-dCJ" userLabel="AlphaView" customClass="UIControl">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="cancelPopUp:" destination="Wvs-fA-k09" eventType="touchDown" id="U9S-3y-YLf"/>
-                                </connections>
-                            </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBT-Lz-n5A">
                                 <rect key="frame" x="35" y="215" width="250" height="140"/>
                                 <subviews>
@@ -595,19 +595,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="qgh-yX-dCJ" secondAttribute="bottom" id="5mH-kj-zRU"/>
                             <constraint firstItem="y3w-Ve-J7d" firstAttribute="top" secondItem="22J-zz-Ztw" secondAttribute="bottom" priority="999" id="AdS-wD-ucm"/>
                             <constraint firstItem="y3w-Ve-J7d" firstAttribute="top" secondItem="l1b-Pk-mKI" secondAttribute="bottom" id="EMY-HI-pPa"/>
                             <constraint firstAttribute="trailing" secondItem="y3w-Ve-J7d" secondAttribute="trailing" id="LL8-WA-tn1"/>
-                            <constraint firstItem="qgh-yX-dCJ" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="LTD-y9-12F"/>
-                            <constraint firstItem="qgh-yX-dCJ" firstAttribute="top" secondItem="qBd-jD-x98" secondAttribute="top" id="Laa-zy-G7O"/>
                             <constraint firstAttribute="centerY" secondItem="aBT-Lz-n5A" secondAttribute="centerY" constant="-0.5" id="NcU-NS-Hl9"/>
                             <constraint firstItem="l1b-Pk-mKI" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="O41-m6-1Qv"/>
                             <constraint firstItem="WCN-AC-ePg" firstAttribute="top" secondItem="y3w-Ve-J7d" secondAttribute="bottom" id="don-P8-YOS"/>
                             <constraint firstItem="l1b-Pk-mKI" firstAttribute="top" secondItem="22J-zz-Ztw" secondAttribute="bottom" constant="-107" id="fIi-Kf-0I8"/>
                             <constraint firstAttribute="centerX" secondItem="l1b-Pk-mKI" secondAttribute="centerX" id="hgy-Zp-wG9"/>
                             <constraint firstAttribute="trailing" secondItem="l1b-Pk-mKI" secondAttribute="trailing" id="lXa-dV-Pam"/>
-                            <constraint firstAttribute="trailing" secondItem="qgh-yX-dCJ" secondAttribute="trailing" id="mSl-U2-R7h"/>
                             <constraint firstAttribute="centerX" secondItem="aBT-Lz-n5A" secondAttribute="centerX" id="xVo-z4-HEQ"/>
                             <constraint firstItem="y3w-Ve-J7d" firstAttribute="leading" secondItem="qBd-jD-x98" secondAttribute="leading" id="yaC-c9-fcO"/>
                         </constraints>

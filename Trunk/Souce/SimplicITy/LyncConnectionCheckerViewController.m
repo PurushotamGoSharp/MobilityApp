@@ -56,7 +56,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = STRING_FOR_LANGUAGE(@"Ping_My_Lync");
+    self.title = STRING_FOR_LANGUAGE(@"Ping My Lync");
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -284,14 +284,14 @@
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
         
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Slow_Speed");
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Slow- only Audio is recommended");
         
     }else if ((uploadSpeed <= 130 && uploadSpeed > 60) || (downloadSpeed <= 20 && downloadSpeed > 10))
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Average_Speed");
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Average- Audio and View Screen are recommended");
         
     }else if (uploadSpeed >= 180 || downloadSpeed >= 28)
     {
@@ -299,7 +299,7 @@
         self.videoView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Fast_Speed");
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Fast- Audio, Video and View Screen are recommended");
         
     }else
     {
@@ -307,7 +307,7 @@
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection_Speed");
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection Speed");
     }
 }
 
