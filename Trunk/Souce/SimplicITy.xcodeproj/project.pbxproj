@@ -147,6 +147,7 @@
 		868EC25D1AD64FBA0035C57F /* ADExpirationDateFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 868EC25C1AD64FBA0035C57F /* ADExpirationDateFetcher.m */; };
 		8691A4301A7B630F006D3663 /* starFull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8691A42E1A7B630F006D3663 /* starFull@2x.png */; };
 		86990F7B1ADFB88A0024AF97 /* SelectDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86990F7A1ADFB88A0024AF97 /* SelectDateTableViewCell.m */; };
+		869942F61C4CDE22002605DF /* LyncConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 869942F51C4CDE22002605DF /* LyncConfigModel.m */; settings = {ASSET_TAGS = (); }; };
 		869999401ACBEE7D005811AC /* OfficeLocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8699993F1ACBEE7D005811AC /* OfficeLocationsViewController.m */; };
 		869999431ACBF99B005811AC /* OfficeLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 869999421ACBF99B005811AC /* OfficeLocation.m */; };
 		869C5F4A1B8EF2D7008A05D6 /* Splash-Screen-1536@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C5F491B8EF2D7008A05D6 /* Splash-Screen-1536@3x.png */; };
@@ -154,7 +155,6 @@
 		869E2CF61C3D1E5900828CC1 /* image2Mb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 869E2CF41C3D1E5900828CC1 /* image2Mb.jpg */; };
 		869F37CF1A4AE49F004F27CC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */; };
 		86A0AB071ADB7ECB008732B8 /* AddAttendeesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A0AB061ADB7ECB008732B8 /* AddAttendeesViewController.m */; };
-		86A1D5ED1C4CD340008FE9B8 /* LyncModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A1D5EC1C4CD340008FE9B8 /* LyncModel.m */; };
 		86A21D481A5D052D0090F5E5 /* webClipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D471A5D052D0090F5E5 /* webClipModel.m */; };
 		86A21D4B1A5D0CD70090F5E5 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A21D4A1A5D0CD70090F5E5 /* DBManager.m */; };
 		86A3552B1A5406900065B457 /* RaiseATicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A355291A5406900065B457 /* RaiseATicketViewController.m */; };
@@ -619,6 +619,8 @@
 		8691A42E1A7B630F006D3663 /* starFull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starFull@2x.png"; sourceTree = "<group>"; };
 		86990F791ADFB88A0024AF97 /* SelectDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectDateTableViewCell.h; sourceTree = "<group>"; };
 		86990F7A1ADFB88A0024AF97 /* SelectDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectDateTableViewCell.m; sourceTree = "<group>"; };
+		869942F41C4CDE22002605DF /* LyncConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyncConfigModel.h; sourceTree = "<group>"; };
+		869942F51C4CDE22002605DF /* LyncConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyncConfigModel.m; sourceTree = "<group>"; };
 		8699993E1ACBEE7D005811AC /* OfficeLocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeLocationsViewController.h; sourceTree = "<group>"; };
 		8699993F1ACBEE7D005811AC /* OfficeLocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeLocationsViewController.m; sourceTree = "<group>"; };
 		869999411ACBF99B005811AC /* OfficeLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeLocation.h; sourceTree = "<group>"; };
@@ -629,8 +631,6 @@
 		869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		86A0AB051ADB7ECB008732B8 /* AddAttendeesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAttendeesViewController.h; sourceTree = "<group>"; };
 		86A0AB061ADB7ECB008732B8 /* AddAttendeesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAttendeesViewController.m; sourceTree = "<group>"; };
-		86A1D5EB1C4CD340008FE9B8 /* LyncModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyncModel.h; sourceTree = "<group>"; };
-		86A1D5EC1C4CD340008FE9B8 /* LyncModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyncModel.m; sourceTree = "<group>"; };
 		86A21D461A5D052D0090F5E5 /* webClipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = webClipModel.h; sourceTree = "<group>"; };
 		86A21D471A5D052D0090F5E5 /* webClipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = webClipModel.m; sourceTree = "<group>"; };
 		86A21D491A5D0CD70090F5E5 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
@@ -1537,8 +1537,8 @@
 			children = (
 				86491A741A30817100711740 /* ToolsViewController.h */,
 				86491A751A30817100711740 /* ToolsViewController.m */,
-				86A1D5EB1C4CD340008FE9B8 /* LyncModel.h */,
-				86A1D5EC1C4CD340008FE9B8 /* LyncModel.m */,
+				869942F41C4CDE22002605DF /* LyncConfigModel.h */,
+				869942F51C4CDE22002605DF /* LyncConfigModel.m */,
 				8632070C1A455794006FBD52 /* LyncConnectionCheckerViewController.h */,
 				8632070D1A455794006FBD52 /* LyncConnectionCheckerViewController.m */,
 				869E2CF31C3D1E5900828CC1 /* image3Mb.jpg */,
@@ -2129,7 +2129,6 @@
 				86EDBE1F1A3992270045904C /* CustomColoredViewController.m in Sources */,
 				86A3552E1A5406980065B457 /* CategoryModel.m in Sources */,
 				86D5196A1A95C93800052B60 /* NewsCategoryModel.m in Sources */,
-				86A1D5ED1C4CD340008FE9B8 /* LyncModel.m in Sources */,
 				86C077A91AC29BD300938F65 /* USAdditions.m in Sources */,
 				86A74B8B1A91BEDB00A2AD78 /* SurveyModel.m in Sources */,
 				860081FA1AD54CC5009C885B /* PasswordManager.m in Sources */,
@@ -2142,6 +2141,7 @@
 				86E1B8B11AC91DF200C3B8EB /* DailyCalendarView.m in Sources */,
 				86A9A3F11A5E601F006D8A46 /* SplashDelayViewController.m in Sources */,
 				86AD6B6B1A70C880006A127B /* SendRequestsManager.m in Sources */,
+				869942F61C4CDE22002605DF /* LyncConfigModel.m in Sources */,
 				86DEEB341A2EF27F00EA4C84 /* DashBoardViewController.m in Sources */,
 				864532B21A5A661D00A656A3 /* UAPushSettingsSoundsViewController.m in Sources */,
 				86C077A51AC29BD300938F65 /* ExchangeWebService.m in Sources */,

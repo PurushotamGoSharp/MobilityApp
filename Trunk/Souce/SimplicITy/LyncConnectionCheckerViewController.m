@@ -11,6 +11,10 @@
 #import "UserInfo.h"
 #import "MBProgressHUD.h"
 #import "Postman.h"
+#import "LyncConfigModel.h"
+
+#define NULL_CHECKER(X) ([X isKindOfClass:[NSNull class]] ? nil : X)
+
 @interface LyncConnectionCheckerViewController ()<postmanDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *connectionSpeedLbl;
@@ -34,9 +38,6 @@
     AFURLSessionManager *managerrr;
     __block MBProgressHUD *hud;
     NSNumberFormatter *fmt;
-    
-    //    AFURLSessionManager *manager;
-    
     NSDictionary *uploadAndDownloadInfo;
     
     NSString *downloadDirectoryPath;
@@ -49,6 +50,9 @@
     NSString *fileId;
     NSString *requestCode;
     int docId;
+    Postman *postman;
+    
+    LyncConfigModel *audioUpObj, *audioDownObj, *videoUpObj, *videoDownObj, *screenUpObj, *screenDownObj;
 }
 
 - (void)viewDidLoad {
@@ -78,11 +82,70 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
+        [self callConfigAPI];
         [self callAPI];
     }else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:@"Internet connection is required" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
         [alert show];
+    }
+}
+
+- (void)callConfigAPI
+{
+    if (postman == nil)
+    {
+        postman = [[Postman alloc] init];
+    }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    [postman get:ALL_CONFIG_API
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             [self parseCOnfigResponse:responseObject];
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+         }];
+}
+
+- (void)parseCOnfigResponse:(NSDictionary *)response
+{
+    NSArray *configs = response[@"aaData"][@"Configurations"];
+    
+    for (NSDictionary *dict in configs)
+    {
+        if ([NULL_CHECKER(dict[@"ParentCode"]) isEqualToString:@"Lync Checker"])
+        {
+            LyncConfigModel *config = [[LyncConfigModel alloc] init];
+            config.code = dict[@"Code"];
+            config.valueFrom = [dict[@"ValueFrom"] floatValue];
+            config.valueTo = [dict[@"ValueTo"] floatValue];
+            
+            if ([config.code isEqualToString:@"AUDUPL"])
+            {
+                audioUpObj = config;
+            }else if ([config.code isEqualToString:@"AUDDLL"])
+            {
+                audioDownObj = config;
+
+            }else if ([config.code isEqualToString:@"VIDUPL"])
+            {
+                videoUpObj = config;
+
+            }else if ([config.code isEqualToString:@"VIDDLL"])
+            {
+                videoDownObj = config;
+
+            }else if ([config.code isEqualToString:@"VSCUPL"])
+            {
+                screenUpObj = config;
+
+            }else if ([config.code isEqualToString:@"VSCDLL"])
+            {
+                screenDownObj = config;
+            }
+        }
     }
 }
 
@@ -260,9 +323,9 @@
     }];
 }
 
--(void)deleteAfterDownloadWithParameter:(NSString*)parameter
+- (void)deleteAfterDownloadWithParameter:(NSString*)parameter
 {
-    Postman *postman = [[Postman alloc] init];
+//    Postman *postman = [[Postman alloc] init];
     postman.delegate = self;
     [postman post:DELETE_FILE_API withParameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -274,10 +337,10 @@
      }];
 }
 
--(void)enableAndDisable
+- (void)enableAndDisable
 {
     
-    if ((uploadSpeed <= 60 && uploadSpeed > 0) || (downloadSpeed <= 10 && (downloadSpeed > 0)) )
+    if ((uploadSpeed <= audioUpObj.valueTo && uploadSpeed > audioUpObj.valueFrom) || (downloadSpeed <= audioDownObj.valueTo && (downloadSpeed > audioDownObj.valueFrom)) )
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1]; //Blue
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
@@ -285,14 +348,14 @@
         
         self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Slow- only Audio is recommended");
         
-    }else if ((uploadSpeed <= 130 && uploadSpeed > 60) || (downloadSpeed <= 20 && downloadSpeed > 10))
+    }else if ((uploadSpeed <= videoUpObj.valueTo && uploadSpeed > videoUpObj.valueFrom) || (downloadSpeed <= videoDownObj.valueTo && downloadSpeed > videoDownObj.valueFrom))
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Average- Audio and View Screen are recommended");
         
-    }else if (uploadSpeed >= 180 || downloadSpeed >= 28)
+    }else if ((uploadSpeed <= screenUpObj.valueTo && uploadSpeed > screenUpObj.valueFrom) || (downloadSpeed <= screenDownObj.valueTo && downloadSpeed > screenDownObj.valueFrom))
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.videoView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
@@ -317,7 +380,7 @@
     return [NSString stringWithFormat:@"%@/%@", downloadDirectoryPath, filename];
 }
 
--(void)viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.navigationController popViewControllerAnimated:YES];
@@ -338,15 +401,5 @@
 {
     
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
