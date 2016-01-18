@@ -49,7 +49,6 @@
     NSString *fileId;
     NSString *requestCode;
     int docId;
-    
 }
 
 - (void)viewDidLoad {
