@@ -152,6 +152,12 @@ static NSString * const kConfigurationKey = @"com.apple.configuration.managed";
     return _applicationBaseURL;
 }
 
+- (NSString *)appStoreURL
+{
+    _appStoreURL = [self getServerConfig][@"appstoreURL"];
+    return _appStoreURL;
+}
+
 - (void)userDefaultdValueChanged
 {
     serverConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigurationKey];

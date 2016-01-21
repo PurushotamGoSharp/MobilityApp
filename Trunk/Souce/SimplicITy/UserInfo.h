@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSString *oKToUpdate;
 @property (strong, nonatomic) NSString *iTSM_LDAP_BaseURL;
 @property (strong, nonatomic) NSString *applicationBaseURL;
+@property (strong, nonatomic) NSString *appStoreURL;
 
 
 + (instancetype)sharedUserInfo;

@@ -12,10 +12,11 @@
 #import "MBProgressHUD.h"
 #import "Postman.h"
 #import "LyncConfigModel.h"
+#import "DBManager.h"
 
 #define NULL_CHECKER(X) ([X isKindOfClass:[NSNull class]] ? nil : X)
 
-@interface LyncConnectionCheckerViewController ()<postmanDelegate>
+@interface LyncConnectionCheckerViewController ()<postmanDelegate, DBManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *connectionSpeedLbl;
 @property (weak, nonatomic) IBOutlet UILabel *downloadLbl;
@@ -51,6 +52,7 @@
     NSString *requestCode;
     int docId;
     Postman *postman;
+    DBManager *dbManager;
     
     LyncConfigModel *audioUpObj, *audioDownObj, *videoUpObj, *videoDownObj, *screenUpObj, *screenDownObj;
 }
@@ -59,7 +61,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = STRING_FOR_LANGUAGE(@"Ping My Lync");
+    self.title = @"Ping My Lync";
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -82,7 +84,23 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        [self callConfigAPI];
+        if ([AFNetworkReachabilityManager sharedManager].isReachable)
+        {
+            if ([[NSUserDefaults standardUserDefaults]boolForKey:@"configuration"])
+            {
+                [self callConfigAPI];
+                
+            }else
+            {
+                [self  getData];
+            }
+            
+        }
+        else
+        {
+            [self  getData];
+        }
+        
         [self callAPI];
     }else
     {
@@ -91,6 +109,39 @@
     }
 }
 
+
+- (void)getData
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate = self;
+    }
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM configarationAPI WHERE API = '%@'", ALL_CONFIG_API];
+    if (![dbManager getDataForQuery:queryString])
+    {
+        if (![AFNetworkReachabilityManager sharedManager].reachable)
+        {
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [noNetworkAlert show];
+        }
+        
+        [self callConfigAPI];
+    }
+}
+
+- (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
+{
+    if (sqlite3_step(statment) == SQLITE_ROW)
+    {
+        NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
+        
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        [self parseCOnfigResponse:dict];
+    }
+}
 - (void)callConfigAPI
 {
     if (postman == nil)
@@ -102,11 +153,36 @@
     [postman get:ALL_CONFIG_API
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              [self parseCOnfigResponse:responseObject];
+             [self saveWebClipsData:[operation responseData] forURL:ALL_CONFIG_API];
+             [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"configuration"];
+             [[NSUserDefaults standardUserDefaults] synchronize];
              [MBProgressHUD hideHUDForView:self.view animated:YES];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              [MBProgressHUD hideHUDForView:self.view animated:YES];
          }];
+}
+
+- (void)saveWebClipsData:(NSData *)response forURL:(NSString *)APILink
+{
+    if (dbManager == nil)
+    {
+        dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dbManager.delegate=self;
+    }
+    
+    NSString *createQuery = @"create table if not exists configarationAPI (API text PRIMARY KEY, data text)";
+    [dbManager createTableForQuery:createQuery];
+    
+    NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+    NSRange rangeofString;
+    rangeofString.location = 0;
+    rangeofString.length = stringFromData.length;
+    [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  configarationAPI (API,data) values ('%@', '%@')", APILink,stringFromData];
+    
+    [dbManager saveDataToDBForQuery:insertSQL];
 }
 
 - (void)parseCOnfigResponse:(NSDictionary *)response
@@ -345,23 +421,21 @@
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1]; //Blue
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
-        
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Slow- only Audio is recommended");
-        
-    }else if ((uploadSpeed <= videoUpObj.valueTo && uploadSpeed > videoUpObj.valueFrom) || (downloadSpeed <= videoDownObj.valueTo && downloadSpeed > videoDownObj.valueFrom))
-    {
-        self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
-        self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Average- Audio and View Screen are recommended");
+        self.connectionResultLbl.text = @"Slow- only Audio is recommended";
         
     }else if ((uploadSpeed <= screenUpObj.valueTo && uploadSpeed > screenUpObj.valueFrom) || (downloadSpeed <= screenDownObj.valueTo && downloadSpeed > screenDownObj.valueFrom))
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
+        self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
+        self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
+        self.connectionResultLbl.text = @"Average- Audio and View Screen are recommended";
+        
+    }else if ((uploadSpeed > videoUpObj.valueFrom) || (downloadSpeed > videoDownObj.valueFrom))
+    {
+        self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.videoView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Fast- Audio, Video and View Screen are recommended");
+        self.connectionResultLbl.text = @"Fast- Audio, Video and View Screen are recommended";
         
     }else
     {
@@ -369,7 +443,7 @@
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         
-        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection Speed");
+        self.connectionResultLbl.text = @"Connection Speed";
     }
 }
 

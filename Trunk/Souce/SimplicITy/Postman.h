@@ -11,7 +11,7 @@
 
 @class Postman;
 @protocol postmanDelegate <NSObject>
-
+@optional
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString;
 - (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString;
 

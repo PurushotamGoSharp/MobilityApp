@@ -121,7 +121,7 @@
     SendRequestsManager *requestManager = [[SendRequestsManager alloc] init];
     requestManager.delegate = self;
     
-    NSDictionary *userInfoDict = [[UserInfo sharedUserInfo] getServerConfig];
+//    NSDictionary *userInfoDict = [[UserInfo sharedUserInfo] getServerConfig];
 //    NSString *firstName = userInfoDict [@"firstName"];
 //    NSString *lastName = userInfoDict [@"lastName"];
     

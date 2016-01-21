@@ -12,7 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 
 
-@interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate>
+@interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate, UIAlertViewDelegate>
 {
     UIBarButtonItem *backButton;
     Postman *postMan;
@@ -23,6 +23,7 @@
     
     DBManager *dbManager;
     NSString *URLString;
+    UIAlertView *openAppAlert;
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOutlet;
@@ -75,7 +76,6 @@
 - (void)tryUpdatewebClip
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
     [postMan get:URLString];
 }
 
@@ -287,7 +287,18 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     webClipModel *webClip = webClipArr[indexPath.row];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:webClip.urlLink]])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
+    } else
+    {
+        if (openAppAlert == nil)
+        {
+            openAppAlert = [[UIAlertView alloc] initWithTitle:@"Can not open!" message:@"This App is not installed in your device. Do you want to install this by visiting UCB AppStore?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+        }
+        
+        [openAppAlert show];
+    }
 }
 
 - (UIImage *)getimageForDocCode:(NSString *)docCode
@@ -308,6 +319,18 @@
     }
     
     return nil;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([openAppAlert isEqual:alertView])
+    {
+        if (buttonIndex == 1)
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[UserInfo sharedUserInfo].appStoreURL]];
+
+        }
+    }
 }
 
 /*
