@@ -183,23 +183,22 @@
     selectedLocation = [[LocationModel alloc] init];
     [self setupLocation];
     self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
+   
+
 }
 
 -(void)localize
 {
-    self.title = [MCLocalization stringForKey:@"Home"];
-
+        self.title = [MCLocalization stringForKey:@"Home"];
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book_a_Room"];
-    self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
-
+        self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
         self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade_Device"];
         self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT_SOS"];
         self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
         self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My_Tickets"];
         self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Services"];
-    
-    self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call_Service_Desk"];
+        self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call_Service_Desk"];
 
 }
 

@@ -147,7 +147,7 @@
 		868EC25D1AD64FBA0035C57F /* ADExpirationDateFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 868EC25C1AD64FBA0035C57F /* ADExpirationDateFetcher.m */; };
 		8691A4301A7B630F006D3663 /* starFull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8691A42E1A7B630F006D3663 /* starFull@2x.png */; };
 		86990F7B1ADFB88A0024AF97 /* SelectDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 86990F7A1ADFB88A0024AF97 /* SelectDateTableViewCell.m */; };
-		869942F61C4CDE22002605DF /* LyncConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 869942F51C4CDE22002605DF /* LyncConfigModel.m */; settings = {ASSET_TAGS = (); }; };
+		869942F61C4CDE22002605DF /* LyncConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 869942F51C4CDE22002605DF /* LyncConfigModel.m */; };
 		869999401ACBEE7D005811AC /* OfficeLocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8699993F1ACBEE7D005811AC /* OfficeLocationsViewController.m */; };
 		869999431ACBF99B005811AC /* OfficeLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 869999421ACBF99B005811AC /* OfficeLocation.m */; };
 		869C5F4A1B8EF2D7008A05D6 /* Splash-Screen-1536@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 869C5F491B8EF2D7008A05D6 /* Splash-Screen-1536@3x.png */; };
@@ -1767,6 +1767,7 @@
 				86287D121A2EE1A500B12893 /* Resources */,
 				B78249839FEE88515F93DF33 /* Copy Pods Resources */,
 				86DBCC331B78C79F007994A1 /* Embed App Extensions */,
+				23821F606EC08440D61BEDB5 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1999,6 +2000,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		23821F606EC08440D61BEDB5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SimplicITy/Pods-SimplicITy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B78249839FEE88515F93DF33 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

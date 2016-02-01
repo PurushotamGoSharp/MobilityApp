@@ -58,7 +58,7 @@
     
     BOOL serviceIsSelected;
     BOOL saveButtonIsPressed;
-    
+
     NSDateFormatter *dateFormatter;
     RequestModel *currentRequest;
     BOOL haveRasiedRequest;
@@ -89,7 +89,6 @@
     UILabel *medium;
     UILabel *high;
     UILabel *critical;
-    
     UIButton *back;
     
 }
@@ -103,7 +102,6 @@
     NSString *title = [MCLocalization stringForKey:@"Home"];
     [back setTitle:title forState:UIControlStateNormal];
     self.title = @"IT SOS";
-    
     
     self.navigationItem.leftBarButtonItems = @[];
     postMan = [[Postman alloc] init];
@@ -141,6 +139,23 @@
     [self.view addGestureRecognizer:tapGesture];
 
 }
+-(void)localize
+{
+    //self.title = [MCLocalization stringForKey:@"Home"];
+    
+    self.title = STRING_FOR_LANGUAGE(@"Home");
+     
+
+
+}
+
+
+
+
+
+
+
+
 
 
 

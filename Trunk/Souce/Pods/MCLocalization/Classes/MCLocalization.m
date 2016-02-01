@@ -87,23 +87,15 @@
 
 - (NSString *)sanitizeLanguage:(NSString *)language
 {
-    NSString * sanitizedLanguage = nil;
-    
-    // Use supplied language if supported
-    if ([self.supportedLanguages indexOfObject:language] != NSNotFound) {
-        sanitizedLanguage = language;
-    } else {
-        // If not, try to figure out language from preferred languages
-        NSArray *preferredLanguages = [NSLocale preferredLanguages];
-        sanitizedLanguage = [preferredLanguages firstObjectCommonWithArray:self.supportedLanguages];
+    NSMutableArray * preferences = [NSMutableArray new];
+    if (language) {
+        [preferences addObject:language];
     }
-    
-    // If language could not be figured out, use the default language
-    if (!sanitizedLanguage) {
-        sanitizedLanguage = [self.dataSource defaultLanguage];
+    [preferences addObjectsFromArray:[NSLocale preferredLanguages]];
+    if (self.dataSource) {
+        [preferences addObject:[self.dataSource defaultLanguage]];
     }
-    
-    return sanitizedLanguage;
+    return [NSBundle preferredLocalizationsFromArray:self.supportedLanguages forPreferences:preferences].firstObject;
 }
 
 - (NSString *)language
@@ -150,7 +142,14 @@
 - (NSString *)stringForKey:(NSString *)key language:(NSString *)language
 {
     NSDictionary * langugeStrings = [self stringsForLanguage:language];
-    NSString * string = langugeStrings[key];
+    
+    NSObject * lookupResult = langugeStrings[key];
+    NSString * string = nil;
+    if ([lookupResult isKindOfClass:NSString.class]) {
+        string = (NSString *)lookupResult;
+    } else if ([lookupResult isKindOfClass:NSNumber.class]) {
+        string = [(NSNumber *)lookupResult stringValue];
+    }
 
     if (!string) {
         if (self.noKeyPlaceholder) {
@@ -184,11 +183,14 @@
 - (NSString *)stringForKey:(NSString *)localizationKey withPlaceholders:(NSDictionary *)placeholders
 {
     __block NSString * result = [self stringForKey:localizationKey];
-    [placeholders enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if ([key isKindOfClass:NSString.class] && [obj isKindOfClass:NSString.class]) {
-            result = [result stringByReplacingOccurrencesOfString:key withString:obj];
-        }
-    }];
+    
+    if (result) {
+        [placeholders enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            if ([key isKindOfClass:NSString.class] && [obj isKindOfClass:NSString.class]) {
+                result = [result stringByReplacingOccurrencesOfString:key withString:obj];
+            }
+        }];
+    }
     
     return result;
 }
