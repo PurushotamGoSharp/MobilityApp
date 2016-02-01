@@ -98,6 +98,7 @@
     
     
     
+   
     self.navtitleBtnoutlet.selected = NO;
     self.profileViewTopConstraint.constant = -107;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
@@ -183,20 +184,22 @@
     selectedLocation = [[LocationModel alloc] init];
     [self setupLocation];
     self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
-   
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
 }
 
 -(void)localize
 {
         self.title = [MCLocalization stringForKey:@"Home"];
-        self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
+    
+       self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book_a_Room"];
         self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
         self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade_Device"];
-        self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT_SOS"];
+        self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT.SOS"];
         self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
-        self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My_Tickets"];
+        self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My.tickets"];
         self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Services"];
         self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call_Service_Desk"];
 

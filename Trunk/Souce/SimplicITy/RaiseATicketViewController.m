@@ -80,6 +80,7 @@
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailsBottomMaxConst;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewBottomConst;
 @property (weak, nonatomic) IBOutlet UIView *textviewContentView;
+@property (weak, nonatomic) IBOutlet UITextView *ImportantNotetextView;
 
 @end
 
@@ -99,9 +100,13 @@
     // Do any additional setup after loading the view.
     
     
+    self.ImportantNotetextView.text = STRING_FOR_LANGUAGE(@"Lab_Notes_Details");
+    self.title=STRING_FOR_LANGUAGE(@"IT_SOS");
+    
+    
     NSString *title = [MCLocalization stringForKey:@"Home"];
     [back setTitle:title forState:UIControlStateNormal];
-    self.title = @"IT SOS";
+    
     
     self.navigationItem.leftBarButtonItems = @[];
     postMan = [[Postman alloc] init];
@@ -125,6 +130,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     
     self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+    self.textView.text = STRING_FOR_LANGUAGE(@"Lab_Describe_Request");
     
     titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
     titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
@@ -139,16 +145,6 @@
     [self.view addGestureRecognizer:tapGesture];
 
 }
--(void)localize
-{
-    //self.title = [MCLocalization stringForKey:@"Home"];
-    
-    self.title = STRING_FOR_LANGUAGE(@"Home");
-     
-
-
-}
-
 
 
 
@@ -587,7 +583,11 @@
         {
             SliderTableViewCell *sliderCell = (SliderTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
             sliderCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
+            sliderCell.imapactLabel.text=STRING_FOR_LANGUAGE(@"Lab_Personal_Impact");
+            sliderCell.lowLabel.text=STRING_FOR_LANGUAGE(@"Lab_Low");
+            sliderCell.highLabel.text=STRING_FOR_LANGUAGE(@"Lab_Hight");
+            sliderCell.mediumLabel.text=STRING_FOR_LANGUAGE(@"Lab_Medium");
+            sliderCell.criticalLabel.text=STRING_FOR_LANGUAGE(@"Lab_Cricitle");
             [sliderCell updateSliderForValue:roundf(sliderCell.impactSlider.value)];
             sliderOutlet = sliderCell.impactSlider;
             return sliderCell;
@@ -595,14 +595,11 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
-            
             UILabel *header = (UILabel *)[cell viewWithTag:100];
             UILabel *lable = (UILabel *)[cell viewWithTag:101];
-            
             header.font=[self customFont:16 ofName:MuseoSans_700];
             lable.font=[self customFont:16 ofName:MuseoSans_300];
-            
-            header.text = @"Requester";
+            header.text = STRING_FOR_LANGUAGE(@"Lab_Requester");
             lable.text = [UserInfo sharedUserInfo].fullName;
 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -611,6 +608,7 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SelectServiceCell" forIndexPath:indexPath];
         UILabel *selectedLabel = (UILabel *)[cell viewWithTag:100];
+        selectedLabel.text=STRING_FOR_LANGUAGE(@"Lab_Select_Service");
         selectedLabel.font = [self customFont:16 ofName:MuseoSans_300];
         self.selectedCategorylabel = selectedLabel;
     }else
@@ -618,11 +616,14 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
         self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
         self.textView.font = [self customFont:16 ofName:MuseoSans_300];
-        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+        self.textView.text=STRING_FOR_LANGUAGE(@"Lab_Describe_Request");
         self.textView.delegate = self;
     }
     return cell;
 }
+
+
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -672,11 +673,11 @@
     
     if (section == 1)
     {
-        headerLabel.text = @"Service";
+        headerLabel.text = STRING_FOR_LANGUAGE(@"Lab_Services");
         
     }else if (section == 2)
     {
-        headerLabel.text = @"Details";
+        headerLabel.text = STRING_FOR_LANGUAGE(@"Lab_Detail");
     }
     
     [headerView addSubview:headerLabel];

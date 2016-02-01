@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09F12AFD1C5F77120027B06D /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F12AFC1C5F77120027B06D /* en.json */; };
 		860081FA1AD54CC5009C885B /* PasswordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 860081F91AD54CC5009C885B /* PasswordManager.m */; };
 		860209141AF7546E005FB8F5 /* libkontakt-ios-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 860209131AF7546E005FB8F5 /* libkontakt-ios-sdk.a */; };
 		861738D31AE91AF500BDA49C /* LaunchImage-800-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 861738CD1AE91AF500BDA49C /* LaunchImage-800-667h@2x.png */; };
@@ -195,7 +196,6 @@
 		86D5196A1A95C93800052B60 /* NewsCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D519691A95C93800052B60 /* NewsCategoryModel.m */; };
 		86D6043F1A3B11D600E9E9D7 /* PlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D6043E1A3B11D600E9E9D7 /* PlaceHolderTextView.m */; };
 		86D687D21B14A2A700D249A1 /* image1Mb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 86D687D11B14A2A700D249A1 /* image1Mb.jpg */; };
-		86D8D61E1B25739F00C1AB2A /* en.json in Resources */ = {isa = PBXBuildFile; fileRef = 86D8D61D1B25739F00C1AB2A /* en.json */; };
 		86DBCC161B78C79F007994A1 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DBCC151B78C79F007994A1 /* InterfaceController.m */; };
 		86DBCC191B78C79F007994A1 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86DBCC181B78C79F007994A1 /* NotificationController.m */; };
 		86DBCC1B1B78C79F007994A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86DBCC1A1B78C79F007994A1 /* Images.xcassets */; };
@@ -274,6 +274,7 @@
 
 /* Begin PBXFileReference section */
 		075A1155144476E942168182 /* libPods-SimplicITy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimplicITy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09F12AFC1C5F77120027B06D /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
 		860081F81AD54CC5009C885B /* PasswordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordManager.h; sourceTree = "<group>"; };
 		860081F91AD54CC5009C885B /* PasswordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordManager.m; sourceTree = "<group>"; };
 		860208E91AF7546E005FB8F5 /* KontaktSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KontaktSDK.h; sourceTree = "<group>"; };
@@ -705,7 +706,6 @@
 		86D6043D1A3B11D600E9E9D7 /* PlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceHolderTextView.h; sourceTree = "<group>"; };
 		86D6043E1A3B11D600E9E9D7 /* PlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceHolderTextView.m; sourceTree = "<group>"; };
 		86D687D11B14A2A700D249A1 /* image1Mb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image1Mb.jpg; sourceTree = "<group>"; };
-		86D8D61D1B25739F00C1AB2A /* en.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = en.json; sourceTree = "<group>"; };
 		86DBCC0F1B78C79F007994A1 /* SimplicITy WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SimplicITy WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DBCC121B78C79F007994A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86DBCC131B78C79F007994A1 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -1043,7 +1043,7 @@
 				86B5A96D1A4D45F9009018AD /* MuseoSans-700.otf */,
 				86287D261A2EE1A500B12893 /* AppDelegate.h */,
 				86287D271A2EE1A500B12893 /* AppDelegate.m */,
-				86D8D61D1B25739F00C1AB2A /* en.json */,
+				09F12AFC1C5F77120027B06D /* en.json */,
 				869F37CE1A4AE49F004F27CC /* Main_iPhone.storyboard */,
 				86287D2C1A2EE1A500B12893 /* Main_iPad.storyboard */,
 				86EDBE1D1A3992270045904C /* CustomColoredViewController.h */,
@@ -1929,6 +1929,7 @@
 				8626BB2A1C049AAD00CD4C30 /* HPFilter.xml in Resources */,
 				869C5F4A1B8EF2D7008A05D6 /* Splash-Screen-1536@3x.png in Resources */,
 				86201CFD1A7CA66D0016CBEF /* MyTickets@2x.png in Resources */,
+				09F12AFD1C5F77120027B06D /* en.json in Resources */,
 				864532B81A5A661D00A656A3 /* bottom-detail.png in Resources */,
 				86201D001A7CA66D0016CBEF /* raiseOrder@2x.png in Resources */,
 				8673D6F81ADBB2F1009AED9D /* Parameters.plist in Resources */,
@@ -1936,7 +1937,6 @@
 				8645329E1A5A661D00A656A3 /* Settings.bundle in Resources */,
 				864532C51A5A661D00A656A3 /* UAPushSettingsTagsViewController.xib in Resources */,
 				864532B91A5A661D00A656A3 /* bottom-detail@2x.png in Resources */,
-				86D8D61E1B25739F00C1AB2A /* en.json in Resources */,
 				864532C41A5A661D00A656A3 /* UAPushSettingsSoundsViewController.xib in Resources */,
 				864532BF1A5A661D00A656A3 /* UAMapPresentationViewController.xib in Resources */,
 				864532BD1A5A661D00A656A3 /* top-detail@2x.png in Resources */,

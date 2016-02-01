@@ -103,6 +103,27 @@
             break;
     }
     
+   
+    // Localization
+    
+    NSDictionary * languageURLPairs = @{
+                                        @"en":[[NSBundle mainBundle] URLForResource:@"en.json" withExtension:nil]
+                                       
+                                        };
+    [MCLocalization loadFromLanguageURLPairs:languageURLPairs defaultLanguage:@"en"];
+    
+    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024
