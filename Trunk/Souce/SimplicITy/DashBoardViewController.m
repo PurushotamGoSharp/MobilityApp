@@ -191,17 +191,17 @@
 
 -(void)localize
 {
-        self.title = [MCLocalization stringForKey:@"Home"];
-    
-       self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
-        self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book_a_Room"];
-        self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
-        self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade_Device"];
+       
+        
+        self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
+        self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book.Room"];
+        self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password.Expiry"];
+        self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade.Device"];
         self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT.SOS"];
         self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
         self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My.tickets"];
-        self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Services"];
-        self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call_Service_Desk"];
+        self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Apps"];
+        self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call.Desk"];
 
 }
 

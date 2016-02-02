@@ -28,6 +28,8 @@
     NSString *selectedCountryName, *selectedOfficeLocationName;
 
     DBManager *dbManager;
+    UIButton *back;
+
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -42,15 +44,14 @@
     
     self.title = @"Settings";
     
-    arrOfTableViewData = @[@"Language", @"Country", @"Office Location", @"Theme"];
+    //arrOfTableViewData = @[@"Language", @"Country", @"Office Location", @"Theme"];
     arrOfImages = @[@"language.png",@"lacation.png",@"ExchangeServer_Setting",@"themes"];
     
     arrOfLocationData = @[@"Belgium",@"India",@"US",@"Japan",@"Bulgaria",@"France",@"Germany"];
     arrOfLanguageData = @[@"English",@"German",@"French",@"Chinese",@"Spanish",@"Japanese"];
 
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -62,6 +63,9 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
 }
+
+
+
 
 - (void)backBtnAction
 {
@@ -88,7 +92,38 @@
     
     [self.tableView reloadData];
     self.navigationController.navigationBarHidden = NO;
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
+
 }
+
+
+-(void)localize
+{
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UITabBarItem *tabBarItem = tabBar.items[0];
+    tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools.Home");
+    tabBarItem = tabBar.items[1];
+    tabBarItem.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
+    tabBarItem = tabBar.items[2];
+    tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools");
+    tabBarItem = tabBar.items[3];
+    tabBarItem.title = STRING_FOR_LANGUAGE(@"");
+    
+    arrOfTableViewData = @[STRING_FOR_LANGUAGE(@"Language.Setting"), STRING_FOR_LANGUAGE(@"Country.Country"), STRING_FOR_LANGUAGE(@"OfficeLocation.Location"),STRING_FOR_LANGUAGE(@"Theme")];
+    
+    self.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
+ [back setTitle:STRING_FOR_LANGUAGE(@"Tools.Home") forState:UIControlStateNormal];
+
+
+}
+
+
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -352,6 +387,15 @@
     
     return nil;
 }
+
+
+
+
+
+
+
+
+
 
 /*
 #pragma mark - Navigation

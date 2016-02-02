@@ -91,7 +91,9 @@
     UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    //[back setTitle:@"Home" forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"") forState:UIControlStateNormal];
+    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -188,7 +190,27 @@
     yourRatingValue = [[NSUserDefaults standardUserDefaults] integerForKey:@"YourRatingKey"];
     self.yourRatingView.rating = yourRatingValue;
     self.yourRateValueLbl.text = [NSString stringWithFormat:@"%li", (long)yourRatingValue];
+
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+
+-(void)localize
+{
+    
+    self.title = STRING_FOR_LANGUAGE(@"About.Us");;
+    self.clickToRateLbl.text = STRING_FOR_LANGUAGE(@"");
+    self.avgRateLable.text = STRING_FOR_LANGUAGE(@"Avg.Rating");
+    self.writeReviewLbl.text = STRING_FOR_LANGUAGE(@"");
+    self.yourRateLbl.text = STRING_FOR_LANGUAGE(@"");
+    
+}
+
+
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -221,7 +243,7 @@
         [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:FEEDBACK_IN_OFFLINE delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"") message:STRING_FOR_LANGUAGE(@"")  delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"")  otherButtonTitles: nil];
         [noNetworkAlert show];
     }
 }
@@ -559,7 +581,7 @@
     {
         if (![[NSUserDefaults standardUserDefaults]boolForKey:@"Feedback_Sync"])
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"MobilITy Rating" message:ALERT_FOR_RATING delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"") message:STRING_FOR_LANGUAGE(@"") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"") otherButtonTitles: nil];
             [alert show];
         }
         
