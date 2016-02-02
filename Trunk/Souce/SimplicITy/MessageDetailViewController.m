@@ -31,6 +31,7 @@
     UIBarButtonItem *backButton;
     DBManager *dbManager;
     CGFloat heightOfWebViewCell;
+    UIButton *back;
 }
 
 - (void)viewDidLoad {
@@ -43,10 +44,10 @@
 
     
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Back" forState:UIControlStateNormal];
+    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
@@ -85,8 +86,22 @@
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    self.title = @"News Details";
+   
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+
+-(void)localize
+{
+  self.title = STRING_FOR_LANGUAGE(@"");
+ [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
+}
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {

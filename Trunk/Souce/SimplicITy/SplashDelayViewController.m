@@ -95,7 +95,29 @@
             }
         }];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+    
+
+
 }
+
+-(void)localize
+{
+//    UITabBar *tabBar = self.tabBarController.tabBar;
+//    UITabBarItem *tabBarItem = tabBar.items[0];
+//    tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools.Home");
+//    tabBarItem = tabBar.items[1];
+//    tabBarItem.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
+//    tabBarItem = tabBar.items[2];
+//    tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools");
+//    tabBarItem = tabBar.items[3];
+//    tabBarItem.title = STRING_FOR_LANGUAGE(@"About");
+//
+//
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -106,6 +128,8 @@
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize:) name:MCLocalizationLanguageDidChangeNotification object:nil];
 
+    
+    
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
@@ -307,23 +331,23 @@
     tabBarItem.image = [[UIImage imageNamed:imageName3] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
--(void )localize:(UITabBar*)tabBar
-{
-    UITabBarItem *tabbarItem = tabBar.items[0];
-    tabbarItem.title = [MCLocalization stringForKey:@"Home"];
-    
-    tabbarItem = tabBar.items[1];
-    tabbarItem.title = [MCLocalization stringForKey:@"Settings"];
-    
-    tabbarItem = tabBar.items[2];
-    tabbarItem.title = [MCLocalization stringForKey:@"Tools"];
-    
-    tabbarItem = tabBar.items[3];
-    tabbarItem.title = [MCLocalization stringForKey:@"Upgrade"];
-    
-    tabbarItem = tabBar.items[4];
-    tabbarItem.title = [MCLocalization stringForKey:@"About"];
-}
+//-(void )localize:(UITabBar*)tabBar
+//{
+//    UITabBarItem *tabbarItem = tabBar.items[0];
+//    tabbarItem.title = [MCLocalization stringForKey:@"Home"];
+//    
+//    tabbarItem = tabBar.items[1];
+//    tabbarItem.title = [MCLocalization stringForKey:@"Settings"];
+//    
+//    tabbarItem = tabBar.items[2];
+//    tabbarItem.title = [MCLocalization stringForKey:@"Tools"];
+//    
+//    tabbarItem = tabBar.items[3];
+//    tabbarItem.title = [MCLocalization stringForKey:@"Upgrade"];
+//    
+//    tabbarItem = tabBar.items[4];
+//    tabbarItem.title = [MCLocalization stringForKey:@"About"];
+//}
 
 - (UIColor *)colorForIndex:(NSInteger)colorIndex
 {

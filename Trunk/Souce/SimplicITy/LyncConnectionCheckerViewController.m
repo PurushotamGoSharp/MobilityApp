@@ -55,14 +55,22 @@
     DBManager *dbManager;
     
     LyncConfigModel *audioUpObj, *audioDownObj, *videoUpObj, *videoDownObj, *screenUpObj, *screenDownObj;
+    NSString *slowonlyAudio;
+    NSString *averageaudioViewScreen;
+    NSString *fastaudiovideoviewScreen;
+    NSString *alert;
+    NSString *ok;
+    NSString *notconnectInternet;
+
+
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Ping My Lync";
-}
+    }
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -104,10 +112,37 @@
         [self callAPI];
     }else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:@"Internet connection is required" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alert message:notconnectInternet delegate:self cancelButtonTitle:nil otherButtonTitles:ok, nil];
         [alert show];
     }
+
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+   }
+
+-(void)localize
+{
+    self.title = STRING_FOR_LANGUAGE(@"Ping.Linc");
+    self.connectionSpeedLbl.text = STRING_FOR_LANGUAGE(@"Connection.Speed");
+    self.AudioLbl.text = STRING_FOR_LANGUAGE(@"Audio");
+    self.videoLbl.text = STRING_FOR_LANGUAGE(@"Video");
+    self.screenShareLbl.text = STRING_FOR_LANGUAGE(@"View.Screen");
+    
+    slowonlyAudio = STRING_FOR_LANGUAGE(@"");
+    averageaudioViewScreen = STRING_FOR_LANGUAGE(@"");
+    fastaudiovideoviewScreen = STRING_FOR_LANGUAGE(@"");
+    notconnectInternet = STRING_FOR_LANGUAGE(@"");
+    alert = STRING_FOR_LANGUAGE(@"");
+    ok = STRING_FOR_LANGUAGE(@"ok");
+
 }
+
+
+
+
+
+
 
 
 - (void)getData
@@ -421,21 +456,21 @@
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1]; //Blue
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1]; //Gray
-        self.connectionResultLbl.text = @"Slow- only Audio is recommended";
+        self.connectionResultLbl.text = slowonlyAudio;
         
     }else if ((uploadSpeed <= screenUpObj.valueTo && uploadSpeed > screenUpObj.valueFrom) || (downloadSpeed <= screenDownObj.valueTo && downloadSpeed > screenDownObj.valueFrom))
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        self.connectionResultLbl.text = @"Average- Audio and View Screen are recommended";
+        self.connectionResultLbl.text = averageaudioViewScreen;
         
     }else if ((uploadSpeed > videoUpObj.valueFrom) || (downloadSpeed > videoDownObj.valueFrom))
     {
         self.audioView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.videoView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.4 green:.7 blue:.2 alpha:1];
-        self.connectionResultLbl.text = @"Fast- Audio, Video and View Screen are recommended";
+        self.connectionResultLbl.text = fastaudiovideoviewScreen;
         
     }else
     {
@@ -443,7 +478,7 @@
         self.videoView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         self.screenShareView.backgroundColor = [UIColor colorWithRed:.8 green:.2 blue:.2 alpha:1];
         
-        self.connectionResultLbl.text = @"Connection Speed";
+        self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection.Speed");
     }
 }
 

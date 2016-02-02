@@ -13,7 +13,7 @@
     NSArray *arrayOfImages, *arrayOfDatas;
     
     UIBarButtonItem *backButton;
-    
+    UIButton *back;
     NSInteger selectedRow;
 
 }
@@ -28,13 +28,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Tools";
+   
 
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
-    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -47,7 +45,7 @@
     self.navigationItem.leftBarButtonItem = backButton;
 
 //    arrayOfDatas = @[ @"Lync Connection Checker", @"Days left for password expiry", @"Survey", @"Room Checker"];
-    arrayOfDatas = @[ @"Lync Connection Checker", @"Survey"];
+    //arrayOfDatas = @[ @"Lync Connection Checker", @"Survey"];
 
 //    arrayOfImages = @[[UIImage imageNamed:@"LyncToolsIcon"], [UIImage imageNamed:@"PasswordResetToolImage"], [UIImage imageNamed:@"SurveyToolIcon"], [UIImage imageNamed:@"SurveyToolIcon"]];
     
@@ -59,8 +57,23 @@
 {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+    
     [self.tableView reloadData];
+
+
 }
+-(void)localize
+{
+  [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    self.title = STRING_FOR_LANGUAGE(@"Tools");
+ arrayOfDatas = @[ STRING_FOR_LANGUAGE(@"Connection.Checker"), STRING_FOR_LANGUAGE(@"Survey.Survey")];
+
+}
+
+
+
 
 - (void)backBtnAction
 {

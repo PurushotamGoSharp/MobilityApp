@@ -112,7 +112,7 @@
     tabBarItem = tabBar.items[2];
     tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools");
     tabBarItem = tabBar.items[3];
-    tabBarItem.title = STRING_FOR_LANGUAGE(@"");
+    tabBarItem.title = STRING_FOR_LANGUAGE(@"About");
     
     arrOfTableViewData = @[STRING_FOR_LANGUAGE(@"Language.Setting"), STRING_FOR_LANGUAGE(@"Country.Country"), STRING_FOR_LANGUAGE(@"OfficeLocation.Location"),STRING_FOR_LANGUAGE(@"Theme")];
     

@@ -34,7 +34,9 @@
     DBManager *dbManager;
     
     UserInfo *userInfo;
-    
+    NSString *callingNotavl;
+    NSString *OK;
+    NSString *Alert;
     Postman *postMan;
     BadgeNoManager *badge;
 }
@@ -202,7 +204,10 @@
         self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My.tickets"];
         self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Apps"];
         self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call.Desk"];
-
+    callingNotavl = STRING_FOR_LANGUAGE(@"Calling.Facility");
+    OK = STRING_FOR_LANGUAGE(@"Ok");
+    Alert = STRING_FOR_LANGUAGE(@"Language.Alert");
+    
 }
 
 //-(UIImage*)imageResizing:(UIImage*)image
@@ -651,7 +656,7 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert !" message:CALL_IT_DESK_FROM_IPAD delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Alert message:callingNotavl delegate:self cancelButtonTitle:OK otherButtonTitles:nil];
         [alert show];
     }
 }

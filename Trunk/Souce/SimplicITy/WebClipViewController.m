@@ -24,6 +24,8 @@
     DBManager *dbManager;
     NSString *URLString;
     UIAlertView *openAppAlert;
+    UIButton *back;
+
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOutlet;
@@ -36,10 +38,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+     back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
-    back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -71,7 +72,21 @@
     {
         [self  getData];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+-(void)localize
+{
+    self.title = STRING_FOR_LANGUAGE(@"Apps.Apps");
+    [back setTitle:STRING_FOR_LANGUAGE(@"Apps.Home") forState:UIControlStateNormal];
+
+}
+
+
+
 
 - (void)tryUpdatewebClip
 {

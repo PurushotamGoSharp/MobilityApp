@@ -28,7 +28,7 @@
     NSInteger countForNoOfCategories;
     
     NSMutableArray *newsCategoryArr;
-    
+    UIButton *back;
     NSString *databasePath;
     sqlite3 *database;
     DBManager *dbManager, *dbManagerForNOOfCategories;
@@ -51,10 +51,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+   back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -69,7 +69,22 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"NewCategoryGotSuccess" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateData) name:@"NewsBadgeCount" object:nil];
 
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
 }
+
+-(void)localize
+{
+[back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    self.title = STRING_FOR_LANGUAGE(@"News");
+}
+
+
+
+
 
 - (void)updateData
 {

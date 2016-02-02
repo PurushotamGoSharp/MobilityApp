@@ -180,14 +180,14 @@
     LabPersonalImpact=STRING_FOR_LANGUAGE(@"Personal.Impact");
     LabLow=STRING_FOR_LANGUAGE(@"Low");
     LabMedium=STRING_FOR_LANGUAGE(@"Medium");
-    LabCriticle=STRING_FOR_LANGUAGE(@"");
-    LabHigh=STRING_FOR_LANGUAGE(@"");
+    LabCriticle=STRING_FOR_LANGUAGE(@"Critical");
+    LabHigh=STRING_FOR_LANGUAGE(@"High");
     Services=STRING_FOR_LANGUAGE(@"Service");
     Details = STRING_FOR_LANGUAGE(@"Details");
     LabselectServices=STRING_FOR_LANGUAGE(@"Selects.Service");
     requestDescribe = STRING_FOR_LANGUAGE(@"Request.Describe");
-    home=STRING_FOR_LANGUAGE(@"");
-    ok=STRING_FOR_LANGUAGE(@"");
+    home=STRING_FOR_LANGUAGE(@"Home");
+    ok=STRING_FOR_LANGUAGE(@"ok");
     Warrning = STRING_FOR_LANGUAGE(@"Warning");
     
 }

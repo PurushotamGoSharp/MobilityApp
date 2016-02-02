@@ -41,6 +41,12 @@
     NSInteger totalNoOfUserRated;
     CGFloat averageRating;
     UIFont *describtionFont;
+    UIButton *back;
+    NSString *mobility;
+    NSString *devicenotConnected;
+    NSString *thankYou;
+    NSString *ok;
+    NSString *warning;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -88,18 +94,14 @@
     // Do any additional setup after loading the view.
     
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+   back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     //[back setTitle:@"Home" forState:UIControlStateNormal];
-    [back setTitle:STRING_FOR_LANGUAGE(@"") forState:UIControlStateNormal];
-    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
     back.frame = CGRectMake(0, 0,80, 30);
-    
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
@@ -201,12 +203,18 @@
 -(void)localize
 {
     
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     self.title = STRING_FOR_LANGUAGE(@"About.Us");;
-    self.clickToRateLbl.text = STRING_FOR_LANGUAGE(@"");
+    self.clickToRateLbl.text = STRING_FOR_LANGUAGE(@"Click.rate");
     self.avgRateLable.text = STRING_FOR_LANGUAGE(@"Avg.Rating");
-    self.writeReviewLbl.text = STRING_FOR_LANGUAGE(@"");
-    self.yourRateLbl.text = STRING_FOR_LANGUAGE(@"");
-    
+    self.writeReviewLbl.text = STRING_FOR_LANGUAGE(@"Write.Review");
+    self.yourRateLbl.text = STRING_FOR_LANGUAGE(@"Your.Rating");
+    mobility = STRING_FOR_LANGUAGE(@"Mobility.rating");
+    thankYou = STRING_FOR_LANGUAGE(@"Rating.App");
+    devicenotConnected = STRING_FOR_LANGUAGE(@"connect.Internet");
+    ok = STRING_FOR_LANGUAGE(@"Ok");
+    warning = STRING_FOR_LANGUAGE(@"Password.Warning");
+
 }
 
 
@@ -243,7 +251,7 @@
         [[NSUserDefaults standardUserDefaults] setInteger:self.yourRatingView.rating forKey:@"YourRatingKey"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"") message:STRING_FOR_LANGUAGE(@"")  delegate:nil cancelButtonTitle:STRING_FOR_LANGUAGE(@"")  otherButtonTitles: nil];
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:warning message:devicenotConnected  delegate:nil cancelButtonTitle:ok  otherButtonTitles: nil];
         [noNetworkAlert show];
     }
 }
@@ -581,7 +589,7 @@
     {
         if (![[NSUserDefaults standardUserDefaults]boolForKey:@"Feedback_Sync"])
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"") message:STRING_FOR_LANGUAGE(@"") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"") otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:mobility message:thankYou delegate:self cancelButtonTitle:ok otherButtonTitles: nil];
             [alert show];
         }
         

@@ -34,14 +34,31 @@
     selectedLocationMailID = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_OFFICE_MAILID];
     selectedRow = -1;
     [self.tableView reloadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
     
-    self.title = @"Office Location";
+
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+-(void)localize
+{
+    self.title = STRING_FOR_LANGUAGE(@"Location.Setting");
+    [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
+    [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
+    
+    
+}
+
+
+
+
 
 
 - (IBAction)CalcelBtnPressed:(id)sender

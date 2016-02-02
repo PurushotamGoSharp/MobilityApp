@@ -22,18 +22,18 @@
     Postman *postMan;
     DBManager *dbManager;
     NSString *URLString;
-    
+    UIButton *back;
     NSMutableArray *surveysArray;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"Survey";
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+     back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Back" forState:UIControlStateNormal];
+    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -64,7 +64,24 @@
     {
         [self  getData];
     }
+
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+
+-(void)localize
+{
+self.title = STRING_FOR_LANGUAGE(@"Survey.Survey");
+[back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
+
+
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -82,6 +99,13 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
+
+
+
+
+
 
 #pragma mark
 #pragma mark postmanDelegate
