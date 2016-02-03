@@ -70,6 +70,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSString *langKey=[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguage"];
+    NSLog(@"the value of key is %@",langKey);
     [super viewWillAppear:animated];
     
     URLString = TIPS_CATEGORY_API;
@@ -121,7 +123,9 @@
 {
     URLString = TIPS_CATEGORY_API;
     NSString *parameterString;
-    parameterString = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
+    parameterString = @"{\"request\":{\"LanguageCode\":\"\"}}";
+    
+//    {"request":{"LanguageCode":"ar"}}
 
     [postMan post:URLString withParameters:parameterString];
 
@@ -207,7 +211,7 @@
         TipDetailsViewController *tipDetailVC = (TipDetailsViewController *)segue.destinationViewController;
         TipsGroupModel *selectedTipsGroup = tipscategoryArray[[self.tableView indexPathForSelectedRow].row];
         tipDetailVC.parentCategory = selectedTipsGroup.tipsGroupName;
-        tipDetailVC.parentCode = selectedTipsGroup.tipsGroupCode;
+        tipDetailVC.parentCode = selectedTipsGroup.parentCode;
     }
 }
 
@@ -248,6 +252,11 @@
             tipsGroup.tipsGroupName = aDict[@"Name"];
             tipsGroup.tipsGroupDocCode = aDict[@"DocumentCode"];
             tipsGroup.tipsGroupCode = aDict[@"Code"];
+            tipsGroup.tipsLangCode = aDict [@"LanguageCode"];
+            tipsGroup.parentCode = aDict [@"ParentCode"];
+
+//            [[NSUserDefaults standardUserDefaults]setObject:tipsGroup.tipsGroupCode forKey:LANGUAGE_CODE];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
             
             if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {

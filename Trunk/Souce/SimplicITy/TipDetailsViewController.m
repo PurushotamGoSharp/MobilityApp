@@ -65,7 +65,7 @@
 {
     [super viewWillAppear:animated];
 
-    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
+//    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
     
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
@@ -108,8 +108,21 @@
 
 - (void)tryToUpdateCategories
 {
+    URLString = TIPS_SUBCATEGORY_API;
+    NSString * parameterString;
+    
+    parameterString = @"{\"request\":{\"TipsGroupCode\":\"\",\"LanguageCode\":\"\"}}";
+    
+    //    {"request":{"LanguageCode":"ar"}}
+    
+//    {"request":{"TipsGroupCode":"56UVS4","LanguageCode":"ta"}}
+    
+    [postMan post:URLString withParameters:parameterString];
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [postMan get:URLString];
+    
+    
+   
 }
 
 - (NSString *)userDefaultKey
