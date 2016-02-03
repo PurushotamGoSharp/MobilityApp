@@ -98,6 +98,11 @@
 
 #define ALL_CONFIG_API [NSString stringWithFormat:@"%@%@",BASE_URL, @"Configurations"]
 
+
+
+
+
+
 // UCB
 #define BASE_URL_UCB self.oKToUpdate
 #define ITSM_AUTH_API [NSString stringWithFormat:@"%@%@",[UserInfo sharedUserInfo].iTSM_LDAP_BaseURL,@"itsm"]

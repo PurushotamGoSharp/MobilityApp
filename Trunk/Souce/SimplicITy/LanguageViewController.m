@@ -29,8 +29,8 @@
     Postman *postMan;
     DBManager *dbManager;
     sqlite3 *database;
-    
-    
+    NSString *languagepassingCode;
+    NSString *mainJsonString;
     
     __weak IBOutlet UIBarButtonItem *languageCancleButton;
     __weak IBOutlet UIBarButtonItem *languageDoneButton;
@@ -375,13 +375,16 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    mainJsonString = [[NSString alloc]init];
+    
     selectedRow = indexPath.row;
-    
     LanguageModel *amodel = languagesArrOfData[indexPath.row];
-    
-    //    [self changeLanguageWithCode:amodel.code];
+    [self changeLanguageWithCode:amodel.code];
 }
 
+
+// Language change Method
 -(void)changeLanguageWithCode:(NSString*)langCode
 {
     postMan = [[Postman alloc] init];
@@ -389,10 +392,80 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
-    [postMan get:url];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",LANGUAGE_CHANGE_API,langCode];
     
+    [postMan get:urlString success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSData *responseData =[operation responseData];
+        NSDictionary *responseDict =[NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
+        [self parsingMethodForResponseOflanguage:responseDict andlangCode:langCode];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
+    }];
+   
 }
+
+-(void)parsingMethodForResponseOflanguage:(NSDictionary *)responseDict andlangCode:(NSString *)langCode
+{
+    NSDictionary *responseDictionary = responseDict;
+    if ([responseDictionary[@"aaData"][@"Success"]boolValue]) {
+        NSArray *mainArr = responseDict[@"aaData"][@"UILabels"];
+        {
+            for (NSMutableDictionary *adict in mainArr) {
+                if ([adict[@"Status"]boolValue]) {
+                    NSString *jsonString;
+                    if ([mainArr objectAtIndex:0]) {
+                        jsonString =[NSString stringWithFormat:@"\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
+                    } else {
+                        jsonString =[NSString stringWithFormat:@",\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
+                    }
+                    mainJsonString =[mainJsonString stringByAppendingString:jsonString];
+                    
+                }
+            }
+            NSString *jsonStringmain =[NSString stringWithFormat:@"{\%@}",mainJsonString];
+            NSLog(@"%@",jsonStringmain);
+            [self CreateFolderinDocument:langCode andJsonString:jsonStringmain];
+        
+        }
+    }
+}
+
+-(void)CreateFolderinDocument:(NSString *)langCode andJsonString:(NSString *)jsonString
+{
+   
+    NSData *stringData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *dirName = [docDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.json",langCode]];
+    BOOL isDir;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if(![fm fileExistsAtPath:dirName isDirectory:&isDir])
+    {
+        if([fm createDirectoryAtPath:dirName withIntermediateDirectories:YES attributes:nil error:nil])
+            NSLog(@"Directory Created");
+        
+        else
+            NSLog(@"Directory Creation Failed");
+    }
+    else{
+        NSLog(@"Directory Already Exist");
+
+    
+    
+    
+    }
+
+
+
+}
+
+
+
+
+
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -409,5 +482,18 @@
  // Pass the selected object to the new view controller.
  }
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
