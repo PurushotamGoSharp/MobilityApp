@@ -30,7 +30,7 @@
     DBManager *dbManager;
     sqlite3 *database;
     
-    
+    NSString *selectedLangCode;
     
     __weak IBOutlet UIBarButtonItem *languageCancleButton;
     __weak IBOutlet UIBarButtonItem *languageDoneButton;
@@ -55,9 +55,13 @@
 {
     [super viewWillAppear:animated];
     
-    NSInteger selectedindex = [[NSUserDefaults standardUserDefaults] integerForKey:@"SelectedLanguage"];
-    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedindex inSection:0];
-    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
+    selectedLangCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
+//    NSString *selectedLangName = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageName"];
+    
+    if (selectedLangCode == nil)
+    {
+        selectedLangCode = @"en";
+    }
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable )
     {
@@ -93,36 +97,6 @@
     
     
 }
-
-//NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//NSString *documentsDirectory = [paths objectAtIndex:0];
-//
-//NSFileManager *fmngr = [[NSFileManager alloc] init];
-//
-//// grab all the files in the documents dir
-//NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
-//
-//// filter the array for only json files
-//NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
-//NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
-//
-//NSString *names = nil;
-//
-//// use fast enumeration to iterate the array and delete the files
-//NSMutableDictionary *languageUrlPairs = [[NSMutableDictionary alloc] init];
-//
-//for (NSString *aJsonFile in jsonFiles)
-//{
-//    NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
-//
-//    names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
-//
-//    NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-//
-//    [languageUrlPairs setObject:filePathUrl forKey:names];
-//
-//    [MCLocalization loadFromLanguageURLPairs:languageUrlPairs defaultLanguage:@"en"];
-//    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
 
 -(NSString*)parseLangChangeResponseData:(NSData*)response
 {
@@ -197,42 +171,6 @@
     return [documentsDir stringByAppendingPathComponent:fileName];
 }
 
--(void)sample
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    //    NSFileManager *fmngr = [[NSFileManager alloc] init];
-    //
-    //    // grab all the files in the documents dir
-    //    NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:documentsDirectory error:nil];
-    //
-    //    // filter the array for only json files
-    //    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
-    //    NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
-    //
-    //    NSString *names = nil;
-    //
-    //    // use fast enumeration to iterate the array and delete the files
-    //
-    //
-    //    NSMutableDictionary *languageUrlPairs = [[NSMutableDictionary alloc] init];
-    //
-    //    for (NSString *aJsonFile in jsonFiles)
-    //    {
-    //        NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
-    //
-    //        names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
-    //
-    //        NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-    //
-    //        [languageUrlPairs setObject:filePathUrl forKey:names];
-    //    }
-    
-    
-    
-}
-
 - (void)parseResponseData:(NSData*)response
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
@@ -252,9 +190,22 @@
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     [languagesArrOfData sortUsingDescriptors:@[sortDescriptor]];
     
+    NSInteger index = 0;
+
+    for (LanguageModel *aLanguage in languagesArrOfData)
+    {
+        if ([aLanguage.code isEqualToString:selectedLangCode])
+        {
+            selectedRow = index;
+        }
+        index++;
+    }
     [self.tableView reloadData];
+    
+    NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedRow inSection:0];
+    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
 }
--(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+- (void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 }
@@ -279,7 +230,6 @@
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  languages (API,data) values ('%@', '%@')", SEARCH_LANGUAGE_API,stringFromData];
     [dbManager saveDataToDBForQuery:insertSQL];
 }
-
 
 - (void)getData
 {
@@ -315,19 +265,21 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     LanguageModel *selectedlanguage = languagesArrOfData[[self.tableView indexPathForSelectedRow].row];
     
-    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguage"];
+    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguageName"];
+    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.code forKey:@"SelectedLanguageCode"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self.delegate selectedLanguageis:selectedlanguage];
 }
 
 #pragma mark UITableViewDataSource methods
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [languagesArrOfData count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
@@ -348,7 +300,7 @@
     
     return cell;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }

@@ -123,7 +123,7 @@
     //    [myDefaults synchronize];
     
     
-    //    NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
+//    NSLog(@"%@", [NSTimeZone abbreviationDictionary]);
     return YES;
 }
 
