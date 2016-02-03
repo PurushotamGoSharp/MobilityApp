@@ -12,7 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 #import <sqlite3.h>
-#import "LanguageChangerClass.h"
+
 #import <MCLocalization/MCLocalization.h>
 
 #import "AppDelegate.h"
@@ -28,7 +28,6 @@
     NSMutableArray *languagesArrOfData;
     Postman *postMan;
     DBManager *dbManager;
-    LanguageChangerClass *langChanger;
     sqlite3 *database;
     
     NSString *selectedLangCode;
@@ -49,7 +48,6 @@
     arrOfLanguageData = @[@"English"];
     
     postMan = [[Postman alloc] init];
-    langChanger =[[LanguageChangerClass alloc]init];
     postMan.delegate = self;
 }
 
@@ -58,7 +56,7 @@
     [super viewWillAppear:animated];
     
     selectedLangCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
-//    NSString *selectedLangName = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageName"];
+    //    NSString *selectedLangName = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageName"];
     
     if (selectedLangCode == nil)
     {
@@ -72,86 +70,7 @@
     {
         [self getData];
     }
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-    [self localize];
 }
-
-
-
-
--(void)localize
-{
-    
-    [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
-    [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
-}
-
-- (IBAction)cancelBtnPressed:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)doneBtnPressed:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    LanguageModel *selectedlanguage = languagesArrOfData[[self.tableView indexPathForSelectedRow].row];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguage"];
-    
-    
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.delegate selectedLanguageis:selectedlanguage];
-}
-
-#pragma mark UITableViewDataSource methods
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [languagesArrOfData count];
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    LanguageModel *alanguage = languagesArrOfData[indexPath.row];
-    
-    titleLable = (UILabel *)[cell viewWithTag:100];
-    titleLable.text = alanguage.name;
-    titleLable.highlightedTextColor = [UIColor whiteColor];
-    titleLable.font=[self customFont:16 ofName:MuseoSans_700];
-    
-    
-    
-    UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
-    [cell setSelectedBackgroundView:bgColorView];
-    
-    
-    return cell;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 44;
-}
-
-#pragma mark UITableViewDelegate methods
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    mainJsonString = [[NSString alloc]init];
-    selectedRow = indexPath.row;
-    LanguageModel *amodel = languagesArrOfData[indexPath.row];
-    
-    
-}
-
-
-
-
 - (void) tryToUpdateLanguages
 {
     NSString *parameters = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
@@ -172,7 +91,9 @@
     {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSString *langCode =  [self parseLangChangeResponseData:response];
-           }
+        
+        //        [MCLocalization sharedInstance].language = langCode;
+    }
     
     
 }
@@ -206,7 +127,7 @@
     [[NSUserDefaults standardUserDefaults]setObject:languageCode forKey:LANGUAGE_CODE];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    
+    //    [self sample];
     
     NSFileManager *fmngr = [[NSFileManager alloc] init];
     
@@ -224,13 +145,20 @@
         
         NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
         
+        //        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
+        //        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
         
     }else
     {
         NSLog(@"File already Exists");
     }
     
-      return languageCode;
+    
+    //    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
+    //    [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
+    
+    
+    return languageCode;
 }
 
 - (NSString *)getFilePath:(NSString *)langCode
@@ -263,7 +191,7 @@
     [languagesArrOfData sortUsingDescriptors:@[sortDescriptor]];
     
     NSInteger index = 0;
-
+    
     for (LanguageModel *aLanguage in languagesArrOfData)
     {
         if ([aLanguage.code isEqualToString:selectedLangCode])
@@ -381,16 +309,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    mainJsonString = [[NSString alloc]init];
-    
     selectedRow = indexPath.row;
+    
     LanguageModel *amodel = languagesArrOfData[indexPath.row];
     [self changeLanguageWithCode:amodel.code];
 }
 
-
-// Language change Method
 -(void)changeLanguageWithCode:(NSString*)langCode
 {
     postMan = [[Postman alloc] init];
@@ -398,75 +322,10 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",LANGUAGE_CHANGE_API,langCode];
+    NSString *url = [NSString stringWithFormat:@"%@de",LANGUAGE_CHANGE_API];
+    [postMan get:url];
     
-    [postMan get:urlString success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSData *responseData =[operation responseData];
-        NSDictionary *responseDict =[NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:nil];
-        [self parsingMethodForResponseOflanguage:responseDict andlangCode:langCode];
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    
-    }];
-   
 }
-
--(void)parsingMethodForResponseOflanguage:(NSDictionary *)responseDict andlangCode:(NSString *)langCode
-{
-    NSDictionary *responseDictionary = responseDict;
-    if ([responseDictionary[@"aaData"][@"Success"]boolValue]) {
-        
-        BOOL isFirst;
-        isFirst = YES;
-        NSArray *mainArr = responseDict[@"aaData"][@"UILabels"];
-        {
-            for (NSMutableDictionary *adict in mainArr) {
-                if ([adict[@"Status"]boolValue]) {
-                    NSString *jsonString;
-                    if (isFirst) {
-                        jsonString =[NSString stringWithFormat:@"\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
-                        isFirst = NO;
-                    } else {
-                        jsonString =[NSString stringWithFormat:@",\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
-                    }
-                    mainJsonString =[mainJsonString stringByAppendingString:jsonString];
-                    
-                }
-            }
-            NSString *jsonStringmain =[NSString stringWithFormat:@"{\%@}",mainJsonString];
-            NSLog(@"%@",jsonStringmain);
-            [self createFolderinDocument:langCode andJsonString:jsonStringmain];
-        
-        }
-    }
-}
-
--(void)createFolderinDocument:(NSString *)langCode andJsonString:(NSString *)jsonString
-{
-   
-   
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
-    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/Languages"];
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
-    {
-        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; //Create folder
-    }
-    
-    NSString *filePath =[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.json",langCode]];
-    
-    [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
-
-}
-
-
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {
@@ -474,13 +333,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-
-
-
-
-
-
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
