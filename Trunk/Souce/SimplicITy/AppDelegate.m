@@ -144,7 +144,7 @@
     //    [myDefaults synchronize];
     
     
-    //    NSLog(@"%@", [NSTimeZone knownTimeZoneNames]);
+//    NSLog(@"%@", [NSTimeZone abbreviationDictionary]);
     return YES;
 }
 
@@ -327,5 +327,7 @@
                                       andDownloadImages:YES];
         }
     }
+    
+    NSString *selectedlangCode= [[NSUserDefaults standardUserDefaults] objectForKey:@""];
 }
 @end

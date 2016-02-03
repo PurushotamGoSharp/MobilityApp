@@ -313,7 +313,7 @@
     hud = [MBProgressHUD showHUDAddedTo:self.uploadImageView animated:YES];
     hud.color = [UIColor clearColor];
     hud.activityIndicatorColor = [UIColor blackColor];
-    
+    NSLog(@"%@", UPLOAD_FILE_API);
     AFHTTPRequestOperation *operation = [manager POST:UPLOAD_FILE_API parameters:parameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData)
                                          {
                                              [formData appendPartWithFileURL:imgUrlPath name:@"files" error:nil];
@@ -349,12 +349,15 @@
                                              
                                              NSString *JSONString = json[@"aaData"][@"JSON"];
                                              
-                                             NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-                                             
-                                             fileId = dictFromJSON[@"Code"];
-                                             docId = [dictFromJSON[@"ID"] intValue];
-                                             
-                                             [self downloadImageByCode:fileId];
+//                                             if (JSONString)
+//                                             {
+                                                 NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+                                                 
+                                                 fileId = dictFromJSON[@"Code"];
+                                                 docId = [dictFromJSON[@"ID"] intValue];
+                                                 
+                                                 [self downloadImageByCode:fileId];
+//                                             }
                                              
                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                                          {
