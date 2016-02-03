@@ -50,6 +50,7 @@
     NSDateFormatter *dateFormatter;
     
     UIBarButtonItem *backButton;
+    UIButton *back;
     
     BOOL preventReloadingOfTable;//When user taps a Room, free slots will be shown to user. At that time we should not reload the table as BEACON VALUE CAHNGES. So whenever user taps on a Room we will prevent table reload as BEACON VALUE CAHNGES
 }
@@ -63,7 +64,7 @@
     
     self.containerForCalendar.layer.masksToBounds = YES;
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+   back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
@@ -98,6 +99,17 @@
     }
     
     self.searchByTimeButton.layer.cornerRadius = 5;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+    
+}
+
+-(void) localize
+{
+    self.title = STRING_FOR_LANGUAGE(@"Book.Room");
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    [self.searchByTimeButton setTitle:STRING_FOR_LANGUAGE(@"Search.Date") forState:(UIControlStateNormal)];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

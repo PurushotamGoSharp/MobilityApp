@@ -119,6 +119,10 @@
     [self setTheme];
 }
 
+-(void)localize
+{
+    
+}
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
