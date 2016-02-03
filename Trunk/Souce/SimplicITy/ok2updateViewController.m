@@ -25,7 +25,7 @@
     NSString *targetURLString;
     NSString *targetURL;
     UIBarButtonItem *backButton;
-
+    UIButton *back;
     BOOL showAlready;
 }
 
@@ -34,16 +34,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Upgrade";
+    
 
 //    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 //    [center addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
     
     self.webViewOutlet.delegate = self;
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    
     
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
@@ -76,7 +76,21 @@
     targetURL = [targetURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"%@",targetURL);
     [self refreshBrowser];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+-(void)localize
+{
+self.title = STRING_FOR_LANGUAGE(@"Device.Upgrade");
+[back setTitle:STRING_FOR_LANGUAGE(@"Apps.Home") forState:UIControlStateNormal];
+}
+
+
+
+
 
 
 - (void)backBtnAction

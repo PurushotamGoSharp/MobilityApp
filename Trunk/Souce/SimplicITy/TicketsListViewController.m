@@ -113,7 +113,21 @@
     [self.tableViewOutlet  addSubview:self.refreshControl];
     
     [self tryToLoadListOfTickets];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
 }
+-(void)localize
+{
+    self.title = STRING_FOR_LANGUAGE(@"My.tickets");
+
+
+
+}
+
+
+
 
 
 -(void)tryToLoadListOfTickets

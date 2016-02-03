@@ -39,7 +39,7 @@
     NSMutableDictionary *codeAndResponse;
     DBManager *dbManager;
     
-    
+    UIButton *back;
     BOOL loadData;
    // __weak IBOutlet UILabel *TipsCategory;
 }
@@ -49,9 +49,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+     back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+   
     
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
@@ -92,7 +92,19 @@
     {
         [self getData];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
 }
+-(void)localize
+{
+ [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    self.title = STRING_FOR_LANGUAGE(@"Tips");
+
+}
+
+
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {

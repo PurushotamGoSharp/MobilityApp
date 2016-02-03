@@ -19,6 +19,7 @@
 @interface ADExpirationViewController () <NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *passwordToolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numOfDaysLeftLbl;
+@property (weak, nonatomic) IBOutlet UILabel *dayleftForpasswordExpPlaceholder;
 
 @end
 
@@ -27,7 +28,7 @@
     UIBarButtonItem *backButton;
     NSString *dayString;
     NSDictionary *serverConfig;
-  
+    UIButton *back;
 }
 
 - (void)viewDidLoad
@@ -43,7 +44,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Password Expiry";
+    
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
@@ -81,10 +82,10 @@
     }
 
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+   back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
+    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -96,10 +97,20 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
    
     
 }
+
+-(void)localize
+{
+    self.title = STRING_FOR_LANGUAGE(@"");
+  [back setTitle:STRING_FOR_LANGUAGE(@"Home.About") forState:UIControlStateNormal];
+    self.passwordToolLabel.text = STRING_FOR_LANGUAGE(@"");
+    self.dayleftForpasswordExpPlaceholder.text = STRING_FOR_LANGUAGE(@"Passwords.expiry");
+}
+
 
 
 - (void)backBtnAction
@@ -205,8 +216,8 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
-                                                  message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Error")
+                                                  message:STRING_FOR_LANGUAGE(@"Contact.Administrator")
                                                  delegate:self
                                         cancelButtonTitle:@"OK"
                                         otherButtonTitles:nil];

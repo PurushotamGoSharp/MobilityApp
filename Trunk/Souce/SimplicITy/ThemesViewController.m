@@ -29,13 +29,37 @@
     // Do any additional setup after loading the view.
     
 //    arrOfThemesData = @[THEME_BLUE_OCEAN,THEME_ORANGE_HUE,THEME_PINK_ROSE,THEME_GREEN_GLOW];
-    arrOfThemesData = @[THEME_BLUE_OCEAN,THEME_GREEN_GLOW,THEME_ORANGE_HUE,THEME_PINK_ROSE];
+ //   arrOfThemesData = @[THEME_BLUE_OCEAN,THEME_GREEN_GLOW,THEME_ORANGE_HUE,THEME_PINK_ROSE];
 
     selectedRow = [[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE];
     NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:selectedRow inSection:0];
     [self.tableViewOutlet selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:(UITableViewScrollPositionNone)];
 
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+}
+-(void)localize
+{
+ 
+     self.title = STRING_FOR_LANGUAGE(@"Theme");
+    arrOfThemesData = @[STRING_FOR_LANGUAGE(@"Blue.Ocean"),STRING_FOR_LANGUAGE(@"Green.Glow"),STRING_FOR_LANGUAGE(@"Orange.Hue"),STRING_FOR_LANGUAGE(@"Pink.Rose")];
+    [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
+    [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
+
+
+}
+
+
+
+
+
+
 - (IBAction)cancelBtnPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];

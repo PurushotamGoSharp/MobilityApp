@@ -34,9 +34,11 @@
     DBManager *dbManager;
     
     UserInfo *userInfo;
-    
+    NSString *callingNotavl;
+    NSString *Alert;
     Postman *postMan;
     BadgeNoManager *badge;
+    NSString *syncdatamessage;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
@@ -96,13 +98,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
     
-    
+   
     self.navtitleBtnoutlet.selected = NO;
     self.profileViewTopConstraint.constant = -107;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
         [noNetworkAlert show];
     }
     
@@ -183,24 +187,26 @@
     selectedLocation = [[LocationModel alloc] init];
     [self setupLocation];
     self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
+    
+    
 }
 
 -(void)localize
 {
-    self.title = [MCLocalization stringForKey:@"Home"];
-
+       
+        syncdatamessage =  INTERNET_IS_REQUIRED_TO_SYNC_DATA;
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
-        self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book_a_Room"];
-    self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password_Expiry_Days"];
-
-        self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade_Device"];
-        self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT_SOS"];
+        self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book.Room"];
+        self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password.Expiry"];
+        self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade.Device"];
+        self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT.SOS"];
         self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
-        self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My_Tickets"];
-        self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Services"];
+        self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My.tickets"];
+        self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Apps"];
+        self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call.Desk"];
+       callingNotavl = STRING_FOR_LANGUAGE(@"Calling.Facility");
+       Alert = STRING_FOR_LANGUAGE(@"Language.Alert");
     
-    self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call_Service_Desk"];
-
 }
 
 //-(UIImage*)imageResizing:(UIImage*)image
@@ -506,7 +512,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
             [noNetworkAlert show];
             
             return NO;
@@ -649,7 +655,7 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert !" message:CALL_IT_DESK_FROM_IPAD delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Alert message:callingNotavl delegate:self cancelButtonTitle:OK_FOR_ALERT otherButtonTitles:nil];
         [alert show];
     }
 }

@@ -30,7 +30,7 @@
     DBManager *dbManager, *dbManagerForGetUnViewed;
     
     NewsCategoryFetcher *categoryFetcher;
-    
+    UIButton *back;
     NSInteger countForUnviewedNews;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
@@ -46,11 +46,11 @@
     // Do any additional setup after loading the view.
     
 //    arrOfTableData = @[@"Web server will be down tomorrow", @"Updated dress code rules",@"Employee Awareness program is to be conducted on Dec 21"];
-    
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+   
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Back" forState:UIControlStateNormal];
+   
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
@@ -81,7 +81,22 @@
                                              selector:@selector(updateNewsListForfailure)
                                                  name:@"DownloadedNewsUnSuccesfully"
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+
+-(void)localize
+{
+ [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
+}
+
+
+
+
+
 
 //- (BOOL)hidesBottomBarWhenPushed {
 //    return YES;

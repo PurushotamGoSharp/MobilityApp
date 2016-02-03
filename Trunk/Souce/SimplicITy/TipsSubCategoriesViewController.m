@@ -35,7 +35,20 @@
     
    selectedIndexPath = [NSIndexPath indexPathForRow:self.curentpageNum inSection:0];
     [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
 }
+-(void)localize
+{
+ [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
+
+}
+
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {

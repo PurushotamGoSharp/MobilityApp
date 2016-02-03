@@ -25,10 +25,18 @@
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
 #define ALERT_FOR_ORDER_SAVED_IN_ONLINE @"Your Order has been successfully placed"
-#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been successfully raised"
+
+
+//#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been successfully raised"
 
 #define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, order will be placed automatically when connection is restored"
-#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised automatically when connection is restored"
+
+#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE STRING_FOR_LANGUAGE(@"Connection.Restore")
+#define ALERT_FOR_TICKET_SAVED_IN_ONLINE STRING_FOR_LANGUAGE(@"Ticket.Raised")
+
+
+
+//#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised automatically when connection is restored"
 
 
 #define ALERT_FOR_SELECT_ITEM_VALIDATION @"Item is required.\n"
@@ -58,7 +66,7 @@
     
     BOOL serviceIsSelected;
     BOOL saveButtonIsPressed;
-    
+
     NSDateFormatter *dateFormatter;
     RequestModel *currentRequest;
     BOOL haveRasiedRequest;
@@ -66,6 +74,28 @@
     RoomManager *roomManager;
     
     UITextView *activeField;
+
+    
+    
+    // localization
+    NSString *Labservicerequired;
+    NSString *Labdetailsisrequired;
+    NSString *LabselectService;
+    NSString *LabRequester;
+    NSString *LabPersonalImpact;
+    NSString *LabLow;
+    NSString *LabMedium;
+    NSString *LabCriticle;
+    NSString *LabHigh;
+    NSString *Services;
+    NSString *LabselectServices;
+    NSString *home;
+    NSString *ok;
+    NSString *Details;
+    NSString *requestDescribe;
+    NSString *Warrning;
+
+
 
 }
 
@@ -80,6 +110,7 @@
 //@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailsBottomMaxConst;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollViewBottomConst;
 @property (weak, nonatomic) IBOutlet UIView *textviewContentView;
+@property (weak, nonatomic) IBOutlet UITextView *ImportantNotetextView;
 
 @end
 
@@ -89,7 +120,6 @@
     UILabel *medium;
     UILabel *high;
     UILabel *critical;
-    
     UIButton *back;
     
 }
@@ -100,11 +130,8 @@
     // Do any additional setup after loading the view.
     
     
-    NSString *title = [MCLocalization stringForKey:@"Home"];
+     NSString *title = [MCLocalization stringForKey:@"Home"];
     [back setTitle:title forState:UIControlStateNormal];
-    self.title = @"IT SOS";
-    
-    
     self.navigationItem.leftBarButtonItems = @[];
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -127,6 +154,7 @@
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     
     self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+    self.textView.text = STRING_FOR_LANGUAGE(@"Lab_Describe_Request");
     
     titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
     titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
@@ -140,7 +168,42 @@
     tapGesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGesture];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+
+
+
+-(void)localize
+{
+    self.ImportantNotetextView.text = STRING_FOR_LANGUAGE(@"Lab_Notes_Details");
+    self.title=STRING_FOR_LANGUAGE(@"IT.SOS");
+    Labservicerequired = STRING_FOR_LANGUAGE(@"");
+    Labdetailsisrequired = STRING_FOR_LANGUAGE(@"");
+    
+    LabselectService=STRING_FOR_LANGUAGE(@"IT.SOS");
+    LabRequester=STRING_FOR_LANGUAGE(@"Requester");
+    LabPersonalImpact=STRING_FOR_LANGUAGE(@"Personal.Impact");
+    LabLow=STRING_FOR_LANGUAGE(@"Low");
+    LabMedium=STRING_FOR_LANGUAGE(@"Medium");
+    LabCriticle=STRING_FOR_LANGUAGE(@"Critical");
+    LabHigh=STRING_FOR_LANGUAGE(@"High");
+    Services=STRING_FOR_LANGUAGE(@"Service");
+    Details = STRING_FOR_LANGUAGE(@"Details");
+    LabselectServices=STRING_FOR_LANGUAGE(@"Selects.Service");
+    requestDescribe = STRING_FOR_LANGUAGE(@"Request.Describe");
+    home=STRING_FOR_LANGUAGE(@"Home");
+    ok=STRING_FOR_LANGUAGE(@"ok");
+    Warrning = STRING_FOR_LANGUAGE(@"Warning");
+    
+}
+
+
+
+
+
 
 
 
@@ -401,7 +464,7 @@
             [alertMessages addObject:ALERT_FOR_SELECT_ITEM_VALIDATION];
         }else
         {
-            [alertMessages addObject:ALERT_FOR_SELECT_SERVICE_VALIDATION];
+            [alertMessages addObject:Labservicerequired];
         }
         
         valid = NO;
@@ -409,7 +472,7 @@
     
     if (self.textView.text.length == 0)
     {
-        [alertMessages addObject:ALERT_FOR_SELECT_DETAIL_VALIDATION];
+        [alertMessages addObject:Labdetailsisrequired];
         valid = NO;
     }
     
@@ -417,10 +480,10 @@
     {
         NSString *alertMessage = [alertMessages componentsJoinedByString:@" "];
         
-        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
+        UIAlertView *invalidAlert = [[UIAlertView alloc] initWithTitle:Warrning
                                                                message:alertMessage
                                                               delegate:nil
-                                                     cancelButtonTitle:@"OK"
+                                                     cancelButtonTitle:ok
                                                      otherButtonTitles:nil];
         [invalidAlert show];
         
@@ -572,7 +635,11 @@
         {
             SliderTableViewCell *sliderCell = (SliderTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"SliderCell" forIndexPath:indexPath];
             sliderCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
+            sliderCell.imapactLabel.text=LabPersonalImpact;
+            sliderCell.lowLabel.text= LabLow;
+            sliderCell.highLabel.text=LabHigh;
+            sliderCell.mediumLabel.text=LabMedium;
+            sliderCell.criticalLabel.text=LabCriticle;
             [sliderCell updateSliderForValue:roundf(sliderCell.impactSlider.value)];
             sliderOutlet = sliderCell.impactSlider;
             return sliderCell;
@@ -580,14 +647,11 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
-            
             UILabel *header = (UILabel *)[cell viewWithTag:100];
             UILabel *lable = (UILabel *)[cell viewWithTag:101];
-            
             header.font=[self customFont:16 ofName:MuseoSans_700];
             lable.font=[self customFont:16 ofName:MuseoSans_300];
-            
-            header.text = @"Requester";
+            header.text = LabRequester;
             lable.text = [UserInfo sharedUserInfo].fullName;
 
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -596,6 +660,7 @@
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SelectServiceCell" forIndexPath:indexPath];
         UILabel *selectedLabel = (UILabel *)[cell viewWithTag:100];
+        selectedLabel.text= LabselectServices;
         selectedLabel.font = [self customFont:16 ofName:MuseoSans_300];
         self.selectedCategorylabel = selectedLabel;
     }else
@@ -603,11 +668,14 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
         self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
         self.textView.font = [self customFont:16 ofName:MuseoSans_300];
-        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+        self.textView.text=requestDescribe;
         self.textView.delegate = self;
     }
     return cell;
 }
+
+
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -657,11 +725,12 @@
     
     if (section == 1)
     {
-        headerLabel.text = @"Service";
+        headerLabel.text = Services;
         
     }else if (section == 2)
     {
-        headerLabel.text = @"Details";
+        headerLabel.text = Details;
+    
     }
     
     [headerView addSubview:headerLabel];
@@ -811,7 +880,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

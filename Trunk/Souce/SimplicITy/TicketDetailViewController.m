@@ -14,8 +14,15 @@
 {
     NSArray *arrOfLable;
     UIBarButtonItem *backButton;
-    
     NSDateFormatter *dateFormatter;
+    NSString *ticketnumber;
+     NSString *requester;
+   NSString *personalImpact;
+    NSString *agent;
+    NSString *status;
+    NSString *details;
+
+
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 
@@ -43,7 +50,32 @@
     }
     
     
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
+
 }
+
+-(void)localize
+{
+    self.title = STRING_FOR_LANGUAGE(@"");
+    ticketnumber = STRING_FOR_LANGUAGE(@"");
+    requester = STRING_FOR_LANGUAGE(@"Requester");
+    personalImpact = STRING_FOR_LANGUAGE(@"Personal.Impact");
+    agent = STRING_FOR_LANGUAGE(@"");
+    status = STRING_FOR_LANGUAGE(@"");
+    details = STRING_FOR_LANGUAGE(@"Details");
+    
+    
+    
+}
+
+
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -105,7 +137,7 @@
         //    }
         //    else
         //    {
-        labelHeader.text = @"Details";
+        labelHeader.text = details;
     }
     
     return headerView;
@@ -170,19 +202,19 @@
                     
                 }else
                 {
-                    titleLable.text = @"Ticket Number";
+                    titleLable.text = ticketnumber;
                 }
                 
                 rightTable.text = self.tickrtListModel.incedentNumber;
                 break;
                 
             case 1:
-                titleLable.text = @"Requester";
+                titleLable.text =requester;
                 rightTable.text = [UserInfo sharedUserInfo].fullName?:@"Test User";;
                 break;
                 
             case 2:
-                titleLable.text = @"Personal Impact";
+                titleLable.text = personalImpact;
                 
                 rightTable.text = self.tickrtListModel.impact;
                 //                rightTable.text = [self giveImpactForCOlor:self.tickrtListModel.requestImpact];
@@ -191,13 +223,13 @@
                 break;
                 
             case 3:
-                titleLable.text = @"Agent";
+                titleLable.text = agent;
                 //                rightTable.text = self.tickModel.agentName;
                 rightTable.text = self.tickrtListModel.agentname;
                 break;
                 
             case 4:
-                titleLable.text = @"Status";
+                titleLable.text = status;
                 //                rightTable.text = self.tickModel.currentStatus;
                 rightTable.text = self.tickrtListModel.status;
                 break;
