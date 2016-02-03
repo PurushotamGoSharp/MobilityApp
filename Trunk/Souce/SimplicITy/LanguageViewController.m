@@ -410,13 +410,17 @@
 {
     NSDictionary *responseDictionary = responseDict;
     if ([responseDictionary[@"aaData"][@"Success"]boolValue]) {
+        
+        BOOL isFirst;
+        isFirst = YES;
         NSArray *mainArr = responseDict[@"aaData"][@"UILabels"];
         {
             for (NSMutableDictionary *adict in mainArr) {
                 if ([adict[@"Status"]boolValue]) {
                     NSString *jsonString;
-                    if ([mainArr objectAtIndex:0]) {
+                    if (isFirst) {
                         jsonString =[NSString stringWithFormat:@"\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
+                        isFirst = NO;
                     } else {
                         jsonString =[NSString stringWithFormat:@",\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
                     }
@@ -426,38 +430,29 @@
             }
             NSString *jsonStringmain =[NSString stringWithFormat:@"{\%@}",mainJsonString];
             NSLog(@"%@",jsonStringmain);
-            [self CreateFolderinDocument:langCode andJsonString:jsonStringmain];
+            [self createFolderinDocument:langCode andJsonString:jsonStringmain];
         
         }
     }
 }
 
--(void)CreateFolderinDocument:(NSString *)langCode andJsonString:(NSString *)jsonString
+-(void)createFolderinDocument:(NSString *)langCode andJsonString:(NSString *)jsonString
 {
    
-    NSData *stringData =[jsonString dataUsingEncoding:NSUTF8StringEncoding];
+   
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/Languages"];
     
-    NSString *docDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *dirName = [docDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.json",langCode]];
-    BOOL isDir;
-    NSFileManager *fm = [NSFileManager defaultManager];
-    if(![fm fileExistsAtPath:dirName isDirectory:&isDir])
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
     {
-        if([fm createDirectoryAtPath:dirName withIntermediateDirectories:YES attributes:nil error:nil])
-            NSLog(@"Directory Created");
-        
-        else
-            NSLog(@"Directory Creation Failed");
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil]; //Create folder
     }
-    else{
-        NSLog(@"Directory Already Exist");
-
     
+    NSString *filePath =[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.json",langCode]];
     
+    [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
-    }
-
-
 
 }
 
