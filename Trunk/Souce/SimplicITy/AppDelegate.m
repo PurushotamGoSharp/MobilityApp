@@ -327,5 +327,7 @@
                                       andDownloadImages:YES];
         }
     }
+    
+    NSString *selectedlangCode= [[NSUserDefaults standardUserDefaults] objectForKey:@""];
 }
 @end
