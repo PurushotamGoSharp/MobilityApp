@@ -76,6 +76,9 @@
 {
     [super viewWillAppear:YES];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+    
     
     self.connectionSpeedLbl.font = [self customFont:20 ofName:MuseoSans_300];
     self.downloadLbl.font = [self customFont:26 ofName:MuseoSans_700];
@@ -117,8 +120,7 @@
     }
 
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-    [self localize];
+    
    }
 
 -(void)localize

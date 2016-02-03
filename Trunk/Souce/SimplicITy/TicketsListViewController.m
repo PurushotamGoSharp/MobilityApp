@@ -120,7 +120,7 @@
 }
 -(void)localize
 {
-
+    self.title = STRING_FOR_LANGUAGE(@"My.tickets");
 
 
 

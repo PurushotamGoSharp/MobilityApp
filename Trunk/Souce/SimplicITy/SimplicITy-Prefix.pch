@@ -43,8 +43,10 @@
 #define SELECTED_OFFICE_MAILID @"SelectedOfficeMailID"
 #define SELECTED_OFFICE_NAME @"SelectedOfficeName"
 
-#define INTERNET_IS_REQUIRED_TO_SYNC_DATA @"The device is not connected to internet. Please connect the device to sync data"
-#define WARNING_TEXT @"Warning !"
+#define INTERNET_IS_REQUIRED_TO_SYNC_DATA STRING_FOR_LANGUAGE(@"Sync.Data")
+#define WARNING_TEXT STRING_FOR_LANGUAGE(@"Password.Warning")
+#define OK_FOR_ALERT STRING_FOR_LANGUAGE(@"Ok")
+
 
 #define FLOW_FOR_ORDER @"orderBtnPressed"
 

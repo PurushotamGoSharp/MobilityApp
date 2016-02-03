@@ -63,6 +63,7 @@
     
     UIAlertView *officeLocationAlert;
     UIAlertView *tryAgainAlert;
+    UIButton *back;
 }
 
 - (void)viewDidLoad
@@ -80,11 +81,10 @@
     self.containerForCalendar.layer.masksToBounds = YES;
     self.serachRoomsButton.layer.cornerRadius = 5;
     
-    self.title = @"Book a Room";
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+     back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Home" forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -117,7 +117,29 @@
     
     roomManager.delegate = self;
     [self setTheme];
+
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
 }
+-(void)localize
+{
+self.title = STRING_FOR_LANGUAGE(@"Book.Room");
+[back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"Home") forState:(UIControlStateNormal)];
+    endDate = nil;
+    
+    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Home") forState:(UIControlStateNormal)];
+    startDate = nil;
+
+
+}
+
+
+
+
+
+
 
 - (void)viewDidLayoutSubviews
 {
@@ -508,6 +530,9 @@
 {
     self.serachRoomsButton.tag = 111;
     [self.serachRoomsButton setTitle:@"Search Meeting Room(s)" forState:(UIControlStateNormal)];
+
+
+
 }
 
 - (void)dealloc

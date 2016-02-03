@@ -25,10 +25,18 @@
 #define TICKET_PARAMETER @"{\"request\":{\"CategoryTypeCode\":\"TICKET\"}}"
 
 #define ALERT_FOR_ORDER_SAVED_IN_ONLINE @"Your Order has been successfully placed"
-#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been successfully raised"
+
+
+//#define ALERT_FOR_TICKET_SAVED_IN_ONLINE @"Your Ticket has been successfully raised"
 
 #define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, order will be placed automatically when connection is restored"
-#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised automatically when connection is restored"
+
+#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE STRING_FOR_LANGUAGE(@"Connection.Restore")
+#define ALERT_FOR_TICKET_SAVED_IN_ONLINE STRING_FOR_LANGUAGE(@"Ticket.Raised")
+
+
+
+//#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE @"The device is not connected to internet, ticket will be raised automatically when connection is restored"
 
 
 #define ALERT_FOR_SELECT_ITEM_VALIDATION @"Item is required.\n"
@@ -872,7 +880,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

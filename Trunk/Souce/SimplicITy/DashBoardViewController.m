@@ -35,10 +35,10 @@
     
     UserInfo *userInfo;
     NSString *callingNotavl;
-    NSString *OK;
     NSString *Alert;
     Postman *postMan;
     BadgeNoManager *badge;
+    NSString *syncdatamessage;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
@@ -98,14 +98,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
     
    
     self.navtitleBtnoutlet.selected = NO;
     self.profileViewTopConstraint.constant = -107;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
         [noNetworkAlert show];
     }
     
@@ -187,14 +188,13 @@
     [self setupLocation];
     self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-    [self localize];
+    
 }
 
 -(void)localize
 {
        
-        
+        syncdatamessage =  INTERNET_IS_REQUIRED_TO_SYNC_DATA;
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book.Room"];
         self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password.Expiry"];
@@ -204,9 +204,8 @@
         self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My.tickets"];
         self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Apps"];
         self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call.Desk"];
-    callingNotavl = STRING_FOR_LANGUAGE(@"Calling.Facility");
-    OK = STRING_FOR_LANGUAGE(@"Ok");
-    Alert = STRING_FOR_LANGUAGE(@"Language.Alert");
+       callingNotavl = STRING_FOR_LANGUAGE(@"Calling.Facility");
+       Alert = STRING_FOR_LANGUAGE(@"Language.Alert");
     
 }
 
@@ -513,7 +512,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
             [noNetworkAlert show];
             
             return NO;
@@ -656,7 +655,7 @@
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Alert message:callingNotavl delegate:self cancelButtonTitle:OK otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Alert message:callingNotavl delegate:self cancelButtonTitle:OK_FOR_ALERT otherButtonTitles:nil];
         [alert show];
     }
 }
