@@ -12,7 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 #import <sqlite3.h>
-
+#import "LanguageChangerClass.h"
 #import <MCLocalization/MCLocalization.h>
 
 #import "AppDelegate.h"
@@ -28,6 +28,7 @@
     NSMutableArray *languagesArrOfData;
     Postman *postMan;
     DBManager *dbManager;
+    LanguageChangerClass *langChanger;
     sqlite3 *database;
     
     NSString *selectedLangCode;
@@ -48,6 +49,7 @@
     arrOfLanguageData = @[@"English"];
     
     postMan = [[Postman alloc] init];
+    langChanger =[[LanguageChangerClass alloc]init];
     postMan.delegate = self;
 }
 
@@ -85,6 +87,67 @@
     [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
 }
 
+- (IBAction)cancelBtnPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)doneBtnPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    LanguageModel *selectedlanguage = languagesArrOfData[[self.tableView indexPathForSelectedRow].row];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguage"];
+    
+    
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.delegate selectedLanguageis:selectedlanguage];
+}
+
+#pragma mark UITableViewDataSource methods
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [languagesArrOfData count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    LanguageModel *alanguage = languagesArrOfData[indexPath.row];
+    
+    titleLable = (UILabel *)[cell viewWithTag:100];
+    titleLable.text = alanguage.name;
+    titleLable.highlightedTextColor = [UIColor whiteColor];
+    titleLable.font=[self customFont:16 ofName:MuseoSans_700];
+    
+    
+    
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [self barColorForIndex:selectedRow];
+    [cell setSelectedBackgroundView:bgColorView];
+    
+    
+    return cell;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+#pragma mark UITableViewDelegate methods
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    mainJsonString = [[NSString alloc]init];
+    selectedRow = indexPath.row;
+    LanguageModel *amodel = languagesArrOfData[indexPath.row];
+    
+    
+}
 
 
 
@@ -109,9 +172,7 @@
     {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSString *langCode =  [self parseLangChangeResponseData:response];
-        
-        //        [MCLocalization sharedInstance].language = langCode;
-    }
+           }
     
     
 }
@@ -145,7 +206,7 @@
     [[NSUserDefaults standardUserDefaults]setObject:languageCode forKey:LANGUAGE_CODE];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    //    [self sample];
+    
     
     NSFileManager *fmngr = [[NSFileManager alloc] init];
     
@@ -163,20 +224,13 @@
         
         NSLog(@"json files %@",[appDel.languageUrlPairs allKeys]);
         
-        //        [MCLocalization loadFromLanguageURLPairs:appDel.languageUrlPairs defaultLanguage:@"en"];
-        //        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
         
     }else
     {
         NSLog(@"File already Exists");
     }
     
-    
-    //    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
-    //    [appDel.languageUrlPairs setObject:filePathUrl forKey:languageCode];
-    
-    
-    return languageCode;
+      return languageCode;
 }
 
 - (NSString *)getFilePath:(NSString *)langCode
@@ -419,20 +473,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
-
-
-
 
 
 
