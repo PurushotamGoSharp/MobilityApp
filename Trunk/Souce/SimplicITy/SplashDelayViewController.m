@@ -13,11 +13,11 @@
 #import "UserInfo.h"
 #import "ADExpirationDateFetcher.h"
 #import "Postman.h"
-
+#import "LanguageChangerClass.h"
 #import <MCLocalization/MCLocalization.h>
 
 
-@interface SplashDelayViewController ()<SeedSyncDelegate,postmanDelegate>
+@interface SplashDelayViewController ()<SeedSyncDelegate,postmanDelegate,languageChangeProtocol>
 {
     NSMutableArray *seedDataArrAPI, *seedDataArrDB;
     NSMutableDictionary *seedDataDictFromAPI, *seeddataDictFromDB;
@@ -26,6 +26,8 @@
 //    DBManager *dbManager;
     SeedSync *seedSyncer;
     NewsCategoryFetcher *categoryFetcher;
+    LanguageChangerClass *langChanger;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImageOutlet;
@@ -40,6 +42,13 @@
     // Do any additional setup after loading the view.
     
 //    self.backGroundImageOutlet.image = @"LyncImage";
+    
+    
+    if (langChanger == nil) {
+        langChanger =[[LanguageChangerClass alloc]init];
+    }
+    langChanger.delegate = self;
+   
     
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {
@@ -123,6 +132,10 @@
 {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
+
+    
+    
+    
     
 //    [self localize:nil];
     
@@ -280,8 +293,27 @@
     
 //    [self tryToGetEnglishLanguage];
     
-    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    NSString *langCode =[defaults objectForKey:@""];
+    [defaults synchronize];
+    if (langCode == nil) {
+    langCode = @"en";
+    }
+    [langChanger changeLanguageWithCode:langCode];
+ 
 }
+
+-(void)successResponseDelegateMethod
+{
+[self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+}
+-(void)failourResponseDelegateMethod
+{
+
+
+}
+
+
 
 - (void)seedSyncFinishedWithFailure:(SeedSync *)seedSync
 {

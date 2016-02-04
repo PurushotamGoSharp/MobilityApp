@@ -39,7 +39,7 @@
         //[self.delegate responseDictionaryForLanguage:responseDict];
       [self parsingMethodForResponseOflanguage:responseDict andlangCode:langCode];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+     [self.delegate failourResponseDelegateMethod];
     }];
     
 }
@@ -52,6 +52,7 @@
         isFirst = YES;
         NSArray *mainArr = responseDict[@"aaData"][@"UILabels"];
         {
+            mainJsonString = [[NSString alloc]init];
             for (NSMutableDictionary *adict in mainArr) {
                 if ([adict[@"Status"]boolValue]) {
                     NSString *jsonString;
@@ -61,15 +62,17 @@
                     } else {
                         jsonString =[NSString stringWithFormat:@",\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
                     }
-                    mainJsonString =[mainJsonString stringByAppendingString:jsonString];
-                    
+                    mainJsonString = [mainJsonString stringByAppendingString:jsonString];
                 }
             }
             NSString *jsonStringmain =[NSString stringWithFormat:@"{\%@}",mainJsonString];
             NSLog(@"%@",jsonStringmain);
             [self createFolderinDocument:langCode andJsonString:jsonStringmain];
-            
         }
+    }
+    else
+    {
+        [self.delegate failourResponseDelegateMethod];
     }
 }
 
@@ -86,6 +89,13 @@
     NSString *filePath =[dataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.json",langCode]];
     [jsonString writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    if (fileExists) {
+        [self.delegate successResponseDelegateMethod];
+    } else {
+        [self.delegate failourResponseDelegateMethod];
+    }
+
 }
 
 
