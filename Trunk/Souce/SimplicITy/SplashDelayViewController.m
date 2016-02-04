@@ -293,9 +293,7 @@
     
 //    [self tryToGetEnglishLanguage];
     
-    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
-    NSString *langCode =[defaults objectForKey:@""];
-    [defaults synchronize];
+     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];    
     if (langCode == nil) {
     langCode = @"en";
     }
