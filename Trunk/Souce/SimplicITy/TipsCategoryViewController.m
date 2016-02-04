@@ -41,6 +41,8 @@
     
     UIButton *back;
     BOOL loadData;
+    NSString *langKey;
+    NSString *parameter;
    // __weak IBOutlet UILabel *TipsCategory;
 }
 
@@ -70,12 +72,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSString *langKey=[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguage"];
+   langKey=[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     NSLog(@"the value of key is %@",langKey);
     [super viewWillAppear:animated];
-    
+//    
     URLString = TIPS_CATEGORY_API;
-
+    parameter =[NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",langKey];
+//
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
 
@@ -122,12 +125,12 @@
 - (void)tryToUpdateCategories
 {
     URLString = TIPS_CATEGORY_API;
-    NSString *parameterString;
-    parameterString = @"{\"request\":{\"LanguageCode\":\"\"}}";
-    
-//    {"request":{"LanguageCode":"ar"}}
+//    NSString *parameterString;
+   // parameterString = @"{\"request\":{\"LanguageCode\":\"%@\",}}";
+    parameter =[NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",langKey];
 
-    [postMan post:URLString withParameters:parameterString];
+
+    [postMan post:URLString withParameters:parameter];
 
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 }
@@ -225,7 +228,8 @@
     if ([urlString isEqualToString:TIPS_CATEGORY_API])
     {
         [self parseResponseData:response andGetImages:YES];
-        [self saveTipsCategory:response forURL:urlString];
+        NSString *apiKey = [NSString stringWithFormat:@"%@-%@", urlString, parameter];
+        [self saveTipsCategory:response forURL:apiKey];
         
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tipsgroup"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -322,7 +326,9 @@
         dbManager.delegate=self;
     }
     
-    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
+    NSString *apiKey1 = [NSString stringWithFormat:@"%@-%@", URLString, parameter];
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", apiKey1];
     if (![dbManager getDataForQuery:queryString])
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
