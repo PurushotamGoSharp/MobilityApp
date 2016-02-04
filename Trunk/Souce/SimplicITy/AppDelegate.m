@@ -153,7 +153,9 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         // grab all the files in the documents dir
-        NSString *destinationPath =[documentsDirectory stringByAppendingPathComponent:@"Languages"];
+        NSString *destinationPath = [documentsDirectory stringByAppendingPathComponent:@"Languages"];
+        
+        NSString *filePath =[destinationPath stringByAppendingPathComponent:langCode];
         
         NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:destinationPath error:nil];
         // filter the array for only json files
@@ -163,8 +165,8 @@
         // use fast enumeration to iterate the array and delete the files
         for (NSString *aJsonFile in jsonFiles)
         {
-            NSString *fileNm = [documentsDirectory stringByAppendingPathComponent:aJsonFile];
-            names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
+            NSString *fileNm = [destinationPath stringByAppendingPathComponent:aJsonFile];
+            names = [[filePath lastPathComponent] stringByDeletingPathExtension];
             NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
             [self.languageUrlPairs setObject:filePathUrl forKey:names];
         }
@@ -175,37 +177,14 @@
     
     
     
-    //    if (![fmngr fileExistsAtPath:[self getFilePath:langCode]])
-    //    {
-    //        NSString *filePth = [self getFilePath:langCode];
-    //        NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
-    //        [languageUrlPairs setObject:filePathUrl forKey:langCode];
-    //    }else
-    //    {
-    //        NSLog(@"File already Exists");
-    //    }
-    
-    
-    //    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
-    
-    //    NSString *filePathhhh = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"de.json"];
-    ;
-    //    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
-    
-    //    NSURL *filePathUrlllll = [NSURL fileURLWithPath:filePathhhh];
-    
-    
-    //    NSDictionary *languageUrlPairs = @{@"en":filePathUrl};
     
     [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
+    //[MCLocalization sharedInstance].noKeyPlaceholder = @"{key} ";
     
-    [MCLocalization sharedInstance].noKeyPlaceholder = @"{key} ";
-    
-    //    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
     
     
     //    [MCLocalization sharedInstance].noKeyPlaceholder = @"";
-    
     
     [MCLocalization sharedInstance].language = langCode;
     
