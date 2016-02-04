@@ -194,7 +194,7 @@
 -(void)localize
 {
        
-        syncdatamessage =  INTERNET_IS_REQUIRED_TO_SYNC_DATA;
+       // syncdatamessage =  INTERNET_IS_REQUIRED_TO_SYNC_DATA;
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book.Room"];
         self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password.Expiry"];

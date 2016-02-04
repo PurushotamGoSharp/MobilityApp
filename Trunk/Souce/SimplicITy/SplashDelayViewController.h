@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SplashDelayViewController : UIViewController
+@property (strong, nonatomic)NSMutableDictionary *languageUrlPairs;
 
 @end
 

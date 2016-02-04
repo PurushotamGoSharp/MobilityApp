@@ -12,7 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "DBManager.h"
 #import <sqlite3.h>
-
+#import "LanguageChangerClass.h"
 #import <MCLocalization/MCLocalization.h>
 
 #import "AppDelegate.h"
@@ -29,7 +29,7 @@
     Postman *postMan;
     DBManager *dbManager;
     sqlite3 *database;
-    
+    LanguageChangerClass *langChanger;
     NSString *selectedLangCode;
     
     __weak IBOutlet UIBarButtonItem *languageCancleButton;
@@ -48,6 +48,7 @@
     arrOfLanguageData = @[@"English"];
     
     postMan = [[Postman alloc] init];
+    langChanger =[[LanguageChangerClass alloc]init];
     postMan.delegate = self;
 }
 
@@ -268,8 +269,12 @@
     [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguageName"];
     [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.code forKey:@"SelectedLanguageCode"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [langChanger changeLanguageWithCode:selectedlanguage.code];
     
     [self.delegate selectedLanguageis:selectedlanguage];
+
+
+
 }
 
 #pragma mark UITableViewDataSource methods
@@ -311,8 +316,8 @@
 {
     selectedRow = indexPath.row;
     
-    LanguageModel *amodel = languagesArrOfData[indexPath.row];
-    [self changeLanguageWithCode:amodel.code];
+   // LanguageModel *amodel = languagesArrOfData[indexPath.row];
+    //[self changeLanguageWithCode:amodel.code];
 }
 
 -(void)changeLanguageWithCode:(NSString*)langCode
