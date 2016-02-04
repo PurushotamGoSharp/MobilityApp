@@ -10,7 +10,8 @@
 
 @protocol languageChangeProtocol <NSObject>
 
--(void)responseDictionaryForLanguage:(NSDictionary *)responseDict;
+-(void)successResponseDelegateMethod;
+-(void)failourResponseDelegateMethod;
 
 @end
 
