@@ -316,8 +316,8 @@
 {
     selectedRow = indexPath.row;
     
-    LanguageModel *amodel = languagesArrOfData[indexPath.row];
-    [self changeLanguageWithCode:amodel.code];
+   // LanguageModel *amodel = languagesArrOfData[indexPath.row];
+    //[self changeLanguageWithCode:amodel.code];
 }
 
 -(void)changeLanguageWithCode:(NSString*)langCode

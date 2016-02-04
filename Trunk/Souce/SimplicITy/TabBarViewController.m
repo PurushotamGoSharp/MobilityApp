@@ -50,7 +50,7 @@
 {
     [super viewWillAppear:animated];
     
-//    [self localize:nil];
+    [self localize:nil];
 //    [self upDateBadgeCount];
 }
 
@@ -61,15 +61,13 @@
     tabbarItem.title = [MCLocalization stringForKey:@"Home"];
     
     tabbarItem = tabBar.items[1];
-    tabbarItem.title = [MCLocalization stringForKey:@"Settings"];
+    tabbarItem.title = [MCLocalization stringForKey:@"Setting.Setting"];
     
     tabbarItem = tabBar.items[2];
     tabbarItem.title = [MCLocalization stringForKey:@"Tools"];
     
-    tabbarItem = tabBar.items[3];
-    tabbarItem.title = [MCLocalization stringForKey:@"Upgrade"];
     
-    tabbarItem = tabBar.items[4];
+    tabbarItem = tabBar.items[3];
     tabbarItem.title = [MCLocalization stringForKey:@"About"];
 }
 
