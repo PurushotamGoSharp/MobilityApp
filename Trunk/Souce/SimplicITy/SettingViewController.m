@@ -77,12 +77,13 @@
     [super viewWillAppear:animated];
     
     selectedLocationName = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME];
-    selectedLanaguage = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguage"];
+    selectedLanaguage = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageName"];
     
     if (selectedLanaguage == nil)
     {
-        NSString *langID = [[NSLocale preferredLanguages] objectAtIndex:0];
-        selectedLanaguage = [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:langID];
+//        NSString *langID = [[NSLocale preferredLanguages] objectAtIndex:0];
+//        selectedLanaguage = [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:langID];
+        selectedLanaguage = @"English";
     }
     
     selectedCountryName = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_LOCATION_NAME];

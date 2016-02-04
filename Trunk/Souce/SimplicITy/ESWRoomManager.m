@@ -53,6 +53,25 @@
     NSTimeZone *defaultTimeZone = [NSTimeZone defaultTimeZone];
     NSString *timeZoneFullName = [defaultTimeZone localizedName:NSTimeZoneNameStyleStandard locale:([[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"])];
     
+    NSLog(@"%@", timeZoneFullName);
+    //this is fix for a bug in TimeZone name compatability. In IOS timeZone name is "Eastern European Standard Time" but Microsoft expects @"E. Europe Standard Time". Simliary for the rest too.
+    if ([timeZoneFullName isEqualToString:@"Eastern European Standard Time"])
+    {
+        timeZoneFullName = @"E. Europe Standard Time";
+        
+    }else if ([timeZoneFullName isEqualToString:@"East Africa Time"])
+    {
+        timeZoneFullName = @"E. Africa Standard Time";
+        
+    }else if ([timeZoneFullName isEqualToString:@"Australian Eastern Standard Time"])
+    {
+        timeZoneFullName = @"E. Australia Standard Time";
+        
+    }else if ([timeZoneFullName isEqualToString:@"Eastern South America Standard Time"])
+    {
+        timeZoneFullName = @"E. South America Standard Time";
+    }
+        
     t_TimeZoneDefinitionType *timeZoneDefinition = [[t_TimeZoneDefinitionType alloc] init];
     timeZoneDefinition.Id_ = timeZoneFullName;
     t_TimeZoneContextType *timeZoneContext = [[t_TimeZoneContextType alloc] init];
