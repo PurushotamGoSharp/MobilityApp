@@ -290,8 +290,13 @@
    
     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     
-    [langChanger changeLanguageWithCode:langCode];
+   
+//    if ([langCode isEqualToString:@"en"]) {
+        [langChanger changeLanguageWithCode:langCode];
  
+   // }
+    
+    
 }
 
 -(void)successResponseDelegateMethod
