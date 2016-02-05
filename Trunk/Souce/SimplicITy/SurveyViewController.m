@@ -269,6 +269,14 @@ self.title = STRING_FOR_LANGUAGE(@"Survey.Survey");
         
         [self parseResponsedata:data andgetImages:NO];
     }
+else
+{
+    [self tryUpdateSurvey];
+
+}
+
+
+
 }
 
 #pragma mark UICollectionViewDataSource methods
