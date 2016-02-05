@@ -276,6 +276,9 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         
         [self parseResponsedata:data andgetImages:NO];
+    }else
+    {
+        [self tryUpdatewebClip];
     }
 }
 

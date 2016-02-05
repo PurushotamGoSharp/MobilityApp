@@ -104,18 +104,18 @@
 
 }
 
--(void)localize
-{
-        UITabBar *tabBar = self.tabBarController.tabBar;
-        UITabBarItem *tabBarItem = tabBar.items[0];
-        tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools.Home");
-        tabBarItem = tabBar.items[1];
-        tabBarItem.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
-        tabBarItem = tabBar.items[2];
-        tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools");
-        tabBarItem = tabBar.items[3];
-        tabBarItem.title = STRING_FOR_LANGUAGE(@"About");
-}
+//-(void)localize
+//{
+//        UITabBar *tabBar = self.tabBarController.tabBar;
+//        UITabBarItem *tabBarItem = tabBar.items[0];
+//        tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools.Home");
+//        tabBarItem = tabBar.items[1];
+//        tabBarItem.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
+//        tabBarItem = tabBar.items[2];
+//        tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools");
+//        tabBarItem = tabBar.items[3];
+//        tabBarItem.title = STRING_FOR_LANGUAGE(@"About");
+//}
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -204,56 +204,49 @@
     else
     {
         NSLog(@"Not rechable");
-        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+        [langChanger readLanguageFileFromDocumentDirectory];
+//        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
     }
 }
 
--(void)tryToGetEnglishLanguage
-{
-    Postman *postMan = [[Postman alloc] init];
-    postMan.delegate = self;
-    
-    NSString *url = [NSString stringWithFormat:@"%@en",LANGUAGE_CHANGE_API];
-    [postMan get:url];
-}
 
--(void)parseResponse:(NSData*)response
-{
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
-    NSArray *arr = json[@"aaData"][@"UILabels"];
-    
-    NSMutableDictionary *aaData = [[NSMutableDictionary alloc] init];
-
-    for (NSDictionary *adict in arr)
-    {
-        NSString *key = adict[@"UserFriendlyCode"];
-        NSString *value = adict[@"Name"];
-        
-        NSMutableDictionary  *adictnory = [NSMutableDictionary dictionaryWithObject:value forKey:key];
-        [aaData addEntriesFromDictionary:adictnory];
-    }
-    
-    NSLog(@"english language %@",aaData);
-    
-    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
-    NSLog(@"file Path = %@",filePath);
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:aaData options:0 error:&error];
-    [jsonData writeToFile:filePath atomically:YES];
-}
+//-(void)parseResponse:(NSData*)response
+//{
+//    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
+//    
+//    NSArray *arr = json[@"aaData"][@"UILabels"];
+//    
+//    NSMutableDictionary *aaData = [[NSMutableDictionary alloc] init];
+//
+//    for (NSDictionary *adict in arr)
+//    {
+//        NSString *key = adict[@"UserFriendlyCode"];
+//        NSString *value = adict[@"Name"];
+//        
+//        NSMutableDictionary  *adictnory = [NSMutableDictionary dictionaryWithObject:value forKey:key];
+//        [aaData addEntriesFromDictionary:adictnory];
+//    }
+//    
+//    NSLog(@"english language %@",aaData);
+//    
+//    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
+//    NSLog(@"file Path = %@",filePath);
+//    NSError *error;
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:aaData options:0 error:&error];
+//    [jsonData writeToFile:filePath atomically:YES];
+//}
 
 
-- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
-{
-    [self parseResponse:response];
-}
-
--(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
-{
-    
-}
-
+//- (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
+//{
+//    [self parseResponse:response];
+//}
+//
+//-(void)postman:(Postman *)postman gotFailure:(NSError *)error forURL:(NSString *)urlString
+//{
+//    
+//}
+//
 #pragma mark
 #pragma mark SeedSyncDelegate
 - (void)seedSyncFinishedSuccessful:(SeedSync *)seedSync
@@ -279,19 +272,28 @@
 //    {
 //        langCode = @"en";
 //    }
-    NSString *seedKeyForLang = [NSString stringWithFormat:@"uilable,%@", langCode];
+    NSString *seedKeyForLang = [NSString stringWithFormat:@"uilabel,%@", langCode];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:seedKeyForLang])
     {
         [langChanger changeLanguageWithCode:langCode];
     }
+
+
+
 }
 
 -(void)successResponseDelegateMethod
 {
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-    [self loadlanguage];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    
+    //[self loadlanguage];
+   
+    //[langChanger readLanguageFileFromDocumentDirectory];
+
+    
     [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+
 }
 
 
@@ -326,15 +328,17 @@
     [MCLocalization sharedInstance].language = langCode;
 }
 
+
+
 -(void)failourResponseDelegateMethod
 {
-
 
 }
 
 - (void)seedSyncFinishedWithFailure:(SeedSync *)seedSync
 {
-    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+    
+//    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
 - (void)didReceiveMemoryWarning
