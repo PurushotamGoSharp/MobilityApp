@@ -30,10 +30,10 @@
 #define REQUEST_SYNC_NOTIFICATION_KEY  @"requestSyncNotificationKey"
 #define REQUEST_SYNC_FAILURE_NOTIFICATION_KEY  @"requestSyncFailureNotificationKey"
 
-#define THEME_BLUE_OCEAN @"Blue Ocean"
-#define THEME_ORANGE_HUE @"Orange Hue"
-#define THEME_PINK_ROSE @"Pink Rose"
-#define THEME_GREEN_GLOW @"Green Glow"
+#define THEME_BLUE_OCEAN STRING_FOR_LANGUAGE(@"Blue.Ocean")
+#define THEME_ORANGE_HUE STRING_FOR_LANGUAGE(@"Orange.Hue")
+#define THEME_PINK_ROSE STRING_FOR_LANGUAGE(@"Pink.Rose")
+#define THEME_GREEN_GLOW STRING_FOR_LANGUAGE(@"Green.Glow")
 
 #define BACKGROUND_THEME_VALUE @"BackgroundTheme"
 
@@ -46,8 +46,8 @@
 #define INTERNET_IS_REQUIRED_TO_SYNC_DATA STRING_FOR_LANGUAGE(@"Sync.Data")
 #define WARNING_TEXT STRING_FOR_LANGUAGE(@"Password.Warning")
 #define OK_FOR_ALERT STRING_FOR_LANGUAGE(@"Ok")
-
-
+#define ERROR_FOR_ALERT STRING_FOR_LANGUAGE(@"Error")
+#define ALERT_FOR_ALERT STRING_FOR_LANGUAGE(@"Language.Alert")
 #define FLOW_FOR_ORDER @"orderBtnPressed"
 
 #define EWS_USER_NAME @"ewsUserName"

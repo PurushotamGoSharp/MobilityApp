@@ -47,6 +47,8 @@
     NSString *thankYou;
     NSString *ok;
     NSString *warning;
+    NSString *totalLabelh;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -214,7 +216,7 @@
     devicenotConnected = STRING_FOR_LANGUAGE(@"connect.Internet");
     ok = STRING_FOR_LANGUAGE(@"Ok");
     warning = STRING_FOR_LANGUAGE(@"Password.Warning");
-
+    totalLabelh = STRING_FOR_LANGUAGE(@"Total");
 }
 
 
@@ -464,8 +466,10 @@
 {
     self.rateView.rating = averageRating;
 
+    
+    
     self.avgRatValueLbl.text = [NSString stringWithFormat:@"%.1f",averageRating];
-    self.totalLbl.text = [NSString stringWithFormat:@"%li Total", (long)totalNoOfUserRated];
+    self.totalLbl.text = [NSString stringWithFormat:@"%li %@", (long)totalNoOfUserRated,totalLabelh];
     self.leftSideImageView.image = [self getimageForDocCode:ucbLogoDocCode];
     
 //    self.rightSideImageView.image = [self getimageForDocCode:vmokshaLogoDocCode];

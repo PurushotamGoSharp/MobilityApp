@@ -125,10 +125,10 @@ self.title = STRING_FOR_LANGUAGE(@"Device.Upgrade");
 {
     if (!showAlready)
     {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
-                                                      message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:ERROR_FOR_ALERT
+                                                      message:STRING_FOR_LANGUAGE(@"Contact.Administrator")
                                                      delegate:self
-                                            cancelButtonTitle:@"OK"
+                                            cancelButtonTitle:OK_FOR_ALERT
                                             otherButtonTitles:nil];
         
         [alert show];

@@ -106,7 +106,7 @@
     self.profileViewTopConstraint.constant = -107;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Language.Alert") message:STRING_FOR_LANGUAGE(@"Sync.Data") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [noNetworkAlert show];
     }
     
@@ -194,7 +194,7 @@
 -(void)localize
 {
        
-       // syncdatamessage =  INTERNET_IS_REQUIRED_TO_SYNC_DATA;
+        syncdatamessage =  INTERNET_IS_REQUIRED_TO_SYNC_DATA;
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book.Room"];
         self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password.Expiry"];
