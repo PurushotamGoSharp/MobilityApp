@@ -19,7 +19,11 @@
 @interface LanguageChangerClass : NSObject
 
 @property(nonatomic,strong)id<languageChangeProtocol>delegate;
--(void)changeLanguageWithCode:(NSString*)langCode;
 
+@property (strong, nonatomic)NSMutableDictionary *languageUrlPairs;
+
+
+-(void)changeLanguageWithCode:(NSString*)langCode;
+-(void)readLanguageFileFromDocumentDirectory;
 
 @end

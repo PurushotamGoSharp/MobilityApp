@@ -56,11 +56,14 @@
             for (NSMutableDictionary *adict in mainArr) {
                 if ([adict[@"Status"]boolValue]) {
                     NSString *jsonString;
+                    NSMutableString *textValue = [adict[@"Name"] mutableCopy];
+                    [textValue replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSCaseInsensitiveSearch range:(NSMakeRange(0, textValue.length))];
+
                     if (isFirst) {
-                        jsonString =[NSString stringWithFormat:@"\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
+                        jsonString =[NSString stringWithFormat:@"\"%@\":\"%@\"",adict[@"UserFriendlyCode"],textValue];
                         isFirst = NO;
                     } else {
-                        jsonString =[NSString stringWithFormat:@",\"%@\":\"%@\"",adict[@"UserFriendlyCode"],adict[@"Name"]];
+                        jsonString =[NSString stringWithFormat:@",\"%@\":\"%@\"",adict[@"UserFriendlyCode"],textValue];
                     }
                     mainJsonString = [mainJsonString stringByAppendingString:jsonString];
                 }
@@ -91,7 +94,8 @@
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
     if (fileExists) {
-        [self.delegate successResponseDelegateMethod];
+        [self readLanguageFileFromDocumentDirectory];
+    
     } else {
         [self.delegate failourResponseDelegateMethod];
     }
@@ -99,6 +103,37 @@
 }
 
 
+
+-(void)readLanguageFileFromDocumentDirectory
+{
+    NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
+    NSFileManager *fmngr = [[NSFileManager alloc] init];
+    self.languageUrlPairs = [[NSMutableDictionary alloc] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    // grab all the files in the documents dir
+    NSString *destinationPath = [documentsDirectory stringByAppendingPathComponent:@"Languages"];
+    
+    NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:destinationPath error:nil];
+    // filter the array for only json files
+    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
+    NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
+    NSString *names = nil;
+    // use fast enumeration to iterate the array and delete the files
+    for (NSString *aJsonFile in jsonFiles)
+    {
+        NSString *fileNm = [destinationPath stringByAppendingPathComponent:aJsonFile];
+        names = [aJsonFile stringByDeletingPathExtension];
+        NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
+        [self.languageUrlPairs setObject:filePathUrl forKey:names];
+    }
+    NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
+    [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
+    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
+    [MCLocalization sharedInstance].language = langCode;
+
+    [self.delegate successResponseDelegateMethod];
+}
 
 
 
