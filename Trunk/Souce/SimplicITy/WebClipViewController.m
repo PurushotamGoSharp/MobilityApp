@@ -51,8 +51,10 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    URLString = WEB_CLIPS_BASE_API;
+     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     
+    
+    URLString = [NSString stringWithFormat:@"%@%@%@",WEB_CLIPS_BASE_API,LANGUAGE_CODE_STRING,langCode];
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     
@@ -90,6 +92,8 @@
 
 - (void)tryUpdatewebClip
 {
+   
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [postMan get:URLString];
 }
@@ -116,7 +120,7 @@
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
-    if ([urlString isEqualToString:WEB_CLIPS_BASE_API])
+    if ([urlString isEqualToString:URLString])
     {
         [self parseResponsedata:response andgetImages:YES];
         
