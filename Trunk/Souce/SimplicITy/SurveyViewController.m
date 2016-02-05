@@ -44,8 +44,8 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-    
-    URLString = SURVEY_BASE_API;
+    NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
+    URLString =   [NSString stringWithFormat:@"%@%@%@",SURVEY_BASE_API,LANGUAGE_CODE_STRING,langCode];
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -114,7 +114,7 @@ self.title = STRING_FOR_LANGUAGE(@"Survey.Survey");
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
-    if ([urlString isEqualToString:SURVEY_BASE_API])
+    if ([urlString isEqualToString:URLString])
     {
         [self parseResponsedata:response andgetImages:YES];
         
@@ -251,7 +251,7 @@ self.title = STRING_FOR_LANGUAGE(@"Survey.Survey");
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         

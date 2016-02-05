@@ -58,10 +58,11 @@
     NSString *slowonlyAudio;
     NSString *averageaudioViewScreen;
     NSString *fastaudiovideoviewScreen;
-    NSString *alert;
+    NSString *alertt;
     NSString *ok;
     NSString *notconnectInternet;
-
+    NSString *kb;
+    NSString *mb;
 
 
 }
@@ -90,7 +91,7 @@
     
     fmt = [[NSNumberFormatter alloc] init];
     [fmt setPositiveFormat:@"0.#"];
-    
+    self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection.Speed");
     
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
@@ -115,13 +116,14 @@
         [self callAPI];
     }else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alert message:notconnectInternet delegate:self cancelButtonTitle:nil otherButtonTitles:ok, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ALERT_FOR_ALERT message:notconnectInternet delegate:self cancelButtonTitle:nil otherButtonTitles:OK_FOR_ALERT, nil];
         [alert show];
     }
 
 
     
    }
+
 
 -(void)localize
 {
@@ -131,12 +133,14 @@
     self.videoLbl.text = STRING_FOR_LANGUAGE(@"Video");
     self.screenShareLbl.text = STRING_FOR_LANGUAGE(@"View.Screen");
     
+    kb = STRING_FOR_LANGUAGE(@"KB");
+    mb = STRING_FOR_LANGUAGE(@"");
     slowonlyAudio = STRING_FOR_LANGUAGE(@"");
     averageaudioViewScreen = STRING_FOR_LANGUAGE(@"");
     fastaudiovideoviewScreen = STRING_FOR_LANGUAGE(@"");
     notconnectInternet = STRING_FOR_LANGUAGE(@"");
-    alert = STRING_FOR_LANGUAGE(@"");
-    ok = STRING_FOR_LANGUAGE(@"ok");
+    alertt = STRING_FOR_LANGUAGE(@"Language.Alert");
+    
 
 }
 
@@ -160,7 +164,7 @@
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
         {
-            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
             [noNetworkAlert show];
         }
         
@@ -338,7 +342,7 @@
                                                  self.uploadlbl.text = [NSString stringWithFormat:@"%@ MB",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb/1024]] ];
                                              }else
                                              {
-                                                 self.uploadlbl.text = [NSString stringWithFormat:@"%@ KB",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb]] ];
+                                                 self.uploadlbl.text = [NSString stringWithFormat:@"%@ %@",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb]],kb ];
                                              }
                                              NSLog(@"file upload Sucess");
                                              

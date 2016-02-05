@@ -120,6 +120,7 @@
     UILabel *medium;
     UILabel *high;
     UILabel *critical;
+    UILabel *titleLabel;
     UIButton *back;
     
 }
@@ -130,8 +131,7 @@
     // Do any additional setup after loading the view.
     
     
-     NSString *title = [MCLocalization stringForKey:@"Home"];
-    [back setTitle:title forState:UIControlStateNormal];
+    
     self.navigationItem.leftBarButtonItems = @[];
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -151,12 +151,10 @@
     self.navigationItem.leftBarButtonItem = backButton;
 
     UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
+    titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     
     self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
     self.textView.text = STRING_FOR_LANGUAGE(@"Lab_Describe_Request");
-    
-    titleLabel.text = NAV_BAR_TITLE_FOR_RAISE_TICKET;
     titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textColor = [UIColor whiteColor];
@@ -179,11 +177,10 @@
 -(void)localize
 {
     self.ImportantNotetextView.text = STRING_FOR_LANGUAGE(@"Lab_Notes_Details");
-    self.title=STRING_FOR_LANGUAGE(@"IT.SOS");
+    titleLabel.text = STRING_FOR_LANGUAGE(@"IT.SOS");
     Labservicerequired = STRING_FOR_LANGUAGE(@"");
     Labdetailsisrequired = STRING_FOR_LANGUAGE(@"");
-    
-    LabselectService=STRING_FOR_LANGUAGE(@"IT.SOS");
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     LabRequester=STRING_FOR_LANGUAGE(@"Requester");
     LabPersonalImpact=STRING_FOR_LANGUAGE(@"Personal.Impact");
     LabLow=STRING_FOR_LANGUAGE(@"Low");
@@ -195,7 +192,7 @@
     LabselectServices=STRING_FOR_LANGUAGE(@"Selects.Service");
     requestDescribe = STRING_FOR_LANGUAGE(@"Request.Describe");
     home=STRING_FOR_LANGUAGE(@"Home");
-    ok=STRING_FOR_LANGUAGE(@"ok");
+    ok=STRING_FOR_LANGUAGE(@"Ok");
     Warrning = STRING_FOR_LANGUAGE(@"Warning");
     
 }

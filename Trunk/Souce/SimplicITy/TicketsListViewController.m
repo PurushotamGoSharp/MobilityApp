@@ -59,6 +59,13 @@
     // Do any additional setup after loading the view.
     
     
+   
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+    
+    
     arrayOfData = [[NSMutableArray alloc] init];
     self.filterBtnOutlet.imageInsets = UIEdgeInsetsMake(0, 0, 0, 8);
     
@@ -80,10 +87,10 @@
     
     if (self.fromRasieRequsetVC)
     {
-        [back setTitle:@"Back" forState:UIControlStateNormal];
+        [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
     }else
     {
-        [back setTitle:@"Home" forState:UIControlStateNormal];
+        [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     }
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -114,9 +121,7 @@
     
     [self tryToLoadListOfTickets];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-    [self localize];
-
+    
 }
 -(void)localize
 {
