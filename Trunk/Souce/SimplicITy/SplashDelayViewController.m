@@ -41,9 +41,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    self.backGroundImageOutlet.image = @"LyncImage";
-    
-    
     if (langChanger == nil) {
         langChanger =[[LanguageChangerClass alloc]init];
     }
@@ -118,8 +115,6 @@
         tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools");
         tabBarItem = tabBar.items[3];
         tabBarItem.title = STRING_FOR_LANGUAGE(@"About");
-        
-
 }
 
 
@@ -127,17 +122,6 @@
 {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
-
-    
-    
-    
-    
-//    [self localize:nil];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize:) name:MCLocalizationLanguageDidChangeNotification object:nil];
-
-    
-    
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
@@ -269,6 +253,7 @@
 {
     
 }
+
 #pragma mark
 #pragma mark SeedSyncDelegate
 - (void)seedSyncFinishedSuccessful:(SeedSync *)seedSync
@@ -286,63 +271,16 @@
         }
     }
     
-//    [self tryToGetEnglishLanguage];
-   
     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
-    
-   
-//    if ([langCode isEqualToString:@"en"]) {
-        [langChanger changeLanguageWithCode:langCode];
- 
-   // }
-    
-    
+    [langChanger changeLanguageWithCode:langCode];
 }
 
 -(void)successResponseDelegateMethod
 {
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-//    [self localize];
-    
-  
-//     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
-//    NSFileManager *fmngr = [[NSFileManager alloc] init];
-//    self.languageUrlPairs = [[NSMutableDictionary alloc] init];
-//    
-//    
-//    // the preferred way to get the apps documents directory
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    // grab all the files in the documents dir
-//    NSString *destinationPath = [documentsDirectory stringByAppendingPathComponent:@"Languages"];
-//    
-//    NSString *filePath =[destinationPath stringByAppendingPathComponent:langCode];
-//    
-//    NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:destinationPath error:nil];
-//    // filter the array for only json files
-//    NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
-//    NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
-//    NSString *names = nil;
-//    // use fast enumeration to iterate the array and delete the files
-//    for (NSString *aJsonFile in jsonFiles)
-//    {
-//        NSString *fileNm = [destinationPath stringByAppendingPathComponent:aJsonFile];
-//        names = [[filePath lastPathComponent] stringByDeletingPathExtension];
-//        NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-//        [self.languageUrlPairs setObject:filePathUrl forKey:names];
-//    }
-//    
-//    NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
-//    
-//    [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
-//
-
     [self loadlanguage];
-    
-[self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
-
-
+    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
 
@@ -356,8 +294,6 @@
     // grab all the files in the documents dir
     NSString *destinationPath = [documentsDirectory stringByAppendingPathComponent:@"Languages"];
     
-    NSString *filePath =[destinationPath stringByAppendingPathComponent:langCode];
-    
     NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:destinationPath error:nil];
     // filter the array for only json files
     NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
@@ -367,7 +303,7 @@
     for (NSString *aJsonFile in jsonFiles)
     {
         NSString *fileNm = [destinationPath stringByAppendingPathComponent:aJsonFile];
-        names = [[filePath lastPathComponent] stringByDeletingPathExtension];
+        names = [aJsonFile stringByDeletingPathExtension];
         NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
         [self.languageUrlPairs setObject:filePathUrl forKey:names];
     }
@@ -375,22 +311,15 @@
     NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
 
     [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
-    //[MCLocalization sharedInstance].noKeyPlaceholder = @"{key} ";
     [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
     [MCLocalization sharedInstance].language = langCode;
-  
 }
-
-
-
 
 -(void)failourResponseDelegateMethod
 {
 
 
 }
-
-
 
 - (void)seedSyncFinishedWithFailure:(SeedSync *)seedSync
 {

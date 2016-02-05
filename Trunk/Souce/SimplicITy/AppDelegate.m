@@ -31,10 +31,6 @@
     NewsCategoryFetcher *categoryFetcher;
 }
 
-//-(void)setLanguageUrlPairs:(NSMutableDictionary *)languageUrlPairs
-//{
-//    _languageUrlPairs = languageUrlPairs;
-//}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     callSeedAPI = NO;
@@ -45,9 +41,6 @@
     UAConfig *config = [UAConfig defaultConfig];
     [UAirship takeOff:config];
     UA_LDEBUG(@"Config:\n%@", [config description]);
-    
-    //    [Gimbal setAPIKey:@"47be3299-7a5c-41df-8320-a97519a45ede" options:nil];
-    //    [GMBLPlaceManager startMonitoring];
     
     recognizer = [RoomRecognizer sharedRecognizer];
     
@@ -103,22 +96,6 @@
             break;
     }
     
-   
-    // Localization
-   
-    
-    
-//    NSDictionary * languageURLPairs = @{
-//                                        @"en":[[NSBundle mainBundle] URLForResource:@"en.json" withExtension:nil]
-//                                       
-//                                        };
-//    [MCLocalization loadFromLanguageURLPairs:languageURLPairs defaultLanguage:@"en"];
-//    
-//    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
-//    
-    
-    
-    
     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     NSFileManager *fmngr = [[NSFileManager alloc] init];
     self.languageUrlPairs = [[NSMutableDictionary alloc] init];
@@ -143,77 +120,7 @@
        
         [[NSUserDefaults standardUserDefaults]setObject:@"en" forKey:@"SelectedLanguageCode"];
         langCode =  @"en";
-        
-        
-//        NSURL *filePathUrlll = [NSURL fileURLWithPath:destinationPath];
-//        [[NSUserDefaults standardUserDefaults]setObject:@"en" forKey:@"SelectedLanguageCode"];
-//        langCode =  @"en";
-//        [self.languageUrlPairs setObject:filePathUrlll forKey:langCode];
-//        NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
-        
     }
-//    else
-//    {
-//        // the preferred way to get the apps documents directory
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *documentsDirectory = [paths objectAtIndex:0];
-//        // grab all the files in the documents dir
-//        NSString *destinationPath = [documentsDirectory stringByAppendingPathComponent:@"Languages"];
-//        
-//        NSString *filePath =[destinationPath stringByAppendingPathComponent:langCode];
-//        
-//        NSArray *allFiles = [fmngr contentsOfDirectoryAtPath:destinationPath error:nil];
-//        // filter the array for only json files
-//        NSPredicate *fltr = [NSPredicate predicateWithFormat:@"self ENDSWITH '.json'"];
-//        NSArray *jsonFiles = [allFiles filteredArrayUsingPredicate:fltr];
-//        NSString *names = nil;
-//        // use fast enumeration to iterate the array and delete the files
-//        for (NSString *aJsonFile in jsonFiles)
-//        {
-//            NSString *fileNm = [destinationPath stringByAppendingPathComponent:aJsonFile];
-//            names = [[filePath lastPathComponent] stringByDeletingPathExtension];
-//            NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-//            [self.languageUrlPairs setObject:filePathUrl forKey:names];
-//        }
-//        
-//        NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
-//        
-//    }
-//    
-//    
-//    
-//    
-//    [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
-//    //[MCLocalization sharedInstance].noKeyPlaceholder = @"{key} ";
-//    
-//        [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
-//    
-//    
-//    //    [MCLocalization sharedInstance].noKeyPlaceholder = @"";
-//    
-//    [MCLocalization sharedInstance].language = langCode;
-//    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
@@ -229,13 +136,6 @@
     {
         [self getNotification:userInfo];
     }
-    
-    //    NSUserDefaults *myDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.ucb.app.SimplicITy"];
-    //    [myDefaults setObject:[[UserInfo sharedUserInfo] getServerConfig] forKey:@"SharedUserInfoDictKey"];
-    //    [myDefaults synchronize];
-    
-    
-//    NSLog(@"%@", [NSTimeZone abbreviationDictionary]);
     return YES;
 }
 
@@ -264,59 +164,18 @@
         names = [[aJsonFile lastPathComponent] stringByDeletingPathExtension];
         
         NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
-        
-        //            languageUrlPairs = [NSMutableDictionary dictionaryWithObject:filePathUrl forKey:names];
-        
-        //            self.languageUrlPairs = @{names:filePathUrl}.mutableCopy;
-        
         [self.languageUrlPairs setObject:filePathUrl forKey:names];
     }
     
     NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
     
-
-
-
-
-//    if (![fmngr fileExistsAtPath:[self getFilePath:langCode]])
-//    {
-//        NSString *filePth = [self getFilePath:langCode];
-//        NSURL *filePathUrl = [NSURL fileURLWithPath:filePth];
-//        [languageUrlPairs setObject:filePathUrl forKey:langCode];
-//    }else
-//    {
-//        NSLog(@"File already Exists");
-//    }
-
-
-//    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"en.json"];
-
-//    NSString *filePathhhh = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"de.json"];
-
-//    NSURL *filePathUrl = [NSURL fileURLWithPath:filePath];
-
-//    NSURL *filePathUrlllll = [NSURL fileURLWithPath:filePathhhh];
-
-
-//    NSDictionary *languageUrlPairs = @{@"en":filePathUrl};
-
-[MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
-
-[MCLocalization sharedInstance].noKeyPlaceholder = @"{key} ";
-
-//    [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
-
-
-//    [MCLocalization sharedInstance].noKeyPlaceholder = @"";
-
-
-[MCLocalization sharedInstance].language = langCode;
-
+    [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
+    
+    [MCLocalization sharedInstance].noKeyPlaceholder = @"{key} ";
+    
+    [MCLocalization sharedInstance].language = langCode;
+    
 }
-
-
-
-
 
 - (void)getEWSRequestURL
 {
@@ -490,4 +349,5 @@
     
     NSString *selectedlangCode= [[NSUserDefaults standardUserDefaults] objectForKey:@""];
 }
+
 @end
