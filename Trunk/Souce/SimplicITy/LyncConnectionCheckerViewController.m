@@ -61,7 +61,8 @@
     NSString *alertt;
     NSString *ok;
     NSString *notconnectInternet;
-
+    NSString *kb;
+    NSString *mb;
 
 
 }
@@ -90,7 +91,7 @@
     
     fmt = [[NSNumberFormatter alloc] init];
     [fmt setPositiveFormat:@"0.#"];
-    
+    self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection.Speed");
     
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
@@ -123,6 +124,7 @@
     
    }
 
+
 -(void)localize
 {
     self.title = STRING_FOR_LANGUAGE(@"Ping.Linc");
@@ -131,6 +133,8 @@
     self.videoLbl.text = STRING_FOR_LANGUAGE(@"Video");
     self.screenShareLbl.text = STRING_FOR_LANGUAGE(@"View.Screen");
     
+    kb = STRING_FOR_LANGUAGE(@"KB");
+    mb = STRING_FOR_LANGUAGE(@"");
     slowonlyAudio = STRING_FOR_LANGUAGE(@"");
     averageaudioViewScreen = STRING_FOR_LANGUAGE(@"");
     fastaudiovideoviewScreen = STRING_FOR_LANGUAGE(@"");
@@ -338,7 +342,7 @@
                                                  self.uploadlbl.text = [NSString stringWithFormat:@"%@ MB",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb/1024]] ];
                                              }else
                                              {
-                                                 self.uploadlbl.text = [NSString stringWithFormat:@"%@ KB",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb]] ];
+                                                 self.uploadlbl.text = [NSString stringWithFormat:@"%@ %@",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb]],kb ];
                                              }
                                              NSLog(@"file upload Sucess");
                                              

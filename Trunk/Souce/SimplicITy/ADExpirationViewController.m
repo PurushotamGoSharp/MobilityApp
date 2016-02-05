@@ -219,7 +219,7 @@
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Error")
                                                   message:STRING_FOR_LANGUAGE(@"Contact.Administrator")
                                                  delegate:self
-                                        cancelButtonTitle:@"OK"
+                                        cancelButtonTitle:OK_FOR_ALERT
                                         otherButtonTitles:nil];
     
     [alert show];

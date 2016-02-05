@@ -192,7 +192,7 @@
     LabselectServices=STRING_FOR_LANGUAGE(@"Selects.Service");
     requestDescribe = STRING_FOR_LANGUAGE(@"Request.Describe");
     home=STRING_FOR_LANGUAGE(@"Home");
-    ok=STRING_FOR_LANGUAGE(@"ok");
+    ok=STRING_FOR_LANGUAGE(@"Ok");
     Warrning = STRING_FOR_LANGUAGE(@"Warning");
     
 }

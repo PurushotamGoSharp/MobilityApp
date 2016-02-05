@@ -147,7 +147,6 @@
         if ([seedDataDictFromAPI[newkey] integerValue] > [seeddataDictFromDB[newkey] integerValue])
         {
             NSLog(@"Set Flags for %@" , newkey);
-            
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:newkey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }

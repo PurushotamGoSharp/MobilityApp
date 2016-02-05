@@ -271,8 +271,19 @@
         }
     }
     
+   
+    
+    
     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
-    [langChanger changeLanguageWithCode:langCode];
+//    if (langCode == nil)
+//    {
+//        langCode = @"en";
+//    }
+    NSString *seedKeyForLang = [NSString stringWithFormat:@"uilable,%@", langCode];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:seedKeyForLang])
+    {
+        [langChanger changeLanguageWithCode:langCode];
+    }
 }
 
 -(void)successResponseDelegateMethod

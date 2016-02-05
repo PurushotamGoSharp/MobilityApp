@@ -71,7 +71,33 @@
     {
         [self getData];
     }
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
+
+
+
+
+-(void)localize
+{
+    
+    [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
+    [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
+    self.title = STRING_FOR_LANGUAGE(@"Country");
+    
+    
+    
+}
+
+
+
+
+
+
 - (void) tryToUpdateLanguages
 {
     NSString *parameters = @"{\"request\":{\"Name\":\"\",\"GenericSearchViewModel\":{\"Name\":\"\"}}}";
