@@ -48,6 +48,7 @@
     NSString *ok;
     NSString *warning;
     NSString *totalLabelh;
+    NSString *langCode;
 
 }
 
@@ -172,6 +173,9 @@
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
+       
+        
+        
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"aboutus"])
         {
 //            [self tryUpdateAboutDeatils];
@@ -295,10 +299,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    langCode=[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
+    NSLog(@"the value of key is %@",langCode);
     reviewBtnIsSelected = NO;
     
     [super viewWillAppear:animated];
     
+   
     
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
@@ -401,9 +408,9 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    NSString *curentLanguage = [MCLocalization sharedInstance].language;
+//    NSString *curentLanguage = [MCLocalization sharedInstance].language;
     
-    NSString *param = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",curentLanguage];
+    NSString *param = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",langCode];
     
 //    NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
     
@@ -726,6 +733,7 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         [self parseResponsedata:data andgetImages:NO];
     }
+
 }
 
 - (void)createImages:(NSData *)response forUrl:(NSString *)url

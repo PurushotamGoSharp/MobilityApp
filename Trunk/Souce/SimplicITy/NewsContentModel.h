@@ -19,4 +19,5 @@
 @property (nonatomic,strong)NSString *subject;
 @property (nonatomic,strong)NSString *parentCategory;
 
+
 @end

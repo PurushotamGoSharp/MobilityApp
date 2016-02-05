@@ -126,13 +126,15 @@
 {
 self.title = STRING_FOR_LANGUAGE(@"Book.Room");
 [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
-    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"Home") forState:(UIControlStateNormal)];
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
     endDate = nil;
     
-    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Home") forState:(UIControlStateNormal)];
+    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Start.Time") forState:(UIControlStateNormal)];
     startDate = nil;
+    
+    [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Meeting.Rooms") forState:(UIControlStateNormal)];
 
-
+    self.placeHolderLabel.text=STRING_FOR_LANGUAGE(@"Meeting.Time");
 }
 
 

@@ -37,6 +37,9 @@
     BOOL videoIsPlaying;
     
     UIInterfaceOrientation currentOrientation;
+    
+     NSString *tipsLangKey;
+     NSString * parameterString;
 }
 
 - (void)viewDidLoad
@@ -45,6 +48,7 @@
     // Do any additional setup after loading the view.
     
 //    self.title = self.tipModel.question;
+    NSLog(@"the parent code is %@",_parentCode);
     self.webView.delegate = self;
     
     postMan = [[Postman alloc] init];
@@ -64,8 +68,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    tipsLangKey=[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
+    NSLog(@"the value of key is %@",tipsLangKey);
+    
+    URLString = TIPS_SUBCATEGORY_API;
+    
+    
+    parameterString =    [NSString stringWithFormat: @"{\"request\":{\"TipsGroupCode\":\"%@\",\"LanguageCode\":\"%@\"}}",_parentCode,tipsLangKey];
 
-    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
+//    URLString = [NSString stringWithFormat:TIPS_SUBCATEGORY_API, self.parentCode];
     
     if ([AFNetworkReachabilityManager sharedManager].reachable)
     {
@@ -108,8 +119,17 @@
 
 - (void)tryToUpdateCategories
 {
+    URLString = TIPS_SUBCATEGORY_API;
+   
+    
+    parameterString =    [NSString stringWithFormat: @"{\"request\":{\"TipsGroupCode\":\"%@\",\"LanguageCode\":\"%@\"}}",_parentCode,tipsLangKey];
+    
+    [postMan post:URLString withParameters:parameterString];
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [postMan get:URLString];
+    
+    
+   
 }
 
 - (NSString *)userDefaultKey
@@ -320,7 +340,9 @@
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseResponseData:response];
-    [self saveTipsCategory:response];
+    NSString *apiKey= [NSString stringWithFormat:@"%@-%@", urlString, parameterString];
+    [self saveTipsCategory:[NSData  dataWithContentsOfFile:apiKey]];
+    
     
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[self userDefaultKey]];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -374,8 +396,11 @@
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate = self;
     }
+    NSString *apiKey1 = [NSString stringWithFormat:@"%@-%@", URLString, parameterString];
     
-    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", URLString];
+   
+    
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM tipCategory WHERE API = '%@'", apiKey1];
     
     if (![dbManager getDataForQuery:queryString])
     {
@@ -385,8 +410,9 @@
             [noNetworkAlert show];
         }
         
-        [self tryToUpdateCategories];
+        
     }
+    [self tryToUpdateCategories];
 }
 
 #pragma mark

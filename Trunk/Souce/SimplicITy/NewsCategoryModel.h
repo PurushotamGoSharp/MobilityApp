@@ -15,5 +15,5 @@
 @property (strong,nonatomic)NSArray *newsArr;
 @property (strong,nonatomic)NSString *categoryDocCode;
 @property (assign,nonatomic)NSInteger badgeCount;
-
+@property(nonatomic,strong)NSString *parentCode;
 @end

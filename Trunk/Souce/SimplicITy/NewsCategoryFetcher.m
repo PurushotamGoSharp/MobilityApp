@@ -31,6 +31,7 @@
     void (^_completionHandler)(UIBackgroundFetchResult) ;
     
     NSInteger noOfCallsMade;
+    NSString *langCode;
 }
 
 - (instancetype)init
@@ -48,6 +49,8 @@
     URLString = TIPS_CATEGORY_API;
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
+    langCode=[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
+   
 }
 
 - (void)initiateNewsCategoryAPIFor:(NSInteger)sinceID fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler andDownloadImages:(BOOL)downloadImages
@@ -61,7 +64,7 @@
 - (void)tryToUpdateNewsCategories:(NSInteger)sinceID
 {
     URLString = NEWS_CATEGORY_API;
-    NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"Name\":\"\",\"Since_Id\":\"%li\"}}",(long)sinceID];
+    NSString *parameter = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\",\"Since_Id\":\"%li\"}}",langCode,(long)sinceID];
     noOfCallsMade++;
     [postMan post:URLString withParameters:parameter];
 }
@@ -143,7 +146,8 @@
             newsCategory.categoryName = adict[@"Name"];
             newsCategory.categoryDocCode = adict[@"DocumentCode"];
             newsCategory.badgeCount = [adict[@"NewsCount"] integerValue];
-            
+            newsCategory.parentCode = adict[@"ParentCode"];
+        
             if (download)
             {
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API, adict[@"DocumentCode"]];
@@ -154,7 +158,7 @@
             if (newsCategory.badgeCount > 0)
             {
                 noOfCallsMade++;
-                [self getNewsForCategoryCode:newsCategory.categoryCode withSince:_sinceID];
+                [self getNewsForCategoryCode:newsCategory.parentCode withSince:_sinceID];
             }
             
             [newsCategoryArr addObject:newsCategory];
@@ -190,7 +194,7 @@
     
     for (NewsCategoryModel *aModel in categories)
     {
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%li')",aModel.categoryName, aModel.categoryCode,aModel.categoryDocCode,(long)aModel.badgeCount];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%li')",aModel.categoryName, aModel.parentCode,aModel.categoryDocCode,(long)aModel.badgeCount];
         [dbManager saveDataToDBForQuery:insertSQL];
         
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
@@ -280,9 +284,9 @@
 
 
 
-- (void)getNewsForCategoryCode:(NSString *)categoryCode withSince:(NSInteger)sinceID
+- (void)getNewsForCategoryCode:(NSString *)parentCode withSince:(NSInteger)sinceID
 {
-    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"en\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\",\"Status\":\"Pushed\"}}",categoryCode, (long)sinceID];
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\",\"Status\":\"Pushed\"}}",langCode,parentCode, (long)sinceID];
     [postMan post:NEWS_API withParameters:parameterStringforNews];
 }
 
