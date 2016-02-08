@@ -204,7 +204,7 @@
     else
     {
         NSLog(@"Not rechable");
-        [langChanger readLanguageFileFromDocumentDirectory];
+        [langChanger readLanguageFileFromDocumentDirectory:NO];
 //        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
     }
 }
@@ -276,6 +276,10 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:seedKeyForLang])
     {
         [langChanger changeLanguageWithCode:langCode];
+    }else
+    {
+        [langChanger readLanguageFileFromDocumentDirectory:NO];
+        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
     }
 
 

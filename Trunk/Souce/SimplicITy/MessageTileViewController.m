@@ -408,9 +408,9 @@
                 [newsCategoryArr addObject:categoryModel];
             }else
             {
-                if ([categoryModel.categoryCode isEqualToString:@"OK2UPDATE"]) {
-                    [newsCategoryArr addObject:categoryModel];
-                }
+//                if ([categoryModel.categoryCode isEqualToString:@"OK2UPDATE"]) {
+//                    [newsCategoryArr addObject:categoryModel];
+//                }
             }
         }
 

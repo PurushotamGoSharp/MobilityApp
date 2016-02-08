@@ -94,7 +94,7 @@
     
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
     if (fileExists) {
-        [self readLanguageFileFromDocumentDirectory];
+        [self readLanguageFileFromDocumentDirectory:YES];
     
     } else {
         [self.delegate failourResponseDelegateMethod];
@@ -104,7 +104,7 @@
 
 
 
--(void)readLanguageFileFromDocumentDirectory
+-(void)readLanguageFileFromDocumentDirectory:(BOOL)callingFromAPI
 {
     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     NSFileManager *fmngr = [[NSFileManager alloc] init];
@@ -132,9 +132,13 @@
     [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
     [MCLocalization sharedInstance].language = langCode;
 
-    [self.delegate successResponseDelegateMethod];
-
-
+    if (callingFromAPI)
+    {
+        [self.delegate successResponseDelegateMethod];
+    }
+    
+    NSString *seedKeyForLang = [NSString stringWithFormat:@"uilabel,%@", langCode];
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:seedKeyForLang];
 
 
 

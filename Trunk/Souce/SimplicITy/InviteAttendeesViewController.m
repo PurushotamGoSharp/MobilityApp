@@ -18,9 +18,9 @@
 #import "AppDelegate.h"
 
 #define MIN_TIME_SLOT_FOR_SEARCH 10*60
-#define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 10 minutes"
-#define ALERT_MSG_ALREADY_BOOKED @"Sorry! Meeting Room already booked by someone else recently."
-#define ALERT_MSG_SUCCESSFULL_BOOKING @"Successfully booked the Meeting Room."
+//#define ALERT_MSG_MINIMUM_TIME_SLOT_10 @"Please select a Time Slot of minimum 10 minutes"
+//#define ALERT_MSG_ALREADY_BOOKED @"Sorry! Meeting Room already booked by someone else recently."
+//#define ALERT_MSG_SUCCESSFULL_BOOKING @"Successfully booked the Meeting Room."
 
 @interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate, SelectDateCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -62,9 +62,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"Invite Attendee(s)";
     
-    dataOfFirstSection = @[@"Date",@"Start",@"End",@"Organizer",@"Venue"];
+    
+    
     dataOfThirdSection = @[@"",@"Marc",@"Bin",@"Antony",@"Sundar"];
 
     dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
@@ -117,12 +117,23 @@
     
     [self registerForKeyboardNotifications];
     [self setTheme];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+
 }
 
 -(void)localize
 {
+ self.title = STRING_FOR_LANGUAGE(@"invite.attendee");
+  dataOfFirstSection = @[STRING_FOR_LANGUAGE(@"Date"),STRING_FOR_LANGUAGE(@"start"),STRING_FOR_LANGUAGE(@"End"),STRING_FOR_LANGUAGE(@"Organizer"),STRING_FOR_LANGUAGE(@"Venue")];
+    
     
 }
+
+
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -288,10 +299,10 @@
     NSTimeInterval timeIntervel = [newEvent.endDate timeIntervalSinceDate:newEvent.startDate];
     if (timeIntervel < MIN_TIME_SLOT_FOR_SEARCH)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:ALERT_MSG_MINIMUM_TIME_SLOT
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
+                                                            message:ALERT_MSG_MINIMUM_TIME_SLOT_10
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles:nil];
         [alertView show];
         return;
@@ -561,13 +572,15 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"AddAttendeesCell" forIndexPath:indexPath];
             UILabel *label = (UILabel *)[cell viewWithTag:100];
-            label.text = @"Add Attendee(s)";
+            label.text = STRING_FOR_LANGUAGE(@"Add.Attendee");
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
             btn.hidden = NO;
             [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             UILabel *placeHolderLabel = (UILabel *)[cell viewWithTag:300];
+            placeHolderLabel.text = STRING_FOR_LANGUAGE(@"Add.Paticipants");
+            
             
             if (reqiuredAttentees.count == 0)
             {
@@ -671,10 +684,10 @@
     
     if (section == 0)
     {
-        headerLabel.text = @"Meeting Details";
+        headerLabel.text = STRING_FOR_LANGUAGE(@"Meeting.Details");
     }else if (section == 1)
     {
-        headerLabel.text = @"Subject";
+        headerLabel.text = STRING_FOR_LANGUAGE(@"Subject");
     }
 
     [headerView addSubview:headerLabel];

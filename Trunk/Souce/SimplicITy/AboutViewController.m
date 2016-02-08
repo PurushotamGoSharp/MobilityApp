@@ -18,7 +18,7 @@
 
 
 #define ALERT_FOR_RATING @"Thank you for Rating the App"
-#define FEEDBACK_IN_OFFLINE @"Device is not connected to internet. Your feedback will be posted automatically once device connects to internet"
+//#define FEEDBACK_IN_OFFLINE @"Device is not connected to internet. Your feedback will be posted automatically once device connects to internet"
 
 
 @interface AboutViewController () <postmanDelegate, DBManagerDelegate,RateViewDelegate,UITextViewDelegate, UIWebViewDelegate>
@@ -210,7 +210,7 @@
 {
     
     [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
-    self.title = STRING_FOR_LANGUAGE(@"About.Us");;
+    self.title = STRING_FOR_LANGUAGE(@"About.Us");
     self.clickToRateLbl.text = STRING_FOR_LANGUAGE(@"Click.rate");
     self.avgRateLable.text = STRING_FOR_LANGUAGE(@"Avg.Rating");
     self.writeReviewLbl.text = STRING_FOR_LANGUAGE(@"Write.Review");

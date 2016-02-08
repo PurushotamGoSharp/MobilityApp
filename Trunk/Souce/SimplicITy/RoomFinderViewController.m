@@ -20,11 +20,14 @@
 #define HEIGHT_OF_CL_CALENDAR 79
 #define MIN_TIME_SLOT_FOR_SEARCH 15*60
 
-#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
-#define ALERT_MSG_SELECT_FUTURE_TIME @"Please select a future Time Slot"
-#define ALERT_MSG_TRY_LATER @"Error occured. Please try again after some time"
-#define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 15 minutes"
-#define ALERT_MSG_AUTHORIZED_BOOKING @"If you are not authorized to book this Private Room your Meeting Request will be declined.  Do you wish to continue?"
+//#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
+//#define ALERT_MSG_SELECT_FUTURE_TIME @"Please select a future Time Slot"
+//#define ALERT_MSG_TRY_LATER @"Error occured. Please try again after some time"
+//#define ALERT_MSG_MINIMUM_TIME_SLOT @"Please select a Time Slot of minimum 15 minutes"
+//#define ALERT_MSG_AUTHORIZED_BOOKING @"If you are not authorized to book this Private Room your Meeting Request will be declined.  Do you wish to continue?"
+
+
+
 
 @interface RoomFinderViewController () <UITableViewDataSource, UITableViewDelegate, RoomManagerDelegate, CLWeeklyCalendarViewDelegate, UIAlertViewDelegate, PasswordManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *startTimeButton;
@@ -133,8 +136,11 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     startDate = nil;
     
     [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Meeting.Rooms") forState:(UIControlStateNormal)];
-
     self.placeHolderLabel.text=STRING_FOR_LANGUAGE(@"Meeting.Time");
+
+
+
+
 }
 
 
@@ -224,10 +230,10 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     
     }else
     {
-        officeLocationAlert = [[UIAlertView alloc] initWithTitle:@"Office Location is required."
+        officeLocationAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"")
                                                             message:ALERT_MSG_SET_OFFICE_LOCATION
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles:nil];
         [officeLocationAlert show];
     }
@@ -369,10 +375,10 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     NSTimeInterval intervel = [[NSDate date] timeIntervalSinceDate:startDate];
     if (intervel > 300)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:ERROR_FOR_ALERT
                                                             message:ALERT_MSG_SELECT_FUTURE_TIME
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles: nil];
         [alertView show];
         
@@ -390,10 +396,10 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
         
         if (!tryAgainAlert)
         {
-            tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+            tryAgainAlert = [[UIAlertView alloc] initWithTitle:ERROR_FOR_ALERT
                                                        message:ALERT_MSG_TRY_LATER
                                                       delegate:self
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:OK_FOR_ALERT
                                              otherButtonTitles: nil];
 
         }
@@ -402,10 +408,10 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     
     if (![self timeWindowIsValid])
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
                                                             message:ALERT_MSG_MINIMUM_TIME_SLOT
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles:nil];
         [alertView show];
         NSLog(@"Time window is less than MIN Value");
@@ -416,10 +422,10 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     {
         if (!tryAgainAlert)
         {
-            tryAgainAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+            tryAgainAlert = [[UIAlertView alloc] initWithTitle:ERROR_FOR_ALERT
                                                        message:ALERT_MSG_TRY_LATER
                                                       delegate:self
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:OK_FOR_ALERT
                                              otherButtonTitles: nil];
             
         }
@@ -531,7 +537,7 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
 - (void)setButtonForSearchingFreeRoom
 {
     self.serachRoomsButton.tag = 111;
-    [self.serachRoomsButton setTitle:@"Search Meeting Room(s)" forState:(UIControlStateNormal)];
+    [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Search.Room") forState:(UIControlStateNormal)];
 
 
 
@@ -638,7 +644,10 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     if (roomsAvailable.count == 0)
     {
         self.placeHolderLabel.hidden = NO;
-        self.placeHolderLabel.text = @"No Meeting Rooms are available for the selected time slot.";
+//        self.placeHolderLabel.text = @"No Meeting Rooms are available for the selected time slot.";
+        self.placeHolderLabel.text = STRING_FOR_LANGUAGE(@"Rooms.Slot");
+
+   
     }
     
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"nameOfRoom" ascending:YES];

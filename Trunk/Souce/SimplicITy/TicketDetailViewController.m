@@ -60,12 +60,12 @@
 
 -(void)localize
 {
-    self.title = STRING_FOR_LANGUAGE(@"");
-    ticketnumber = STRING_FOR_LANGUAGE(@"");
+    self.title = STRING_FOR_LANGUAGE(@"Ticket.Details");
+    ticketnumber = STRING_FOR_LANGUAGE(@"Ticket.Number");
     requester = STRING_FOR_LANGUAGE(@"Requester");
     personalImpact = STRING_FOR_LANGUAGE(@"Personal.Impact");
-    agent = STRING_FOR_LANGUAGE(@"");
-    status = STRING_FOR_LANGUAGE(@"");
+    agent = STRING_FOR_LANGUAGE(@"Agent");
+    status = STRING_FOR_LANGUAGE(@"Status");
     details = STRING_FOR_LANGUAGE(@"Details");
     
     

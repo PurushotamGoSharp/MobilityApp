@@ -24,6 +24,6 @@
 
 
 -(void)changeLanguageWithCode:(NSString*)langCode;
--(void)readLanguageFileFromDocumentDirectory;
+-(void)readLanguageFileFromDocumentDirectory:(BOOL)callingFromAPI;
 
 @end

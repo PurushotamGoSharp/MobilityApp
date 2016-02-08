@@ -89,8 +89,6 @@
     [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
     self.title = STRING_FOR_LANGUAGE(@"Country");
     
-    
-    
 }
 
 
@@ -289,7 +287,7 @@
 
 - (IBAction)doneBtnPressed:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
     LanguageModel *selectedlanguage = languagesArrOfData[[self.tableView indexPathForSelectedRow].row];
     
     [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguageName"];
@@ -299,7 +297,7 @@
     
     [self.delegate selectedLanguageis:selectedlanguage];
 
-
+   [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 

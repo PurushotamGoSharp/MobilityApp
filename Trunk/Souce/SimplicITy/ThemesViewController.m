@@ -47,18 +47,13 @@
 -(void)localize
 {
  
-     self.title = STRING_FOR_LANGUAGE(@"Theme");
+     self.title = STRING_FOR_LANGUAGE(@"Themes");
     arrOfThemesData = @[STRING_FOR_LANGUAGE(@"Blue.Ocean"),STRING_FOR_LANGUAGE(@"Green.Glow"),STRING_FOR_LANGUAGE(@"Orange.Hue"),STRING_FOR_LANGUAGE(@"Pink.Rose")];
     [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
     [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
 
 
 }
-
-
-
-
-
 
 - (IBAction)cancelBtnPressed:(id)sender
 {

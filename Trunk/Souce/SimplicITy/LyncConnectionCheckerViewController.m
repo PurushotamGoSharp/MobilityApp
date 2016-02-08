@@ -135,9 +135,9 @@
     
     kb = STRING_FOR_LANGUAGE(@"KB");
     mb = STRING_FOR_LANGUAGE(@"");
-    slowonlyAudio = STRING_FOR_LANGUAGE(@"");
-    averageaudioViewScreen = STRING_FOR_LANGUAGE(@"");
-    fastaudiovideoviewScreen = STRING_FOR_LANGUAGE(@"");
+    slowonlyAudio = STRING_FOR_LANGUAGE(@"Audio.slow");
+    averageaudioViewScreen = STRING_FOR_LANGUAGE(@"Audio.Average");
+    fastaudiovideoviewScreen = STRING_FOR_LANGUAGE(@"Audio.fast");
     notconnectInternet = STRING_FOR_LANGUAGE(@"");
     alertt = STRING_FOR_LANGUAGE(@"Language.Alert");
     

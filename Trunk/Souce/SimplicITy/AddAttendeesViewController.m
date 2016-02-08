@@ -10,7 +10,7 @@
 #import "RoomManager.h"
 #import "ContactDetails.h"
 
-#define ALERT_MSG_GIVE_VALID_EMAILID @"Please give a valid Email ID."
+//#define ALERT_MSG_GIVE_VALID_EMAILID @"Please give a valid Email ID."
 
 @interface AddAttendeesViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate,UIScrollViewDelegate>
 
@@ -45,20 +45,35 @@
     
     selectedAttentdees = [[NSMutableArray alloc] init];
     
-    self.title = @"Add Attendee(s)";
-}
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
+    
+    
+    }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     [self.searchUserNameTextField becomeFirstResponder];
+    self.searchUserNameTextField.text = STRING_FOR_LANGUAGE(@"Type.Name");
+
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)localize{
+    self.title = STRING_FOR_LANGUAGE(@"Add.Attendee");
+
+}
+
+
+
 
 - (void)hideKeyboard
 {
@@ -136,10 +151,10 @@
         self.searchUserNameTextField.text = @"";
     }else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
                                                         message:ALERT_MSG_GIVE_VALID_EMAILID
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:OK_FOR_ALERT
                                               otherButtonTitles: nil];
         [alert show];
     }
@@ -331,7 +346,7 @@
             {
                 return nil;
             }
-            headerLabel.text = @"Selected Attendee(s)";
+            headerLabel.text = STRING_FOR_LANGUAGE(@"Selected.Attendee");
         }else if (section == 0)
         {
             return nil;
@@ -341,7 +356,7 @@
             {
                 return nil;
             }
-            headerLabel.text = @"Contact(s) Found";
+            headerLabel.text = STRING_FOR_LANGUAGE(@"Contact.Found");
         }
     }
     

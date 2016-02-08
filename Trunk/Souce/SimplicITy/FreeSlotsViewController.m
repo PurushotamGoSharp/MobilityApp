@@ -18,7 +18,7 @@
 #import "NSDate+CL.h"
 #import "PasswordManager.h"
 
-#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
+//#define ALERT_MSG_SET_OFFICE_LOCATION @"Please go to Settings and choose Office Location"
 
 @interface FreeSlotsViewController () <CLWeeklyCalendarViewDelegate, RoomManagerDelegate, UITableViewDataSource, UITableViewDelegate, PasswordManagerDelegate>
 
@@ -206,10 +206,10 @@
         
     }else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
                                                             message:ALERT_MSG_SET_OFFICE_LOCATION
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles:nil];
         [alertView show];
     }
@@ -449,7 +449,8 @@
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
     headerView.backgroundColor = [UIColor colorWithRed:.38 green:.77 blue:.95 alpha:1];
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
-    headerLabel.text = @"Meeting Room(s)";
+   // headerLabel.text = @"Meeting Room(s)";
+    headerLabel.text = STRING_FOR_LANGUAGE(@"rooms.meeting");
     headerLabel.textColor = [UIColor whiteColor];
     [headerView addSubview:headerLabel];
     
@@ -545,10 +546,10 @@
     freeSlotsArray = dictOfAllRooms[model.emailIDOfRoom];
     if (freeSlotsArray.count == 0)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                            message:@"No Time Slots available"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
+                                                            message:STRING_FOR_LANGUAGE(@"")
                                                            delegate:self
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles:nil];
         [alertView show];
         return;
