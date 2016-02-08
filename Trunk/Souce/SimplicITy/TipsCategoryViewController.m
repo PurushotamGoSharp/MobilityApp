@@ -313,7 +313,9 @@
     rangeofString.length = stringFromData.length;
     [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
     
-    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", APILink,stringFromData];
+    NSString *apiKey = [NSString stringWithFormat:@"%@-%@", URLString, parameter];
+
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", apiKey,stringFromData];
 
     [dbManager saveDataToDBForQuery:insertSQL];
 }
@@ -350,6 +352,9 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         
         [self parseResponseData:data andGetImages:NO];
+    }else
+    {
+        [self tryToUpdateCategories];
     }
 }
 

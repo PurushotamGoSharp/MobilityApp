@@ -24,6 +24,7 @@
 @interface AboutViewController () <postmanDelegate, DBManagerDelegate,RateViewDelegate,UITextViewDelegate, UIWebViewDelegate>
 {
     NSString *URLString;
+    NSString *paramterToPass;
     Postman *postMan;
     DBManager *dbManager;
     UIBarButtonItem *backButton;
@@ -166,7 +167,6 @@
     self.writeReviewTxtView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.writeReviewTxtView.layer.borderWidth = 1;
     
-    URLString = ABOUT_DETAILS_API;
     
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
@@ -299,14 +299,14 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     langCode=[[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     NSLog(@"the value of key is %@",langCode);
     reviewBtnIsSelected = NO;
-    
-    [super viewWillAppear:animated];
-    
-   
-    
+    URLString = ABOUT_DETAILS_API;
+    paramterToPass = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",langCode];
+
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"aboutus"])
@@ -410,11 +410,11 @@
     
 //    NSString *curentLanguage = [MCLocalization sharedInstance].language;
     
-    NSString *param = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",langCode];
+     paramterToPass = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\"}}",langCode];
     
 //    NSString *parameter = @"{\"request\":{\"LanguageCode\":\"\"}}";
     
-    [postMan post:URLString withParameters:param];
+    [postMan post:URLString withParameters:paramterToPass];
 }
 
 - (IBAction)writeReviewBtnAction:(id)sender
@@ -696,7 +696,9 @@
     rangeofString.length = stringFromData.length;
     [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
     
-    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  aboutDetails (API,data) values ('%@', '%@')", APILink,stringFromData];
+    NSString *apiKey = [NSString stringWithFormat:@"%@-%@", URLString, paramterToPass];
+
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  aboutDetails (API,data) values ('%@', '%@')", apiKey,stringFromData];
     [dbManager saveDataToDBForQuery:insertSQL];
 }
 
@@ -708,7 +710,9 @@
         dbManager.delegate=self;
     }
     
-    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM aboutDetails WHERE API = '%@'", URLString];
+    NSString *apiKey = [NSString stringWithFormat:@"%@-%@", URLString, paramterToPass];
+
+    NSString *queryString = [NSString stringWithFormat:@"SELECT * FROM aboutDetails WHERE API = '%@'", apiKey];
     if (![dbManager getDataForQuery:queryString])
     {
         if (![AFNetworkReachabilityManager sharedManager].reachable)
@@ -733,7 +737,15 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         [self parseResponsedata:data andgetImages:NO];
     }
+else
+{
 
+    [self tryUpdateAboutDeatils];
+}
+    
+    
+    
+    
 }
 
 - (void)createImages:(NSData *)response forUrl:(NSString *)url
