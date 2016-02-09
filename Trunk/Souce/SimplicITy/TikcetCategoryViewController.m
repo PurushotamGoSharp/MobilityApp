@@ -33,15 +33,36 @@
     
     NSLog(@"from %@",self.orderItemDiffer);
     
-    if ([self.orderItemDiffer isEqualToString:@"orderList"])
-    {
-        self.title = @"Items";
-        
-    }else
-    {
-        self.title = @"Services";
-    }
+//    if ([self.orderItemDiffer isEqualToString:@"orderList"])
+//    {
+//        self.title = @"Items";
+//        
+//    }else
+//    {
+//        self.title = @"Services";
+//    }
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+
 }
+
+
+
+-(void)localize
+{
+
+    self.title = STRING_FOR_LANGUAGE(@"ITSOS.Services");
+     [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
+    
+}
+
+
+
+
+
+
 
 - (void)selectTableViewCell
 {
