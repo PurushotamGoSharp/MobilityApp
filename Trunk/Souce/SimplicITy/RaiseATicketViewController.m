@@ -172,11 +172,34 @@
 
 }
 
+//Important Notes
+//
+//Please provide as much information as possible about your issue(s) in the Details section above.  Other than a description, ensure you provide:
+//· Indicate how you want to be contacted in the Details (Mobile Phone, Office Phone, Lync, etc)
+//· Your preferred contact phone number
+//· The date/time you wish to be contacted
+
 
 
 -(void)localize
 {
-    self.ImportantNotetextView.text = STRING_FOR_LANGUAGE(@"Lab_Notes_Details");
+//    self.ImportantNotetextView.text = STRING_FOR_LANGUAGE(@"Lab_Notes_Details");
+    
+    
+    
+    NSString * test = @"Important Notes";
+    NSString * test2 = [test stringByAppendingString:@" \n\nPlease provide as much information as possible about your issue(s) in the Details section above.  Other than a description, ensure you provide:"];
+    NSString * test3 = [test2 stringByAppendingString:@" \n· Indicate how you want to be contacted in the Details (Mobile Phone, Office Phone, Lync, etc)"];
+    
+     NSString * test4 = [test3 stringByAppendingString:@" \n· Your preferred contact phone number"];
+     NSString * test5 = [test4 stringByAppendingString:@" \n· The date/time you wish to be contacted"];
+   
+    self.ImportantNotetextView.text=[NSString stringWithFormat:@"%@",test5];
+    
+    self.ImportantNotetextView.textColor=[self colorWithHexString:@"FFA0A0"];
+    [[self ImportantNotetextView] setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
+    
+    
     titleLabel.text = STRING_FOR_LANGUAGE(@"IT.SOS");
     Labservicerequired = STRING_FOR_LANGUAGE(@"");
     Labdetailsisrequired = STRING_FOR_LANGUAGE(@"");
@@ -196,9 +219,43 @@
     Warrning = STRING_FOR_LANGUAGE(@"Warning");
     
 }
+// hex colour
 
-
-
+-(UIColor*)colorWithHexString:(NSString*)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
 
 
 
