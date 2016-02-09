@@ -82,6 +82,10 @@
 
 
 }
+
+
+
+
 -(void)localize
 {
 self.title = STRING_FOR_LANGUAGE(@"Device.Upgrade");
