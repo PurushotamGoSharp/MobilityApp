@@ -187,14 +187,32 @@
     
     
     
-    NSString * test = @"Important Notes";
-    NSString * test2 = [test stringByAppendingString:@" \n\nPlease provide as much information as possible about your issue(s) in the Details section above.  Other than a description, ensure you provide:"];
-    NSString * test3 = [test2 stringByAppendingString:@" \n· Indicate how you want to be contacted in the Details (Mobile Phone, Office Phone, Lync, etc)"];
+    NSString * test = STRING_FOR_LANGUAGE(@"Important.Notes");
+    NSString * testtwo = STRING_FOR_LANGUAGE(@"Issues.Details");
+    NSString * testthree = STRING_FOR_LANGUAGE(@"Contact.Details");
+    NSString * testfour = STRING_FOR_LANGUAGE(@"Contact.Number");
+    NSString * testfive = STRING_FOR_LANGUAGE(@"Date.Contact");
+
+//    
+//    
+//    NSString * test2 = [test stringByAppendingString:@" \n\nPlease provide as much information as possible about your issue(s) in the Details section above.  Other than a description, ensure you provide:"];
+//    NSString * test3 = [test2 stringByAppendingString:@" \n· Indicate how you want to be contacted in the Details (Mobile Phone, Office Phone, Lync, etc)"];
+//    
+//   
+//   
+//    NSString * test4 = [test3 stringByAppendingString:@" \n· Your preferred contact phone number"];
+//    
+//   // NSString * test5 = [test4 stringByAppendingString:@" \n· The date/time you wish to be contacted"];
+//   
+//     NSString * test5 = [test4 stringByAppendingString:@" \n· The date/time you wish to be contacted"];
+//    
+//    
     
-     NSString * test4 = [test3 stringByAppendingString:@" \n· Your preferred contact phone number"];
-     NSString * test5 = [test4 stringByAppendingString:@" \n· The date/time you wish to be contacted"];
-   
-    self.ImportantNotetextView.text=[NSString stringWithFormat:@"%@",test5];
+    
+    self.ImportantNotetextView.text=[NSString stringWithFormat:@"%@ \n\n %@\n.%@\n.%@\n.%@",test,testtwo,testthree,testfour,testfive];
+    
+    
+    
     
     self.ImportantNotetextView.textColor=[self colorWithHexString:@"FFA0A0"];
     [[self ImportantNotetextView] setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
@@ -720,9 +738,13 @@
     }else
     {
         cell = [tableView dequeueReusableCellWithIdentifier:@"DetailsCell" forIndexPath:indexPath];
+        
         self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
+        
         self.textView.font = [self customFont:16 ofName:MuseoSans_300];
-        self.textView.text=requestDescribe;
+
+        self.textView.textColor=[self colorWithHexString:@"AAAAAA"];
+        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
         self.textView.delegate = self;
     }
     return cell;
