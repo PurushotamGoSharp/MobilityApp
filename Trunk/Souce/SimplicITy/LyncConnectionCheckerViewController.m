@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIView *audioView;
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UIView *screenShareView;
+@property (weak, nonatomic) IBOutlet UIButton *RefreshButtonRef;
 
 @end
 
@@ -88,6 +89,13 @@
     self.AudioLbl.font = [self customFont:16 ofName:MuseoSans_300];
     self.videoLbl.font = [self customFont:16 ofName:MuseoSans_300];
     self.screenShareLbl.font = [self customFont:16 ofName:MuseoSans_300];
+    // Setting the title of login button
+    [self.RefreshButtonRef setTitle:@"Retry" forState:normal];
+    //custmize the font of button text
+    self.RefreshButtonRef.titleLabel.font = [self customFont:18 ofName:MuseoSans_700];
+    
+    
+    
     
     fmt = [[NSNumberFormatter alloc] init];
     [fmt setPositiveFormat:@"0.#"];
@@ -123,6 +131,11 @@
 
     
    }
+- (IBAction)RefreshButtonAction:(id)sender {
+
+    [self refreshtapAction];
+
+}
 
 
 -(void)localize
@@ -142,6 +155,49 @@
     alertt = STRING_FOR_LANGUAGE(@"Language.Alert");
     
 
+}
+
+
+
+-(void)refreshtapAction
+{
+   
+   
+    self.videoView.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1]; //Gray
+    self.audioView.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
+    self.screenShareView.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
+    
+    
+    fmt = [[NSNumberFormatter alloc] init];
+    [fmt setPositiveFormat:@"0.#"];
+    self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection.Speed");
+    
+    
+    if ([AFNetworkReachabilityManager sharedManager].isReachable)
+    {
+        if ([AFNetworkReachabilityManager sharedManager].isReachable)
+        {
+            if ([[NSUserDefaults standardUserDefaults]boolForKey:@"configuration"])
+            {
+                [self callConfigAPI];
+                
+            }else
+            {
+                [self  getData];
+            }
+            
+        }
+        else
+        {
+            [self  getData];
+        }
+        
+        [self callAPI];
+    }else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ALERT_FOR_ALERT message:notconnectInternet delegate:self cancelButtonTitle:nil otherButtonTitles:OK_FOR_ALERT, nil];
+        [alert show];
+    }
 }
 
 
