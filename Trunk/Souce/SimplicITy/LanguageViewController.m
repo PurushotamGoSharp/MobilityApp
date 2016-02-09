@@ -279,6 +279,10 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         [self parseResponseData:data];
     }
+
+
+
+
 }
 - (IBAction)cancelBtnPressed:(id)sender
 {
@@ -306,15 +310,6 @@
     {
         [langChanger readLanguageFileFromDocumentDirectory:NO];
     }
-    
-
-    
-    
-    
-    
-    
-    
-    
     
     
     [self.delegate selectedLanguageis:selectedlanguage];
