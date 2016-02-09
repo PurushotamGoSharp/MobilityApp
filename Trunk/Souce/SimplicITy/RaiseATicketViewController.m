@@ -723,6 +723,7 @@
         self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
         self.textView.font = [self customFont:16 ofName:MuseoSans_300];
         self.textView.text=requestDescribe;
+        self.textView.textColor=[self colorWithHexString:@"AAAAAA"];
         self.textView.delegate = self;
     }
     return cell;
