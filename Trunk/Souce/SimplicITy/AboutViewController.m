@@ -210,7 +210,7 @@
 {
     
     [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
-    self.title = STRING_FOR_LANGUAGE(@"About.Us");
+    self.navigationItem.title = STRING_FOR_LANGUAGE(@"About.Us");
     self.clickToRateLbl.text = STRING_FOR_LANGUAGE(@"Click.rate");
     self.avgRateLable.text = STRING_FOR_LANGUAGE(@"Avg.Rating");
     self.writeReviewLbl.text = STRING_FOR_LANGUAGE(@"Write.Review");

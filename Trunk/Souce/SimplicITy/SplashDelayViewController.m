@@ -205,7 +205,7 @@
     {
         NSLog(@"Not rechable");
         [langChanger readLanguageFileFromDocumentDirectory:NO];
-//        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+        [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
     }
 }
 

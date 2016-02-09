@@ -293,11 +293,35 @@
     [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguageName"];
     [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.code forKey:@"SelectedLanguageCode"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [langChanger changeLanguageWithCode:selectedlanguage.code];
+    
+    
+  
+    
+    
+    NSString *seedKeyForLang = [NSString stringWithFormat:@"uilabel,%@",selectedlanguage.code];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:seedKeyForLang])
+    {
+       [langChanger changeLanguageWithCode:selectedlanguage.code];
+    }else
+    {
+        [langChanger readLanguageFileFromDocumentDirectory:NO];
+    }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
     
     [self.delegate selectedLanguageis:selectedlanguage];
-
    [self dismissViewControllerAnimated:YES completion:nil];
+
+
+
 
 }
 
