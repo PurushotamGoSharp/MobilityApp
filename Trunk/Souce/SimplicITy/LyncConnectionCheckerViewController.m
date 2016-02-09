@@ -93,6 +93,30 @@
     [self.RefreshButtonRef setTitle:@"Retry" forState:normal];
     //custmize the font of button text
     self.RefreshButtonRef.titleLabel.font = [self customFont:18 ofName:MuseoSans_700];
+    self.RefreshButtonRef.layer.cornerRadius = 2;
+    
+    
+    
+    NSInteger index = [[NSUserDefaults standardUserDefaults]integerForKey:BACKGROUND_THEME_VALUE];
+    if (index == 0) {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
+    }
+    else if (index == 1)
+    {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.55 green:.7 blue:.31 alpha:1]];
+
+    }
+    else if (index ==2)
+    {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1]];
+
+    }
+    else if (index == 3)
+    {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1]];
+    }
+   
+    
     
     
     

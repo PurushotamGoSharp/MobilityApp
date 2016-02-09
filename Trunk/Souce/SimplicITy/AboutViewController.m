@@ -17,7 +17,7 @@
 
 
 
-#define ALERT_FOR_RATING @"Thank you for Rating the App"
+//#define ALERT_FOR_RATING @"Thank you for Rating the App"
 //#define FEEDBACK_IN_OFFLINE @"Device is not connected to internet. Your feedback will be posted automatically once device connects to internet"
 
 
@@ -600,7 +600,7 @@
     {
         if (![[NSUserDefaults standardUserDefaults]boolForKey:@"Feedback_Sync"])
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:mobility message:thankYou delegate:self cancelButtonTitle:ok otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:mobility message:ALERT_FOR_RATING delegate:self cancelButtonTitle:ok otherButtonTitles: nil];
             [alert show];
         }
         
