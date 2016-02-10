@@ -583,6 +583,7 @@
     [super viewDidDisappear:animated];
     self.profileViewTopConstraint.constant = -107;
     navBtnIsOn = NO;
+    [self cancelPopUp:self];
 }
 
 - (void)didReceiveMemoryWarning
