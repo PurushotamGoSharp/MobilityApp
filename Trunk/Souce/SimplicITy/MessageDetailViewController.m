@@ -96,7 +96,7 @@
 
 -(void)localize
 {
-  self.title = STRING_FOR_LANGUAGE(@"");
+  self.title = STRING_FOR_LANGUAGE(@"News.Details");
  [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
 }
 
