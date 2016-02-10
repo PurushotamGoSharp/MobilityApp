@@ -52,7 +52,7 @@
     
     BOOL searchFieldIsSelected;
     BOOL reduceSizeOfCell;
-    
+    UIButton *back;
     NSIndexPath *selectedTimeIndex;
     NSDate *initialStartDate, *initialEndDate;
 }
@@ -97,9 +97,9 @@
     tapGesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGesture];
     
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    [back setTitle:@"Back" forState:UIControlStateNormal];
+   
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
     back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -128,7 +128,7 @@
 {
  self.title = STRING_FOR_LANGUAGE(@"invite.attendee");
   dataOfFirstSection = @[STRING_FOR_LANGUAGE(@"Date"),STRING_FOR_LANGUAGE(@"start"),STRING_FOR_LANGUAGE(@"End"),STRING_FOR_LANGUAGE(@"Organizer"),STRING_FOR_LANGUAGE(@"Venue")];
-    
+   [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
     
 }
 
@@ -573,6 +573,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:@"AddAttendeesCell" forIndexPath:indexPath];
             UILabel *label = (UILabel *)[cell viewWithTag:100];
             label.text = STRING_FOR_LANGUAGE(@"Add.Attendee");
+            
             UIButton *btn = (UIButton *)[cell viewWithTag:200];
             btn.hidden = NO;
             [btn addTarget:self action:@selector(addAttentee:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -684,7 +685,7 @@
     
     if (section == 0)
     {
-        headerLabel.text = STRING_FOR_LANGUAGE(@"Meeting.Details");
+        headerLabel.text = STRING_FOR_LANGUAGE(@"Meeting.Details ");
     }else if (section == 1)
     {
         headerLabel.text = STRING_FOR_LANGUAGE(@"Subject");
@@ -778,7 +779,7 @@
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Booked"
                                                                 message:ALERT_MSG_ALREADY_BOOKED
                                                                delegate:nil
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:OK_FOR_ALERT
                                                       otherButtonTitles: nil];
             [alertView show];
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -809,7 +810,7 @@
         successfullAlert = [[UIAlertView alloc] initWithTitle:@"Booked"
                                                       message:ALERT_MSG_SUCCESSFULL_BOOKING
                                                      delegate:self
-                                            cancelButtonTitle:@"OK"
+                                            cancelButtonTitle:OK_FOR_ALERT
                                             otherButtonTitles: nil];
     }
     
