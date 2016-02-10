@@ -672,6 +672,7 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     activeField = textView;
+    activeField.textColor=[UIColor blackColor];
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
