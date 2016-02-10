@@ -60,7 +60,7 @@
 
     
     [self.searchUserNameTextField becomeFirstResponder];
-    self.searchUserNameTextField.text = STRING_FOR_LANGUAGE(@"Type.Name");
+    self.searchUserNameTextField.placeholder = STRING_FOR_LANGUAGE(@"Type.Name");
 
 
 }

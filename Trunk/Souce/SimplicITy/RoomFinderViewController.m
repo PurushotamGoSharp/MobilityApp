@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 
 @property (nonatomic, strong) CLWeeklyCalendarView *calendarView;
+@property (weak, nonatomic) IBOutlet UILabel *availabelmeetingRoomLab;
 
 @end
 
@@ -138,7 +139,8 @@
     [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Meeting.Rooms") forState:(UIControlStateNormal)];
     self.placeHolderLabel.text=STRING_FOR_LANGUAGE(@"Meeting.Time");
 
-
+    self.availabelmeetingRoomLab.text = STRING_FOR_LANGUAGE(@"Available Meeting Rooms");
+ 
 
 
 }
@@ -331,7 +333,7 @@
     self.endDatePicker.hidden = YES;
     self.endTimeButton.selected = NO;
     
-    [self.endTimeButton setTitle:@"End Time" forState:(UIControlStateNormal)];
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
     endDate = nil;
     self.serachRoomsButton.hidden = YES;
 
@@ -484,10 +486,10 @@
 {
     [self resetView];
     
-    [self.endTimeButton setTitle:@"End Time" forState:(UIControlStateNormal)];
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
     endDate = nil;
     
-    [self.startTimeButton setTitle:@"Start Time" forState:(UIControlStateNormal)];
+    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Start.Time") forState:(UIControlStateNormal)];
     startDate = nil;
     
     self.calendarView.selectedDate = [NSDate date];

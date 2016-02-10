@@ -1839,12 +1839,12 @@ Cg
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEK-Lq-14U">
+                            <button hidden="YES" opaque="NO" tag="100" contentMode="scaleToFill" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEK-Lq-14U">
                                 <rect key="frame" x="41" y="466" width="240" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="K2G-CL-PGb"/>
-                                    <constraint firstAttribute="width" constant="240" id="avH-dS-7kg"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="avH-dS-7kg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Search Meeting Room(s)">
@@ -2025,6 +2025,7 @@ Cg
                             <constraint firstItem="L5j-fQ-6xX" firstAttribute="centerX" secondItem="z68-mo-8rz" secondAttribute="centerX" id="79j-tx-nyt"/>
                             <constraint firstItem="SUU-sx-rpE" firstAttribute="centerX" secondItem="5iL-JW-sgw" secondAttribute="centerX" id="Any-t7-hVw"/>
                             <constraint firstAttribute="trailing" secondItem="L5j-fQ-6xX" secondAttribute="trailing" constant="8" id="DPV-mA-6P5"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GEK-Lq-14U" secondAttribute="trailing" constant="8" id="EuI-Ex-UAu"/>
                             <constraint firstItem="vK1-yx-ga0" firstAttribute="top" secondItem="unA-NB-pOl" secondAttribute="bottom" constant="-13" id="Fak-j8-kTA"/>
                             <constraint firstAttribute="trailing" secondItem="44Y-F2-4zZ" secondAttribute="trailing" constant="3" id="Hrb-Wn-fRp"/>
                             <constraint firstItem="SUU-sx-rpE" firstAttribute="centerY" secondItem="5iL-JW-sgw" secondAttribute="centerY" id="Ikx-74-clP"/>
@@ -2053,6 +2054,7 @@ Cg
                     </view>
                     <navigationItem key="navigationItem" id="rQc-wU-F4U"/>
                     <connections>
+                        <outlet property="availabelmeetingRoomLab" destination="CJ5-bz-mtl" id="iCM-gW-Rgx"/>
                         <outlet property="availableRoomsView" destination="SUU-sx-rpE" id="sg1-GP-gar"/>
                         <outlet property="bannerImageView" destination="L5j-fQ-6xX" id="5pA-II-N0n"/>
                         <outlet property="containerForCalendar" destination="vK1-yx-ga0" id="ArU-aZ-BxV"/>
@@ -2267,7 +2269,7 @@ Cg
                                                 <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="themes" translatesAutoresizingMaskIntoConstraints="NO" id="9aD-gd-EzJ">
                                                     <rect key="frame" x="8" y="7" width="30" height="30"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ve-8D-vDf">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ve-8D-vDf">
                                                     <rect key="frame" x="49" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3225,11 +3227,11 @@ Cg
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tav-gF-9ME">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="999" verticalCompressionResistancePriority="999" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tav-gF-9ME">
                                 <rect key="frame" x="50" y="466" width="220" height="40"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="220" id="7GQ-ID-jRY"/>
+                                    <constraint firstAttribute="width" priority="998" constant="220" id="7GQ-ID-jRY"/>
                                     <constraint firstAttribute="height" constant="40" id="iqE-4r-4zc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
@@ -3362,6 +3364,7 @@ Cg
                             <constraint firstItem="hNx-Z7-bmh" firstAttribute="leading" secondItem="Lh4-pH-itI" secondAttribute="leading" id="eKk-XJ-OwE"/>
                             <constraint firstAttribute="trailing" secondItem="hNx-Z7-bmh" secondAttribute="trailing" id="eMf-lY-ybt"/>
                             <constraint firstItem="nDL-9W-XXU" firstAttribute="centerY" secondItem="4qf-o5-1od" secondAttribute="centerY" id="eeb-6x-8H3"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tav-gF-9ME" secondAttribute="trailing" constant="8" id="gkO-nw-wwn"/>
                             <constraint firstAttribute="trailing" secondItem="nDL-9W-XXU" secondAttribute="trailing" constant="8" id="jUz-PW-p86"/>
                             <constraint firstItem="nDL-9W-XXU" firstAttribute="leading" secondItem="Lh4-pH-itI" secondAttribute="leading" constant="8" id="smw-T4-u9o"/>
                             <constraint firstItem="0wz-kT-Mag" firstAttribute="leading" secondItem="Lh4-pH-itI" secondAttribute="leading" id="uW8-Ng-ayB"/>
@@ -3645,12 +3648,12 @@ Cg
                                     <outlet property="delegate" destination="SoM-HN-yt4" id="gfc-ph-8Ud"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVI-TG-ceg">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVI-TG-ceg">
                                 <rect key="frame" x="93" y="478" width="135" height="36"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="YSz-qC-QeF"/>
-                                    <constraint firstAttribute="width" constant="135" id="gKd-jZ-Cxu"/>
+                                    <constraint firstAttribute="width" priority="999" constant="135" id="gKd-jZ-Cxu"/>
                                 </constraints>
                                 <state key="normal" title="Send Invite(s)">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

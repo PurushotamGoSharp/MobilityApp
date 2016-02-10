@@ -78,6 +78,7 @@
 {
     [super viewWillAppear:YES];
     
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
     
@@ -96,26 +97,6 @@
     self.RefreshButtonRef.layer.cornerRadius = 2;
     
     
-    
-    NSInteger index = [[NSUserDefaults standardUserDefaults]integerForKey:BACKGROUND_THEME_VALUE];
-    if (index == 0) {
-        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
-    }
-    else if (index == 1)
-    {
-        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.55 green:.7 blue:.31 alpha:1]];
-
-    }
-    else if (index ==2)
-    {
-        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1]];
-
-    }
-    else if (index == 3)
-    {
-        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1]];
-    }
-   
     
     
     
@@ -157,6 +138,8 @@
    }
 - (IBAction)RefreshButtonAction:(id)sender {
 
+    self.downloadLbl.text = [NSString stringWithFormat:@"%d",0];
+    self.uploadlbl.text = [NSString stringWithFormat:@"%d",0];
     [self refreshtapAction];
 
 }
@@ -185,8 +168,6 @@
 
 -(void)refreshtapAction
 {
-   
-   
     self.videoView.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1]; //Gray
     self.audioView.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
     self.screenShareView.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
@@ -348,6 +329,9 @@
 
 -(void)callAPI
 {
+    [self.RefreshButtonRef setEnabled:NO];
+    [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1]];
+
     NSString *pathOfPlist = [[NSBundle mainBundle] pathForResource:@"UploadAndDownloadInfo" ofType:@"plist"];
     uploadAndDownloadInfo = [NSDictionary dictionaryWithContentsOfFile:pathOfPlist];
     
@@ -447,6 +431,11 @@
                                          {
                                              NSLog(@"file upload failure error %@",error);
                                              [hud hide:YES];
+                                         
+                                             [self buttonColourAccordingtotheme];
+                                             [self.RefreshButtonRef setEnabled:YES];
+                                         
+                                         
                                          }];
     
     [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
@@ -512,6 +501,8 @@
          [hud hide:YES];
          UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil ];
          [alert show];
+         [self buttonColourAccordingtotheme];
+         [self.RefreshButtonRef setEnabled:YES];
          
      }];
     [operation start];
@@ -569,7 +560,42 @@
         
         self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection.Speed");
     }
+
+    [self.RefreshButtonRef setEnabled:YES];
+    [self buttonColourAccordingtotheme];
+
 }
+
+
+-(void)buttonColourAccordingtotheme
+{
+    NSInteger index = [[NSUserDefaults standardUserDefaults]integerForKey:BACKGROUND_THEME_VALUE];
+    if (index == 0) {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.13 green:.31 blue:.46 alpha:1]];
+    }
+    else if (index == 1)
+    {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.55 green:.7 blue:.31 alpha:1]];
+        
+    }
+    else if (index ==2)
+    {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.9 green:.45 blue:.23 alpha:1]];
+        
+    }
+    else if (index == 3)
+    {
+        [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:.76 green:.06 blue:.29 alpha:1]];
+    }
+    
+    
+
+
+}
+
+
+
+
 
 - (NSString *)filePathForURLString:(NSURL *)url
 {

@@ -149,10 +149,8 @@
     self.navigationItem.leftBarButtonItem = backButton;
 
     UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
-    titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
-    
-    
-    
+    titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 10, 75, 40))];
+        
     titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textColor = [UIColor whiteColor];
@@ -220,6 +218,7 @@
     
     
     titleLabel.text = STRING_FOR_LANGUAGE(@"IT.SOS");
+    [titleLabel sizeToFit];
     Labservicerequired = STRING_FOR_LANGUAGE(@"Service.Required");
     Labdetailsisrequired = STRING_FOR_LANGUAGE(@"Details.Required");
     [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
