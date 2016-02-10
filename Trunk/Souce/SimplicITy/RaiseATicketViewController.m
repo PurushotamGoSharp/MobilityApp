@@ -151,8 +151,8 @@
     UIView *titleView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     titleLabel = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 75, 40))];
     
-    self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
-    self.textView.text = STRING_FOR_LANGUAGE(@"Lab_Describe_Request");
+    
+    
     titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textColor = [UIColor whiteColor];
@@ -166,7 +166,10 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
-
+    
+//   self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+//
+//    self.textView.text= requestDescribe ;
 
 }
 
@@ -190,7 +193,7 @@
     NSString * testthree = STRING_FOR_LANGUAGE(@"Contact.Details");
     NSString * testfour = STRING_FOR_LANGUAGE(@"Contact.Number");
     NSString * testfive = STRING_FOR_LANGUAGE(@"Date.Contact");
-
+   
 //    
 //    
 //    NSString * test2 = [test stringByAppendingString:@" \n\nPlease provide as much information as possible about your issue(s) in the Details section above.  Other than a description, ensure you provide:"];
@@ -229,7 +232,7 @@
     Services=STRING_FOR_LANGUAGE(@"Service");
     Details = STRING_FOR_LANGUAGE(@"Details");
     LabselectServices=STRING_FOR_LANGUAGE(@"Selects.Service");
-    requestDescribe = STRING_FOR_LANGUAGE(@"Request.Describe");
+//    self.textView.text = STRING_FOR_LANGUAGE(@"Request.Describe");
     home=STRING_FOR_LANGUAGE(@"Home");
     ok=STRING_FOR_LANGUAGE(@"Ok");
     Warrning = STRING_FOR_LANGUAGE(@"Warning");
@@ -740,10 +743,12 @@
         self.textView = (PlaceHolderTextView *)[cell viewWithTag:100];
         
         self.textView.font = [self customFont:16 ofName:MuseoSans_300];
-
+        
         self.textView.textColor=[self colorWithHexString:@"AAAAAA"];
-        self.textView.placeholder = PLACEHOLDER_TEXT_FOR_DETAIL_TICKET;
+        
+       self.textView.placeholder = STRING_FOR_LANGUAGE(@"Request.Describe");
         self.textView.delegate = self;
+       
     }
     return cell;
 }
