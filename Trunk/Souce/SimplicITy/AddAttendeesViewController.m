@@ -45,9 +45,6 @@
     
     selectedAttentdees = [[NSMutableArray alloc] init];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
-    [self localize];
-
     
     
     }
@@ -55,6 +52,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    [self localize];
+    
+
     
     [self.searchUserNameTextField becomeFirstResponder];
     self.searchUserNameTextField.text = STRING_FOR_LANGUAGE(@"Type.Name");
@@ -68,8 +71,13 @@
 }
 
 -(void)localize{
+   
+    
     self.title = STRING_FOR_LANGUAGE(@"Add.Attendee");
-
+    [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
+    [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
+    
+    
 }
 
 

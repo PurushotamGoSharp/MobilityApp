@@ -19,7 +19,7 @@
 
 
 
-@interface LanguageViewController ()<UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate>
+@interface LanguageViewController ()<UITableViewDataSource,UITableViewDelegate,postmanDelegate,DBManagerDelegate,languageChangeProtocol>
 {
     NSArray  *arrOfLanguageData;
     UILabel *titleLable;
@@ -50,6 +50,8 @@
     postMan = [[Postman alloc] init];
     langChanger =[[LanguageChangerClass alloc]init];
     postMan.delegate = self;
+    langChanger.delegate = self;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -88,7 +90,7 @@
     [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
     [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
     self.title = STRING_FOR_LANGUAGE(@"Country");
-    
+ 
 }
 
 
@@ -293,32 +295,43 @@
 {
     
     LanguageModel *selectedlanguage = languagesArrOfData[[self.tableView indexPathForSelectedRow].row];
+    NSString *currentLang =[[NSUserDefaults standardUserDefaults]objectForKey:@"SelectedLanguageCode"];
     
-    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguageName"];
-    [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.code forKey:@"SelectedLanguageCode"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
-  
-    
-    
-    NSString *seedKeyForLang = [NSString stringWithFormat:@"uilabel,%@",selectedlanguage.code];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:seedKeyForLang])
-    {
-       [langChanger changeLanguageWithCode:selectedlanguage.code];
-    }else
-    {
-        [langChanger readLanguageFileFromDocumentDirectory:NO];
+    if ([currentLang isEqualToString:selectedlanguage.code]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.name forKey:@"SelectedLanguageName"];
+        [[NSUserDefaults standardUserDefaults] setObject:selectedlanguage.code forKey:@"SelectedLanguageCode"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        
+        
+        NSString *seedKeyForLang = [NSString stringWithFormat:@"uilabel,%@",selectedlanguage.code];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:seedKeyForLang])
+        {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [langChanger changeLanguageWithCode:selectedlanguage.code];
+        }else
+        {
+            [langChanger readLanguageFileFromDocumentDirectory:NO];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+   
     }
     
     
-    [self.delegate selectedLanguageis:selectedlanguage];
-   [self dismissViewControllerAnimated:YES completion:nil];
-
-
-
+        [self.delegate selectedLanguageis:selectedlanguage];
 
 }
+
+-(void)successResponseDelegateMethod
+{
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+ [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 #pragma mark UITableViewDataSource methods
 
