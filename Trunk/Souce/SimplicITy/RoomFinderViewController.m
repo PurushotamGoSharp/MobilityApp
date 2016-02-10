@@ -127,8 +127,8 @@
 }
 -(void)localize
 {
-self.title = STRING_FOR_LANGUAGE(@"Book.Room");
-[back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
+  [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
     endDate = nil;
     
@@ -230,7 +230,7 @@ self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     
     }else
     {
-        officeLocationAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"")
+        officeLocationAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Location.Required")
                                                             message:ALERT_MSG_SET_OFFICE_LOCATION
                                                            delegate:self
                                                   cancelButtonTitle:OK_FOR_ALERT

@@ -341,8 +341,8 @@
 
 - (void)seedSyncFinishedWithFailure:(SeedSync *)seedSync
 {
-    
-//    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
+    [langChanger readLanguageFileFromDocumentDirectory:NO];
+    [self performSegueWithIdentifier:@"SplashToLoginVC_Segue" sender:nil];
 }
 
 - (void)didReceiveMemoryWarning

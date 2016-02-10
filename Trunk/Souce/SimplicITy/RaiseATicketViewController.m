@@ -31,8 +31,6 @@
 
 #define ALERT_FOR_ORDER_SAVED_IN_OFFLINE @"The device is not connected to internet, order will be placed automatically when connection is restored"
 
-#define ALERT_FOR_TICKET_SAVED_IN_OFFLINE STRING_FOR_LANGUAGE(@"Connection.Restore")
-#define ALERT_FOR_TICKET_SAVED_IN_ONLINE STRING_FOR_LANGUAGE(@"Ticket.Raised")
 
 
 
@@ -209,7 +207,7 @@
 //    
     
     
-    self.ImportantNotetextView.text=[NSString stringWithFormat:@"%@ \n\n %@\n.%@\n.%@\n.%@",test,testtwo,testthree,testfour,testfive];
+    self.ImportantNotetextView.text=[NSString stringWithFormat:@"%@ \n\n %@\n%@\n. %@\n. %@",test,testtwo,testthree,testfour,testfive];
     
     
     
@@ -219,8 +217,8 @@
     
     
     titleLabel.text = STRING_FOR_LANGUAGE(@"IT.SOS");
-    Labservicerequired = STRING_FOR_LANGUAGE(@"");
-    Labdetailsisrequired = STRING_FOR_LANGUAGE(@"");
+    Labservicerequired = STRING_FOR_LANGUAGE(@"Service.Required");
+    Labdetailsisrequired = STRING_FOR_LANGUAGE(@"Details.Required");
     [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     LabRequester=STRING_FOR_LANGUAGE(@"Requester");
     LabPersonalImpact=STRING_FOR_LANGUAGE(@"Personal.Impact");
@@ -401,7 +399,7 @@
         UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
                                                                 message:alertMessage
                                                                delegate:self
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:OK_FOR_ALERT
                                                       otherButtonTitles:nil];
         
         saveAlestView.delegate = self;
@@ -414,10 +412,10 @@
 {
     if (haveRasiedRequest)
     {
-        UIAlertView *errorAlestView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                 message:@"Error occurred while contacting to server"
+        UIAlertView *errorAlestView = [[UIAlertView alloc] initWithTitle:ERROR_FOR_ALERT
+                                                                 message:STRING_FOR_LANGUAGE(@"Server.Error")
                                                                 delegate:self
-                                                       cancelButtonTitle:@"OK"
+                                                       cancelButtonTitle:OK_FOR_ALERT
                                                        otherButtonTitles:nil];
         [errorAlestView show];
         haveRasiedRequest = NO;
@@ -512,7 +510,7 @@
         UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
                                                                 message:alertMessage
                                                                delegate:self
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:OK_FOR_ALERT
                                                       otherButtonTitles:nil];
         
         saveAlestView.delegate= self;
