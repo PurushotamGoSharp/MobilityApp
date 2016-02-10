@@ -559,7 +559,7 @@
 
         UITextField *txtField = (UITextField*)[cell viewWithTag:100];
         txtField.delegate = self;
-        txtField.placeholder = @"Subject";
+        txtField.placeholder = STRING_FOR_LANGUAGE(@"Subject") ;
         UIButton *btn = (UIButton *)[cell viewWithTag:200];
         btn.hidden = YES;
         txtField.userInteractionEnabled = YES;

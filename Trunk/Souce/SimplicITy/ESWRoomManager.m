@@ -14,6 +14,7 @@
 #import "ContactDetails.h"
 #import "TimeWindow.h"
 #import "PasswordManager.h"
+#import <sqlite3.h>
 
 #define MIN_TIME_SLOT_FOR_SEARCH 10*60
 
@@ -34,6 +35,8 @@
     NSInteger noOfFailedAuth;
     
     PasswordManager *passwordManager;
+    sqlite3 *database;
+
 }
 
 - (instancetype)init
@@ -53,25 +56,26 @@
     NSTimeZone *defaultTimeZone = [NSTimeZone defaultTimeZone];
     NSString *timeZoneFullName = [defaultTimeZone localizedName:NSTimeZoneNameStyleStandard locale:([[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"])];
     
+    timeZoneFullName = [self microsoftZoneFor:timeZoneFullName];
     NSLog(@"%@", timeZoneFullName);
     //this is fix for a bug in TimeZone name compatability. In IOS timeZone name is "Eastern European Standard Time" but Microsoft expects @"E. Europe Standard Time". Simliary for the rest too.
-    if ([timeZoneFullName isEqualToString:@"Eastern European Standard Time"])
-    {
-        timeZoneFullName = @"E. Europe Standard Time";
-        
-    }else if ([timeZoneFullName isEqualToString:@"East Africa Time"])
-    {
-        timeZoneFullName = @"E. Africa Standard Time";
-        
-    }else if ([timeZoneFullName isEqualToString:@"Australian Eastern Standard Time"])
-    {
-        timeZoneFullName = @"E. Australia Standard Time";
-        
-    }else if ([timeZoneFullName isEqualToString:@"Eastern South America Standard Time"])
-    {
-        timeZoneFullName = @"E. South America Standard Time";
-    }
-        
+//    if ([timeZoneFullName isEqualToString:@"Eastern European Standard Time"])
+//    {
+//        timeZoneFullName = @"E. Europe Standard Time";
+//        
+//    }else if ([timeZoneFullName isEqualToString:@"East Africa Time"])
+//    {
+//        timeZoneFullName = @"E. Africa Standard Time";
+//        
+//    }else if ([timeZoneFullName isEqualToString:@"Australian Eastern Standard Time"])
+//    {
+//        timeZoneFullName = @"E. Australia Standard Time";
+//        
+//    }else if ([timeZoneFullName isEqualToString:@"Eastern South America Standard Time"])
+//    {
+//        timeZoneFullName = @"E. South America Standard Time";
+//    }
+    
     t_TimeZoneDefinitionType *timeZoneDefinition = [[t_TimeZoneDefinitionType alloc] init];
     timeZoneDefinition.Id_ = timeZoneFullName;
     t_TimeZoneContextType *timeZoneContext = [[t_TimeZoneContextType alloc] init];
@@ -596,6 +600,45 @@
 - (void)passwordManagerGotPassword:(PasswordManager *)manager
 {
     [self.delegate ESWRoomManager:self failedToGetPassword:passwordManager];
+}
+
+- (NSString *)microsoftZoneFor:(NSString *)iosZone
+{
+    NSString *dataBasePath = [[NSBundle mainBundle] pathForResource:@"TimeZoneList.db" ofType:@""];
+    const char *dbPath = [dataBasePath UTF8String];
+    NSString *microsftZone = iosZone;
+    if (sqlite3_open(dbPath, &database) == SQLITE_OK)
+    {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM TimeZones WHERE iOSZone = '%@'", iosZone];
+        const char *insert_stmt = [query UTF8String];
+        
+        sqlite3_stmt *statement;
+        
+        if (sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL) == SQLITE_OK)
+        {
+            if (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                microsftZone = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+                if (microsftZone.length == 0)
+                {
+                    microsftZone = iosZone;
+                }
+            }
+//            [self.delegate DBManager:self gotSqliteStatment:statement];
+            sqlite3_finalize(statement);
+        }else
+        {
+//            microsftZone = @"";
+        }
+        
+        sqlite3_close(database);
+    }else
+    {
+//        microsftZone = @"";
+    }
+    
+    return microsftZone;
+    
 }
 
 @end
