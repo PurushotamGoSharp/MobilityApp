@@ -175,7 +175,7 @@
     slowonlyAudio = STRING_FOR_LANGUAGE(@"Audio.slow");
     averageaudioViewScreen = STRING_FOR_LANGUAGE(@"Audio.Average");
     fastaudiovideoviewScreen = STRING_FOR_LANGUAGE(@"Audio.fast");
-    notconnectInternet = STRING_FOR_LANGUAGE(@"");
+    notconnectInternet = STRING_FOR_LANGUAGE(@"Internet.Required");
     alertt = STRING_FOR_LANGUAGE(@"Language.Alert");
     
 

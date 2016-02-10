@@ -127,6 +127,8 @@
         NSURL *filePathUrl = [NSURL fileURLWithPath:fileNm];
         [self.languageUrlPairs setObject:filePathUrl forKey:names];
     }
+   
+    
     NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
     [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
     [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
@@ -137,6 +139,7 @@
         [self.delegate successResponseDelegateMethod];
     }
     
+   
     NSString *seedKeyForLang = [NSString stringWithFormat:@"uilabel,%@", langCode];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:seedKeyForLang];
 

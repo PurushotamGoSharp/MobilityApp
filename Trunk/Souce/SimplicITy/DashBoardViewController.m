@@ -106,7 +106,7 @@
     self.profileViewTopConstraint.constant = -107;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
-        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Language.Alert") message:STRING_FOR_LANGUAGE(@"Sync.Data") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Language.Alert") message:STRING_FOR_LANGUAGE(@"Sync.Data") delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
         [noNetworkAlert show];
     }
     
@@ -682,7 +682,7 @@
     UILabel *name = (UILabel*)[cell viewWithTag:100];
     name.font = [self customFont:14 ofName:MuseoSans_300];
     
-    //    phoneNum.text = self.serviceDeskDeteils;
+    //phoneNum.text = self.serviceDeskDeteils;
     
     NSDictionary *dict = selectedLocation.serviceDeskNumber[indexPath.row];
     
