@@ -86,6 +86,8 @@
 {
     [operation setWillSendRequestForAuthenticationChallengeBlock:^(NSURLConnection *connection, NSURLAuthenticationChallenge *challenge) {
         
+        NSLog(@"Authe type = %@ for %@", challenge.protectionSpace.authenticationMethod, [connection.originalRequest.URL absoluteString]);
+
         NSString *certPath = [[NSBundle mainBundle] pathForResource:@"cert" ofType:@"p12"];
         NSData *certData = [[NSData alloc] initWithContentsOfFile:certPath];
         

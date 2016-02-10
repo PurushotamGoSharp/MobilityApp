@@ -33,6 +33,7 @@
 		8623D5BB1A5417800022A370 /* Postman.m in Sources */ = {isa = PBXBuildFile; fileRef = 8623D5BA1A5417800022A370 /* Postman.m */; };
 		8624BB0D1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */; };
 		862629BF1C6B328500293CD4 /* TimeZoneList.db in Resources */ = {isa = PBXBuildFile; fileRef = 862629BE1C6B328500293CD4 /* TimeZoneList.db */; };
+		862629C11C6B614A00293CD4 /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 862629C01C6B614A00293CD4 /* cert.p12 */; };
 		8626BB231C04978500CD4C30 /* AppPulsemobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB221C04978500CD4C30 /* AppPulsemobile.framework */; };
 		8626BB251C049A8300CD4C30 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB241C049A8300CD4C30 /* libstdc++.tbd */; };
 		8626BB271C049A9000CD4C30 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB261C049A9000CD4C30 /* libz.tbd */; };
@@ -177,7 +178,6 @@
 		86B748E81ADD0D3B004951A5 /* TimeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748E71ADD0D3B004951A5 /* TimeWindow.m */; };
 		86B748EB1ADD3D9B004951A5 /* FreeSlotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748EA1ADD3D9B004951A5 /* FreeSlotsViewController.m */; };
 		86BC40221B66691000904650 /* NSDateFormatter+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BC40211B66691000904650 /* NSDateFormatter+Locale.m */; };
-		86BF79FA1B2EE40000485136 /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86BF79F91B2EE40000485136 /* cert.p12 */; };
 		86C0778C1AC283B400938F65 /* RoomRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778B1AC283B400938F65 /* RoomRecognizer.m */; };
 		86C077901AC2863F00938F65 /* RoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C0778F1AC2863F00938F65 /* RoomModel.m */; };
 		86C077931AC29A3C00938F65 /* RoomManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C077921AC29A3C00938F65 /* RoomManager.m */; };
@@ -227,7 +227,6 @@
 		86EF85A51AD3D3B100D6AE75 /* CalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EF85A41AD3D3B100D6AE75 /* CalendarEvent.m */; };
 		86F53C3C1B6783FD005AD689 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C3B1B6783FD005AD689 /* NSString+HTML.m */; };
 		86F53C3F1B6784A0005AD689 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F53C3E1B6784A0005AD689 /* GTMNSString+HTML.m */; };
-		86F5764E1B7B72A80015809D /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86BF79F91B2EE40000485136 /* cert.p12 */; };
 		86F5764F1B7B72D60015809D /* NSDateFormatter+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BC40211B66691000904650 /* NSDateFormatter+Locale.m */; };
 		86F576521B7B818E0015809D /* FirstInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F576511B7B818E0015809D /* FirstInterfaceController.m */; };
 		86F6DE251AC421260060E336 /* RoomFinderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F6DE241AC421260060E336 /* RoomFinderViewController.m */; };
@@ -352,6 +351,7 @@
 		8624BB0B1AC524C0001E2DB8 /* ExchangeServerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeServerSettingViewController.h; sourceTree = "<group>"; };
 		8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeServerSettingViewController.m; sourceTree = "<group>"; };
 		862629BE1C6B328500293CD4 /* TimeZoneList.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = TimeZoneList.db; sourceTree = "<group>"; };
+		862629C01C6B614A00293CD4 /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		8626BB221C04978500CD4C30 /* AppPulsemobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppPulsemobile.framework; sourceTree = "<group>"; };
 		8626BB241C049A8300CD4C30 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		8626BB261C049A9000CD4C30 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -672,7 +672,6 @@
 		86B748EA1ADD3D9B004951A5 /* FreeSlotsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeSlotsViewController.m; sourceTree = "<group>"; };
 		86BC40201B66691000904650 /* NSDateFormatter+Locale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Locale.h"; sourceTree = "<group>"; };
 		86BC40211B66691000904650 /* NSDateFormatter+Locale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Locale.m"; sourceTree = "<group>"; };
-		86BF79F91B2EE40000485136 /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		86C0778A1AC283B400938F65 /* RoomRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomRecognizer.h; sourceTree = "<group>"; };
 		86C0778B1AC283B400938F65 /* RoomRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomRecognizer.m; sourceTree = "<group>"; };
 		86C0778E1AC2863F00938F65 /* RoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomModel.h; sourceTree = "<group>"; };
@@ -1523,7 +1522,7 @@
 		86848E0C1A5671AF0063E433 /* Network API Handlers */ = {
 			isa = PBXGroup;
 			children = (
-				86BF79F91B2EE40000485136 /* cert.p12 */,
+				862629C01C6B614A00293CD4 /* cert.p12 */,
 				8623D5BC1A5417840022A370 /* Postman.h */,
 				8623D5BA1A5417800022A370 /* Postman.m */,
 				86AD6B691A70C880006A127B /* SendRequestsManager.h */,
@@ -1912,7 +1911,6 @@
 			files = (
 				86B5A96E1A4D4713009018AD /* MuseoSans-100.otf in Resources */,
 				864532C21A5A661D00A656A3 /* UAPushSettingsAliasView.xib in Resources */,
-				86BF79FA1B2EE40000485136 /* cert.p12 in Resources */,
 				86B5A96F1A4D4713009018AD /* MuseoSans-300.otf in Resources */,
 				869E2CF51C3D1E5900828CC1 /* image3Mb.jpg in Resources */,
 				861738D61AE91AF500BDA49C /* LanchImage_ipad_Landscape.png in Resources */,
@@ -1966,6 +1964,7 @@
 				864532C71A5A661D00A656A3 /* UAPushSettingsUserInfoView.xib in Resources */,
 				864532C81A5A661D00A656A3 /* UAPushSettingsView.xib in Resources */,
 				864532C31A5A661D00A656A3 /* UAPushSettingsChannelInfoViewController.xib in Resources */,
+				862629C11C6B614A00293CD4 /* cert.p12 in Resources */,
 				86201D041A7CA66D0016CBEF /* tips@2x.png in Resources */,
 				864532BE1A5A661D00A656A3 /* UALocationSettingsViewController.xib in Resources */,
 				86201D021A7CA66D0016CBEF /* service@2x.png in Resources */,
@@ -1989,7 +1988,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86F5764E1B7B72A80015809D /* cert.p12 in Resources */,
 				864B5B7A1B79C5170024C600 /* PasswordExpData.plist in Resources */,
 				86DBCC1B1B78C79F007994A1 /* Images.xcassets in Resources */,
 				86DBCC1F1B78C79F007994A1 /* SimplicITy WatchKit App.app in Resources */,
