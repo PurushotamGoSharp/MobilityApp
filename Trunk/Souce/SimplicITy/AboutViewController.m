@@ -687,6 +687,7 @@
         dbManager.delegate=self;
     }
     
+    [dbManager dropTable:@"aboutDetails"];
     NSString *createQuery = @"create table if not exists aboutDetails (API text PRIMARY KEY, data text)";
     [dbManager createTableForQuery:createQuery];
     

@@ -340,8 +340,8 @@
 - (void)postman:(Postman *)postman gotSuccess:(NSData *)response forURL:(NSString *)urlString
 {
     [self parseResponseData:response];
-    NSString *apiKey= [NSString stringWithFormat:@"%@-%@", urlString, parameterString];
-    [self saveTipsCategory:[NSData  dataWithContentsOfFile:apiKey]];
+//    NSString *apiKey= [NSString stringWithFormat:@"%@-%@", urlString, parameterString];
+    [self saveTipsCategory:response];
     
     
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:[self userDefaultKey]];
@@ -431,6 +431,9 @@
     {
         UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [noNetworkAlert show];
+    }else
+    {
+        [self tryToUpdateCategories];
     }
 }
 
@@ -442,6 +445,7 @@
         dbManager.delegate = self;
     }
     
+//    [dbManager dropTable:@"tipCategory"];
     NSString *createQuery = @"create table if not exists tipCategory (API text PRIMARY KEY, data text)";
     [dbManager createTableForQuery:createQuery];
     
@@ -450,8 +454,9 @@
     rangeofString.location = 0;
     rangeofString.length = stringFromData.length;
     [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-    
-    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", URLString, stringFromData];
+    NSString *apiKey1 = [NSString stringWithFormat:@"%@-%@", URLString, parameterString];
+
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  tipCategory (API,data) values ('%@', '%@')", apiKey1, stringFromData];
     
     [dbManager saveDataToDBForQuery:insertSQL];
 }
