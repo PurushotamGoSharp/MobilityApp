@@ -93,10 +93,10 @@
         [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     }
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
-    
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 30);
+    [back sizeToFit];
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];

@@ -102,9 +102,9 @@
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 30);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -130,6 +130,7 @@
  self.title = STRING_FOR_LANGUAGE(@"invite.attendee");
   dataOfFirstSection = @[STRING_FOR_LANGUAGE(@"Date"),STRING_FOR_LANGUAGE(@"start"),STRING_FOR_LANGUAGE(@"End"),STRING_FOR_LANGUAGE(@"Organizer"),STRING_FOR_LANGUAGE(@"Venue")];
    [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
+    [back sizeToFit];
     [self.sendInviteButton setTitle:STRING_FOR_LANGUAGE(@"Send.Invite") forState:UIControlStateNormal];
 
 

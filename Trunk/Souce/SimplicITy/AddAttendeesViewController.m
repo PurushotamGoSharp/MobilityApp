@@ -30,6 +30,9 @@
     
     NSString *lastSubStringThatIsSearched;
     NSString *noResultsLastSubString;
+
+
+
 }
 
 - (void)viewDidLoad {
@@ -364,7 +367,7 @@
             {
                 return nil;
             }
-            headerLabel.text = STRING_FOR_LANGUAGE(@"Contact.Found");
+            headerLabel.text = STRING_FOR_LANGUAGE(@"Contact.Found ");
         }
     }
     

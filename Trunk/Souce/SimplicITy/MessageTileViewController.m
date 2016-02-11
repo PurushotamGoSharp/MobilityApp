@@ -57,9 +57,9 @@
     
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 30);
     
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -78,7 +78,8 @@
 
 -(void)localize
 {
-[back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    [back sizeToFit];
     self.title = STRING_FOR_LANGUAGE(@"News");
     self.noMessageLabel.text = STRING_FOR_LANGUAGE(@"No.News");
 
