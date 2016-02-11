@@ -358,6 +358,7 @@
                 return nil;
             }
             headerLabel.text = STRING_FOR_LANGUAGE(@"Selected.Attendee");
+            [headerLabel sizeToFit];
         }else if (section == 0)
         {
             return nil;
@@ -368,6 +369,7 @@
                 return nil;
             }
             headerLabel.text = STRING_FOR_LANGUAGE(@"Contact.Found ");
+            [headerLabel sizeToFit];
         }
     }
     
