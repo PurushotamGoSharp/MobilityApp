@@ -34,17 +34,11 @@
 - (void)viewDidLoad
 {
    // interfaceClassObj=[[InterfaceController alloc]init];
-    
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
-        
-        
         serverConfig = [[UserInfo sharedUserInfo] getServerConfig];
         NSString *cropID;
         NSString *urlString;
@@ -189,7 +183,6 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    
     NSLog(@"Success....");
 }
 

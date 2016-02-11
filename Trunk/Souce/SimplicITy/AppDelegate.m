@@ -281,7 +281,8 @@
 {
     if ([userInfo[@"MobilITy"] isEqualToString:@"Verifiation"])
     {
-        NSDictionary *userInfoDixt = [[UserInfo sharedUserInfo]getServerConfig];
+        NSMutableDictionary *userInfoDixt = [[[UserInfo sharedUserInfo]getServerConfig] mutableCopy];
+        userInfoDixt[@"PasswordExpText"] = STRING_FOR_LANGUAGE(@"Password_Expiry");
         reply(userInfoDixt);
     }
 }
@@ -347,7 +348,7 @@
         }
     }
     
-    NSString *selectedlangCode= [[NSUserDefaults standardUserDefaults] objectForKey:@""];
+//    NSString *selectedlangCode= [[NSUserDefaults standardUserDefaults] objectForKey:@""];
 }
 
 @end
