@@ -192,21 +192,6 @@
     NSString * testfour = STRING_FOR_LANGUAGE(@"Contact.Number");
     NSString * testfive = STRING_FOR_LANGUAGE(@"Date.Contact");
    
-//    
-//    
-//    NSString * test2 = [test stringByAppendingString:@" \n\nPlease provide as much information as possible about your issue(s) in the Details section above.  Other than a description, ensure you provide:"];
-//    NSString * test3 = [test2 stringByAppendingString:@" \n· Indicate how you want to be contacted in the Details (Mobile Phone, Office Phone, Lync, etc)"];
-//    
-//   
-//   
-//    NSString * test4 = [test3 stringByAppendingString:@" \n· Your preferred contact phone number"];
-//    
-//   // NSString * test5 = [test4 stringByAppendingString:@" \n· The date/time you wish to be contacted"];
-//   
-//     NSString * test5 = [test4 stringByAppendingString:@" \n· The date/time you wish to be contacted"];
-//    
-//    
-    
     
     self.ImportantNotetextView.text=[NSString stringWithFormat:@"%@ \n\n %@\n%@\n. %@\n. %@",test,testtwo,testthree,testfour,testfive];
     
@@ -231,7 +216,6 @@
     Services=STRING_FOR_LANGUAGE(@"Service");
     Details = STRING_FOR_LANGUAGE(@"Details");
     LabselectServices=STRING_FOR_LANGUAGE(@"Selects.Service");
-//    self.textView.text = STRING_FOR_LANGUAGE(@"Request.Describe");
     home=STRING_FOR_LANGUAGE(@"Home");
     ok=STRING_FOR_LANGUAGE(@"Ok");
     Warrning = STRING_FOR_LANGUAGE(@"Warning");
@@ -398,7 +382,7 @@
         }
         
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@" Confirmation")
                                                                 message:alertMessage
                                                                delegate:self
                                                       cancelButtonTitle:OK_FOR_ALERT
@@ -509,7 +493,7 @@
             alertMessage = ALERT_FOR_TICKET_SAVED_IN_OFFLINE;
         }
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@" Confirmation")
                                                                 message:alertMessage
                                                                delegate:self
                                                       cancelButtonTitle:OK_FOR_ALERT

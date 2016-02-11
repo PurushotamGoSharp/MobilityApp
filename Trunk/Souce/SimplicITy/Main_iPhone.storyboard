@@ -2903,8 +2903,8 @@ Cg
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQQ-6R-anO">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No News available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTe-tF-qxQ">
-                                        <rect key="frame" x="89" y="217" width="142" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No News available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTe-tF-qxQ">
+                                        <rect key="frame" x="90" y="217" width="140" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2999,6 +2999,7 @@ Cg
                                     <constraint firstAttribute="centerY" secondItem="V6u-dZ-fwe" secondAttribute="centerY" id="fwU-xO-OrQ"/>
                                     <constraint firstItem="V6u-dZ-fwe" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DQQ-6R-anO" secondAttribute="top" id="lrI-Gu-u8X"/>
                                     <constraint firstAttribute="centerX" secondItem="KTe-tF-qxQ" secondAttribute="centerX" id="r1f-l8-jZ5"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="KTe-tF-qxQ" secondAttribute="trailing" constant="10" id="tkc-Qe-WOk"/>
                                     <constraint firstAttribute="trailing" secondItem="V6u-dZ-fwe" secondAttribute="trailing" id="xFz-0X-85Q"/>
                                 </constraints>
                             </view>
@@ -3676,7 +3677,7 @@ Cg
                     </view>
                     <navigationItem key="navigationItem" id="qAj-39-irC"/>
                     <connections>
-                        <outlet property="sendInviteButton" destination="XVI-TG-ceg" id="gra-ae-WxR"/>
+                        <outlet property="sendInviteButton" destination="XVI-TG-ceg" id="Gky-7H-RDY"/>
                         <outlet property="tableView" destination="nvC-vS-f1z" id="cC8-tZ-f09"/>
                         <segue destination="JJS-U7-cZu" kind="modal" identifier="InviteAtntToSelectAntendeesSegue" id="9bm-0a-BXA"/>
                     </connections>

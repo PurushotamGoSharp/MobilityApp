@@ -547,7 +547,7 @@
     if (freeSlotsArray.count == 0)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
-                                                            message:STRING_FOR_LANGUAGE(@"")
+                                                            message:STRING_FOR_LANGUAGE(@"No.TimeSlot")
                                                            delegate:self
                                                   cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles:nil];

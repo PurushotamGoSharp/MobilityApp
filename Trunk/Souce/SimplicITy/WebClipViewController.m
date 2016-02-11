@@ -316,7 +316,7 @@
     {
         if (openAppAlert == nil)
         {
-            openAppAlert = [[UIAlertView alloc] initWithTitle:@"Can not open!" message:@"This App is not installed in your device. Do you want to install this by visiting UCB AppStore?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
         }
         
         [openAppAlert show];

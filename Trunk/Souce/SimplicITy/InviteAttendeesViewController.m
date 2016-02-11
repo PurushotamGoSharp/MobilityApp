@@ -24,12 +24,13 @@
 
 @interface InviteAttendeesViewController ()<UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate, RoomManagerDelegate, UIAlertViewDelegate, AddAttendeesDelegate, SelectDateCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *sendInviteButton;
 
 @end
 
 @implementation InviteAttendeesViewController
 {
-    __weak IBOutlet UIButton *sendInviteButton;
+  
     NSArray *dataOfFirstSection;
     NSArray *dataOfThirdSection;
     NSMutableArray *reqiuredAttentees;
@@ -78,8 +79,8 @@
     userName = [UserInfo sharedUserInfo].fullName;
     venue = self.selectedRoom.nameOfRoom;
     
-    sendInviteButton.layer.cornerRadius = 5;
-    sendInviteButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
+    self.sendInviteButton.layer.cornerRadius = 5;
+    self.sendInviteButton.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
     roomManager = [[RoomManager alloc] init];
     roomManager.delegate = self;
@@ -129,7 +130,10 @@
  self.title = STRING_FOR_LANGUAGE(@"invite.attendee");
   dataOfFirstSection = @[STRING_FOR_LANGUAGE(@"Date"),STRING_FOR_LANGUAGE(@"start"),STRING_FOR_LANGUAGE(@"End"),STRING_FOR_LANGUAGE(@"Organizer"),STRING_FOR_LANGUAGE(@"Venue")];
    [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
-    
+    [self.sendInviteButton setTitle:STRING_FOR_LANGUAGE(@"Send.Invite") forState:UIControlStateNormal];
+
+
+
 }
 
 
@@ -172,7 +176,7 @@
         default:
             break;
     }
-    sendInviteButton.backgroundColor = color;
+    self.sendInviteButton.backgroundColor = color;
 }
 - (void)backBtnAction
 {
@@ -776,7 +780,7 @@
             [roomManager createCalendarEvent:newEvent];
         }else
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Not Booked"
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"not.Book")
                                                                 message:ALERT_MSG_ALREADY_BOOKED
                                                                delegate:nil
                                                       cancelButtonTitle:OK_FOR_ALERT
@@ -807,7 +811,7 @@
     
     if (successfullAlert == nil)
     {
-        successfullAlert = [[UIAlertView alloc] initWithTitle:@"Booked"
+        successfullAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Booked")
                                                       message:ALERT_MSG_SUCCESSFULL_BOOKING
                                                      delegate:self
                                             cancelButtonTitle:OK_FOR_ALERT
