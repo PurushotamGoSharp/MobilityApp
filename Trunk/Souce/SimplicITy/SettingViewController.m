@@ -248,7 +248,7 @@
         
     }else if (indexPath .row == 2)
     {
-        languageLabel.text = selectedOfficeLocationName?: @"Select Location";
+        languageLabel.text = selectedOfficeLocationName?: STRING_FOR_LANGUAGE(@"Select.Location");
     }else
     {
         languageLabel.text = [self stingForColorTheme];

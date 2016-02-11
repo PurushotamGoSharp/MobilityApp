@@ -303,7 +303,7 @@
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
-    
+    [dbManager dropTable:@"tipCategory"];
     NSString *createQuery = @"create table if not exists tipCategory (API text PRIMARY KEY, data text)";
     [dbManager createTableForQuery:createQuery];
     

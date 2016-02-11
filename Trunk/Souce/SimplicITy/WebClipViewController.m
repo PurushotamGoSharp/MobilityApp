@@ -231,7 +231,7 @@
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate=self;
     }
-    
+    [dbManager dropTable:@"webClips"];
     NSString *createQuery = @"create table if not exists webClips (API text PRIMARY KEY, data text)";
     [dbManager createTableForQuery:createQuery];
     
