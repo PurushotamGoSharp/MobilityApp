@@ -21,11 +21,22 @@
 {
     if (self = [super init])
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+        [self localize];
+        
         
     }
     
     return self;
 }
+
+
+-(void)localize
+{
+
+
+}
+
 
 - (NSString *)passwordForUser
 {
@@ -47,11 +58,11 @@
 {
     if (passwordAlert == nil)
     {
-        passwordAlert = [[UIAlertView alloc] initWithTitle:@"Password is required"
+        passwordAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Password.required")
                                                message:message
                                               delegate:self
-                                     cancelButtonTitle:@"Cancel"
-                                     otherButtonTitles:@"OK", nil];
+                                     cancelButtonTitle:STRING_FOR_LANGUAGE(@"Language.Cancel")
+                                     otherButtonTitles:OK_FOR_ALERT, nil];
         
         passwordAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
 
@@ -60,10 +71,9 @@
     passwordAlert.message = message;
     [passwordAlert show];
 }
-
 - (void)showAlertWithDefaultMessage
 {
-    [self showAlertForPasswordWithMessage:@"Please enter the 'Password' to continue"];
+    [self showAlertForPasswordWithMessage:STRING_FOR_LANGUAGE(@"Enter.Password")];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

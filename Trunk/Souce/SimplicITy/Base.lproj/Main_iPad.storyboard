@@ -2790,6 +2790,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXo-xd-dZ1">
                                 <rect key="frame" x="0.0" y="64" width="768" height="911"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CS4-lu-29B">
+                                        <rect key="frame" x="363" y="445" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="78" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="OOE-Oq-sM8" userLabel="tableView">
                                         <rect key="frame" x="0.0" y="228" width="768" height="455"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2874,11 +2880,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CS4-lu-29B" secondAttribute="trailing" constant="10" id="3P4-N2-WRX"/>
                                     <constraint firstItem="OOE-Oq-sM8" firstAttribute="leading" secondItem="hXo-xd-dZ1" secondAttribute="leading" id="6o0-oi-bbC"/>
                                     <constraint firstAttribute="trailing" secondItem="OOE-Oq-sM8" secondAttribute="trailing" id="NW0-iP-ePA"/>
+                                    <constraint firstItem="CS4-lu-29B" firstAttribute="centerX" secondItem="hXo-xd-dZ1" secondAttribute="centerX" id="YIa-Ft-I92"/>
                                     <constraint firstAttribute="centerY" secondItem="OOE-Oq-sM8" secondAttribute="centerY" id="bdO-oX-fpe"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="OOE-Oq-sM8" secondAttribute="bottom" id="nqY-uB-1x9"/>
                                     <constraint firstItem="OOE-Oq-sM8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hXo-xd-dZ1" secondAttribute="top" id="q1B-hn-4yg"/>
+                                    <constraint firstItem="CS4-lu-29B" firstAttribute="centerY" secondItem="hXo-xd-dZ1" secondAttribute="centerY" id="zwj-Dr-ieF"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2893,6 +2902,7 @@
                     <navigationItem key="navigationItem" title="News" id="cuQ-ZB-2MO"/>
                     <connections>
                         <outlet property="containerView" destination="hXo-xd-dZ1" id="TRO-fw-qN1"/>
+                        <outlet property="noMessageLabel" destination="CS4-lu-29B" id="IxS-RT-3JW"/>
                         <outlet property="tableHeightConst" destination="5DA-Wg-hqa" id="MDM-D8-oRr"/>
                         <outlet property="tableViewoutlet" destination="OOE-Oq-sM8" id="Dnn-tg-PFf"/>
                     </connections>
@@ -4141,7 +4151,7 @@ Cg
                     </view>
                     <navigationItem key="navigationItem" id="WPv-3k-5zm"/>
                     <connections>
-                        <outlet property="sendInviteButton" destination="6Vb-1f-3vC" id="gMj-Fs-jj8"/>
+                        <outlet property="sendInviteButton" destination="6Vb-1f-3vC" id="aur-5X-Qec"/>
                         <outlet property="tableView" destination="ygQ-0l-ImL" id="BNm-sq-Cnb"/>
                         <segue destination="u6M-Bb-ySK" kind="modal" identifier="InviteAtntToSelectAntendeesSegue" id="ghb-fw-Tkp"/>
                     </connections>
@@ -4778,8 +4788,8 @@ Cg
         <image name="writeIcon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Txe-KG-huV"/>
         <segue reference="f3u-DB-T6o"/>
-        <segue reference="zaq-sH-oyT"/>
+        <segue reference="Txe-KG-huV"/>
+        <segue reference="JZ5-ZD-zwu"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -80,6 +80,8 @@
 {
 [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     self.title = STRING_FOR_LANGUAGE(@"News");
+    self.noMessageLabel.text = STRING_FOR_LANGUAGE(@"No.News");
+
 }
 
 

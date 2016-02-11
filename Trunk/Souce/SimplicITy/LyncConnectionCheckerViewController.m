@@ -91,7 +91,7 @@
     self.videoLbl.font = [self customFont:16 ofName:MuseoSans_300];
     self.screenShareLbl.font = [self customFont:16 ofName:MuseoSans_300];
     // Setting the title of login button
-    [self.RefreshButtonRef setTitle:@"Retry" forState:normal];
+    [self.RefreshButtonRef setTitle:STRING_FOR_LANGUAGE(@"Retry") forState:normal];
     //custmize the font of button text
     self.RefreshButtonRef.titleLabel.font = [self customFont:18 ofName:MuseoSans_700];
     self.RefreshButtonRef.layer.cornerRadius = 2;
@@ -154,7 +154,7 @@
     self.screenShareLbl.text = STRING_FOR_LANGUAGE(@"View.Screen");
     
     kb = STRING_FOR_LANGUAGE(@"KB");
-    mb = STRING_FOR_LANGUAGE(@"");
+    mb = STRING_FOR_LANGUAGE(@"MB");
     slowonlyAudio = STRING_FOR_LANGUAGE(@"Audio.slow");
     averageaudioViewScreen = STRING_FOR_LANGUAGE(@"Audio.Average");
     fastaudiovideoviewScreen = STRING_FOR_LANGUAGE(@"Audio.fast");
@@ -403,7 +403,7 @@
                                              
                                              if (speedInKb >=1000)
                                              {
-                                                 self.uploadlbl.text = [NSString stringWithFormat:@"%@ MB",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb/1024]] ];
+                                                 self.uploadlbl.text = [NSString stringWithFormat:@"%@ %@",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb/1024]],mb ];
                                              }else
                                              {
                                                  self.uploadlbl.text = [NSString stringWithFormat:@"%@ %@",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb]],kb ];
@@ -482,7 +482,7 @@
          
          if (speedInKb >=1000)
          {
-             self.downloadLbl.text = [NSString stringWithFormat:@"%@ MB",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb/1024]] ];
+             self.downloadLbl.text = [NSString stringWithFormat:@"%@ %@",[fmt stringFromNumber:[NSNumber numberWithFloat:speedInKb/1024]] ,mb];
              
          }else
          {

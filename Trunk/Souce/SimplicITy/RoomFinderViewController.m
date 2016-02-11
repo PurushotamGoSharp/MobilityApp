@@ -139,7 +139,7 @@
     [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Meeting.Rooms") forState:(UIControlStateNormal)];
     self.placeHolderLabel.text=STRING_FOR_LANGUAGE(@"Meeting.Time");
 
-    self.availabelmeetingRoomLab.text = STRING_FOR_LANGUAGE(@"Available Meeting Rooms");
+    self.availabelmeetingRoomLab.text = STRING_FOR_LANGUAGE(@"Available.MeetingRoom");
  
 
 
@@ -533,7 +533,7 @@
 - (void)setbuttonForSwitchMode
 {
     self.serachRoomsButton.tag = 100;
-    [self.serachRoomsButton setTitle:@"Search by Meeting Room(s)" forState:(UIControlStateNormal)];
+    [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Meeting.Rooms") forState:(UIControlStateNormal)];
 }
 
 - (void)setButtonForSearchingFreeRoom
@@ -596,11 +596,11 @@
         [self performSegueWithIdentifier:@"romeFinderToInvite_segue" sender:nil];
     }else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT
                                                         message:ALERT_MSG_AUTHORIZED_BOOKING
                                                        delegate:self
-                                              cancelButtonTitle:@"NO"
-                                              otherButtonTitles:@"YES", nil];
+                                              cancelButtonTitle:STRING_FOR_LANGUAGE(@"No")
+                                              otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
         [alert show];
     }
 }
