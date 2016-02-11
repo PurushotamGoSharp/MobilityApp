@@ -28,9 +28,9 @@
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
-    [WKInterfaceController openParentApplication:@{@"MobilITy":@"Verifiation"} reply:^(NSDictionary * _Nonnull replyInfo, NSError * _Nullable error) {
-        [self.passwordExpiryLabel setText:replyInfo[@"PasswordExpText"]];
-    }];
+//    [WKInterfaceController openParentApplication:@{@"MobilITy":@"Verifiation"} reply:^(NSDictionary * _Nonnull replyInfo, NSError * _Nullable error) {
+//        [self.passwordExpiryLabel setText:replyInfo[@"PasswordExpText"]];
+//    }];
 }
 
 - (void)didDeactivate {
