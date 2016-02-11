@@ -312,7 +312,6 @@
                 NewsContentModel *newsContent = [[NewsContentModel alloc]init];
                 newsContent.ID = [adict[@"ID"] integerValue];
                 newsContent.newsCode =adict[@"Code"];
-                parentCategory = adict[@"NewsCategoryCode"];;
                 
                 newsContent.subject = dictFromJSON[@"Title"];
                 newsContent.newsDetails =dictFromJSON[@"Content"];
@@ -321,6 +320,9 @@
                 newsContent.recivedDate = [NSDate date];
                 newsContent.viewed = NO;
                 newsContent.parentCategory = adict[@"NewsCategoryCode"];
+                newsContent.languageParentCode = adict[@"ParentCode"];
+                parentCategory = adict[@"ParentCode"];;
+
                 [newsArray addObject:newsContent];
             }
         }
