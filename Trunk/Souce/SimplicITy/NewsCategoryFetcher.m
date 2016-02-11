@@ -129,14 +129,11 @@
 - (void)parseResponseData:(NSData*)response andGetImages:(BOOL)download
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
     NSArray *arr = json[@"aaData"][@"GenericSearchViewModels"];
-    
     NSMutableArray *newsCategoryArr = [[NSMutableArray alloc] init];
 
     for (NSDictionary *adict in arr)
     {
-        
         //We should not check staus because client requirement is that, visibility of 'news' should not be managed by server admin. If we chwck status and admin changes status of category, news under that category will become hidden
         
 //        if ([adict[@"Status"] boolValue])
@@ -154,7 +151,7 @@
                 noOfCallsMade++;
                 [postMan get:imageUrl];
             }
-            
+        NSLog(@"%li", newsCategory.badgeCount);
             if (newsCategory.badgeCount > 0)
             {
                 noOfCallsMade++;
@@ -286,7 +283,7 @@
 
 - (void)getNewsForCategoryCode:(NSString *)parentCode withSince:(NSInteger)sinceID
 {
-    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"LanguageCode\":\"%@\",\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\",\"Status\":\"Pushed\"}}",langCode,parentCode, (long)sinceID];
+    NSString *parameterStringforNews = [NSString stringWithFormat:@"{\"request\":{\"NewsCategoryCode\":\"%@\",\"Since_Id\":\"%li\",\"Status\":\"Pushed\"}}",parentCode, (long)sinceID];
     [postMan post:NEWS_API withParameters:parameterStringforNews];
 }
 
