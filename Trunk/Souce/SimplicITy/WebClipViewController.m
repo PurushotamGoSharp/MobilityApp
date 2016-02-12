@@ -309,10 +309,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     webClipModel *webClip = webClipArr[indexPath.row];
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:webClip.urlLink]])
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
-    } else
+    BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
+
+    if (!didOpen)
     {
         if (openAppAlert == nil)
         {
@@ -321,6 +320,18 @@
         
         [openAppAlert show];
     }
+//    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:webClip.urlLink]])
+//    {
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
+//    } else
+//    {
+//        if (openAppAlert == nil)
+//        {
+//            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
+//        }
+//        
+//        [openAppAlert show];
+//    }
 }
 
 - (UIImage *)getimageForDocCode:(NSString *)docCode

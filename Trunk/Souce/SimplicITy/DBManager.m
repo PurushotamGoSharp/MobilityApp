@@ -133,7 +133,7 @@
         
         if (sqlite3_step(statement) == SQLITE_DONE)
         {
-            NSLog(@"saved Sucessfully");
+//            NSLog(@"saved Sucessfully");
             
             NSInteger lastInsertId = (NSInteger)sqlite3_last_insert_rowid(database);
             
