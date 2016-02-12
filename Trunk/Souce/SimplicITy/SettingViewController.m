@@ -54,9 +54,9 @@
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//    back.frame = CGRectMake(0, 0,100, 30);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -95,7 +95,7 @@
     self.navigationController.navigationBarHidden = NO;
 
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
 
 
@@ -116,8 +116,10 @@
     tabBarItem.title = STRING_FOR_LANGUAGE(@"About");
    arrOfTableViewData = @[STRING_FOR_LANGUAGE(@"Language.Setting"), STRING_FOR_LANGUAGE(@"Country.Country"), STRING_FOR_LANGUAGE(@"OfficeLocation.Location"),STRING_FOR_LANGUAGE(@"Themes")];
     self.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
- [back setTitle:STRING_FOR_LANGUAGE(@"Tools.Home") forState:UIControlStateNormal];
-
+   [back setTitle:STRING_FOR_LANGUAGE(@"Tools.Home") forState:UIControlStateNormal];
+    [back sizeToFit];
+//    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+//    self.navigationItem.leftBarButtonItem = backButton;
     [self.tableView reloadData];
 }
 

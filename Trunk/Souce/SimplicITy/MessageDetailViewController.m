@@ -50,9 +50,9 @@
     
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 40);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 40);
     
     //    back imageEdgeInsets = UIEdgeInsetsMake(<#CGFloat top#>, CGFloat left, <#CGFloat bottom#>, <#CGFloat right#>);
     
@@ -98,6 +98,7 @@
 {
   self.title = STRING_FOR_LANGUAGE(@"News.Details");
  [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
+    [back sizeToFit];
 }
 
 

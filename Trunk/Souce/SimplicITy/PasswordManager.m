@@ -21,7 +21,7 @@
 {
     if (self = [super init])
     {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
         [self localize];
         
         
@@ -65,7 +65,8 @@
                                      otherButtonTitles:OK_FOR_ALERT, nil];
         
         passwordAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
-
+       [[passwordAlert textFieldAtIndex:0] setPlaceholder:STRING_FOR_LANGUAGE(@"Password")];
+        
     }
     
     passwordAlert.message = message;

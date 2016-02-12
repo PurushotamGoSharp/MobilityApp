@@ -90,9 +90,9 @@
      back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 30);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -122,7 +122,7 @@
     roomManager.delegate = self;
     [self setTheme];
 
-[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
 
 }
@@ -130,6 +130,7 @@
 {
  self.title = STRING_FOR_LANGUAGE(@"Book.Room");
   [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    [back sizeToFit];
     [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
     endDate = nil;
     

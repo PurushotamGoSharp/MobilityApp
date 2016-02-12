@@ -35,9 +35,9 @@
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 30);
 
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -57,7 +57,7 @@
 {
     [super viewWillAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
     
     [self.tableView reloadData];
@@ -69,7 +69,7 @@
   [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     self.title = STRING_FOR_LANGUAGE(@"Tools");
  arrayOfDatas = @[ STRING_FOR_LANGUAGE(@"Connection.Checker"), STRING_FOR_LANGUAGE(@"Survey.Survey")];
-
+    [back sizeToFit];
 }
 
 

@@ -97,15 +97,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
+   
    back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     //[back setTitle:@"Home" forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 30);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
@@ -210,6 +210,7 @@
 {
     
     [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    [back sizeToFit];
     self.navigationItem.title = STRING_FOR_LANGUAGE(@"About.Us");
     self.clickToRateLbl.text = STRING_FOR_LANGUAGE(@"Click.rate");
     self.avgRateLable.text = STRING_FOR_LANGUAGE(@"Avg.Rating");

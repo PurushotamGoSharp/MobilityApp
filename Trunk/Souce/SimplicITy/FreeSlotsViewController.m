@@ -68,16 +68,16 @@
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     [back setTitle:@"Home" forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
-    back.frame = CGRectMake(0, 0,80, 30);
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+//    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+//    back.frame = CGRectMake(0, 0,80, 30);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    self.title = @"Book a Room";
+    //self.title = @"Book a Room";
     
     passwordManager = [[PasswordManager alloc] init];
     passwordManager.delegate = self;
@@ -100,7 +100,7 @@
     
     self.searchByTimeButton.layer.cornerRadius = 5;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
     
 }
@@ -109,6 +109,7 @@
 {
     self.title = STRING_FOR_LANGUAGE(@"Book.Room");
     [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    [back sizeToFit];
     [self.searchByTimeButton setTitle:STRING_FOR_LANGUAGE(@"Search.Date") forState:(UIControlStateNormal)];
 }
 
@@ -446,11 +447,12 @@
         return nil;
     }
     UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 5, 150, 30))];
     headerView.backgroundColor = [UIColor colorWithRed:.38 green:.77 blue:.95 alpha:1];
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
    // headerLabel.text = @"Meeting Room(s)";
     headerLabel.text = STRING_FOR_LANGUAGE(@"rooms.meeting");
+    [headerLabel sizeToFit];
     headerLabel.textColor = [UIColor whiteColor];
     [headerView addSubview:headerLabel];
     
