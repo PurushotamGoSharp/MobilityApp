@@ -212,7 +212,6 @@
         }
         
         [[DownloadManager sharedDownloadManager] downloadFromURLString:requestedURL.absoluteString];
-        
         return NO;
     }
     
@@ -408,11 +407,12 @@
         {
             UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:WARNING_TEXT message:INTERNET_IS_REQUIRED_TO_SYNC_DATA delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [noNetworkAlert show];
+        }else
+        {
+            [self tryToUpdateCategories];
+
         }
-        
-        
     }
-    [self tryToUpdateCategories];
 }
 
 #pragma mark

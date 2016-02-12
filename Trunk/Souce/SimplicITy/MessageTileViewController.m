@@ -222,7 +222,7 @@
     }
     
     NSDictionary *aNewDict = [arr firstObject];
-    NewsCategoryModel *parentCategory = [self categorymodelForCode:aNewDict[@"NewsCategoryCode"]];
+    NewsCategoryModel *parentCategory = [self categorymodelForCode:aNewDict[@"ParentCode"]];
     parentCategory.newsArr = newsDetailsArr;
     
 //    [self saveNewsDetails:parentCategory];

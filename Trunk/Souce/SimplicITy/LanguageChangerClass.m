@@ -69,7 +69,7 @@
                 }
             }
             NSString *jsonStringmain =[NSString stringWithFormat:@"{\%@}",mainJsonString];
-            NSLog(@"%@",jsonStringmain);
+//            NSLog(@"%@",jsonStringmain);
             [self createFolderinDocument:langCode andJsonString:jsonStringmain];
         }
     }
@@ -129,7 +129,7 @@
     }
    
     
-    NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
+//    NSLog(@"Dict %@",[self.languageUrlPairs allKeys]);
     [MCLocalization loadFromLanguageURLPairs:self.languageUrlPairs defaultLanguage:@"en"];
     [MCLocalization sharedInstance].noKeyPlaceholder = @"[No '{key}' in '{language}']";
     [MCLocalization sharedInstance].language = langCode;

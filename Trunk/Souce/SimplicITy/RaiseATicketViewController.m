@@ -907,7 +907,7 @@
         dbManager.delegate = self;
     }
     
-    [dbManager dropTable:@"categoryTable"];
+//    [dbManager dropTable:@"categoryTable"];
     NSString *createQuery = @"create table if not exists categoryTable (API text PRIMARY KEY, data text)";
     [dbManager createTableForQuery:createQuery];
     

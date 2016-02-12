@@ -18,6 +18,7 @@
 @property (nonatomic,assign)BOOL viewed;
 @property (nonatomic,strong)NSString *subject;
 @property (nonatomic,strong)NSString *parentCategory;
+@property (nonatomic,strong)NSString *languageParentCode;
 
 
 @end

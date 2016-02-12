@@ -91,7 +91,7 @@
         [seedDataDictFromAPI setObject:value  forKey:seed.name];
     }
     
-    NSLog( @"Seed data from API's are %@ ",seedDataDictFromAPI);
+//    NSLog( @"Seed data from API's are %@ ",seedDataDictFromAPI);
     
     [self getData];
 }

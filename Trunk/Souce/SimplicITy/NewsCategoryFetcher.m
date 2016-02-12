@@ -139,11 +139,11 @@
 //        if ([adict[@"Status"] boolValue])
 //        {
             NewsCategoryModel *newsCategory = [[NewsCategoryModel alloc] init];
-            newsCategory.categoryCode = adict[@"Code"];
+            newsCategory.categoryCode = adict[@"ParentCode"];//For news category, Parent Code is wat we need to support language. So we are saving parent code as CategoryCode;
             newsCategory.categoryName = adict[@"Name"];
             newsCategory.categoryDocCode = adict[@"DocumentCode"];
             newsCategory.badgeCount = [adict[@"NewsCount"] integerValue];
-            newsCategory.parentCode = adict[@"ParentCode"];
+//            newsCategory.parentCode = adict[@"ParentCode"];
         
             if (download)
             {
@@ -151,11 +151,11 @@
                 noOfCallsMade++;
                 [postMan get:imageUrl];
             }
-        NSLog(@"%li", newsCategory.badgeCount);
+            NSLog(@"%li", newsCategory.badgeCount);
             if (newsCategory.badgeCount > 0)
             {
                 noOfCallsMade++;
-                [self getNewsForCategoryCode:newsCategory.parentCode withSince:_sinceID];
+                [self getNewsForCategoryCode:newsCategory.categoryCode withSince:_sinceID];
             }
             
             [newsCategoryArr addObject:newsCategory];
@@ -191,7 +191,7 @@
     
     for (NewsCategoryModel *aModel in categories)
     {
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%li')",aModel.categoryName, aModel.parentCode,aModel.categoryDocCode,(long)aModel.badgeCount];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO categories (name, code, docCode, badgeCount) values ('%@','%@','%@', '%li')",aModel.categoryName, aModel.categoryCode,aModel.categoryDocCode,(long)aModel.badgeCount];
         [dbManager saveDataToDBForQuery:insertSQL];
         
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewsBadgeCount" object:nil];
@@ -312,7 +312,6 @@
                 NewsContentModel *newsContent = [[NewsContentModel alloc]init];
                 newsContent.ID = [adict[@"ID"] integerValue];
                 newsContent.newsCode =adict[@"Code"];
-                parentCategory = adict[@"NewsCategoryCode"];;
                 
                 newsContent.subject = dictFromJSON[@"Title"];
                 newsContent.newsDetails =dictFromJSON[@"Content"];
@@ -320,7 +319,18 @@
                 
                 newsContent.recivedDate = [NSDate date];
                 newsContent.viewed = NO;
-                newsContent.parentCategory = adict[@"NewsCategoryCode"];
+                
+                if ([adict[@"ParentCode"] isKindOfClass:[NSNull class]])
+                {
+                    parentCategory = adict[@"NewsCategoryCode"];
+
+                }else
+                {
+                    parentCategory = adict[@"ParentCode"];
+                }
+                newsContent.parentCategory = parentCategory;//this also should be Language paernt code of Category
+                newsContent.languageParentCode = parentCategory;
+
                 [newsArray addObject:newsContent];
             }
         }
