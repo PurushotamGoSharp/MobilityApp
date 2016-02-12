@@ -170,10 +170,10 @@
     
     if ([[UserInfo sharedUserInfo] getServerConfig] == nil)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:ERROR_FOR_ALERT
                                                             message:AIRWATCH_CONFIG_ERROR
                                                            delegate:nil
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:OK_FOR_ALERT
                                                   otherButtonTitles:nil];
         [alertView show];
         return;
@@ -299,10 +299,10 @@
 {
     if (netwrokErrorAlert == nil)
     {
-        netwrokErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                       message:@"Error to retrieve data. Please check the Internet connection for the App. If error still persists, contact Administrator."
+        netwrokErrorAlert = [[UIAlertView alloc] initWithTitle:ERROR_FOR_ALERT
+                                                       message:STRING_FOR_LANGUAGE(@"Contact.Administrator")
                                                       delegate:self
-                                             cancelButtonTitle:@"OK"
+                                             cancelButtonTitle:OK_FOR_ALERT
                                              otherButtonTitles:nil];
     }
     
