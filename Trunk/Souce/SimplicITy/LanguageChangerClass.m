@@ -138,13 +138,8 @@
     {
         [self.delegate successResponseDelegateMethod];
     }
-    
-   
     NSString *seedKeyForLang = [NSString stringWithFormat:@"uilabel,%@", langCode];
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:seedKeyForLang];
-
-
-
 
 }
 

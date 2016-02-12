@@ -89,7 +89,7 @@
     
     [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
     [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
-    self.title = STRING_FOR_LANGUAGE(@"Country");
+     self.title = STRING_FOR_LANGUAGE(@"Country");
  
 }
 
