@@ -113,14 +113,14 @@
         BadgeNoManager *badgemanager = [[BadgeNoManager alloc] init];
         [self setViewFlagOnDB];
         
-        [badgemanager updateBadgeNoFor:self.newsContent.languageParentCode
-                                withNo:[badgemanager noBadgesFor:self.newsContent.languageParentCode afterUpdating:NO]];
+        [badgemanager updateBadgeNoFor:self.newsContent.parentCategory
+                                withNo:[badgemanager noBadgesFor:self.newsContent.parentCategory afterUpdating:NO]];
     }
 }
 
 - (void)setViewFlagOnDB
 {
-    NSString *query =  [NSString stringWithFormat:@"UPDATE n_%@ set viewedFlag = 1 WHERE newsCode = '%@'", self.newsContent.languageParentCode, self.newsContent.newsCode];
+    NSString *query =  [NSString stringWithFormat:@"UPDATE n_%@ set viewedFlag = 1 WHERE newsCode = '%@'", self.newsContent.parentCategory, self.newsContent.newsCode];
     self.newsContent.viewed = YES;
     
     [dbManager saveDataToDBForQuery:query];

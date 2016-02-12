@@ -457,7 +457,7 @@
         [dbManager deleteRowForQuery:queryFordelete];
         
         BadgeNoManager *badgemanager = [[BadgeNoManager alloc] init];
-        [badgemanager decrementBadgeNoFor:newsModel.languageParentCode];
+        [badgemanager decrementBadgeNoFor:newsModel.parentCategory];
         
         [newsDetailsArr removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
