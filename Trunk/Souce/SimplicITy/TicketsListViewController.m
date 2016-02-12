@@ -191,6 +191,8 @@
         
         [arrOfTicketLists addObject:aModel];
     }
+    
+    
     [self.tableViewOutlet reloadData];
     
 }

@@ -346,7 +346,7 @@
 {
     UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
     headerView.backgroundColor = self.view.backgroundColor;
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 5, 150, 30))];
     
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
     
@@ -358,6 +358,7 @@
                 return nil;
             }
             headerLabel.text = STRING_FOR_LANGUAGE(@"Selected.Attendee");
+            [headerLabel sizeToFit];
         }else if (section == 0)
         {
             return nil;
@@ -368,6 +369,7 @@
                 return nil;
             }
             headerLabel.text = STRING_FOR_LANGUAGE(@"Contact.Found ");
+           [headerLabel sizeToFit];
         }
     }
     

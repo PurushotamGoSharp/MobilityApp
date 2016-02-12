@@ -447,11 +447,12 @@
         return nil;
     }
     UIView *headerView =  [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 150, 30))];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 0, 150, 30))];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:(CGRectMake(18, 5, 150, 30))];
     headerView.backgroundColor = [UIColor colorWithRed:.38 green:.77 blue:.95 alpha:1];
     headerLabel.font = [UIFont boldSystemFontOfSize:14];
    // headerLabel.text = @"Meeting Room(s)";
     headerLabel.text = STRING_FOR_LANGUAGE(@"rooms.meeting");
+    [headerLabel sizeToFit];
     headerLabel.textColor = [UIColor whiteColor];
     [headerView addSubview:headerLabel];
     
