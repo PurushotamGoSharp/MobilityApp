@@ -61,7 +61,7 @@
         passwordAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Password.required")
                                                message:message
                                               delegate:self
-                                     cancelButtonTitle:STRING_FOR_LANGUAGE(@"Language.Cancel")
+                                     cancelButtonTitle:STRING_FOR_LANGUAGE(@"Cancel")
                                      otherButtonTitles:OK_FOR_ALERT, nil];
         
         passwordAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;

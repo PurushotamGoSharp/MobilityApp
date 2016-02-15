@@ -82,7 +82,7 @@
 }
 -(void)localize
 {
-    self.title = STRING_FOR_LANGUAGE(@"Apps.Apps");
+    self.title = STRING_FOR_LANGUAGE(@"Apps");
     [back setTitle:STRING_FOR_LANGUAGE(@"Apps.Home") forState:UIControlStateNormal];
     [back sizeToFit];
 }
