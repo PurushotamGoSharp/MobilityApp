@@ -74,7 +74,7 @@
 
 -(void)localize
 {
-self.title = STRING_FOR_LANGUAGE(@"Survey.Survey");
+    self.title = STRING_FOR_LANGUAGE(@"Survey");
 [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
     [back sizeToFit];
 

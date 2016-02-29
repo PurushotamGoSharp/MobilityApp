@@ -220,7 +220,7 @@
     thankYou = STRING_FOR_LANGUAGE(@"Rating.App");
     devicenotConnected = STRING_FOR_LANGUAGE(@"connect.Internet");
     ok = STRING_FOR_LANGUAGE(@"Ok");
-    warning = STRING_FOR_LANGUAGE(@"Password.Warning");
+    warning = STRING_FOR_LANGUAGE(@"Warning");
     totalLabelh = STRING_FOR_LANGUAGE(@"Total");
 }
 

@@ -89,7 +89,7 @@
 -(void)localize
 {
 self.title = STRING_FOR_LANGUAGE(@"Device.Upgrade");
-[back setTitle:STRING_FOR_LANGUAGE(@"Apps.Home") forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     [back sizeToFit];
 }
 

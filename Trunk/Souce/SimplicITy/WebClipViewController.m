@@ -68,7 +68,6 @@
         {
             [self  getData];
         }
-    
     }
     else
     {
@@ -77,23 +76,17 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
-
-
 }
--(void)localize
+
+- (void)localize
 {
     self.title = STRING_FOR_LANGUAGE(@"Apps");
-    [back setTitle:STRING_FOR_LANGUAGE(@"Apps.Home") forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     [back sizeToFit];
 }
 
-
-
-
 - (void)tryUpdatewebClip
 {
-   
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [postMan get:URLString];
 }
@@ -365,16 +358,5 @@
         }
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 @end

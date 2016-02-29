@@ -95,7 +95,7 @@
 -(void)localize
 {
     self.title = STRING_FOR_LANGUAGE(@"Password_Expiry");
-  [back setTitle:STRING_FOR_LANGUAGE(@"Home.About") forState:UIControlStateNormal];
+  [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     self.passwordToolLabel.text = STRING_FOR_LANGUAGE(@"Password.Tool");
     self.dayleftForpasswordExpPlaceholder.text = STRING_FOR_LANGUAGE(@"Days.Expiry");
     [back sizeToFit];

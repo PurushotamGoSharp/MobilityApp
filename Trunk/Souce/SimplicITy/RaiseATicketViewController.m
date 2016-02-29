@@ -215,7 +215,7 @@
     LabHigh=STRING_FOR_LANGUAGE(@"High");
     Services=STRING_FOR_LANGUAGE(@"Service");
     Details = STRING_FOR_LANGUAGE(@"Details");
-    LabselectServices=STRING_FOR_LANGUAGE(@"Selects.Service");
+    LabselectServices=STRING_FOR_LANGUAGE(@"Select.Service");
     home=STRING_FOR_LANGUAGE(@"Home");
     ok=STRING_FOR_LANGUAGE(@"Ok");
     Warrning = STRING_FOR_LANGUAGE(@"Warning");
@@ -730,7 +730,7 @@
         
         self.textView.textColor=[self colorWithHexString:@"AAAAAA"];
         
-       self.textView.placeholder = STRING_FOR_LANGUAGE(@"Request.Describe");
+        self.textView.placeholder = STRING_FOR_LANGUAGE(@"Describe.Request");
         self.textView.delegate = self;
        
     }

@@ -107,19 +107,19 @@
 {
     UITabBar *tabBar = self.tabBarController.tabBar;
     UITabBarItem *tabBarItem = tabBar.items[0];
-    tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools.Home");
+    tabBarItem.title = STRING_FOR_LANGUAGE(@"Home");
     tabBarItem = tabBar.items[1];
     tabBarItem.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
     tabBarItem = tabBar.items[2];
     tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools");
     tabBarItem = tabBar.items[3];
     tabBarItem.title = STRING_FOR_LANGUAGE(@"About");
-   arrOfTableViewData = @[STRING_FOR_LANGUAGE(@"Language.Setting"), STRING_FOR_LANGUAGE(@"Country.Country"), STRING_FOR_LANGUAGE(@"OfficeLocation.Location"),STRING_FOR_LANGUAGE(@"Themes")];
+    arrOfTableViewData = @[STRING_FOR_LANGUAGE(@"Language"), STRING_FOR_LANGUAGE(@"Country"), STRING_FOR_LANGUAGE(@"Location.Setting"),STRING_FOR_LANGUAGE(@"Themes")];
     self.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
-   [back setTitle:STRING_FOR_LANGUAGE(@"Tools.Home") forState:UIControlStateNormal];
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     [back sizeToFit];
-//    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
-//    self.navigationItem.leftBarButtonItem = backButton;
+    //    backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
+    //    self.navigationItem.leftBarButtonItem = backButton;
     [self.tableView reloadData];
 }
 

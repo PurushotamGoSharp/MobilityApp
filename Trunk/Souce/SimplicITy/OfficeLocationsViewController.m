@@ -50,7 +50,7 @@
 -(void)localize
 {
     self.title = STRING_FOR_LANGUAGE(@"Location.Setting");
-    [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Location.Done")];
+    [self.navigationItem.rightBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Done")];
     [self.navigationItem.leftBarButtonItem setTitle:STRING_FOR_LANGUAGE(@"Cancel")];
     
     

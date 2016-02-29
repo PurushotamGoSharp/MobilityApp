@@ -68,7 +68,7 @@
 {
   [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     self.title = STRING_FOR_LANGUAGE(@"Tools");
- arrayOfDatas = @[ STRING_FOR_LANGUAGE(@"Connection.Checker"), STRING_FOR_LANGUAGE(@"Survey.Survey")];
+ arrayOfDatas = @[ STRING_FOR_LANGUAGE(@"Connection.Checker"), STRING_FOR_LANGUAGE(@"Survey")];
     [back sizeToFit];
 }
 

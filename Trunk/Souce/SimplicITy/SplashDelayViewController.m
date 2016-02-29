@@ -108,7 +108,7 @@
 //{
 //        UITabBar *tabBar = self.tabBarController.tabBar;
 //        UITabBarItem *tabBarItem = tabBar.items[0];
-//        tabBarItem.title = STRING_FOR_LANGUAGE(@"Tools.Home");
+//        tabBarItem.title = STRING_FOR_LANGUAGE(@"Home");
 //        tabBarItem = tabBar.items[1];
 //        tabBarItem.title = STRING_FOR_LANGUAGE(@"Setting.Setting");
 //        tabBarItem = tabBar.items[2];
