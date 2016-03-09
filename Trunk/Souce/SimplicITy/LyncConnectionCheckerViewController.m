@@ -442,7 +442,7 @@
                                         long long totalBytesWritten,
                                         long long totalBytesExpectedToWrite)
      {
-         float progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+//         float progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
          //                 NSLog(@"status %f",progress);
          //         NSLog(@"Wrote %lld/%lld", totalBytesWritten, totalBytesExpectedToWrite);
          totalsizeOfData = totalBytesExpectedToWrite;

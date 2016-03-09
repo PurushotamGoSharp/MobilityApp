@@ -45,7 +45,7 @@
 #define NAV_BAR_TITLE_FOR_ORDER @"Place Order"
 
 #define PLACEHOLDE_TEXT_FOR_SELECT_ITEM @"Select an item"
-#define PLACEHOLDE_TEXT_FOR_SELECT_SERVICE @"Select a service"
+#define PLACEHOLDE_TEXT_FOR_SELECT_SERVICE STRING_FOR_LANGUAGE(@"Select.Service")
 #define PLACEHOLDER_TEXT_FOR_DETAIL_TICKET @"Describe your request here"
 #define PLACEHOLDER_TEXT_FOR_DETAIL_ORDER @"Please describe the details of what you are ordering. If this is for hardware then enter the model number.  For software enter the name of the software and the version number. If there are any questions the Mobility team will contact you so we ensure the proper Item is ordered"
 

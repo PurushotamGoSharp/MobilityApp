@@ -182,8 +182,8 @@
     if (indexPath.section == 1)
     {
         UILabel *titleTextView = (UILabel *)[cell viewWithTag:100];
-        NSString *details = self.tickrtListModel.details.length?self.tickrtListModel.details:self.tickrtListModel.serviceName;
-        titleTextView.text = details;
+        NSString *detail = self.tickrtListModel.details.length?self.tickrtListModel.details:self.tickrtListModel.serviceName;
+        titleTextView.text = detail;
         titleTextView.textAlignment = NSTextAlignmentJustified;
         rightTable.hidden = YES;
         titleTextView.textColor = [UIColor lightGrayColor];

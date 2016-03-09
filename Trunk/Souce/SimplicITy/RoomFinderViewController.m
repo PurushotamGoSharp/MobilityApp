@@ -85,8 +85,6 @@
     self.containerForCalendar.layer.masksToBounds = YES;
     self.serachRoomsButton.layer.cornerRadius = 5;
     
-    
-    
      back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
@@ -106,6 +104,10 @@
     [self setbuttonForSwitchMode];
     self.serachRoomsButton.hidden = NO;
     
+    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
+    endDate = nil;
+    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Start.Time") forState:(UIControlStateNormal)];
+    startDate = nil;
 }
 
 - (void)backBtnAction
@@ -128,29 +130,19 @@
 }
 -(void)localize
 {
- self.title = STRING_FOR_LANGUAGE(@"Book.Room");
-  [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
+    self.title = STRING_FOR_LANGUAGE(@"Book.Room");
+    [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
     [back sizeToFit];
-    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
-    endDate = nil;
-    
-    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Start.Time") forState:(UIControlStateNormal)];
-    startDate = nil;
+//    [self.endTimeButton setTitle:STRING_FOR_LANGUAGE(@"End.Time") forState:(UIControlStateNormal)];
+//    endDate = nil;
+//    [self.startTimeButton setTitle:STRING_FOR_LANGUAGE(@"Start.Time") forState:(UIControlStateNormal)];
+//    startDate = nil;
     
     [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Meeting.Rooms") forState:(UIControlStateNormal)];
     self.placeHolderLabel.text=STRING_FOR_LANGUAGE(@"Meeting.Time");
 
     self.availabelmeetingRoomLab.text = STRING_FOR_LANGUAGE(@"Available.MeetingRoom");
- 
-
-
 }
-
-
-
-
-
-
 
 - (void)viewDidLayoutSubviews
 {
