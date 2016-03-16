@@ -533,9 +533,6 @@
 {
     self.serachRoomsButton.tag = 111;
     [self.serachRoomsButton setTitle:STRING_FOR_LANGUAGE(@"Search.Room") forState:(UIControlStateNormal)];
-
-
-
 }
 
 - (void)dealloc
@@ -568,7 +565,7 @@
         beaconIndicatorImageView.image = [UIImage imageNamed:@"ibeacon-green"];
     }else
     {
-        beaconIndicatorImageView.image = [UIImage imageNamed:@""];
+        beaconIndicatorImageView.image = nil;
     }
     
     return cell;

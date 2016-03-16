@@ -64,22 +64,22 @@
     NSString *notconnectInternet;
     NSString *kb;
     NSString *mb;
-
-
+    
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    }
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
     
     
@@ -132,16 +132,16 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ALERT_FOR_ALERT message:notconnectInternet delegate:self cancelButtonTitle:nil otherButtonTitles:OK_FOR_ALERT, nil];
         [alert show];
     }
-
-
     
-   }
+    
+    
+}
 - (IBAction)RefreshButtonAction:(id)sender {
-
+    
     self.downloadLbl.text = [NSString stringWithFormat:@"%d",0];
     self.uploadlbl.text = [NSString stringWithFormat:@"%d",0];
     [self refreshtapAction];
-
+    
 }
 
 
@@ -161,7 +161,7 @@
     notconnectInternet = STRING_FOR_LANGUAGE(@"Internet.Required");
     alertt = STRING_FOR_LANGUAGE(@"Language.Alert");
     
-
+    
 }
 
 
@@ -205,13 +205,6 @@
     }
 }
 
-
-
-
-
-
-
-
 - (void)getData
 {
     if (dbManager == nil)
@@ -244,6 +237,7 @@
         [self parseCOnfigResponse:dict];
     }
 }
+
 - (void)callConfigAPI
 {
     if (postman == nil)
@@ -297,6 +291,17 @@
         {
             LyncConfigModel *config = [[LyncConfigModel alloc] init];
             config.code = dict[@"Code"];
+            if ([dict[@"ValueFrom"] isKindOfClass:[NSNull class]] || [dict[@"ValueTo"] isKindOfClass:[NSNull class]])
+            {
+                UIAlertController *nullAlert = [UIAlertController alertControllerWithTitle:STRING_FOR_LANGUAGE(@"Error") message:STRING_FOR_LANGUAGE(@"error.occured") preferredStyle:(UIAlertControllerStyleAlert)];
+                [nullAlert addAction:[UIAlertAction actionWithTitle:STRING_FOR_LANGUAGE(@"Ok") style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }]];
+                [self presentViewController:nullAlert animated:YES completion:^{
+                    
+                }];
+                return;
+            }
             config.valueFrom = [dict[@"ValueFrom"] floatValue];
             config.valueTo = [dict[@"ValueTo"] floatValue];
             
@@ -306,19 +311,19 @@
             }else if ([config.code isEqualToString:@"AUDDLL"])
             {
                 audioDownObj = config;
-
+                
             }else if ([config.code isEqualToString:@"VIDUPL"])
             {
                 videoUpObj = config;
-
+                
             }else if ([config.code isEqualToString:@"VIDDLL"])
             {
                 videoDownObj = config;
-
+                
             }else if ([config.code isEqualToString:@"VSCUPL"])
             {
                 screenUpObj = config;
-
+                
             }else if ([config.code isEqualToString:@"VSCDLL"])
             {
                 screenDownObj = config;
@@ -331,7 +336,7 @@
 {
     [self.RefreshButtonRef setEnabled:NO];
     [self.RefreshButtonRef setBackgroundColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1]];
-
+    
     NSString *pathOfPlist = [[NSBundle mainBundle] pathForResource:@"UploadAndDownloadInfo" ofType:@"plist"];
     uploadAndDownloadInfo = [NSDictionary dictionaryWithContentsOfFile:pathOfPlist];
     
@@ -417,32 +422,32 @@
                                              
                                              NSString *JSONString = json[@"aaData"][@"JSON"];
                                              
-//                                             if (JSONString)
-//                                             {
-                                                 NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-                                                 
-                                                 fileId = dictFromJSON[@"Code"];
-                                                 docId = [dictFromJSON[@"ID"] intValue];
-                                                 
-                                                 [self downloadImageByCode:fileId];
-//                                             }
+                                             //                                             if (JSONString)
+                                             //                                             {
+                                             NSDictionary *dictFromJSON = [NSJSONSerialization JSONObjectWithData:[JSONString dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+                                             
+                                             fileId = dictFromJSON[@"Code"];
+                                             docId = [dictFromJSON[@"ID"] intValue];
+                                             
+                                             [self downloadImageByCode:fileId];
+                                             //                                             }
                                              
                                          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                                          {
                                              NSLog(@"file upload failure error %@",error);
                                              [hud hide:YES];
-                                         
+                                             
                                              [self buttonColourAccordingtotheme];
                                              [self.RefreshButtonRef setEnabled:YES];
-                                         
-                                         
+                                             
+                                             
                                          }];
     
     [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
                                         long long totalBytesWritten,
                                         long long totalBytesExpectedToWrite)
      {
-//         float progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
+         //         float progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite;
          //                 NSLog(@"status %f",progress);
          //         NSLog(@"Wrote %lld/%lld", totalBytesWritten, totalBytesExpectedToWrite);
          totalsizeOfData = totalBytesExpectedToWrite;
@@ -516,7 +521,7 @@
 
 - (void)deleteAfterDownloadWithParameter:(NSString*)parameter
 {
-//    Postman *postman = [[Postman alloc] init];
+    //    Postman *postman = [[Postman alloc] init];
     postman.delegate = self;
     [postman post:DELETE_FILE_API withParameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -560,10 +565,10 @@
         
         self.connectionResultLbl.text = STRING_FOR_LANGUAGE(@"Connection.Speed");
     }
-
+    
     [self.RefreshButtonRef setEnabled:YES];
     [self buttonColourAccordingtotheme];
-
+    
 }
 
 
@@ -589,8 +594,8 @@
     }
     
     
-
-
+    
+    
 }
 
 

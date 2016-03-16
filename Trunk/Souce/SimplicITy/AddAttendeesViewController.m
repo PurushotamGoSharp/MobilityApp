@@ -47,10 +47,7 @@
     roomManager.delegate = self;
     
     selectedAttentdees = [[NSMutableArray alloc] init];
-    
-    
-    
-    }
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {

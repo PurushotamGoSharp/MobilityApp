@@ -19,8 +19,10 @@
 {
     ESWRoomManager *ewsManager;
     NSMutableArray *listOfRooms, *listOfLists;
-    
     RoomRecognizer *recognizer;
+    NSTimer *timerForBluetoothStatus;
+    
+    BOOL bluetoothIsFine;
 }
 
 - (instancetype)init
@@ -43,6 +45,9 @@
     ewsManager.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateModelsWithBeaconValue) name:GIMBAL_CAHNGE_IN_NO_RECGNIZED_LIST object:nil];
+    
+    //this timer is for checking regulary whether Bluetooth is working fine or not. When Bluetooth is turned off, we will reset the RSSI value of all the Rooms to NSIntegerMin.
+//    [timerForBluetoothStatus fire];
 }
 
 - (void)reloadList
@@ -55,10 +60,31 @@
     return listOfRooms;
 }
 
+- (void)checkStatusOfBluetooth:(NSNotification *)notification
+{
+    if (!bluetoothIsFine)
+    {
+        NSLog(@"Bluetooth is not fine. Reseting RSSI to NSIntegerMin");
+        NSArray *recognizedRooms = [recognizer recognizedRooms];
+        [self replaceObjectOfCompleteListWithObjectOf:recognizedRooms];
 
+        for (RoomModel *roomModel in listOfRooms)
+        {
+            roomModel.RSSIValue = NSIntegerMin;
+        }
+        if ([self.delegate respondsToSelector:@selector(roomManager:updatedRSSIValueForRooms:)])
+        {
+            [self.delegate roomManager:self updatedRSSIValueForRooms:listOfRooms];
+        }
+    }
+    
+    bluetoothIsFine = NO;
+}
 
 - (void)updateModelsWithBeaconValue
 {
+    bluetoothIsFine = YES;
+    NSLog(@"Bluetooth is  fine. %@", self);
     NSArray *recognizedRooms = [recognizer recognizedRooms];
     [self replaceObjectOfCompleteListWithObjectOf:recognizedRooms];
     
@@ -140,9 +166,13 @@
 - (void)startRecognize
 {
     [recognizer startRecognize];
+    timerForBluetoothStatus = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(checkStatusOfBluetooth:) userInfo:self repeats:YES];
+
 }
 - (void)stopRecognize
 {
+    [timerForBluetoothStatus invalidate];
+    timerForBluetoothStatus = nil;
     [recognizer stopRecognize];
 }
 

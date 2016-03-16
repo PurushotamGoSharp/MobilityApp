@@ -63,9 +63,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    
-    
     dataOfThirdSection = @[@"",@"Marc",@"Bin",@"Antony",@"Sundar"];
 
     dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
@@ -132,9 +129,6 @@
    [back setTitle:STRING_FOR_LANGUAGE(@"Back.Survey") forState:UIControlStateNormal];
     [back sizeToFit];
     [self.sendInviteButton setTitle:STRING_FOR_LANGUAGE(@"Send.Invite") forState:UIControlStateNormal];
-
-
-
 }
 
 
