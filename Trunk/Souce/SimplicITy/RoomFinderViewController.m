@@ -49,7 +49,7 @@
 
 @implementation RoomFinderViewController
 {
-    NSDateFormatter *dateFormatter;
+    NSDateFormatter *dateFormatter, *localeDateFormatter;
     RoomManager *roomManager;
     
     NSMutableArray *roomsAvailable;
@@ -68,6 +68,7 @@
     UIAlertView *officeLocationAlert;
     UIAlertView *tryAgainAlert;
     UIButton *back;
+    NSString *selectedLanguageCode;
 }
 
 - (void)viewDidLoad
@@ -77,6 +78,7 @@
     
     dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
     dateFormatter.dateFormat = @"hh:mm a";
+    localeDateFormatter = [[NSDateFormatter alloc] init];
     
     roomManager = [[RoomManager alloc] init];
     [roomManager startRecognize];
@@ -126,7 +128,7 @@
 
 //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
-
+    selectedLanguageCode = [MCLocalization sharedInstance].language;
 }
 -(void)localize
 {
@@ -537,6 +539,7 @@
 
 - (void)dealloc
 {
+    NSLog(@"Deallocing RoonViewController");
     [roomManager stopRecognize];
 }
 
@@ -722,8 +725,9 @@
     endDate = [self dateByGettingTimefrom:endDate withDateFrom:date];
     NSLog(@"End date = %@", endDate);
     
-    dateFormatter.dateFormat = @"dd MMMM yyyy";
-    self.selectedDateLabel.text = [dateFormatter stringFromDate:date];
+    localeDateFormatter.dateFormat = @"dd MMMM yyyy";
+    localeDateFormatter.locale = [NSLocale localeWithLocaleIdentifier:selectedLanguageCode];
+    self.selectedDateLabel.text = [localeDateFormatter stringFromDate:date];
     
     if (endDate != nil)
     {

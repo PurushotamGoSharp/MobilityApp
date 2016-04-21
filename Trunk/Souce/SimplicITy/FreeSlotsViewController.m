@@ -47,12 +47,14 @@
     
     NSArray *freeSlotsArray;
     
-    NSDateFormatter *dateFormatter;
+    NSDateFormatter *dateFormatter, *localeDateFormatter;
     
     UIBarButtonItem *backButton;
     UIButton *back;
     
     BOOL preventReloadingOfTable;//When user taps a Room, free slots will be shown to user. At that time we should not reload the table as BEACON VALUE CAHNGES. So whenever user taps on a Room we will prevent table reload as BEACON VALUE CAHNGES
+    NSString *selectedLanguageCode;
+
 }
 
 - (void)viewDidLoad
@@ -61,7 +63,8 @@
     // Do any additional setup after loading the view.
     
 //    roomManager = [[RoomManager alloc] init];
-    
+    localeDateFormatter = [[NSDateFormatter alloc] init];
+
     self.containerForCalendar.layer.masksToBounds = YES;
     
    back = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -89,7 +92,8 @@
     
     self.roomManager.delegate = self;
     [self setTheme];
-    
+    selectedLanguageCode = [MCLocalization sharedInstance].language;
+
     if (self.rooms.count == 0 | self.rooms == nil)
     {
         [self getAllRoomsOfCurrentLocation];
@@ -491,8 +495,9 @@
         dateFormatter = [[NSDateFormatter alloc] initWithSafeLocale];
     }
     
-    dateFormatter.dateFormat = @"dd MMMM yyyy";
-    self.selectedDateLabel.text = [dateFormatter stringFromDate:date];
+    localeDateFormatter.dateFormat = @"dd MMMM yyyy";
+    localeDateFormatter.locale = [NSLocale localeWithLocaleIdentifier:selectedLanguageCode];
+    self.selectedDateLabel.text = [localeDateFormatter stringFromDate:date];
 
 }
 

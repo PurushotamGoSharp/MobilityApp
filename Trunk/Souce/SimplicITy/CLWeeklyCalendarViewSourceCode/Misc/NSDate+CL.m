@@ -40,12 +40,16 @@
 -(NSString *)getDayOfWeekShortString
 {
     static NSDateFormatter *shortDayOfWeekFormatter;
+    NSString *selectedLanguage;
     if(!shortDayOfWeekFormatter){
         shortDayOfWeekFormatter = [[NSDateFormatter alloc] init];
-        NSLocale* en_AU_POSIX = [[NSLocale alloc] initWithLocaleIdentifier:@"en_AU_POSIX"];
-        [shortDayOfWeekFormatter setLocale:en_AU_POSIX];
+//        NSLocale* en_AU_POSIX = [[NSLocale alloc] initWithLocaleIdentifier:@"en_AU_POSIX"];
+//        [shortDayOfWeekFormatter setLocale:en_AU_POSIX];
         [shortDayOfWeekFormatter setDateFormat:@"E"];
     }
+    selectedLanguage = [MCLocalization sharedInstance].language;
+    NSLocale *selectedLocale = [NSLocale localeWithLocaleIdentifier:selectedLanguage];
+    shortDayOfWeekFormatter.locale = selectedLocale;
     return [shortDayOfWeekFormatter stringFromDate:self];
 }
 
