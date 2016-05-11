@@ -112,7 +112,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.tableView.estimatedRowHeight = 40;
     [self registerForKeyboardNotifications];
     [self setTheme];
 
@@ -631,7 +631,7 @@
         {
             return 25;
         }
-        return 40;
+        return UITableViewAutomaticDimension;
     }
     
     

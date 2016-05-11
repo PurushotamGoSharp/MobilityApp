@@ -62,6 +62,7 @@
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
+    self.tableView.estimatedRowHeight = 44;
 }
 
 
@@ -265,7 +266,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return UITableViewAutomaticDimension;
 }
 
 #pragma mark UITableViewDelegate methods
