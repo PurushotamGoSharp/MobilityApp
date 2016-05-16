@@ -493,7 +493,7 @@
             alertMessage = ALERT_FOR_TICKET_SAVED_IN_OFFLINE;
         }
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@" Confirmation")
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Confirmation")
                                                                 message:alertMessage
                                                                delegate:self
                                                       cancelButtonTitle:OK_FOR_ALERT
