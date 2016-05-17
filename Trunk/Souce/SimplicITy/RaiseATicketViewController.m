@@ -192,12 +192,7 @@
     NSString * testfour = STRING_FOR_LANGUAGE(@"Contact.Number");
     NSString * testfive = STRING_FOR_LANGUAGE(@"Date.Contact");
    
-    
     self.ImportantNotetextView.text=[NSString stringWithFormat:@"%@ \n\n %@\n%@\n. %@\n. %@",test,testtwo,testthree,testfour,testfive];
-    
-    
-    
-    
     self.ImportantNotetextView.textColor=[self colorWithHexString:@"FFA0A0"];
     [[self ImportantNotetextView] setFont:[UIFont fontWithName:@"HelveticaNeue" size:14]];
     
@@ -382,7 +377,7 @@
         }
         
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Confirmation")
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@" Confirmation")
                                                                 message:alertMessage
                                                                delegate:self
                                                       cancelButtonTitle:OK_FOR_ALERT
@@ -493,7 +488,7 @@
             alertMessage = ALERT_FOR_TICKET_SAVED_IN_OFFLINE;
         }
         
-        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Confirmation")
+        UIAlertView *saveAlestView = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@" Confirmation")
                                                                 message:alertMessage
                                                                delegate:self
                                                       cancelButtonTitle:OK_FOR_ALERT
