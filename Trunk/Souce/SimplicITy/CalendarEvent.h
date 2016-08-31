@@ -15,7 +15,7 @@
 @property (strong, nonatomic) NSDate *startDate;
 @property (strong, nonatomic) NSDate *endDate;
 @property (strong, nonatomic) NSString *location;
-@property (strong, nonatomic) NSArray *resources;//emailIDs
+@property (strong, nonatomic) NSArray *resources;//emailIDs rooms
 @property (strong, nonatomic) NSArray *requiredAttendees; //emailIDs
 
 @end
