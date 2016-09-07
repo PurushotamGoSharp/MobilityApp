@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="DCt-nZ-c43">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -45,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SMW-ne-8S9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1155" y="78"/>
+            <point key="canvasLocation" x="1149" y="64"/>
         </scene>
         <!--Dash Board View Controller-->
         <scene sceneID="GXG-IC-6T2">
@@ -78,13 +77,12 @@
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="raiseATicketPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="T5v-gX-3Ta"/>
-                                                                    <segue destination="Nvl-He-eXA" kind="push" id="J1A-hZ-SrU"/>
                                                                 </connections>
                                                             </button>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ITSOSDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bYa-aY-LVi">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ITSOSDashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bYa-aY-LVi">
                                                                 <rect key="frame" x="18" y="18" width="64" height="64"/>
                                                             </imageView>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IT SOS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKp-SK-I9D">
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="IT SOS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKp-SK-I9D">
                                                                 <rect key="frame" x="27" y="87" width="48" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -114,20 +112,19 @@
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="myTicketsBtnPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="b6H-Xn-Oxs"/>
-                                                                    <segue destination="zx0-ax-jo4" kind="push" identifier="DashToMyTicketsASegue" id="5s6-By-sBB"/>
                                                                 </connections>
                                                             </button>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTickets" translatesAutoresizingMaskIntoConstraints="NO" id="5Fd-E5-elY">
-                                                                <rect key="frame" x="18" y="21" width="64" height="64"/>
+                                                                <rect key="frame" x="22" y="25" width="57" height="57"/>
                                                             </imageView>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Tickets" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkU-1B-I3g">
-                                                                <rect key="frame" x="13" y="87" width="75" height="18"/>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Skype" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkU-1B-I3g">
+                                                                <rect key="frame" x="13" y="84" width="75" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.6588235294117647" green="0.41960784313725491" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.0078431372549019607" green="0.65098039215686276" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="bT5-Q7-JBe" firstAttribute="top" secondItem="ygb-Zc-x4Q" secondAttribute="top" id="6G5-Pd-3bX"/>
                                                             <constraint firstItem="rkU-1B-I3g" firstAttribute="centerX" secondItem="bT5-Q7-JBe" secondAttribute="centerX" id="L2l-ke-38q"/>
@@ -237,20 +234,19 @@
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="tipsButtonPressed:" destination="Wvs-fA-k09" eventType="touchUpInside" id="IJ4-Ct-p45"/>
-                                                                    <segue destination="5LW-hh-LLF" kind="push" id="ZB3-PB-k0o"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-sT-i8u">
-                                                                <rect key="frame" x="36" y="87" width="30" height="18"/>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OneDrive" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZtV-sT-i8u">
+                                                                <rect key="frame" x="19" y="84" width="64" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TipsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="STP-0w-Hah">
-                                                                <rect key="frame" x="18" y="13" width="64" height="64"/>
+                                                                <rect key="frame" x="22" y="17" width="57" height="57"/>
                                                             </imageView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.52156862745098043" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.015686274510000001" green="0.4941176471" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="STP-0w-Hah" firstAttribute="centerX" secondItem="ZtV-sT-i8u" secondAttribute="centerX" constant="-0.5" id="1TM-Uw-Ng4"/>
                                                             <constraint firstItem="jlj-GY-Rz3" firstAttribute="leading" secondItem="v0t-NN-iT8" secondAttribute="leading" id="2nl-hd-Vz4"/>
@@ -1448,10 +1444,10 @@ Cg
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dGP-rR-byc">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dGP-rR-byc">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HK3-bu-ZNs">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HK3-bu-ZNs">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1625,7 +1621,7 @@ Cg
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LJU-6J-C5v">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LJU-6J-C5v">
                                 <rect key="frame" x="0.0" y="64" width="320" height="435"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="20" id="D78-hZ-QzZ">
@@ -4791,13 +4787,13 @@ Cg
         <image name="Commercial-01" width="30" height="30"/>
         <image name="FeatureWillBeComingSoonImage" width="175" height="89"/>
         <image name="HeadPhoneSmallimage" width="20" height="20"/>
-        <image name="ITSOSDashIcon" width="64" height="64"/>
+        <image name="ITSOSDashIcon" width="57" height="57"/>
         <image name="LyncToolsIcon" width="30" height="30"/>
         <image name="Message-01" width="30" height="30"/>
         <image name="MessageIcon" width="64" height="64"/>
         <image name="MessageOpen" width="16" height="16"/>
         <image name="Mobility" width="50" height="51"/>
-        <image name="MyTickets" width="64" height="64"/>
+        <image name="MyTickets" width="57" height="57"/>
         <image name="PasswordManagement" width="58" height="54"/>
         <image name="PasswordToolDashIcon" width="64" height="64"/>
         <image name="PhoneIcon" width="64" height="64"/>
@@ -4806,7 +4802,7 @@ Cg
         <image name="SettingsDashIcon" width="45" height="45"/>
         <image name="SettingsTabIcon" width="30" height="30"/>
         <image name="TicketsListtBarIcon" width="21" height="22"/>
-        <image name="TipsIcon" width="64" height="64"/>
+        <image name="TipsIcon" width="57" height="57"/>
         <image name="TipsListIcon" width="22" height="18"/>
         <image name="UCB-Mobility-Logo" width="40" height="40"/>
         <image name="WebClipDash" width="64" height="64"/>
@@ -4834,8 +4830,6 @@ Cg
         <image name="writeIcon" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="J1A-hZ-SrU"/>
-        <segue reference="5s6-By-sBB"/>
-        <segue reference="c60-44-5Yq"/>
+        <segue reference="Oq5-B6-yOh"/>
     </inferredMetricsTieBreakers>
 </document>

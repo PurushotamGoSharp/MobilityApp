@@ -39,6 +39,9 @@
     Postman *postMan;
     BadgeNoManager *badge;
     NSString *syncdatamessage;
+
+ UIAlertView *openAppAlert;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
@@ -199,9 +202,14 @@
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book.Room"];
         self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password.Expiry"];
         self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade.Device"];
-        self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT.SOS"];
-        self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
-        self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My.tickets"];
+        self.dashBoardTicket.text = [MCLocalization stringForKey:@"Yammer"];
+        self.dashBoardTips.text = [MCLocalization stringForKey:@"OneDrive"];
+        self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"Skype"];
+    
+//    self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT.SOS"];
+//    self.dashBoardTips.text = [MCLocalization stringForKey:@"Tips"];
+//    self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"My.tickets"];
+    
         self.dashWebClipLabel.text = [MCLocalization stringForKey:@"Apps"];
         self.dashBoardCallHelpDesk.text = [MCLocalization stringForKey:@"Call.Desk"];
        callingNotavl = STRING_FOR_LANGUAGE(@"Calling.Facility");
@@ -596,19 +604,37 @@
 {
 }
 
+
+// yammer Button
 - (IBAction)raiseATicketPressed:(UIButton *)sender
 {
+    
+    NSLog(@"yammer press");
+    [self redirectingYammerApp];
+    
     //    [self.tabBarController setSelectedIndex:1];
 }
 
+
+// one Drive button
 - (IBAction)tipsButtonPressed:(UIButton *)sender
 {
+
+NSLog(@"one drive press");
+    [self redirectingoneDriveApp];
+
 }
 
+
+
+// skype Button
 - (IBAction)myTicketsBtnPressed:(id)sender
 {
     //    [self.tabBarController setSelectedIndex:1];
     
+    [self redirectingSkype];
+ NSLog(@"skype press");
+
 }
 
 - (IBAction)myOrderBtnPresed:(id)sender
@@ -812,5 +838,77 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+-(void)redirectingYammerApp
+{
+
+   
+    BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"yammer://"]];
+    
+    if (!didOpen)
+    {
+        if (openAppAlert == nil)
+        {
+            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
+        }
+        
+        [openAppAlert show];
+    }
+   
+    
+
+}
+-(void)redirectingSkype
+{
+    
+    BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"Lync://"]];
+    
+    if (!didOpen)
+    {
+        if (openAppAlert == nil)
+        {
+            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
+        }
+        
+        [openAppAlert show];
+    }
+    
+ 
+    
+}
+-(void)redirectingoneDriveApp
+{
+    
+    BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"onedrive://"]];
+    
+    if (!didOpen)
+    {
+        if (openAppAlert == nil)
+        {
+            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
+        }
+        
+        [openAppAlert show];
+    }
+    
+  
+    
+}
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([openAppAlert isEqual:alertView])
+    {
+        if (buttonIndex == 1)
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[UserInfo sharedUserInfo].appStoreURL]];
+            
+        }
+    }
+}
+
+
+
 
 @end
