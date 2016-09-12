@@ -185,25 +185,21 @@
         self.upgradeLblVertConst.constant = 25;
     }
     self.serviceDesksLbl.font = [self customFont:18 ofName:MuseoSans_700];
-    
     userInfo = [UserInfo sharedUserInfo];
     selectedLocation = [[LocationModel alloc] init];
     [self setupLocation];
     self.badgeIcon.image = [[UIImage imageNamed:@"BadgeIcon"] resizableImageWithCapInsets:(UIEdgeInsetsMake(0, 10, 0, 10))];
-    
-    
 }
 
 -(void)localize
 {
-       
         syncdatamessage =  INTERNET_IS_REQUIRED_TO_SYNC_DATA;
         self.dashBoardMessage.text = [MCLocalization stringForKey:@"News"];
         self.dashBoardOrder.text = [MCLocalization stringForKey:@"Book.Room"];
         self.dashMyOrdersLabel.text = [MCLocalization stringForKey:@"Password.Expiry"];
-        self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade.Device"];
+    //    self.dashBoardSetting.text = [MCLocalization stringForKey:@"Upgrade.Device"];
         self.dashBoardTicket.text = [MCLocalization stringForKey:@"Yammer"];
-        self.dashBoardTips.text = [MCLocalization stringForKey:@"OneDrive"];
+        self.dashBoardTips.text = [MCLocalization stringForKey:@"Upgrade.Device"];
         self.dashMyTicketsLabel.text = [MCLocalization stringForKey:@"Skype"];
     
 //    self.dashBoardTicket.text = [MCLocalization stringForKey:@"IT.SOS"];
@@ -620,8 +616,8 @@
 - (IBAction)tipsButtonPressed:(UIButton *)sender
 {
 
-NSLog(@"one drive press");
-    [self redirectingoneDriveApp];
+   NSLog(@"one drive press");
+//    [self redirectingoneDriveApp];
 
 }
 
@@ -643,6 +639,8 @@ NSLog(@"one drive press");
 }
 - (IBAction)upgradeBtnPressed:(id)sender
 {
+
+
 }
 
 - (IBAction)initiateCallForITHelpDesk:(UIButton *)sender

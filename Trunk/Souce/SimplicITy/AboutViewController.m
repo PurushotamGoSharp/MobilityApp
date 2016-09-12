@@ -98,6 +98,8 @@
     // Do any additional setup after loading the view.
     
    
+    
+    
    back = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
@@ -204,6 +206,9 @@
     [self localize];
 
 
+    
+   
+    
 }
 
 -(void)localize
@@ -473,8 +478,6 @@
 - (void)updateUI
 {
     self.rateView.rating = averageRating;
-
-    
     
     self.avgRatValueLbl.text = [NSString stringWithFormat:@"%.1f",averageRating];
     self.totalLbl.text = [NSString stringWithFormat:@"%li %@", (long)totalNoOfUserRated,totalLabelh];
@@ -514,7 +517,18 @@
     webView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later
     
     CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
+    
+    
+    
+   // Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+    
+    
+    
     self.webVIewHeightConst.constant = height;
+
+  
+
+
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
