@@ -888,9 +888,6 @@
         
         [openAppAlert show];
     }
-    
-  
-    
 }
 
 
