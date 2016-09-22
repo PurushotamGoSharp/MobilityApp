@@ -604,7 +604,6 @@
 // yammer Button
 - (IBAction)raiseATicketPressed:(UIButton *)sender
 {
-    
     NSLog(@"yammer press");
     [self redirectingYammerApp];
     
@@ -616,8 +615,9 @@
 - (IBAction)tipsButtonPressed:(UIButton *)sender
 {
 
-   NSLog(@"one drive press");
+//   NSLog(@"one drive press");
 //    [self redirectingoneDriveApp];
+
 
 }
 

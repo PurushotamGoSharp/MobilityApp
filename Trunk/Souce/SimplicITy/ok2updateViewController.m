@@ -43,8 +43,6 @@
     
     back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    
-    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
 //    back.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
@@ -56,25 +54,21 @@
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
     
-//    NSString *plistFilePath = [NSString stringWithString:[[NSBundle mainBundle] pathForResource:@"Parameters" ofType:@"plist"]];
-//    paramDict = [[NSDictionary alloc] initWithContentsOfFile:plistFilePath];
-    
-    //parameters = [NSArray arrayWithArray:[paramDict objectForKey:@"Root"]];
-    
-    
-    NSString *currIosVersion = [[NSString alloc] initWithString:[[UIDevice currentDevice] systemVersion]];;
-    NSString *model = [[NSString alloc] initWithString:[[UIDevice currentDevice] model]];
-    
+//    NSString *currIosVersion = [[NSString alloc] initWithString:[[UIDevice currentDevice] systemVersion]];;
+//    NSString *model = [[NSString alloc] initWithString:[[UIDevice currentDevice] model]];
+   
     UserInfo *userInfo =[UserInfo sharedUserInfo];
-    
-    NSString *loc = userInfo.location;
-    NSString *baseURL = userInfo.oKToUpdate;
+    targetURL = userInfo.oKToUpdate;
+
+    //    NSString *loc = userInfo.location;
     //the location (region) is set at the app parameter level so iOS updates can be segmented by region or location
 //    loc = [[NSString alloc] initWithFormat:@"%@", [paramDict objectForKey:@"app_region"]];
     
-    targetURL = [[NSString alloc] initWithFormat:@"%@?l=%@&i=%@&m=%@", baseURL, loc, currIosVersion,model];
-    targetURL = [targetURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"%@",targetURL);
+//    targetURL = [[NSString alloc] initWithFormat:@"%@?l=%@&i=%@&m=%@", baseURL, loc, currIosVersion,model];
+//    targetURL = [targetURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+   NSLog(@"%@",targetURL);
+   
+    
     [self refreshBrowser];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
