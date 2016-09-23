@@ -66,11 +66,11 @@
     
 //    targetURL = [[NSString alloc] initWithFormat:@"%@?l=%@&i=%@&m=%@", baseURL, loc, currIosVersion,model];
 //    targetURL = [targetURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-   NSLog(@"%@",targetURL);
-   
+  
+    
+    NSLog(@"%@",targetURL);
     
     [self refreshBrowser];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
 
