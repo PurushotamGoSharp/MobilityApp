@@ -516,11 +516,14 @@
 {
     webView.scrollView.scrollEnabled = NO;    // Property available in iOS 5.0 and later
     
-    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
+//    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.height"] floatValue];
     
     
+    // for ios 10
     
-   // Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);
+    NSString *heightStr = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
+    CGFloat height = [heightStr floatValue];
+
     
     
     

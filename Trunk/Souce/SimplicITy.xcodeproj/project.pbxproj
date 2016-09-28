@@ -33,7 +33,6 @@
 		8623D5BB1A5417800022A370 /* Postman.m in Sources */ = {isa = PBXBuildFile; fileRef = 8623D5BA1A5417800022A370 /* Postman.m */; };
 		8624BB0D1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */; };
 		862629BF1C6B328500293CD4 /* TimeZoneList.db in Resources */ = {isa = PBXBuildFile; fileRef = 862629BE1C6B328500293CD4 /* TimeZoneList.db */; };
-		862629C11C6B614A00293CD4 /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 862629C01C6B614A00293CD4 /* cert.p12 */; };
 		8626BB231C04978500CD4C30 /* AppPulsemobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB221C04978500CD4C30 /* AppPulsemobile.framework */; };
 		8626BB251C049A8300CD4C30 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB241C049A8300CD4C30 /* libstdc++.tbd */; };
 		8626BB271C049A9000CD4C30 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8626BB261C049A9000CD4C30 /* libz.tbd */; };
@@ -175,6 +174,8 @@
 		86B5A9701A4D4713009018AD /* MuseoSans-700.otf in Resources */ = {isa = PBXBuildFile; fileRef = 86B5A96D1A4D45F9009018AD /* MuseoSans-700.otf */; };
 		86B6A7F61A849CA300E55B5E /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6A7F51A849CA300E55B5E /* DownloadManager.m */; };
 		86B6A7F91A84CBB700E55B5E /* FileLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B6A7F81A84CBB700E55B5E /* FileLoadViewController.m */; };
+		86B6F9191D9BE94800D528DF /* cert.p12 in Sources */ = {isa = PBXBuildFile; fileRef = 86B6F9181D9BE8E500D528DF /* cert.p12 */; };
+		86B6F91A1D9BE97900D528DF /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 86B6F9181D9BE8E500D528DF /* cert.p12 */; };
 		86B748E81ADD0D3B004951A5 /* TimeWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748E71ADD0D3B004951A5 /* TimeWindow.m */; };
 		86B748EB1ADD3D9B004951A5 /* FreeSlotsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B748EA1ADD3D9B004951A5 /* FreeSlotsViewController.m */; };
 		86BC40221B66691000904650 /* NSDateFormatter+Locale.m in Sources */ = {isa = PBXBuildFile; fileRef = 86BC40211B66691000904650 /* NSDateFormatter+Locale.m */; };
@@ -351,7 +352,6 @@
 		8624BB0B1AC524C0001E2DB8 /* ExchangeServerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeServerSettingViewController.h; sourceTree = "<group>"; };
 		8624BB0C1AC524C0001E2DB8 /* ExchangeServerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeServerSettingViewController.m; sourceTree = "<group>"; };
 		862629BE1C6B328500293CD4 /* TimeZoneList.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = TimeZoneList.db; sourceTree = "<group>"; };
-		862629C01C6B614A00293CD4 /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		8626BB221C04978500CD4C30 /* AppPulsemobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppPulsemobile.framework; sourceTree = "<group>"; };
 		8626BB241C049A8300CD4C30 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		8626BB261C049A9000CD4C30 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -666,6 +666,7 @@
 		86B6A7F51A849CA300E55B5E /* DownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
 		86B6A7F71A84CBB700E55B5E /* FileLoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLoadViewController.h; sourceTree = "<group>"; };
 		86B6A7F81A84CBB700E55B5E /* FileLoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLoadViewController.m; sourceTree = "<group>"; };
+		86B6F9181D9BE8E500D528DF /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		86B748E61ADD0D3B004951A5 /* TimeWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeWindow.h; sourceTree = "<group>"; };
 		86B748E71ADD0D3B004951A5 /* TimeWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeWindow.m; sourceTree = "<group>"; };
 		86B748E91ADD3D9B004951A5 /* FreeSlotsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeSlotsViewController.h; sourceTree = "<group>"; };
@@ -1522,7 +1523,7 @@
 		86848E0C1A5671AF0063E433 /* Network API Handlers */ = {
 			isa = PBXGroup;
 			children = (
-				862629C01C6B614A00293CD4 /* cert.p12 */,
+				86B6F9181D9BE8E500D528DF /* cert.p12 */,
 				8623D5BC1A5417840022A370 /* Postman.h */,
 				8623D5BA1A5417800022A370 /* Postman.m */,
 				86AD6B691A70C880006A127B /* SendRequestsManager.h */,
@@ -1909,6 +1910,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86B6F91A1D9BE97900D528DF /* cert.p12 in Resources */,
 				86B5A96E1A4D4713009018AD /* MuseoSans-100.otf in Resources */,
 				864532C21A5A661D00A656A3 /* UAPushSettingsAliasView.xib in Resources */,
 				86B5A96F1A4D4713009018AD /* MuseoSans-300.otf in Resources */,
@@ -1964,7 +1966,6 @@
 				864532C71A5A661D00A656A3 /* UAPushSettingsUserInfoView.xib in Resources */,
 				864532C81A5A661D00A656A3 /* UAPushSettingsView.xib in Resources */,
 				864532C31A5A661D00A656A3 /* UAPushSettingsChannelInfoViewController.xib in Resources */,
-				862629C11C6B614A00293CD4 /* cert.p12 in Resources */,
 				86201D041A7CA66D0016CBEF /* tips@2x.png in Resources */,
 				864532BE1A5A661D00A656A3 /* UALocationSettingsViewController.xib in Resources */,
 				86201D021A7CA66D0016CBEF /* service@2x.png in Resources */,
@@ -2059,6 +2060,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86B6F9191D9BE94800D528DF /* cert.p12 in Sources */,
 				86ED7D6D1A541F1A00400360 /* CEPanAnimationController.m in Sources */,
 				863E3DDE1A6642FB009D1FB0 /* LocationModel.m in Sources */,
 				86E1B8B51AC91DF200C3B8EB /* UIColor+CL.m in Sources */,
