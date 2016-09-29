@@ -5,6 +5,28 @@
 //  Created by Varghese Simon on 12/19/14.
 //  Copyright (c) 2014 Vmoksha. All rights reserved.
 //
+// Response of password Expiry
+//{
+//    account = G800400;
+//    accountexpires = "2017-09-17 00:00:00";
+//    badpasswordtime = "2016-08-11 08:08:35";
+//    badpwdcount = 1;
+//    firstname = Mobility;
+//    lastname = AsktheExpert2;
+//    locked = 0;
+//    lockouttime = "2009-04-22 21:24:48";
+//    "never-expires" = 0;
+//    "password-expires" = "2016-08-08 08:01:34";
+//    "password-expires-days" = 0;
+//    pwdlastset = "2016-02-10 07:01:34";
+//    "vasco-locked" = 0;
+//}
+
+
+
+
+
+
 
 #import "ADExpirationViewController.h"
 #import "UserInfo.h"
