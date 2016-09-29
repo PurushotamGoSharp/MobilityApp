@@ -18,7 +18,6 @@
 #import "BadgeNoManager.h"
 
 #import <MCLocalization/MCLocalization.h>
-
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
 
@@ -39,7 +38,11 @@
     Postman *postMan;
     BadgeNoManager *badge;
     NSString *syncdatamessage;
-
+    NSString *yesString;
+    NSString *noString;
+    NSString *appNotInstallString;
+    NSString *canNotOpen;
+    
  UIAlertView *openAppAlert;
 
 }
@@ -211,6 +214,19 @@
        callingNotavl = STRING_FOR_LANGUAGE(@"Calling.Facility");
        Alert = STRING_FOR_LANGUAGE(@"Language.Alert");
     
+  
+    yesString =STRING_FOR_LANGUAGE(@"Yes") ;
+   noString = STRING_FOR_LANGUAGE(@"No") ;
+   appNotInstallString = STRING_FOR_LANGUAGE(@"App.Not.Install") ;
+   canNotOpen = STRING_FOR_LANGUAGE(@"Can.open.not") ;
+    
+
+
+
+ 
+
+
+
 }
 
 //-(UIImage*)imageResizing:(UIImage*)image
@@ -839,16 +855,12 @@
 
 -(void)redirectingYammerApp
 {
-
    
     BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"yammer://"]];
     
     if (!didOpen)
     {
-        if (openAppAlert == nil)
-        {
-            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
-        }
+                    openAppAlert = [[UIAlertView alloc] initWithTitle:canNotOpen message:appNotInstallString delegate:self cancelButtonTitle:noString otherButtonTitles:yesString, nil];
         
         [openAppAlert show];
     }
@@ -863,33 +875,15 @@
     
     if (!didOpen)
     {
-        if (openAppAlert == nil)
-        {
-            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
-        }
-        
+    openAppAlert = [[UIAlertView alloc] initWithTitle:canNotOpen message:appNotInstallString delegate:self cancelButtonTitle:noString otherButtonTitles:yesString, nil];
         [openAppAlert show];
     }
-    
- 
-    
-}
--(void)redirectingoneDriveApp
-{
-    
-    BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"onedrive://"]];
-    
-    if (!didOpen)
-    {
-        if (openAppAlert == nil)
-        {
-            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
-        }
-        
-        [openAppAlert show];
-    }
-}
 
+
+
+    
+
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
