@@ -45,6 +45,17 @@
     recognizer = [RoomRecognizer sharedRecognizer];
     
     
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    BOOL isFirstInstallation = [defaults objectForKey:@"FirstInstallation"];
+    if (isFirstInstallation) {
+        [defaults setBool:NO forKey:@"FirstInstallation"];
+    } else {
+        [defaults setBool:YES forKey:@"FirstInstallation"];
+    }
+    
+    
+    
+    
     // Set the icon badge to zero on startup (optional)
     [UAPush shared].userNotificationTypes = (UIUserNotificationTypeAlert |
                                              UIUserNotificationTypeBadge |

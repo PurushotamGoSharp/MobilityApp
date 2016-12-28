@@ -104,8 +104,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    collectionArr =[[NSMutableArray alloc]init];
-    //[self DashBoardItemLocal];
+    
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    BOOL isFirstTime = [defaults boolForKey:@"FirstInstallation"];
+    if (isFirstTime) {
+        [self DashBoardItemLocal];
+        [defaults setBool:NO forKey:@"FirstInstallation"];
+    } else {
+        
+    }
+    
     
     UILongPressGestureRecognizer * longpress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPress:)];
     longpress.minimumPressDuration = 1.0;
@@ -206,7 +214,6 @@
        callingNotavl = STRING_FOR_LANGUAGE(@"Calling.Facility");
        Alert = STRING_FOR_LANGUAGE(@"Language.Alert");
     
-  
     yesString =STRING_FOR_LANGUAGE(@"Yes") ;
    noString = STRING_FOR_LANGUAGE(@"No") ;
    appNotInstallString = STRING_FOR_LANGUAGE(@"App.Not.Install") ;
@@ -961,8 +968,6 @@
     return CGSizeMake(width, height);
 }
 
-
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DashBoardModel *amodel = collectionArr[indexPath.item];
@@ -970,10 +975,11 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath
 {
-  //  object = [mutArr objectAtIndex:sourceIndexPath.item];
-  //  [mutArr removeObjectAtIndex:sourceIndexPath.item];
-  //  [mutArr insertObject:object atIndex:destinationIndexPath.item];
-  //  [self addChildViewController:nextViewController];
+    NSMutableArray *object = [collectionArr objectAtIndex:sourceIndexPath.item];
+    [collectionArr removeObjectAtIndex:sourceIndexPath.item];
+    [collectionArr insertObject:object atIndex:destinationIndexPath.item];
+  
+    //  [self addChildViewController:nextViewController];
   //  [self.view addSubview:nextViewController.view];
    
 
@@ -1052,6 +1058,7 @@
 
 -(void)DashBoardItemLocal
 {
+    collectionArr =[[NSMutableArray alloc]init];
     DashBoardModel *dModel = [[DashBoardModel alloc]init];
     dModel.title = @"News";
     dModel.seguaName = @"homeTonewsSegua";

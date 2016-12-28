@@ -59,16 +59,15 @@
     tabBar = self.tabBar;
     UITabBarItem *tabbarItem = tabBar.items[0];
     tabbarItem.title = [MCLocalization stringForKey:@"Home"];
-    
     tabbarItem = tabBar.items[1];
     tabbarItem.title = [MCLocalization stringForKey:@"Setting.Setting"];
-    
     tabbarItem = tabBar.items[2];
     tabbarItem.title = [MCLocalization stringForKey:@"Tools"];
-    
-    
     tabbarItem = tabBar.items[3];
     tabbarItem.title = [MCLocalization stringForKey:@"About"];
+    tabbarItem = tabBar.items[4];
+    tabbarItem.title = [MCLocalization stringForKey:@"Apps"];
+
 }
 
 - (void)upDateBadgeCount
