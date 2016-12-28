@@ -10,6 +10,7 @@
 #import "webClipModel.h"
 #import "DBManager.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "WebClipCollectionViewCell.h"
 
 
 @interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate, UIAlertViewDelegate>
@@ -17,18 +18,18 @@
     UIBarButtonItem *backButton;
     Postman *postMan;
     NSMutableArray *webClipArr;
-    
     NSString *databasePath;
     sqlite3 *database;
-    
-    DBManager *dbManager;
+    DBManager *dbManager,*dashBoardDBmanager;
     NSString *URLString;
     UIAlertView *openAppAlert;
     UIButton *back;
-
+    BOOL isSelectApps;
+    NSMutableArray *selectedAppsArr;
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOutlet;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *selectappsButton;
 
 @end
 
@@ -39,6 +40,7 @@
     // Do any additional setup after loading the view.
     
      back = [UIButton buttonWithType:UIButtonTypeCustom];
+    isSelectApps = NO;
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
      back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
@@ -46,18 +48,15 @@
 //    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
 //    back.frame = CGRectMake(0, 0,80, 30);
     [back setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    
     [back  addTarget:self action:@selector(backBtnAction) forControlEvents:UIControlEventTouchUpInside];
     backButton = [[UIBarButtonItem alloc] initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = backButton;
-    
-     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
-    
-    
+    webClipArr = [[NSMutableArray alloc] init];
+    [self DashBoardItem];
+    NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     URLString = [NSString stringWithFormat:@"%@%@%@",WEB_CLIPS_BASE_API,LANGUAGE_CODE_STRING,langCode];
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
-    
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
@@ -93,7 +92,8 @@
 
 - (void)backBtnAction
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:0];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,6 +104,24 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
+- (IBAction)SelectAppsButtonAction:(id)sender {
+
+   
+    if (isSelectApps) {
+        isSelectApps = NO;
+    self.selectappsButton.title = @"Select";
+        [selectedAppsArr removeAllObjects];
+    } else {
+        selectedAppsArr = [[NSMutableArray alloc]init];
+        isSelectApps = YES;
+      self.selectappsButton.title = @"Cancel";
+        [self.collectionViewOutlet reloadData];
+    }
+    
+    
+    
+    
 }
 
 #pragma mark 
@@ -139,27 +157,20 @@
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
     NSArray *arr = json[@"aaData"][@"WebClips"];
-    
-    webClipArr = [[NSMutableArray alloc] init];
-    
     for (NSDictionary *aDict in arr)
     {
-        
         if ([aDict[@"Status"] boolValue])
         {
             webClipModel *webClip = [[webClipModel alloc]init];
             webClip.title = aDict[@"Title"];
             webClip.urlLink = aDict[@"HREF"];
-            
             webClip.imageCode = aDict[@"DocumentCode"];
+            webClip.code = aDict[@"Code"];
             webClip.image = nil;
-            
             [webClipArr addObject:webClip];
-            
             if (download || [[NSUserDefaults standardUserDefaults] boolForKey:@"document"])
             {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                
                 NSString *imageUrl = [NSString stringWithFormat:RENDER_DOC_API,webClip.imageCode];
                 [postMan get:imageUrl];
             }
@@ -168,14 +179,12 @@
     
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
     webClipArr = [[webClipArr sortedArrayUsingDescriptors:@[sortDescriptor]] mutableCopy];
-    
     [self.collectionViewOutlet reloadData];
 }
 
 - (void)createImages:(NSData *)response forUrl:(NSString *)url
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:response options:kNilOptions error:nil];
-    
     if (![json[@"aaData"][@"Success"] boolValue])
     {
         return;
@@ -277,63 +286,84 @@
 
 #pragma mark UICollectionViewDataSource methods
 
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 2;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [webClipArr count];
+    if (section==0) {
+        return 5;
+    } else {
+        return [webClipArr count];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    WebClipCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     
-    UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
-    
-    webClipModel *webClip = webClipArr[indexPath.row];
-
-    titlelable.text = webClip.title;
-    
-    titlelable.font=[self customFont:14 ofName:MuseoSans_700];
-    
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
-    imageView.image = [self getimageForDocCode:webClip.imageCode];
+    if (indexPath.section == 0 ) {
+        
+    } else {
+        UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
+        webClipModel *webClip = webClipArr[indexPath.row];
+        titlelable.text = webClip.title;
+        titlelable.font=[self customFont:14 ofName:MuseoSans_700];
+        UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
+        
+        if (webClip.imageName) {
+            imageView.image = [UIImage imageNamed:webClip.imageName];
+        } else {
+            imageView.image = [self getimageForDocCode:webClip.imageCode];
+        }
+    }
     return cell;
+
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     webClipModel *webClip = webClipArr[indexPath.row];
-    BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
-
-    if (!didOpen)
-    {
-        if (openAppAlert == nil)
+    if (isSelectApps) {
+        WebClipCollectionViewCell *cell = (WebClipCollectionViewCell *)[_collectionViewOutlet cellForItemAtIndexPath:indexPath];
+     [cell.selectedImage setHidden:NO];
+    } else {
+        BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
+        if (!didOpen)
         {
-            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
+            if (openAppAlert == nil)
+            {
+                openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
+            }
+            [openAppAlert show];
         }
-        
-        [openAppAlert show];
     }
-//    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:webClip.urlLink]])
-//    {
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
-//    } else
-//    {
-//        if (openAppAlert == nil)
-//        {
-//            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
-//        }
-//        
-//        [openAppAlert show];
-//    }
 }
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    WebClipCollectionViewCell *cell = (WebClipCollectionViewCell *)[_collectionViewOutlet cellForItemAtIndexPath:indexPath];
+   
+    if (isSelectApps) {
+        [cell.selectedImage setHidden:YES];
+    }
+   
+}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    CGSize headerSize = CGSizeMake(320, 50);
+    return headerSize;
+}
+
+
+
 
 - (UIImage *)getimageForDocCode:(NSString *)docCode
 {
     NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [pathToDoc stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.png", docCode]];
-    
     NSData *imageData = [NSData dataWithContentsOfFile:filePath];
-    
     if (imageData)
     {
         UIImage *tempImage = [UIImage imageWithData:imageData];
@@ -354,9 +384,60 @@
         if (buttonIndex == 1)
         {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[UserInfo sharedUserInfo].appStoreURL]];
-
         }
     }
 }
+
+-(void)saveDatainSqliteForDashboard:(webClipModel *)amodel
+{
+    if (dashBoardDBmanager == nil)
+    {
+        dashBoardDBmanager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dashBoardDBmanager.delegate=self;
+    }
+    NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text)";
+    [dashBoardDBmanager createTableForQuery:createQuery];
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code];
+    
+    [dashBoardDBmanager saveDataToDBForQuery:insertSQL];
+}
+
+
+
+-(void)DashBoardItem
+{
+    webClipModel *dModel = [[webClipModel alloc]init];
+    dModel.title = @"News";
+    dModel.seguaName = @"homeTonewsSegua";
+    dModel.imageName = @"news";
+    dModel.code = @"DNEWS";
+    [webClipArr addObject:dModel];
+    dModel = [[webClipModel alloc]init];
+    dModel.title = @"Book A Room";
+    dModel.imageName = @"bookaRoom";
+    dModel.seguaName = @"hometoBookaRoom";
+    dModel.code = @"DBOOKAROOM";
+    [webClipArr addObject:dModel];
+    dModel = [[webClipModel alloc]init];
+    dModel.title = @"Password Expiry Days";
+    dModel.seguaName = @"homeToPasswordExp";
+    dModel.imageName = @"passwordExp";
+    dModel.code = @"DPASSEXP";
+    [webClipArr addObject:dModel];
+    dModel = [[webClipModel alloc]init];
+    dModel.title = @"CALL SERVICE DESK";
+    dModel.imageName = @"callServiceDesk";
+    dModel.code = @"DCALLSERVICE";
+    [webClipArr addObject:dModel];
+    dModel = [[webClipModel alloc]init];
+    dModel.title = @"Should I Upgrade my Device?";
+    dModel.seguaName = @"hometoOkToUpdate";
+    dModel.imageName = @"upgradeDevice";
+    dModel.code = @"DUPGRADEDEVICE";
+    [webClipArr addObject:dModel];
+}
+
+
+
 
 @end

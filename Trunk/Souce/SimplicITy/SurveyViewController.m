@@ -31,9 +31,8 @@
     // Do any additional setup after loading the view.
     
     
-     back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
     [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
-    
     back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
     
 //    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -46,7 +45,6 @@
     self.navigationItem.leftBarButtonItem = backButton;
     NSString *langCode =  [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLanguageCode"];
     URLString =   [NSString stringWithFormat:@"%@%@%@",SURVEY_BASE_API,LANGUAGE_CODE_STRING,langCode];
-    
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     
@@ -64,7 +62,6 @@
     {
         [self  getData];
     }
-
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];

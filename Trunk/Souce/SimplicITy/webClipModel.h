@@ -14,6 +14,11 @@
 @property (nonatomic,strong)NSString *urlLink;
 @property (nonatomic,strong)NSString *imageCode;
 @property (nonatomic,strong)UIImage *image;
+@property (nonatomic,strong)NSString *imageName;
+@property(nonatomic,strong)NSString *seguaName;
+@property(nonatomic,strong)NSString *code;
+
+
 
 
 @end

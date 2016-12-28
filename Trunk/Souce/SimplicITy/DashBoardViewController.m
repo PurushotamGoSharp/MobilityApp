@@ -16,22 +16,22 @@
 #import "UserInfo.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "BadgeNoManager.h"
+#import "DashBoardModel.h"
 
 #import <MCLocalization/MCLocalization.h>
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
 
-@interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate>
+@interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIGestureRecognizerDelegate>
 {
     BOOL navBtnIsOn;
     UIButton *titleButton;
     UIImageView *downArrowImageView;
-   UIView *titleView;
+    UIView *titleView;
     UIImageView *titleImageView;
     NSMutableArray *locationdataArr ;
     LocationModel *selectedLocation;
-    DBManager *dbManager;
-    
+    DBManager *dbManager,*dItemdbManager;
     UserInfo *userInfo;
     NSString *callingNotavl;
     NSString *Alert;
@@ -42,10 +42,13 @@
     NSString *noString;
     NSString *appNotInstallString;
     NSString *canNotOpen;
-    
- UIAlertView *openAppAlert;
+    UIAlertView *openAppAlert;
+    CGPoint movingPoint;
+    NSMutableArray *collectionArr;
+
 
 }
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -69,9 +72,7 @@
 @property (weak, nonatomic) IBOutlet UIView *containerViewOutlet;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
 @property (weak, nonatomic) IBOutlet UILabel *serviceDesksLbl;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *popOverHeightConst;
-
 @property (weak, nonatomic) IBOutlet UIImageView *raiseTicketImageOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *myticketsImageOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *newsImageOutlet;
@@ -103,11 +104,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    collectionArr =[[NSMutableArray alloc]init];
+    //[self DashBoardItemLocal];
     
+    UILongPressGestureRecognizer * longpress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPress:)];
+    longpress.minimumPressDuration = 1.0;
+    [self.collectionView addGestureRecognizer:longpress];
+   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
-    
-   
     self.navtitleBtnoutlet.selected = NO;
     self.profileViewTopConstraint.constant = -107;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
@@ -115,42 +120,29 @@
         UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Language.Alert") message:STRING_FOR_LANGUAGE(@"Sync.Data") delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
         [noNetworkAlert show];
     }
-    
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateBadgeCount) name:@"NewsBadgeCount" object:nil];
-    
-
     titleButton = [[UIButton alloc] init];
-    
     [titleButton setImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"] forState:(UIControlStateNormal)];
-
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
     [titleButton setTitle:@"Test" forState:(UIControlStateNormal)];
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-//    titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
+//   titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
     titleButton.frame = CGRectMake(0, 5, 0, 0);
-
     [titleButton sizeToFit];
     
 //    CGFloat widthOfView = titleButton.frame.size.width + titleImageView.frame.origin.x +30;
     CGFloat widthOfView = titleButton.frame.size.width ;
-
     titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, widthOfView, 40)];
     [titleView addSubview:titleButton];
 //    [titleView addSubview:titleImageView];
-    
     downArrowImageView = [[UIImageView alloc] initWithImage:([UIImage imageNamed:@"DashBoardDropDownBarImage"])];
     downArrowImageView.frame = CGRectMake(0, 0, 36, 3);
     downArrowImageView.center = CGPointMake(titleView.center.x, titleView.center.y + 18);
     [titleView addSubview:downArrowImageView];
-    
     downArrowImageView.hidden = NO;
-    
     self.navigationItem.titleView = titleView;
-    
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
     {
         self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
@@ -263,6 +255,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self dashBoardItem];
+    
     
     self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
@@ -477,14 +471,12 @@
     rangeofString.location = 0;
     rangeofString.length = stringFromData.length;
     [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-    
     for (LocationModel *alocation in locationdataArr)
     {
         NSData *JSONData = [NSJSONSerialization dataWithJSONObject:alocation.serviceDeskNumber
                                                            options:kNilOptions
                                                              error:nil];
         NSString *serviceDeskNoJSON = [[NSString alloc] initWithData:JSONData encoding:NSUTF8StringEncoding];
-        
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, serviceDeskNoJSON, alocation.countryName, alocation.code];
         
         //                NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  location (countryCode,serviceDeskNumber,countryName,code) values ('%@', '%@','%@', '%@')", alocation.countryCode, alocation.serviceDeskNumber, alocation.countryName, alocation.code];
@@ -546,8 +538,22 @@
 
 - (void)DBManager:(DBManager *)manager gotSqliteStatment:(sqlite3_stmt *)statment
 {
-    locationdataArr = [[NSMutableArray alloc] init];
+    if ([manager isEqual:dItemdbManager]) {
+        collectionArr =[[NSMutableArray alloc]init];
+        while (sqlite3_step(statment) == SQLITE_ROW)
+        {
+            DashBoardModel *dModel = [[DashBoardModel alloc] init];
+            dModel.title = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
+            dModel.imageName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 2)];
+             dModel.seguaName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
+             dModel.imageCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
+            dModel.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
+            [collectionArr addObject:dModel];
+        }
+        [self.collectionView reloadData];
     
+}
+    locationdataArr = [[NSMutableArray alloc] init];
     if (sqlite3_step(statment) == SQLITE_ROW)
     {
         selectedLocation.countryCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 0)];
@@ -760,15 +766,11 @@
     NSDictionary *dict = selectedLocation.serviceDeskNumber[indexpath.row];
     
     NSString *phoneNoFromDict = dict[@"Number"];
-    
-    
     NSMutableString *phoneNoToCall = [NSMutableString
                                       stringWithCapacity:phoneNoFromDict.length];
-    
     NSScanner *scanner = [NSScanner scannerWithString:phoneNoFromDict];
     NSCharacterSet *numbers = [NSCharacterSet
                                characterSetWithCharactersInString:@"+0123456789"];
-    
     while ([scanner isAtEnd] == NO) {
         NSString *buffer;
         if ([scanner scanCharactersFromSet:numbers intoString:&buffer])
@@ -803,7 +805,6 @@
     [UIView animateWithDuration:.3 animations:^{
         self.alphaViewOutlet.alpha= 0;
         self.containerViewOutlet.alpha = 0;
-        
     } completion:^(BOOL finished) {
         self.alphaViewOutlet.hidden = YES;
         self.containerViewOutlet.hidden = YES;
@@ -879,10 +880,6 @@
         [openAppAlert show];
     }
 
-
-
-    
-
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -896,6 +893,200 @@
         }
     }
 }
+
+
+// Dynamic dashBoard
+#pragma mark UICollectionViewDataSource methods
+
+
+-(void)LongPress:(UILongPressGestureRecognizer *)panRecognizer
+{
+    movingPoint = [panRecognizer locationInView:self.collectionView];
+    switch(panRecognizer.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
+            NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:movingPoint];
+            if(selectedIndexPath == nil)
+                break;
+            [self.collectionView beginInteractiveMovementForItemAtIndexPath:selectedIndexPath];
+            break;
+        }
+        case UIGestureRecognizerStateChanged:
+        {
+            [self.collectionView updateInteractiveMovementTargetPosition:movingPoint];
+            break;
+        }
+        case UIGestureRecognizerStateEnded:
+        {
+            [self.collectionView endInteractiveMovement];
+            break;
+        }
+        default:
+        {
+            [self.collectionView cancelInteractiveMovement];
+            break;
+        }
+    }
+}
+
+
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return collectionArr.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    DashBoardModel *dModel =collectionArr[indexPath.item];
+    UILabel *titlelabel = (UILabel *)[cell viewWithTag:102];
+    UIImageView *titleimage = (UIImageView *)[cell viewWithTag:101];
+    NSLog(@"%lu",(unsigned long)dModel.imageName.length);
+    
+    if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
+         titleimage.image =[UIImage imageNamed:dModel.imageName];
+    } else {
+     titleimage.image = [self getimageForDocCode:dModel.imageCode];
+    }
+    titlelabel.font=[self customFont:14 ofName:MuseoSans_300];
+    titlelabel.text = dModel.title;
+       return cell;
+}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat width = (self.view.frame.size.width-30)/3 ;
+    CGFloat height = width+30 ;
+    return CGSizeMake(width, height);
+}
+
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    DashBoardModel *amodel = collectionArr[indexPath.item];
+    [self collectionViewCellSelectionMethod:amodel];
+}
+-(void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath
+{
+  //  object = [mutArr objectAtIndex:sourceIndexPath.item];
+  //  [mutArr removeObjectAtIndex:sourceIndexPath.item];
+  //  [mutArr insertObject:object atIndex:destinationIndexPath.item];
+  //  [self addChildViewController:nextViewController];
+  //  [self.view addSubview:nextViewController.view];
+   
+
+}
+
+- (UIImage *)getimageForDocCode:(NSString *)docCode
+{
+    NSString *pathToDoc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *filePath = [pathToDoc stringByAppendingPathComponent:[NSString stringWithFormat:@"%@@2x.png", docCode]];
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    if (imageData)
+    {
+        UIImage *tempImage = [UIImage imageWithData:imageData];
+        imageData = nil;
+        UIImage *webClipImage = [UIImage imageWithCGImage:tempImage.CGImage scale:2 orientation:tempImage.imageOrientation] ;
+        tempImage = nil;
+        
+        return webClipImage;
+    }
+    
+    return nil;
+}
+
+-(void)insertDatainDashBoardTable
+{
+    if (dItemdbManager == nil)
+    {
+        dItemdbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dItemdbManager.delegate=self;
+    }
+
+    NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text)";
+    [dItemdbManager createTableForQuery:createQuery];
+    
+    for (int i = 0;i<collectionArr.count;i++) {
+        DashBoardModel *amodel = collectionArr[i];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code];
+        [dItemdbManager saveDataToDBForQuery:insertSQL];
+  
+    
+    }
+
+
+}
+
+
+
+
+
+-(void)dashBoardItem{
+    if (dItemdbManager == nil)
+    {
+        dItemdbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
+        dItemdbManager.delegate=self;
+    }
+    NSString *queryString = @"SELECT * FROM DashboardItem";
+    [dItemdbManager getDataForQuery:queryString];
+}
+
+-(void)collectionViewCellSelectionMethod:(DashBoardModel *)dModel
+{
+    if ([dModel.seguaName isEqualToString:@"homeTonewsSegua"]) {
+        [self performSegueWithIdentifier:@"homeTonewsSegua" sender:self];
+    }else if ([dModel.seguaName isEqualToString:@"homeToPasswordExp"]){
+        [self performSegueWithIdentifier:@"homeToPasswordExp" sender:self];
+    }else if ([dModel.seguaName isEqualToString:@"callServiceDesk"]){
+        
+    }else if ([dModel.seguaName isEqualToString:@"hometoOkToUpdate"]){
+        [self performSegueWithIdentifier:@"hometoOkToUpdate" sender:self];
+    }else if ([dModel.seguaName isEqualToString:@"hometoBookaRoom"]){
+        [self performSegueWithIdentifier:@"hometoBookaRoom" sender:self];
+    }
+    else {
+    }
+}
+
+-(void)DashBoardItemLocal
+{
+    DashBoardModel *dModel = [[DashBoardModel alloc]init];
+    dModel.title = @"News";
+    dModel.seguaName = @"homeTonewsSegua";
+    dModel.imageName = @"news";
+    dModel.code = @"DNEWS";
+    [collectionArr addObject:dModel];
+    dModel = [[DashBoardModel alloc]init];
+    dModel.title = @"Book A Room";
+    dModel.imageName = @"bookaRoom";
+    dModel.seguaName = @"hometoBookaRoom";
+    dModel.code = @"DBOOKAROOM";
+    [collectionArr addObject:dModel];
+    dModel = [[DashBoardModel alloc]init];
+    dModel.title = @"Password Expiry Days";
+    dModel.seguaName = @"homeToPasswordExp";
+    dModel.imageName = @"passwordExp";
+    dModel.code = @"DPASSEXP";
+    [collectionArr addObject:dModel];
+    dModel = [[DashBoardModel alloc]init];
+    dModel.title = @"CALL SERVICE DESK";
+    dModel.imageName = @"callServiceDesk";
+    dModel.code = @"DCALLSERVICE";
+    [collectionArr addObject:dModel];
+    dModel = [[DashBoardModel alloc]init];
+    dModel.title = @"Should I Upgrade my Device?";
+    dModel.seguaName = @"hometoOkToUpdate";
+    dModel.imageName = @"upgradeDevice";
+    dModel.code = @"DUPGRADEDEVICE";
+    [collectionArr addObject:dModel];
+    [self insertDatainDashBoardTable];
+
+}
+
+
+
 
 
 
