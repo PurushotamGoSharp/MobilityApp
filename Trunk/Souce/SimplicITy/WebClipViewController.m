@@ -284,22 +284,16 @@
         }
     }else
     {
-    
-    
     if (sqlite3_step(statment) == SQLITE_ROW)
     {
         NSString *string = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 1)];
-        
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-        
         [self parseResponsedata:data andgetImages:NO];
     }else
     {
         [self tryUpdatewebClip];
     }
-
     }
-
 
 }
 
@@ -325,42 +319,60 @@
     WebClipCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
+    webClipModel *webClip;
     if (indexPath.section == 0 ) {
-        webClipModel *webClip = dashBoardItemArr[indexPath.row];
+      webClip = dashBoardItemArr[indexPath.row];
         imageView.image = [UIImage imageNamed:webClip.imageName];
         titlelable.text = webClip.title;
         titlelable.font=[self customFont:14 ofName:MuseoSans_700];
     } else {
-        webClipModel *webClip = webClipArr[indexPath.row];
+       webClip = webClipArr[indexPath.row];
         titlelable.text = webClip.title;
         titlelable.font=[self customFont:14 ofName:MuseoSans_700];
         imageView.image = [self getimageForDocCode:webClip.imageCode];
     }
-    if (isSelectApps) {
-        [cell.selectedImage setHidden:NO];
+   
+    
+    
+    
+        if (isSelectApps) {
+//        [cell.selectedImage setHidden:NO];
         [cell.alphaView setHidden:NO];
         self.tabBarController.tabBar.hidden = YES;
     } else {
         [cell.selectedImage setHidden:YES];
         [cell.alphaView setHidden:YES];
-   self.tabBarController.tabBar.hidden = NO;
+        self.tabBarController.tabBar.hidden = NO;
     }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", webClip.title];
+    NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
+    if (filteredArray.count == 1)
+    {
+         cell.selectedImage.image =[UIImage imageNamed:@"seclecteApps"];
+        [cell.selectedImage setHidden:NO];
+
+    }else
+    {
+        if (isSelectApps) {
+            cell.selectedImage.image =[UIImage imageNamed:@"unselectedApps"];
+            [cell.selectedImage setHidden:NO];
+        } else {
+              [cell.selectedImage setHidden:YES];
+        }
+    }
+    
     return cell;
+
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (indexPath.section==0) {
-        
+    webClipModel *webClip = webClipArr[indexPath.item];
+    if (isSelectApps) {
+        [selectedArr addObject:webClip];
+        [self.collectionViewOutlet reloadData];
     } else {
-        
-        webClipModel *webClip = webClipArr[indexPath.row];
-        if (isSelectApps) {
-            WebClipCollectionViewCell *cell = (WebClipCollectionViewCell *)[_collectionViewOutlet cellForItemAtIndexPath:indexPath];
-            [cell.selectedImage setHidden:NO];
-            
-            
+        if (indexPath.section==0) {
         } else {
             BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
             if (!didOpen)
@@ -373,22 +385,12 @@
             }
         }
     }
-     }
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    WebClipCollectionViewCell *cell = (WebClipCollectionViewCell *)[_collectionViewOutlet cellForItemAtIndexPath:indexPath];
-    webClipModel *aModel = selectedArr[indexPath.row];
-    if (isSelectApps) {
-        [cell.selectedImage setHidden:YES];
-        [selectedArr removeObject:aModel];
-    }
+    
+    
 }
-
-
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView *reusableview = nil;
-    
     if (kind == UICollectionElementKindSectionHeader) {
         HeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
         if (indexPath.section ==0) {
@@ -397,8 +399,6 @@
             headerView.headerTitle.text = @"Apps";
         }
         headerView.headerTitle.font=[self customFont:18 ofName:MuseoSans_700];
-      
-        
         reusableview = headerView;
     }
     
@@ -460,8 +460,6 @@
         dashBoardDBmanager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dashBoardDBmanager.delegate=self;
     }
-
-    
     NSString *queryString = @"SELECT * FROM DashboardItem";
     [dashBoardDBmanager getDataForQuery:queryString];
 }

@@ -1431,7 +1431,7 @@ Cg
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUs-mZ-Pai">
-                                                            <rect key="frame" x="20" y="7" width="60" height="60"/>
+                                                            <rect key="frame" x="20" y="8" width="58" height="59"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daH-NA-WEf">
@@ -1444,28 +1444,20 @@ Cg
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="opD-av-Btx">
-                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="96"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </view>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="selectedImageApps" translatesAutoresizingMaskIntoConstraints="NO" id="heX-aE-OWm">
-                                                            <rect key="frame" x="75" y="75" width="20" height="20"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="seclecteApps" translatesAutoresizingMaskIntoConstraints="NO" id="heX-aE-OWm">
+                                                            <rect key="frame" x="69" y="5" width="25" height="25"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="20" id="ELM-q7-EtQ"/>
-                                                                <constraint firstAttribute="width" constant="20" id="wkr-6D-oZw"/>
+                                                                <constraint firstAttribute="height" constant="25" id="89B-L2-qLG"/>
+                                                                <constraint firstAttribute="width" constant="25" id="pPF-II-paP"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="heX-aE-OWm" secondAttribute="trailing" constant="6" id="DXn-eD-zPH"/>
                                                         <constraint firstItem="daH-NA-WEf" firstAttribute="leading" secondItem="HUy-Ic-byD" secondAttribute="leading" constant="2" id="KB4-Fp-KrR"/>
-                                                        <constraint firstAttribute="trailing" secondItem="heX-aE-OWm" secondAttribute="trailing" constant="5" id="Nga-ep-huF"/>
-                                                        <constraint firstAttribute="bottom" secondItem="opD-av-Btx" secondAttribute="bottom" constant="4" id="cBN-sb-oVv"/>
-                                                        <constraint firstAttribute="trailing" secondItem="opD-av-Btx" secondAttribute="trailing" id="cgA-iS-b1E"/>
-                                                        <constraint firstAttribute="bottom" secondItem="heX-aE-OWm" secondAttribute="bottom" constant="5" id="knL-WX-6jG"/>
                                                         <constraint firstAttribute="trailing" secondItem="daH-NA-WEf" secondAttribute="trailing" constant="2" id="nmo-qN-zTE"/>
                                                         <constraint firstAttribute="bottom" secondItem="daH-NA-WEf" secondAttribute="bottom" constant="1" id="p7H-pz-Orm"/>
-                                                        <constraint firstItem="opD-av-Btx" firstAttribute="leading" secondItem="HUy-Ic-byD" secondAttribute="leading" id="soK-z9-3AD"/>
-                                                        <constraint firstItem="opD-av-Btx" firstAttribute="top" secondItem="HUy-Ic-byD" secondAttribute="top" id="zWL-an-OxQ"/>
+                                                        <constraint firstItem="heX-aE-OWm" firstAttribute="top" secondItem="HUy-Ic-byD" secondAttribute="top" constant="5" id="tpD-oa-Xmm"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -1479,7 +1471,6 @@ Cg
                                         </constraints>
                                         <size key="customSize" width="100" height="100"/>
                                         <connections>
-                                            <outlet property="alphaView" destination="opD-av-Btx" id="aZH-xs-h1b"/>
                                             <outlet property="selectedImage" destination="heX-aE-OWm" id="uC0-nM-J3F"/>
                                         </connections>
                                     </collectionViewCell>
@@ -1568,7 +1559,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDa-P3-7WB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2725" y="177"/>
+            <point key="canvasLocation" x="2724.5" y="176.5"/>
         </scene>
         <!--Room Finder-->
         <scene sceneID="48d-VC-W2G">
@@ -4580,7 +4571,7 @@ Cg
         <image name="newsCategoryIcon" width="64" height="64"/>
         <image name="plusIcon" width="70" height="70"/>
         <image name="screenShare" width="37" height="34"/>
-        <image name="selectedImageApps" width="8" height="8"/>
+        <image name="seclecteApps" width="25" height="25"/>
         <image name="seperator" width="1" height="1"/>
         <image name="starBlack" width="13" height="13"/>
         <image name="startTimeNormal" width="204" height="70"/>
