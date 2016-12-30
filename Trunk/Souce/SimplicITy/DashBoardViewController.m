@@ -263,12 +263,10 @@
 {
     [super viewWillAppear:animated];
     [self dashBoardItem];
-    
-    
+    self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
     [self updateProfileView];
-    
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
     

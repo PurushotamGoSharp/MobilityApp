@@ -40,10 +40,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self getdashboardItemFromTable];
+    
      back = [UIButton buttonWithType:UIButtonTypeCustom];
-    isSelectApps = NO;
-    [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
+       [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
      back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
 //    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
@@ -104,9 +103,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getdashboardItemFromTable];
+     self.selectappsButton.title = @"Select";
+    isSelectApps = NO;
+
+    [self.collectionViewOutlet reloadData];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+
 }
 - (IBAction)SelectAppsButtonAction:(id)sender {
     if (isSelectApps) {
@@ -316,6 +328,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     WebClipCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
@@ -332,11 +345,7 @@
         imageView.image = [self getimageForDocCode:webClip.imageCode];
     }
    
-    
-    
-    
         if (isSelectApps) {
-//        [cell.selectedImage setHidden:NO];
         [cell.alphaView setHidden:NO];
         self.tabBarController.tabBar.hidden = YES;
     } else {
@@ -346,9 +355,11 @@
     }
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", webClip.title];
     NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
+    
+    
     if (filteredArray.count == 1)
     {
-         cell.selectedImage.image =[UIImage imageNamed:@"seclecteApps"];
+        cell.selectedImage.image =[UIImage imageNamed:@"seclecteApps"];
         [cell.selectedImage setHidden:NO];
 
     }else
@@ -360,16 +371,20 @@
               [cell.selectedImage setHidden:YES];
         }
     }
-    
     return cell;
 
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    webClipModel *webClip = webClipArr[indexPath.item];
+    webClipModel *webClip = webClipArr[indexPath.row];
     if (isSelectApps) {
-        [selectedArr addObject:webClip];
+        if (selectedArr.count > 8 ) {
+            [self showAlerWhenUserSelectMoreThanNineItem];
+            return;
+        }else{
+            [self whenpressSelectButtonActionwithCollection:indexPath];
+        }
         [self.collectionViewOutlet reloadData];
     } else {
         if (indexPath.section==0) {
@@ -385,8 +400,6 @@
             }
         }
     }
-    
-    
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -406,7 +419,6 @@
         UICollectionReusableView *footerview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FooterView" forIndexPath:indexPath];
         reusableview = footerview;
     }
-    
     return reusableview;
 }
 
@@ -428,6 +440,31 @@
     return nil;
 }
 
+-(void)isSelectedButtonEnable:(NSIndexPath *)indexPath{
+    webClipModel *aModel;
+    if (indexPath.section==0) {
+        aModel=dashBoardItemArr[indexPath.item];
+    } else {
+        aModel=webClipArr[indexPath.item];
+        
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", aModel.title];
+    NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
+    if (filteredArray.count == 1)
+    {
+        [self delettableRow:aModel];
+        [selectedArr removeObject:aModel];
+    }else
+    {
+       [self saveDatainSqliteForDashboard:aModel];
+    [selectedArr addObject:aModel];
+    }
+    
+    
+    
+}
+
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([openAppAlert isEqual:alertView])
@@ -437,6 +474,62 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[UserInfo sharedUserInfo].appStoreURL]];
         }
     }
+}
+
+-(void)showAlerWhenUserSelectMoreThanNineItem
+{
+  
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@""
+                                  message:@"You have reached the maximum number of tiles"
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
+
+}
+
+// method for selection item and removing from dashboard
+-(void)whenpressSelectButtonActionwithCollection:(NSIndexPath *)indexPath
+{
+    webClipModel *aModel;
+    if (indexPath.section==0) {
+         aModel=dashBoardItemArr[indexPath.item];
+    } else {
+        aModel=webClipArr[indexPath.item];
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", aModel.title];
+    NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
+    if (filteredArray.count == 1)
+    {
+        [self delettableRow:aModel];
+        [selectedArr removeObject:aModel];
+    }else
+    {
+        [self saveDatainSqliteForDashboard:aModel];
+        [selectedArr addObject:aModel];
+    }
+    [self.collectionViewOutlet reloadData];
+
 }
 
 -(void)saveDatainSqliteForDashboard:(webClipModel *)amodel
@@ -464,6 +557,12 @@
     [dashBoardDBmanager getDataForQuery:queryString];
 }
 
+-(void)delettableRow:(webClipModel *)amodel{
+    NSString *deletQuery = [NSString stringWithFormat:@"DELETE FROM DashboardItem WHERE code = \'%@\'",amodel.code];
+    [dashBoardDBmanager deleteRowForQuery:deletQuery];
+
+    [self.collectionViewOutlet reloadData];
+}
 
 
 -(void)DashBoardItem
