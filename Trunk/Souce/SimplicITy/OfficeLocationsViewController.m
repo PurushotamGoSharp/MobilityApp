@@ -76,7 +76,6 @@
         [[NSUserDefaults standardUserDefaults] setObject:locatoin.emailIDOfOffice forKey:SELECTED_OFFICE_MAILID];
         [[NSUserDefaults standardUserDefaults] setObject:locatoin.nameOfOffice forKey:SELECTED_OFFICE_NAME];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
         [self.delegate selectedOfficeIs:locatoin.nameOfOffice];
     }
 }

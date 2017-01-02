@@ -28,10 +28,14 @@
     BOOL isSelectApps;
     NSMutableArray *selectedAppsArr;
 }
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstrant;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionViewOutlet;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *selectappsButton;
 @property (weak, nonatomic) IBOutlet UIButton *movetoDashBoardButton;
+@property (weak, nonatomic) IBOutlet UILabel *selectuptoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iconleftLabel;
 
 @end
 
@@ -41,7 +45,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-     back = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    
+    self.selectuptoLabel.font = [self customFont:14 ofName:MuseoSans_700];
+    self.iconleftLabel.font = [self customFont:14 ofName:MuseoSans_700];
+    
+    back = [UIButton buttonWithType:UIButtonTypeCustom];
        [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
      back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
@@ -110,7 +119,7 @@
     [self getdashboardItemFromTable];
      self.selectappsButton.title = @"Select";
     isSelectApps = NO;
-
+    self.topConstrant.constant = -55;
     [self.collectionViewOutlet reloadData];
 }
 
@@ -123,12 +132,15 @@
 - (IBAction)SelectAppsButtonAction:(id)sender {
     if (isSelectApps) {
         isSelectApps = NO;
-    self.selectappsButton.title = @"Select";
+      self.selectappsButton.title = @"Select";
+        self.topConstrant.constant = -55;
         [selectedAppsArr removeAllObjects];
     } else {
         selectedAppsArr = [[NSMutableArray alloc]init];
         isSelectApps = YES;
         self.selectappsButton.title = @"Cancel";
+        self.topConstrant.constant = 0;
+
     }
     [self.collectionViewOutlet reloadData];
     
@@ -137,6 +149,13 @@
 
 
 }
+
+
+
+
+
+
+
 
 #pragma mark 
 #pragma mark postmanDelegate
@@ -332,6 +351,9 @@
     WebClipCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
+    
+    
+    
     webClipModel *webClip;
     if (indexPath.section == 0 ) {
       webClip = dashBoardItemArr[indexPath.row];
@@ -379,14 +401,40 @@
 {
     webClipModel *webClip = webClipArr[indexPath.row];
     if (isSelectApps) {
-        if (selectedArr.count > 8 ) {
+        webClipModel *aModel;
+        if (indexPath.section==0) {
+            aModel=dashBoardItemArr[indexPath.row];
+        } else {
+            aModel=webClipArr[indexPath.row];
+        }
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", aModel.title];
+        NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
+        if (filteredArray.count == 1)
+        {
+            [self delettableRow:aModel];
+          //  [selectedArr removeObject:aModel];
+            [self getdashboardItemFromTable];
+
+        }else
+        {
+            [self saveDatainSqliteForDashboard:aModel];
+            [selectedArr addObject:aModel];
+        }
+        
+        if (selectedArr.count > 9 ) {
             [self showAlerWhenUserSelectMoreThanNineItem];
             return;
         }else{
-            [self whenpressSelectButtonActionwithCollection:indexPath];
+            //[self whenpressSelectButtonActionwithCollection:indexPath];
         }
+     
+        
         [self.collectionViewOutlet reloadData];
-    } else {
+    
+    
+    }
+    
+    else {
         if (indexPath.section==0) {
         } else {
             BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webClip.urlLink]];
@@ -457,11 +505,8 @@
     }else
     {
        [self saveDatainSqliteForDashboard:aModel];
-    [selectedArr addObject:aModel];
+      [selectedArr addObject:aModel];
     }
-    
-    
-    
 }
 
 
@@ -483,7 +528,6 @@
                                   alertControllerWithTitle:@""
                                   message:@"You have reached the maximum number of tiles"
                                   preferredStyle:UIAlertControllerStyleAlert];
-    
     UIAlertAction* ok = [UIAlertAction
                          actionWithTitle:@"OK"
                          style:UIAlertActionStyleDefault
@@ -565,35 +609,41 @@
 }
 
 
+
+
+
+
+
+
 -(void)DashBoardItem
 {
     webClipModel *dModel = [[webClipModel alloc]init];
     dModel.title = @"News";
     dModel.seguaName = @"homeTonewsSegua";
-    dModel.imageName = @"news";
+    dModel.imageName = @"MessageIcon";
     dModel.code = @"DNEWS";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Book A Room";
-    dModel.imageName = @"bookaRoom";
+    dModel.imageName = @"BookARoomDashIcon";
     dModel.seguaName = @"hometoBookaRoom";
     dModel.code = @"DBOOKAROOM";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Password Expiry Days";
     dModel.seguaName = @"homeToPasswordExp";
-    dModel.imageName = @"passwordExp";
+    dModel.imageName = @"PasswordToolDashIcon";
     dModel.code = @"DPASSEXP";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"CALL SERVICE DESK";
-    dModel.imageName = @"callServiceDesk";
+    dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Should I Upgrade my Device?";
     dModel.seguaName = @"hometoOkToUpdate";
-    dModel.imageName = @"upgradeDevice";
+    dModel.imageName = @"SettingsDashIcon";
     dModel.code = @"DUPGRADEDEVICE";
     [dashBoardItemArr addObject:dModel];
 }

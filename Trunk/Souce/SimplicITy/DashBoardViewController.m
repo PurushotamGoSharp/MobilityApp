@@ -17,7 +17,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "BadgeNoManager.h"
 #import "DashBoardModel.h"
-
+#import "HexColors.h"
 #import <MCLocalization/MCLocalization.h>
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
@@ -949,13 +949,19 @@
     DashBoardModel *dModel =collectionArr[indexPath.item];
     UILabel *titlelabel = (UILabel *)[cell viewWithTag:102];
     UIImageView *titleimage = (UIImageView *)[cell viewWithTag:101];
+    UIView *backgroundView = (UIView *)[cell viewWithTag:555];
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
+    
+    backgroundView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
+    
+    
     
     if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
          titleimage.image =[UIImage imageNamed:dModel.imageName];
     } else {
      titleimage.image = [self getimageForDocCode:dModel.imageCode];
     }
+    
     titlelabel.font=[self customFont:14 ofName:MuseoSans_300];
     titlelabel.text = dModel.title;
        return cell;
@@ -1008,7 +1014,6 @@
         dItemdbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dItemdbManager.delegate=self;
     }
-
     NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text)";
     [dItemdbManager createTableForQuery:createQuery];
     
@@ -1016,16 +1021,8 @@
         DashBoardModel *amodel = collectionArr[i];
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code];
         [dItemdbManager saveDataToDBForQuery:insertSQL];
-  
-    
     }
-
-
 }
-
-
-
-
 
 -(void)dashBoardItem{
     if (dItemdbManager == nil)
@@ -1053,6 +1050,45 @@
     else {
     }
 }
+-(NSString *)tilesColoreCode:(NSIndexPath *)indexpath
+{
+    NSInteger indexNumber = indexpath.row;
+    NSString *colorCode =@"#FFFFFF";
+    switch (indexNumber) {
+        case 0:
+            colorCode = @"#EB0E27";
+            break;
+        case 1:
+            colorCode = @"#1394DB";
+            break;
+        case 2:
+            colorCode = @"#F79A14";
+            break;
+        case 3:
+            colorCode = @"#1D93F6";
+            break;
+        case 4:
+            colorCode = @"#B28036";
+            break;
+        case 5:
+            colorCode = @"#5E5A5A";
+            break;
+        case 6:
+            colorCode = @"#48AF41";
+            break;
+        case 7:
+            colorCode = @"#5684E6";
+            break;
+        case 8:
+            colorCode = @"#5684E6";
+            break;
+            
+        default:
+            break;
+    }
+    return colorCode;
+}
+
 
 -(void)DashBoardItemLocal
 {
@@ -1060,30 +1096,30 @@
     DashBoardModel *dModel = [[DashBoardModel alloc]init];
     dModel.title = @"News";
     dModel.seguaName = @"homeTonewsSegua";
-    dModel.imageName = @"news";
+    dModel.imageName = @"MessageIcon";
     dModel.code = @"DNEWS";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Book A Room";
-    dModel.imageName = @"bookaRoom";
+    dModel.imageName = @"BookARoomDashIcon";
     dModel.seguaName = @"hometoBookaRoom";
     dModel.code = @"DBOOKAROOM";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Password Expiry Days";
     dModel.seguaName = @"homeToPasswordExp";
-    dModel.imageName = @"passwordExp";
+    dModel.imageName = @"PasswordToolDashIcon";
     dModel.code = @"DPASSEXP";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"CALL SERVICE DESK";
-    dModel.imageName = @"callServiceDesk";
+    dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Should I Upgrade my Device?";
     dModel.seguaName = @"hometoOkToUpdate";
-    dModel.imageName = @"upgradeDevice";
+    dModel.imageName = @"SettingsDashIcon";
     dModel.code = @"DUPGRADEDEVICE";
     [collectionArr addObject:dModel];
     [self insertDatainDashBoardTable];
