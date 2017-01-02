@@ -953,9 +953,6 @@
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
     
     backgroundView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
-    
-    
-    
     if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
          titleimage.image =[UIImage imageNamed:dModel.imageName];
     } else {
@@ -968,7 +965,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width-30)/3 ;
-    CGFloat height = width+30 ;
+    CGFloat height = width+25 ;
     return CGSizeMake(width, height);
 }
 
