@@ -12,7 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "WebClipCollectionViewCell.h"
 #import "HeaderCollectionReusableView.h"
-
+#import "HexColors.h"
 
 @interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate, UIAlertViewDelegate>
 {
@@ -360,20 +360,23 @@
         imageView.image = [UIImage imageNamed:webClip.imageName];
         titlelable.text = webClip.title;
         titlelable.font=[self customFont:14 ofName:MuseoSans_700];
+        imageView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
+    
     } else {
        webClip = webClipArr[indexPath.row];
         titlelable.text = webClip.title;
         titlelable.font=[self customFont:14 ofName:MuseoSans_700];
         imageView.image = [self getimageForDocCode:webClip.imageCode];
+        imageView.backgroundColor = [UIColor clearColor];
     }
    
         if (isSelectApps) {
         [cell.alphaView setHidden:NO];
-        self.tabBarController.tabBar.hidden = YES;
+       // self.tabBarController.tabBar.hidden = YES;
     } else {
         [cell.selectedImage setHidden:YES];
         [cell.alphaView setHidden:YES];
-        self.tabBarController.tabBar.hidden = NO;
+       // self.tabBarController.tabBar.hidden = NO;
     }
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", webClip.title];
     NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
@@ -407,31 +410,23 @@
         } else {
             aModel=webClipArr[indexPath.row];
         }
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", aModel.title];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code == %@", aModel.code];
         NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
         if (filteredArray.count == 1)
         {
             [self delettableRow:aModel];
-          //  [selectedArr removeObject:aModel];
             [self getdashboardItemFromTable];
-
         }else
         {
+            if (selectedArr.count>8 ) {
+                [self showAlerWhenUserSelectMoreThanNineItem];
+                return;
+            }else
+            {
             [self saveDatainSqliteForDashboard:aModel];
             [selectedArr addObject:aModel];
-        }
-        
-        if (selectedArr.count > 9 ) {
-            [self showAlerWhenUserSelectMoreThanNineItem];
-            return;
-        }else{
-            //[self whenpressSelectButtonActionwithCollection:indexPath];
-        }
-     
-        
+            }}
         [self.collectionViewOutlet reloadData];
-    
-    
     }
     
     else {
@@ -610,9 +605,44 @@
 
 
 
-
-
-
+-(NSString *)tilesColoreCode:(NSIndexPath *)indexpath
+{
+    NSInteger indexNumber = indexpath.row;
+    NSString *colorCode =@"#FFFFFF";
+    switch (indexNumber) {
+        case 0:
+            colorCode = @"#F79A14";
+            break;
+        case 1:
+            colorCode = @"#1394DB";
+            break;
+        case 2:
+             colorCode = @"#EB0E27";
+            break;
+        case 3:
+            colorCode = @"#1D93F6";
+            break;
+        case 4:
+            colorCode = @"#B28036";
+            break;
+        case 5:
+            colorCode = @"#5E5A5A";
+            break;
+        case 6:
+            colorCode = @"#48AF41";
+            break;
+        case 7:
+            colorCode = @"#5684E6";
+            break;
+        case 8:
+            colorCode = @"#705185";
+            break;
+            
+        default:
+            break;
+    }
+    return colorCode;
+}
 
 
 -(void)DashBoardItem
@@ -647,7 +677,6 @@
     dModel.code = @"DUPGRADEDEVICE";
     [dashBoardItemArr addObject:dModel];
 }
-
 
 
 

@@ -45,6 +45,7 @@
     UIAlertView *openAppAlert;
     CGPoint movingPoint;
     NSMutableArray *collectionArr;
+    BOOL isEditableMode;
 
 
 }
@@ -87,6 +88,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *upgradeLblVertConst;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *upgradeLblConstrain;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tilesContainerConstranttop;
+
+
 @end
 
 @implementation DashBoardViewController
@@ -123,6 +127,7 @@
     [self localize];
     self.navtitleBtnoutlet.selected = NO;
     self.profileViewTopConstraint.constant = -107;
+    self.tilesContainerConstranttop.constant = 70;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
         UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Language.Alert") message:STRING_FOR_LANGUAGE(@"Sync.Data") delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
@@ -262,9 +267,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    isEditableMode = NO;
     [self dashBoardItem];
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBarHidden = NO;
+       self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
     [self updateProfileView];
     postMan = [[Postman alloc] init];
@@ -583,13 +588,16 @@
 - (void)navTitleBtnPressed:(id)sender
 {
     NSInteger constrainValue;
+    NSInteger constrainValueTiles;
     if (!navBtnIsOn)
     {
         constrainValue = 1;
+        constrainValueTiles = 130;
         navBtnIsOn = YES;
     }else
     {
         constrainValue = -107;
+         constrainValueTiles = 70;
         navBtnIsOn = NO;
     }
     [UIView animateWithDuration:.5
@@ -597,6 +605,8 @@
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
                          self.profileViewTopConstraint.constant = constrainValue;
+                         self.tilesContainerConstranttop.constant = constrainValueTiles;
+                         
                          [self.view layoutIfNeeded];
                          
                      } completion:^(BOOL finished) {
@@ -613,6 +623,7 @@
 {
     [super viewDidDisappear:animated];
     self.profileViewTopConstraint.constant = -107;
+    self.tilesContainerConstranttop.constant = 70;
     navBtnIsOn = NO;
     [self cancelPopUp:self];
 }
@@ -906,6 +917,10 @@
 
 -(void)LongPress:(UILongPressGestureRecognizer *)panRecognizer
 {
+
+//    isEditableMode = YES;
+//    [self.collectionView reloadData];
+    
     movingPoint = [panRecognizer locationInView:self.collectionView];
     switch(panRecognizer.state)
     {
@@ -952,8 +967,11 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     DashBoardModel *dModel =collectionArr[indexPath.item];
     UILabel *titlelabel = (UILabel *)[cell viewWithTag:102];
+    UILabel *barglabel = (UILabel *)[cell viewWithTag:500];
     UIImageView *titleimage = (UIImageView *)[cell viewWithTag:101];
+    UIImageView *bargimage = (UIImageView *)[cell viewWithTag:400];
     UIView *backgroundView = (UIView *)[cell viewWithTag:555];
+    UIButton *deletButton = (UIButton *)[cell viewWithTag:420];
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
     
     backgroundView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
@@ -963,13 +981,30 @@
      titleimage.image = [self getimageForDocCode:dModel.imageCode];
     }
     
+    if (isEditableMode) {
+        deletButton.hidden = NO;
+    } else {
+        deletButton.hidden = YES;
+    }
+    if ([dModel.code isEqualToString:@"DNEWS"]) {
+        bargimage.hidden = NO;
+        barglabel.hidden = NO;
+    
+    } else {
+        bargimage.hidden = YES;
+        barglabel.hidden = YES;
+    }
+    
+    
+    
+    
     titlelabel.font=[self customFont:14 ofName:MuseoSans_300];
     titlelabel.text = dModel.title;
        return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width-30)/3 ;
-    CGFloat height = width+25 ;
+    CGFloat height = width+20 ;
     return CGSizeMake(width, height);
 }
 
@@ -1047,8 +1082,49 @@
         [self performSegueWithIdentifier:@"hometoOkToUpdate" sender:self];
     }else if ([dModel.seguaName isEqualToString:@"hometoBookaRoom"]){
         [self performSegueWithIdentifier:@"hometoBookaRoom" sender:self];
+    }else if ([dModel.code isEqualToString:@"DCALLSERVICE"]){
+        if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
+        {
+            NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
+            
+            if (![self getDataForCountryCode:countryCode])
+            {
+                if ([AFNetworkReachabilityManager sharedManager].reachable)
+                {
+                    [self tryToGetITServicePhoneNum];
+                }
+                
+                return;
+            }
+            NSLog(@"country %@",selectedLocation.serviceDeskNumber);
+            if (selectedLocation.serviceDeskNumber.count > 1 )
+            {
+                self.alphaViewOutlet.hidden = NO;
+                self.containerViewOutlet.hidden = NO;
+                
+                [UIView animateWithDuration:.3 animations:^{
+                    self.alphaViewOutlet.alpha= .5;
+                    self.containerViewOutlet.alpha = 1;
+                } completion:^(BOOL finished)
+                 {
+                     
+                 }];
+            }else
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
+            }
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Alert message:callingNotavl delegate:self cancelButtonTitle:OK_FOR_ALERT otherButtonTitles:nil];
+            [alert show];
+        }
     }
+    
+    
+    
     else {
+    
     }
 }
 -(NSString *)tilesColoreCode:(NSIndexPath *)indexpath
@@ -1057,13 +1133,13 @@
     NSString *colorCode =@"#FFFFFF";
     switch (indexNumber) {
         case 0:
-            colorCode = @"#EB0E27";
+             colorCode = @"#F79A14";
             break;
         case 1:
             colorCode = @"#1394DB";
             break;
         case 2:
-            colorCode = @"#F79A14";
+           colorCode = @"#EB0E27";
             break;
         case 3:
             colorCode = @"#1D93F6";
@@ -1081,7 +1157,7 @@
             colorCode = @"#5684E6";
             break;
         case 8:
-            colorCode = @"#5684E6";
+            colorCode = @"#705185";
             break;
             
         default:
