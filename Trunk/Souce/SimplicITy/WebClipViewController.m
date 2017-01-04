@@ -117,7 +117,7 @@
 {
     [super viewWillAppear:animated];
     [self getdashboardItemFromTable];
-     self.selectappsButton.title = @"Select";
+     self.selectappsButton.title = @"Edit";
     isSelectApps = NO;
     self.topConstrant.constant = -55;
     [self.collectionViewOutlet reloadData];
@@ -126,21 +126,18 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-
 }
 - (IBAction)SelectAppsButtonAction:(id)sender {
     if (isSelectApps) {
         isSelectApps = NO;
-      self.selectappsButton.title = @"Select";
+      self.selectappsButton.title = @"Edit";
         self.topConstrant.constant = -55;
         [selectedAppsArr removeAllObjects];
     } else {
         selectedAppsArr = [[NSMutableArray alloc]init];
         isSelectApps = YES;
-        self.selectappsButton.title = @"Cancel";
+        self.selectappsButton.title = @"Close";
         self.topConstrant.constant = 0;
-
     }
     [self.collectionViewOutlet reloadData];
     
@@ -518,9 +515,8 @@
 
 -(void)showAlerWhenUserSelectMoreThanNineItem
 {
-  
     UIAlertController * alert=   [UIAlertController
-                                  alertControllerWithTitle:@""
+                                  alertControllerWithTitle:@"Alert"
                                   message:@"You have reached the maximum number of tiles"
                                   preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* ok = [UIAlertAction
@@ -529,7 +525,6 @@
                          handler:^(UIAlertAction * action)
                          {
                              [alert dismissViewControllerAnimated:YES completion:nil];
-                             
                          }];
     UIAlertAction* cancel = [UIAlertAction
                              actionWithTitle:@"Cancel"
@@ -537,7 +532,6 @@
                              handler:^(UIAlertAction * action)
                              {
                                  [alert dismissViewControllerAnimated:YES completion:nil];
-                                 
                              }];
     [alert addAction:ok];
     [alert addAction:cancel];
