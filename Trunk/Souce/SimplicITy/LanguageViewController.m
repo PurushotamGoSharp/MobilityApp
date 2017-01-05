@@ -244,16 +244,13 @@
         dbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dbManager.delegate = self;
     }
-    
     NSString *query = @"create table if not exists languages (API text PRIMARY KEY, data text)";
     [dbManager createTableForQuery:query];
-    
     NSMutableString *stringFromData = [[NSMutableString alloc] initWithData:response encoding:NSUTF8StringEncoding];
     NSRange rangeofString;
     rangeofString.location = 0;
     rangeofString.length = stringFromData.length;
     [stringFromData replaceOccurrencesOfString:@"'" withString:@"''" options:(NSCaseInsensitiveSearch) range:rangeofString];
-    
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  languages (API,data) values ('%@', '%@')", SEARCH_LANGUAGE_API,stringFromData];
     [dbManager saveDataToDBForQuery:insertSQL];
 }
@@ -328,8 +325,14 @@
 -(void)successResponseDelegateMethod
 {
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
- [self dismissViewControllerAnimated:YES completion:nil];
+   [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void)failourResponseDelegateMetho{
+
+}
+
+
 
 
 

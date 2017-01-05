@@ -272,6 +272,8 @@
         self.badgeIcon.hidden = NO;
         self.badgeLable.text = [NSString stringWithFormat:@"%li",(long)badgeNum];
     }
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -571,6 +573,7 @@
              dModel.seguaName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
              dModel.imageCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
             dModel.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
+            dModel.colourCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 6)];
             [collectionArr addObject:dModel];
         }
         [self.collectionView reloadData];
@@ -942,13 +945,7 @@
             break;
         }
     }
-
-
-
-
 }
-
-
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -968,7 +965,9 @@
     UIButton *deletButton = (UIButton *)[cell viewWithTag:420];
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
     
-    backgroundView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
+//    backgroundView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
+    
+    backgroundView.backgroundColor = [UIColor colorWithHexString:dModel.colourCode];
     if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
          titleimage.image =[UIImage imageNamed:dModel.imageName];
     } else {
@@ -981,10 +980,24 @@
         deletButton.hidden = YES;
     }
     if ([dModel.code isEqualToString:@"DNEWS"]) {
-        bargimage.hidden = NO;
-        barglabel.hidden = NO;
-    
-    } else {
+        if (badge == nil)
+        {
+            badge = [[BadgeNoManager alloc] init];
+        }
+        
+        NSInteger badgeNum = [badge totalNoBadges];
+        if (badgeNum == 0)
+        {
+           barglabel.hidden = YES;
+           bargimage.hidden = YES;
+        }else
+        {
+            barglabel.hidden = NO;
+            bargimage.hidden = NO;
+            barglabel.text = [NSString stringWithFormat:@"%li",(long)badgeNum];
+        }
+    }
+     else {
         bargimage.hidden = YES;
         barglabel.hidden = YES;
     }
@@ -1044,12 +1057,12 @@
         dItemdbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dItemdbManager.delegate=self;
     }
-    NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text)";
+    NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text,colourCode text)";
     [dItemdbManager createTableForQuery:createQuery];
     
     for (int i = 0;i<collectionArr.count;i++) {
         DashBoardModel *amodel = collectionArr[i];
-        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code];
+        NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code,colourCode) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code,amodel.colourCode];
         [dItemdbManager saveDataToDBForQuery:insertSQL];
     }
 }
@@ -1178,29 +1191,34 @@
     dModel.seguaName = @"homeTonewsSegua";
     dModel.imageName = @"MessageIcon";
     dModel.code = @"DNEWS";
+    dModel.colourCode = @"#F79A14";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Book A Room";
     dModel.imageName = @"BookARoomDashIcon";
     dModel.seguaName = @"hometoBookaRoom";
     dModel.code = @"DBOOKAROOM";
+    dModel.colourCode = @"#1D93F6";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Password Expiry Days";
     dModel.seguaName = @"homeToPasswordExp";
     dModel.imageName = @"PasswordToolDashIcon";
     dModel.code = @"DPASSEXP";
+     dModel.colourCode = @"#B28036";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"CALL SERVICE DESK";
     dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
+    dModel.colourCode = @"#48AF41";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Should I Upgrade my Device?";
     dModel.seguaName = @"hometoOkToUpdate";
     dModel.imageName = @"SettingsDashIcon";
     dModel.code = @"DUPGRADEDEVICE";
+    dModel.colourCode = @"#5E5A5A";
     [collectionArr addObject:dModel];
     [self insertDatainDashBoardTable];
 

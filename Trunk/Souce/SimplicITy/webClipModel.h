@@ -17,7 +17,7 @@
 @property (nonatomic,strong)NSString *imageName;
 @property(nonatomic,strong)NSString *seguaName;
 @property(nonatomic,strong)NSString *code;
-
+@property(nonatomic,strong)NSString *colourCode;
 
 
 

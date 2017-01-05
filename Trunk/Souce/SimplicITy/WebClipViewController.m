@@ -145,15 +145,7 @@
 }
 - (IBAction)movetoDashBoardButtonAction:(id)sender {
 
-
 }
-
-
-
-
-
-
-
 
 #pragma mark 
 #pragma mark postmanDelegate
@@ -309,6 +301,7 @@
             dModel.seguaName = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 3)];
             dModel.imageCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 4)];
             dModel.code = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 5)];
+           dModel.colourCode = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statment, 6)];
             [selectedArr addObject:dModel];
         }
     }else
@@ -358,7 +351,7 @@
         imageView.image = [UIImage imageNamed:webClip.imageName];
         titlelable.text = webClip.title;
         titlelable.font=[self customFont:14 ofName:MuseoSans_700];
-        imageView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
+        imageView.backgroundColor = [UIColor colorWithHexString:webClip.colourCode];
     
     } else {
        webClip = webClipArr[indexPath.row];
@@ -576,10 +569,19 @@
         dashBoardDBmanager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
         dashBoardDBmanager.delegate=self;
     }
-    NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text)";
+    NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text,colourCode text)";
     [dashBoardDBmanager createTableForQuery:createQuery];
-    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code];
+    NSString *randomColourCode;
+    if (amodel.colourCode) {
+        randomColourCode = amodel.colourCode;
+    } else {
+        randomColourCode =  [self tilesColoreCode];
+    }
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code,colourCode) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code,randomColourCode];
     [dashBoardDBmanager saveDataToDBForQuery:insertSQL];
+    
+    //[self getdashboardItemFromTable];
+
 }
 
 -(void)getdashboardItemFromTable
@@ -602,46 +604,38 @@
 }
 
 
-
--(NSString *)tilesColoreCode:(NSIndexPath *)indexpath
+-(NSString *)tilesColoreCode
 {
-    NSInteger indexNumber = indexpath.row;
-    NSString *colorCode =@"#FFFFFF";
-    switch (indexNumber) {
-        case 0:
-            colorCode = @"#F79A14";
-            break;
-        case 1:
-            colorCode = @"#1394DB";
-            break;
-        case 2:
-             colorCode = @"#EB0E27";
-            break;
-        case 3:
-            colorCode = @"#1D93F6";
-            break;
-        case 4:
-            colorCode = @"#B28036";
-            break;
-        case 5:
-            colorCode = @"#5E5A5A";
-            break;
-        case 6:
-            colorCode = @"#48AF41";
-            break;
-        case 7:
-            colorCode = @"#5684E6";
-            break;
-        case 8:
-            colorCode = @"#705185";
-            break;
-            
-        default:
-            break;
+    NSString *colorCode1 =@"#715087";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode1];
+    NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
+    if (filteredArray.count==0) {
+        colorCode1 = @"#715087";
+        return colorCode1 ;
     }
-    return colorCode;
+    NSString *colorCode2 =@"#EB0E27";
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode2];
+    NSArray *filteredArray2 = [selectedArr filteredArrayUsingPredicate:predicate2];
+    if (filteredArray2.count==0) {
+        colorCode2 = @"#EB0E27";
+        return colorCode2 ;
+    }
+  NSString *colorCode3 =@"#5684E6";
+  NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode3];
+   NSArray *filteredArray3 = [selectedArr filteredArrayUsingPredicate:predicate3];
+    if (filteredArray3.count==0) {
+        colorCode3 = @"#5684E6";
+        return colorCode3 ;
+    }
+    NSString *colorCode4 =@"#334259";
+    NSPredicate *predicate4 = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode4];
+    NSArray *filteredArray4 = [selectedArr filteredArrayUsingPredicate:predicate4];
+    if (filteredArray4.count==0) {
+        colorCode4 = @"#334259";
+        return colorCode4 ;
+    }
+    return colorCode1 ;
 }
-
 
 -(void)DashBoardItem
 {
@@ -650,29 +644,34 @@
     dModel.seguaName = @"homeTonewsSegua";
     dModel.imageName = @"MessageIcon";
     dModel.code = @"DNEWS";
+     dModel.colourCode = @"#F79A14";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Book A Room";
     dModel.imageName = @"BookARoomDashIcon";
     dModel.seguaName = @"hometoBookaRoom";
     dModel.code = @"DBOOKAROOM";
+    dModel.colourCode = @"#1D93F6";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Password Expiry Days";
     dModel.seguaName = @"homeToPasswordExp";
     dModel.imageName = @"PasswordToolDashIcon";
     dModel.code = @"DPASSEXP";
+    dModel.colourCode = @"#B28036";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"CALL SERVICE DESK";
     dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
+    dModel.colourCode = @"#48AF41";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Should I Upgrade my Device?";
     dModel.seguaName = @"hometoOkToUpdate";
     dModel.imageName = @"SettingsDashIcon";
     dModel.code = @"DUPGRADEDEVICE";
+    dModel.colourCode = @"#5E5A5A";
     [dashBoardItemArr addObject:dModel];
 }
 

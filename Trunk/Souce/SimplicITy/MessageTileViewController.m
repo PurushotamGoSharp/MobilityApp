@@ -109,7 +109,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     newsCategoryArr =   [[NSMutableArray alloc] init];
     
 //    if (![AFNetworkReachabilityManager sharedManager].reachable)
