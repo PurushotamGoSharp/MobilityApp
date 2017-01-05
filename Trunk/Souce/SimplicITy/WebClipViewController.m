@@ -139,6 +139,7 @@
         self.selectappsButton.title = @"Close";
         self.topConstrant.constant = 0;
     }
+    self.iconleftLabel.text = [NSString stringWithFormat:@"%lu icon(s)left",9 -(unsigned long)selectedArr.count];
     [self.collectionViewOutlet reloadData];
     
 }
@@ -407,6 +408,7 @@
         } else {
             aModel=webClipArr[indexPath.row];
         }
+         self.iconleftLabel.text = [NSString stringWithFormat:@"%lu icon(s)left",8 -(unsigned long)selectedArr.count];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code == %@", aModel.code];
         NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
         if (filteredArray.count == 1)
@@ -423,6 +425,8 @@
             [self saveDatainSqliteForDashboard:aModel];
             [selectedArr addObject:aModel];
             }}
+       
+        
         [self.collectionViewOutlet reloadData];
     }
     

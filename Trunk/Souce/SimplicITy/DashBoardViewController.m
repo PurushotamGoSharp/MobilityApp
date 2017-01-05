@@ -225,24 +225,34 @@
    canNotOpen = STRING_FOR_LANGUAGE(@"Can.open.not") ;
     
 
-
-
- 
-
-
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self deletDashboardItem];
+    [self saveDashboardItem];
 
 }
 
-//-(UIImage*)imageResizing:(UIImage*)image
-//{
-//
-//    CGRect cropRect = CGRectMake(0, 0, 128, 128);
-//    UIGraphicsBeginImageContext(cropRect.size);
-//    [image drawInRect:cropRect];
-//    UIImage *newCropedImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    return newCropedImage;
-//}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.profileViewTopConstraint.constant = -107;
+    self.tilesContainerConstranttop.constant = 70;
+    navBtnIsOn = NO;
+    [self cancelPopUp:self];
+   
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+
 
 -(void)upDateBadgeCount
 {
@@ -313,6 +323,9 @@
     }
     [self upDateBadgeCount];
 }
+
+
+
 
 
 - (void)setupLocation
@@ -614,25 +627,6 @@
                      }];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    self.profileViewTopConstraint.constant = -107;
-    self.tilesContainerConstranttop.constant = 70;
-    navBtnIsOn = NO;
-    [self cancelPopUp:self];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)messageButtonPressed:(UIButton *)sender
 {
@@ -1069,7 +1063,16 @@
     NSString *queryString = @"SELECT * FROM DashboardItem";
     [dItemdbManager getDataForQuery:queryString];
 }
+-(void)deletDashboardItem
+{
+    NSString *query = @"delete from DashboardItem";
 
+    [dItemdbManager deleteRowForQuery:query];
+}
+-(void)saveDashboardItem
+{
+    [self insertDatainDashBoardTable];
+}
 -(void)collectionViewCellSelectionMethod:(DashBoardModel *)dModel
 {
     if ([dModel.seguaName isEqualToString:@"homeTonewsSegua"]) {
