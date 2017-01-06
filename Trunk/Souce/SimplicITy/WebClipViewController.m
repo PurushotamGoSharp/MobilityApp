@@ -579,7 +579,6 @@
     }
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code,colourCode) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code,randomColourCode];
     [dashBoardDBmanager saveDataToDBForQuery:insertSQL];
-    
     //[self getdashboardItemFromTable];
 
 }

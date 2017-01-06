@@ -229,8 +229,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self deletDashboardItem];
-    [self saveDashboardItem];
+//    [self deletDashboardItem];
+//    [self saveDashboardItem];
 
 }
 
@@ -965,7 +965,7 @@
     UIButton *deletButton = (UIButton *)[cell viewWithTag:420];
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
     
-//    backgroundView.backgroundColor = [UIColor colorWithHexString:[self tilesColoreCode:indexPath]];
+
     
     backgroundView.backgroundColor = [UIColor colorWithHexString:dModel.colourCode];
     if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
@@ -1001,18 +1001,31 @@
         bargimage.hidden = YES;
         barglabel.hidden = YES;
     }
-    
-    
-    
-    
-    titlelabel.font=[self customFont:14 ofName:MuseoSans_300];
+    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+    {
+        titlelabel.font=[self customFont:14 ofName:MuseoSans_300];
+    } else {
+        
+        titlelabel.font=[self customFont:22 ofName:MuseoSans_300];
+    }
     titlelabel.text = dModel.title;
        return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width-30)/3 ;
     CGFloat height = width+20 ;
+    
+   if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
+{
     return CGSizeMake(width, height);
+
+    } else {
+        
+        return CGSizeMake(176, 215);
+        
+    }
+    
+  
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -1025,11 +1038,8 @@
     NSMutableArray *object = [collectionArr objectAtIndex:sourceIndexPath.item];
     [collectionArr removeObjectAtIndex:sourceIndexPath.item];
     [collectionArr insertObject:object atIndex:destinationIndexPath.item];
-  
-    //  [self addChildViewController:nextViewController];
-  //  [self.view addSubview:nextViewController.view];
-   
-
+    [self deletDashboardItem];
+    [self saveDashboardItem];
 }
 
 - (UIImage *)getimageForDocCode:(NSString *)docCode
