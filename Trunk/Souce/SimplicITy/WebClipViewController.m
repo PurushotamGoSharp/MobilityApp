@@ -27,6 +27,7 @@
     UIButton *back;
     BOOL isSelectApps;
     NSMutableArray *selectedAppsArr;
+    NSInteger colourNumber;
 }
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstrant;
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -92,7 +93,8 @@
 {
     self.title = STRING_FOR_LANGUAGE(@"Apps");
     [back setTitle:STRING_FOR_LANGUAGE(@"Home") forState:UIControlStateNormal];
-    [_movetoDashBoardButton setTitle:STRING_FOR_LANGUAGE(@"Move to Dashboard") forState:UIControlStateNormal];
+    [_movetoDashBoardButton setTitle:STRING_FOR_LANGUAGE(@"MovetoDashboard") forState:UIControlStateNormal];
+    self.selectuptoLabel.text = SELECT_UPTO9APPS;
     
     [back sizeToFit];
 }
@@ -117,7 +119,7 @@
 {
     [super viewWillAppear:animated];
     [self getdashboardItemFromTable];
-     self.selectappsButton.title = @"Edit";
+     self.selectappsButton.title = EDIT_APPS_NAVBUTTON;
     isSelectApps = NO;
     self.topConstrant.constant = -55;
     [self.collectionViewOutlet reloadData];
@@ -130,16 +132,16 @@
 - (IBAction)SelectAppsButtonAction:(id)sender {
     if (isSelectApps) {
         isSelectApps = NO;
-      self.selectappsButton.title = @"Edit";
+      self.selectappsButton.title = EDIT_APPS_NAVBUTTON;
         self.topConstrant.constant = -55;
         [selectedAppsArr removeAllObjects];
     } else {
         selectedAppsArr = [[NSMutableArray alloc]init];
         isSelectApps = YES;
-        self.selectappsButton.title = @"Close";
+        self.selectappsButton.title = CLOSE_APPS_NAVBUTTON;
         self.topConstrant.constant = 0;
     }
-    self.iconleftLabel.text = [NSString stringWithFormat:@"%lu icon(s)left",9 -(unsigned long)selectedArr.count];
+    self.iconleftLabel.text = [NSString stringWithFormat:@"%lu %@",9 -(unsigned long)selectedArr.count,ICONS_LEFT];
     [self.collectionViewOutlet reloadData];
     
 }
@@ -401,17 +403,24 @@
         } else {
             aModel=webClipArr[indexPath.row];
         }
-         self.iconleftLabel.text = [NSString stringWithFormat:@"%lu icon(s)left",8 -(unsigned long)selectedArr.count];
+        
+        self.iconleftLabel.text = [NSString stringWithFormat:@"%lu icon(s)left",8 -(unsigned long)selectedArr.count];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code == %@", aModel.code];
         NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
         if (filteredArray.count == 1)
         {
-            [self delettableRow:aModel];
-            [self getdashboardItemFromTable];
+            if (selectedArr.count==1) {
+             [self showAlerWhenUserSelectMoreThanNineItem:RECHED_MINNO_TILES];
+             return;
+            } else {
+                [self delettableRow:aModel];
+                [self getdashboardItemFromTable];
+            }
+            
         }else
         {
             if (selectedArr.count>8 ) {
-                [self showAlerWhenUserSelectMoreThanNineItem];
+                [self showAlerWhenUserSelectMoreThanNineItem:RECHED_MAXNO_TILES];
                 return;
             }else
             {
@@ -444,9 +453,9 @@
     if (kind == UICollectionElementKindSectionHeader) {
         HeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
         if (indexPath.section ==0) {
-            headerView.headerTitle.text = @"Mobility";
+            headerView.headerTitle.text = MOBILITY_APP;
         } else {
-            headerView.headerTitle.text = @"Apps";
+            headerView.headerTitle.text = STRING_FOR_LANGUAGE(@"Apps");
         }
         headerView.headerTitle.font=[self customFont:18 ofName:MuseoSans_700];
         reusableview = headerView;
@@ -510,21 +519,21 @@
     }
 }
 
--(void)showAlerWhenUserSelectMoreThanNineItem
+-(void)showAlerWhenUserSelectMoreThanNineItem:(NSString *)messageString
 {
     UIAlertController * alert=   [UIAlertController
-                                  alertControllerWithTitle:@"Alert"
-                                  message:@"You have reached the maximum number of tiles"
+                                  alertControllerWithTitle:ALERT_FOR_ALERT
+                                  message:messageString
                                   preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction* ok = [UIAlertAction
-                         actionWithTitle:@"OK"
+                         actionWithTitle:OK_FOR_ALERT
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction * action)
                          {
                              [alert dismissViewControllerAnimated:YES completion:nil];
                          }];
     UIAlertAction* cancel = [UIAlertAction
-                             actionWithTitle:@"Cancel"
+                             actionWithTitle:@"cancle"
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
@@ -539,28 +548,29 @@
 }
 
 // method for selection item and removing from dashboard
--(void)whenpressSelectButtonActionwithCollection:(NSIndexPath *)indexPath
-{
-    webClipModel *aModel;
-    if (indexPath.section==0) {
-         aModel=dashBoardItemArr[indexPath.item];
-    } else {
-        aModel=webClipArr[indexPath.item];
-    }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", aModel.title];
-    NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
-    if (filteredArray.count == 1)
-    {
-        [self delettableRow:aModel];
-        [selectedArr removeObject:aModel];
-    }else
-    {
-        [self saveDatainSqliteForDashboard:aModel];
-        [selectedArr addObject:aModel];
-    }
-    [self.collectionViewOutlet reloadData];
+//-(void)whenpressSelectButtonActionwithCollection:(NSIndexPath *)indexPath
+//{
+//    webClipModel *aModel;
+//    if (indexPath.section==0) {
+//         aModel=dashBoardItemArr[indexPath.item];
+//    } else {
+//        aModel=webClipArr[indexPath.item];
+//    }
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", aModel.title];
+//    NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
+//    if (filteredArray.count == 1)
+//    {
+//        [self delettableRow:aModel];
+//        [selectedArr removeObject:aModel];
+//    }else
+//    {
+//        
+//        [self saveDatainSqliteForDashboard:aModel];
+//        [selectedArr addObject:aModel];
+//    }
+//    [self.collectionViewOutlet reloadData];
 
-}
+//}
 
 -(void)saveDatainSqliteForDashboard:(webClipModel *)amodel
 {
@@ -571,11 +581,12 @@
     }
     NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text,colourCode text)";
     [dashBoardDBmanager createTableForQuery:createQuery];
+    colourNumber = 0;
     NSString *randomColourCode;
     if (amodel.colourCode) {
         randomColourCode = amodel.colourCode;
     } else {
-        randomColourCode =  [self tilesColoreCode];
+        randomColourCode =  [self tilesColoreCode:colourNumber];
     }
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code,colourCode) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code,randomColourCode];
     [dashBoardDBmanager saveDataToDBForQuery:insertSQL];
@@ -598,43 +609,62 @@
 -(void)delettableRow:(webClipModel *)amodel{
     NSString *deletQuery = [NSString stringWithFormat:@"DELETE FROM DashboardItem WHERE code = \'%@\'",amodel.code];
     [dashBoardDBmanager deleteRowForQuery:deletQuery];
-
     [self.collectionViewOutlet reloadData];
 }
 
 
--(NSString *)tilesColoreCode
+
+
+-(NSString *)tilesColoreCode:(NSInteger)colourNumber
 {
-    NSString *colorCode1 =@"#715087";
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode1];
-    NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
-    if (filteredArray.count==0) {
-        colorCode1 = @"#715087";
-        return colorCode1 ;
+   NSString *colorCode;
+   int r = arc4random() % 10;
+    
+    switch (r) {
+        case 0:
+            return colorCode = @"#f2da6f";
+            break;
+        case 1:
+            return colorCode = @"#c0b1ce";
+            break;
+        case 2:
+            return colorCode = @"#491537";
+            break;
+        case 3:
+            return colorCode = @"#50337f";
+            break;
+        case 4:
+            return colorCode = @"#77051a";
+            break;
+        case 5:
+            return colorCode = @"#b3bc4f";
+            break;
+        case 6:
+            return colorCode = @"#555649";
+            break;
+        case 7:
+            return colorCode = @"#54537c";
+            break;
+        case 8:
+            return colorCode = @"#0a093a";
+            break;
+        case 9:
+            return colorCode = @"#253f00";
+            break;
+
+        default:
+            break;
+    
+    
     }
-    NSString *colorCode2 =@"#EB0E27";
-    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode2];
-    NSArray *filteredArray2 = [selectedArr filteredArrayUsingPredicate:predicate2];
-    if (filteredArray2.count==0) {
-        colorCode2 = @"#EB0E27";
-        return colorCode2 ;
-    }
-  NSString *colorCode3 =@"#5684E6";
-  NSPredicate *predicate3 = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode3];
-   NSArray *filteredArray3 = [selectedArr filteredArrayUsingPredicate:predicate3];
-    if (filteredArray3.count==0) {
-        colorCode3 = @"#5684E6";
-        return colorCode3 ;
-    }
-    NSString *colorCode4 =@"#334259";
-    NSPredicate *predicate4 = [NSPredicate predicateWithFormat:@"colourCode == %@",colorCode4];
-    NSArray *filteredArray4 = [selectedArr filteredArrayUsingPredicate:predicate4];
-    if (filteredArray4.count==0) {
-        colorCode4 = @"#334259";
-        return colorCode4 ;
-    }
-    return colorCode1 ;
+          return colorCode ;
+
+
+
 }
+
+
+
 
 -(void)DashBoardItem
 {

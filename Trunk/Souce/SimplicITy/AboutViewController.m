@@ -520,18 +520,9 @@
     
     
     // for ios 10
-    
     NSString *heightStr = [webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
     CGFloat height = [heightStr floatValue];
-
-    
-    
-    
     self.webVIewHeightConst.constant = height;
-
-  
-
-
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -541,7 +532,6 @@
         [[UIApplication sharedApplication] openURL:[request URL]];
         return NO;
     }
-    
     return YES;
 }
 
