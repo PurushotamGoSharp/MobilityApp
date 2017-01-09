@@ -55,6 +55,15 @@
        [back setImage:[UIImage imageNamed:@"back_Arrow"] forState:UIControlStateNormal];
      back.titleLabel.font = [self customFont:16 ofName:MuseoSans_700];
 
+
+    
+    [self.selectappsButton setTitleTextAttributes:@{
+                                         NSFontAttributeName: [self customFont:16 ofName:MuseoSans_700],
+                                         NSForegroundColorAttributeName: [UIColor whiteColor]
+                                         } forState:UIControlStateNormal];
+    
+    
+    
 //    back.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
 //    back.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
 //    back.frame = CGRectMake(0, 0,80, 30);
@@ -413,8 +422,6 @@
         } else {
             aModel=webClipArr[indexPath.row];
         }
-        
-        self.iconleftLabel.text = [NSString stringWithFormat:@"%lu icon(s)left",8 -(unsigned long)selectedArr.count];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code == %@", aModel.code];
         NSArray *filteredArray = [selectedArr filteredArrayUsingPredicate:predicate];
         if (filteredArray.count == 1)
@@ -425,8 +432,8 @@
             } else {
                 [self delettableRow:aModel];
                 [self getdashboardItemFromTable];
+            self.iconleftLabel.text = [NSString stringWithFormat:@"%d icon(s)left",9 -(int)selectedArr.count];
             }
-            
         }else
         {
             if (selectedArr.count>8 ) {
@@ -436,6 +443,7 @@
             {
             [self saveDatainSqliteForDashboard:aModel];
             [selectedArr addObject:aModel];
+            self.iconleftLabel.text = [NSString stringWithFormat:@"%d icon(s)left",9 -(int)selectedArr.count];
             }}
        
         
