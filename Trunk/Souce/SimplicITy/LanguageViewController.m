@@ -66,14 +66,25 @@
         selectedLangCode = @"en";
     }
     
+    
     if ([AFNetworkReachabilityManager sharedManager].isReachable )
     {
-        [self tryToUpdateLanguages];
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"Language"])
+        {
+             [self tryToUpdateLanguages];
+        }else
+        {
+            [self  getData];
+        }
     }else
     {
         [self getData];
     }
 
+    
+    
+    
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
@@ -114,6 +125,8 @@
         [self parseResponseData:response];
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         [self saveLanguageData:response];
+        [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"Language"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }else
     {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -121,7 +134,6 @@
         
         //        [MCLocalization sharedInstance].language = langCode;
     }
-    
     
 }
 
@@ -278,9 +290,6 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         [self parseResponseData:data];
     }
-
-
-
 
 }
 - (IBAction)cancelBtnPressed:(id)sender

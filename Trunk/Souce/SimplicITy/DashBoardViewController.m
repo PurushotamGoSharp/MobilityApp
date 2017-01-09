@@ -964,14 +964,14 @@
     UIView *backgroundView = (UIView *)[cell viewWithTag:555];
     UIButton *deletButton = (UIButton *)[cell viewWithTag:420];
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
-    
-
-    
     backgroundView.backgroundColor = [UIColor colorWithHexString:dModel.colourCode];
     if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
          titleimage.image =[UIImage imageNamed:dModel.imageName];
+   // titlelabel.text = dModel.title;
+       titlelabel.text =   STRING_FOR_LANGUAGE(dModel.title);
     } else {
      titleimage.image = [self getimageForDocCode:dModel.imageCode];
+    titlelabel.text = dModel.title;
     }
     
     if (isEditableMode) {
@@ -1008,8 +1008,10 @@
         
         titlelabel.font=[self customFont:22 ofName:MuseoSans_300];
     }
-    titlelabel.text = dModel.title;
-       return cell;
+    
+  
+    
+    return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width-30)/3 ;
@@ -1218,33 +1220,35 @@
     dModel.colourCode = @"#F79A14";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
-    dModel.title = @"Book A Room";
+    dModel.title = @"Book.Room";
     dModel.imageName = @"BookARoomDashIcon";
     dModel.seguaName = @"hometoBookaRoom";
     dModel.code = @"DBOOKAROOM";
     dModel.colourCode = @"#1D93F6";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
-    dModel.title = @"Password Expiry Days";
+    dModel.title = @"Password.Expiry";
     dModel.seguaName = @"homeToPasswordExp";
     dModel.imageName = @"PasswordToolDashIcon";
     dModel.code = @"DPASSEXP";
      dModel.colourCode = @"#B28036";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
-    dModel.title = @"CALL SERVICE DESK";
+    dModel.title = @"Call.Desk";
     dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
     dModel.colourCode = @"#48AF41";
     [collectionArr addObject:dModel];
     dModel = [[DashBoardModel alloc]init];
-    dModel.title = @"Should I Upgrade my Device?";
+    dModel.title = @"Upgrade.Device";
     dModel.seguaName = @"hometoOkToUpdate";
     dModel.imageName = @"SettingsDashIcon";
     dModel.code = @"DUPGRADEDEVICE";
     dModel.colourCode = @"#5E5A5A";
     [collectionArr addObject:dModel];
     [self insertDatainDashBoardTable];
+
+
 
 }
 

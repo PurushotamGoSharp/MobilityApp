@@ -69,6 +69,11 @@
     URLString = [NSString stringWithFormat:@"%@%@%@",WEB_CLIPS_BASE_API,LANGUAGE_CODE_STRING,langCode];
     postMan = [[Postman alloc] init];
     postMan.delegate = self;
+   
+
+    
+    
+    
     if ([AFNetworkReachabilityManager sharedManager].isReachable)
     {
         if ([[NSUserDefaults standardUserDefaults]boolForKey:@"webclip"])
@@ -97,6 +102,10 @@
     self.selectuptoLabel.text = SELECT_UPTO9APPS;
     
     [back sizeToFit];
+
+
+
+
 }
 
 - (void)tryUpdatewebClip
@@ -344,23 +353,24 @@
     WebClipCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     UILabel *titlelable = (UILabel *)[cell viewWithTag:100];
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:101];
-    
-    
+    UIView *imageContainerView = (UIView *)[cell viewWithTag:120];
+    imageContainerView.layer.cornerRadius = 8;
     
     webClipModel *webClip;
     if (indexPath.section == 0 ) {
       webClip = dashBoardItemArr[indexPath.row];
         imageView.image = [UIImage imageNamed:webClip.imageName];
-        titlelable.text = webClip.title;
+        titlelable.text = STRING_FOR_LANGUAGE(webClip.title);
         titlelable.font=[self customFont:14 ofName:MuseoSans_700];
-        imageView.backgroundColor = [UIColor colorWithHexString:webClip.colourCode];
+        imageContainerView.backgroundColor = [UIColor colorWithHexString:webClip.colourCode];
     
     } else {
        webClip = webClipArr[indexPath.row];
         titlelable.text = webClip.title;
         titlelable.font=[self customFont:14 ofName:MuseoSans_700];
         imageView.image = [self getimageForDocCode:webClip.imageCode];
-        imageView.backgroundColor = [UIColor clearColor];
+        imageContainerView.backgroundColor = [UIColor clearColor];
+ 
     }
    
         if (isSelectApps) {
@@ -674,27 +684,27 @@
      dModel.colourCode = @"#F79A14";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
-    dModel.title = @"Book A Room";
+    dModel.title = @"Book.Room";
     dModel.imageName = @"BookARoomDashIcon";
     dModel.seguaName = @"hometoBookaRoom";
     dModel.code = @"DBOOKAROOM";
     dModel.colourCode = @"#1D93F6";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
-    dModel.title = @"Password Expiry Days";
+    dModel.title = @"Password.Expiry";
     dModel.seguaName = @"homeToPasswordExp";
     dModel.imageName = @"PasswordToolDashIcon";
     dModel.code = @"DPASSEXP";
     dModel.colourCode = @"#B28036";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
-    dModel.title = @"CALL SERVICE DESK";
+    dModel.title = @"Call.Desk";
     dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
     dModel.colourCode = @"#48AF41";
     [dashBoardItemArr addObject:dModel];
     dModel = [[webClipModel alloc]init];
-    dModel.title = @"Should I Upgrade my Device?";
+    dModel.title = @"Upgrade.Device";
     dModel.seguaName = @"hometoOkToUpdate";
     dModel.imageName = @"SettingsDashIcon";
     dModel.code = @"DUPGRADEDEVICE";
