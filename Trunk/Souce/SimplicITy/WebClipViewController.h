@@ -10,6 +10,4 @@
 
 @interface WebClipViewController : CustomColoredViewController
 
-
-
 @end

@@ -479,10 +479,8 @@
         imageData = nil;
         UIImage *webClipImage = [UIImage imageWithCGImage:tempImage.CGImage scale:2 orientation:tempImage.imageOrientation] ;
         tempImage = nil;
-        
         return webClipImage;
     }
-    
     return nil;
 }
 

@@ -1053,7 +1053,6 @@
         imageData = nil;
         UIImage *webClipImage = [UIImage imageWithCGImage:tempImage.CGImage scale:2 orientation:tempImage.imageOrientation] ;
         tempImage = nil;
-        
         return webClipImage;
     }
     
@@ -1089,7 +1088,6 @@
 -(void)deletDashboardItem
 {
     NSString *query = @"delete from DashboardItem";
-
     [dItemdbManager deleteRowForQuery:query];
 }
 -(void)saveDashboardItem
@@ -1109,50 +1107,66 @@
     }else if ([dModel.seguaName isEqualToString:@"hometoBookaRoom"]){
         [self performSegueWithIdentifier:@"hometoBookaRoom" sender:self];
     }else if ([dModel.code isEqualToString:@"DCALLSERVICE"]){
-        if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
-        {
-            NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
-            
-            if (![self getDataForCountryCode:countryCode])
-            {
-                if ([AFNetworkReachabilityManager sharedManager].reachable)
-                {
-                    [self tryToGetITServicePhoneNum];
-                }
-                
-                return;
-            }
-            NSLog(@"country %@",selectedLocation.serviceDeskNumber);
-            if (selectedLocation.serviceDeskNumber.count > 1 )
-            {
-                self.alphaViewOutlet.hidden = NO;
-                self.containerViewOutlet.hidden = NO;
-                
-                [UIView animateWithDuration:.3 animations:^{
-                    self.alphaViewOutlet.alpha= .5;
-                    self.containerViewOutlet.alpha = 1;
-                } completion:^(BOOL finished)
-                 {
-                     
-                 }];
-            }else
-            {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
-            }
+        [self callingFunctionforCallServiceDesk];
         }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Alert message:callingNotavl delegate:self cancelButtonTitle:OK_FOR_ALERT otherButtonTitles:nil];
-            [alert show];
-        }
-    }
-    
-    
-    
     else {
     
+        [self methodForOpeningURLApps:dModel];
     }
 }
+-(void)callingFunctionforCallServiceDesk
+{
+    if ([[UIDevice currentDevice]userInterfaceIdiom]==UIUserInterfaceIdiomPhone)
+    {
+        NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedLocationCode"];
+        
+        if (![self getDataForCountryCode:countryCode])
+        {
+            if ([AFNetworkReachabilityManager sharedManager].reachable)
+            {
+                [self tryToGetITServicePhoneNum];
+            }
+            
+            return;
+        }
+        NSLog(@"country %@",selectedLocation.serviceDeskNumber);
+        if (selectedLocation.serviceDeskNumber.count > 1 )
+        {
+            self.alphaViewOutlet.hidden = NO;
+            self.containerViewOutlet.hidden = NO;
+            
+            [UIView animateWithDuration:.3 animations:^{
+                self.alphaViewOutlet.alpha= .5;
+                self.containerViewOutlet.alpha = 1;
+            } completion:^(BOOL finished)
+             {
+                 
+             }];
+        }else
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self phoneNumValidation]]];
+        }
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Alert message:callingNotavl delegate:self cancelButtonTitle:OK_FOR_ALERT otherButtonTitles:nil];
+        [alert show];
+    }
+}
+-(void)methodForOpeningURLApps:(DashBoardModel *)dModel
+{
+    BOOL didOpen = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dModel.urlLink]];
+    if (!didOpen)
+    {
+        if (openAppAlert == nil)
+        {
+            openAppAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Can.open.not") message:STRING_FOR_LANGUAGE(@"App.Not.Install") delegate:self cancelButtonTitle:STRING_FOR_LANGUAGE(@"No") otherButtonTitles:STRING_FOR_LANGUAGE(@"Yes"), nil];
+        }
+        [openAppAlert show];
+    }
+}
+
+
 -(NSString *)tilesColoreCode:(NSIndexPath *)indexpath
 {
     NSInteger indexNumber = indexpath.row;
