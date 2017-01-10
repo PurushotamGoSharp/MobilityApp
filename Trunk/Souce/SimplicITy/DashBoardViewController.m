@@ -138,7 +138,7 @@
     [self localize];
     self.navtitleBtnoutlet.selected = NO;
     self.profileViewTopConstraint.constant = -107;
-    self.tilesContainerConstranttop.constant = 70;
+    self.tilesContainerConstranttop.constant = self.view.frame.size.height/8;
     if (![AFNetworkReachabilityManager sharedManager].reachable)
     {
         UIAlertView *noNetworkAlert = [[UIAlertView alloc] initWithTitle:STRING_FOR_LANGUAGE(@"Language.Alert") message:STRING_FOR_LANGUAGE(@"Sync.Data") delegate:nil cancelButtonTitle:OK_FOR_ALERT otherButtonTitles: nil];
@@ -240,7 +240,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
+    [self hideAndDisablerightNavigationItem];
 
 }
 
@@ -248,7 +248,8 @@
 {
     [super viewDidDisappear:animated];
     self.profileViewTopConstraint.constant = -107;
-    self.tilesContainerConstranttop.constant = 70;
+    self.tilesContainerConstranttop.constant = self.view.frame.size.height/8;
+
     navBtnIsOn = NO;
     [self cancelPopUp:self];
    
@@ -319,14 +320,12 @@
 
 -(void) hideAndDisablerightNavigationItem
 {
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor clearColor]];
-    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+  
 }
 
 -(void) showAndEnablerightNavigationItem
 {
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
-    [self.navigationItem.rightBarButtonItem setEnabled:YES];
+  
 }
 - (IBAction)closeButtonAction:(id)sender {
 
@@ -334,8 +333,8 @@
     isEditableMode = NO;
     [self.collectionView reloadData];
     [self.collectionView addGestureRecognizer:longpressForJingling];
-    
     [self hideAndDisablerightNavigationItem];
+
 }
 
 -(void)upDateBadgeCount
@@ -357,7 +356,6 @@
         self.badgeLable.text = [NSString stringWithFormat:@"%li",(long)badgeNum];
     }
 }
-
 
 - (void)setupLocation
 {
@@ -636,12 +634,13 @@
     if (!navBtnIsOn)
     {
         constrainValue = 1;
-        constrainValueTiles = 130;
+        constrainValueTiles = self.view.frame.size.height/5;
         navBtnIsOn = YES;
     }else
     {
-        constrainValue = -107;
-         constrainValueTiles = 70;
+         constrainValue = -107;
+        constrainValueTiles = self.view.frame.size.height/8;
+
         navBtnIsOn = NO;
     }
     [UIView animateWithDuration:.5
@@ -1027,6 +1026,8 @@
         [cell.deletButton addTarget:self action:@selector(deleteTiles:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         cell.deletButton.hidden = YES;
+        cell.layer.shouldRasterize = NO;
+
     }
     
     if ([dModel.code isEqualToString:@"DNEWS"]) {
@@ -1110,12 +1111,13 @@
 
 -(void)deleteTiles:(UIButton *)button
 {
-    NSLog(@"button tag : %ld",(long)button.tag);
-    [self showAlertForConformationRemovingTiles:@"34r34 evr rvbr  rr"];
-   
+    NSLog(@"button tag : %d",(int)button.tag);
+  
+    [self showAlertForConformationRemovingTiles:CONFORMATION_REMOVE_ICON andIndexNumber:(int)button.tag];
+
 }
 
--(void)showAlertForConformationRemovingTiles:(NSString *)messageString
+-(void)showAlertForConformationRemovingTiles:(NSString *)messageString andIndexNumber:(int)indexNumber
 {
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:ALERT_FOR_ALERT
@@ -1126,10 +1128,12 @@
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction * action)
                          {
+                             [self removingItemFromDashBoardConformation:indexNumber];
+                             
                              [alert dismissViewControllerAnimated:YES completion:nil];
                          }];
     UIAlertAction* cancel = [UIAlertAction
-                             actionWithTitle:@"cancle"
+                             actionWithTitle:ALERT_FOR_CANCLE
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
@@ -1140,13 +1144,11 @@
     [self presentViewController:alert animated:YES completion:nil];
     
 }
-
-
-
-
-
-
-
+-(void)removingItemFromDashBoardConformation:(int)indexNumber
+{
+    [collectionArr removeObjectAtIndex:indexNumber];
+    [self.collectionView reloadData];
+}
 
 
 -(void)insertDatainDashBoardTable
