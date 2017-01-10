@@ -6,6 +6,14 @@
 //  Copyright (c) 2014 Vmoksha. All rights reserved.
 //
 
+#define degreesToRadians(x) (M_PI * (x) / 180.0)
+#define kAnimationRotateDeg 0.5
+#define kAnimationTranslateX 1.0
+#define kAnimationTranslateY 1.0
+
+
+
+
 #import "DashBoardViewController.h"
 #import "MessagesViewController.h"
 #import "RaiseATicketViewController.h"
@@ -19,6 +27,8 @@
 #import "DashBoardModel.h"
 #import "HexColors.h"
 #import <MCLocalization/MCLocalization.h>
+#import "DashBoardCollectionViewCell.h"
+
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
 
@@ -46,10 +56,15 @@
     CGPoint movingPoint;
     NSMutableArray *collectionArr;
     BOOL isEditableMode;
+    UILongPressGestureRecognizer *longpressForJingling, *longpressGestureForMoving;
+
+    UIBarButtonItem *backButton;
+    UIButton *back;
 
 
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
@@ -108,7 +123,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+   
+  
+
     NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
     BOOL isFirstTime = [defaults boolForKey:@"FirstInstallation"];
     if (isFirstTime) {
@@ -117,12 +134,6 @@
     } else {
         
     }
-    
-    
-    UILongPressGestureRecognizer * longpress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPress:)];
-    longpress.minimumPressDuration = 1.0;
-    [self.collectionView addGestureRecognizer:longpress];
-   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localize) name:MCLocalizationLanguageDidChangeNotification object:nil];
     [self localize];
     self.navtitleBtnoutlet.selected = NO;
@@ -229,8 +240,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [self deletDashboardItem];
-//    [self saveDashboardItem];
+
 
 }
 
@@ -242,36 +252,8 @@
     navBtnIsOn = NO;
     [self cancelPopUp:self];
    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
-
--(void)upDateBadgeCount
-{
-    if (badge == nil)
-    {
-        badge = [[BadgeNoManager alloc] init];
-    }
-    
-    NSInteger badgeNum = [badge totalNoBadges];
-    if (badgeNum == 0)
-    {
-        self.badgeLable.hidden = YES;
-        self.badgeIcon.hidden = YES;
-    }else
-    {
-        self.badgeLable.hidden = NO;
-        self.badgeIcon.hidden = NO;
-        self.badgeLable.text = [NSString stringWithFormat:@"%li",(long)badgeNum];
-    }
+    [self.collectionView removeGestureRecognizer:longpressGestureForMoving];
+    [self.collectionView removeGestureRecognizer:longpressForJingling];
 
 
 }
@@ -281,7 +263,12 @@
     [super viewWillAppear:animated];
     isEditableMode = NO;
     [self dashBoardItem];
-       self.navigationController.navigationBarHidden = NO;
+     [self hideAndDisablerightNavigationItem];
+    longpressForJingling = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPress:)];
+    longpressForJingling.minimumPressDuration = 0.5;
+    [self.collectionView addGestureRecognizer:longpressForJingling];
+
+    self.navigationController.navigationBarHidden = NO;
     self.profileViewOutlet.backgroundColor = [self subViewsColours];
     [self updateProfileView];
     postMan = [[Postman alloc] init];
@@ -301,10 +288,7 @@
         {
             [self tryToGetITServicePhoneNum];
         }
-        
-
     }
-    
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:BACKGROUND_THEME_VALUE])
     {
         case 0:
@@ -319,7 +303,7 @@
         case 3:
             self.containerViewOutlet.backgroundColor = [UIColor colorWithRed:.93 green:.71 blue:.79 alpha:1];
             break;
-
+            
         default:
             break;
     }
@@ -327,7 +311,52 @@
 }
 
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+-(void) hideAndDisablerightNavigationItem
+{
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor clearColor]];
+    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+}
+
+-(void) showAndEnablerightNavigationItem
+{
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    [self.navigationItem.rightBarButtonItem setEnabled:YES];
+}
+- (IBAction)closeButtonAction:(id)sender {
+
+    [self.collectionView removeGestureRecognizer:longpressGestureForMoving];
+    isEditableMode = NO;
+    [self.collectionView reloadData];
+    [self.collectionView addGestureRecognizer:longpressForJingling];
+    
+    [self hideAndDisablerightNavigationItem];
+}
+
+-(void)upDateBadgeCount
+{
+    if (badge == nil)
+    {
+        badge = [[BadgeNoManager alloc] init];
+    }
+    
+    NSInteger badgeNum = [badge totalNoBadges];
+    if (badgeNum == 0)
+    {
+        self.badgeLable.hidden = YES;
+        self.badgeIcon.hidden = YES;
+    }else
+    {
+        self.badgeLable.hidden = NO;
+        self.badgeIcon.hidden = NO;
+        self.badgeLable.text = [NSString stringWithFormat:@"%li",(long)badgeNum];
+    }
+}
 
 
 - (void)setupLocation
@@ -577,7 +606,6 @@
             [collectionArr addObject:dModel];
         }
         [self.collectionView reloadData];
-    
 }
     locationdataArr = [[NSMutableArray alloc] init];
     if (sqlite3_step(statment) == SQLITE_ROW)
@@ -633,6 +661,8 @@
 
 - (IBAction)messageButtonPressed:(UIButton *)sender
 {
+
+
 }
 
 
@@ -915,11 +945,19 @@
 -(void)LongPress:(UILongPressGestureRecognizer *)panRecognizer
 {
 
-//    isEditableMode = YES;
-//    [self.collectionView reloadData];
+    [self showAndEnablerightNavigationItem];
+    isEditableMode = YES;
+    [self.collectionView reloadData];
+    [_collectionView removeGestureRecognizer:panRecognizer];
     
-    movingPoint = [panRecognizer locationInView:self.collectionView];
-    switch(panRecognizer.state)
+    longpressGestureForMoving = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPressforMoving:)];
+    longpressGestureForMoving.minimumPressDuration = 0.2;
+    [self.collectionView addGestureRecognizer:longpressGestureForMoving];
+  }
+-(void)LongPressforMoving:(UILongPressGestureRecognizer *)longPressRecognizer
+{
+    movingPoint = [longPressRecognizer locationInView:self.collectionView];
+    switch(longPressRecognizer.state)
     {
         case UIGestureRecognizerStateBegan:
         {
@@ -948,6 +986,7 @@
 }
 
 
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return collectionArr.count;
@@ -955,14 +994,15 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+   
+    
+    DashBoardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     DashBoardModel *dModel =collectionArr[indexPath.item];
     UILabel *titlelabel = (UILabel *)[cell viewWithTag:102];
     UILabel *barglabel = (UILabel *)[cell viewWithTag:500];
     UIImageView *titleimage = (UIImageView *)[cell viewWithTag:101];
     UIImageView *bargimage = (UIImageView *)[cell viewWithTag:400];
     UIView *backgroundView = (UIView *)[cell viewWithTag:555];
-    UIButton *deletButton = (UIButton *)[cell viewWithTag:420];
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
     backgroundView.backgroundColor = [UIColor colorWithHexString:dModel.colourCode];
     if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
@@ -971,14 +1011,24 @@
        titlelabel.text =   STRING_FOR_LANGUAGE(dModel.title);
     } else {
      titleimage.image = [self getimageForDocCode:dModel.imageCode];
-    titlelabel.text = dModel.title;
+     titlelabel.text = dModel.title;
+    }
+    if (isEditableMode) {
+        cell.deletButton.hidden = NO;
+        CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        [anim setToValue:[NSNumber numberWithFloat:0.0f]];
+        [anim setFromValue:[NSNumber numberWithDouble:M_PI/64]];
+        [anim setDuration:0.1];
+        [anim setRepeatCount:NSUIntegerMax];
+        [anim setAutoreverses:YES];
+        cell.layer.shouldRasterize = YES;
+        [cell.layer addAnimation:anim forKey:@"SpringboardShake"];
+        cell.deletButton.tag = indexPath.item;
+        [cell.deletButton addTarget:self action:@selector(deleteTiles:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        cell.deletButton.hidden = YES;
     }
     
-    if (isEditableMode) {
-        deletButton.hidden = NO;
-    } else {
-        deletButton.hidden = YES;
-    }
     if ([dModel.code isEqualToString:@"DNEWS"]) {
         if (badge == nil)
         {
@@ -1008,30 +1058,27 @@
         
         titlelabel.font=[self customFont:22 ofName:MuseoSans_300];
     }
-    
-  
-    
     return cell;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat width = (self.view.frame.size.width-30)/3 ;
     CGFloat height = width+20 ;
-    
    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
 {
     return CGSizeMake(width, height);
-
     } else {
         
         return CGSizeMake(176, 215);
-        
     }
-    
-  
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    for (UIGestureRecognizer *gesture in self.collectionView.gestureRecognizers) {
+        if ([gesture isEqual:longpressGestureForMoving]) {
+            return;
+        }
+    }
     DashBoardModel *amodel = collectionArr[indexPath.item];
     [self collectionViewCellSelectionMethod:amodel];
 }
@@ -1060,6 +1107,47 @@
     
     return nil;
 }
+
+-(void)deleteTiles:(UIButton *)button
+{
+    NSLog(@"button tag : %ld",(long)button.tag);
+    [self showAlertForConformationRemovingTiles:@"34r34 evr rvbr  rr"];
+   
+}
+
+-(void)showAlertForConformationRemovingTiles:(NSString *)messageString
+{
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:ALERT_FOR_ALERT
+                                  message:messageString
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:OK_FOR_ALERT
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"cancle"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                             }];
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+
+
+
+
+
+
+
 
 -(void)insertDatainDashBoardTable
 {
@@ -1247,9 +1335,6 @@
     dModel.colourCode = @"#5E5A5A";
     [collectionArr addObject:dModel];
     [self insertDatainDashBoardTable];
-
-
-
 }
 
 
