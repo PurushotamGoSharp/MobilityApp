@@ -943,16 +943,51 @@
 
 -(void)LongPress:(UILongPressGestureRecognizer *)panRecognizer
 {
-
+/*Zingling
     [self showAndEnablerightNavigationItem];
     isEditableMode = YES;
     [self.collectionView reloadData];
     [_collectionView removeGestureRecognizer:panRecognizer];
-    
     longpressGestureForMoving = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPressforMoving:)];
     longpressGestureForMoving.minimumPressDuration = 0.2;
     [self.collectionView addGestureRecognizer:longpressGestureForMoving];
-  }
+  */
+
+
+    
+    movingPoint = [panRecognizer locationInView:self.collectionView];
+    switch(panRecognizer.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
+            NSIndexPath *selectedIndexPath = [self.collectionView indexPathForItemAtPoint:movingPoint];
+            if(selectedIndexPath == nil)
+                break;
+            [self.collectionView beginInteractiveMovementForItemAtIndexPath:selectedIndexPath];
+            break;
+        }
+        case UIGestureRecognizerStateChanged:
+        {
+            [self.collectionView updateInteractiveMovementTargetPosition:movingPoint];
+            break;
+        }
+        case UIGestureRecognizerStateEnded:
+        {
+            [self.collectionView endInteractiveMovement];
+            break;
+        }
+        default:
+        {
+            [self.collectionView cancelInteractiveMovement];
+            break;
+        }
+    }
+
+   
+
+}
+
+
 -(void)LongPressforMoving:(UILongPressGestureRecognizer *)longPressRecognizer
 {
     movingPoint = [longPressRecognizer locationInView:self.collectionView];
