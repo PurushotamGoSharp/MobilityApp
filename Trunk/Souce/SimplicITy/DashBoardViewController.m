@@ -60,7 +60,7 @@
 
     UIBarButtonItem *backButton;
     UIButton *back;
-
+    UILabel *newLabel;
 
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
