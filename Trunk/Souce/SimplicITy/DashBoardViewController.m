@@ -13,7 +13,7 @@
 
 
 
-
+//Imported Classes- DashBoardViewController,MessagesViewController,RaiseATicketViewController,Postman,LocationModel,DBManager,UserInfo,BadgeNoManager,DashBoardModel,HexaColors,DashBoardCollectionViewCell
 #import "DashBoardViewController.h"
 #import "MessagesViewController.h"
 #import "RaiseATicketViewController.h"
@@ -22,16 +22,18 @@
 #import "LocationModel.h"
 #import "DBManager.h"
 #import "UserInfo.h"
-#import <MBProgressHUD/MBProgressHUD.h>
+#import "DashBoardCollectionViewCell.h"
 #import "BadgeNoManager.h"
 #import "DashBoardModel.h"
 #import "HexColors.h"
+//Addded MCLocaliztion Framework
 #import <MCLocalization/MCLocalization.h>
-#import "DashBoardCollectionViewCell.h"
+//Added MBProgressHud Framework
+#import <MBProgressHUD/MBProgressHUD.h>
 
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
 
-
+//Added Postman,DBManager,UIActionSheet,UICollectionView,UIGestureRecognizer Delegate Method
 @interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIGestureRecognizerDelegate>
 {
     BOOL navBtnIsOn;

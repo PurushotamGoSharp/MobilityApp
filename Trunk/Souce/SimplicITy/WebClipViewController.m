@@ -14,10 +14,14 @@
 #import "HeaderCollectionReusableView.h"
 #import "HexColors.h"
 
+//Added Postman,DBManager,UICollectionView,UIAlertView Delegate Method
 @interface WebClipViewController () <UICollectionViewDataSource, UICollectionViewDelegate,postmanDelegate,DBManagerDelegate, UIAlertViewDelegate>
 {
     UIBarButtonItem *backButton;
+    
+    //Postman Class
     Postman *postMan;
+    //Dashboard- Collection View Cell- NSMUtable WebClip,DashboardItem,Selected Array Objects
     NSMutableArray *webClipArr,*dashBoardItemArr,*selectedArr;
     NSString *databasePath;
     sqlite3 *database;
@@ -612,7 +616,6 @@
 
 -(void)getdashboardItemFromTable
 {
-    
     if (dashBoardDBmanager == nil)
     {
         dashBoardDBmanager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
@@ -622,7 +625,8 @@
     [dashBoardDBmanager getDataForQuery:queryString];
 }
 
--(void)delettableRow:(webClipModel *)amodel{
+-(void)delettableRow:(webClipModel *)amodel
+{
     NSString *deletQuery = [NSString stringWithFormat:@"DELETE FROM DashboardItem WHERE code = \'%@\'",amodel.code];
     [dashBoardDBmanager deleteRowForQuery:deletQuery];
     [self.collectionViewOutlet reloadData];
@@ -679,9 +683,7 @@
 
 }
 
-
-
-
+//Dashboard 
 -(void)DashBoardItem
 {
     webClipModel *dModel = [[webClipModel alloc]init];
@@ -691,6 +693,7 @@
     dModel.code = @"DNEWS";
      dModel.colourCode = @"#F79A14";
     [dashBoardItemArr addObject:dModel];
+    
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Book.Room";
     dModel.imageName = @"BookARoomDashIcon";
@@ -698,6 +701,7 @@
     dModel.code = @"DBOOKAROOM";
     dModel.colourCode = @"#1D93F6";
     [dashBoardItemArr addObject:dModel];
+    
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Password.Expiry";
     dModel.seguaName = @"homeToPasswordExp";
@@ -705,12 +709,14 @@
     dModel.code = @"DPASSEXP";
     dModel.colourCode = @"#B28036";
     [dashBoardItemArr addObject:dModel];
+    
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Call.Desk";
     dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
     dModel.colourCode = @"#48AF41";
     [dashBoardItemArr addObject:dModel];
+    
     dModel = [[webClipModel alloc]init];
     dModel.title = @"Upgrade.Device";
     dModel.seguaName = @"hometoOkToUpdate";
