@@ -1316,12 +1316,12 @@ Cg
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="548"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view alpha="0.29999999999999999" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9S0-Pz-OfX">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="549"/>
+                                                <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9S0-Pz-OfX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="548"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
-                                                <webView opaque="NO" tag="100" contentMode="scaleToFill" misplaced="YES" mediaPlaybackRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xch-v1-uBO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="549"/>
+                                                <webView opaque="NO" tag="100" contentMode="scaleToFill" mediaPlaybackRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xch-v1-uBO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="548"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="pck-Wk-goB" id="3eZ-N9-5vM"/>
@@ -1981,7 +1981,7 @@ Cg
                                 <rect key="frame" x="38" y="154" width="300" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days left for password expiry!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7M3-Rg-BnG">
-                                        <rect key="frame" x="18" y="180" width="265.5" height="23.5"/>
+                                        <rect key="frame" x="45" y="180" width="211" height="21"/>
                                         <fontDescription key="fontDescription" name="sketch-me_FREE-version" family="sketch me_FREE-version" pointSize="20"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2006,7 +2006,7 @@ Cg
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJm-ZU-Ct6">
-                                <rect key="frame" x="166" y="363.5" width="44" height="44"/>
+                                <rect key="frame" x="166" y="361" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="HMr-z9-cOT"/>
                                     <constraint firstAttribute="height" constant="44" id="rTj-lp-OcI"/>
@@ -2021,7 +2021,7 @@ Cg
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Tool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVt-6x-Zoe">
-                                <rect key="frame" x="135" y="411.5" width="105" height="25"/>
+                                <rect key="frame" x="135" y="409" width="105" height="25"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -4428,7 +4428,7 @@ Cg
                                                 <rect key="frame" x="44" y="310" width="280" height="115"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIJ-b0-k1V">
-                                                        <rect key="frame" x="0.0" y="0.0" width="83" height="85"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="82.5" height="85"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="audio" translatesAutoresizingMaskIntoConstraints="NO" id="8lA-Wo-RdE">
                                                                 <rect key="frame" x="22" y="25" width="40" height="35"/>
@@ -4453,10 +4453,10 @@ Cg
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbm-aC-Jfu">
-                                                        <rect key="frame" x="199" y="0.0" width="82" height="85"/>
+                                                        <rect key="frame" x="198.5" y="0.0" width="82.5" height="85"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" translatesAutoresizingMaskIntoConstraints="NO" id="lRn-mR-5FS">
-                                                                <rect key="frame" x="26" y="25" width="31" height="35"/>
+                                                                <rect key="frame" x="26.5" y="25" width="31" height="35"/>
                                                             </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4466,10 +4466,10 @@ Cg
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hO-ZB-6V7">
-                                                        <rect key="frame" x="100" y="0.0" width="82" height="85"/>
+                                                        <rect key="frame" x="99.5" y="0.0" width="82" height="85"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="screenShare" translatesAutoresizingMaskIntoConstraints="NO" id="XTi-io-HTh">
-                                                                <rect key="frame" x="22" y="26" width="37" height="34"/>
+                                                                <rect key="frame" x="22.5" y="26" width="37" height="34"/>
                                                             </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

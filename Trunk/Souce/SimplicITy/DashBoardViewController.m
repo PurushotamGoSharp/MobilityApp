@@ -35,6 +35,8 @@
 @interface DashBoardViewController () <postmanDelegate,DBManagerDelegate,UIActionSheetDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UIGestureRecognizerDelegate>
 {
     BOOL navBtnIsOn;
+    
+    //Above Dashboard- User Profile- Show and Hide User Prifile Button
     UIButton *titleButton;
     UIImageView *downArrowImageView;
     UIView *titleView;
@@ -45,6 +47,8 @@
     UserInfo *userInfo;
     NSString *callingNotavl;
     NSString *Alert;
+    
+    //Postman Class Object
     Postman *postMan;
     BadgeNoManager *badge;
     NSString *syncdatamessage;
@@ -54,6 +58,8 @@
     NSString *canNotOpen;
     UIAlertView *openAppAlert;
     CGPoint movingPoint;
+    
+    //Dashboard Collection View Cell -NSMutable Collection Array Object
     NSMutableArray *collectionArr;
     BOOL isEditableMode;
     UILongPressGestureRecognizer *longpressForJingling, *longpressGestureForMoving;
@@ -63,13 +69,16 @@
     UILabel *newLabel;
 
 }
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *navtitleBtnoutlet;
+//Above Dashboard-Profile View Height Constraint Property
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewHeightConstraint;
+//Above Dashboard-Profile View Top Constraint Property
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *profileViewTopConstraint;
+
+//Above Dashboard-Profile View Property
 @property (weak, nonatomic) IBOutlet UIView *profileViewOutlet;
+
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardOrder;
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardMessage;
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardCallHelpDesk;
@@ -77,17 +86,30 @@
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardSetting;
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardTicket;
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonName;
-@property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonCode;
 @property (weak, nonatomic) IBOutlet UILabel *dashMyTicketsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dashMyOrdersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dashWebClipLabel;
+
+//Above Dashboard-Profile View-Perosn Address Label Property
 @property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonAddress;
+//Above Dashboard-Profile View-Email Label Property
 @property (weak, nonatomic) IBOutlet UILabel *emailID;
+//Above Dashboard-Profile View-User Name Label Property
 @property (weak, nonatomic) IBOutlet UILabel *nameOfUserLabel;
+//Above Dashboard-Profile View-Person Code Label Property
+@property (weak, nonatomic) IBOutlet UILabel *dashBoardPersonCode;
+
+
+//Dashboard-Aplpha View Property
 @property (weak, nonatomic) IBOutlet UIView *alphaViewOutlet;
+//Dashbaord-Container View Property
 @property (weak, nonatomic) IBOutlet UIView *containerViewOutlet;
+//Dashboard-Table View Property
 @property (weak, nonatomic) IBOutlet UITableView *tableViewOutlet;
+//Dashboard-Container View-Service Desk Label Property
 @property (weak, nonatomic) IBOutlet UILabel *serviceDesksLbl;
+
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *popOverHeightConst;
 @property (weak, nonatomic) IBOutlet UIImageView *raiseTicketImageOutlet;
 @property (weak, nonatomic) IBOutlet UIImageView *myticketsImageOutlet;
@@ -104,6 +126,10 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *upgradeLblConstrain;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tilesContainerConstranttop;
+
+//Dashboard-Collection View Property
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 
 
 @end
@@ -145,14 +171,21 @@
         [noNetworkAlert show];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(upDateBadgeCount) name:@"NewsBadgeCount" object:nil];
+    
+    //Above Dashboard- User Profile- Show/Hide User Profile NavigationBar Custom Button
     titleButton = [[UIButton alloc] init];
+    //Above Dashboard- User Profile- Show/Hide User Profile NavigationBar Custom Button image
     [titleButton setImage:[UIImage imageNamed:@"DashBoardNavBarPersonImage"] forState:(UIControlStateNormal)];
+    //Above Dashboard- User Profile- Show/Hide User Profile NavigationBar Custom Button Action
     [titleButton addTarget:self action:@selector(navTitleBtnPressed:) forControlEvents:(UIControlEventTouchUpInside)];
+     //Above Dashboard- User Profile- Show/Hide User Profile NavigationBar Title Color
     [titleButton setTitleColor:([UIColor whiteColor]) forState:(UIControlStateNormal)];
     titleButton.titleLabel.textColor = [UIColor whiteColor];
+     //Above Dashboard- User Profile- Show/Hide User Profile NavigationBar Title Name
     [titleButton setTitle:@"Test" forState:(UIControlStateNormal)];
+    //Above Dashboard- User Profile- Show/Hide User Profile NavigationBar Title Name Font
     titleButton.titleLabel.font = [self customFont:20 ofName:MuseoSans_700];
-//   titleButton.frame = CGRectMake(titleImageView.frame.size.width+5, 0, 0, 0);
+    //Above Dashboard- User Profile- Show/Hide User Profile NavigationBar Custom Button Frame
     titleButton.frame = CGRectMake(0, 5, 0, 0);
     [titleButton sizeToFit];
     
@@ -167,6 +200,7 @@
     [titleView addSubview:downArrowImageView];
     downArrowImageView.hidden = NO;
     self.navigationItem.titleView = titleView;
+    
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
     {
         self.dashBoardMessage.font=[self customFont:14 ofName:MuseoSans_300];
@@ -182,7 +216,8 @@
         self.dashBoardPersonName.font=[self customFont:16 ofName:MuseoSans_300];
         self.dashBoardPersonAddress.font=[self customFont:16 ofName:MuseoSans_300];
         self.dashBoardPersonCode.font=[self customFont:14 ofName:MuseoSans_300];
-    }else
+    }
+    else
     {
         self.dashBoardMessage.font=[self customFont:20 ofName:MuseoSans_300];
         self.dashBoardCallHelpDesk.font=[self customFont:20 ofName:MuseoSans_300];
@@ -231,9 +266,9 @@
        Alert = STRING_FOR_LANGUAGE(@"Language.Alert");
     
     yesString =STRING_FOR_LANGUAGE(@"Yes") ;
-   noString = STRING_FOR_LANGUAGE(@"No") ;
-   appNotInstallString = STRING_FOR_LANGUAGE(@"App.Not.Install") ;
-   canNotOpen = STRING_FOR_LANGUAGE(@"Can.open.not") ;
+    noString = STRING_FOR_LANGUAGE(@"No") ;
+    appNotInstallString = STRING_FOR_LANGUAGE(@"App.Not.Install") ;
+    canNotOpen = STRING_FOR_LANGUAGE(@"Can.open.not") ;
     
 
 }
@@ -750,20 +785,22 @@
 }
 
 #pragma mark UITableViewDataSource methods
-
+//Dashboard- Container View- Table View Delegate method
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
+//Dashboard- Container View- Table View Delegate method
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [selectedLocation.serviceDeskNumber count];
 }
-
+//Dashboard- Container View- Table View Delegate method
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
+//Dashboard- Container View- Table View Delegate method
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -781,7 +818,7 @@
 }
 
 #pragma mark UITableViewDelegate methods
-
+//Dashboard- Container View- Table View Delegate method
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -1019,13 +1056,15 @@
     }
 }
 
+#pragma Dashboard Collection View delegate methods
 
-
+//Dashboard Collection View delegate methods
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return collectionArr.count;
 }
 
+//Dashboard Collection View delegate methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
    
@@ -1039,15 +1078,20 @@
     UIView *backgroundView = (UIView *)[cell viewWithTag:555];
     NSLog(@"%lu",(unsigned long)dModel.imageName.length);
     backgroundView.backgroundColor = [UIColor colorWithHexString:dModel.colourCode];
-    if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"]) {
+    
+    if ([dModel.code isEqualToString:@"DNEWS"]||[dModel.code isEqualToString:@"DBOOKAROOM"]||[dModel.code isEqualToString:@"DPASSEXP"]||[dModel.code isEqualToString:@"DCALLSERVICE"]||[dModel.code isEqualToString:@"DUPGRADEDEVICE"])
+    {
          titleimage.image =[UIImage imageNamed:dModel.imageName];
    // titlelabel.text = dModel.title;
        titlelabel.text =   STRING_FOR_LANGUAGE(dModel.title);
-    } else {
+    }
+    else
+    {
      titleimage.image = [self getimageForDocCode:dModel.imageCode];
      titlelabel.text = dModel.title;
     }
-    if (isEditableMode) {
+    if (isEditableMode)
+    {
         cell.deletButton.hidden = NO;
         CABasicAnimation* anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
         [anim setToValue:[NSNumber numberWithFloat:0.0f]];
@@ -1059,13 +1103,16 @@
         [cell.layer addAnimation:anim forKey:@"SpringboardShake"];
         cell.deletButton.tag = indexPath.item;
         [cell.deletButton addTarget:self action:@selector(deleteTiles:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
+    }
+    else
+    {
         cell.deletButton.hidden = YES;
         cell.layer.shouldRasterize = NO;
 
     }
     
-    if ([dModel.code isEqualToString:@"DNEWS"]) {
+    if ([dModel.code isEqualToString:@"DNEWS"])
+    {
         if (badge == nil)
         {
             badge = [[BadgeNoManager alloc] init];
@@ -1076,48 +1123,62 @@
         {
            barglabel.hidden = YES;
            bargimage.hidden = YES;
-        }else
+        }
+        else
         {
             barglabel.hidden = NO;
             bargimage.hidden = NO;
             barglabel.text = [NSString stringWithFormat:@"%li",(long)badgeNum];
         }
     }
-     else {
+     else
+     {
         bargimage.hidden = YES;
         barglabel.hidden = YES;
     }
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
     {
         titlelabel.font=[self customFont:14 ofName:MuseoSans_300];
-    } else {
+    }
+    else
+    {
         
         titlelabel.font=[self customFont:22 ofName:MuseoSans_300];
     }
     return cell;
 }
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+//Dashboard Collection View delegate methods
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     CGFloat width = (self.view.frame.size.width-30)/3 ;
     CGFloat height = width+20 ;
    if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone )
 {
     return CGSizeMake(width, height);
-    } else {
+}
+   else
+{
         
         return CGSizeMake(176, 215);
     }
 }
 
+//Dashboard Collection View delegate methods
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    for (UIGestureRecognizer *gesture in self.collectionView.gestureRecognizers) {
-        if ([gesture isEqual:longpressGestureForMoving]) {
+    for (UIGestureRecognizer *gesture in self.collectionView.gestureRecognizers)
+    {
+        if ([gesture isEqual:longpressGestureForMoving])
+        {
             return;
         }
     }
     DashBoardModel *amodel = collectionArr[indexPath.item];
     [self collectionViewCellSelectionMethod:amodel];
 }
+
+//Dashboard Collection View delegate methods
 -(void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath
 {
     NSMutableArray *object = [collectionArr objectAtIndex:sourceIndexPath.item];
@@ -1196,14 +1257,16 @@
     NSString *createQuery = @"create table if not exists DashboardItem (Title text, Url text, ImageName text,seguaName text,imageCode text,code text,colourCode text)";
     [dItemdbManager createTableForQuery:createQuery];
     
-    for (int i = 0;i<collectionArr.count;i++) {
+    for (int i = 0;i<collectionArr.count;i++)
+    {
         DashBoardModel *amodel = collectionArr[i];
         NSString *insertSQL = [NSString stringWithFormat:@"INSERT OR REPLACE INTO  DashboardItem (Title,Url,ImageName,seguaName,imageCode,code,colourCode) values ('%@', '%@', '%@' , '%@' , '%@' ,'%@' ,'%@')", amodel.title,amodel.urlLink,amodel.imageName,amodel.seguaName,amodel.imageCode,amodel.code,amodel.colourCode];
         [dItemdbManager saveDataToDBForQuery:insertSQL];
     }
 }
 
--(void)dashBoardItem{
+-(void)dashBoardItem
+{
     if (dItemdbManager == nil)
     {
         dItemdbManager = [[DBManager alloc] initWithFileName:@"APIBackup.db"];
@@ -1221,22 +1284,36 @@
 {
     [self insertDatainDashBoardTable];
 }
+
+//Dashboard Collection View Cell Selection Method
 -(void)collectionViewCellSelectionMethod:(DashBoardModel *)dModel
 {
-    if ([dModel.seguaName isEqualToString:@"homeTonewsSegua"]) {
+    if ([dModel.seguaName isEqualToString:@"homeTonewsSegua"])
+    {
         [self performSegueWithIdentifier:@"homeTonewsSegua" sender:self];
-    }else if ([dModel.seguaName isEqualToString:@"homeToPasswordExp"]){
+    }
+    else if ([dModel.seguaName isEqualToString:@"homeToPasswordExp"])
+    {
         [self performSegueWithIdentifier:@"homeToPasswordExp" sender:self];
-    }else if ([dModel.seguaName isEqualToString:@"callServiceDesk"]){
+    }
+    else if ([dModel.seguaName isEqualToString:@"callServiceDesk"])
+    {
         
-    }else if ([dModel.seguaName isEqualToString:@"hometoOkToUpdate"]){
+    }
+    else if ([dModel.seguaName isEqualToString:@"hometoOkToUpdate"])
+    {
         [self performSegueWithIdentifier:@"hometoOkToUpdate" sender:self];
-    }else if ([dModel.seguaName isEqualToString:@"hometoBookaRoom"]){
+    }
+    else if ([dModel.seguaName isEqualToString:@"hometoBookaRoom"])
+    {
         [self performSegueWithIdentifier:@"hometoBookaRoom" sender:self];
-    }else if ([dModel.code isEqualToString:@"DCALLSERVICE"]){
+    }
+    else if ([dModel.code isEqualToString:@"DCALLSERVICE"])
+    {
         [self callingFunctionforCallServiceDesk];
-        }
-    else {
+    }
+    else
+    {
     
         [self methodForOpeningURLApps:dModel];
     }
@@ -1333,7 +1410,7 @@
     return colorCode;
 }
 
-
+//Dashboard Collection View Model Data Locally
 -(void)DashBoardItemLocal
 {
     collectionArr =[[NSMutableArray alloc]init];
@@ -1344,6 +1421,7 @@
     dModel.code = @"DNEWS";
     dModel.colourCode = @"#F79A14";
     [collectionArr addObject:dModel];
+    
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Book.Room";
     dModel.imageName = @"BookARoomDashIcon";
@@ -1351,6 +1429,7 @@
     dModel.code = @"DBOOKAROOM";
     dModel.colourCode = @"#1D93F6";
     [collectionArr addObject:dModel];
+    
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Password.Expiry";
     dModel.seguaName = @"homeToPasswordExp";
@@ -1358,12 +1437,14 @@
     dModel.code = @"DPASSEXP";
      dModel.colourCode = @"#B28036";
     [collectionArr addObject:dModel];
+    
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Call.Desk";
     dModel.imageName = @"PhoneIcon";
     dModel.code = @"DCALLSERVICE";
     dModel.colourCode = @"#48AF41";
     [collectionArr addObject:dModel];
+    
     dModel = [[DashBoardModel alloc]init];
     dModel.title = @"Upgrade.Device";
     dModel.seguaName = @"hometoOkToUpdate";
@@ -1371,6 +1452,7 @@
     dModel.code = @"DUPGRADEDEVICE";
     dModel.colourCode = @"#5E5A5A";
     [collectionArr addObject:dModel];
+    
     [self insertDatainDashBoardTable];
 }
 
