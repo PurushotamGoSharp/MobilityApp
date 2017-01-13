@@ -26,9 +26,9 @@
 #import "BadgeNoManager.h"
 #import "DashBoardModel.h"
 #import "HexColors.h"
-//Addded MCLocaliztion Framework
+//Addded MCLocaliztion Framework Class
 #import <MCLocalization/MCLocalization.h>
-//Added MBProgressHud Framework
+//Added MBProgressHud Framework Class
 #import <MBProgressHUD/MBProgressHUD.h>
 
 #define  CALL_IT_DESK_FROM_IPAD @"Calling facility is not available in this device"
